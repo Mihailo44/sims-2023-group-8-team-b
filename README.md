@@ -1,1 +1,7 @@
-# sims-2023-group-8-team-b
+# Predmetni projekat iz pretmeta SIMS
+
+Članovi tima:\
+`Ognjen Milojević RA 233/2020`\
+`Mihailo Đajić RA 237/2020`\
+`Milica Kljajić RA 225/2020`\
+`Ljubiša Perić RA 219/2020`
