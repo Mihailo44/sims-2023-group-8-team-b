@@ -1,4 +1,4 @@
-# Predmetni projekat iz pretmeta SIMS
+# Predmetni projekat iz predmeta SIMS
 
 Članovi tima:\
 `Ognjen Milojević RA 233/2020`\
