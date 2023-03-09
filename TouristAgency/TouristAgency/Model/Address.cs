@@ -18,6 +18,14 @@ namespace TouristAgency.Model
 
         }
 
+        public Address(Address originalAddress)
+        {
+            _street = originalAddress.Street;
+            _streetNumber = originalAddress.StreetNumber;
+            _city = originalAddress.City;
+            _country = originalAddress.Country;
+        }
+
         public string Street
         { 
             get { return _street; } 

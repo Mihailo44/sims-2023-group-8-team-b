@@ -84,9 +84,6 @@ namespace TouristAgency.Model
         public Tour()
         {
             _id = -1;
-            _name = "";
-            _description = "";
-            _language = "";
             _maxAttendants = -1;
             _durationInDays = -1;
             _startDate = DateTime.MinValue;
