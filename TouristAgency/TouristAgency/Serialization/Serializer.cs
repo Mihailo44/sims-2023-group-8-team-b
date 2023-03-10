@@ -8,14 +8,14 @@ using System.IO;
 
 namespace TouristAgency.Serialization
 {
-    class Serializer<T> where T : Serializable, new()
+    class Serializer<T> where T : ISerializable, new()
     {
         private static char DELIMITER = '|';
         public void toCSV(string fileName, List<T> objects)
         {
             StreamWriter streamWriter = new StreamWriter(fileName);
 
-            foreach (Serializable obj in objects)
+            foreach (ISerializable obj in objects)
             {
                 string line = string.Join(DELIMITER.ToString(), obj.ToCSV());
                 streamWriter.WriteLine(line);

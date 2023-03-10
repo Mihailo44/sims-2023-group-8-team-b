@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TouristAgency.Serialization
 {
-    internal interface Serializable
+    internal interface ISerializable
     {
         string[] ToCSV();
         void FromCSV(string[] values);

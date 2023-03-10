@@ -7,7 +7,7 @@ using TouristAgency.Serialization;
 
 namespace TouristAgency.Model
 {
-    public class Owner : User,Serializable
+    public class Owner : User,ISerializable
     {
         private int _id;
         private bool _superOwner;

@@ -9,7 +9,7 @@ namespace TouristAgency.Model
 {
     public enum TYPE { HOTEL,HUT,APARTMENT};
 
-    public class Accommodation : Serializable
+    public class Accommodation : ISerializable
     {
         private int _id;
         private Owner _owner;
