@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Serialization;
 
 namespace TouristAgency.Model
 {
     public enum TYPE { HOTEL,HUT,APARTMENT};
 
-    internal class Accommodation
+    public class Accommodation : Serializable
     {
         private int _id;
+        private Owner _owner;
+        private int _ownerId;
         private string _name;
         private Location _location;
         private TYPE _type;
-        private int _maxGuestNumber;
+        private int _maxGuestNum;
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
         private bool _recentlyRenovated;
@@ -26,12 +29,14 @@ namespace TouristAgency.Model
             _recentlyRenovated = false;
         }
 
-        public Accommodation(string name, Location location, TYPE type,int maxGuestNumber,int minNumOfDays,int allowedNumOfDaysForCancelation)
+        public Accommodation(string name,Owner owner,Location location, TYPE type,int maxGuestNum,int minNumOfDays,int allowedNumOfDaysForCancelation)
         {
             _name = name;
+            _owner = owner;
+            _ownerId = _owner.Id;
             _location = location;
             _type = type;
-            _maxGuestNumber = maxGuestNumber;
+            _maxGuestNum = maxGuestNum;
             _minNumOfDays = minNumOfDays;
             _allowedNumOfDaysForCancelation = allowedNumOfDaysForCancelation;
             _recentlyRenovated = false;
@@ -45,6 +50,30 @@ namespace TouristAgency.Model
                 if(_id != value)
                 {
                     _id = value;
+                }
+            }
+        }
+
+        public Owner Owner
+        {
+            get => _owner;
+            set
+            {
+                if (value != _owner)
+                {
+                    _owner = value;
+                }
+            }
+        }
+
+        public int OwnerId
+        {
+            get => _ownerId;
+            set
+            {
+                if(value != _ownerId)
+                {
+                    _ownerId = value;
                 }
             }
         }
@@ -85,14 +114,14 @@ namespace TouristAgency.Model
             }
         }
 
-        public int MaxGuestNumber
+        public int MaxGuestNum
         {
-            get => _maxGuestNumber; 
+            get => _maxGuestNum; 
             set
             {
-                if (value != _maxGuestNumber)
+                if (value != _maxGuestNum)
                 {
-                    _maxGuestNumber = value;
+                    _maxGuestNum = value;
                 }
             } 
         }
@@ -131,6 +160,36 @@ namespace TouristAgency.Model
                     _recentlyRenovated = value;
                 }
             }
+        }
+
+
+        public void FromCSV(string[] values)
+        {
+            Id = int.Parse(values[0]);
+            OwnerId = int.Parse(values[1]);
+            Name = values[2];
+            Location.Id = int.Parse(values[3]); // vrv ne radi
+            Type = Enum.Parse<TYPE>(values[4]);
+            MaxGuestNum = int.Parse(values[5]);
+            MinNumOfDays = int.Parse(values[6]);
+            AllowedNumOfDaysForCancelation = int.Parse(values[7]);
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                Id.ToString(),
+                OwnerId.ToString(),
+                Name,
+                Location.Id.ToString(),
+                Type.ToString(),
+                MaxGuestNum.ToString(),
+                MinNumOfDays.ToString(),
+                AllowedNumOfDaysForCancelation.ToString()
+
+            };
+            return csvValues;
         }
     }
 }

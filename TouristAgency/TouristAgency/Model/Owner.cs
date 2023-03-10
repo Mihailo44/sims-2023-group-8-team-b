@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Serialization;
 
 namespace TouristAgency.Model
 {
-    internal class Owner : User
+    public class Owner : User,Serializable
     {
         private int _id;
         private bool _superOwner;
@@ -67,5 +68,35 @@ namespace TouristAgency.Model
                 }
             }
         }
+
+        public void FromCSV(string[] values)
+        {
+            Id = int.Parse(values[0]);
+            FirstName = values[1];
+            LastName = values[2];
+            DateOfBirth = DateOnly.Parse(values[3]);
+            Phone = values[3];
+            Email = values[4];
+            Username = values[5];
+            Password = values[6];
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                Id.ToString(),
+                FirstName,
+                LastName,
+                DateOfBirth.ToString(),
+                Phone,
+                Email,
+                Username,
+                Password
+            };
+
+            return csvValues;
+        }
+        
     }
 }

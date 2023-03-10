@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TouristAgency.Model
 {
-    internal class GuestReview
+    public class GuestReview
     {
         private int _id;
         private Guest _guest;

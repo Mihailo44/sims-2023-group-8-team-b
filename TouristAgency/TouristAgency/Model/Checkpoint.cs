@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TouristAgency.Model
 {
-    internal class Checkpoint
+    public class Checkpoint
     {
         private int _id;
         private string _attractionName;

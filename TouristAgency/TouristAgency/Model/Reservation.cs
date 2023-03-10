@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TouristAgency.Model
 {
-    internal class Reservation
+    public class Reservation
     {
         private int _id;
         private Guest _guest;
