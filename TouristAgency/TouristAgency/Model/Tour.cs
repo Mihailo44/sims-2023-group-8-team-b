@@ -11,15 +11,15 @@ namespace TouristAgency.Model
         private int _id;
         private string _name;
         private string _description;
-        //private Location location...
+        private string _location;
         private string _language;
         private int _maxAttendants;
-        private int _durationInDays;
-        private DateTime _startDate;
+        private int _duration;
+        private DateOnly _startDate;
         private List<Checkpoint> _checkpoints;
         private List<Tourist> _registeredTourists;
         private Guide _assignedGuide;
-        //Slike?
+        private List<String> _photoLinks;
 
         public int Id
         {
@@ -39,6 +39,12 @@ namespace TouristAgency.Model
             set => _description = value;
         }
 
+        public string Location
+        {
+            get => _location;
+            set => _description = value;
+        }
+
         public string Language
         {
             get => _language;
@@ -51,13 +57,13 @@ namespace TouristAgency.Model
             set => _maxAttendants = value;
         }
 
-        public int DurationInDays
+        public int Duration
         {
-            get => _durationInDays;
-            set => _durationInDays = value;
+            get => _duration;
+            set => _duration = value;
         }
 
-        public DateTime StartDate
+        public DateOnly StartDate
         {
             get => _startDate;
             set => _startDate = value;
@@ -81,25 +87,32 @@ namespace TouristAgency.Model
             set => _assignedGuide = value;
         }
 
+        public List<String> PhotoLinks
+        {
+            get => _photoLinks;
+            set => _photoLinks = value;
+        }
+
         public Tour()
         {
             _id = -1;
             _maxAttendants = -1;
-            _durationInDays = -1;
-            _startDate = DateTime.MinValue;
+            _duration = -1;
+            _startDate = DateOnly.MinValue;
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
             _assignedGuide = new Guide();
         }
 
-        public Tour(int id, string name, string description, string language, int maxAttendants, int durationInDays, DateTime startDate, List<Checkpoint> checkpoints, List<Tourist> registeredTourists, Guide assignedGuide)
+        public Tour(int id, string name, string description,string location, string language, int maxAttendants, int duration, DateOnly startDate, List<Checkpoint> checkpoints, List<Tourist> registeredTourists, Guide assignedGuide)
         {
             _id = id;
             _name = name;
             _description = description;
+            _location = location;
             _language = language;
             _maxAttendants = maxAttendants;
-            _durationInDays = durationInDays;
+            _duration = duration;
             _startDate = startDate;
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
@@ -122,10 +135,11 @@ namespace TouristAgency.Model
             _id = originalTour.Id;
             _name = originalTour.Name;
             _description = originalTour.Description;
+            _location = originalTour.Location;
             _language = originalTour.Language;
             _maxAttendants = originalTour.MaxAttendants;
             _startDate = originalTour.StartDate;
-            _durationInDays = originalTour.DurationInDays;
+            _duration = originalTour.Duration;
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
 

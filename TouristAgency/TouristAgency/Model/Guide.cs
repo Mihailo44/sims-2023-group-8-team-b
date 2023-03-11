@@ -18,6 +18,11 @@ namespace TouristAgency.Model
 
         public Guide()
         {
+
+        }
+
+        public Guide(User user) : base(user)
+        {
             _assignedTours = new List<Tour>();
         }
 

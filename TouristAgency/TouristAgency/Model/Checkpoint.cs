@@ -11,7 +11,7 @@ namespace TouristAgency.Model
         private int _id;
         private string _attractionName;
         private bool _isVisited;
-        //private Address ...
+        private Address _address;
 
         public int Id
         {
@@ -31,18 +31,26 @@ namespace TouristAgency.Model
             set => _isVisited = value;
         }
 
+        public Address Address
+        {
+            get => _address;
+            set => _address = value;
+        }
+
         public Checkpoint()
         {
             _id = -1;
             _attractionName = "";
+            _address = new Address();
             _isVisited = false;
         }
 
-        public Checkpoint(int id, string attractionName, bool isVisited)
+        public Checkpoint(int id, string attractionName, bool isVisited, Address address)
         {
             _id = id;
             _attractionName = attractionName;
             _isVisited = isVisited;
+            _address = new Address(address);
         }
 
         public Checkpoint(Checkpoint originalCheckpoint)
@@ -50,6 +58,7 @@ namespace TouristAgency.Model
             _id = originalCheckpoint.Id;
             _attractionName = originalCheckpoint.AttractionName;
             _isVisited = originalCheckpoint.IsVisited;
+            _address = new Address(originalCheckpoint.Address);
         }
     }
 }
