@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TouristAgency.Observer
+namespace TouristAgency.Interfaces
 {
-    public interface IObserver
+    public interface ISerializable
     {
-        void Update();
+        string[] ToCSV();
+        void FromCSV(string[] values);
     }
 }

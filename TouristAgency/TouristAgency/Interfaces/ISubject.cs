@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TouristAgency.Observer
+namespace TouristAgency.Interfaces
 {
     internal interface ISubject
     {

@@ -10,22 +10,22 @@ namespace TouristAgency.Storage
 {
     public class AccommodationStorage
     {
-        private Serializer<Accommodation> serializer;
-        private readonly string file = "accommodations.txt";
+        private Serializer<Accommodation> _serializer;
+        private readonly string _file = "accommodations.txt";
 
         public AccommodationStorage()
         {
-            serializer = new Serializer<Accommodation>();
+            _serializer = new Serializer<Accommodation>();
         }
 
         public List<Accommodation> Load()
         {
-            return serializer.FromCSV(file);
+            return _serializer.FromCSV(_file);
         }
 
         public void Save(List<Accommodation> accommodations)
         {
-            serializer.ToCSV(file, accommodations);
+            _serializer.ToCSV(_file, accommodations);
         }
     }
 }
