@@ -162,7 +162,6 @@ namespace TouristAgency.Model
             }
         }
 
-
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);

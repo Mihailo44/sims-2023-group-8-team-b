@@ -9,16 +9,20 @@ namespace TouristAgency.Model
 {
     public class Owner : User,ISerializable
     {
-        private int _id;
         private bool _superOwner;
         private double _average;
         private List<Accommodation> _accommodations;
         
-        public Owner()
+        public Owner(): base()
         {
-            _id = -1;
             _superOwner = false;
             _accommodations = new List<Accommodation>();
+        }
+
+        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Address address,string phone) : 
+            base(username,password,firstName,lastName,dateOfBirth,email,address,phone)
+        {
+            _accommodations = new List<Accommodation>();   
         }
 
         public int Id
@@ -57,7 +61,7 @@ namespace TouristAgency.Model
             }
         }
 
-        public List<Accommodation> Accommodations // ne znam da li moze ovako
+        public List<Accommodation> Accommodations
         {
             get => _accommodations;
             set
@@ -97,6 +101,5 @@ namespace TouristAgency.Model
 
             return csvValues;
         }
-        
     }
 }

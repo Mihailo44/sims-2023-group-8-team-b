@@ -22,18 +22,17 @@ namespace TouristAgency.Model
         public User()
         {
             _ID = -1;
-            _dateOfBirth = DateOnly.MinValue; //promenjeno
+            _dateOfBirth = DateOnly.MinValue;
             _address = new Address();
         }
 
-        public User(int ID, string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Address address, string phone)
+        public User(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Address address, string phone)
         {
-            _ID = ID;
             _username = username;
             _password = password;
             _firstName = firstName;
             _lastName = lastName;
-            _dateOfBirth = dateOfBirth; //!
+            _dateOfBirth = dateOfBirth;
             _email = email;
             _address = new Address(address);
             _phone = phone;
