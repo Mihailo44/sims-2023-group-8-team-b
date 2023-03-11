@@ -200,7 +200,6 @@ namespace TouristAgency.Model
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),
                 AllowedNumOfDaysForCancelation.ToString()
-
             };
             return csvValues;
         }

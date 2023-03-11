@@ -11,7 +11,7 @@ namespace TouristAgency.Serialization
     class Serializer<T> where T : ISerializable, new()
     {
         private static char DELIMITER = '|';
-        public void toCSV(string fileName, List<T> objects)
+        public void ToCSV(string fileName, List<T> objects)
         {
             StreamWriter streamWriter = new StreamWriter(fileName);
 
@@ -23,7 +23,7 @@ namespace TouristAgency.Serialization
             streamWriter.Close();
         }
 
-        public List<T> fromCSV(string fileName)
+        public List<T> FromCSV(string fileName)
         {
             List<T> objects = new List<T>();
 
