@@ -25,18 +25,6 @@ namespace TouristAgency.Model
             _accommodations = new List<Accommodation>();   
         }
 
-        public int Id
-        {
-            get => _id;
-            set
-            {
-                if (_id != value)
-                {
-                    _id = value;
-                }
-            }
-        }
-
         public bool SuperOwner
         {
             get => _superOwner;
@@ -75,7 +63,7 @@ namespace TouristAgency.Model
 
         public void FromCSV(string[] values)
         {
-            Id = int.Parse(values[0]);
+            ID = int.Parse(values[1]);
             FirstName = values[1];
             LastName = values[2];
             DateOfBirth = DateOnly.Parse(values[3]);
@@ -89,7 +77,7 @@ namespace TouristAgency.Model
         {
             string[] csvValues =
             {
-                Id.ToString(),
+                ID.ToString(),
                 FirstName,
                 LastName,
                 DateOfBirth.ToString(),
