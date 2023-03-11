@@ -26,7 +26,9 @@ namespace TouristAgency.Test
             checkpoints.Add(dunavskiPark);
             checkpoints.Add(petrovaradinska);
 
-            User user = new User(0, "ognjenm", "test", "Ognjen", "Milojevic", DateOnly.Parse("01.02.2001"), "ogi@gmail.com", new Address("DD", "38", "Novi Sad", "Srbija"), "38162111111");
+            //User user = new User(0,"ognjenm", "test", "Ognjen", "Milojevic", DateOnly.Parse("01.02.2001"), "ogi@gmail.com", new Address("DD", "38", "Novi Sad", "Srbija"), "38162111111");
+            User user = new User("ognjenm", "test", "Ognjen", "Milojevic", DateOnly.Parse("01.02.2001"), "ogi@gmail.com", new Address("DD", "38", "Novi Sad", "Srbija"), "38162111111");
+
             Guide ognjen = new Guide(user);
             List<Tourist> tourists = new List<Tourist>();
             Tour tour1 = new Tour(0, "Novosadska poseta", "neki opis", "Novi Sad, Srbija", "English", 20, 6,
