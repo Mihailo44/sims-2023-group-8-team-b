@@ -1,0 +1,55 @@
+﻿<Window x:Class="TouristAgency.View.Display.Tour"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Display"
+        mc:Ignorable="d"
+        Title="Tour" Height="450" Width="610">
+    <Grid>
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="55,180,55,24" Width="500" Height="230">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <GroupBox Header="Location" Margin="55,40,375,294" Width="180" Height="100">
+            <Grid Height="64" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="54"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Country:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="City:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Additional filters" Height="130" Margin="258,26,138,278" Width="200">
+            <Grid Height="91" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Duration:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Language:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Max capacity:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
+                <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
+            </Grid>
+        </GroupBox>
+        <Button Content="Filter" HorizontalAlignment="Left" Margin="495,74,0,0" VerticalAlignment="Top" Width="60" Height="35"/>
+
+    </Grid>
+</Window>
