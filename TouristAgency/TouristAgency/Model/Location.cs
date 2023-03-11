@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Serialization;
 
 namespace TouristAgency.Model
 {
-    public class Location
+    public class Location : ISerializable
     {
         private int _id;
         private string _city;
         private string _country;
-        private int _reservedAccommodationsNum;
+        private int _reservedAccommodationsNum = 0;
 
         public Location()
         {
             _id = -1;
         }
 
-        public Location(string city, string country, int reservedAccommodationsNum)
+        public Location(string city, string country)
         {
             _city = city;
             _country = country;
-            _reservedAccommodationsNum = reservedAccommodationsNum;
         }
 
         public int Id
@@ -71,6 +71,25 @@ namespace TouristAgency.Model
                     _reservedAccommodationsNum = value;
                 }
             }
+        }
+
+        public void FromCSV(string[] values)
+        {
+            Id = int.Parse(values[0]);
+            City = values[1];
+            Country = values[2];
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                Id.ToString(),
+                City,
+                Country
+            };
+
+            return csvValues;
         }
     }
 }

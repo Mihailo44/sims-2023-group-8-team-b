@@ -16,6 +16,7 @@ namespace TouristAgency.Model
         private int _ownerId;
         private string _name;
         private Location _location;
+        private int _locationId;
         private TYPE _type;
         private int _maxGuestNum;
         private int _minNumOfDays;
@@ -33,8 +34,9 @@ namespace TouristAgency.Model
         {
             _name = name;
             _owner = owner;
-            _ownerId = _owner.Id;
+            _ownerId = _owner.ID;
             _location = location;
+            _locationId = location.Id;
             _type = type;
             _maxGuestNum = maxGuestNum;
             _minNumOfDays = minNumOfDays;
@@ -98,6 +100,18 @@ namespace TouristAgency.Model
                 if(value != _location)
                 {
                     _location = value;
+                }
+            }
+        }
+
+        public int LocationId
+        {
+            get => _locationId;
+            set
+            {
+                if(value != _locationId)
+                {
+                    _locationId = value;
                 }
             }
         }
