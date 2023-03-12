@@ -24,6 +24,6 @@ namespace TouristAgency.View.Display
             InitializeComponent();
         }
 
-        
+       
     }
 }
