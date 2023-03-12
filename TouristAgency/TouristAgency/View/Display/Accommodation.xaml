@@ -27,7 +27,7 @@
         <ComboBox HorizontalAlignment="Left" Margin="619,209,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox HorizontalAlignment="Left" Margin="619,248,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox HorizontalAlignment="Left" Margin="619,295,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="536,353,0,0" VerticalAlignment="Top" Width="128" Height="39" Click="Button_Click"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="536,353,0,0" VerticalAlignment="Top" Width="128" Height="39"/>
 
     </Grid>
 </Window>
