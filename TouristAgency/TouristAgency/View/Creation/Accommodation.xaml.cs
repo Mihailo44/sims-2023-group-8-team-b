@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Controller;
+using TouristAgency.Model;
+using System.Collections.ObjectModel;
 
 namespace TouristAgency.View.Creation
 {
@@ -19,9 +22,26 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class Accommodation : Window
     {
-        public Accommodation()
+        private readonly AccommodationController _controller;
+
+        public TouristAgency.Model.Accommodation NewAccommodation { get; set; }
+
+        public Accommodation(AccommodationController accommodationController)
         {
             InitializeComponent();
+            DataContext = this;
+
+            cbType.Items.Add(TYPE.HOTEL);
+            cbType.Items.Add(TYPE.APARTMENT);
+            cbType.Items.Add(TYPE.HUT);
+
+            NewAccommodation = new TouristAgency.Model.Accommodation();
+            _controller = accommodationController;
+        }
+
+        private void ButtonRegister_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
