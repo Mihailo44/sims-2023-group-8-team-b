@@ -29,7 +29,7 @@ namespace TouristAgency.Model.DAO
 
         public Owner FindById(int id)
         {
-            return _owners[id];
+            return _owners.Find(o => o.ID == id);
         }
 
         public Owner Create(Owner newOwner)

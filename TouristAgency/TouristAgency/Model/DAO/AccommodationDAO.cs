@@ -29,7 +29,7 @@ namespace TouristAgency.Model.DAO
 
         public Accommodation FindById(int id)
         {
-            return _accommodations[id];
+            return _accommodations.Find(a => a.Id == id);
         }
 
         public Accommodation Create(Accommodation newAccommodation)
