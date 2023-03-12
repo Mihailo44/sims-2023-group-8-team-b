@@ -10,8 +10,10 @@ namespace TouristAgency.Model
     public class Location : ISerializable
     {
         private int _id;
-        private string _city;
-        private string _country;
+        //private string _city;
+        //private string _country;
+        private Address _address;
+        private int _addressId;
         private int _reservedAccommodationsNum = 0;
 
         public Location()
@@ -19,10 +21,11 @@ namespace TouristAgency.Model
             _id = -1;
         }
 
-        public Location(string city, string country)
+        public Location(Address address)
         {
-            _city = city;
-            _country = country;
+            //_city = city;
+            //_country = country;
+            _address = new Address(address); 
         }
 
         public int Id
@@ -37,7 +40,7 @@ namespace TouristAgency.Model
             }
         }
 
-        public string City
+        /*public string City
         {
             get => _city;
             set
@@ -59,6 +62,30 @@ namespace TouristAgency.Model
                     _country = value;
                 }
             }
+        } */
+
+        public Address Address
+        {
+            get => _address;
+            set
+            {
+                if(_address != value)
+                {
+                    _address = value;
+                }
+            }
+        }
+
+        public int AddressId
+        {
+            get => _addressId;
+            set
+            {
+                if(_addressId != value)
+                {
+                    _addressId = value;
+                }
+            }
         }
 
         public int ReservedAccommodationsNum
@@ -76,8 +103,8 @@ namespace TouristAgency.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            City = values[1];
-            Country = values[2];
+         //City = values[1];
+         //Country = values[2];
         }
 
         public string[] ToCSV()
@@ -85,8 +112,8 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                City,
-                Country
+             // City,
+             // Country
             };
 
             return csvValues;
