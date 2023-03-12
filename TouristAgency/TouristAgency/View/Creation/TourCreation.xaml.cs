@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace TouristAgency.View.Creation
 {
     /// <summary>
-    /// Interaction logic for Tour.xaml
+    /// Interaction logic for TourCreation.xaml
     /// </summary>
     public partial class Tour : Window
     {

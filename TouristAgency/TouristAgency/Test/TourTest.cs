@@ -14,11 +14,11 @@ namespace TouristAgency.Test
 
         public void scenarioA()
         {
-            Checkpoint miletic = new Checkpoint(0, "Trg slobode", true, new Address("Trg slobode", "", "Novi Sad", "Srbija"));
+            Checkpoint miletic = new Checkpoint(0,0, "Trg slobode", true, new Address("Trg slobode", "", "Novi Sad", "Srbija"));
 
-            Checkpoint dunavskiPark = new Checkpoint(1, "Dunavski Park", false, new Address("Dunavska", "31", "Novi Sad", "Srbija"));
+            Checkpoint dunavskiPark = new Checkpoint(1,0, "Dunavski Park", false, new Address("Dunavska", "31", "Novi Sad", "Srbija"));
 
-            Checkpoint petrovaradinska = new Checkpoint(2, "Petrovaradin fortress", false, new Address("Tvrđava BB Petrovaradinska tvrđava", "", "Novi Sad", "Srbija"));
+            Checkpoint petrovaradinska = new Checkpoint(2,0, "Petrovaradin fortress", false, new Address("Tvrđava BB Petrovaradinska tvrđava", "", "Novi Sad", "Srbija"));
 
             List<Checkpoint> checkpoints = new List<Checkpoint>();
 
