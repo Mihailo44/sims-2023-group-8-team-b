@@ -28,9 +28,9 @@ namespace TouristAgency.Controller
             _reservation.Create(newReservation);
         }
 
-        public void Update(Reservation newReservation,int id)
+        public void Update(Reservation updatedReservation,int id)
         {
-            _reservation.Update(newReservation, id);
+            _reservation.Update(updatedReservation, id);
         }
 
         public void Delete(Reservation reservation)

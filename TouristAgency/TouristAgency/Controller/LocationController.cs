@@ -28,9 +28,9 @@ namespace TouristAgency.Controller
             _location.Create(newLocation);
         }
 
-        public void Update(Location newLocation,int id)
+        public void Update(Location updatedLocation,int id)
         {
-            _location.Update(newLocation,id);
+            _location.Update(updatedLocation, id);
         }
 
         public void Delete(Location location)
