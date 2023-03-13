@@ -9,15 +9,16 @@ namespace TouristAgency.Model
 {
     public class User
     {
-        private int _ID;
-        private string _username;
-        private string _password;
-        private string _firstName;
-        private string _lastName;
-        private DateOnly _dateOfBirth;
-        private string _email;
-        private Address _address;
-        private string _phone;
+        protected int _ID;
+        protected string _username;
+        protected string _password;
+        protected string _firstName;
+        protected string _lastName;
+        protected DateOnly _dateOfBirth;
+        protected string _email;
+        protected Address _address;
+        protected int _addressID;
+        protected string _phone;
 
         public User()
         {

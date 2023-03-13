@@ -8,6 +8,7 @@ namespace TouristAgency.Model
 {
     public class Address
     {
+        private int _ID;
         private string _street;
         private string _streetNumber;
         private string _city;
@@ -29,10 +30,17 @@ namespace TouristAgency.Model
 
         public Address(Address originalAddress)
         {
+            _ID = originalAddress._ID;
             _street = originalAddress.Street;
             _streetNumber = originalAddress.StreetNumber;
             _city = originalAddress.City;
             _country = originalAddress.Country;
+        }
+
+        public int ID
+        {
+            get { return _ID; }
+            set { _ID = value; }
         }
 
         public string Street

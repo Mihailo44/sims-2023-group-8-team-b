@@ -7,9 +7,9 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    internal class Tour : ISerializable
+    public class Tour : ISerializable
     {
-        private int _id;
+        private int _ID;
         private string _name;
         private string _description;
         private string _location;
@@ -18,18 +18,22 @@ namespace TouristAgency.Model
         private int _duration;
         private DateOnly _startDate;
         private List<Checkpoint> _checkpoints;
+
         private List<Tourist> _registeredTourists;
+
         private Guide _assignedGuide;
+        private int _assignedGuideID;
+
         private List<String> _photoLinks;
 
-        public int Id
+        public int ID
         {
-            get => _id;
+            get => _ID;
             set
             {
-                if (value != _id)
+                if (value != _ID)
                 {
-                    _id = value; 
+                    _ID = value; 
                 }
             }
         }
@@ -146,6 +150,18 @@ namespace TouristAgency.Model
             }
         }
 
+        public int AssignedGuideID
+        {
+            get => _assignedGuideID;
+            set
+            {
+                if (value != _assignedGuideID)
+                {
+                    _assignedGuideID = value;
+                }
+            }
+        }
+
         public List<String> PhotoLinks
         {
             get => _photoLinks;
@@ -154,7 +170,7 @@ namespace TouristAgency.Model
 
         public Tour()
         {
-            _id = -1;
+            _ID = -1;
             _maxAttendants = -1;
             _duration = -1;
             _startDate = DateOnly.MinValue;
@@ -163,9 +179,9 @@ namespace TouristAgency.Model
             _assignedGuide = new Guide();
         }
 
-        public Tour(int id, string name, string description,string location, string language, int maxAttendants, int duration, DateOnly startDate, List<Checkpoint> checkpoints, List<Tourist> registeredTourists, Guide assignedGuide)
+        public Tour(int id, string name, string description,string location, string language, int maxAttendants, int duration, DateOnly startDate)
         {
-            _id = id;
+            _ID = id;
             _name = name;
             _description = description;
             _location = location;
@@ -175,25 +191,16 @@ namespace TouristAgency.Model
             _startDate = startDate;
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
-
-            foreach (Checkpoint checkpoint in checkpoints)
-            {
-                _checkpoints.Add(checkpoint);
-            }
-
-            foreach (Tourist tourist in registeredTourists)
-            {
-                _registeredTourists.Add(tourist); //TODO Add(Tourist(tourist))?
-            }
-
-            _assignedGuide = new Guide(assignedGuide);
+            _assignedGuide = new Guide();
+            //slike?
         }
+
 
         public string[] ToCSV()
         {
             string[] csvValues =
             {
-                Id.ToString(),
+                ID.ToString(),
                 Name,
                 Description,
                 Location,
@@ -209,7 +216,7 @@ namespace TouristAgency.Model
 
         public void FromCSV(string[] values)
         {
-            Id = Convert.ToInt32(values[0]);
+            ID = Convert.ToInt32(values[0]);
             Name = values[1];
             Description = values[2];
             Location = values[3];

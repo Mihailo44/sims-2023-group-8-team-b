@@ -8,24 +8,24 @@ using TouristAgency.Serialization;
 
 namespace TouristAgency.Storage
 {
-    public class TourStorage
+    public class PhotoStorage
     {
-        private Serializer<Tour> _serializer;
-        private readonly string _file = "tours.txt";
+        private Serializer<Photo> _serializer;
+        private readonly string _file = "photos.txt";
 
-        public TourStorage()
+        public PhotoStorage()
         {
-            _serializer = new Serializer<Tour>();
+            _serializer = new Serializer<Photo>();
         }
 
-        public List<Tour> Load()
+        public List<Photo> Load()
         {
             return _serializer.FromCSV(_file);
         }
 
-        public void Save(List<Tour> tours)
+        public void Save(List<Photo> photos)
         {
-            _serializer.ToCSV(_file, tours);
+            _serializer.ToCSV(_file, photos);
         }
     }
 }

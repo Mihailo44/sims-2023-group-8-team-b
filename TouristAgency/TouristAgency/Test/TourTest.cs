@@ -32,7 +32,7 @@ namespace TouristAgency.Test
             Guide ognjen = new Guide(user);
             List<Tourist> tourists = new List<Tourist>();
             Tour tour1 = new Tour(0, "Novosadska poseta", "neki opis", "Novi Sad, Srbija", "English", 20, 6,
-                DateOnly.Parse("11.03.2023"), checkpoints, tourists, ognjen);
+                DateOnly.Parse("11.03.2023"));
             ognjen.AssignedTours.Add(tour1);
             Console.WriteLine("Test");
 

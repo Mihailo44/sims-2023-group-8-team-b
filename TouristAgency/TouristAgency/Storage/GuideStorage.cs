@@ -8,24 +8,24 @@ using TouristAgency.Serialization;
 
 namespace TouristAgency.Storage
 {
-    public class TourStorage
+    public class GuideStorage
     {
-        private Serializer<Tour> _serializer;
-        private readonly string _file = "tours.txt";
+        private Serializer<Guide> _serializer;
+        private readonly string _file = "guides.txt";
 
-        public TourStorage()
+        public GuideStorage()
         {
-            _serializer = new Serializer<Tour>();
+            _serializer = new Serializer<Guide>();
         }
 
-        public List<Tour> Load()
+        public List<Guide> Load()
         {
             return _serializer.FromCSV(_file);
         }
 
-        public void Save(List<Tour> tours)
+        public void Save(List<Guide> guides)
         {
-            _serializer.ToCSV(_file, tours);
+            _serializer.ToCSV(_file, guides);
         }
     }
 }
