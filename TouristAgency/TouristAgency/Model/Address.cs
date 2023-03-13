@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class Address
+    public class Address : ISerializable
     {
         private int _ID;
         private string _street;
@@ -18,7 +19,6 @@ namespace TouristAgency.Model
         {
 
         }
-
 
         public Address(string street, string streetNumber, string city, string country)
         {
@@ -40,31 +40,83 @@ namespace TouristAgency.Model
         public int ID
         {
             get { return _ID; }
-            set { _ID = value; }
+            set
+            {
+                if (value != _ID)
+                {
+                    _ID = value;
+                }
+            }
         }
 
         public string Street
         { 
-            get { return _street; } 
-            set {  _street = value; } 
+            get { return _street; }
+            set
+            {
+                if (value != _street)
+                {
+                    _street = value;
+                }
+            }
         }
 
         public string StreetNumber
         { 
-            get { return _streetNumber; } 
-            set { _streetNumber = value; } 
+            get { return _streetNumber; }
+            set
+            {
+                if (value != _streetNumber)
+                {
+                    _streetNumber = value;
+                }
+            }
         }
 
         public string City 
         { 
-            get { return _city; } 
-            set { _city = value; } 
+            get { return _city; }
+            set
+            {
+                if (value != _city)
+                {
+                    _city = value;
+                }
+            }
         }
 
         public string Country 
         { 
-            get { return _country; } 
-            set { _country = value; } 
+            get { return _country; }
+            set
+            {
+                if (value != _country)
+                {
+                    _country = value;
+                }
+            }
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                _ID.ToString(),
+                _street,
+                _streetNumber,
+                _city,
+                _country
+            };
+            return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+            _ID = Convert.ToInt32(values[0]);
+            _street = values[1];
+            _streetNumber = values[2];
+            _city = values[3];
+            _country = values[4];
         }
     }
 }

@@ -55,55 +55,109 @@ namespace TouristAgency.Model
         public int ID
         {
             get { return _ID; }
-            set { _ID = value; }
+            set 
+            { 
+                if(value != _ID) 
+                {
+                    _ID = value;
+                }
+            }
         }
 
         public string Username
         {
             get { return _username; }
-            set { _username = value; }
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                }
+            }
         }
 
         public string Password
         {
             get { return _password; }
-            set { _password = value; }
+            set
+            {
+                if (value != _password)
+                {
+                    _password = value;
+                }
+            }
         }
 
         public string FirstName
         {
             get { return _firstName; }
-            set { _firstName = value; }
+            set
+            {
+                if (value != _firstName)
+                {
+                    _firstName = value;
+                }
+            }
         }
 
         public string LastName
         {
             get { return _lastName; }
-            set { _lastName = value; }
+            set
+            {
+                if (value != _lastName)
+                {
+                    _lastName = value;
+                }
+            }
         }
 
         public DateOnly DateOfBirth
         {
             get { return _dateOfBirth; }
-            set { _dateOfBirth = value; }
+            set
+            {
+                if (value != _dateOfBirth)
+                {
+                    _dateOfBirth = value;
+                }
+            }
         }
 
         public string Email
         {
             get { return _email; }
-            set { _email = value; }
+            set
+            {
+                if (value != _email)
+                {
+                    _email = value;
+                }
+            }
         }
 
         public Address Address
         {
             get { return _address; }
-            set { _address = value; }
+            set
+            {
+                if (value != _address)
+                {
+                    _address = value;
+                }
+            }
         }
 
         public string Phone
         {
             get { return _phone; }
-            set { _phone = value; }
+            set
+            {
+                if (value != _phone)
+                {
+                    _phone = value;
+                }
+            }
         }
     }
 }
