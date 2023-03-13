@@ -28,9 +28,9 @@ namespace TouristAgency.Controller
             _accommodation.Create(newAccommodation);
         }
 
-        public void Update(Accommodation newAccommodation,int id)
+        public void Update(Accommodation updatedAccommodation,int id)
         {
-            _accommodation.Update(newAccommodation,id);
+            _accommodation.Update(updatedAccommodation, id);
         }
 
         public void Delete(Accommodation accommodation)

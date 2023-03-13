@@ -42,7 +42,7 @@ namespace TouristAgency.Model.DAO
             return newReservation;
         }
 
-        public Reservation Update(Reservation newReservation,int id)
+        public Reservation Update(Reservation updatedReservation,int id)
         {
             Reservation currentReservation = FindById(id);
             if (currentReservation == null)
@@ -50,10 +50,10 @@ namespace TouristAgency.Model.DAO
 
             //currentReservation.GuestId = newReservation.GuestId;
             //currentReservation.Guest = newReservation.Guest;
-            currentReservation.AccommodationId = newReservation.AccommodationId;
-            currentReservation.Accommodation = newReservation.Accommodation;
-            currentReservation.Start = newReservation.Start;
-            currentReservation.End = newReservation.End;
+            currentReservation.AccommodationId = updatedReservation.AccommodationId;
+            currentReservation.Accommodation = updatedReservation.Accommodation;
+            currentReservation.Start = updatedReservation.Start;
+            currentReservation.End = updatedReservation.End;
 
             _storage.Save(_reservations);
             NotifyObservers();

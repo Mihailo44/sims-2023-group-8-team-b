@@ -28,9 +28,9 @@ namespace TouristAgency.Controller
             _owner.Create(newOwner);
         }
 
-        public void Update(Owner newOwner,int id)
+        public void Update(Owner updatedOwner,int id)
         {
-            _owner.Update(newOwner, id);
+            _owner.Update(updatedOwner, id);
         }
 
         public void Delete(Owner newOwner)

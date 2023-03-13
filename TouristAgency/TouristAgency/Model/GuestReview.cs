@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class GuestReview
+    public class GuestReview : ISerializable
     {
         private int _id;
         private Guest _guest;
+        private int _guestId;
         private DateTime _reviewDate;
         private int _cleanliness;
         private int _ruleAbiding;
@@ -26,6 +27,7 @@ namespace TouristAgency.Model
         public GuestReview(Guest guest, int cleanliness, int ruleAbiding, string comment)
         {
             _guest = guest;
+            _guestId = guest.ID;
             _reviewDate = DateTime.Now;
             _cleanliness = cleanliness;
             _ruleAbiding = ruleAbiding;
@@ -54,6 +56,12 @@ namespace TouristAgency.Model
                     _guest = value;
                 }
             }
+        }
+
+        public int GuestId
+        {
+            get => _guestId;
+            set => _guestId = value;
         }
 
         public DateTime ReviewDate
@@ -104,5 +112,29 @@ namespace TouristAgency.Model
             }
         }
 
+        public void FromCSV(string[] values)
+        {
+            Id = int.Parse(values[0]);
+            GuestId = int.Parse(values[1]);
+            ReviewDate = DateTime.Parse(values[2]);
+            Cleanliness = int.Parse(values[3]);
+            RuleAbiding = int.Parse(values[4]);
+            Comment = values[5];
+        }
+
+        public string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                Id.ToString(),
+                GuestId.ToString(),
+                ReviewDate.ToShortDateString(), // mozda treba drugacije
+                Cleanliness.ToString(),
+                RuleAbiding.ToString(),
+                Comment
+            };
+
+            return csvValues;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace TouristAgency.Model
         private int _maxGuestNum;
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
+        private List<string> _photoUrls;
         private bool _recentlyRenovated;
 
         public Accommodation()
@@ -28,6 +29,7 @@ namespace TouristAgency.Model
             _id = -1;
             _allowedNumOfDaysForCancelation = 1;   
             _recentlyRenovated = false;
+            _photoUrls = new List<string>();
         }
 
         public Accommodation(string name,Owner owner,Location location, TYPE type,int maxGuestNum,int minNumOfDays,int allowedNumOfDaysForCancelation)
@@ -41,6 +43,7 @@ namespace TouristAgency.Model
             _maxGuestNum = maxGuestNum;
             _minNumOfDays = minNumOfDays;
             _allowedNumOfDaysForCancelation = allowedNumOfDaysForCancelation;
+            _photoUrls = new List<string>();
             _recentlyRenovated = false;
         }
 
@@ -164,6 +167,12 @@ namespace TouristAgency.Model
             }
         }
 
+        public List<string> PhotoUrls
+        {
+            get => _photoUrls;
+            set => _photoUrls = value;
+        }
+
         public bool RecentlyRenovated
         {
             get => _recentlyRenovated; 
@@ -186,10 +195,31 @@ namespace TouristAgency.Model
             MaxGuestNum = int.Parse(values[5]);
             MinNumOfDays = int.Parse(values[6]);
             AllowedNumOfDaysForCancelation = int.Parse(values[7]);
+            if (values[8].Length > 0)
+            {
+                string[] urls = values[8].Split(',');
+                foreach(var url in urls)
+                {
+                    PhotoUrls.Add(url);
+                }
+            }
         }
 
         public string[] ToCSV()
         {
+            string urls = "";
+            List<string> uniqueUrls = PhotoUrls.Distinct().ToList();
+            if(uniqueUrls.Count > 0)
+            {
+                for(int i = 0; i < uniqueUrls.Count; i++)
+                {
+                    if (i == 0)
+                        urls += uniqueUrls[i];
+                    else
+                        urls += "," + uniqueUrls[i];
+                }
+            }
+
             string[] csvValues =
             {
                 Id.ToString(),
@@ -199,7 +229,8 @@ namespace TouristAgency.Model
                 Type.ToString(),
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),
-                AllowedNumOfDaysForCancelation.ToString()
+                AllowedNumOfDaysForCancelation.ToString(),
+                urls
             };
             return csvValues;
         }

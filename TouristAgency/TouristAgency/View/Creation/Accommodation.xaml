@@ -35,12 +35,12 @@
         <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" HorizontalAlignment="Center"/>
         <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" HorizontalAlignment="Center"/>
         <Label Grid.Row="9" Grid.Column="0" Content="Photos" HorizontalAlignment="Center"/>
-        <Button Grid.Row="11" Grid.Column="0" Content="REGISTER" Width="90" Height="40"/>
+        <Button Grid.Row="11" Grid.Column="0" Content="REGISTER" Width="90" Height="40" Click="ButtonRegister_Click"/>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>
         <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="25"/>
         <TextBox Grid.Row="3" Grid.Column="1" Width="250" Height="25"/>
-        <ComboBox Grid.Row="4" Grid.Column="1" Width="250" Height="25"/>
+        <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="250" Height="25"/>
         <TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="25"/>
         <TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="25"/>
         <TextBox Grid.Row="7" Grid.Column="1" Width="250" Height="25"/>

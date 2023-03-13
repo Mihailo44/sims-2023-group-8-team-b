@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace TouristAgency.View.Home
 {
     /// <summary>
-    /// Interaction logic for Owner.xaml
+    /// Interaction logic for OwnerHome.xaml
     /// </summary>
-    public partial class Owner : Window
+    public partial class OwnerHome : Window
     {
-        public Owner()
+        public OwnerHome()
         {
             InitializeComponent();
         }

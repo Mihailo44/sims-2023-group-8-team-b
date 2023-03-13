@@ -41,21 +41,21 @@ namespace TouristAgency.Model.DAO
             return newOwner;
         }
 
-        public Owner Update(Owner newOwner,int id)
+        public Owner Update(Owner updatedOwner,int id)
         {
             Owner currentOwner = FindById(id);
             if(currentOwner == null)
                 return null;
 
-            currentOwner.FirstName = newOwner.FirstName;
-            currentOwner.LastName = newOwner.LastName;
-            currentOwner.Address = new Address(newOwner.Address);
-            currentOwner.DateOfBirth = newOwner.DateOfBirth;
-            currentOwner.Phone = newOwner.Phone;
-            currentOwner.Email = newOwner.Email;
-            currentOwner.Password = newOwner.Password;
-            currentOwner.Username = newOwner.Username;
-            currentOwner.Accommodations = newOwner.Accommodations; // ne znam da li ovo radi dobro
+            currentOwner.FirstName = updatedOwner.FirstName;
+            currentOwner.LastName = updatedOwner.LastName;
+            currentOwner.Address = new Address(updatedOwner.Address);
+            currentOwner.DateOfBirth = updatedOwner.DateOfBirth;
+            currentOwner.Phone = updatedOwner.Phone;
+            currentOwner.Email = updatedOwner.Email;
+            currentOwner.Password = updatedOwner.Password;
+            currentOwner.Username = updatedOwner.Username;
+            currentOwner.Accommodations = updatedOwner.Accommodations; // ne znam da li ovo radi dobro
 
             _storage.Save(_owners);
             NotifyObservers();

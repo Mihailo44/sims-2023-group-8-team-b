@@ -42,18 +42,18 @@ namespace TouristAgency.Model.DAO
             return newAccommodation;
         }
 
-        public Accommodation Update(Accommodation newAccommodation,int id)
+        public Accommodation Update(Accommodation updatedAccommodation,int id)
         {
             Accommodation currentAccommodation = FindById(id);
             if(currentAccommodation == null)
                 return null;
 
-            currentAccommodation.OwnerId = newAccommodation.OwnerId;
-            currentAccommodation.Owner = newAccommodation.Owner; //proveriti
-            currentAccommodation.Name = newAccommodation.Name;
-            currentAccommodation.MaxGuestNum = newAccommodation.MaxGuestNum;
-            currentAccommodation.MinNumOfDays = newAccommodation.MinNumOfDays;
-            currentAccommodation.AllowedNumOfDaysForCancelation = newAccommodation.AllowedNumOfDaysForCancelation;
+            currentAccommodation.OwnerId = updatedAccommodation.OwnerId;
+            currentAccommodation.Owner = updatedAccommodation.Owner; //proveriti
+            currentAccommodation.Name = updatedAccommodation.Name;
+            currentAccommodation.MaxGuestNum = updatedAccommodation.MaxGuestNum;
+            currentAccommodation.MinNumOfDays = updatedAccommodation.MinNumOfDays;
+            currentAccommodation.AllowedNumOfDaysForCancelation = updatedAccommodation.AllowedNumOfDaysForCancelation;
 
             _storage.Save(_accommodations);
             NotifyObservers();
