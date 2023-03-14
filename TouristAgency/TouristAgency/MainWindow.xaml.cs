@@ -52,5 +52,11 @@ namespace TouristAgency
             TourDisplay display = new TourDisplay();
             display.Show();
         }
+
+        private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationDisplay display = new AccommodationDisplay();
+            display.Show();
+        }
     }
 }
