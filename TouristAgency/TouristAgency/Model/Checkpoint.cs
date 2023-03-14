@@ -13,7 +13,7 @@ namespace TouristAgency.Model
         private int _tourID;
         private string _attractionName;
         private bool _isVisited;
-        private Address _address;
+        private Location _location;
         private int _addressID;
 
         public int ID
@@ -76,14 +76,14 @@ namespace TouristAgency.Model
             }
         }
 
-        public Address Address
+        public Location Location
         {
-            get => _address;
+            get => _location;
             set
             {
-                if (value != _address)
+                if (value != _location)
                 {
-                    _address = value;
+                    _location = value;
                 }
             }
         }
@@ -93,17 +93,17 @@ namespace TouristAgency.Model
             _ID = -1;
             _tourID = -1;
             _attractionName = "";
-            _address = new Address();
+            _location = new Location();
             _isVisited = false;
         }
 
-        public Checkpoint(int id, int tourId, string attractionName, bool isVisited, Address address)
+        public Checkpoint(int id, int tourId, string attractionName, bool isVisited, Location location)
         {
             _ID = id;
             _tourID = tourId;
             _attractionName = attractionName;
             _isVisited = isVisited;
-            _address = new Address(address);
+            _location = new Location(location);
         }
 
         public string[] ToCSV()

@@ -19,8 +19,8 @@ namespace TouristAgency.Model
             _accommodations = new List<Accommodation>();
         }
 
-        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Address address,string phone) : 
-            base(username,password,firstName,lastName,dateOfBirth,email,address,phone)
+        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Location location,string phone) : 
+            base(username,password,firstName,lastName,dateOfBirth,email,location,phone)
         {
             _accommodations = new List<Accommodation>();   
         }
@@ -60,7 +60,7 @@ namespace TouristAgency.Model
                 }
             }
         }
-
+        //Dodati location
         public void FromCSV(string[] values)
         {
             ID = int.Parse(values[1]);

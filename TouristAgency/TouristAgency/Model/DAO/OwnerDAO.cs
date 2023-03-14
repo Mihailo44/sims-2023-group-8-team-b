@@ -49,7 +49,7 @@ namespace TouristAgency.Model.DAO
 
             currentOwner.FirstName = updatedOwner.FirstName;
             currentOwner.LastName = updatedOwner.LastName;
-            currentOwner.Address = new Address(updatedOwner.Address);
+            currentOwner.FullLocation = new Location(updatedOwner.FullLocation); //(!)
             currentOwner.DateOfBirth = updatedOwner.DateOfBirth;
             currentOwner.Phone = updatedOwner.Phone;
             currentOwner.Email = updatedOwner.Email;

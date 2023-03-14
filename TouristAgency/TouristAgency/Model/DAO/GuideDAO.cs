@@ -53,7 +53,7 @@ namespace TouristAgency.Model.DAO
             currentGuide.LastName = newGuide.LastName;
             currentGuide.DateOfBirth = newGuide.DateOfBirth; //! Duboka kopija?
             currentGuide.Email = newGuide.Email;
-            currentGuide.Address = newGuide.Address; //! -||-?
+            currentGuide.FullLocation = newGuide.FullLocation; //! -||-?
             currentGuide.Phone = newGuide.Phone;
             return currentGuide;
         }

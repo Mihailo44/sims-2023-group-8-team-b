@@ -56,7 +56,7 @@ namespace TouristAgency.Model.DAO
             currentTourist.LastName = newTourist.LastName;
             currentTourist.DateOfBirth = newTourist.DateOfBirth; //! Duboka kopija?
             currentTourist.Email = newTourist.Email;
-            currentTourist.Address = newTourist.Address; //! -||-?
+            currentTourist.FullLocation = newTourist.FullLocation; //! -||-?
             currentTourist.Phone = newTourist.Phone;
 
             return currentTourist;

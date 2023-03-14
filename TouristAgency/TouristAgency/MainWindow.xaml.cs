@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Test;
+using TouristAgency.View.Creation;
 using TouristAgency.View.Home;
 
 namespace TouristAgency
@@ -33,6 +34,12 @@ namespace TouristAgency
         {
             OwnerHome x = new OwnerHome();
             x.Show();
+        }
+
+        private void TourButton_Click(object sender, RoutedEventArgs e)
+        {
+            TourCreation creation = new TourCreation();
+            creation.Show();
         }
     }
 }

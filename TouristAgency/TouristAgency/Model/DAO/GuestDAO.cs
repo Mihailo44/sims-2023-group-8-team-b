@@ -56,7 +56,7 @@ namespace TouristAgency.Model.DAO
             currentGuest.LastName = newGuest.LastName;
             currentGuest.DateOfBirth = newGuest.DateOfBirth; 
             currentGuest.Email = newGuest.Email;
-            currentGuest.Address = newGuest.Address; 
+            currentGuest.FullLocation = newGuest.FullLocation; 
             currentGuest.Phone = newGuest.Phone;
 
             return currentGuest;

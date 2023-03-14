@@ -49,7 +49,7 @@ namespace TouristAgency.Model.DAO
             }
             currentTour.Name = newTour.Name;
             currentTour.Description = newTour.Description;
-            currentTour.Location = newTour.Location;
+            currentTour.ShortLocation = newTour.ShortLocation;
             currentTour.Language = newTour.Language;
             currentTour.MaxAttendants = newTour.MaxAttendants;
             currentTour.Duration = newTour.Duration;

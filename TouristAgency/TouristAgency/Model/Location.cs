@@ -9,88 +9,105 @@ namespace TouristAgency.Model
 {
     public class Location : ISerializable
     {
-        private int _id;
-        //private string _city;
-        //private string _country;
-        private Address _address;
-        private int _addressId;
+        private int _ID;
+        private string _street;
+        private string _streetNumber;
+        private string _city;
+        private string _country;
         private int _reservedAccommodationsNum = 0;
 
         public Location()
         {
-            _id = -1;
+            _ID = -1;
         }
 
-        public Location(Address address)
+        public Location(string street, string streetNumber, string city, string country)
         {
-            //_city = city;
-            //_country = country;
-            _address = new Address(address); 
+            _street = street;
+            _streetNumber = streetNumber;
+            _city = city;
+            _country = country;
+        }
+
+        public Location(string city, string country)
+        {
+            _street = "";
+            _streetNumber = "";
+            _city = city;
+            _country = country;
+        }
+
+        public Location(Location originalLocation)
+        {
+            _ID = originalLocation._ID;
+            _street = originalLocation.Street;
+            _streetNumber = originalLocation.StreetNumber;
+            _city = originalLocation.City;
+            _country = originalLocation.Country;
         }
 
         public int Id
         {
-            get => _id;
+            get { return _ID; }
             set
             {
-                if(_id != value)
+                if (value != _ID)
                 {
-                    _id = value;
+                    _ID = value;
                 }
             }
         }
 
-        /*public string City
-        {
-            get => _city;
+        public string Street
+        { 
+            get { return _street; }
             set
             {
-                if(_city != value)
+                if (value != _street)
+                {
+                    _street = value;
+                }
+            }
+        }
+
+        public string StreetNumber
+        { 
+            get { return _streetNumber; }
+            set
+            {
+                if (value != _streetNumber)
+                {
+                    _streetNumber = value;
+                }
+            }
+        }
+
+        public string City 
+        { 
+            get { return _city; }
+            set
+            {
+                if (value != _city)
                 {
                     _city = value;
                 }
             }
         }
 
-        public string Country
-        {
-            get => _country; 
+        public string Country 
+        { 
+            get { return _country; }
             set
             {
-                if (_country != value)
+                if (value != _country)
                 {
                     _country = value;
                 }
             }
-        } */
-
-        public Address Address
-        {
-            get => _address;
-            set
-            {
-                if(_address != value)
-                {
-                    _address = value;
-                }
-            }
         }
-
-        public int AddressId
-        {
-            get => _addressId;
-            set
-            {
-                if(_addressId != value)
-                {
-                    _addressId = value;
-                }
-            }
-        }
-
         public int ReservedAccommodationsNum
         {
-            get => _reservedAccommodationsNum; 
+            get => _reservedAccommodationsNum;
             set
             {
                 if (_reservedAccommodationsNum != value)
@@ -100,23 +117,26 @@ namespace TouristAgency.Model
             }
         }
 
-        public void FromCSV(string[] values)
-        {
-            Id = int.Parse(values[0]);
-         //City = values[1];
-         //Country = values[2];
-        }
-
         public string[] ToCSV()
         {
             string[] csvValues =
             {
-                Id.ToString(),
-             // City,
-             // Country
+                _ID.ToString(),
+                _street,
+                _streetNumber,
+                _city,
+                _country
             };
-
             return csvValues;
+        }
+
+        public void FromCSV(string[] values)
+        {
+            _ID = Convert.ToInt32(values[0]);
+            _street = values[1];
+            _streetNumber = values[2];
+            _city = values[3];
+            _country = values[4];
         }
     }
 }

@@ -8,6 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Owner" Margin="94,60,584,316" Click="Button_Click"/>
+        <Button Content="TourCreation" Margin="94,283,610,93" Click="TourButton_Click"/>
 
     </Grid>
 </Window>

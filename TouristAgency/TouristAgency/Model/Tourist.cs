@@ -45,7 +45,7 @@ namespace TouristAgency.Model
                 _dateOfBirth.ToString(),
                 _email,
                 _phone,
-                _addressID.ToString()
+                _fullLocationID.ToString()
             };
             return csvValues;
         }
@@ -60,7 +60,7 @@ namespace TouristAgency.Model
             _dateOfBirth = DateOnly.Parse(values[5]);
             _email = values[6];
             _phone = values[7];
-            _addressID = Convert.ToInt32(8);
+            _fullLocationID = Convert.ToInt32(8);
         }
     }
 }

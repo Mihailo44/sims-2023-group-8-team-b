@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,24 +9,32 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class Tour : ISerializable
+    public class Tour : ISerializable, INotifyPropertyChanged
     {
         private int _ID;
         private string _name;
         private string _description;
-        private string _location;
+        //private string _location; // !
+        private Location _shortLocation;
         private string _language;
         private int _maxAttendants;
         private int _duration;
         private DateOnly _startDate;
         private List<Checkpoint> _checkpoints;
-
         private List<Tourist> _registeredTourists;
-
         private Guide _assignedGuide;
         private int _assignedGuideID;
 
         private List<String> _photoLinks;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         public int ID
         {
@@ -45,6 +55,7 @@ namespace TouristAgency.Model
                 if (value != _name)
                 {
                     _name = value;
+                    OnPropertyChanged("Name");
                 }
             }
         }
@@ -57,17 +68,32 @@ namespace TouristAgency.Model
                 if (value != _description)
                 {
                     _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
 
-        public string Location
+        /*public string Location
         {
             get => _location;
             set {
                 if (value != _location)
                 {
                     _location = value;
+                    OnPropertyChanged("Location");
+                }
+            }
+        }*/
+
+        public Location ShortLocation
+        {
+            get => _shortLocation;
+            set
+            {
+                if (value != _shortLocation)
+                {
+                    _shortLocation = value;
+                    OnPropertyChanged("ShortLocation");
                 }
             }
         }
@@ -80,6 +106,7 @@ namespace TouristAgency.Model
                 if (value != _language)
                 {
                     _language = value;
+                    OnPropertyChanged("Language");
                 }
             }
         }
@@ -91,6 +118,7 @@ namespace TouristAgency.Model
                 if (value != _maxAttendants)
                 {
                     _maxAttendants = value;
+                    OnPropertyChanged("MaxAttendants");
                 }
             }
         }
@@ -102,6 +130,7 @@ namespace TouristAgency.Model
                 if (value != _duration)
                 {
                     _duration = value;
+                    OnPropertyChanged("Duration");
                 }
             }
         }
@@ -113,6 +142,7 @@ namespace TouristAgency.Model
                 if (value != _startDate)
                 {
                     _startDate = value;
+                    OnPropertyChanged("StartDate");
                 }
             }
         }
@@ -124,6 +154,7 @@ namespace TouristAgency.Model
                 if (value != _checkpoints)
                 {
                     _checkpoints = value;
+                    OnPropertyChanged("Checkpoints");
                 }
             }
         }
@@ -135,6 +166,7 @@ namespace TouristAgency.Model
                 if (value != _registeredTourists)
                 {
                     _registeredTourists = value;
+                    OnPropertyChanged("RegisteredTourists");
                 }
             }
         }
@@ -146,6 +178,7 @@ namespace TouristAgency.Model
                 if (value != _assignedGuide)
                 {
                     _assignedGuide = value;
+                    OnPropertyChanged("AssignedGuide");
                 }
             }
         }
@@ -158,6 +191,7 @@ namespace TouristAgency.Model
                 if (value != _assignedGuideID)
                 {
                     _assignedGuideID = value;
+                    OnPropertyChanged("AssignedGuideID");
                 }
             }
         }
@@ -171,20 +205,20 @@ namespace TouristAgency.Model
         public Tour()
         {
             _ID = -1;
-            _maxAttendants = -1;
-            _duration = -1;
+            //_maxAttendants = -1;
+            //_duration = -1;
             _startDate = DateOnly.MinValue;
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
             _assignedGuide = new Guide();
         }
 
-        public Tour(int id, string name, string description,string location, string language, int maxAttendants, int duration, DateOnly startDate)
+        public Tour(int id, string name, string description,Location location, string language, int maxAttendants, int duration, DateOnly startDate)
         {
             _ID = id;
             _name = name;
             _description = description;
-            _location = location;
+            _shortLocation = location;
             _language = language;
             _maxAttendants = maxAttendants;
             _duration = duration;
@@ -203,7 +237,7 @@ namespace TouristAgency.Model
                 ID.ToString(),
                 Name,
                 Description,
-                Location,
+                ShortLocation.ToString(), //!
                 Language,
                 MaxAttendants.ToString(),
                 Duration.ToString(),
@@ -219,12 +253,13 @@ namespace TouristAgency.Model
             ID = Convert.ToInt32(values[0]);
             Name = values[1];
             Description = values[2];
-            Location = values[3];
+            //ShortLocation = values[3];
             Language = values[4];
             MaxAttendants = Convert.ToInt32(values[5]);
             Duration = Convert.ToInt32(values[6]);
             StartDate = DateOnly.Parse(values[7]);
             AssignedGuide.ID = Convert.ToInt32(values[8]);
         }
+
     }
 }

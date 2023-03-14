@@ -16,18 +16,18 @@ namespace TouristAgency.Model
         protected string _lastName;
         protected DateOnly _dateOfBirth;
         protected string _email;
-        protected Address _address;
-        protected int _addressID;
+        protected Location _fullLocation;
+        protected int _fullLocationID;
         protected string _phone;
 
         public User()
         {
             _ID = -1;
             _dateOfBirth = DateOnly.MinValue;
-            _address = new Address();
+            _fullLocation = new Location();
         }
 
-        public User(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Address address, string phone)
+        public User(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Location location, string phone)
         {
             _username = username;
             _password = password;
@@ -35,7 +35,7 @@ namespace TouristAgency.Model
             _lastName = lastName;
             _dateOfBirth = dateOfBirth;
             _email = email;
-            _address = new Address(address);
+            _fullLocation = new Location(location);
             _phone = phone;
         }
 
@@ -46,9 +46,9 @@ namespace TouristAgency.Model
             _password = originalUser.Password;
             _firstName = originalUser.FirstName;
             _lastName = originalUser.LastName;
-            _dateOfBirth = originalUser.DateOfBirth; //!
+            _dateOfBirth = originalUser.DateOfBirth; //Duboka ili plitka kopija?
             _email = originalUser.Email;
-            _address = new Address(originalUser.Address);
+            _fullLocation = new Location(originalUser.FullLocation);
             _phone = originalUser.Phone;
         }
 
@@ -136,14 +136,26 @@ namespace TouristAgency.Model
             }
         }
 
-        public Address Address
+        public Location FullLocation
         {
-            get { return _address; }
+            get { return _fullLocation; }
             set
             {
-                if (value != _address)
+                if (value != _fullLocation)
                 {
-                    _address = value;
+                    _fullLocation = value;
+                }
+            }
+        }
+
+        public int FullLocationID
+        {
+            get { return _fullLocationID;}
+            set
+            {
+                if (value != _fullLocationID)
+                {
+                    _fullLocationID = value;
                 }
             }
         }
