@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
         Title="TourCreation" Height="707" Width="391">
@@ -24,17 +25,18 @@
                     <RowDefinition Height="35"></RowDefinition>
                 </Grid.RowDefinitions>
 
+
                 <Label VerticalAlignment="Center">Tour name:</Label>
-                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=Name}"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Name}"></TextBox>
 
                 <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">Country:</Label>
-                <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=Address.Country}"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.Country}"></TextBox>
 
                 <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">City:</Label>
-                <TextBox Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=Address.City}"/>
+                <TextBox Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.City}"/>
 
                 <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center">Tour description:</Label>
-                <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="73" Text="{Binding Path=Description}">
+                <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="73" Text="{Binding Path=NewTour.Description}">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
@@ -42,10 +44,11 @@
                 </TextBox>
 
                 <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Language:</Label>
-                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=Language}"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Language}"></TextBox>
 
                 <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center">Max capacity:</Label>
-                <TextBox Grid.Column="1" Grid.Row="4" Height="25" Width="30" HorizontalAlignment="Left" Text="{Binding Path=MaxAttendants}"></TextBox>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="4" Height="25" Width="40" HorizontalAlignment="Left" Text="{Binding Path=NewTour.MaxAttendants}"></xctk:IntegerUpDown>
+
             </Grid>
 
             <Grid Width="300" Margin="0,10,0,0">
@@ -89,11 +92,10 @@
                 </Grid.RowDefinitions>
 
                 <Label>Tour start date:</Label>
-                <DatePicker Grid.Column="1" Height="25" SelectedDate="{Binding Path=StartDate}"></DatePicker>
-                
+                <xctk:DateTimePicker x:Name="dateTimePicker"  Grid.Row ="0" Grid.Column="1" Height="25" Value="{Binding Path=NewTour.StartDateTime}"></xctk:DateTimePicker>
 
                 <Label Grid.Column="0" Grid.Row="1">Duration (hours):</Label>
-                <TextBox Grid.Column="1" Grid.Row="1" Width="30" HorizontalAlignment="Left" Height="25" Text="{Binding Path=Duration}"></TextBox>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration}"></xctk:IntegerUpDown>
 
                 <Label Grid.Column="0" Grid.Row="2">Pictures (URLs):</Label>
                 <TextBox Grid.Column="1" Grid.Row="2" Height="80">

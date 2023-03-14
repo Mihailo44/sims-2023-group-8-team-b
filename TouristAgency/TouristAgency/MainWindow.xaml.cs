@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.Controller;
 using TouristAgency.Test;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Home;
@@ -23,9 +24,12 @@ namespace TouristAgency
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CheckpointController _checkpointController;
+        private TourController _tourController;
         public MainWindow()
         {
             InitializeComponent();
+            _checkpointController = new CheckpointController();
             TourTest test = new TourTest();
             test.scenarioA();
         }
@@ -38,7 +42,7 @@ namespace TouristAgency
 
         private void TourButton_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation creation = new TourCreation();
+            TourCreation creation = new TourCreation(_tourController, _checkpointController);
             creation.Show();
         }
     }

@@ -53,7 +53,7 @@ namespace TouristAgency.Model.DAO
             currentTour.Language = newTour.Language;
             currentTour.MaxAttendants = newTour.MaxAttendants;
             currentTour.Duration = newTour.Duration;
-            currentTour.StartDate = newTour.StartDate; //! Mozda mora new!
+            currentTour.StartDateTime = newTour.StartDateTime; //! Mozda mora new!
             //TODO liste, kada napravis update formu
             //currentTour.GuideID = ..
             //slike...

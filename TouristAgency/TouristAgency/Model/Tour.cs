@@ -19,7 +19,7 @@ namespace TouristAgency.Model
         private string _language;
         private int _maxAttendants;
         private int _duration;
-        private DateOnly _startDate;
+        private DateTime _startDateTime;
         private List<Checkpoint> _checkpoints;
         private List<Tourist> _registeredTourists;
         private Guide _assignedGuide;
@@ -35,6 +35,34 @@ namespace TouristAgency.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+        public Tour()
+        {
+            _ID = -1;
+            //_maxAttendants = -1;
+            //_duration = -1;
+            _startDateTime = DateTime.Today;
+            _checkpoints = new List<Checkpoint>();
+            _registeredTourists = new List<Tourist>();
+            _assignedGuide = new Guide();
+            _shortLocation = new Location();
+        }
+
+        public Tour(int id, string name, string description, Location location, string language, int maxAttendants, int duration, DateTime startDateTime)
+        {
+            _ID = id;
+            _name = name;
+            _description = description;
+            _shortLocation = location;
+            _language = language;
+            _maxAttendants = maxAttendants;
+            _duration = duration;
+            _startDateTime = startDateTime;
+            _checkpoints = new List<Checkpoint>();
+            _registeredTourists = new List<Tourist>();
+            _assignedGuide = new Guide();
+            //slike?
+        }
+
 
         public int ID
         {
@@ -135,14 +163,14 @@ namespace TouristAgency.Model
             }
         }
 
-        public DateOnly StartDate
+        public DateTime StartDateTime
         {
-            get => _startDate;
+            get => _startDateTime;
             set {
-                if (value != _startDate)
+                if (value != _startDateTime)
                 {
-                    _startDate = value;
-                    OnPropertyChanged("StartDate");
+                    _startDateTime = value;
+                    OnPropertyChanged("StartDateTime");
                 }
             }
         }
@@ -202,34 +230,6 @@ namespace TouristAgency.Model
             set => _photoLinks = value;
         }
 
-        public Tour()
-        {
-            _ID = -1;
-            //_maxAttendants = -1;
-            //_duration = -1;
-            _startDate = DateOnly.MinValue;
-            _checkpoints = new List<Checkpoint>();
-            _registeredTourists = new List<Tourist>();
-            _assignedGuide = new Guide();
-        }
-
-        public Tour(int id, string name, string description,Location location, string language, int maxAttendants, int duration, DateOnly startDate)
-        {
-            _ID = id;
-            _name = name;
-            _description = description;
-            _shortLocation = location;
-            _language = language;
-            _maxAttendants = maxAttendants;
-            _duration = duration;
-            _startDate = startDate;
-            _checkpoints = new List<Checkpoint>();
-            _registeredTourists = new List<Tourist>();
-            _assignedGuide = new Guide();
-            //slike?
-        }
-
-
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -241,7 +241,7 @@ namespace TouristAgency.Model
                 Language,
                 MaxAttendants.ToString(),
                 Duration.ToString(),
-                StartDate.ToString(),
+                StartDateTime.ToString(),
                 AssignedGuide.ID.ToString()
                 //Slike mozda u svoju klasu
             };
@@ -257,7 +257,7 @@ namespace TouristAgency.Model
             Language = values[4];
             MaxAttendants = Convert.ToInt32(values[5]);
             Duration = Convert.ToInt32(values[6]);
-            StartDate = DateOnly.Parse(values[7]);
+            StartDateTime = DateTime.Parse(values[7]);
             AssignedGuide.ID = Convert.ToInt32(values[8]);
         }
 

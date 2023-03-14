@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class Location : ISerializable
+    public class Location : ISerializable, INotifyPropertyChanged
     {
         private int _ID;
         private string _street;
@@ -15,6 +17,7 @@ namespace TouristAgency.Model
         private string _city;
         private string _country;
         private int _reservedAccommodationsNum = 0;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Location()
         {
@@ -66,6 +69,7 @@ namespace TouristAgency.Model
                 if (value != _street)
                 {
                     _street = value;
+                    OnPropertyChanged("Street");
                 }
             }
         }
@@ -78,6 +82,7 @@ namespace TouristAgency.Model
                 if (value != _streetNumber)
                 {
                     _streetNumber = value;
+                    OnPropertyChanged("StreetNumber");
                 }
             }
         }
@@ -90,6 +95,7 @@ namespace TouristAgency.Model
                 if (value != _city)
                 {
                     _city = value;
+                    OnPropertyChanged("City");
                 }
             }
         }
@@ -102,6 +108,7 @@ namespace TouristAgency.Model
                 if (value != _country)
                 {
                     _country = value;
+                    OnPropertyChanged("Country");
                 }
             }
         }
@@ -114,6 +121,23 @@ namespace TouristAgency.Model
                 {
                     _reservedAccommodationsNum = value;
                 }
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            Location newLocation = (Location)obj;
+            if (newLocation.Street == "" && newLocation.StreetNumber == "")
+            {
+                return this.City == newLocation.City && this.Country == newLocation.Country;
+            }
+            else
+            {
+                bool country = Country == newLocation.Country;
+                bool city = City == newLocation.City;
+                bool street = Street == newLocation.Street;
+                bool streetNum = StreetNumber == newLocation.StreetNumber;
+                return country && city && street && streetNum;
             }
         }
 
@@ -137,6 +161,19 @@ namespace TouristAgency.Model
             _streetNumber = values[2];
             _city = values[3];
             _country = values[4];
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
         }
     }
 }

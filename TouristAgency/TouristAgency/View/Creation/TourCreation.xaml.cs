@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Controller;
 using TouristAgency.Model;
 
 namespace TouristAgency.View.Creation
@@ -21,12 +22,33 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class TourCreation : Window
     {
-        private TourCreation newTour;
-        public TourCreation()
+        private TourController _tourController;
+        private CheckpointController _checkpointController;
+        private List<Checkpoint> _suitableCheckpoints;
+        private Tour _newTour;
+        private Location _newLocation;
+        public Tour NewTour
+        {
+            get => _newTour;
+            set => _newTour = value;
+        }
+
+        public Location NewLocation
+        {
+            get => _newLocation;
+            set => _newLocation = value;
+        }
+
+
+
+        public TourCreation(TourController _tourController, CheckpointController _checkpointController)
         {
             InitializeComponent();
-            Tour newTour = new Tour();
-            this.DataContext = newTour;
+            _newTour = new Tour();
+            _newLocation = new Location();
+            this._tourController = _tourController;
+            this._checkpointController = _checkpointController;
+            this.DataContext = this;
         }
     }
 }
