@@ -1,20 +1,33 @@
-﻿<Window x:Class="TouristAgency.View.Display.Tour"
+﻿<Window x:Class="TouristAgency.View.Display.TourDisplay"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Tour" Height="450" Width="610">
+        Title="Tour" Height="450" Width="610" Loaded="Window_Loaded">
     <Grid>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="55,180,55,24" Width="500" Height="230">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="245*"/>
+            <ColumnDefinition Width="173*"/>
+            <ColumnDefinition Width="165*"/>
+        </Grid.ColumnDefinitions>
+        <ListView ItemsSource="{Binding Path=Tours}" Margin="28,180,55,24" Width="500" Height="230" Grid.ColumnSpan="3" Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Path=Name}"></Label>
+                        <Label Content="{Binding Path=ShortLocation.City}"></Label>
+                        <Label Content="{Binding Path=ShortLocation.Country}"></Label>
+                        <Label Content="{Binding Path=Duration}"></Label>
+                        <Label Content="{Binding Path=Language}"></Label>
+                        <Label Content="{Binding Path=MaxAttendants}"></Label>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <GroupBox Header="Location" Margin="55,40,375,294" Width="180" Height="100">
+        <GroupBox Header="Location" Margin="28,40,37,294" Width="180" Height="100" Grid.Column="1">
             <Grid Height="64" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="54"></ColumnDefinition>
@@ -30,7 +43,7 @@
                 <ComboBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Additional filters" Height="130" Margin="258,26,138,278" Width="200">
+        <GroupBox Header="Additional filters" Height="130" Margin="238,26,145,278" Width="200" Grid.ColumnSpan="3" Grid.Column="1">
             <Grid Height="91" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -49,7 +62,7 @@
                 <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90"/>
             </Grid>
         </GroupBox>
-        <Button Content="Filter" HorizontalAlignment="Left" Margin="495,74,0,0" VerticalAlignment="Top" Width="60" Height="35"/>
+        <Button Content="Filter" HorizontalAlignment="Left" Margin="50,74,0,0" VerticalAlignment="Top" Width="60" Height="35" Click="Filter_Click" Grid.Column="3"/>
 
     </Grid>
 </Window>

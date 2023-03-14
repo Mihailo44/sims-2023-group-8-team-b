@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using TouristAgency.Controller;
 using TouristAgency.Test;
 using TouristAgency.View.Creation;
+using TouristAgency.View.Display;
 using TouristAgency.View.Home;
 
 namespace TouristAgency
@@ -44,6 +45,12 @@ namespace TouristAgency
         {
             TourCreation creation = new TourCreation(_tourController, _checkpointController);
             creation.Show();
+        }
+
+        private void TourDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            TourDisplay display = new TourDisplay();
+            display.Show();
         }
     }
 }
