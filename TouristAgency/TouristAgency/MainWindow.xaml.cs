@@ -27,6 +27,7 @@ namespace TouristAgency
     {
         private CheckpointController _checkpointController;
         private TourController _tourController;
+        private AccommodationController _accommodationController;
         public MainWindow()
         {
             InitializeComponent();
@@ -55,7 +56,7 @@ namespace TouristAgency
 
         private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationDisplay display = new AccommodationDisplay();
+            AccommodationDisplay display = new AccommodationDisplay(_accommodationController);
             display.Show();
         }
     }

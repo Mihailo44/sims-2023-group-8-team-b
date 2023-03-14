@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Controller;
+using TouristAgency.Model;
 
 namespace TouristAgency.View.Display
 {
@@ -19,9 +21,28 @@ namespace TouristAgency.View.Display
     /// </summary>
     public partial class AccommodationDisplay : Window
     {
-        public AccommodationDisplay()
+        private List<Accommodation> _accommodations;
+        private AccommodationController _accommodationController;
+
+        public List<Accommodation> Accommodations
         {
+            get => _accommodations;
+            set => _accommodations = value;
+        }
+        public AccommodationDisplay(AccommodationController accommodationController)
+        {
+            _accommodationController = accommodationController;
+            Accommodations = new List<Accommodation>();
             InitializeComponent();
+            DataContext = this;
+
+            Owner owner1 = new Owner("njutro", "njutro123", "Nikola", "Todic", new DateOnly(1990, 5, 6),
+                "njutro123@gmail.com", new Location("Pariz", "Francuska"), "851455");
+            Accommodation accommodation1 = new Accommodation("PartyHouse", owner1, new Location("Pariz", "Francuska"), TYPE.APARTMENT, 5, 2, 5);
+            Accommodations.Add(accommodation1);
+
+            //Accommodations = _accommodationController.GetAll();
+           
         }
 
        
