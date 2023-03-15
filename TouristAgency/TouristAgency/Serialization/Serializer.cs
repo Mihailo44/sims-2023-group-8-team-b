@@ -11,8 +11,11 @@ namespace TouristAgency.Serialization
     class Serializer<T> where T : ISerializable, new()
     {
         private static char DELIMITER = '|';
+        //TODO Napraviti metodu koja generise ovo, da ne bude dugacko
+        private static string path =  Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/Repository/Data/";
         public void ToCSV(string fileName, List<T> objects)
         {
+            fileName = path + fileName;
             StreamWriter streamWriter = new StreamWriter(fileName);
 
             foreach (ISerializable obj in objects)
@@ -26,7 +29,7 @@ namespace TouristAgency.Serialization
         public List<T> FromCSV(string fileName)
         {
             List<T> objects = new List<T>();
-
+            fileName = path + fileName;
             if (!File.Exists(fileName))
             {
                 FileStream fs = File.Create(fileName);

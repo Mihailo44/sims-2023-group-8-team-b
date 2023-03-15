@@ -26,10 +26,14 @@ namespace TouristAgency
     {
         private CheckpointController _checkpointController;
         private TourController _tourController;
+        private LocationController _locationController;
         public MainWindow()
         {
             InitializeComponent();
             _checkpointController = new CheckpointController();
+            _tourController = new TourController();
+            _locationController = new LocationController();
+            _checkpointController.BindLocations(_locationController.GetAll());
             TourTest test = new TourTest();
             test.scenarioA();
         }

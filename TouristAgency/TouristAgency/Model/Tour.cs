@@ -14,8 +14,8 @@ namespace TouristAgency.Model
         private int _ID;
         private string _name;
         private string _description;
-        //private string _location; // !
         private Location _shortLocation;
+        private int _shortLocationID; //TODO PROVERA DA LI POSTOJI
         private string _language;
         private int _maxAttendants;
         private int _duration;
@@ -101,18 +101,6 @@ namespace TouristAgency.Model
             }
         }
 
-        /*public string Location
-        {
-            get => _location;
-            set {
-                if (value != _location)
-                {
-                    _location = value;
-                    OnPropertyChanged("Location");
-                }
-            }
-        }*/
-
         public Location ShortLocation
         {
             get => _shortLocation;
@@ -123,6 +111,16 @@ namespace TouristAgency.Model
                     _shortLocation = value;
                     OnPropertyChanged("ShortLocation");
                 }
+            }
+        }
+
+        public int ShortLocationID
+        {
+            get { return _shortLocationID; }
+            set
+            {
+                _shortLocationID = value;
+                OnPropertyChanged("ShortLocationID");
             }
         }
 
@@ -237,12 +235,12 @@ namespace TouristAgency.Model
                 ID.ToString(),
                 Name,
                 Description,
-                ShortLocation.ToString(), //!
                 Language,
                 MaxAttendants.ToString(),
                 Duration.ToString(),
                 StartDateTime.ToString(),
-                AssignedGuide.ID.ToString()
+                AssignedGuide.ID.ToString(),
+                ShortLocationID.ToString()
                 //Slike mozda u svoju klasu
             };
             return csvValues;
@@ -253,12 +251,12 @@ namespace TouristAgency.Model
             ID = Convert.ToInt32(values[0]);
             Name = values[1];
             Description = values[2];
-            //ShortLocation = values[3];
-            Language = values[4];
-            MaxAttendants = Convert.ToInt32(values[5]);
-            Duration = Convert.ToInt32(values[6]);
-            StartDateTime = DateTime.Parse(values[7]);
-            AssignedGuide.ID = Convert.ToInt32(values[8]);
+            Language = values[3];
+            MaxAttendants = Convert.ToInt32(values[4]);
+            Duration = Convert.ToInt32(values[5]);
+            StartDateTime = DateTime.Parse(values[6]);
+            AssignedGuide.ID = Convert.ToInt32(values[7]);
+            ShortLocationID = Convert.ToInt32(values[8]);
         }
 
     }

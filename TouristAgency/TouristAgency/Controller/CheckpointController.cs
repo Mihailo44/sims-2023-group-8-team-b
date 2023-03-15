@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using TouristAgency.Interfaces;
 using TouristAgency.Model.DAO;
 using TouristAgency.Model;
@@ -23,9 +24,14 @@ namespace TouristAgency.Controller
             return _checkpoint.GetAll();
         }
 
+        public void BindLocations(List<Location> locations)
+        {
+            _checkpoint.BindLocations(locations);
+        }
+
         public List<Checkpoint> FindSuitableByLocation(Location location)
         {
-            return _checkpoint.GetAll().FindAll(c => c.Location.Equals(location));
+            return _checkpoint.FindSuitableByLocation(location);
         }
 
         public void Create(Checkpoint newCheckpoint)

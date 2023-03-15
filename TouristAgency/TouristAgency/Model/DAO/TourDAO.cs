@@ -23,7 +23,11 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
-            return _tours.Max(t => t.ID);
+            if (_tours.Count == 0)
+            {
+                return 0;
+            }
+            return _tours.Max(t => t.ID) + 1;
         }
 
         public Tour FindById(int id)

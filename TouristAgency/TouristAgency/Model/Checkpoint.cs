@@ -14,7 +14,7 @@ namespace TouristAgency.Model
         private string _attractionName;
         private bool _isVisited;
         private Location _location;
-        private int _addressID;
+        private int _locationID;
 
         public int ID
         {
@@ -64,14 +64,14 @@ namespace TouristAgency.Model
             }
         }
 
-        public int AddressID
+        public int LocationID
         {
-            get => _addressID;
+            get => _locationID;
             set
             {
-                if (value != _addressID)
+                if (value != _locationID)
                 {
-                    _addressID = value;
+                    _locationID = value;
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace TouristAgency.Model
                 _attractionName,
                 _isVisited.ToString(),
                 _tourID.ToString(),
-                _addressID.ToString()
+                _locationID.ToString()
             };
             return csvValues;
         }
@@ -125,7 +125,7 @@ namespace TouristAgency.Model
             _attractionName = values[1];
             _isVisited = Convert.ToBoolean(values[2]);
             _tourID = Convert.ToInt32(values[3]);
-            _addressID = Convert.ToInt32(values[4]);
+            _locationID = Convert.ToInt32(values[4]);
         }
     }
 }

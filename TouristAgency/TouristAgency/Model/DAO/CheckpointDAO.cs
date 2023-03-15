@@ -18,7 +18,7 @@ namespace TouristAgency.Model.DAO
         public CheckpointDAO()
         {
             _storage = new CheckpointStorage();
-            _checkpoints = new List<Checkpoint>();
+            _checkpoints = _storage.Load(); ;
             _observers = new List<IObserver>();
         }
 
@@ -30,6 +30,19 @@ namespace TouristAgency.Model.DAO
         public Checkpoint FindById(int id)
         {
             return _checkpoints.Find(c => c.ID == id);
+        }
+
+        public List<Checkpoint> FindSuitableByLocation(Location location)
+        {
+            List<Checkpoint> checkpoints = new List<Checkpoint>();
+            foreach (Checkpoint checkpoint in _checkpoints)
+            {
+                if (checkpoint.Location.Equals(location))
+                {
+                    checkpoints.Add(checkpoint);
+                }
+            }
+            return checkpoints;
         }
 
         public Checkpoint Create(Checkpoint newCheckpoint)
@@ -68,6 +81,20 @@ namespace TouristAgency.Model.DAO
         public List<Checkpoint> GetAll()
         {
             return _checkpoints;
+        }
+
+        public void BindLocations(List<Location> locations)
+        {
+            foreach (Location location in locations)
+            {
+                foreach (Checkpoint checkpoint in _checkpoints)
+                {
+                    if (checkpoint.LocationID == location.Id)
+                    {
+                        checkpoint.Location = new Location(location);
+                    }
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)
