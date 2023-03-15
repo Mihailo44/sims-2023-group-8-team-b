@@ -42,6 +42,7 @@ namespace TouristAgency
             _photoController = new PhotoController();
 
             _checkpointController.BindLocations(_locationController.GetAll());
+            _tourController.BindLocations(_locationController.GetAll());
             _photoController.BindTour(_tourController.GetAll());
             //_photoController.BindAccomodation(_accomodationController.GetAll());
             Console.WriteLine("Test");
@@ -61,7 +62,7 @@ namespace TouristAgency
 
         private void TourDisplay_Click(object sender, RoutedEventArgs e)
         {
-            TourDisplay display = new TourDisplay();
+            TourDisplay display = new TourDisplay(_tourController);
             display.Show();
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model.DAO;
 using TouristAgency.Model;
+using System.Collections.ObjectModel;
 
 namespace TouristAgency.Controller
 {
@@ -21,6 +22,16 @@ namespace TouristAgency.Controller
         public List<Tour> GetAll()
         {
             return _tour.GetAll();
+        }
+
+        public void BindLocations(List<Location> locations)
+        {
+            _tour.BindLocations(locations);
+        }
+
+        public ObservableCollection<string> GetAllCitites()
+        {
+            return new ObservableCollection<string>(_tour.GetAllCities());
         }
 
         public void Create(Tour newTour)

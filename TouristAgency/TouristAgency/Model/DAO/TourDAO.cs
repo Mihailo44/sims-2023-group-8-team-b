@@ -78,6 +78,36 @@ namespace TouristAgency.Model.DAO
             return _tours;
         }
 
+        public void BindLocations(List<Location> locations)
+        {
+            foreach (Location location in locations)
+            {
+                foreach (Tour tour in _tours)
+                {
+                    if (tour.ShortLocationID == location.Id)
+                    {
+                        tour.ShortLocation = new Location(location);
+                    }
+                }
+            }
+        }
+
+
+        public List<string> GetAllCities()
+        {
+            List<string> citites = new List<string>();
+
+            foreach(Tour tour in _tours) 
+            {
+                if(!citites.Contains(tour.ShortLocation.City) && tour.ShortLocation.City != "")
+                {
+                    citites.Add(tour.ShortLocation.City);
+                }
+            }
+
+            return citites;
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
