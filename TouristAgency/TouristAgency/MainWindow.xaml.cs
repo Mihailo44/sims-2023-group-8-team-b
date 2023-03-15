@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using TouristAgency.Controller;
 using TouristAgency.Test;
 using TouristAgency.View.Creation;
+using TouristAgency.View.Display;
 using TouristAgency.View.Home;
 
 namespace TouristAgency
@@ -26,6 +27,7 @@ namespace TouristAgency
     {
         private CheckpointController _checkpointController;
         private TourController _tourController;
+        private AccommodationController _accommodationController;
         private LocationController _locationController;
         public MainWindow()
         {
@@ -48,6 +50,18 @@ namespace TouristAgency
         {
             TourCreation creation = new TourCreation(_tourController, _checkpointController);
             creation.Show();
+        }
+
+        private void TourDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            TourDisplay display = new TourDisplay();
+            display.Show();
+        }
+
+        private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationDisplay display = new AccommodationDisplay(_accommodationController);
+            display.Show();
         }
     }
 }

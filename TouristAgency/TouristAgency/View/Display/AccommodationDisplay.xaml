@@ -8,12 +8,19 @@
         Title="AccommodationDisplay" Height="450" Width="800">
     <Grid>
         <ComboBox HorizontalAlignment="Left" Margin="619,93,0,0" VerticalAlignment="Top" Width="120"/>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="11,31,400,29" RenderTransformOrigin="0.509,0.477">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView ItemsSource="{Binding Path=Accommodations}" Margin="11,31,400,29" RenderTransformOrigin="0.509,0.477">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Path = Name}"></Label>
+                        <Label Content="{Binding Path = Location.City}"></Label>
+                        <Label Content="{Binding Path = Location.Country}"></Label>
+                        <Label Content="{Binding Path = Type}"></Label>
+                        <Label Content="{Binding Path = MaxGuestNum}"></Label>
+                        <Label Content ="{Binding Path = MinNumOfDays}"></Label>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="467,91,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.342,0.281"/>
         <Label Content="Customize:" HorizontalAlignment="Left" FontSize="25" FontWeight="SemiBold" Margin="536,31,0,0" VerticalAlignment="Top" Width="218" Height="39"/>

@@ -9,6 +9,8 @@
     <Grid>
         <Button Content="Owner" Margin="94,60,584,316" Click="Button_Click"/>
         <Button Content="TourCreation" Margin="94,283,610,93" Click="TourButton_Click"/>
+        <Button Content="TourDisplay" HorizontalAlignment="Left" Margin="529,341,0,0" VerticalAlignment="Top" Click="TourDisplay_Click"/>
+        <Button Content="AccommodationDisplay" HorizontalAlignment="Left" Margin="431,118,0,0" VerticalAlignment="Top" Width="163" Height="43" Click="AccommodationDisplay_Click"/>
 
     </Grid>
 </Window>
