@@ -23,6 +23,8 @@ namespace TouristAgency.View.Home
         public OwnerHome()
         {
             InitializeComponent();
+
+            //dodati ovde pozive fcija za loadovanje svih podataka u objekte
         }
 
         private void MenuNewAccommodation_Click(object sender, RoutedEventArgs e)

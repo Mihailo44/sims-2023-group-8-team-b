@@ -30,7 +30,7 @@ namespace TouristAgency.View.Creation
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
-        public Photo NewAccommodationPhotos { get; set; }
+        public string PhotoLinks { get; set; }
 
         public AccommodationCreation()
         {
@@ -47,28 +47,35 @@ namespace TouristAgency.View.Creation
 
             NewAccommodation = new();
             NewLocation = new();
-            NewAccommodationPhotos = new();
         }
 
         private void PrepareAccommodationForCreation()
         {
-            NewAccommodation.OwnerId = 0;
+            NewAccommodation.OwnerId = 0; // ovo treba menjati kad login bude funkcionalan
             NewAccommodation.Location = _locationController.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim());
             NewAccommodation.LocationId = _locationController.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
             NewAccommodation.Type = Enum.Parse<TYPE>(cbType.SelectedValue.ToString());
         }
 
+        private void AddPhotos()
+        {
+            PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+            string[] photoLinks = PhotoLinks.Split("|");
+            foreach (string photoLink in photoLinks)
+            {
+                Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
+                NewAccommodation.Photos.Add(photo);
+                _photoController.Create(photo);
+            }
+        }
+
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
         {
-
-            PrepareAccommodationForCreation();
-
             try
             {
+                PrepareAccommodationForCreation();
                 _controller.Create(NewAccommodation);
-                NewAccommodationPhotos.ExternalID = NewAccommodation.Id;
-                NewAccommodationPhotos.Type = 'A';
-                NewAccommodation.Photos.Add(_photoController.Create(NewAccommodationPhotos));
+                AddPhotos();
             }
             catch(Exception ex)
             {

@@ -5,51 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
-        Title="OwnerHome" Height="500" Width="750" WindowStartupLocation="CenterScreen">
+        Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <StackPanel Orientation="Vertical" Background="Blue">
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,410" Width="795">
-                <Menu Height="25" VerticalAlignment="Top" Margin="10,0,0,0" Background="BlanchedAlmond">
-                    <MenuItem Header="_File" Height="25">
-                        <MenuItem InputGestureText="Ctrl+N" Header="New">
-                            <MenuItem Header="Accommodation" Click="MenuNewAccommodation_Click"/>
-                            <MenuItem Header="Subject"/>
+        <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
+            <StackPanel Orientation="Horizontal" Height="35" Width="1000" Background="Blue">
+                <Menu Height="35" Width="1004" Background="BlanchedAlmond">
+                    <MenuItem Header="_File" Width="50" Height="35" Padding="10 0 0 0" FontSize="15">
+                        <MenuItem InputGestureText="Ctrl+N" Header="New" FontSize="15">
+                            <MenuItem Header="Accommodation" Click="MenuNewAccommodation_Click" FontSize="15"/>
                         </MenuItem>
-                        <MenuItem Header="Open">
-                            <MenuItem Header="Accommodations"/>
+                        <MenuItem Header="Open" FontSize="15">
+                            <MenuItem Header="Accommodations" FontSize="15"/>
                         </MenuItem>
                         <MenuItem x:Name="MenuItemExit" InputGestureText="Ctrl+C" Header="Close"/>
                     </MenuItem>
-                    <MenuItem Header="_Edit" Height="25">
-                        <MenuItem Header="Edit">
-                            <MenuItem Header="Reservation"/>
+                    <MenuItem Header="_Edit" Width="50" Height="35" Padding="10 0 0 0" FontSize="15">
+                        <MenuItem Header="Edit" FontSize="15">
+                            <MenuItem Header="Reservation" FontSize="15"/>
                         </MenuItem>
-                        <MenuItem Header="Delete"/>
+                        <MenuItem Header="Delete" FontSize="15"/>
                         <MenuItem x:Name="MenuBitanItem" Header="N.I.P." InputGestureText="Ctrl+Q" Visibility="Collapsed"/>
                     </MenuItem>
                 </Menu>
             </StackPanel>
-            <ToolBar Width="745" Height="35" Margin="0,-780,0,0">
-                <Button Width="70" Height="30" Content="Create" Margin="10,0,0,0" Click="Button_Click"/>
-                <Button Width="30" Height="25" Content="Edit"  Margin="10,0,0,0"/>
-                <Button Width="40" Height="25" Content="Delete"  Margin="10,0,0,0"/>
+            <ToolBar Width="1000" Height="40" Margin="0 0 0 35">
+                <Button Width="70" Height="35" Content="Create" Margin="10,0,0,0" Click="Button_Click" FontSize="15"/>
+                <Button Width="70" Height="35" Content="Edit"  Margin="10,0,0,0" FontSize="15"/>
+                <Button Width="70" Height="35" Content="Delete"  Margin="10,0,0,0" FontSize="15"/>
             </ToolBar>
-            
-            <TabControl x:Name="tbCtrl" Background="Aquamarine" Margin="0,-350,0,0">
-                <TabItem Header="Accommodations" Width="120" Height="25" FontSize="13">
-                    <DataGrid Height="285" FontSize="13">
+
+            <TabControl x:Name="tbCtrl" Background="Aquamarine">
+                <TabItem Header="Accommodations" Width="145" Height="30" FontSize="15">
+                    <DataGrid Height="550" FontSize="15">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="170" Header="First name"/>
-                            <DataGridTextColumn Width="170" Header="Last name"/>
-                            <DataGridTextColumn Width="170" Header="Title"/>
-                            <DataGridTextColumn Width="210" Header="Email"/>
+                            <DataGridTextColumn Width="*" Header="Name"/>
+                            <DataGridTextColumn Width="*" Header="City"/>
+                            <DataGridTextColumn Width="2*" Header="Guest"/>
+                            <DataGridTextColumn Width="2*" Header="Phone"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
             </TabControl>
-            <StatusBar Height="30">
+            <!--<StatusBar Height="30">
                 <Label x:Name="lblVreme" Width="140" FontSize="13" Margin="25,-3,0,0"/>
-            </StatusBar>
+            </StatusBar> -->
         </StackPanel>
     </Grid>
 </Window>
