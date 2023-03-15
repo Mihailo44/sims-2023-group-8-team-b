@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
-        Title="AccommodationCreation" Height="550" Width="600" WindowStartupLocation="CenterScreen">
+        Title="AccommodationCreation" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -27,24 +29,27 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Name" HorizontalAlignment="Center"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Country" HorizontalAlignment="Center"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="City" HorizontalAlignment="Center" />
-        <Label Grid.Row="4" Grid.Column="0" Content="Type" HorizontalAlignment="Center"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Max Number of Guests" HorizontalAlignment="Center"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" HorizontalAlignment="Center"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" HorizontalAlignment="Center"/>
-        <Label Grid.Row="9" Grid.Column="0" Content="Photos URL" HorizontalAlignment="Center"/>
-        <Button Grid.Row="11" Grid.Column="0" Content="REGISTER" Width="90" Height="40" Click="ButtonRegister_Click"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="City" FontSize="17" HorizontalAlignment="Center" />
+        <Label Grid.Row="4" Grid.Column="0" Content="Type" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Max Number of Guests" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="9" Grid.Column="0" Content="Photos URL" FontSize="17" HorizontalAlignment="Center"/>
+        <Button Grid.Row="12" Grid.Column="0" Grid.RowSpan="2" Content="REGISTER" Width="180" Height="80" FontSize="23" Click="ButtonRegister_Click"/>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewLocation.Country,UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewAccommodation.Type, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewAccommodation.MaxGuestNum,UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="7" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=NewAccommodation.AllowedNumOfDaysForCancelation}"/>
-        <TextBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Text="{Binding Path=NewAccommodationPhotos.Link,UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Grid.Row="11" Grid.Column="1" Content="CANCEL" Width="90" Height="40" Click="ButtonCancel_Click"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25" FontSize="17" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="25" FontSize="17" Text="{Binding Path=NewLocation.Country,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Width="250" Height="25" FontSize="17" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="250" Height="25" FontSize="17" Text="{Binding Path=NewAccommodation.Type, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="25" FontSize="17" Text="{Binding Path=NewAccommodation.MaxGuestNum,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="25" FontSize="17" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="7" Grid.Column="1" Width="250" Height="25" FontSize="17" Text="{Binding Path=NewAccommodation.AllowedNumOfDaysForCancelation}"/>
+        <TextBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Margin="0 0 15 0" FontSize="17" Text="{Binding Path=PhotoLinks,UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+            <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+        </TextBox>
+        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="180" Height="80" FontSize="23" Click="ButtonCancel_Click"/>
     </Grid>
 </Window>
