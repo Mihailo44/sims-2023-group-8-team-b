@@ -34,6 +34,11 @@ namespace TouristAgency.Model.DAO
             return _locations.Find(l => l.Id == id);
         }
 
+        public int FindLocationId(Location location)
+        {
+            return _locations.Find(l => l.Equals(location)).Id;
+        }
+
         public Location Create(Location newLocation)
         {
             newLocation.Id = GenerateId();

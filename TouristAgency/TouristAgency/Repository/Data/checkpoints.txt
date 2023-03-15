@@ -1,4 +1,4 @@
-0|Miletic|True|0|0
-1|Dunavski|False|0|1
-2|Petrovaradin|False|0|2
-2|Hram Svetog Save|True|0|3
+0|Miletic|True|0
+1|Dunavski|False|0
+2|Petrovaradin|False|0
+2|Hram Svetog Save|True|1

@@ -22,6 +22,10 @@ namespace TouristAgency.Model
         public Location()
         {
             _ID = -1;
+            _street = "";
+            _streetNumber = "";
+            _city = "";
+            _country = "";
         }
 
         public Location(string country, string city, string street = "", string streetNumber = "")
