@@ -58,17 +58,12 @@ namespace TouristAgency.Model.DAO
             return currentGuestReview;
         }
 
-        public GuestReview Delete(int id)
+        public void Delete(int id)
         {
             GuestReview guestReview = FindById(id);
-            if (guestReview == null)
-                return null;
-
             _guestReviews.Remove(guestReview);
             _storage.Save(_guestReviews);
             NotifyObservers();
-
-            return guestReview;
         }
 
         public List<GuestReview> GetAll()

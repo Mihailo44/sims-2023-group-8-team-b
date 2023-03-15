@@ -12,7 +12,7 @@ namespace TouristAgency.Interfaces
         T FindById(int id);
         T Create(T obj);
         T Update(T obj,int id);
-        T Delete(int id);
+        void Delete(int id);
         List<T> GetAll();
     }
 }

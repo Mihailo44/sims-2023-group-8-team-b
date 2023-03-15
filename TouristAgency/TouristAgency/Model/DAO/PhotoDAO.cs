@@ -17,12 +17,16 @@ namespace TouristAgency.Model.DAO
         public PhotoDAO()
         {
             _storage = new PhotoStorage();
-            _photos = new List<Photo>();
+            _photos = _storage.Load();
             _observers = new List<IObserver>();
         }
         public int GenerateId()
         {
-            return _photos.Max(p => p.ID);
+            if (_photos.Count == 0)
+            {
+                return 0;
+            }
+            return _photos.Max(p => p.ID) + 1;
         }
 
         public Photo FindById(int id)
@@ -52,22 +56,31 @@ namespace TouristAgency.Model.DAO
             return currentPhoto;
         }
 
-        public Photo Delete(int id)
+        public void Delete(int id)
         {
             Photo deletedPhoto = FindById(id);
-            if (deletedPhoto == null)
-            {
-                return null;
-            }
             _photos.Remove(deletedPhoto);
             _storage.Save(_photos);
             NotifyObservers();
-            return deletedPhoto; //TODO VOID
         }
 
         public List<Photo> GetAll()
         {
             return _photos;
+        }
+
+        public void BindTour(List<Tour> tours)
+        {
+            foreach (Tour tour in tours)
+            {
+                foreach (Photo photo in _photos)
+                {
+                    if (photo.ExternalID == tour.ID)
+                    {
+                        tour.Photos.Add(new Photo(photo));
+                    }
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

@@ -49,9 +49,19 @@ namespace TouristAgency.Controller
             _checkpoint.Delete(Checkpoint.ID);
         }
 
-        public void Subsribe(IObserver observer)
+        public void Subscribe(IObserver observer)
         {
             _checkpoint.Subscribe(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _checkpoint.Unsubscribe(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            _checkpoint.NotifyObservers();
         }
     }
 }

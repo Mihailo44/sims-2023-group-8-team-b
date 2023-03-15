@@ -61,17 +61,12 @@ namespace TouristAgency.Model.DAO
             return currentReservation;
         }
 
-        public Reservation Delete(int id)
+        public void Delete(int id)
         {
             Reservation reservation = FindById(id);
-            if (reservation == null)
-                return null;
-
             _reservations.Remove(reservation);
             _storage.Save(_reservations);
             NotifyObservers();
-
-            return reservation;
         }
 
         public List<Reservation> GetAll()

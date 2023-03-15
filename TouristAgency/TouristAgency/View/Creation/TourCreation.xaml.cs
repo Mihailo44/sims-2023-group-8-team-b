@@ -24,10 +24,12 @@ namespace TouristAgency.View.Creation
     {
         private TourController _tourController;
         private CheckpointController _checkpointController;
+        private PhotoController _photoController;
         private List<Checkpoint> _suitableCheckpoints;
         private List<Checkpoint> _selectedCheckpoints;
         private Tour _newTour;
         private Location _newLocation;
+        private string _photoLinks;
         public Tour NewTour
         {
             get => _newTour;
@@ -50,13 +52,20 @@ namespace TouristAgency.View.Creation
 
         }
 
-        public TourCreation(TourController _tourController, CheckpointController _checkpointController)
+        public string PhotoLinks
+        {
+            get => _photoLinks;
+            set => _photoLinks = value;
+        }
+
+        public TourCreation(TourController _tourController, CheckpointController _checkpointController, PhotoController _photoController)
         {
             InitializeComponent();
             NewTour = new Tour();
             NewLocation = new Location();
             this._tourController = _tourController;
             this._checkpointController = _checkpointController;
+            this._photoController = _photoController;
             _suitableCheckpoints = new List<Checkpoint>();
             _selectedCheckpoints = new List<Checkpoint>();
             this.DataContext = this;
@@ -94,7 +103,16 @@ namespace TouristAgency.View.Creation
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
+            //TODO Implementirati proveru da li postoji vec slika u PhotoDAO!
             _tourController.Create(_newTour);
+            PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+            string[] photoLinks = PhotoLinks.Split("|");
+            foreach (string photoLink in photoLinks)
+            {
+                Photo photo = new Photo(photoLink, 'T', _newTour.ID);
+                _newTour.Photos.Add(photo);
+                _photoController.Create(photo);
+            }
         }
     }
 }

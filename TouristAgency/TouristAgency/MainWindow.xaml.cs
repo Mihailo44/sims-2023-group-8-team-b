@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Controller;
+using TouristAgency.Model;
 using TouristAgency.Test;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
@@ -29,15 +30,21 @@ namespace TouristAgency
         private TourController _tourController;
         private AccommodationController _accommodationController;
         private LocationController _locationController;
+        private PhotoController _photoController;
+
         public MainWindow()
         {
             InitializeComponent();
             _checkpointController = new CheckpointController();
             _tourController = new TourController();
             _locationController = new LocationController();
+            _accommodationController = new AccommodationController();
+            _photoController = new PhotoController();
+
             _checkpointController.BindLocations(_locationController.GetAll());
-            TourTest test = new TourTest();
-            test.scenarioA();
+            _photoController.BindTour(_tourController.GetAll());
+            //_photoController.BindAccomodation(_accomodationController.GetAll());
+            Console.WriteLine("Test");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -48,7 +55,7 @@ namespace TouristAgency
 
         private void TourButton_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation creation = new TourCreation(_tourController, _checkpointController);
+            TourCreation creation = new TourCreation(_tourController, _checkpointController, _photoController);
             creation.Show();
         }
 

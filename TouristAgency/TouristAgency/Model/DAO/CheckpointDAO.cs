@@ -24,6 +24,10 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
+            if (_checkpoints.Count == 0)
+            {
+                return 0;
+            }
             return _checkpoints.Max(c => c.ID) + 1;
         }
 
@@ -67,15 +71,10 @@ namespace TouristAgency.Model.DAO
             return currentCheckpoint;
         }
 
-        public Checkpoint Delete(int id)
+        public void Delete(int id)
         {
             Checkpoint currentCheckpoint = FindById(id);
-            if (currentCheckpoint == null)
-            {
-                return null;
-            }
             _checkpoints.Remove(currentCheckpoint);
-            return currentCheckpoint; //TODO skloni
         }
 
         public List<Checkpoint> GetAll()

@@ -38,9 +38,19 @@ namespace TouristAgency.Controller
             _tour.Delete(Tour.ID);
         }
 
-        public void Subsribe(IObserver observer)
+        public void Subscribe(IObserver observer)
         {
             _tour.Subscribe(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            _tour.Unsubscribe(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            _tour.NotifyObservers();
         }
     }
 }

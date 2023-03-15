@@ -38,9 +38,9 @@ namespace TouristAgency.Controller
             return _guest.Update(newGuest, id);
         }
 
-        public Guest Delete(int id)
+        public void Delete(int id)
         {
-            return _guest.Delete(id);
+            _guest.Delete(id);
         }
 
         public List<Guest> GetAll()

@@ -62,19 +62,12 @@ namespace TouristAgency.Model.DAO
 
         }
 
-        public Accommodation Delete(int id)
+        public void Delete(int id)
         {
             Accommodation accommodation = FindById(id);
-
-            if(accommodation == null)
-                return null;
-
             _accommodations.Remove(accommodation);
             _storage.Save(_accommodations);
             NotifyObservers();
-
-            return accommodation;
-            
         }
 
         public List<Accommodation> GetAll()

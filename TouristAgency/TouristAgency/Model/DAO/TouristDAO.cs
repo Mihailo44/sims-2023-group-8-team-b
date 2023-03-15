@@ -17,13 +17,13 @@ namespace TouristAgency.Model.DAO
         public TouristDAO()
         {
             _storage = new TouristStorage();
-            _tourists = new List<Tourist>();
+            _tourists = _storage.Load();
             _observers = new List<IObserver>();
         }
 
         public int GenerateId()
         {
-            return _tourists.Max(t => t.ID);
+            return _tourists.Max(t => t.ID) + 1;
         }
 
         public Tourist FindById(int id)
@@ -62,20 +62,12 @@ namespace TouristAgency.Model.DAO
             return currentTourist;
         }
 
-        public Tourist Delete(int id)
+        public void Delete(int id)
         {
             Tourist deletedTourist = FindById(id);
-
-            if (deletedTourist == null)
-            {
-                return null;
-            }
-
             _tourists.Remove(deletedTourist);
             _storage.Save(_tourists);
             NotifyObservers();
-
-            return deletedTourist; //TODO VOID
         }
 
         public List<Tourist> GetAll()

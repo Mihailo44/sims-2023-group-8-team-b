@@ -105,7 +105,7 @@
                 <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration}"></xctk:IntegerUpDown>
 
                 <Label Grid.Column="0" Grid.Row="2">Pictures (URLs):</Label>
-                <TextBox Grid.Column="1" Grid.Row="2" Height="80">
+                <TextBox Grid.Column="1" Grid.Row="2" Height="80" Text="{Binding PhotoLinks}">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>

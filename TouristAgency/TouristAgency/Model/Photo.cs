@@ -25,6 +25,14 @@ namespace TouristAgency.Model
             _externalID = externalID;
         }
 
+        public Photo(Photo originalPhoto)
+        {
+            _ID = originalPhoto.ID;
+            _link = originalPhoto.Link;
+            _type = originalPhoto.Type;
+            _externalID = originalPhoto.ExternalID;
+        }
+
         public int ID
         {
             get => _ID;
@@ -90,7 +98,7 @@ namespace TouristAgency.Model
             _ID = Convert.ToInt32(values[0]);
             _link = values[1];
             _type = Convert.ToChar(values[2]);
-            _externalID = Convert.ToChar(values[3]);
+            _externalID = Convert.ToInt32(values[3]);
         }
     }
 }

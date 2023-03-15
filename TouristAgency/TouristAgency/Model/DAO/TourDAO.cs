@@ -17,7 +17,7 @@ namespace TouristAgency.Model.DAO
         public TourDAO()
         {
             _storage = new TourStorage();
-            _tours = new List<Tour>();
+            _tours = _storage.Load();
             _observers = new List<IObserver>();
         }
 
@@ -65,17 +65,12 @@ namespace TouristAgency.Model.DAO
             return currentTour;
         }
 
-        public Tour Delete(int id)
+        public void Delete(int id)
         {
             Tour deletedTour = FindById(id);
-            if (deletedTour == null)
-            {
-                return null;
-            }
             _tours.Remove(deletedTour);
             _storage.Save(_tours);
             NotifyObservers();
-            return deletedTour; //TODO VOID
         }
 
         public List<Tour> GetAll()

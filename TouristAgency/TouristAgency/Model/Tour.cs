@@ -24,8 +24,7 @@ namespace TouristAgency.Model
         private List<Tourist> _registeredTourists;
         private Guide _assignedGuide;
         private int _assignedGuideID;
-
-        private List<String> _photoLinks;
+        private List<Photo> _photos;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -45,6 +44,7 @@ namespace TouristAgency.Model
             _registeredTourists = new List<Tourist>();
             _assignedGuide = new Guide();
             _shortLocation = new Location();
+            _photos = new List<Photo>();
         }
 
         public Tour(int id, string name, string description, Location location, string language, int maxAttendants, int duration, DateTime startDateTime)
@@ -222,10 +222,16 @@ namespace TouristAgency.Model
             }
         }
 
-        public List<String> PhotoLinks
+        public List<Photo> Photos
         {
-            get => _photoLinks;
-            set => _photoLinks = value;
+            get => _photos;
+            set
+            {
+                if (value != _photos)
+                {
+                    _photos = value;
+                }
+            }
         }
 
         public string[] ToCSV()

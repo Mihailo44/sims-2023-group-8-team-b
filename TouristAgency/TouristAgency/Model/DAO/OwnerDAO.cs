@@ -63,18 +63,12 @@ namespace TouristAgency.Model.DAO
             return currentOwner;
         }
 
-        public Owner Delete(int id)
+        public void Delete(int id)
         {
             Owner owner = FindById(id);
-
-            if (owner == null)
-                return null;
-
             _owners.Remove(owner);
             _storage.Save(_owners);
             NotifyObservers();
-
-            return owner;
         }
 
         public List<Owner> GetAll()

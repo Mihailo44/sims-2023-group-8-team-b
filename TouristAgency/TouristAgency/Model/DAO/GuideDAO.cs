@@ -17,12 +17,12 @@ namespace TouristAgency.Model.DAO
         public GuideDAO()
         {
             _storage = new GuideStorage();
-            _guides = new List<Guide>();
+            _guides = _storage.Load();
             _observers = new List<IObserver>();
         }
         public int GenerateId()
         {
-            return _guides.Max(g => g.ID);
+            return _guides.Max(g => g.ID) + 1;
         }
 
         public Guide FindById(int id)
@@ -58,17 +58,12 @@ namespace TouristAgency.Model.DAO
             return currentGuide;
         }
 
-        public Guide Delete(int id)
+        public void Delete(int id)
         {
             Guide deletedGuide = FindById(id);
-            if (deletedGuide == null)
-            {
-                return null;
-            }
             _guides.Remove(deletedGuide);
             _storage.Save(_guides);
             NotifyObservers();
-            return deletedGuide; //TODO VOID
         }
 
         public List<Guide> GetAll()

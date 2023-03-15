@@ -17,7 +17,7 @@ namespace TouristAgency.Model.DAO
         public TourTouristDAO()
         {
             _storage = new TourTouristStorage();
-            _tourtourist = new List<TourTourist>();
+            _tourtourist = _storage.Load();
             _observers = new List<IObserver>();
         }
 

@@ -54,17 +54,12 @@ namespace TouristAgency.Model.DAO
             return newLocation;
         }
 
-        public Location Delete(int id)
+        public void Delete(int id)
         {
             Location location = FindById(id);
-            if (location == null)
-                return null;
-
             _locations.Remove(location);
             _storage.Save(_locations);
             NotifyObservers();
-
-            return location;
         }
 
         public List<Location> GetAll()
