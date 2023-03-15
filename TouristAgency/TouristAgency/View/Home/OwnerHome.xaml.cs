@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.View.Creation;
 
 namespace TouristAgency.View.Home
 {
@@ -22,6 +23,18 @@ namespace TouristAgency.View.Home
         public OwnerHome()
         {
             InitializeComponent();
+        }
+
+        private void MenuNewAccommodation_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationCreation x = new AccommodationCreation();
+            x.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AccommodationCreation x = new AccommodationCreation();
+            x.Show();
         }
     }
 }

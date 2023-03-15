@@ -23,7 +23,7 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
-            return _guestReviews.Max(g => g.Id) + 1;
+            return (_guestReviews.Count == 0) ? 0 : _guestReviews.Max(g => g.Id) + 1; 
         }
 
         public GuestReview FindById(int id)

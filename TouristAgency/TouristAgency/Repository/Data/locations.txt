@@ -1,4 +1,8 @@
 0|Dusana Danilovica|38|Novi Sad|Srbija
 1|Dusana Danilovica|38|Novi Sad|Srbija
 2|Dusana Danilovica|38|Novi Sad|Srbija
-3|||Beograd|Srbija|
+3|||Beograd|Srbija
+4|||Nis|Srbija
+5|||Kraljevo|Srbija
+6|||Subotica|Srbija
+7|||Madrid|Spanija

@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="OwnerHome" Height="500" Width="750" WindowStartupLocation="CenterScreen">
     <Grid>
-        <StackPanel Orientation="Vertical" Background="Blue" Margin="0,0,0,-20">
+        <StackPanel Orientation="Vertical" Background="Blue">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,410" Width="795">
                 <Menu Height="25" VerticalAlignment="Top" Margin="10,0,0,0" Background="BlanchedAlmond">
                     <MenuItem Header="_File" Height="25">
                         <MenuItem InputGestureText="Ctrl+N" Header="New">
-                            <MenuItem Header="Accommodation"/>
+                            <MenuItem Header="Accommodation" Click="MenuNewAccommodation_Click"/>
                             <MenuItem Header="Subject"/>
                         </MenuItem>
                         <MenuItem Header="Open">
@@ -30,13 +30,9 @@
                 </Menu>
             </StackPanel>
             <ToolBar Width="745" Height="35" Margin="0,-780,0,0">
-                <Button Width="40" Height="25" Content="Create" Margin="10,0,0,0"/>
+                <Button Width="70" Height="30" Content="Create" Margin="10,0,0,0" Click="Button_Click"/>
                 <Button Width="30" Height="25" Content="Edit"  Margin="10,0,0,0"/>
                 <Button Width="40" Height="25" Content="Delete"  Margin="10,0,0,0"/>
-
-                <TextBox TextWrapping="Wrap" FlowDirection="LeftToRight"  Width="165" BorderBrush="DarkGray" Background="BlanchedAlmond" HorizontalAlignment="Right" Margin="300,0,20,0"
-                         Text="{Binding Path=SearchBox,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Width="80" Height="25" Content="Search"/>
             </ToolBar>
             
             <TabControl x:Name="tbCtrl" Background="Aquamarine" Margin="0,-350,0,0">
@@ -44,9 +40,9 @@
                     <DataGrid Height="285" FontSize="13">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="170" Header="First name"/>
-                            <DataGridTextColumn Width="170" Header="Last name" Binding="{Binding Prezime, Mode=OneTime}"/>
-                            <DataGridTextColumn Width="170" Header="Title" Binding="{Binding Zvanje, Mode=OneTime}"/>
-                            <DataGridTextColumn Width="210" Header="Email" Binding="{Binding Email, Mode=OneTime}"/>
+                            <DataGridTextColumn Width="170" Header="Last name"/>
+                            <DataGridTextColumn Width="170" Header="Title"/>
+                            <DataGridTextColumn Width="210" Header="Email"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

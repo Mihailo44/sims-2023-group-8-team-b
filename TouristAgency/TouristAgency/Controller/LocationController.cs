@@ -38,6 +38,11 @@ namespace TouristAgency.Controller
             _location.Delete(location.Id);
         }
 
+        public Location FindByCountryAndCity(string country,string city)
+        {
+            return _location.FindByCountryAndCity(country, city);
+        }
+
         public void Subsribe(IObserver observer)
         {
             _location.Subscribe(observer);
