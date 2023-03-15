@@ -23,7 +23,10 @@ namespace TouristAgency.Model.DAO
        
         public int GenerateId()
         {
-            return _owners.Max(o => o.ID) + 1;
+            if(_owners.Count == 0)
+                return 0;
+            else
+                return _owners.Max(o => o.ID) + 1;
         }
 
         public Owner FindById(int id)

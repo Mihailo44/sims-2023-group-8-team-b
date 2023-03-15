@@ -24,7 +24,7 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
-            return _reservations.Max(r => r.Id) + 1;
+            return (_reservations.Count == 0) ? 0: _reservations.Max(r => r.Id) + 1;
         }
 
         public Reservation FindById(int id)

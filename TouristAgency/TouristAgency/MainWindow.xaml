@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Owner" Margin="94,60,584,316" Click="Button_Click"/>
-        <Button Content="TourCreation" Margin="94,283,610,93" Click="TourButton_Click"/>
-        <Button Content="TourDisplay" HorizontalAlignment="Left" Margin="529,341,0,0" VerticalAlignment="Top" Click="TourDisplay_Click"/>
-        <Button Content="AccommodationDisplay" HorizontalAlignment="Left" Margin="431,118,0,0" VerticalAlignment="Top" Width="163" Height="43" Click="AccommodationDisplay_Click"/>
+        <Button Content="Owner" Margin="137,78,486,276" Click="Button_Click"/>
+        <Button Content="TourCreation" Margin="137,273,486,83" Click="TourButton_Click"/>
+        <Button Content="TourDisplay" HorizontalAlignment="Left" Margin="449,273,0,0" VerticalAlignment="Top" Click="TourDisplay_Click" Height="88" Width="145"/>
+        <Button Content="AccommodationDisplay" HorizontalAlignment="Left" Margin="431,75,0,0" VerticalAlignment="Top" Width="163" Height="86" Click="AccommodationDisplay_Click"/>
 
     </Grid>
 </Window>
