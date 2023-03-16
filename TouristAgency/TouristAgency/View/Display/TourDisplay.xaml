@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Tour" Height="450" Width="610" Loaded="Window_Loaded">
     
-    <Grid Height="420" HorizontalAlignment="Center">
+    <Grid Height="420" HorizontalAlignment="Center" Margin="0,25,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="175"></ColumnDefinition>
             <ColumnDefinition Width="175"></ColumnDefinition>
@@ -15,7 +15,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="270"></RowDefinition>
-            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -62,6 +61,27 @@
                 <Label Grid.Row="4" Grid.Column="0" Content="Max capacity:" Height="26"/>
                 <ComboBox Grid.Row="4" Grid.Column="1" Width="100" Height="27"/>
                 <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply filter" Width="100" Height="30" Click="Filter_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="80" VerticalAlignment="Top" Margin="0,15,0,0">
+            <GroupBox.Header>
+                <Label Content="Reservation" FontSize="18"></Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Content="Number of reservations:" Height="26"/>
+                <ComboBox Grid.Column="1" Width="100" Height="27" HorizontalAlignment="Left"/>
+                <Button Grid.Column="2" Content="Make a reservation" Width="110" Height="30"/>
+                <Button Grid.Column="3" Content="Cancel reservation" Width="110" Height="30"/>
             </Grid>
 
         </GroupBox>
