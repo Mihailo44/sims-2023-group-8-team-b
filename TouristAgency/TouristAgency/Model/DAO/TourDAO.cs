@@ -78,7 +78,7 @@ namespace TouristAgency.Model.DAO
             return _tours;
         }
 
-        public void BindLocations(List<Location> locations)
+        public void LoadLocationsToTours(List<Location> locations)
         {
             foreach (Location location in locations)
             {

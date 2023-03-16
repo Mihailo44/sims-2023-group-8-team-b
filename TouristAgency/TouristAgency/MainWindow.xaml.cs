@@ -42,11 +42,9 @@ namespace TouristAgency
             _photoController = new PhotoController();
             _tourCheckpointController = new TourCheckpointController();
 
-            _checkpointController.BindLocations(_locationController.GetAll());
-            _tourController.BindLocations(_locationController.GetAll());
-            _photoController.BindTour(_tourController.GetAll());
-            //_photoController.BindAccomodation(_accomodationController.GetAll());
-            Console.WriteLine("Test");
+            _checkpointController.LoadLocationsToCheckpoints(_locationController.GetAll());
+            _tourController.LoadLocationsToTours(_locationController.GetAll());
+            _photoController.LoadToursToPhotos(_tourController.GetAll());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
