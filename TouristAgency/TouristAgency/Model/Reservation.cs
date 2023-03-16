@@ -8,6 +8,8 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
+    public enum REVIEW_STATUS { REVIEWED,UNREVIEWED,EXPIRED}
+
     public class Reservation : ISerializable
     {
         private int _id;
@@ -19,12 +21,14 @@ namespace TouristAgency.Model
         private DateTime _end;
         private bool _canceled;
         private bool _postponed;
+        private REVIEW_STATUS _status;
 
         public Reservation()
         {
             _id = -1;
             _canceled = false;
             _postponed = false;
+            _status = REVIEW_STATUS.UNREVIEWED;
         }
 
         public Reservation(Guest guest, Accommodation accommodation, DateTime start, DateTime end)
@@ -37,6 +41,7 @@ namespace TouristAgency.Model
             _end = end;
             _canceled = false;
             _postponed = false;
+            _status = REVIEW_STATUS.UNREVIEWED;
         }
         
         public int Id
@@ -147,6 +152,18 @@ namespace TouristAgency.Model
             }
         }
 
+        public REVIEW_STATUS Status
+        {
+            get => _status;
+            set
+            {
+                if(_status != value)
+                {
+                    _status = value;
+                }
+            }
+        }
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
@@ -154,6 +171,7 @@ namespace TouristAgency.Model
             AccommodationId = int.Parse(values[2]);
             Start = DateTime.Parse(values[3]);
             End = DateTime.Parse(values[4]);
+            Status = Enum.Parse<REVIEW_STATUS>(values[5]);
         }
 
         public string[] ToCSV()
@@ -164,7 +182,8 @@ namespace TouristAgency.Model
                 GuestId.ToString(),
                 AccommodationId.ToString(),
                 Start.ToString(),
-                End.ToString()
+                End.ToString(),
+                Status.ToString()
             };
 
             return csvValues;

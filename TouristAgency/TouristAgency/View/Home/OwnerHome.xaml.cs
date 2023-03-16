@@ -1,28 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using TouristAgency.View.Creation;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using TouristAgency.Controller;
-using TouristAgency.Model;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
+using TouristAgency.View.Creation;
 
 namespace TouristAgency.View.Home
 {
     /// <summary>
     /// Interaction logic for OwnerHome.xaml
     /// </summary>
-    public partial class OwnerHome : Window,IObserver
+    public partial class OwnerHome : Window, IObserver
     {
         private ReservationController _reservationController;
         private AccommodationController _accommodationController;
@@ -50,16 +42,42 @@ namespace TouristAgency.View.Home
 
             Reservations = new ObservableCollection<Reservation>();
             LoadReservations();
+            ReviewNotification();
         }
 
         private void LoadReservations() //ovde ce ici parametar owner id, ili sta vec
         {
             Reservations.Clear();
             List<Reservation> reservations = _reservationController.GetAll().Where(r => r.Accommodation.OwnerId == 0).ToList();//magican broj
-            foreach(var reservation in reservations)
+            foreach (var reservation in reservations)
             {
                 Reservations.Add(reservation);
             }
+        }
+
+        private void ReviewNotification()
+        {
+            DateTime today = DateTime.UtcNow.Date;
+
+            string notification = "Unreviewed guests:\n";
+            double dateDif = 0;
+
+            foreach (var reservation in _reservationController.GetUnreviewed())
+            {
+                dateDif = (today - reservation.End).TotalDays;
+
+                if (dateDif < 5.0)
+                {
+                    notification += $"{reservation.Accommodation.Name} {reservation.End}\n";
+                }
+                else
+                {
+                    reservation.Status = REVIEW_STATUS.EXPIRED;
+                    _reservationController.Update(reservation,reservation.Id);
+                }
+            }
+
+            MessageBox.Show(notification);
         }
 
         public void Update()
@@ -81,8 +99,8 @@ namespace TouristAgency.View.Home
 
         private void DataGridReservations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DateTime now = DateTime.UtcNow.Date;
-            double dateDif = (now - SelectedReservation.End).TotalDays;
+            DateTime today = DateTime.UtcNow.Date;
+            double dateDif = (today - SelectedReservation.End).TotalDays;
 
             if (dateDif > 5.0)
             {
@@ -90,7 +108,7 @@ namespace TouristAgency.View.Home
             }
             else
             {
-                GuestReviewCreation x = new GuestReviewCreation(SelectedReservation);
+                GuestReviewCreation x = new GuestReviewCreation(SelectedReservation,_reservationController);
                 x.Show();
             }
         }

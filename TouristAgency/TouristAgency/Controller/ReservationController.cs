@@ -48,6 +48,11 @@ namespace TouristAgency.Controller
             _reservation.LoadGuestsToReservations(guests);
         }
 
+        public List<Reservation> GetUnreviewed()
+        {
+             return _reservation.GetUnreviewed();
+        }
+
         public void Subcribe(IObserver observer)
         {
             _reservation.Subscribe(observer);
