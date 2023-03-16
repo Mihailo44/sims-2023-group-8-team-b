@@ -15,8 +15,8 @@ namespace TouristAgency.Model
         private int _guestId;
         private Accommodation _accommodation;
         private int _accommodationId;
-        private DateOnly _start;
-        private DateOnly _end;
+        private DateTime _start;
+        private DateTime _end;
         private bool _canceled;
         private bool _postponed;
 
@@ -27,7 +27,7 @@ namespace TouristAgency.Model
             _postponed = false;
         }
 
-        public Reservation(Guest guest, Accommodation accommodation, DateOnly start, DateOnly end)
+        public Reservation(Guest guest, Accommodation accommodation, DateTime start, DateTime end)
         {
             _guest = guest;
             _guestId = guest.ID;
@@ -99,7 +99,7 @@ namespace TouristAgency.Model
             }
         }
 
-        public DateOnly Start
+        public DateTime Start
         {
             get => _start;
             set
@@ -111,7 +111,7 @@ namespace TouristAgency.Model
             }
         }
 
-        public DateOnly End
+        public DateTime End
         {
             get => _end;
             set
@@ -152,8 +152,8 @@ namespace TouristAgency.Model
             Id = int.Parse(values[0]);
             GuestId = int.Parse(values[1]);
             AccommodationId = int.Parse(values[2]);
-            Start = DateOnly.Parse(values[3]);
-            End = DateOnly.Parse(values[4]);
+            Start = DateTime.Parse(values[3]);
+            End = DateTime.Parse(values[4]);
         }
 
         public string[] ToCSV()

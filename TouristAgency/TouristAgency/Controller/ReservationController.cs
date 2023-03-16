@@ -38,6 +38,16 @@ namespace TouristAgency.Controller
             _reservation.Delete(reservation.Id);
         }
 
+        public void LoadAccommodationsToReservations(List<Accommodation> accommodations)
+        {
+            _reservation.LoadAccommodationsToReservations(accommodations);
+        }
+
+        public void LoadGuestsToReservations(List<Guest> guests)
+        {
+            _reservation.LoadGuestsToReservations(guests);
+        }
+
         public void Subcribe(IObserver observer)
         {
             _reservation.Subscribe(observer);
