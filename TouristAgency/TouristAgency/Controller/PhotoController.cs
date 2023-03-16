@@ -48,9 +48,9 @@ namespace TouristAgency.Controller
             return _photo.GetAll();
         }
 
-        public void BindTour(List<Tour> tours)
+        public void LoadToursToPhotos(List<Tour> tours)
         {
-            _photo.BindTour(tours);
+            _photo.LoadToursToPhotos(tours);
         }
 
         public void Subscribe(IObserver observer)

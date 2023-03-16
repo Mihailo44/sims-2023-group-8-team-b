@@ -11,17 +11,23 @@ namespace TouristAgency.Model
     {
         private int _tourID;
         private int _checkpointID;
+        private bool _isVisited;
+        private List<Tourist> _arrivedTourists;
 
         public TourCheckpoint()
         {
             _tourID = -1;
             _checkpointID = -1;
+            _isVisited = false;
+            _arrivedTourists = new List<Tourist>();
         }
 
-        public TourCheckpoint(int tourID, int checkpointID)
+        public TourCheckpoint(int tourID, int checkpointID, bool isVisited)
         {
             _tourID = tourID;
             _checkpointID = checkpointID;
+            _isVisited = isVisited;
+            _arrivedTourists = new List<Tourist>();
         }
 
         public int TourID
@@ -36,12 +42,19 @@ namespace TouristAgency.Model
             set => _checkpointID = value;
         }
 
+        public bool IsVisited
+        {
+            get => _isVisited;
+            set => _isVisited = value;
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues =
             {
                 _tourID.ToString(),
-                _checkpointID.ToString()
+                _checkpointID.ToString(),
+                _isVisited.ToString()
             };
             return csvValues;
         }
@@ -50,6 +63,7 @@ namespace TouristAgency.Model
         {
             _tourID = int.Parse(values[0]);
             _checkpointID = int.Parse(values[1]);
+            _isVisited = Boolean.Parse(values[2]);
         }
     }
 }

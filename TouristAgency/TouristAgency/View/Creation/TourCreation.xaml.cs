@@ -103,6 +103,7 @@ namespace TouristAgency.View.Creation
 
         private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
+            SelectedCheckpoints = new ObservableCollection<Checkpoint>();
             if (NewLocation.Country != "" && NewLocation.City != "")
             {
                 LoadCheckpoints();
@@ -113,9 +114,9 @@ namespace TouristAgency.View.Creation
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoDAO!
             PrepareLocation();
-            _tourController.Create(_newTour);
+            _tourController.Create(new Tour(_newTour));
             AddPhotos();
-            BindCheckpointAndTour();
+            LoadToursToCheckpoints();
             PrepareLocation();
         }
 
@@ -135,21 +136,30 @@ namespace TouristAgency.View.Creation
 
         private void AddPhotos()
         {
+            int tourID = _tourController.GenerateID() - 1;
             PhotoLinks = PhotoLinks.Replace("\r\n", "|");
             string[] photoLinks = PhotoLinks.Split("|");
             foreach (string photoLink in photoLinks)
             {
-                Photo photo = new Photo(photoLink, 'T', _newTour.ID);
+                Photo photo = new Photo(photoLink, 'T', tourID);
                 _newTour.Photos.Add(photo);
                 _photoController.Create(photo);
             }
         }
 
-        private void BindCheckpointAndTour()
+        private void LoadToursToCheckpoints()
         {
+            int tourID = _tourController.GenerateID() - 1;
+            int i = 0;
+            bool firstVisit = true;
             foreach (Checkpoint checkpoint in SelectedCheckpoints)
             {
-                _tourCheckpointController.Create(new TourCheckpoint(_newTour.ID,checkpoint.ID));
+                if (i != 0)
+                {
+                    firstVisit = false;
+                }
+                _tourCheckpointController.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
+                i++;
             }
         }
 
@@ -163,7 +173,10 @@ namespace TouristAgency.View.Creation
         {
             foreach (Checkpoint checkpoint in AvailableListView.SelectedItems)
             {
-                SelectedCheckpoints.Add(checkpoint);
+                if (!SelectedCheckpoints.Contains(checkpoint))
+                {
+                    SelectedCheckpoints.Add(checkpoint);
+                }
             }
         }
 

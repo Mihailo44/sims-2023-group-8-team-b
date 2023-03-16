@@ -19,14 +19,19 @@ namespace TouristAgency.Controller
             _tour = new TourDAO();
         }
 
+        public int GenerateID()
+        {
+            return _tour.GenerateId();
+        }
+
         public List<Tour> GetAll()
         {
             return _tour.GetAll();
         }
 
-        public void BindLocations(List<Location> locations)
+        public void LoadLocationsToTours(List<Location> locations)
         {
-            _tour.BindLocations(locations);
+            _tour.LoadLocationsToTours(locations);
         }
 
         public ObservableCollection<string> GetAllCountires()
