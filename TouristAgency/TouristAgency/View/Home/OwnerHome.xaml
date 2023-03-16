@@ -29,7 +29,7 @@
                 </Menu>
             </StackPanel>
             <ToolBar Width="1000" Height="40" Margin="0,0,0,35">
-                <Button Width="70" Height="35" Content="Create" Margin="10,0,0,0" Click="Button_Click" FontSize="15"/>
+                <Button Width="70" Height="35" Content="Create" Margin="10,0,0,0" Click="ToolBarCreate_Click" FontSize="15"/>
                 <Button Width="70" Height="35" Content="Edit"  Margin="10,0,0,0" FontSize="15"/>
                 <Button Width="70" Height="35" Content="Delete"  Margin="10,0,0,0" FontSize="15"/>
             </ToolBar>
@@ -42,6 +42,18 @@
                             <DataGridTextColumn Width="*" Header="City"/>
                             <DataGridTextColumn Width="2*" Header="Guest"/>
                             <DataGridTextColumn Width="2*" Header="Phone"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Reservations" Width="145" Height="30" FontSize="15">
+                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
+                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation,UpdateSourceTrigger=PropertyChanged}"  MouseDoubleClick="DataGridReservations_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Accommodation.Name}"/>
+                            <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Guest.FirstName}"/>
+                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Guest.LastName}"/>
+                            <DataGridTextColumn Width="*" Header="Start" FontSize="15" Binding="{Binding Start}"/>
+                            <DataGridTextColumn Width="*" Header="End" FontSize="15" Binding="{Binding End}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

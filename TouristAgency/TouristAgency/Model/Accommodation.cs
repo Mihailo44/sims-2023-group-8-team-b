@@ -11,7 +11,7 @@ namespace TouristAgency.Model
     {
         private int _id;
         private Owner _owner;
-        private int _ownerId = 0;
+        private int _ownerId;
         private string _name;
         private Location _location;
         private int _locationId;
