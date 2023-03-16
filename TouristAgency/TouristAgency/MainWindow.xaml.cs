@@ -44,6 +44,8 @@ namespace TouristAgency
 
             _checkpointController.BindLocations(_locationController.GetAll());
             _tourController.BindLocations(_locationController.GetAll());
+            _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
+            _accommodationController.LoadPhotosToAccommodations(_photoController.GetAll());
             _photoController.BindTour(_tourController.GetAll());
             //_photoController.BindAccomodation(_accomodationController.GetAll());
             Console.WriteLine("Test");
