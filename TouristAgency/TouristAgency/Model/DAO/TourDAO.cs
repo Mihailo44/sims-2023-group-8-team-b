@@ -92,6 +92,20 @@ namespace TouristAgency.Model.DAO
             }
         }
 
+        public List<string> GetAllCountries()
+        {
+            List<string> countries = new List<string>();
+
+            foreach (Tour tour in _tours)
+            {
+                if (!countries.Contains(tour.ShortLocation.Country) && tour.ShortLocation.Country != "")
+                {
+                    countries.Add(tour.ShortLocation.Country);
+                }
+            }
+
+            return countries;
+        }
 
         public List<string> GetAllCities()
         {
@@ -106,6 +120,21 @@ namespace TouristAgency.Model.DAO
             }
 
             return citites;
+        }
+
+        public List<string> GetAllLanguages()
+        {
+            List<string> languages = new List<string>();
+
+            foreach (Tour tour in _tours)
+            {
+                if (!languages.Contains(tour.Language) && tour.Language != "")
+                {
+                    languages.Add(tour.Language);
+                }
+            }
+
+            return languages;
         }
 
         public void Subscribe(IObserver observer)

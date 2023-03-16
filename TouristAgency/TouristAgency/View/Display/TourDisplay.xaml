@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Title="Tour" Height="450" Width="610" Loaded="Window_Loaded">
@@ -51,16 +52,17 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Country:" Height="26"/>
-                <ComboBox Grid.Row="0" Grid.Column="1" Width="100" Height="27"/>
+                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="100" Height="27" ItemsSource="{Binding Path=Countries}"/>
                 <Label Grid.Row="1" Grid.Column="0" Content="City:" Height="26" HorizontalAlignment="Left" />
-                <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Height="27" ItemsSource="{Binding Path=Cities}"/>
+                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="100" Height="27" ItemsSource="{Binding Path=Cities}"/>
                 <Label Grid.Row="2" Grid.Column="0" Content="Duration:" Height="26"/>
-                <ComboBox Grid.Row="2" Grid.Column="1" Width="100" Height="27"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="100" Height="27" Value="{Binding Path=Duration}"/>
                 <Label Grid.Row="3" Grid.Column="0" Content="Language:" Height="26"/>
-                <ComboBox Grid.Row="3" Grid.Column="1" Width="100" Height="27"/>
+                <ComboBox x:Name="LanguageComboBox" Grid.Row="3" Grid.Column="1" Width="100" Height="27" ItemsSource="{Binding Path=Languages}"/>
                 <Label Grid.Row="4" Grid.Column="0" Content="Max capacity:" Height="26"/>
-                <ComboBox Grid.Row="4" Grid.Column="1" Width="100" Height="27"/>
-                <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply filter" Width="100" Height="30" Click="Filter_Click"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="4" Grid.Column="1" Width="100" Height="27" Value="{Binding Path=MaxCapacity}"/>
+                <Button Grid.Row="5" Grid.Column="0" Content="Clear filter" Width="80" Height="30" Click="Clear_Click"/>
+                <Button Grid.Row="5" Grid.Column="1" Content="Apply filter" Width="80" Height="30" Click="Filter_Click"/>
             </Grid>
         </GroupBox>
 

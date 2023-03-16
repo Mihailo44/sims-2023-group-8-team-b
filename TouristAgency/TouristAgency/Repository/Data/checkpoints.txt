@@ -1,4 +1,9 @@
 0|Miletic|True|0
 1|Dunavski|False|0
 2|Petrovaradin|False|0
-2|Hram Svetog Save|True|1
+3|Hram Svetog Save|True|1
+4|Kalemegdan|False|1
+5|Knez Mihajlova ulica|False|1
+6|Niska tvrdjava|True|2
+7|Cele kula|False|2
+8|Park Cair|False|2

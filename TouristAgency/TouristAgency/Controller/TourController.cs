@@ -29,9 +29,19 @@ namespace TouristAgency.Controller
             _tour.BindLocations(locations);
         }
 
+        public ObservableCollection<string> GetAllCountires()
+        {
+            return new ObservableCollection<string>(_tour.GetAllCountries());
+        }
+
         public ObservableCollection<string> GetAllCitites()
         {
             return new ObservableCollection<string>(_tour.GetAllCities());
+        }
+
+        public ObservableCollection<string> GetAllLanguages()
+        {
+            return new ObservableCollection<string>(_tour.GetAllLanguages());
         }
 
         public void Create(Tour newTour)

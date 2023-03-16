@@ -17,7 +17,7 @@
                         <Label Content="{Binding Path = Location.Country}"></Label>
                         <Label Content="{Binding Path = Type}"></Label>
                         <Label Content="{Binding Path = MaxGuestNum}"></Label>
-                        <Label Content ="{Binding Path = MinNumOfDays}"></Label>
+                        <Label Content="{Binding Path = MinNumOfDays}"></Label>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
