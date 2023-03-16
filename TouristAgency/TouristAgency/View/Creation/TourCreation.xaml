@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
-        Title="TourCreation" Height="707" Width="391">
+        Title="TourCreation" Height="707" Width="391" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
             <Grid Margin="0,30,0,0" Width="300">
