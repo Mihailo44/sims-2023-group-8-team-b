@@ -115,8 +115,12 @@ namespace TouristAgency.View.Creation
             try
             {
                 PrepareAccommodationForCreation();
-                _controller.Create(NewAccommodation);
-                AddPhotos();
+                if (NewAccommodation.IsValid)
+                {
+                    _controller.Create(NewAccommodation);
+                    AddPhotos();
+                }
+                MessageBox.Show("Accommodation created successfully");
             }
             catch(Exception ex)
             {
@@ -124,7 +128,6 @@ namespace TouristAgency.View.Creation
             }
             finally
             {
-                MessageBox.Show("Accommodation created successfully");
                 this.Close();
             }
         }
