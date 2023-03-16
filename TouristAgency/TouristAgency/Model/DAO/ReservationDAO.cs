@@ -55,6 +55,7 @@ namespace TouristAgency.Model.DAO
             currentReservation.Accommodation = updatedReservation.Accommodation;
             currentReservation.Start = updatedReservation.Start;
             currentReservation.End = updatedReservation.End;
+            currentReservation.Status = updatedReservation.Status;
 
             _storage.Save(_reservations);
             NotifyObservers();
@@ -97,6 +98,11 @@ namespace TouristAgency.Model.DAO
                     reservation.Guest = guest;
                 }
             }
+        }
+
+        public List<Reservation> GetUnreviewed()
+        {
+            return _reservations.Where(r => r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
         }
 
         public void Subscribe(IObserver observer)

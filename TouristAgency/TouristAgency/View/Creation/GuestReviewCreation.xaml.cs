@@ -26,7 +26,11 @@ namespace TouristAgency.View.Creation
 
         public GuestReview NewGuestReview { get; set; }
 
-        public GuestReviewCreation(Reservation SelectedReservation)
+        public Reservation Selected { get; set; }
+
+        public ReservationController _controller { get; set; }
+
+        public GuestReviewCreation(Reservation SelectedReservation,ReservationController rc)
         {
             InitializeComponent();
             DataContext = this;
@@ -39,8 +43,11 @@ namespace TouristAgency.View.Creation
 
             _guestReviewController = new GuestReviewController();
             NewGuestReview = new();
-            NewGuestReview.Guest = SelectedReservation.Guest;
-            NewGuestReview.GuestId = SelectedReservation.GuestId;
+
+            Selected = SelectedReservation;
+            _controller = rc; // malo gej
+            NewGuestReview.Guest = Selected.Guest;
+            NewGuestReview.GuestId = Selected.GuestId;
         }
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)
@@ -48,6 +55,8 @@ namespace TouristAgency.View.Creation
             try
             {
                 _guestReviewController.Create(NewGuestReview);
+                Selected.Status = REVIEW_STATUS.REVIEWED;
+                _controller.Update(Selected, Selected.Id);
                 MessageBox.Show("Guest review created successfully");
             }
             catch(Exception ex)
