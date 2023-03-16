@@ -22,15 +22,56 @@ namespace TouristAgency.View.Creation
     /// <summary>
     /// Interaction logic for AccommodationCreation.xaml
     /// </summary>
-    public partial class AccommodationCreation : Window
+    public partial class AccommodationCreation : Window,IDataErrorInfo
     {
         private readonly AccommodationController _controller;
         private readonly LocationController _locationController;
         private readonly PhotoController _photoController;
+        private string _photoLinks;
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
-        public string PhotoLinks { get; set; }
+        public string PhotoLinks 
+        { 
+            get => _photoLinks;
+            set
+            {
+                if(_photoLinks != value)
+                {
+                    _photoLinks = value;
+                }
+            }
+        }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "PhotoLinks")
+                {
+                    if (string.IsNullOrEmpty(PhotoLinks))
+                        return "Required field";
+                }
+                return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "PhotoLinks" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach(var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
 
         public AccommodationCreation()
         {
@@ -74,8 +115,12 @@ namespace TouristAgency.View.Creation
             try
             {
                 PrepareAccommodationForCreation();
-                _controller.Create(NewAccommodation);
-                AddPhotos();
+                if (NewAccommodation.IsValid)
+                {
+                    _controller.Create(NewAccommodation);
+                    AddPhotos();
+                }
+                MessageBox.Show("Accommodation created successfully");
             }
             catch(Exception ex)
             {
@@ -83,7 +128,6 @@ namespace TouristAgency.View.Creation
             }
             finally
             {
-                MessageBox.Show("Accommodation created successfully");
                 this.Close();
             }
         }

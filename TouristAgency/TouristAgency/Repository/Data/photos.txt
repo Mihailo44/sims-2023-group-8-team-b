@@ -1,15 +1,1 @@
-0|A|3|https://images.unsplash.com/photo-1564594736624-def7a10ab047?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80
-1|T|7|www.google.rs
-2|T|7|www.google.rs
-3|T|7|www.google.rs
-4|T|8|www.google.com
-5|T|8|www.google.com
-6|T|7|www.google.rs
-7|T|7|www.google.rs
-8|T|7|www.google.rs
-9|T|8|www.gooole.rs
-10|T|7|www.google.rs
-11|T|7|www.google.rs
-0|A|4|link1
-1|A|4|link2
-2|A|4|link3
+0|A|6|
