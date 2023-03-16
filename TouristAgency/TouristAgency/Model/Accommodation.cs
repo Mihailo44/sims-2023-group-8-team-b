@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public enum TYPE { HOTEL,HUT,APARTMENT};
+    public enum TYPE { HOTEL, HUT, APARTMENT };
 
-    public class Accommodation : ISerializable
+    public class Accommodation : ISerializable, IDataErrorInfo
     {
         private int _id;
         private Owner _owner;
@@ -21,18 +19,18 @@ namespace TouristAgency.Model
         private int _maxGuestNum;
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
-        private List<string> _photoUrls;
+        private List<Photo> _photos;
         private bool _recentlyRenovated;
 
         public Accommodation()
         {
             _id = -1;
-            _allowedNumOfDaysForCancelation = 1;   
+            _allowedNumOfDaysForCancelation = 1;
+            _photos = new List<Photo>();
             _recentlyRenovated = false;
-            _photoUrls = new List<string>();
         }
 
-        public Accommodation(string name,Owner owner,Location location, TYPE type,int maxGuestNum,int minNumOfDays,int allowedNumOfDaysForCancelation)
+        public Accommodation(string name, Owner owner, Location location, TYPE type, int maxGuestNum, int minNumOfDays, int allowedNumOfDaysForCancelation)
         {
             _name = name;
             _owner = owner;
@@ -43,7 +41,6 @@ namespace TouristAgency.Model
             _maxGuestNum = maxGuestNum;
             _minNumOfDays = minNumOfDays;
             _allowedNumOfDaysForCancelation = allowedNumOfDaysForCancelation;
-            _photoUrls = new List<string>();
             _recentlyRenovated = false;
         }
 
@@ -52,7 +49,7 @@ namespace TouristAgency.Model
             get => _id;
             set
             {
-                if(_id != value)
+                if (_id != value)
                 {
                     _id = value;
                 }
@@ -76,7 +73,7 @@ namespace TouristAgency.Model
             get => _ownerId;
             set
             {
-                if(value != _ownerId)
+                if (value != _ownerId)
                 {
                     _ownerId = value;
                 }
@@ -88,9 +85,10 @@ namespace TouristAgency.Model
             get => _name;
             set
             {
-                if(value != _name)
+                if (value != _name)
                 {
                     _name = value;
+                    //OnPropertyChanged();
                 }
             }
         }
@@ -100,7 +98,7 @@ namespace TouristAgency.Model
             get => _location;
             set
             {
-                if(value != _location)
+                if (value != _location)
                 {
                     _location = value;
                 }
@@ -112,7 +110,7 @@ namespace TouristAgency.Model
             get => _locationId;
             set
             {
-                if(value != _locationId)
+                if (value != _locationId)
                 {
                     _locationId = value;
                 }
@@ -121,7 +119,7 @@ namespace TouristAgency.Model
 
         public TYPE Type
         {
-            get => _type; 
+            get => _type;
             set
             {
                 if (value != _type)
@@ -133,14 +131,15 @@ namespace TouristAgency.Model
 
         public int MaxGuestNum
         {
-            get => _maxGuestNum; 
+            get => _maxGuestNum;
             set
             {
                 if (value != _maxGuestNum)
                 {
                     _maxGuestNum = value;
+                    //OnPropertyChanged();
                 }
-            } 
+            }
         }
 
         public int MinNumOfDays
@@ -151,31 +150,33 @@ namespace TouristAgency.Model
                 if (value != _minNumOfDays)
                 {
                     _minNumOfDays = value;
+                    //OnPropertyChanged();
                 }
             }
         }
 
         public int AllowedNumOfDaysForCancelation
         {
-            get => _allowedNumOfDaysForCancelation; 
+            get => _allowedNumOfDaysForCancelation;
             set
             {
                 if (value != _allowedNumOfDaysForCancelation)
                 {
                     _allowedNumOfDaysForCancelation = value;
+                    //OnPropertyChanged();
                 }
             }
         }
 
-        public List<string> PhotoUrls
+        public List<Photo> Photos
         {
-            get => _photoUrls;
-            set => _photoUrls = value;
+            get => _photos;
+            set => _photos = value;
         }
 
         public bool RecentlyRenovated
         {
-            get => _recentlyRenovated; 
+            get => _recentlyRenovated;
             set
             {
                 if (value != _recentlyRenovated)
@@ -185,52 +186,76 @@ namespace TouristAgency.Model
             }
         }
 
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "Required field";
+                }
+                else if (columnName == "MaxGuestNum")
+                {
+                    if (string.IsNullOrEmpty(MaxGuestNum.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "MinNumOfDays")
+                {
+                    if (string.IsNullOrEmpty(MinNumOfDays.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "AllowedNumOfDaysForCancelation")
+                {
+                    if (string.IsNullOrEmpty(AllowedNumOfDaysForCancelation.ToString()))
+                        return "Required field";
+                }
+
+                return null;
+
+            }
+        }
+
+        private readonly string[] _validatedProperties = {"Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
+        
+        public bool IsValid
+        {
+            get
+            {
+                foreach(var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
+            }
+        }
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             OwnerId = int.Parse(values[1]);
             Name = values[2];
-            Location.Id = int.Parse(values[3]); // vrv ne radi
+            LocationId = int.Parse(values[3]);
             Type = Enum.Parse<TYPE>(values[4]);
             MaxGuestNum = int.Parse(values[5]);
             MinNumOfDays = int.Parse(values[6]);
             AllowedNumOfDaysForCancelation = int.Parse(values[7]);
-            if (values[8].Length > 0)
-            {
-                string[] urls = values[8].Split(',');
-                foreach(var url in urls)
-                {
-                    PhotoUrls.Add(url);
-                }
-            }
         }
 
         public string[] ToCSV()
         {
-            string urls = "";
-            List<string> uniqueUrls = PhotoUrls.Distinct().ToList();
-            if(uniqueUrls.Count > 0)
-            {
-                for(int i = 0; i < uniqueUrls.Count; i++)
-                {
-                    if (i == 0)
-                        urls += uniqueUrls[i];
-                    else
-                        urls += "," + uniqueUrls[i];
-                }
-            }
-
             string[] csvValues =
             {
                 Id.ToString(),
                 OwnerId.ToString(),
                 Name,
-                Location.Id.ToString(),
+                LocationId.ToString(),
                 Type.ToString(),
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),
-                AllowedNumOfDaysForCancelation.ToString(),
-                urls
+                AllowedNumOfDaysForCancelation.ToString()
             };
             return csvValues;
         }

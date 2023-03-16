@@ -10,12 +10,13 @@ namespace TouristAgency.Model
     public class Photo : ISerializable
     {
         private int _ID;
-        private string _link;
+        private string _link;//mozda da promenimo u url treba da bude niz koji ce se split
         private char _type; //T for tour, A for accomodation
         private int _externalID; //tourID or accomodationID
 
         public Photo()
         {
+            _ID = -1;
         }
 
         public Photo(string link, char type, int externalID)
@@ -86,9 +87,9 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 _ID.ToString(),
-                _link,
                 _type.ToString(),
-                _externalID.ToString()
+                _externalID.ToString(),
+                _link
             };
             return csvValues;
         }
@@ -96,9 +97,9 @@ namespace TouristAgency.Model
         public void FromCSV(string[] values)
         {
             _ID = Convert.ToInt32(values[0]);
-            _link = values[1];
-            _type = Convert.ToChar(values[2]);
-            _externalID = Convert.ToInt32(values[3]);
+            _type = Convert.ToChar(values[1]);
+            _externalID = Convert.ToInt32(values[2]);
+            _link = values[3];
         }
     }
 }

@@ -28,18 +28,10 @@ namespace TouristAgency.Model
             _country = "";
         }
 
-        public Location(string street, string streetNumber, string city, string country)
+        public Location(string country, string city, string street = "", string streetNumber = "")
         {
             _street = street;
             _streetNumber = streetNumber;
-            _city = city;
-            _country = country;
-        }
-
-        public Location(string city, string country)
-        {
-            _street = "";
-            _streetNumber = "";
             _city = city;
             _country = country;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -20,16 +21,20 @@ namespace TouristAgency.View.Creation
     /// <summary>
     /// Interaction logic for TourCreation.xaml
     /// </summary>
-    public partial class TourCreation : Window
+    public partial class TourCreation : Window, INotifyPropertyChanged
     {
         private TourController _tourController;
         private CheckpointController _checkpointController;
         private PhotoController _photoController;
-        private List<Checkpoint> _suitableCheckpoints;
-        private List<Checkpoint> _selectedCheckpoints;
+        private TourCheckpointController _tourCheckpointController;
+        private LocationController _locationController;
+        private ObservableCollection<Checkpoint> _availableCheckpoints;
+        private ObservableCollection<Checkpoint> _selectedCheckpoints;
         private Tour _newTour;
         private Location _newLocation;
         private string _photoLinks;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public Tour NewTour
         {
             get => _newTour;
@@ -42,14 +47,30 @@ namespace TouristAgency.View.Creation
             set => _newLocation = value;
         }
 
-        public List<Checkpoint> SuitableCheckpoints
+        public ObservableCollection<Checkpoint> AvailableCheckpoints
+        {
+            get => _availableCheckpoints;
+            set
+            {
+                if (value != _availableCheckpoints)
+                {
+                    _availableCheckpoints = value;
+                    OnPropertyChanged("AvailableCheckpoints");
+                }
+            }
+        }
+
+        public ObservableCollection<Checkpoint> SelectedCheckpoints
         {
             get => _selectedCheckpoints;
             set
             {
-                _suitableCheckpoints = value;
+                if (value != _selectedCheckpoints)
+                {
+                    _selectedCheckpoints = value;
+                    OnPropertyChanged("SelectedCheckpoints");
+                }
             }
-
         }
 
         public string PhotoLinks
@@ -58,39 +79,26 @@ namespace TouristAgency.View.Creation
             set => _photoLinks = value;
         }
 
-        public TourCreation(TourController _tourController, CheckpointController _checkpointController, PhotoController _photoController)
+        public TourCreation(TourController tourController, CheckpointController checkpointController,
+            PhotoController photoController, TourCheckpointController tourCheckpointController, LocationController locationController)
         {
             InitializeComponent();
             NewTour = new Tour();
             NewLocation = new Location();
-            this._tourController = _tourController;
-            this._checkpointController = _checkpointController;
-            this._photoController = _photoController;
-            _suitableCheckpoints = new List<Checkpoint>();
-            _selectedCheckpoints = new List<Checkpoint>();
+            _tourController = tourController;
+            _checkpointController = checkpointController;
+            _photoController = photoController;
+            _tourCheckpointController = tourCheckpointController;
+            _locationController = locationController;
+            _availableCheckpoints = new ObservableCollection<Checkpoint>();
+            _selectedCheckpoints = new ObservableCollection<Checkpoint>();
             this.DataContext = this;
-        }
-
-        private void CountryTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (NewLocation.Country != "" && NewLocation.City != "")
-            {
-                LoadCheckpoints();
-            }
-        }
-
-        private void CityTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (NewLocation.Country != "" && NewLocation.City != "")
-            {
-                LoadCheckpoints();
-            }
         }
 
         private void LoadCheckpoints()
         {
-            SuitableCheckpoints.AddRange(_checkpointController.FindSuitableByLocation(NewLocation));
-            //TODO Pitaj zasto ne radi, kad proradi podesiti odgovarajucim checkpointovima tourID
+            AvailableCheckpoints =
+                new ObservableCollection<Checkpoint>(_checkpointController.FindSuitableByLocation(NewLocation));
         }
 
         private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -104,7 +112,29 @@ namespace TouristAgency.View.Creation
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoDAO!
+            PrepareLocation();
             _tourController.Create(_newTour);
+            AddPhotos();
+            BindCheckpointAndTour();
+            PrepareLocation();
+        }
+
+
+        private void PrepareLocation()
+        {
+            int locationID = _locationController.FindLocationID(NewLocation);
+            NewLocation.Id = locationID;
+            if (locationID == -1)
+            {
+                _locationController.Create(NewLocation);
+            }
+
+            _newTour.ShortLocation = NewLocation;
+            _newTour.ShortLocationID = NewLocation.Id;
+            }
+
+        private void AddPhotos()
+        {
             PhotoLinks = PhotoLinks.Replace("\r\n", "|");
             string[] photoLinks = PhotoLinks.Split("|");
             foreach (string photoLink in photoLinks)
@@ -113,6 +143,43 @@ namespace TouristAgency.View.Creation
                 _newTour.Photos.Add(photo);
                 _photoController.Create(photo);
             }
+        }
+
+        private void BindCheckpointAndTour()
+        {
+            foreach (Checkpoint checkpoint in SelectedCheckpoints)
+            {
+                _tourCheckpointController.Create(new TourCheckpoint(_newTour.ID,checkpoint.ID));
+            }
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void RightButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (Checkpoint checkpoint in AvailableListView.SelectedItems)
+            {
+                SelectedCheckpoints.Add(checkpoint);
+            }
+        }
+
+        private void LeftButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            List<Checkpoint> checkpointsToDelete = new List<Checkpoint>();
+            foreach (Checkpoint checkpoint in SelectedListView.SelectedItems)
+            {
+                checkpointsToDelete.Add(checkpoint);
+            }
+
+            foreach (Checkpoint checkpoint in checkpointsToDelete)
+            {
+                SelectedCheckpoints.Remove(checkpoint);
+            }
+            checkpointsToDelete.Clear();
         }
     }
 }

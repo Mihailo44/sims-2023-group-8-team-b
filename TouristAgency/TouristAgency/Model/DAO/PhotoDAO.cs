@@ -20,6 +20,7 @@ namespace TouristAgency.Model.DAO
             _photos = _storage.Load();
             _observers = new List<IObserver>();
         }
+
         public int GenerateId()
         {
             if (_photos.Count == 0)

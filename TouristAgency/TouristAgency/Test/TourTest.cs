@@ -14,7 +14,7 @@ namespace TouristAgency.Test
 
         public void scenarioA()
         {
-            Checkpoint miletic = new Checkpoint(0,0, "Trg slobode", true, new Location("Trg slobode", "", "Novi Sad", "Srbija"));
+            /*Checkpoint miletic = new Checkpoint(0,0, "Trg slobode", true, new Location("Trg slobode", "", "Novi Sad", "Srbija"));
 
             Checkpoint dunavskiPark = new Checkpoint(1,0, "Dunavski Park", false, new Location("Dunavska", "31", "Novi Sad", "Srbija"));
 
@@ -24,7 +24,7 @@ namespace TouristAgency.Test
 
             checkpoints.Add(miletic);
             checkpoints.Add(dunavskiPark);
-            checkpoints.Add(petrovaradinska);
+            checkpoints.Add(petrovaradinska);*/
 
             //User user = new User(0,"ognjenm", "test", "Ognjen", "Milojevic", DateOnly.Parse("01.02.2001"), "ogi@gmail.com", new Location("DD", "38", "Novi Sad", "Srbija"), "38162111111");
             /*User user = new User("ognjenm", "test", "Ognjen", "Milojevic", DateOnly.Parse("01.02.2001"), "ogi@gmail.com", new Location("DD", "38", "Novi Sad", "Srbija"), "38162111111");

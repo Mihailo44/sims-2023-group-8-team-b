@@ -31,7 +31,7 @@ namespace TouristAgency
         private AccommodationController _accommodationController;
         private LocationController _locationController;
         private PhotoController _photoController;
-
+        private TourCheckpointController _tourCheckpointController;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +40,7 @@ namespace TouristAgency
             _locationController = new LocationController();
             _accommodationController = new AccommodationController();
             _photoController = new PhotoController();
+            _tourCheckpointController = new TourCheckpointController();
 
             _checkpointController.BindLocations(_locationController.GetAll());
             _tourController.BindLocations(_locationController.GetAll());
@@ -56,7 +57,7 @@ namespace TouristAgency
 
         private void TourButton_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation creation = new TourCreation(_tourController, _checkpointController, _photoController);
+            TourCreation creation = new TourCreation(_tourController, _checkpointController, _photoController, _tourCheckpointController, _locationController);
             creation.Show();
         }
 

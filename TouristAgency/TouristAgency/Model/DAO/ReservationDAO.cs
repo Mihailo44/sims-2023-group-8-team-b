@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Storage;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
+using TouristAgency.Controller;
 
 namespace TouristAgency.Model.DAO
 {
@@ -24,7 +25,7 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
-            return _reservations.Max(r => r.Id) + 1;
+            return (_reservations.Count == 0) ? 0: _reservations.Max(r => r.Id) + 1;
         }
 
         public Reservation FindById(int id)
@@ -72,6 +73,30 @@ namespace TouristAgency.Model.DAO
         public List<Reservation> GetAll()
         {
             return _reservations;
+        }
+
+        public void LoadAccommodationsToReservations(List<Accommodation> accommodations)
+        {
+            foreach (var reservation in _reservations)
+            {
+                Accommodation accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
+                if (accommodation != null)
+                {
+                    reservation.Accommodation = accommodation;
+                }
+            }
+        }
+
+        public void LoadGuestsToReservations(List<Guest> guests)
+        {
+            foreach (var reservation in _reservations)
+            {
+                Guest guest = guests.Find(g => g.ID == reservation.GuestId);
+                if (guest != null)
+                {
+                    reservation.Guest = guest;
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

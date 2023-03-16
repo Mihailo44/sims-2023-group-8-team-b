@@ -24,7 +24,7 @@ namespace TouristAgency.Model
             _reviewDate = DateTime.Now; // mozda DateTime.Today
         }
 
-        public GuestReview(Guest guest, int cleanliness, int ruleAbiding, string comment)
+        public GuestReview(Guest guest, int cleanliness, int ruleAbiding, string comment="")
         {
             _guest = guest;
             _guestId = guest.ID;

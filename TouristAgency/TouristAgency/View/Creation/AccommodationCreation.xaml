@@ -1,0 +1,70 @@
+﻿<Window x:Class="TouristAgency.View.Creation.AccommodationCreation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Creation"
+        mc:Ignorable="d"
+        Title="AccommodationCreation" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <Grid>
+                <AdornedElementPlaceholder/>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
+                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Margin="0,0,7,0"/>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="City" FontSize="17" HorizontalAlignment="Center" />
+        <Label Grid.Row="4" Grid.Column="0" Content="Type" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Max Number of Guests" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="9" Grid.Column="0" Content="Photos URL" FontSize="17" HorizontalAlignment="Center"/>
+        <Button Grid.Row="12" Grid.Column="0" Grid.RowSpan="2" Content="REGISTER" Width="180" Height="80" FontSize="23" Click="ButtonRegister_Click"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewLocation.Country,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.Type, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MaxGuestNum,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <TextBox Grid.Row="7" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.AllowedNumOfDaysForCancelation,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <TextBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,15,0" FontSize="17" Text="{Binding Path=PhotoLinks,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+            <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+            <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+        </TextBox>
+        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="180" Height="80" FontSize="23" Click="ButtonCancel_Click"/>
+    </Grid>
+</Window>

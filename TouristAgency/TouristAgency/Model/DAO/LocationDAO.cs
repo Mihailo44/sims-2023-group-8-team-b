@@ -23,12 +23,20 @@ namespace TouristAgency.Model.DAO
        
         public int GenerateId()
         {
-            return _locations.Max(l => l.Id) + 1;
+            if (_locations.Count == 0)
+                return 0;
+            else
+                return _locations.Max(l => l.Id) + 1;
         }
 
         public Location FindById(int id)
         {
             return _locations.Find(l => l.Id == id);
+        }
+
+        public int FindLocationId(Location location)
+        {
+            return _locations.Find(l => l.Equals(location)).Id;
         }
 
         public Location Create(Location newLocation)
@@ -65,6 +73,18 @@ namespace TouristAgency.Model.DAO
         public List<Location> GetAll()
         {
             return _locations;
+        }
+
+        public Location FindByCountryAndCity(string country,string city) // proveri da li radi kako treba
+        {
+            Location location = _locations.Find(l => l.Country.ToLower() == country.ToLower() && l.City.ToLower() == city.ToLower());
+            if (location == null)
+            {
+                location = new Location(country,city);
+                Create(location);
+            }
+
+            return location;
         }
 
         public void Subscribe(IObserver observer)

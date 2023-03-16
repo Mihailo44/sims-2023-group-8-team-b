@@ -38,8 +38,8 @@ namespace TouristAgency.View.Display
 
             Owner owner1 = new Owner("njutro", "njutro123", "Nikola", "Todic", new DateOnly(1990, 5, 6),
                 "njutro123@gmail.com", new Location("Pariz", "Francuska"), "851455");
-            Accommodation accommodation1 = new Accommodation("PartyHouse", owner1, new Location("Pariz", "Francuska"), TYPE.APARTMENT, 5, 2, 5);
-            Accommodations.Add(accommodation1);
+          //  Accommodation accommodation1 = new Accommodation("PartyHouse", owner1, new Location("Pariz", "Francuska"), TYPE.APARTMENT, 5, 2, 5);
+          //  Accommodations.Add(accommodation1);
 
             //Accommodations = _accommodationController.GetAll();
            
