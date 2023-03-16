@@ -6,9 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="AccommodationDisplay" Height="450" Width="800">
+        Title="AccommodationDisplay" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ComboBox HorizontalAlignment="Left" Margin="619,93,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=Names}"/>
+        <ComboBox x:Name="NameComboBox" HorizontalAlignment="Left" Margin="619,93,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=Names}"/>
         <ListView ItemsSource="{Binding Path=Accommodations}" Margin="11,31,400,29" RenderTransformOrigin="0.509,0.477">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -30,12 +30,13 @@
         <Label Content="Type:" HorizontalAlignment="Left" Margin="468,207,0,0" VerticalAlignment="Top"/>
         <Label Content="Max capacity:" HorizontalAlignment="Left" Margin="467,244,0,0" VerticalAlignment="Top" Height="29"/>
         <Label Content="Min days for&#xD;&#xA;reservation:" HorizontalAlignment="Left" Margin="468,285,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="619,129,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="619,167,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="619,209,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Types}"/>
-        <WPFExtended:UIntegerUpDown HorizontalAlignment="Left" Margin="619,248,0,0" VerticalAlignment="Top" Width="120" Value="0"/>
-        <WPFExtended:UIntegerUpDown HorizontalAlignment="Left" Margin="619,295,0,0" VerticalAlignment="Top" Width="120" Value="0"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="536,353,0,0" VerticalAlignment="Top" Width="128" Height="39"/>
+        <ComboBox x:Name="CityComboBox" HorizontalAlignment="Left" Margin="619,129,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}"/>
+        <ComboBox x:Name="CountryComboBox" HorizontalAlignment="Left" Margin="619,167,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}"/>
+        <ComboBox x:Name="TypeComboBox" HorizontalAlignment="Left" Margin="619,209,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Types}"/>
+        <WPFExtended:UIntegerUpDown HorizontalAlignment="Left" Margin="619,248,0,0" VerticalAlignment="Top" Width="120" Value="{Binding Path = MaxGuestNum}"/>
+        <WPFExtended:UIntegerUpDown HorizontalAlignment="Left" Margin="619,295,0,0" VerticalAlignment="Top" Width="120" Value="{Binding Path = MinNumOfDays}"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="444,353,0,0" VerticalAlignment="Top" Width="128" Height="39" Click="Search_Click"/>
+        <Button Content="Show all" HorizontalAlignment="Left" Margin="612,353,0,0" VerticalAlignment="Top" Width="128" Height="39" Click="ShowAll_Click"/>
 
     </Grid>
 </Window>

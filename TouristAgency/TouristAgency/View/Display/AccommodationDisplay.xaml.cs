@@ -104,6 +104,32 @@ namespace TouristAgency.View.Display
                 }
             }
         }
+
+        public int MaxGuestNum
+        {
+            get => _maxGuestNum;
+            set
+            {
+                if (_maxGuestNum != value)
+                {
+                    _maxGuestNum = value;
+                    OnPropertyChanged("MaxGuestNum");
+                }
+            }
+        }
+
+        public int MinNumOfDays
+        {
+            get => _minNumOfDays;
+            set
+            {
+                if (_minNumOfDays != value)
+                {
+                    _minNumOfDays = value;
+                    OnPropertyChanged("MinNumOfDays");
+                }
+            }
+        }
         public AccommodationDisplay(AccommodationController accommodationController)
         {
             _accommodationController = accommodationController;
@@ -130,6 +156,30 @@ namespace TouristAgency.View.Display
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<Accommodation> searchedAccommodations = new ObservableCollection<Accommodation>();
+            foreach (Accommodation accommodation in _accommodationController.GetAll())
+            {
+                bool country = accommodation.Location.Country == CountryComboBox.SelectedItem.ToString();
+                bool city = accommodation.Location.City == CityComboBox.SelectedItem.ToString();
+                bool name = accommodation.Name == NameComboBox.SelectedItem.ToString();
+                bool type = accommodation.Type.ToString() == TypeComboBox.SelectedItem.ToString();
+                bool maxGuestNum = accommodation.MaxGuestNum >= MaxGuestNum;
+                bool minNumOfDays = accommodation.MinNumOfDays <= MinNumOfDays;
 
+                if (country && city && name && type && maxGuestNum && minNumOfDays)
+                {
+                    searchedAccommodations.Add(accommodation);
+                }
+            }
+
+            Accommodations = searchedAccommodations;
+        }
+
+        private void ShowAll_Click(object sender, RoutedEventArgs e)
+        {
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
+        }
     }
 }
