@@ -116,9 +116,9 @@ namespace TouristAgency.Model
             get => _end;
             set
             {
-                if (_start != value)
+                if (_end != value)
                 {
-                    _start = value;
+                    _end = value;
                 }
             }
         }
