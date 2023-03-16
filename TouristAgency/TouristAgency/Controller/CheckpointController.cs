@@ -24,9 +24,9 @@ namespace TouristAgency.Controller
             return _checkpoint.GetAll();
         }
 
-        public void BindLocations(List<Location> locations)
+        public void LoadLocationsToCheckpoints(List<Location> locations)
         {
-            _checkpoint.BindLocations(locations);
+            _checkpoint.LoadLocationsToCheckpoints(locations);
         }
 
         public List<Checkpoint> FindSuitableByLocation(Location location)

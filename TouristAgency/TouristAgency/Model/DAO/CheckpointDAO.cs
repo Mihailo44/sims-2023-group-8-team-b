@@ -66,9 +66,7 @@ namespace TouristAgency.Model.DAO
                 return null;
             }
             currentCheckpoint.AttractionName = newCheckpoint.AttractionName;
-            currentCheckpoint.IsVisited = newCheckpoint.IsVisited;
             currentCheckpoint.Location = newCheckpoint.Location; //! Duboka kopija?
-            //currentCheckpoint.TourID = newCheckpoint.TourID;
             _storage.Save(_checkpoints);
             NotifyObservers();
             return currentCheckpoint;
@@ -85,7 +83,7 @@ namespace TouristAgency.Model.DAO
             return _checkpoints;
         }
 
-        public void BindLocations(List<Location> locations)
+        public void LoadLocationsToCheckpoints(List<Location> locations)
         {
             foreach (Location location in locations)
             {

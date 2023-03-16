@@ -64,6 +64,24 @@ namespace TouristAgency.Model
         }
 
 
+        public Tour(Tour newTour)
+        {
+            _ID = newTour.ID;
+            _name = newTour.Name;
+            _description = newTour.Description;
+            _shortLocation = newTour.ShortLocation;
+            _language = newTour.Language;
+            _maxAttendants = newTour.MaxAttendants;
+            _duration = newTour.Duration;
+            _startDateTime = newTour.StartDateTime;
+            _checkpoints = new List<Checkpoint>();
+            _assignedGuide = new Guide();
+            _registeredTourists = new List<Tourist>();
+            _photos = new List<Photo>();
+            _shortLocationID = newTour.ShortLocationID;
+        }
+
+
         public int ID
         {
             get => _ID;

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Button Content="Owner" Margin="137,78,486,276" Click="Button_Click"/>
         <Button Content="TourCreation" Margin="137,273,486,83" Click="TourButton_Click"/>
