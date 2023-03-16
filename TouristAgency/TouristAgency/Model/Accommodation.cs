@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
     public enum TYPE { HOTEL, HUT, APARTMENT };
 
-    public class Accommodation : ISerializable
+    public class Accommodation : ISerializable, IDataErrorInfo
     {
         private int _id;
         private Owner _owner;
@@ -171,7 +169,7 @@ namespace TouristAgency.Model
         }
 
         public List<Photo> Photos
-        { 
+        {
             get => _photos;
             set => _photos = value;
         }
@@ -185,6 +183,52 @@ namespace TouristAgency.Model
                 {
                     _recentlyRenovated = value;
                 }
+            }
+        }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "Required field";
+                }
+                else if (columnName == "MaxGuestNum")
+                {
+                    if (string.IsNullOrEmpty(MaxGuestNum.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "MinNumOfDays")
+                {
+                    if (string.IsNullOrEmpty(MinNumOfDays.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "AllowedNumOfDaysForCancelation")
+                {
+                    if (string.IsNullOrEmpty(AllowedNumOfDaysForCancelation.ToString()))
+                        return "Required field";
+                }
+
+                return null;
+
+            }
+        }
+
+        private readonly string[] _validatedProperties = {"Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
+        
+        public bool IsValid
+        {
+            get
+            {
+                foreach(var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
             }
         }
 
