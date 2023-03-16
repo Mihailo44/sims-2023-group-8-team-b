@@ -78,6 +78,94 @@ namespace TouristAgency.Model.DAO
             return _accommodations;
         }
 
+        public List<string> GetNames()
+        {
+            List<string> names = new List<string>();
+
+            foreach (Accommodation accommodation in _accommodations)
+            {
+                if (!names.Contains(accommodation.Name) && accommodation.Name != "")
+                {
+                    names.Add(accommodation.Name);
+                }
+            }
+
+            return names;
+        }
+
+        public List<string> GetCities()
+        {
+            List<string> citites = new List<string>();
+
+            foreach (Accommodation accommodation in _accommodations)
+            {
+                if (!citites.Contains(accommodation.Location.City) && accommodation.Location.City != "")
+                {
+                    citites.Add(accommodation.Location.City);
+                }
+            }
+
+            return citites;
+        }
+
+        public List<string> GetCountries()
+        {
+            List<string> countries = new List<string>();
+
+            foreach (Accommodation accommodation in _accommodations)
+            {
+                if (!countries.Contains(accommodation.Location.Country) && accommodation.Location.Country != "")
+                {
+                    countries.Add(accommodation.Location.Country);
+                }
+            }
+
+            return countries;
+        }
+
+        public List<string> GetTypes()
+        {
+            List<string> types = new List<string>();
+
+            foreach (Accommodation accommodation in _accommodations)
+            {
+                if (!types.Contains(accommodation.Type.ToString()) && accommodation.Type.ToString() != "")
+                {
+                    types.Add(accommodation.Type.ToString());
+                }
+            }
+
+            return types;
+        }
+
+        public void LoadLocationsToAccommodations(List<Location> locations)
+        {
+            foreach (Location location in locations)
+            {
+                foreach (Accommodation accommodation in _accommodations)
+                {
+                    if (accommodation.LocationId == location.Id)
+                    {
+                        accommodation.Location = new Location(location);
+                    }
+                }
+            }
+        }
+
+        public void LoadPhotosToAccommodations(List<Photo> photos)
+        {
+            foreach (Photo photo in photos)
+            {
+                foreach (Accommodation accommodation in _accommodations)
+                {
+                    if (accommodation.Id == photo.ExternalID && photo.Type == 'A')
+                    {
+                        accommodation.Photos.Add(new Photo(photo));
+                    }
+                }
+            }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
