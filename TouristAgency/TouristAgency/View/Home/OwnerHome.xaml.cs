@@ -45,10 +45,10 @@ namespace TouristAgency.View.Home
             ReviewNotification();
         }
 
-        private void LoadReservations() //ovde ce ici parametar owner id, ili sta vec
+        private void LoadReservations(int id = 0) //ovde ce ici parametar owner id, ili sta vec
         {
             Reservations.Clear();
-            List<Reservation> reservations = _reservationController.GetAll().Where(r => r.Accommodation.OwnerId == 0).ToList();//magican broj
+            List<Reservation> reservations = _reservationController.GetByOwnerId(id);//magican broj
             foreach (var reservation in reservations)
             {
                 Reservations.Add(reservation);

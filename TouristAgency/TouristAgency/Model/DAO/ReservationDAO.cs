@@ -105,6 +105,11 @@ namespace TouristAgency.Model.DAO
             return _reservations.Where(r => r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
         }
 
+        public List<Reservation> GetByOwnerId(int id = 0)
+        {
+            return _reservations.Where(r => r.Accommodation.OwnerId == 0).ToList();
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

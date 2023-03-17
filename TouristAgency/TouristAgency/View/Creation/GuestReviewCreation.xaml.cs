@@ -61,10 +61,17 @@ namespace TouristAgency.View.Creation
         {
             try
             {
-                _guestReviewController.Create(NewGuestReview);
-                Selected.Status = REVIEW_STATUS.REVIEWED;
-                _controller.Update(Selected, Selected.Id);
-                MessageBox.Show("Guest review created successfully");
+                if (Selected.Status == REVIEW_STATUS.UNREVIEWED)
+                {
+                    _guestReviewController.Create(NewGuestReview);
+                    Selected.Status = REVIEW_STATUS.REVIEWED;
+                    _controller.Update(Selected, Selected.Id);
+                    MessageBox.Show("Guest review created successfully");
+                }
+                else
+                {
+                    MessageBox.Show("This guest has already been reviewed");
+                }
             }
             catch(Exception ex)
             {
