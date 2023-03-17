@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
     public enum TYPE { HOTEL, HUT, APARTMENT };
 
-    public class Accommodation : ISerializable, IDataErrorInfo
+    public class Accommodation : ISerializable,INotifyPropertyChanged,IDataErrorInfo
     {
         private int _id;
         private Owner _owner;
@@ -88,7 +90,7 @@ namespace TouristAgency.Model
                 if (value != _name)
                 {
                     _name = value;
-                    //OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -125,6 +127,7 @@ namespace TouristAgency.Model
                 if (value != _type)
                 {
                     _type = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -137,7 +140,7 @@ namespace TouristAgency.Model
                 if (value != _maxGuestNum)
                 {
                     _maxGuestNum = value;
-                    //OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -150,7 +153,6 @@ namespace TouristAgency.Model
                 if (value != _minNumOfDays)
                 {
                     _minNumOfDays = value;
-                    //OnPropertyChanged();
                 }
             }
         }
@@ -163,7 +165,6 @@ namespace TouristAgency.Model
                 if (value != _allowedNumOfDaysForCancelation)
                 {
                     _allowedNumOfDaysForCancelation = value;
-                    //OnPropertyChanged();
                 }
             }
         }
@@ -184,6 +185,13 @@ namespace TouristAgency.Model
                     _recentlyRenovated = value;
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public string Error => null;
@@ -218,7 +226,7 @@ namespace TouristAgency.Model
         }
 
         private readonly string[] _validatedProperties = {"Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
-        
+
         public bool IsValid
         {
             get
