@@ -45,7 +45,7 @@ namespace TouristAgency.View.Creation
             NewGuestReview = new();
 
             Selected = SelectedReservation;
-            _controller = rc; // malo gej
+            _controller = rc;
             NewGuestReview.Guest = Selected.Guest;
             NewGuestReview.GuestId = Selected.GuestId;
         }

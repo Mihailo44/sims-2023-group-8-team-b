@@ -1,28 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TouristAgency.Model;
-using TouristAgency.Controller;
+using System.Windows;
 using System.Collections.ObjectModel;
+using TouristAgency.Controller;
+using TouristAgency.Model;
 
 namespace TouristAgency.View.Creation
 {
     /// <summary>
     /// Interaction logic for AccommodationCreation.xaml
     /// </summary>
-    public partial class AccommodationCreation : Window,IDataErrorInfo
+    public partial class AccommodationCreation : Window, IDataErrorInfo
     {
         private readonly AccommodationController _controller;
         private readonly LocationController _locationController;
@@ -31,12 +19,13 @@ namespace TouristAgency.View.Creation
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
-        public string PhotoLinks 
-        { 
+        
+        public string PhotoLinks
+        {
             get => _photoLinks;
             set
             {
-                if(_photoLinks != value)
+                if (_photoLinks != value)
                 {
                     _photoLinks = value;
                 }
@@ -63,7 +52,7 @@ namespace TouristAgency.View.Creation
         {
             get
             {
-                foreach(var property in _validatedProperties)
+                foreach (var property in _validatedProperties)
                 {
                     if (this[property] != null)
                         return false;
@@ -78,16 +67,21 @@ namespace TouristAgency.View.Creation
             InitializeComponent();
             DataContext = this;
 
-            cbType.Items.Add(TYPE.HOTEL.ToString());
-            cbType.Items.Add(TYPE.APARTMENT.ToString());
-            cbType.Items.Add(TYPE.HUT.ToString());
-
             _controller = new AccommodationController();
             _locationController = new LocationController();
             _photoController = new PhotoController();
 
+            FillComboBoxes();
+
             NewAccommodation = new();
             NewLocation = new();
+        }
+
+        private void FillComboBoxes()
+        {
+            cbType.Items.Add(TYPE.HOTEL.ToString());
+            cbType.Items.Add(TYPE.APARTMENT.ToString());
+            cbType.Items.Add(TYPE.HUT.ToString());
         }
 
         private void PrepareAccommodationForCreation()
@@ -115,14 +109,18 @@ namespace TouristAgency.View.Creation
             try
             {
                 PrepareAccommodationForCreation();
-                if (NewAccommodation.IsValid)
+                if (NewAccommodation.IsValid && IsValid)
                 {
                     _controller.Create(NewAccommodation);
                     AddPhotos();
+                    MessageBox.Show("Accommodation created successfully");
                 }
-                MessageBox.Show("Accommodation created successfully");
+                else
+                {
+                    MessageBox.Show("Ne budi nepismen");
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show((ex.Message));
             }

@@ -68,7 +68,7 @@ namespace TouristAgency.View.Home
 
                 if (dateDif < 5.0)
                 {
-                    notification += $"{reservation.Guest.FirstName} {reservation.End}\n";
+                    notification += $"{reservation.Accommodation.Name} {reservation.End}\n";
                 }
                 else
                 {
