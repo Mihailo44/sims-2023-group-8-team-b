@@ -76,18 +76,6 @@ namespace TouristAgency.Model.DAO
             return _reservations;
         }
 
-        public void LoadAccommodationsToReservations(List<Accommodation> accommodations)
-        {
-            foreach (var reservation in _reservations)
-            {
-                Accommodation accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
-                if (accommodation != null)
-                {
-                    reservation.Accommodation = accommodation;
-                }
-            }
-        }
-
         public void LoadGuestsToReservations(List<Guest> guests)
         {
             foreach (var reservation in _reservations)
@@ -96,6 +84,18 @@ namespace TouristAgency.Model.DAO
                 if (guest != null)
                 {
                     reservation.Guest = guest;
+                }
+            }
+        }
+
+        public void LoadAccommodationsToReservations(List<Accommodation> accommodations)
+        {
+            foreach (var reservation in _reservations)
+            {
+                Accommodation accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
+                if (accommodation != null)
+                {
+                    reservation.Accommodation = accommodation;
                 }
             }
         }

@@ -38,6 +38,11 @@ namespace TouristAgency.Controller
             _owner.Delete(newOwner.ID);
         }
 
+        public void LoadAccommodationsToOwners(List<Accommodation> accommodations)
+        {
+            _owner.LoadAccommodationsToOwners(accommodations);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _owner.Subscribe(observer);

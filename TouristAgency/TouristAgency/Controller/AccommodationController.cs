@@ -69,6 +69,11 @@ namespace TouristAgency.Controller
             _accommodation.Delete(accommodation.Id);
         }
 
+        public List<Accommodation> GetByOwnerId(int id = 0)
+        {
+            return _accommodation.GetByOwnerId(id);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _accommodation.Subscribe(observer);

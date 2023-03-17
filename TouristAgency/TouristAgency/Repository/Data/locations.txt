@@ -4,4 +4,3 @@
 3|||Kraljevo|Srbija
 4|||Subotica|Srbija
 5|||Madrid|Spanija
-6||||

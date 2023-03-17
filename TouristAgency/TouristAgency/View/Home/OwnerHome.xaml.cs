@@ -19,6 +19,10 @@ namespace TouristAgency.View.Home
         private ReservationController _reservationController;
         private AccommodationController _accommodationController;
         private GuestController _guestController;
+        private OwnerController _ownerController;
+
+        public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
 
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
@@ -35,20 +39,35 @@ namespace TouristAgency.View.Home
             _accommodationController.Subscribe(this);
 
             _guestController = new GuestController();
+            _ownerController = new OwnerController();
+            _ownerController.LoadAccommodationsToOwners(_accommodationController.GetAll());
 
             //ovo bi trebalo izmeniti da bude samo lista akomacija sa id ulogovanog vlasnika
             _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
             _reservationController.LoadGuestsToReservations(_guestController.GetAll());
+
+            Accommodations = new ObservableCollection<Accommodation>();
+            LoadAccommodations();
 
             Reservations = new ObservableCollection<Reservation>();
             LoadReservations();
             ReviewNotification();
         }
 
-        private void LoadReservations(int id = 0) //ovde ce ici parametar owner id, ili sta vec
+        private void LoadAccommodations(int ownerId = 0)
+        {
+            Accommodations.Clear();
+            List<Accommodation> accommodations = _accommodationController.GetByOwnerId(ownerId);
+            foreach(var accommodation in accommodations)
+            {
+                Accommodations.Add(accommodation);
+            }
+        }
+
+        private void LoadReservations(int ownerId = 0)
         {
             Reservations.Clear();
-            List<Reservation> reservations = _reservationController.GetByOwnerId(id);//magican broj
+            List<Reservation> reservations = _reservationController.GetByOwnerId(ownerId);
             foreach (var reservation in reservations)
             {
                 Reservations.Add(reservation);
@@ -87,6 +106,7 @@ namespace TouristAgency.View.Home
 
         public void Update()
         {
+            LoadAccommodations();
             LoadReservations();
         }
 

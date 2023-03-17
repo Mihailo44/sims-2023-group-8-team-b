@@ -36,12 +36,13 @@
 
             <TabControl x:Name="tbCtrl" Background="Aquamarine">
                 <TabItem Header="Accommodations" Width="145" Height="30" FontSize="15">
-                    <DataGrid Height="550" FontSize="15">
+                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Accommodations,UpdateSourceTrigger=PropertyChanged}"
+                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="Name"/>
-                            <DataGridTextColumn Width="*" Header="City"/>
-                            <DataGridTextColumn Width="2*" Header="Guest"/>
-                            <DataGridTextColumn Width="2*" Header="Phone"/>
+                            <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
+                            <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
+                            <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

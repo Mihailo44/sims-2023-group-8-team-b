@@ -79,6 +79,18 @@ namespace TouristAgency.Model.DAO
             return _owners;
         }
 
+        public void LoadAccommodationsToOwners(List<Accommodation> accommodations)
+        {
+            foreach(var accommodation in accommodations)
+            {
+                Owner owner = _owners.Find(o => o.ID == accommodation.OwnerId);
+                if(owner != null)
+                {
+                    owner.Accommodations.Add(accommodation);
+                }
+            }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

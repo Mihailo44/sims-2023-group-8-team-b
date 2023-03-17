@@ -166,6 +166,11 @@ namespace TouristAgency.Model.DAO
             }
         }
 
+        public List<Accommodation> GetByOwnerId(int id = 0)
+        {
+            return _accommodations.Where(a => a.OwnerId == id).ToList();
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
