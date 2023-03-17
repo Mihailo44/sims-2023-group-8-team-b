@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
     public enum TYPE { HOTEL, HUT, APARTMENT };
 
-    public class Accommodation : ISerializable, IDataErrorInfo
+    public class Accommodation : ISerializable,IDataErrorInfo
     {
         private int _id;
         private Owner _owner;
@@ -88,7 +89,6 @@ namespace TouristAgency.Model
                 if (value != _name)
                 {
                     _name = value;
-                    //OnPropertyChanged();
                 }
             }
         }
@@ -150,7 +150,6 @@ namespace TouristAgency.Model
                 if (value != _minNumOfDays)
                 {
                     _minNumOfDays = value;
-                    //OnPropertyChanged();
                 }
             }
         }
@@ -163,7 +162,6 @@ namespace TouristAgency.Model
                 if (value != _allowedNumOfDaysForCancelation)
                 {
                     _allowedNumOfDaysForCancelation = value;
-                    //OnPropertyChanged();
                 }
             }
         }
@@ -218,7 +216,7 @@ namespace TouristAgency.Model
         }
 
         private readonly string[] _validatedProperties = {"Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
-        
+
         public bool IsValid
         {
             get

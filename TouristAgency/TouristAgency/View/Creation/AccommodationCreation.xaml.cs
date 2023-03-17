@@ -4,6 +4,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using TouristAgency.Controller;
 using TouristAgency.Model;
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.View.Creation
 {
@@ -62,12 +63,14 @@ namespace TouristAgency.View.Creation
             }
         }
 
-        public AccommodationCreation()
+        public AccommodationCreation(AccommodationController ac)
         {
             InitializeComponent();
             DataContext = this;
 
-            _controller = new AccommodationController();
+            
+            _controller = ac;
+          
             _locationController = new LocationController();
             _photoController = new PhotoController();
 

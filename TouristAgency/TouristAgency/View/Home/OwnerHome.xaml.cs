@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using TouristAgency.Controller;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -20,6 +22,7 @@ namespace TouristAgency.View.Home
         private AccommodationController _accommodationController;
         private GuestController _guestController;
         private OwnerController _ownerController;
+        private LocationController _locationController;
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
@@ -38,13 +41,16 @@ namespace TouristAgency.View.Home
             _accommodationController = new AccommodationController();
             _accommodationController.Subscribe(this);
 
-            _guestController = new GuestController();
             _ownerController = new OwnerController();
             _ownerController.LoadAccommodationsToOwners(_accommodationController.GetAll());
+
+            _guestController = new GuestController();
+            _locationController = new LocationController();
 
             //ovo bi trebalo izmeniti da bude samo lista akomacija sa id ulogovanog vlasnika
             _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
             _reservationController.LoadGuestsToReservations(_guestController.GetAll());
+            _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
 
             Accommodations = new ObservableCollection<Accommodation>();
             LoadAccommodations();
@@ -112,13 +118,13 @@ namespace TouristAgency.View.Home
 
         private void MenuNewAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationCreation x = new AccommodationCreation();
+            AccommodationCreation x = new AccommodationCreation(_accommodationController);
             x.Show();
         }
 
         private void ToolBarCreate_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationCreation x = new AccommodationCreation();
+            AccommodationCreation x = new AccommodationCreation(_accommodationController);
             x.Show();
         }
 
