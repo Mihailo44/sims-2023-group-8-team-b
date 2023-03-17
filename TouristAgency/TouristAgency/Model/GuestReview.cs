@@ -15,22 +15,26 @@ namespace TouristAgency.Model
         private DateTime _reviewDate;
         private int _cleanliness;
         private int _ruleAbiding;
+        private int _communication;
+        private int _overallImpression;
         private string _comment;
        
 
         public GuestReview()
         {
             _id = -1;
-            _reviewDate = DateTime.Now; // mozda DateTime.Today
+            _reviewDate = DateTime.Now;
         }
 
-        public GuestReview(Guest guest, int cleanliness, int ruleAbiding, string comment="")
+        public GuestReview(Guest guest, int cleanliness, int ruleAbiding,int communication,int overallImpression,string comment="")
         {
             _guest = guest;
             _guestId = guest.ID;
             _reviewDate = DateTime.Now;
             _cleanliness = cleanliness;
             _ruleAbiding = ruleAbiding;
+            _communication = communication;
+            _overallImpression = overallImpression;
             _comment = comment;
         }
 
@@ -100,6 +104,30 @@ namespace TouristAgency.Model
             }
         }
 
+        public int Communication
+        {
+            get => _communication;
+            set
+            {
+                if(value != _communication)
+                {
+                    _communication = value;
+                }
+            }
+        }
+
+        public int OverallImpression
+        {
+            get => _overallImpression;
+            set
+            {
+                if(value != _overallImpression)
+                {
+                    _overallImpression = value;
+                }
+            }
+        }
+
         public string Comment
         {
             get => _comment; 
@@ -119,7 +147,9 @@ namespace TouristAgency.Model
             ReviewDate = DateTime.Parse(values[2]);
             Cleanliness = int.Parse(values[3]);
             RuleAbiding = int.Parse(values[4]);
-            Comment = values[5];
+            Communication = int.Parse(values[5]);
+            OverallImpression = int.Parse(values[6]);
+            Comment = values[7];
         }
 
         public string[] ToCSV()
@@ -131,6 +161,8 @@ namespace TouristAgency.Model
                 ReviewDate.ToShortDateString(), // mozda treba drugacije
                 Cleanliness.ToString(),
                 RuleAbiding.ToString(),
+                Communication.ToString(),
+                OverallImpression.ToString(),
                 Comment
             };
 
