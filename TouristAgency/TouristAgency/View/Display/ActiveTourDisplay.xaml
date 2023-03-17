@@ -1,0 +1,50 @@
+﻿<Window x:Class="TouristAgency.View.Display.ActiveTourDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Display"
+        mc:Ignorable="d"
+        Title="ActiveTourDisplay" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <ListView ItemsSource="{Binding Path=ActiveTours}" Foreground="Black">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                                <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                                <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
+                                <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                                <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                <Button Content="Zapocni turu!" Width="100px"></Button>
+
+            <ListView ItemsSource="{Binding Path=ActiveTours}" Foreground="Black">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                        <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                        <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
+                        <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                        <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>

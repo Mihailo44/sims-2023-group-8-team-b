@@ -11,6 +11,7 @@
         <Button Content="TourCreation" Margin="137,273,486,83" Click="TourButton_Click"/>
         <Button Content="TourDisplay" HorizontalAlignment="Left" Margin="449,273,0,0" VerticalAlignment="Top" Click="TourDisplay_Click" Height="88" Width="145"/>
         <Button Content="AccommodationDisplay" HorizontalAlignment="Left" Margin="431,75,0,0" VerticalAlignment="Top" Width="163" Height="86" Click="AccommodationDisplay_Click"/>
+        <Button x:Name="ActiveTourDisplayButton" Content="ActiveTourDisplay" HorizontalAlignment="Left" Margin="137,356,0,0" VerticalAlignment="Top" Height="68" Width="177" Click="ActiveTourDisplayButton_OnClick"/>
 
     </Grid>
 </Window>

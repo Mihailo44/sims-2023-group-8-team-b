@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,11 +57,13 @@ namespace TouristAgency.Model.DAO
             currentTour.ShortLocation = newTour.ShortLocation;
             currentTour.Language = newTour.Language;
             currentTour.MaxAttendants = newTour.MaxAttendants;
+            currentTour.CurrentAttendants = newTour.CurrentAttendants;
             currentTour.Duration = newTour.Duration;
             currentTour.StartDateTime = newTour.StartDateTime; //! Mozda mora new!
             //TODO liste, kada napravis update formu
             //currentTour.GuideID = ..
             //slike...
+            _storage.Save(_tours);
             NotifyObservers();
             return currentTour;
         }
@@ -90,6 +93,19 @@ namespace TouristAgency.Model.DAO
                     }
                 }
             }
+        }
+
+        public List<Tour> GetTodayTours()
+        {
+            List<Tour> todayTours = new List<Tour>();
+            foreach (Tour tour in _tours)
+            {
+                if (tour.StartDateTime < DateTime.Now)
+                {
+                    todayTours.Add(tour);
+                }
+            }
+            return todayTours;
         }
 
         public List<string> GetAllCountries()

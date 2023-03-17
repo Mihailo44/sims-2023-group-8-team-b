@@ -18,6 +18,7 @@ namespace TouristAgency.Model
         private int _shortLocationID; //TODO PROVERA DA LI POSTOJI
         private string _language;
         private int _maxAttendants;
+        private int _currentAttendants;
         private int _duration;
         private DateTime _startDateTime;
         private List<Checkpoint> _checkpoints;
@@ -167,6 +168,19 @@ namespace TouristAgency.Model
             }
         }
 
+        public int CurrentAttendants
+        {
+            get => _currentAttendants;
+            set
+            {
+                if (value != _currentAttendants)
+                {
+                    _currentAttendants = value;
+                    OnPropertyChanged("CurrentAttendants");
+                }
+            }
+        }
+
         public int Duration
         {
             get => _duration;
@@ -261,6 +275,7 @@ namespace TouristAgency.Model
                 Description,
                 Language,
                 MaxAttendants.ToString(),
+                CurrentAttendants.ToString(),
                 Duration.ToString(),
                 StartDateTime.ToString(),
                 AssignedGuide.ID.ToString(),
@@ -277,10 +292,11 @@ namespace TouristAgency.Model
             Description = values[2];
             Language = values[3];
             MaxAttendants = Convert.ToInt32(values[4]);
-            Duration = Convert.ToInt32(values[5]);
-            StartDateTime = DateTime.Parse(values[6]);
-            AssignedGuide.ID = Convert.ToInt32(values[7]);
-            ShortLocationID = Convert.ToInt32(values[8]);
+            CurrentAttendants = Convert.ToInt32(values[5]);
+            Duration = Convert.ToInt32(values[6]);
+            StartDateTime = DateTime.Parse(values[7]);
+            AssignedGuide.ID = Convert.ToInt32(values[8]);
+            ShortLocationID = Convert.ToInt32(values[9]);
         }
 
     }

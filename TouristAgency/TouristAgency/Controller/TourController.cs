@@ -29,6 +29,11 @@ namespace TouristAgency.Controller
             return _tour.GetAll();
         }
 
+        public ObservableCollection<Tour> GetTodayTours()
+        {
+            return new ObservableCollection<Tour>(_tour.GetTodayTours());
+        }
+
         public void LoadLocationsToTours(List<Location> locations)
         {
             _tour.LoadLocationsToTours(locations);

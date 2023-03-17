@@ -32,6 +32,7 @@ namespace TouristAgency
         private LocationController _locationController;
         private PhotoController _photoController;
         private TourCheckpointController _tourCheckpointController;
+        private TouristController _touristController;
         public MainWindow()
         {
             InitializeComponent();
@@ -70,6 +71,12 @@ namespace TouristAgency
         {
             AccommodationDisplay display = new AccommodationDisplay(_accommodationController);
             display.Show();
+        }
+
+        private void ActiveTourDisplayButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ActiveTourDisplay y = new ActiveTourDisplay(_tourController,_tourCheckpointController,_checkpointController, _touristController);
+            y.Show();
         }
     }
 }
