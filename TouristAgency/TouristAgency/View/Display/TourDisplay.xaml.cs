@@ -25,13 +25,29 @@ namespace TouristAgency.View.Display
     public partial class TourDisplay : Window, INotifyPropertyChanged
     {
         TourController _tourController;
+        TourTouristController _tourTouristController;
+        TouristController _touristController;
         private ObservableCollection<Tour> _tours;
         private ObservableCollection<string> _countires;
         private ObservableCollection<string> _cities;
         private ObservableCollection<string> _languages;
         private int _duration;
         private int _maxCapacity;
+        private int _numberOfReservation;
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public TourDisplay(TourController tourController, TourTouristController tourTouristController, TouristController touristController)
+        {
+            InitializeComponent();
+            DataContext = this;
+            _tourController = tourController;
+            _tourTouristController = tourTouristController;
+            _touristController = touristController;
+            Tours = new ObservableCollection<Tour>(tourController.GetAll());
+            Countries = tourController.GetAllCountires();
+            Cities = tourController.GetAllCitites();
+            Languages = tourController.GetAllLanguages();
+        }
 
         public ObservableCollection<Tour> Tours
         {
@@ -111,15 +127,17 @@ namespace TouristAgency.View.Display
             }
         }
 
-        public TourDisplay(TourController tourController)
+        public int NumberOfReservation
         {
-            InitializeComponent();
-            DataContext = this;
-            _tourController = tourController;
-            Tours = new ObservableCollection<Tour>(tourController.GetAll());
-            Countries = tourController.GetAllCountires();
-            Cities = tourController.GetAllCitites();
-            Languages = tourController.GetAllLanguages();
+            get => _numberOfReservation;
+            set
+            {
+                if( value != _numberOfReservation) 
+                {
+                    _numberOfReservation = value;
+                    OnPropertyChanged("NumberOfReservation");
+                }
+            }
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -156,6 +174,29 @@ namespace TouristAgency.View.Display
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             Tours = new ObservableCollection<Tour>(_tourController.GetAll());
+        }
+
+        private void MakeAReservation_Click(object sender, RoutedEventArgs e)
+        {
+            Tour selectedTour = (Tour)ToursListView.SelectedItem;
+            if(selectedTour == null)
+            {
+                MessageBox.Show("You must select a tour from the list.");
+                return;
+            }
+
+            int availableReservations = selectedTour.MaxAttendants - selectedTour.CurrentAttendants - NumberOfReservation;
+            if(availableReservations < 0) 
+            {
+                MessageBox.Show("The selected tour does not have enough capacity.", "Alert");
+                return;
+            }
+
+            selectedTour.CurrentAttendants += NumberOfReservation;
+            _tourController.Update(selectedTour, selectedTour.ID);
+            _tourTouristController.Create(new TourTourist(selectedTour.ID, 6)); //TODO zakucan je na korisnika sa IDem 6, promeni kad se implementira logovanje
+            Tourist tourist = _touristController.FindById(6);
+            tourist.AppliedTours.Add(selectedTour);
         }
     }
 }

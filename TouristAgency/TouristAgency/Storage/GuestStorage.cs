@@ -11,7 +11,7 @@ namespace TouristAgency.Storage
     public class GuestStorage
     {
         private Serializer<Guest> _serializer;
-        private readonly string _file = "guest.txt";
+        private readonly string _file = "guests.txt";
 
         public GuestStorage()
         {
