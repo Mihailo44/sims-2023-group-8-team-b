@@ -76,13 +76,13 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Content="Number of reservations:" Height="26"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="60" Height="27" HorizontalAlignment="Left"/>
-                <Button Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="60" Height="27" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}"/>
+                <Button Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right" Click="MakeAReservation_Click"/>
                 <Button Grid.Column="3" Content="Cancel reservation" Width="110" Height="27" HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </GroupBox>
 
-        <ListView ItemsSource="{Binding Path=Tours}" Width="580" Height="260" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black">
+        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="580" Height="260" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -96,6 +96,7 @@
                     <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
                     <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
                     <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                    <GridViewColumn Header="Remaining capacity" DisplayMemberBinding="{Binding RemainingCapacity}"/>
                 </GridView>
             </ListView.View>
         </ListView>

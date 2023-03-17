@@ -75,6 +75,20 @@ namespace TouristAgency.Model.DAO
             return _tourists;
         }
 
+        /*public void LoadTourTouristToTourist(List<TourTourist> tourTourists)
+        {
+            foreach (TourTourist tourTourist in tourTourists)
+            {
+                foreach (Tourist tourist in _tourists)
+                {
+                    if (tourist.ID == tourTourist.TouristID)
+                    {
+                        
+                    }
+                }
+            }
+        }*/
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

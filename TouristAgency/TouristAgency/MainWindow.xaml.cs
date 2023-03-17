@@ -34,8 +34,9 @@ namespace TouristAgency
         private TourCheckpointController _tourCheckpointController;
         private OwnerController _ownerController;
         private ReservationController _reservationController;
-
         private TouristController _touristController;
+        private TourTouristController _tourTouristController;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,6 +48,8 @@ namespace TouristAgency
             _tourCheckpointController = new TourCheckpointController();
             _ownerController = new OwnerController();
             _reservationController = new ReservationController();
+            _touristController = new TouristController();
+            _tourTouristController = new TourTouristController();
 
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
             _accommodationController.LoadPhotosToAccommodations(_photoController.GetAll());
@@ -72,7 +75,7 @@ namespace TouristAgency
 
         private void TourDisplay_Click(object sender, RoutedEventArgs e)
         {
-            TourDisplay display = new TourDisplay(_tourController);
+            TourDisplay display = new TourDisplay(_tourController, _tourTouristController, _touristController);
             display.Show();
         }
 

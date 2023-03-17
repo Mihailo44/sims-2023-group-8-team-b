@@ -60,6 +60,7 @@ namespace TouristAgency.Model.DAO
             currentTour.CurrentAttendants = newTour.CurrentAttendants;
             currentTour.Duration = newTour.Duration;
             currentTour.StartDateTime = newTour.StartDateTime; //! Mozda mora new!
+            currentTour.RemainingCapacity = currentTour.MaxAttendants - currentTour.CurrentAttendants;
             //TODO liste, kada napravis update formu
             //currentTour.GuideID = ..
             //slike...

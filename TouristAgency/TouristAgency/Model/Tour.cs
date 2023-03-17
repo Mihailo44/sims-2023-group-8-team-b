@@ -19,6 +19,7 @@ namespace TouristAgency.Model
         private string _language;
         private int _maxAttendants;
         private int _currentAttendants;
+        private int _remainingCapacity;
         private int _duration;
         private DateTime _startDateTime;
         private List<Checkpoint> _checkpoints;
@@ -56,6 +57,7 @@ namespace TouristAgency.Model
             _shortLocation = location;
             _language = language;
             _maxAttendants = maxAttendants;
+            _remainingCapacity = maxAttendants;
             _duration = duration;
             _startDateTime = startDateTime;
             _checkpoints = new List<Checkpoint>();
@@ -181,6 +183,19 @@ namespace TouristAgency.Model
             }
         }
 
+        public int RemainingCapacity
+        {
+            get => _remainingCapacity;
+            set
+            {
+                if(value != _remainingCapacity)
+                {
+                    _remainingCapacity = value;
+                    OnPropertyChanged("RemainingCapacity");
+                }
+            }
+        }
+
         public int Duration
         {
             get => _duration;
@@ -276,6 +291,7 @@ namespace TouristAgency.Model
                 Language,
                 MaxAttendants.ToString(),
                 CurrentAttendants.ToString(),
+                RemainingCapacity.ToString(),
                 Duration.ToString(),
                 StartDateTime.ToString(),
                 AssignedGuide.ID.ToString(),
@@ -293,10 +309,11 @@ namespace TouristAgency.Model
             Language = values[3];
             MaxAttendants = Convert.ToInt32(values[4]);
             CurrentAttendants = Convert.ToInt32(values[5]);
-            Duration = Convert.ToInt32(values[6]);
-            StartDateTime = DateTime.Parse(values[7]);
-            AssignedGuide.ID = Convert.ToInt32(values[8]);
-            ShortLocationID = Convert.ToInt32(values[9]);
+            RemainingCapacity = Convert.ToInt32(values[6]);
+            Duration = Convert.ToInt32(values[7]);
+            StartDateTime = DateTime.Parse(values[8]);
+            AssignedGuide.ID = Convert.ToInt32(values[9]);
+            ShortLocationID = Convert.ToInt32(values[10]);
         }
 
     }
