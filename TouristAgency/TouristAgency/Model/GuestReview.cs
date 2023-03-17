@@ -23,6 +23,10 @@ namespace TouristAgency.Model
         public GuestReview()
         {
             _id = -1;
+            _cleanliness = 1;
+            _ruleAbiding = 1;
+            _communication = 1;
+            _overallImpression = 1;
             _reviewDate = DateTime.Now;
         }
 

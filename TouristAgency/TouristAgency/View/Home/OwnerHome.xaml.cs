@@ -61,6 +61,7 @@ namespace TouristAgency.View.Home
 
             string notification = "Unreviewed guests:\n";
             double dateDif = 0;
+            int changes = 0;
 
             foreach (var reservation in _reservationController.GetUnreviewed())
             {
@@ -69,6 +70,7 @@ namespace TouristAgency.View.Home
                 if (dateDif < 5.0)
                 {
                     notification += $"{reservation.Accommodation.Name} {reservation.End}\n";
+                    changes++;
                 }
                 else
                 {
@@ -77,7 +79,10 @@ namespace TouristAgency.View.Home
                 }
             }
 
-            MessageBox.Show(notification);
+            if (changes > 0)
+            {
+                MessageBox.Show(notification);
+            }
         }
 
         public void Update()

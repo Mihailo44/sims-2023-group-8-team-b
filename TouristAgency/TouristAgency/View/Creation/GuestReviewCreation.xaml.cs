@@ -35,11 +35,7 @@ namespace TouristAgency.View.Creation
             InitializeComponent();
             DataContext = this;
 
-            for(int i = 1; i <= 5; i++)
-            {
-                cbClean.Items.Add(i.ToString());
-                cbRules.Items.Add(i.ToString());
-            }
+            FillComboBoxes();
 
             _guestReviewController = new GuestReviewController();
             NewGuestReview = new();
@@ -48,6 +44,17 @@ namespace TouristAgency.View.Creation
             _controller = rc;
             NewGuestReview.Guest = Selected.Guest;
             NewGuestReview.GuestId = Selected.GuestId;
+        }
+
+        private void FillComboBoxes()
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                cbClean.Items.Add(i.ToString());
+                cbRules.Items.Add(i.ToString());
+                cbComm.Items.Add(i.ToString());
+                cbOver.Items.Add(i.ToString());
+            }
         }
 
         private void ButtonRegister_Click(object sender, RoutedEventArgs e)

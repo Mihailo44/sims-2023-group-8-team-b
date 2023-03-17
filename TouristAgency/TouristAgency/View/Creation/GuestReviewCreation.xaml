@@ -51,8 +51,8 @@
 
         <ComboBox x:Name="cbClean" Grid.Row="1" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.Cleanliness,UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox x:Name="cbRules" Grid.Row="2" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.RuleAbiding,UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Grid.Row="3" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.Communication, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.OverallImpression, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox x:Name="cbComm" Grid.Row="3" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.Communication, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Name="cbOver" Grid.Row="4" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.OverallImpression, UpdateSourceTrigger=PropertyChanged}"/>
         <!--<TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MaxGuestNum,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
