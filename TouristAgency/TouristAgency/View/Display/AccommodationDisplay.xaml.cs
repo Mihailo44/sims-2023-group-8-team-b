@@ -181,5 +181,7 @@ namespace TouristAgency.View.Display
         {
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
         }
+
+        
     }
 }
