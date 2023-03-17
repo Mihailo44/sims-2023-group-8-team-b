@@ -59,6 +59,19 @@ namespace TouristAgency
             _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
            // _reservationController.LoadGuestsToReservations(_guestController.GetAll());
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
+
+            LoadTourToTourist(_tourTouristController.GetAll());
+        }
+
+        public void LoadTourToTourist(List<TourTourist> tourTourists)
+        {
+            foreach (TourTourist tourTourist in tourTourists)
+            {
+                Tour tour = _tourController.FindById(tourTourist.TourID);
+                Tourist tourist = _touristController.FindById(tourTourist.TouristID);
+                tour.RegisteredTourists.Add(tourist);
+                tourist.AppliedTours.Add(tour);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

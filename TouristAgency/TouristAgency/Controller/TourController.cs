@@ -24,6 +24,11 @@ namespace TouristAgency.Controller
             return _tour.GenerateId();
         }
 
+        public Tour FindById(int id)
+        {
+            return _tour.FindById(id);
+        }
+
         public List<Tour> GetAll()
         {
             return _tour.GetAll();
