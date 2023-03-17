@@ -8,7 +8,7 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Model.DAO
 {
-    public class GuestDAO : ICrud, ISubject
+    public class GuestDAO : ICrud<Guest>, ISubject
     {
         private readonly GuestStorage _storage;
         private readonly List<Guest> _guests;
