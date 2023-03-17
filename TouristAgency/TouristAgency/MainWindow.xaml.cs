@@ -32,6 +32,9 @@ namespace TouristAgency
         private LocationController _locationController;
         private PhotoController _photoController;
         private TourCheckpointController _tourCheckpointController;
+        private OwnerController _ownerController;
+        private ReservationController _reservationController;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,16 +44,22 @@ namespace TouristAgency
             _accommodationController = new AccommodationController();
             _photoController = new PhotoController();
             _tourCheckpointController = new TourCheckpointController();
+            _ownerController = new OwnerController();
+            _reservationController = new ReservationController();
+
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
             _accommodationController.LoadPhotosToAccommodations(_photoController.GetAll());
             _checkpointController.LoadLocationsToCheckpoints(_locationController.GetAll());
             _tourController.LoadLocationsToTours(_locationController.GetAll());
             _photoController.LoadToursToPhotos(_tourController.GetAll());
+            _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
+           // _reservationController.LoadGuestsToReservations(_guestController.GetAll());
+            _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OwnerHome x = new OwnerHome();
+            OwnerHome x = new OwnerHome(_reservationController,_accommodationController,_ownerController,_locationController,_photoController);
             x.Show();
         }
 

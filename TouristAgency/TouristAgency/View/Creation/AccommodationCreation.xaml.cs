@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Collections.ObjectModel;
 using TouristAgency.Controller;
 using TouristAgency.Model;
-using TouristAgency.Interfaces;
 
 namespace TouristAgency.View.Creation
 {
@@ -20,7 +18,7 @@ namespace TouristAgency.View.Creation
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
-        
+
         public string PhotoLinks
         {
             get => _photoLinks;
@@ -63,16 +61,15 @@ namespace TouristAgency.View.Creation
             }
         }
 
-        public AccommodationCreation(AccommodationController ac)
+        public AccommodationCreation(AccommodationController ac,LocationController lc,PhotoController pc)
         {
             InitializeComponent();
             DataContext = this;
 
-            
             _controller = ac;
-          
-            _locationController = new LocationController();
-            _photoController = new PhotoController();
+
+            _locationController = lc;
+            _photoController = pc;
 
             FillComboBoxes();
 
