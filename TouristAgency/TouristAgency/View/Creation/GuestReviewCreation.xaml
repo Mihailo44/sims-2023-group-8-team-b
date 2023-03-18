@@ -43,8 +43,8 @@
         <Label Grid.Row="2" Grid.Column="0" Content="Rule abiding" FontSize="17" HorizontalAlignment="Center"/>
         <Label Grid.Row="3" Grid.Column="0" Content="Communication" FontSize="17" HorizontalAlignment="Center" />
         <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="17" HorizontalAlignment="Center"/>
-       <!-- <Label Grid.Row="5" Grid.Column="0" Content="Max Number of Guests" FontSize="17" HorizontalAlignment="Center"/>
-        <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" FontSize="17" HorizontalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="17" HorizontalAlignment="Center"/>
+       <!-- <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" FontSize="17" HorizontalAlignment="Center"/>
         <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="17" HorizontalAlignment="Center"/>-->
         <Label Grid.Row="8" Grid.Column="0" Content="Comment" FontSize="17" HorizontalAlignment="Center"/> 
         <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Content="CREATE" Width="180" Height="80" FontSize="23" Click="ButtonRegister_Click"/>
@@ -52,10 +52,9 @@
         <ComboBox x:Name="cbClean" Grid.Row="1" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.Cleanliness,UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox x:Name="cbRules" Grid.Row="2" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.RuleAbiding,UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox x:Name="cbComm" Grid.Row="3" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.Communication, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Name="cbOver" Grid.Row="4" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.OverallImpression, UpdateSourceTrigger=PropertyChanged}"/>
-        <!--<TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MaxGuestNum,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+        <ComboBox x:Name="cbOver" Grid.Row="4" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.OverallImpression, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox x:Name="cbNoise" Grid.Row="5" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.NoiseLevel,UpdateSourceTrigger=PropertyChanged}"/>
+        <!--<TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <TextBox Grid.Row="7" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.AllowedNumOfDaysForCancelation,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/> -->

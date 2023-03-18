@@ -17,6 +17,7 @@ namespace TouristAgency.Model
         private int _ruleAbiding;
         private int _communication;
         private int _overallImpression;
+        private int _noiseLevel;
         private string _comment;
        
 
@@ -27,10 +28,11 @@ namespace TouristAgency.Model
             _ruleAbiding = 1;
             _communication = 1;
             _overallImpression = 1;
+            _noiseLevel = 1;
             _reviewDate = DateTime.Now;
         }
 
-        public GuestReview(Guest guest, int cleanliness, int ruleAbiding,int communication,int overallImpression,string comment="")
+        public GuestReview(Guest guest, int cleanliness, int ruleAbiding,int communication,int overallImpression,int noiseLevel,string comment="")
         {
             _guest = guest;
             _guestId = guest.ID;
@@ -39,6 +41,7 @@ namespace TouristAgency.Model
             _ruleAbiding = ruleAbiding;
             _communication = communication;
             _overallImpression = overallImpression;
+            _noiseLevel = noiseLevel;
             _comment = comment;
         }
 
@@ -132,6 +135,18 @@ namespace TouristAgency.Model
             }
         }
 
+        public int NoiseLevel
+        {
+            get => _noiseLevel;
+            set
+            {
+                if(value != _noiseLevel)
+                {
+                    _noiseLevel = value;
+                }
+            }
+        }
+
         public string Comment
         {
             get => _comment; 
@@ -153,7 +168,8 @@ namespace TouristAgency.Model
             RuleAbiding = int.Parse(values[4]);
             Communication = int.Parse(values[5]);
             OverallImpression = int.Parse(values[6]);
-            Comment = values[7];
+            NoiseLevel = int.Parse(values[7]);
+            Comment = values[8];
         }
 
         public string[] ToCSV()
@@ -167,6 +183,7 @@ namespace TouristAgency.Model
                 RuleAbiding.ToString(),
                 Communication.ToString(),
                 OverallImpression.ToString(),
+                NoiseLevel.ToString(),
                 Comment
             };
 

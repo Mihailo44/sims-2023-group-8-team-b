@@ -47,11 +47,6 @@ namespace TouristAgency.View.Home
             _locationController = locationController;
             _photoController = photoController;
 
-            //ovo bi trebalo izmeniti da bude samo lista akomacija sa id ulogovanog vlasnika
-           // _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
-           // _reservationController.LoadGuestsToReservations(_guestController.GetAll());
-           // _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
-
             Accommodations = new ObservableCollection<Accommodation>();
             LoadAccommodations();
 
@@ -85,7 +80,7 @@ namespace TouristAgency.View.Home
             DateTime today = DateTime.UtcNow.Date;
 
             string notification = "Unreviewed guests:\n";
-            double dateDif = 0;
+            double dateDif;
             int changes = 0;
 
             foreach (var reservation in _reservationController.GetUnreviewed())
@@ -130,17 +125,20 @@ namespace TouristAgency.View.Home
 
         private void DataGridReservations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DateTime today = DateTime.UtcNow.Date;
-            double dateDif = (today - SelectedReservation.End).TotalDays;
+            if (SelectedReservation != null)
+            {
+                DateTime today = DateTime.UtcNow.Date;
+                double dateDif = (today - SelectedReservation.End).TotalDays;
 
-            if (dateDif > 5.0)
-            {
-                MessageBox.Show("Guest review time window expired");// bolja poruka
-            }
-            else
-            {
-                GuestReviewCreation x = new GuestReviewCreation(SelectedReservation,_reservationController);
-                x.Show();
+                if (dateDif > 5.0)
+                {
+                    MessageBox.Show("Guest review time window expired");
+                }
+                else
+                {
+                    GuestReviewCreation x = new GuestReviewCreation(SelectedReservation, _reservationController);
+                    x.Show();
+                }
             }
         }
     }
