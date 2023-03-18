@@ -61,6 +61,18 @@ namespace TouristAgency
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
 
             LoadTourToTourist(_tourTouristController.GetAll());
+            LoadCheckpointToTourist(_tourCheckpointController.GetAll());
+        }
+
+        public void LoadCheckpointToTourist(List<TourCheckpoint> tourCheckpoints)
+        {
+            foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
+            {
+                Tour tour = _tourController.FindById(tourCheckpoint.TourID);
+                Checkpoint checkpoint = _checkpointController.FindByID(tourCheckpoint.CheckpointID);
+                tour.Checkpoints.Add(checkpoint);
+                _tourController.Update(tour, tour.ID);
+            }
         }
 
         public void LoadTourToTourist(List<TourTourist> tourTourists)

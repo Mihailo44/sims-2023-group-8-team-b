@@ -28,21 +28,50 @@ namespace TouristAgency.View.Display
         private TourCheckpointController _tourCheckpointController;
         private CheckpointController _checkpointController;
         private TouristController _touristController;
-        private ObservableCollection<Tour> _activeTours;
+        private ObservableCollection<Tour> _availableTours;
+        private ObservableCollection<Checkpoint> _availableCheckpoints;
+        private ObservableCollection<Tourist> _registeredTourists;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<Tour> ActiveTours
+        public ObservableCollection<Tour> AvailableTours
         {
-            get => _activeTours;
+            get => _availableTours;
             set
             {
-                if (value != _activeTours)
+                if (value != _availableTours)
                 {
-                    _activeTours = value;
+                    _availableTours = value;
                     OnPropertyChanged("ActiveTours");
                 }
             }
         }
+
+        public ObservableCollection<Checkpoint> AvailableCheckpoints
+        {
+            get => _availableCheckpoints;
+            set
+            {
+                if (value != _availableCheckpoints)
+                {
+                    _availableCheckpoints = value;
+                    OnPropertyChanged("AvailableCheckpoints");
+                }
+            }
+        }
+
+        public ObservableCollection<Tourist> RegisteredTourists
+        {
+            get => _registeredTourists;
+            set
+            {
+                if (value != _registeredTourists)
+                {
+                    _registeredTourists = value;
+                    OnPropertyChanged("RegisteredTourists");
+                }
+            }
+        }
+
         public ActiveTourDisplay(TourController tourController, TourCheckpointController tourCheckpointController, CheckpointController checkpointController, TouristController touristController)
         {
             InitializeComponent();
@@ -50,7 +79,7 @@ namespace TouristAgency.View.Display
             _tourCheckpointController = tourCheckpointController;
             _checkpointController = checkpointController;
             _touristController = touristController;
-            ActiveTours = tourController.GetTodayTours();
+            AvailableTours = tourController.GetTodayTours();
             this.DataContext = this;
         }
 
@@ -58,6 +87,16 @@ namespace TouristAgency.View.Display
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void BeginTourButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            //TODO
+            //Do ovog momenta bi trebalo da su ucitane sve ture, pa logika moze da ide u DAO
+            //Pogledaj ostale metode i primeni slican princip
+            Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
+            RegisteredTourists = _tourController.GetTouristsFromTour(selectedTour.ID);
+            AvailableCheckpoints = new ObservableCollection<Checkpoint>(selectedTour.Checkpoints);
         }
     }
 }

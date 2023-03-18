@@ -27,18 +27,6 @@ namespace TouristAgency.Model
             }
         }
 
-        /*public int TourID
-        {
-            get => _tourID;
-            set
-            {
-                if (value != _tourID)
-                {
-                    _tourID = value;
-                }
-            }
-        }*/
-
         public string AttractionName
         {
             get => _attractionName;

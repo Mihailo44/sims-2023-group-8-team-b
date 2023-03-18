@@ -19,6 +19,11 @@ namespace TouristAgency.Controller
             _checkpoint = new CheckpointDAO();
         }
 
+        public Checkpoint FindByID(int id)
+        {
+            return _checkpoint.FindById(id);
+        }
+
         public List<Checkpoint> GetAll()
         {
             return _checkpoint.GetAll();

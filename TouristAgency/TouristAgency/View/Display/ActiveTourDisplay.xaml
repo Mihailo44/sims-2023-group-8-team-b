@@ -8,7 +8,7 @@
         Title="ActiveTourDisplay" Height="450" Width="800">
     <Grid>
         <StackPanel>
-            <ListView ItemsSource="{Binding Path=ActiveTours}" Foreground="Black">
+            <ListView x:Name="AvailableToursListView" ItemsSource="{Binding Path=AvailableTours}" Foreground="Black" SelectionMode="Single">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -26,25 +26,28 @@
                         </ListView.View>
                     </ListView>
 
-                <Button Content="Zapocni turu!" Width="100px"></Button>
+                <Button x:Name="BeginTourButton" Content="Zapocni turu!" Width="100px" Click="BeginTourButton_OnClick"></Button>
 
-            <ListView ItemsSource="{Binding Path=ActiveTours}" Foreground="Black">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
-                        <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                        <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
-                        <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
-                        <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <StackPanel Orientation="Horizontal">
+                <ListView ItemsSource="{Binding Path=RegisteredTourists}" Foreground="Black">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}"/>
+                            <GridViewColumn Header="Firstname" DisplayMemberBinding="{Binding FirstName}"/>
+                            <GridViewColumn Header="Lastname" DisplayMemberBinding="{Binding LastName}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+
+                <ListView ItemsSource="{Binding Path=AvailableCheckpoints}" Foreground="Black">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="AttractionName" DisplayMemberBinding="{Binding AttractionName}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
