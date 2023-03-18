@@ -25,20 +25,20 @@ namespace TouristAgency.View.Display
     {
         //private List<Accommodation> _accommodations;
         private ObservableCollection<Accommodation> _accommodations;
+        private ObservableCollection<Reservation> _reservations;
         private AccommodationController _accommodationController;
+        private ReservationController _reservationController;
         private ObservableCollection<string> _countires;
         private ObservableCollection<string> _cities;
         private ObservableCollection<string> _types;
         private ObservableCollection<string> _names;
         private int _maxGuestNum;
         private int _minNumOfDays;
+        private DateTime _start;
+        private DateTime _end;
+        private int _numOfDays;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /*public List<Accommodation> Accommodations
-        {
-            get => _accommodations;
-            set => _accommodations = value;
-        }*/
 
         public ObservableCollection<Accommodation> Accommodations
         {
@@ -49,6 +49,19 @@ namespace TouristAgency.View.Display
                 {
                     _accommodations = value;
                     OnPropertyChanged("Accommodations");
+                }
+            }
+        }
+
+        public ObservableCollection<Reservation> Reservations
+        {
+            get => _reservations;
+            set
+            {
+                if (value != _reservations)
+                {
+                    _reservations = value;
+                    OnPropertyChanged("Reservations");
                 }
             }
         }
@@ -130,24 +143,58 @@ namespace TouristAgency.View.Display
                 }
             }
         }
-        public AccommodationDisplay(AccommodationController accommodationController)
+
+        public int NumOfDays
+        {
+            get => _numOfDays;
+            set
+            {
+                if (_numOfDays != value)
+                {
+                    _numOfDays = value;
+                    OnPropertyChanged("NumOfDays");
+                }
+            }
+        }
+
+        public DateTime Start
+        {
+            get => _start;
+            set
+            {
+                if (_start != value)
+                {
+                    _start = value;
+                    OnPropertyChanged("Start");
+                }
+            }
+        }
+
+        public DateTime End
+        {
+            get => _end;
+            set
+            {
+                if (_start != value)
+                {
+                    _end = value;
+                    OnPropertyChanged("End");
+                }
+            }
+        }
+        public AccommodationDisplay(AccommodationController accommodationController, ReservationController reservationController)
         {
             _accommodationController = accommodationController;
+            _reservationController = reservationController;
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
+            Reservations = new ObservableCollection<Reservation>();
             InitializeComponent();
             DataContext = this;
             Countries = accommodationController.GetCountries();
             Cities = accommodationController.GetCities();
             Names = accommodationController.GetNames();
             Types = accommodationController.GetTypes();
-
-            /* Owner owner1 = new Owner("njutro", "njutro123", "Nikola", "Todic", new DateOnly(1990, 5, 6),
-                 "njutro123@gmail.com", new Location("Pariz", "Francuska"), "851455");
-             Accommodation accommodation1 = new Accommodation("PartyHouse", owner1, new Location("Pariz", "Francuska"), TYPE.APARTMENT, 5, 2, 5);
-             Accommodations.Add(accommodation1); */
-
-            //Accommodations = _accommodationController.GetAll();
-
+            
         }
 
         protected void OnPropertyChanged(string propertyName)
@@ -182,6 +229,31 @@ namespace TouristAgency.View.Display
             Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
         }
 
-        
+        private void SearchDate_Click(object sender, RoutedEventArgs e)
+        {
+            Reservations.Clear();
+
+            int numOfReservations = ((End - Start).Days + 1) / NumOfDays; // TODO: Smisli formulu
+            Guest tempGuest = new Guest(new User("nesto", "ftn", "miko", "mikic", new DateOnly(2001, 3, 15),
+                "nesto@gmail.com", new Location("Spanija", "Madrid", "Salvadora Dalija", "5"), "065621489"));
+            Accommodation selectedAccommodation = (Accommodation)AccommodationsListView.SelectedItem;
+
+            if (selectedAccommodation != null && selectedAccommodation.MinNumOfDays <= NumOfDays)
+            {
+                DateTime startInterval = Start;
+                DateTime endInterval = Start.AddDays(NumOfDays - 1);
+
+                for (int i = 0; i < numOfReservations; i++)
+                {
+                    Reservations.Add(new Reservation(tempGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a hotel or change the number of reservations");
+            }
+
+            
+        }
     }
 }

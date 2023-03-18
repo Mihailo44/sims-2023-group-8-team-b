@@ -81,8 +81,12 @@ namespace TouristAgency
             {
                 Tour tour = _tourController.FindById(tourTourist.TourID);
                 Tourist tourist = _touristController.FindById(tourTourist.TouristID);
-                tour.RegisteredTourists.Add(tourist);
-                tourist.AppliedTours.Add(tour);
+                if (tourist != null)
+                {
+                    tour.RegisteredTourists.Add(tourist);
+                    tourist.AppliedTours.Add(tour);
+                }
+               
             }
         }
 
@@ -106,7 +110,7 @@ namespace TouristAgency
 
         private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationDisplay display = new AccommodationDisplay(_accommodationController);
+            AccommodationDisplay display = new AccommodationDisplay(_accommodationController, _reservationController);
             display.Show();
         }
 
