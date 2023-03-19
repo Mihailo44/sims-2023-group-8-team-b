@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using TouristAgency.Controller;
 using TouristAgency.Model;
 using TouristAgency.Test;
@@ -24,7 +26,7 @@ namespace TouristAgency
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window,INotifyPropertyChanged,IDataErrorInfo
     {
         private CheckpointController _checkpointController;
         private TourController _tourController;
@@ -39,6 +41,8 @@ namespace TouristAgency
         private TourTouristCheckpointController _tourTouristCheckpointController;
         private GuestController _guestController;
 
+        public object User { get; set; }
+
         private string _username;
         public string Username
         {
@@ -48,6 +52,7 @@ namespace TouristAgency
                 if(_username != value)
                 {
                     _username = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -61,13 +66,44 @@ namespace TouristAgency
                 if(_password != value)
                 {
                     _password = value;
+                    OnPropertyChanged();
                 }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string Error => null;
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if(columnName == "Username")
+                {
+                    if (string.IsNullOrEmpty(Username))
+                        return "Required field";
+                }
+                else if(columnName == "Password")
+                {
+                    if (string.IsNullOrEmpty(Password))
+                        return "Required field";
+                }
+
+                return null;
             }
         }
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+
             _checkpointController = new CheckpointController();
             _tourController = new TourController();
             _locationController = new LocationController();
@@ -90,6 +126,7 @@ namespace TouristAgency
             _reservationController.LoadGuestsToReservations(_guestController.GetAll());
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
             _tourCheckpointController.LoadCheckpoints(_checkpointController.GetAll());
+            _ownerController.LoadAccommodationsToOwners(_accommodationController.GetAll());
 
             LoadTourToTourist(_tourTouristController.GetAll());
             LoadCheckpointToTourist(_tourCheckpointController.GetAll());
@@ -123,8 +160,8 @@ namespace TouristAgency
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            OwnerHome x = new OwnerHome(_reservationController,_accommodationController,_ownerController,_locationController,_photoController);
-            x.Show();
+            //OwnerHome x = new OwnerHome(_reservationController,_accommodationController,_ownerController,_locationController,_photoController);
+            //x.Show();
         }
 
         private void TourButton_Click(object sender, RoutedEventArgs e)
@@ -151,9 +188,53 @@ namespace TouristAgency
             y.Show();
         }
 
+        private string SkontajTip()
+        {
+            User = _ownerController.GetAll().Find(o => o.Username == Username && o.Password == Password);
+            if (User != null)
+            {
+                return User.GetType().ToString();
+            }
+            /*User = GuestController.GetAll().Find(g => g.Username == Username && g.Password == Password);
+            if (User != null)
+            {
+                return User.GetType().ToString();
+            }*/
+
+            return null;
+        }
+
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
+            string type = SkontajTip();
 
+            if (type != null)
+            {
+                switch (type)
+                {
+                    case "TouristAgency.Model.Owner":
+                        {
+                            OwnerHome x = new OwnerHome(_reservationController, _accommodationController,_ownerController, _locationController, _photoController, (Owner)User);
+                            x.Show();
+                        }
+                        break;
+                    case "TouristAgency.Model.Guest":
+                        {
+                            //TourDisplay x = new TourDisplay((Guest)User);
+                        }
+                        break;
+                    default: MessageBox.Show("Failure"); break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("User is not registered");
+            }
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
