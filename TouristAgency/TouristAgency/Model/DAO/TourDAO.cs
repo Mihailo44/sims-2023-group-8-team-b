@@ -36,6 +36,24 @@ namespace TouristAgency.Model.DAO
             return _tours.Find(t => t.ID == id);
         }
 
+        public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration, int maxCapacity)
+        {
+            List<Tour> filteredTours = new List<Tour>();
+
+            //bool country = tour.ShortLocation.Country == CountryComboBox.SelectedItem.ToString();
+            //bool city = tour.ShortLocation.City == CityComboBox.SelectedItem.ToString();
+            //bool language = tour.Language == LanguageComboBox.SelectedItem.ToString();
+            //bool duration = tour.Duration >= MinDuration && tour.Duration <= MaxDuration;
+            //bool maxCapacity = tour.MaxAttendants >= MaxCapacity;
+
+            /*if (country && city && language && duration && maxCapacity)
+            {
+                filteredTours.Add(tour);
+            }*/
+
+            return _tours.Where(t => t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) && t.Language.Contains(language) && t.Duration >= minDuration && t.Duration <= maxDuration && t.MaxAttendants >= maxCapacity).ToList();
+        }
+
         public Tour Create(Tour newTour)
         {
             newTour.ID = GenerateId();
@@ -112,6 +130,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetAllCountries()
         {
             List<string> countries = new List<string>();
+            countries.Add("");
 
             foreach (Tour tour in _tours)
             {
@@ -126,22 +145,24 @@ namespace TouristAgency.Model.DAO
 
         public List<string> GetAllCities()
         {
-            List<string> citites = new List<string>();
+            List<string> cities = new List<string>();
+            cities.Add("");
 
-            foreach(Tour tour in _tours) 
+            foreach (Tour tour in _tours) 
             {
-                if(!citites.Contains(tour.ShortLocation.City) && tour.ShortLocation.City != "")
+                if(!cities.Contains(tour.ShortLocation.City) && tour.ShortLocation.City != "")
                 {
-                    citites.Add(tour.ShortLocation.City);
+                    cities.Add(tour.ShortLocation.City);
                 }
             }
 
-            return citites;
+            return cities;
         }
 
         public List<string> GetAllLanguages()
         {
             List<string> languages = new List<string>();
+            languages.Add("");
 
             foreach (Tour tour in _tours)
             {

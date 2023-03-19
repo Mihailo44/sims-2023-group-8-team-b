@@ -29,6 +29,11 @@ namespace TouristAgency.Controller
             return _tour.FindById(id);
         }
 
+        public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration, int maxCapacity)
+        {
+            return _tour.Search(country, city, language, minDuration, maxDuration, maxCapacity);
+        }
+
         public ObservableCollection<Tourist> GetTouristsFromTour(int id)
         {
             return new ObservableCollection<Tourist>(GetAll().Find(t => t.ID == id).RegisteredTourists);

@@ -15,23 +15,27 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="135"></RowDefinition>
-            <RowDefinition Height="85"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="140"></RowDefinition>
+            <RowDefinition Height="280"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Height="130" Width="580" VerticalAlignment="Top">
             <GroupBox.Header>
-                <Label Content="Filters" FontSize="18"></Label>
+                <Label Content="Filters" FontSize="18" FontWeight="Bold"></Label>
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55"></ColumnDefinition>
-                    <ColumnDefinition Width="155"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="65"></ColumnDefinition>
+                    <ColumnDefinition Width="140"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -39,50 +43,34 @@
                 <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="100" Height="24" ItemsSource="{Binding Path=Countries}" HorizontalAlignment="Left"/>
                 <Label Grid.Row="1" Grid.Column="0" Content="City:" Height="26" HorizontalAlignment="Left" />
                 <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="100" Height="24" ItemsSource="{Binding Path=Cities}" HorizontalAlignment="Left"/>
-                <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="Duration:"/>
-                    <WPFExtended:UIntegerUpDown Grid.Row="0" Grid.Column="1" Height="24" Width="60" HorizontalAlignment="Left" Value="{Binding Path=Duration}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Content="Language:"/>
-                    <ComboBox x:Name="LanguageComboBox" Grid.Row="1" Grid.Column="1" Height="24" ItemsSource="{Binding Path=Languages}"/>
-                    <Label Grid.Row="2" Grid.Column="0" Content="Max capacity:"/>
-                    <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Height="24" Width="60" HorizontalAlignment="Left" Value="{Binding Path=MaxCapacity}"/>
-                </Grid>
-                <Button Grid.Row="0" Grid.Column="3" Content="Apply filter" Width="110" Height="27" Click="Filter_Click" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-                <Button Grid.Row="1" Grid.Column="3" Content="Clear filter" Width="110" Height="27" Click="Clear_Click" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Language:"/>
+                <ComboBox x:Name="LanguageComboBox" Grid.Row="2" Grid.Column="1" Width="100" Height="24" ItemsSource="{Binding Path=Languages}" HorizontalAlignment="Left"/>
+                
+                <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Duration:"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4">
+                    <Label Grid.Row="1" Grid.Column="2" Content="Min:"/>
+                    <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="3" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MinDuration}"/>
+                    <Label Grid.Row="1" Grid.Column="4" Content="Max:"/>
+                    <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="5" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MaxDuration}"/>
+                </StackPanel>
+                <Label Grid.Row="2" Grid.Column="2" Content="Max capacity:"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MaxCapacity}"/>
+
+                    <Grid Grid.Row="0" Grid.Column="6" Grid.RowSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" Content="Apply filter" Width="110" Height="27" Click="Filter_Click" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                        <Button Grid.Row="1" Content="Clear filter" Width="110" Height="27" Click="Clear_Click" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                    </Grid>
                 </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="580" Height="80">
-            <GroupBox.Header>
-                <Label Content="Reservation" FontSize="18"></Label>
-            </GroupBox.Header>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Label Grid.Column="0" Content="Number of reservations:" Height="26"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="60" Height="27" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}"/>
-                <Button Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right" Click="MakeAReservation_Click"/>
-                <Button Grid.Column="3" Content="Cancel reservation" Width="110" Height="27" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-            </Grid>
-        </GroupBox>
-
-        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="580" Height="260" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black">
+        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="580" Height="260" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -96,10 +84,30 @@
                     <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
                     <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
                     <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
-                    <GridViewColumn Header="Remaining capacity" DisplayMemberBinding="{Binding RemainingCapacity}"/>
+                    <GridViewColumn Header="Remaining" DisplayMemberBinding="{Binding RemainingCapacity}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        
+
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Width="580" Height="80">
+            <GroupBox.Header>
+                <Label Content="Reservation" FontSize="18" FontWeight="Bold"></Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Content="Number of reservations:" Height="26"/>
+                <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="1" Width="60" Height="27" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}"/>
+                <Button Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right" Click="MakeAReservation_Click"/>
+                <Button Grid.Column="3" Content="Cancel reservation" Width="110" Height="27" HorizontalAlignment="Right" Margin="0,0,10,0" Click="Cancel_Click"/>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
