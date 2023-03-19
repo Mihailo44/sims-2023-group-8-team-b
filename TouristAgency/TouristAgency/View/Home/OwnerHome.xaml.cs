@@ -30,7 +30,9 @@ namespace TouristAgency.View.Home
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
 
-        public OwnerHome(ReservationController reservationController,AccommodationController accommodationController,OwnerController ownerController,LocationController locationController,PhotoController photoController)
+        public Owner LogedUser { get; set; }
+
+        public OwnerHome(ReservationController reservationController,AccommodationController accommodationController,OwnerController ownerController,LocationController locationController,PhotoController photoController,Owner owner)
         {
             InitializeComponent();
             DataContext = this;
@@ -47,11 +49,13 @@ namespace TouristAgency.View.Home
             _locationController = locationController;
             _photoController = photoController;
 
+            LogedUser = owner;
+
             Accommodations = new ObservableCollection<Accommodation>();
-            LoadAccommodations();
+            LoadAccommodations(LogedUser.ID);
 
             Reservations = new ObservableCollection<Reservation>();
-            LoadReservations();
+            LoadReservations(LogedUser.ID);
             ReviewNotification();
         }
 
@@ -107,8 +111,8 @@ namespace TouristAgency.View.Home
 
         public void Update()
         {
-            LoadAccommodations();
-            LoadReservations();
+            LoadAccommodations(LogedUser.ID);
+            LoadReservations(LogedUser.ID);
         }
 
         private void MenuNewAccommodation_Click(object sender, RoutedEventArgs e)
