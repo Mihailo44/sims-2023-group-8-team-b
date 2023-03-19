@@ -54,6 +54,7 @@ namespace TouristAgency.View.Creation
                 cbRules.Items.Add(i.ToString());
                 cbComm.Items.Add(i.ToString());
                 cbOver.Items.Add(i.ToString());
+                cbNoise.Items.Add(i.ToString());
             }
         }
 
