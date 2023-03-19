@@ -37,6 +37,32 @@ namespace TouristAgency
         private TouristController _touristController;
         private TourTouristController _tourTouristController;
 
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if(_username != value)
+                {
+                    _username = value;
+                }
+            }
+        }
+
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if(_password != value)
+                {
+                    _password = value;
+                }
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -118,6 +144,11 @@ namespace TouristAgency
         {
             ActiveTourDisplay y = new ActiveTourDisplay(_tourController,_tourCheckpointController,_checkpointController, _touristController);
             y.Show();
+        }
+
+        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
