@@ -28,10 +28,26 @@ namespace TouristAgency.View.Display
         private TourCheckpointController _tourCheckpointController;
         private CheckpointController _checkpointController;
         private TouristController _touristController;
+        private TourTouristCheckpointController _tourTouristCheckpointController;
         private ObservableCollection<Tour> _availableTours;
-        private ObservableCollection<Checkpoint> _availableCheckpoints;
+        private ObservableCollection<TourCheckpoint> _availableCheckpoints;
         private ObservableCollection<Tourist> _registeredTourists;
+        private ObservableCollection<Tourist> _arrivedTourists;
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ActiveTourDisplay(TourController tourController, TourCheckpointController tourCheckpointController, CheckpointController checkpointController, TouristController touristController, TourTouristCheckpointController tourTouristCheckpointController)
+        {
+            InitializeComponent();
+            _tourController = tourController;
+            _tourCheckpointController = tourCheckpointController;
+            _checkpointController = checkpointController;
+            _touristController = touristController;
+            _tourTouristCheckpointController = tourTouristCheckpointController;
+            AvailableTours = tourController.GetTodayTours();
+            _arrivedTourists = new ObservableCollection<Tourist>();
+            _registeredTourists = new ObservableCollection<Tourist>();
+            this.DataContext = this;
+        }
 
         public ObservableCollection<Tour> AvailableTours
         {
@@ -46,7 +62,7 @@ namespace TouristAgency.View.Display
             }
         }
 
-        public ObservableCollection<Checkpoint> AvailableCheckpoints
+        public ObservableCollection<TourCheckpoint> AvailableCheckpoints
         {
             get => _availableCheckpoints;
             set
@@ -72,15 +88,17 @@ namespace TouristAgency.View.Display
             }
         }
 
-        public ActiveTourDisplay(TourController tourController, TourCheckpointController tourCheckpointController, CheckpointController checkpointController, TouristController touristController)
+        public ObservableCollection<Tourist> ArrivedTourists
         {
-            InitializeComponent();
-            _tourController = tourController;
-            _tourCheckpointController = tourCheckpointController;
-            _checkpointController = checkpointController;
-            _touristController = touristController;
-            AvailableTours = tourController.GetTodayTours();
-            this.DataContext = this;
+            get => _arrivedTourists;
+            set
+            {
+                if (value != _arrivedTourists)
+                {
+                    _arrivedTourists = value;
+                    OnPropertyChanged("ArrivedTourists");
+                }
+            }
         }
 
         protected void OnPropertyChanged(string propertyName)
@@ -96,7 +114,54 @@ namespace TouristAgency.View.Display
             //Pogledaj ostale metode i primeni slican princip
             Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
             RegisteredTourists = _tourController.GetTouristsFromTour(selectedTour.ID);
-            AvailableCheckpoints = new ObservableCollection<Checkpoint>(selectedTour.Checkpoints);
+            AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_tourCheckpointController.FindByID(selectedTour.ID));
+        }
+
+        private void RightButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (Tourist selectedTourist in RegisteredTouristsListView.SelectedItems)
+            {
+                if (!ArrivedTourists.Contains(selectedTourist))
+                {
+                    ArrivedTourists.Add(selectedTourist);
+                    Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
+                    TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
+                    _tourTouristCheckpointController.Create(new TourTouristCheckpoint(selectedTour.ID,
+                        selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
+                }
+            }
+        }
+
+        private void AvailableCheckpointsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ArrivedTourists.Clear();
+            Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
+            TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
+            foreach (TourTouristCheckpoint tourTouristCheckpoint in _tourTouristCheckpointController.GetAll())
+            {
+                bool isSameTour = selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
+                bool isSameCheckpoint = selectedTourCheckpoint.CheckpointID == tourTouristCheckpoint.TourCheckpoint.CheckpointID;
+                if (isSameTour && isSameCheckpoint)
+                {
+                    ArrivedTourists.Add(_touristController.FindById(tourTouristCheckpoint.TouristID));
+                }
+            }
+        }
+
+        private void LeftButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            List<Tourist> touristsToDelete = new List<Tourist>();
+            foreach (Tourist tourist in ArrivedTouristListView.SelectedItems)
+            {
+                touristsToDelete.Add(tourist);
+            }
+
+            foreach (Tourist tourist in touristsToDelete)
+            {
+                ArrivedTourists.Remove(tourist);
+                _tourTouristCheckpointController.Delete(tourist.ID);
+            }
+            touristsToDelete.Clear();
         }
     }
 }

@@ -77,11 +77,11 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Content="Number of people:" Height="26"/>
                 <WPFExtended:UIntegerUpDown Grid.Column="1" Width="60" Height="27" HorizontalAlignment="Left"/>
-                <Button Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right"/>
+                <Button x:Name="MakeReservationButton" Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right" Click="MakeReservationButton_OnClick"/>
                 <Button Grid.Column="3" Content="Cancel reservation" Width="110" Height="27" HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </GroupBox>
-        <ListView ItemsSource="{Binding Path = Reservations}" Margin="459,382,58,171">
+        <ListView x:Name="ReservationsListView" ItemsSource="{Binding Path = Reservations}" Margin="459,382,58,171">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="from" DisplayMemberBinding="{Binding Path = Start}"></GridViewColumn>

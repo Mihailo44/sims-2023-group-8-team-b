@@ -4,23 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
 using TouristAgency.Model.DAO;
+using TouristAgency.Model;
 
 namespace TouristAgency.Controller
 {
-    public class TourTouristController
+    public class TourTouristCheckpointController
     {
-        private readonly TourTouristDAO _tourTouristCheckpointDAO;
+        private readonly TourTouristCheckpointDAO _tourTouristCheckpointDAO;
 
-        public TourTouristController()
+        public TourTouristCheckpointController()
         {
-            _tourTouristCheckpointDAO = new TourTouristDAO();
+            _tourTouristCheckpointDAO = new TourTouristCheckpointDAO();
         }
 
-        public void Create(TourTourist tourTourist)
+        public void Create(TourTouristCheckpoint tourTouristCheckpoint)
         {
-            _tourTouristCheckpointDAO.Create(tourTourist);
+            _tourTouristCheckpointDAO.Create(tourTouristCheckpoint);
         }
 
         public void Delete(int touristID)
@@ -28,7 +28,7 @@ namespace TouristAgency.Controller
             _tourTouristCheckpointDAO.Delete(touristID);
         }
 
-        public List<TourTourist> GetAll()
+        public List<TourTouristCheckpoint> GetAll()
         {
             return _tourTouristCheckpointDAO.GetAll();
         }

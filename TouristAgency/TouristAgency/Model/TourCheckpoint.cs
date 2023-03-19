@@ -9,9 +9,11 @@ namespace TouristAgency.Model
 {
     public class TourCheckpoint : ISerializable
     {
+        private int _id;
         private int _tourID;
         private int _checkpointID;
         private bool _isVisited;
+        private Checkpoint _checkpoint;
         private List<Tourist> _arrivedTourists;
 
         public TourCheckpoint()
@@ -30,6 +32,18 @@ namespace TouristAgency.Model
             _arrivedTourists = new List<Tourist>();
         }
 
+        public int ID
+        {
+            get => _id;
+            set
+            {
+                if (value == _id)
+                {
+                    _id = value;
+                }
+            }
+        }
+
         public int TourID
         {
             get => _tourID;
@@ -46,6 +60,12 @@ namespace TouristAgency.Model
         {
             get => _isVisited;
             set => _isVisited = value;
+        }
+
+        public Checkpoint Checkpoint
+        {
+            get => _checkpoint;
+            set => _checkpoint = value;
         }
 
         public string[] ToCSV()

@@ -18,6 +18,11 @@ namespace TouristAgency.Controller
             _tourCheckpointDAO = new TourCheckpointDAO();
         }
 
+        public List<TourCheckpoint> FindByID(int id)
+        {
+            return _tourCheckpointDAO.FindByID(id);
+        }
+
         public void Create(TourCheckpoint TourCheckpoint)
         {
             _tourCheckpointDAO.Create(TourCheckpoint);
@@ -31,6 +36,11 @@ namespace TouristAgency.Controller
         public List<TourCheckpoint> GetAll()
         {
             return _tourCheckpointDAO.GetAll();
+        }
+
+        public void LoadCheckpoints(List<Checkpoint> checkpoints)
+        {
+            _tourCheckpointDAO.LoadCheckpoints(checkpoints);
         }
 
         public void Subscribe(IObserver observer)

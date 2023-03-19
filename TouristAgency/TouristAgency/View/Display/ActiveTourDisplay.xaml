@@ -29,7 +29,7 @@
                 <Button x:Name="BeginTourButton" Content="Zapocni turu!" Width="100px" Click="BeginTourButton_OnClick"></Button>
 
             <StackPanel Orientation="Horizontal">
-                <ListView ItemsSource="{Binding Path=RegisteredTourists}" Foreground="Black">
+                <ListView x:Name="RegisteredTouristsListView" ItemsSource="{Binding Path=RegisteredTourists}" Foreground="Black" SelectionMode="Multiple">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}"/>
@@ -39,11 +39,28 @@
                     </ListView.View>
                 </ListView>
 
+                <ListView x:Name="AvailableCheckpointsListView" ItemsSource="{Binding Path=AvailableCheckpoints}" Foreground="Black" SelectionChanged="AvailableCheckpointsListView_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Path=Checkpoint.AttractionName}"/>
+                                <CheckBox Content="Visited" IsChecked="{Binding Path=IsVisited}"></CheckBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                <ListView ItemsSource="{Binding Path=AvailableCheckpoints}" Foreground="Black">
+                <StackPanel>
+                    <Button x:Name="RightButton" Content="Right" Click="RightButton_OnClick "></Button>
+                    <Button x:Name="LeftButton" Content="Left" Click="LeftButton_OnClick"></Button>
+                </StackPanel>
+
+                <ListView x:Name="ArrivedTouristListView" ItemsSource="{Binding Path=ArrivedTourists}" Foreground="Black" SelectionMode="Multiple">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="AttractionName" DisplayMemberBinding="{Binding AttractionName}"/>
+                            <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}"/>
+                            <GridViewColumn Header="Firstname" DisplayMemberBinding="{Binding FirstName}"/>
+                            <GridViewColumn Header="Lastname" DisplayMemberBinding="{Binding LastName}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
