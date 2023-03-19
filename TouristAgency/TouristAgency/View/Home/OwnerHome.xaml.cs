@@ -87,7 +87,7 @@ namespace TouristAgency.View.Home
             double dateDif;
             int changes = 0;
 
-            foreach (var reservation in _reservationController.GetUnreviewed())
+            foreach (var reservation in _reservationController.GetUnreviewed(LogedUser.ID))
             {
                 dateDif = (today - reservation.End).TotalDays;
 

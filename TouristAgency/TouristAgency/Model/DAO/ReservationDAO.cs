@@ -100,9 +100,9 @@ namespace TouristAgency.Model.DAO
             }
         }
 
-        public List<Reservation> GetUnreviewed()
+        public List<Reservation> GetUnreviewed(int ownerId)
         {
-            return _reservations.Where(r => r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
+            return _reservations.Where(r =>r.Accommodation.OwnerId == ownerId && r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
         }
 
         public List<Reservation> GetByOwnerId(int id = 0)

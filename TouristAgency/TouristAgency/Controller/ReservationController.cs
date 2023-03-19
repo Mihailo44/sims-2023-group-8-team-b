@@ -48,9 +48,9 @@ namespace TouristAgency.Controller
             _reservation.LoadGuestsToReservations(guests);
         }
 
-        public List<Reservation> GetUnreviewed()
+        public List<Reservation> GetUnreviewed(int ownerId = 0)
         {
-             return _reservation.GetUnreviewed();
+             return _reservation.GetUnreviewed(ownerId);
         }
 
         public List<Reservation> GetByOwnerId(int id)
