@@ -163,5 +163,19 @@ namespace TouristAgency.View.Display
             }
             touristsToDelete.Clear();
         }
+
+        private void FinishButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you want to finish the tour?","Question",MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
+                {
+                    _tourCheckpointController.Update(tourCheckpoint);
+                }
+                //TODO Tour isFinished property
+                MessageBox.Show("Tour ended!");
+            }
+        }
     }
 }

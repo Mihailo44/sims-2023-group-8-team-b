@@ -29,6 +29,20 @@ namespace TouristAgency.Model.DAO
             NotifyObservers();
         }
 
+        public void Update(TourCheckpoint TourCheckpoint)
+        {
+            foreach (TourCheckpoint tourCheckpoint in _tourCheckpoint)
+            {
+                if (tourCheckpoint.TourID == TourCheckpoint.TourID &&
+                    tourCheckpoint.CheckpointID == TourCheckpoint.CheckpointID)
+                {
+                    tourCheckpoint.IsVisited = TourCheckpoint.IsVisited;
+                }
+            }
+            _storage.Save(_tourCheckpoint);
+            NotifyObservers();
+        }
+
         public void Delete(int tourID)
         {
             TourCheckpoint deletedTourCheckpoint = _tourCheckpoint.Find(t => t.TourID == tourID);

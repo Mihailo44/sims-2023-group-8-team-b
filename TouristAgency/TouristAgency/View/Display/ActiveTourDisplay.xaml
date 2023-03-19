@@ -65,6 +65,8 @@
                     </ListView.View>
                 </ListView>
             </StackPanel>
+
+            <Button x:Name="FinishButton" Content="Finish" Click="FinishButton_OnClick"></Button>
         </StackPanel>
     </Grid>
 </Window>

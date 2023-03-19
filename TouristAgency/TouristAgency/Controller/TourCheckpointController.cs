@@ -28,6 +28,11 @@ namespace TouristAgency.Controller
             _tourCheckpointDAO.Create(TourCheckpoint);
         }
 
+        public void Update(TourCheckpoint TourCheckpoint)
+        {
+            _tourCheckpointDAO.Update(TourCheckpoint);
+        }
+
         public void Delete(int tourID)
         {
             _tourCheckpointDAO.Delete(tourID);
