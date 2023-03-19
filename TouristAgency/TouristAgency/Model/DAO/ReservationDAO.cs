@@ -33,6 +33,20 @@ namespace TouristAgency.Model.DAO
             return _reservations.Find(r => r.Id == id);
         }
 
+        public bool IsReserved(int accommodationID, DateTime start, DateTime end)
+        {
+            foreach (Reservation reservation in _reservations) 
+            {
+                if (reservation.AccommodationId == accommodationID && reservation.Start.Date == start.Date &&
+                    reservation.End.Date == end.Date)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public Reservation Create(Reservation newReservation)
         {
             newReservation.Id = GenerateId();

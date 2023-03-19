@@ -37,6 +37,7 @@ namespace TouristAgency
         private TouristController _touristController;
         private TourTouristController _tourTouristController;
         private TourTouristCheckpointController _tourTouristCheckpointController;
+        private GuestController _guestController;
 
         private string _username;
         public string Username
@@ -78,6 +79,7 @@ namespace TouristAgency
             _touristController = new TouristController();
             _tourTouristController = new TourTouristController();
             _tourTouristCheckpointController = new TourTouristCheckpointController();
+            _guestController = new GuestController();
 
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
             _accommodationController.LoadPhotosToAccommodations(_photoController.GetAll());
@@ -85,7 +87,7 @@ namespace TouristAgency
             _tourController.LoadLocationsToTours(_locationController.GetAll());
             _photoController.LoadToursToPhotos(_tourController.GetAll());
             _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
-           // _reservationController.LoadGuestsToReservations(_guestController.GetAll());
+            _reservationController.LoadGuestsToReservations(_guestController.GetAll());
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
             _tourCheckpointController.LoadCheckpoints(_checkpointController.GetAll());
 

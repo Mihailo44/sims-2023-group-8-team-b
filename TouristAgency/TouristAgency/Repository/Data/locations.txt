@@ -5,3 +5,4 @@
 4|||Subotica|Srbija
 5|||Madrid|Spanija
 6|Dunavska|6|Novi Sad|Srbija
+7|Jevrejska|3|Novi Sad|Srbija

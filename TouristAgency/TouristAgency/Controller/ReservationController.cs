@@ -58,6 +58,11 @@ namespace TouristAgency.Controller
             return _reservation.GetByOwnerId(id);
         }
 
+        public bool IsReserved(int accommodationID, DateTime start, DateTime end)
+        {
+            return _reservation.IsReserved(accommodationID, start, end);
+        }
+
         public void Subcribe(IObserver observer)
         {
             _reservation.Subscribe(observer);
