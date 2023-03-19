@@ -107,7 +107,7 @@ namespace TouristAgency.Model.DAO
 
         public List<Reservation> GetByOwnerId(int id = 0)
         {
-            return _reservations.Where(r => r.Accommodation.OwnerId == 0).ToList();
+            return _reservations.Where(r => r.Accommodation.OwnerId == id).ToList();
         }
 
         public void Subscribe(IObserver observer)

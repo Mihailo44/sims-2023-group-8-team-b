@@ -53,7 +53,7 @@ namespace TouristAgency.Controller
              return _reservation.GetUnreviewed();
         }
 
-        public List<Reservation> GetByOwnerId(int id = 0)
+        public List<Reservation> GetByOwnerId(int id)
         {
             return _reservation.GetByOwnerId(id);
         }
