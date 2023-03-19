@@ -5,13 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="500" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Content="Owner" Margin="137,78,486,276" Click="Button_Click"/>
-        <Button Content="TourCreation" Margin="137,273,486,83" Click="TourButton_Click"/>
-        <Button Content="TourDisplay" HorizontalAlignment="Left" Margin="449,273,0,0" VerticalAlignment="Top" Click="TourDisplay_Click" Height="88" Width="145"/>
-        <Button Content="AccommodationDisplay" HorizontalAlignment="Left" Margin="431,75,0,0" VerticalAlignment="Top" Width="163" Height="86" Click="AccommodationDisplay_Click"/>
-        <Button x:Name="ActiveTourDisplayButton" Content="ActiveTourDisplay" HorizontalAlignment="Left" Margin="137,356,0,0" VerticalAlignment="Top" Height="68" Width="177" Click="ActiveTourDisplayButton_OnClick"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
+        <Label Grid.Row="1" Grid.Column="0" Height="30" HorizontalAlignment="Center" Content="Username" FontSize="15"/>
+        <Label Grid.Row="2" Grid.Column="0" Height="30" HorizontalAlignment="Center" Content="Password" FontSize="15"/>
+        <Button Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Content="Log in" Width="80" Height="40" Click="ButtonLogin_Click"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25" Text="{Binding Username}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="25" Text="{Binding Password}"/>
+        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Content="Cancel" Width="80" Height="40"/>
+
+        <StackPanel Grid.Row="4" Grid.RowSpan="3" Grid.Column="0">
+            <Button Content="Owner" Height="40" Click="Button_Click"/>
+            <Button Content="TourCreation" Height="40" Click="TourButton_Click"/>
+            <Button Content="TourDisplay" Height="40" Click="TourDisplay_Click"/>
+            <Button Content="AccommodationDisplay" Height="40" Click="AccommodationDisplay_Click"/>
+            <Button x:Name="ActiveTourDisplayButton" Content="ActiveTourDisplay" Height="40" Click="ActiveTourDisplayButton_OnClick"/>
+        </StackPanel>
     </Grid>
 </Window>

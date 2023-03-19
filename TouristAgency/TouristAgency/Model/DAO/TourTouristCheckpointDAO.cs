@@ -8,37 +8,37 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Model.DAO
 {
-    public class TourTouristDAO : ISubject
+    public class TourTouristCheckpointDAO : ISubject
     {
-        private readonly TourTouristStorage _storage;
-        private readonly List<TourTourist> _tourtourist;
+        private readonly TourTouristCheckpointStorage _storage;
+        private readonly List<TourTouristCheckpoint> _tourtouristcheckpoint;
         private List<IObserver> _observers;
 
-        public TourTouristDAO()
+        public TourTouristCheckpointDAO()
         {
-            _storage = new TourTouristStorage();
-            _tourtourist = _storage.Load();
+            _storage = new TourTouristCheckpointStorage();
+            _tourtouristcheckpoint = _storage.Load();
             _observers = new List<IObserver>();
         }
 
-        public void Create(TourTourist tourTourist)
+        public void Create(TourTouristCheckpoint tourtouristcheckpoint)
         {
-            _tourtourist.Add(tourTourist);
-            _storage.Save(_tourtourist);
+            _tourtouristcheckpoint.Add(tourtouristcheckpoint);
+            _storage.Save(_tourtouristcheckpoint);
             NotifyObservers();
         }
 
         public void Delete(int touristID)
         {
-            TourTourist deletedTourTourist = _tourtourist.Find(t => t.TouristID == touristID);
-            _tourtourist.Remove(deletedTourTourist);
-            _storage.Save(_tourtourist);
+            TourTouristCheckpoint deletedTourTouristCheckpoint = _tourtouristcheckpoint.Find(t => t.TouristID == touristID);
+            _tourtouristcheckpoint.Remove(deletedTourTouristCheckpoint);
+            _storage.Save(_tourtouristcheckpoint);
             NotifyObservers();
         }
 
-        public List<TourTourist> GetAll()
+        public List<TourTouristCheckpoint> GetAll()
         {
-            return _tourtourist;
+            return _tourtouristcheckpoint;
         }
 
         public void Subscribe(IObserver observer)

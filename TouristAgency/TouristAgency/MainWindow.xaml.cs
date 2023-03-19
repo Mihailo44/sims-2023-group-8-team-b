@@ -36,6 +36,33 @@ namespace TouristAgency
         private ReservationController _reservationController;
         private TouristController _touristController;
         private TourTouristController _tourTouristController;
+        private TourTouristCheckpointController _tourTouristCheckpointController;
+
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if(_username != value)
+                {
+                    _username = value;
+                }
+            }
+        }
+
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                if(_password != value)
+                {
+                    _password = value;
+                }
+            }
+        }
 
         public MainWindow()
         {
@@ -50,6 +77,7 @@ namespace TouristAgency
             _reservationController = new ReservationController();
             _touristController = new TouristController();
             _tourTouristController = new TourTouristController();
+            _tourTouristCheckpointController = new TourTouristCheckpointController();
 
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
             _accommodationController.LoadPhotosToAccommodations(_photoController.GetAll());
@@ -59,6 +87,7 @@ namespace TouristAgency
             _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
            // _reservationController.LoadGuestsToReservations(_guestController.GetAll());
             _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
+            _tourCheckpointController.LoadCheckpoints(_checkpointController.GetAll());
 
             LoadTourToTourist(_tourTouristController.GetAll());
             LoadCheckpointToTourist(_tourCheckpointController.GetAll());
@@ -116,8 +145,13 @@ namespace TouristAgency
 
         private void ActiveTourDisplayButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ActiveTourDisplay y = new ActiveTourDisplay(_tourController,_tourCheckpointController,_checkpointController, _touristController);
+            ActiveTourDisplay y = new ActiveTourDisplay(_tourController,_tourCheckpointController,_checkpointController, _touristController, _tourTouristCheckpointController);
             y.Show();
+        }
+
+        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

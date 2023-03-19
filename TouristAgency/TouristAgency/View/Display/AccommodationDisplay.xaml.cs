@@ -255,5 +255,11 @@ namespace TouristAgency.View.Display
 
             
         }
+
+        private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Reservation newReservation = (Reservation)ReservationsListView.SelectedItem;
+            _reservationController.Create(newReservation);
+        }
     }
 }

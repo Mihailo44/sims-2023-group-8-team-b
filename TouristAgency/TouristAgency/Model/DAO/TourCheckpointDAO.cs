@@ -29,15 +29,50 @@ namespace TouristAgency.Model.DAO
             NotifyObservers();
         }
 
+        public void Update(TourCheckpoint TourCheckpoint)
+        {
+            foreach (TourCheckpoint tourCheckpoint in _tourCheckpoint)
+            {
+                if (tourCheckpoint.TourID == TourCheckpoint.TourID &&
+                    tourCheckpoint.CheckpointID == TourCheckpoint.CheckpointID)
+                {
+                    tourCheckpoint.IsVisited = TourCheckpoint.IsVisited;
+                }
+            }
+            _storage.Save(_tourCheckpoint);
+            NotifyObservers();
+        }
+
         public void Delete(int tourID)
         {
             TourCheckpoint deletedTourCheckpoint = _tourCheckpoint.Find(t => t.TourID == tourID);
             _tourCheckpoint.Remove(deletedTourCheckpoint);
+            _storage.Save(_tourCheckpoint);
+            NotifyObservers();
         }
 
         public List<TourCheckpoint> GetAll()
         {
             return _tourCheckpoint;
+        }
+
+        public List<TourCheckpoint> FindByID(int id)
+        {
+            return _tourCheckpoint.FindAll(tc => tc.TourID == id);
+        }
+
+        public void LoadCheckpoints(List<Checkpoint> checkpoints)
+        {
+            foreach (Checkpoint checkpoint in checkpoints)
+            {
+                foreach (TourCheckpoint tourCheckpoint in _tourCheckpoint)
+                {
+                    if (tourCheckpoint.CheckpointID == checkpoint.ID)
+                    {
+                        tourCheckpoint.Checkpoint = checkpoint;
+                    }
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)
