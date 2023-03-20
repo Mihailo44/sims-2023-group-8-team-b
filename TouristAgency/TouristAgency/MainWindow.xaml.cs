@@ -158,12 +158,6 @@ namespace TouristAgency
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //OwnerHome x = new OwnerHome(_reservationController,_accommodationController,_ownerController,_locationController,_photoController);
-            //x.Show();
-        }
-
         private void TourButton_Click(object sender, RoutedEventArgs e)
         {
             TourCreation creation = new TourCreation(_tourController, _checkpointController, _photoController, _tourCheckpointController, _locationController);
@@ -188,7 +182,7 @@ namespace TouristAgency
             y.Show();
         }
 
-        private string SkontajTip()
+        private string GetUserType()
         {
             User = _ownerController.GetAll().Find(o => o.Username == Username && o.Password == Password);
             if (User != null)
@@ -206,7 +200,7 @@ namespace TouristAgency
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            string type = SkontajTip();
+            string type = GetUserType();
 
             if (type != null)
             {
