@@ -41,6 +41,21 @@ namespace TouristAgency.Model.DAO
             return _tourtouristcheckpoint;
         }
 
+        public List<TourTouristCheckpoint> GetPendingInvitations(int touristID)
+        {
+            return _tourtouristcheckpoint.Where(t => t.TouristID == touristID && t.InvitationStatus == INVITATION_STATUS.PENDING).ToList();
+        }
+
+        public void AcceptInvitation(int touristID, int checkpointID)
+        {
+            TourTouristCheckpoint tourTouristCheckpoint = _tourtouristcheckpoint.Find(t =>
+                t.TouristID == touristID && t.TourCheckpoint.CheckpointID == checkpointID);
+
+            tourTouristCheckpoint.InvitationStatus = INVITATION_STATUS.PENDING;
+            _storage.Save(_tourtouristcheckpoint);
+            NotifyObservers();
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

@@ -9,7 +9,7 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class Tour : ISerializable, INotifyPropertyChanged
+    public class Tour : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int _ID;
         private string _name;
@@ -280,6 +280,62 @@ namespace TouristAgency.Model
                 }
             }
         }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "Required field";
+                }
+                else if (columnName == "Description")
+                {
+                    if (string.IsNullOrEmpty(Description))
+                        return "Required field";
+                }
+                else if (columnName == "Language")
+                {
+                    if (string.IsNullOrEmpty(Language))
+                        return "Required field";
+                }
+                else if (columnName == "MaxAttendants")
+                {
+                    if (string.IsNullOrEmpty(MaxAttendants.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "Duration")
+                {
+                    if (string.IsNullOrEmpty(Duration.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "StartDateTime")
+                {
+                    if (string.IsNullOrEmpty(StartDateTime.ToString()))
+                        return "Required field";
+                }
+                return null;
+
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
+            }
+        }
+
 
         public string[] ToCSV()
         {

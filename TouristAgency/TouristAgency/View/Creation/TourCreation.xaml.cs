@@ -21,7 +21,7 @@ namespace TouristAgency.View.Creation
     /// <summary>
     /// Interaction logic for TourCreation.xaml
     /// </summary>
-    public partial class TourCreation : Window, INotifyPropertyChanged
+    public partial class TourCreation : Window, INotifyPropertyChanged, IDataErrorInfo
     {
         private TourController _tourController;
         private CheckpointController _checkpointController;
@@ -30,11 +30,59 @@ namespace TouristAgency.View.Creation
         private LocationController _locationController;
         private ObservableCollection<Checkpoint> _availableCheckpoints;
         private ObservableCollection<Checkpoint> _selectedCheckpoints;
+        private List<DateTime> _multipleDateTimes;
+        private int _datecount;
         private Tour _newTour;
         private Location _newLocation;
         private string _photoLinks;
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public TourCreation(TourController tourController, CheckpointController checkpointController,
+            PhotoController photoController, TourCheckpointController tourCheckpointController, LocationController locationController)
+        {
+            InitializeComponent();
+            NewTour = new Tour();
+            NewLocation = new Location();
+            _tourController = tourController;
+            _checkpointController = checkpointController;
+            _photoController = photoController;
+            _tourCheckpointController = tourCheckpointController;
+            _locationController = locationController;
+            _availableCheckpoints = new ObservableCollection<Checkpoint>();
+            _selectedCheckpoints = new ObservableCollection<Checkpoint>();
+            _multipleDateTimes = new List<DateTime>();
+            _datecount = _multipleDateTimes.Count;
+
+            this.DataContext = this;
+        }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "PhotoLinks")
+                {
+                    if (string.IsNullOrEmpty(PhotoLinks))
+                        return "Required field";
+                }
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "PhotoLinks" };
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
         public Tour NewTour
         {
             get => _newTour;
@@ -45,6 +93,19 @@ namespace TouristAgency.View.Creation
         {
             get => _newLocation;
             set => _newLocation = value;
+        }
+
+        public int DateCount
+        {
+            get => _datecount;
+            set
+            {
+                if (value != _datecount)
+                {
+                    _datecount = value;
+                    OnPropertyChanged("DateCount");
+                }
+            }
         }
 
         public ObservableCollection<Checkpoint> AvailableCheckpoints
@@ -79,22 +140,6 @@ namespace TouristAgency.View.Creation
             set => _photoLinks = value;
         }
 
-        public TourCreation(TourController tourController, CheckpointController checkpointController,
-            PhotoController photoController, TourCheckpointController tourCheckpointController, LocationController locationController)
-        {
-            InitializeComponent();
-            NewTour = new Tour();
-            NewLocation = new Location();
-            _tourController = tourController;
-            _checkpointController = checkpointController;
-            _photoController = photoController;
-            _tourCheckpointController = tourCheckpointController;
-            _locationController = locationController;
-            _availableCheckpoints = new ObservableCollection<Checkpoint>();
-            _selectedCheckpoints = new ObservableCollection<Checkpoint>();
-            this.DataContext = this;
-        }
-
         private void LoadCheckpoints()
         {
             AvailableCheckpoints =
@@ -113,11 +158,16 @@ namespace TouristAgency.View.Creation
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoDAO!
-            PrepareLocation();
-            _tourController.Create(new Tour(_newTour));
-            AddPhotos();
-            LoadToursToCheckpoints();
-            PrepareLocation();
+            foreach (DateTime dateTime in _multipleDateTimes)
+            {
+                PrepareLocation();
+                _newTour.StartDateTime = dateTime;
+                _tourController.Create(new Tour(_newTour));
+                AddPhotos();
+                LoadToursToCheckpoints();
+                PrepareLocation();
+                MessageBox.Show("Successfully created tours!");
+            }
         }
 
 
@@ -194,5 +244,18 @@ namespace TouristAgency.View.Creation
             }
             checkpointsToDelete.Clear();
         }
+
+        private void AddDateButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _multipleDateTimes.Add(NewTour.StartDateTime);
+            DateCount = _multipleDateTimes.Count;
+        }
+
+        private void RemoveDateButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _multipleDateTimes.Remove(NewTour.StartDateTime);
+            DateCount = _multipleDateTimes.Count;
+        }
+
     }
 }

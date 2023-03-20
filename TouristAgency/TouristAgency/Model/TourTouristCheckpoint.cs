@@ -7,10 +7,13 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
+    public enum  INVITATION_STATUS {PENDING, ACCEPTED}
+
     public class TourTouristCheckpoint : ISerializable
     {
         private TourCheckpoint _tourCheckpoint;
         private int _touristID;
+        private INVITATION_STATUS _invitationStatus;
 
         public TourTouristCheckpoint()
         {
@@ -18,6 +21,7 @@ namespace TouristAgency.Model
             _tourCheckpoint.TourID = -1;
             _tourCheckpoint.CheckpointID = -1;
             _touristID = -1;
+            _invitationStatus = INVITATION_STATUS.PENDING;
         }
 
         public TourTouristCheckpoint(int tourID, int touristID, int checkpointID)
@@ -26,6 +30,7 @@ namespace TouristAgency.Model
             _tourCheckpoint.TourID = tourID;
             _tourCheckpoint.CheckpointID = checkpointID;
             _touristID = touristID;
+            _invitationStatus = INVITATION_STATUS.PENDING;
         }
 
         public TourCheckpoint TourCheckpoint
@@ -46,6 +51,12 @@ namespace TouristAgency.Model
             }
         }
 
+        public INVITATION_STATUS InvitationStatus
+        {
+            get => _invitationStatus;
+            set => _invitationStatus = value;
+        }
+
 
         public string[] ToCSV()
         {
@@ -53,7 +64,9 @@ namespace TouristAgency.Model
             {
                 _tourCheckpoint.TourID.ToString(),
                 _touristID.ToString(),
-                _tourCheckpoint.CheckpointID.ToString()
+                _tourCheckpoint.CheckpointID.ToString(),
+                _invitationStatus.ToString()
+                
             };
             return csvValues;
         }
@@ -63,6 +76,7 @@ namespace TouristAgency.Model
             _tourCheckpoint.TourID = Int32.Parse(values[0]);
             _touristID = Int32.Parse(values[1]);
             _tourCheckpoint.CheckpointID = Int32.Parse(values[2]);
+            _invitationStatus = Enum.Parse<INVITATION_STATUS>(values[3]);
         }
     }
 }

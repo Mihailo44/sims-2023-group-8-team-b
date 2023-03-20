@@ -5,11 +5,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Xml.Linq;
 using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class Location : ISerializable, INotifyPropertyChanged
+    public class Location : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int _ID;
         private string _street;
@@ -134,6 +136,52 @@ namespace TouristAgency.Model
                 bool street = Street == newLocation.Street;
                 bool streetNum = StreetNumber == newLocation.StreetNumber;
                 return country && city && street && streetNum;
+            }
+        }
+
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Street")
+                {
+                    if (string.IsNullOrEmpty(Street))
+                        return "Required field";
+                }
+                else if (columnName == "StreetNumber")
+                {
+                    if (string.IsNullOrEmpty(StreetNumber))
+                        return "Required field";
+                }
+                else if (columnName == "City")
+                {
+                    if (string.IsNullOrEmpty(City))
+                        return "Required field";
+                }
+                else if (columnName == "Country")
+                {
+                    if (string.IsNullOrEmpty(Country))
+                        return "Required field";
+                }
+                return null;
+
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "Street", "StreetNumber", "City", "Country" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
             }
         }
 

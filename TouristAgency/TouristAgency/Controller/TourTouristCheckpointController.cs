@@ -33,6 +33,16 @@ namespace TouristAgency.Controller
             return _tourTouristCheckpointDAO.GetAll();
         }
 
+        public List<TourTouristCheckpoint> GetPendingInvitations(int touristID)
+        {
+            return _tourTouristCheckpointDAO.GetPendingInvitations(touristID);
+        }
+
+        public void AcceptInvitation(int touristID, int checkpointID)
+        {
+            _tourTouristCheckpointDAO.AcceptInvitation(touristID, checkpointID);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _tourTouristCheckpointDAO.Subscribe(observer);

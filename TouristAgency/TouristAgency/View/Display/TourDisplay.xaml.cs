@@ -43,7 +43,7 @@ namespace TouristAgency.View.Display
             _tourController = tourController;
             _tourTouristController = tourTouristController;
             _touristController = touristController;
-            Tours = new ObservableCollection<Tour>(tourController.GetAll());
+            Tours = new ObservableCollection<Tour>(tourController.GetValidTours());
             Countries = tourController.GetAllCountires();
             Cities = tourController.GetAllCitites();
             Languages = tourController.GetAllLanguages();

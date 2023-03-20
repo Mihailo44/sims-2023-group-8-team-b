@@ -7,6 +7,18 @@
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
         Title="TourCreation" Height="707" Width="391" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <Grid>
+                <AdornedElementPlaceholder/>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
+                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Margin="0,0,7,0"/>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+
+
     <Grid>
         <StackPanel>
             <Grid Margin="0,30,0,0" Width="300">
@@ -27,16 +39,16 @@
 
 
                 <Label VerticalAlignment="Center">Tour name:</Label>
-                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Name}"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Name, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
 
                 <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">Country:</Label>
-                <TextBox x:Name="CountryTextBox" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.Country}"/>
+                <TextBox x:Name="CountryTextBox" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.Country, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
                 <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">City:</Label>
-                <TextBox x:Name="CityTextBox"  Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.City}"/>
+                <TextBox x:Name="CityTextBox"  Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.City, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
                 <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center">Tour description:</Label>
-                <TextBox x:Name="DescriptionTextBox"  Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="73" Text="{Binding Path=NewTour.Description}" GotFocus="DescriptionTextBox_GotFocus">
+                <TextBox x:Name="DescriptionTextBox"  Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="73" Text="{Binding Path=NewTour.Description, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" GotFocus="DescriptionTextBox_GotFocus">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
@@ -44,10 +56,10 @@
                 </TextBox>
 
                 <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Language:</Label>
-                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Language}"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Language, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
 
                 <Label Grid.Column="0" Grid.Row="4" VerticalAlignment="Center">Max capacity:</Label>
-                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="4" Height="25" Width="40" HorizontalAlignment="Left" Text="{Binding Path=NewTour.MaxAttendants}"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="4" Height="25" Width="40" HorizontalAlignment="Left" Text="{Binding Path=NewTour.MaxAttendants, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></xctk:IntegerUpDown>
 
             </Grid>
 
@@ -108,13 +120,19 @@
                 </Grid.RowDefinitions>
 
                 <Label>Tour start date:</Label>
-                <xctk:DateTimePicker x:Name="dateTimePicker"  Grid.Row ="0" Grid.Column="1" Height="25" Value="{Binding Path=NewTour.StartDateTime}" ></xctk:DateTimePicker>
+                <StackPanel Grid.Row ="0" Grid.Column="1" Orientation="Horizontal">
+                    <xctk:DateTimePicker x:Name="dateTimePicker"  Height="25" Value="{Binding Path=NewTour.StartDateTime, ValidatesOnDataErrors=True}" FormatString="MM/dd/yyyy" Width="95"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></xctk:DateTimePicker>
+                    <Button x:Name="AddDateButton" Width="20" Height="20" Click="AddDateButton_OnClick">+</Button>
+                    <Button x:Name="RemoveDateButton"  Width="20" Height="20" Click="RemoveDateButton_OnClick">-</Button>
+                    <Label Content="{Binding Path=DateCount}"></Label>
+                </StackPanel>
+
 
                 <Label Grid.Column="0" Grid.Row="1">Duration (hours):</Label>
-                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration}"></xctk:IntegerUpDown>
+                <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></xctk:IntegerUpDown>
 
                 <Label Grid.Column="0" Grid.Row="2">Pictures (URLs):</Label>
-                <TextBox Grid.Column="1" Grid.Row="2" Height="80" Text="{Binding PhotoLinks}">
+                <TextBox Grid.Column="1" Grid.Row="2" Height="80" Text="{Binding PhotoLinks, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
