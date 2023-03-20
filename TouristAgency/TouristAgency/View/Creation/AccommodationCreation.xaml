@@ -52,8 +52,10 @@
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewLocation.Country,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewLocation.Country,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.Type, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MaxGuestNum,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>

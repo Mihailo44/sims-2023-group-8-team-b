@@ -35,18 +35,20 @@ namespace TouristAgency.View.Display
         private ObservableCollection<Tourist> _arrivedTourists;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ActiveTourDisplay(TourController tourController, TourCheckpointController tourCheckpointController, CheckpointController checkpointController, TouristController touristController, TourTouristCheckpointController tourTouristCheckpointController)
+        public ActiveTourDisplay()
         {
             InitializeComponent();
-            _tourController = tourController;
-            _tourCheckpointController = tourCheckpointController;
-            _checkpointController = checkpointController;
-            _touristController = touristController;
-            _tourTouristCheckpointController = tourTouristCheckpointController;
-            AvailableTours = tourController.GetTodayTours();
+            this.DataContext = this;
+            var app = (App)Application.Current;
+
+            _tourController = app.TourController;
+            _tourCheckpointController = app.TourCheckpointController;
+            _checkpointController = app.CheckpointController;
+            _touristController = app.TouristController;
+            _tourTouristCheckpointController = app.TourTouristCheckpointController;
+            AvailableTours = _tourController.GetTodayTours();
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
-            this.DataContext = this;
         }
 
         public ObservableCollection<Tour> AvailableTours

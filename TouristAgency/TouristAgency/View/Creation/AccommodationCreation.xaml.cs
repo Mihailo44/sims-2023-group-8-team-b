@@ -65,7 +65,7 @@ namespace TouristAgency.View.Creation
         {
             InitializeComponent();
             DataContext = this;
-
+            
             _controller = ac;
 
             _locationController = lc;

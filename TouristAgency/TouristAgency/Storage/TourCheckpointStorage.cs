@@ -8,7 +8,7 @@ using TouristAgency.Serialization;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
 
-namespace TourCheckpointAgency.Storage
+namespace TouristAgency.Storage
 {
     public class TourCheckpointStorage
     {

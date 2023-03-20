@@ -32,22 +32,24 @@ namespace TouristAgency.View.Home
 
         public Owner LogedUser { get; set; }
 
-        public OwnerHome(ReservationController reservationController,AccommodationController accommodationController,OwnerController ownerController,LocationController locationController,PhotoController photoController,Owner owner)
+        public OwnerHome(Owner owner)
         {
             InitializeComponent();
             DataContext = this;
 
-            _reservationController = reservationController;
+            var app = (App)Application.Current;
+
+            _reservationController = app.ReservationController;
             _reservationController.Subcribe(this);
 
-            _accommodationController = accommodationController;
+            _accommodationController = app.AccommodationController;
             _accommodationController.Subscribe(this);
 
-            _ownerController = ownerController;
+            _ownerController = app.OwnerController;
             _ownerController.LoadAccommodationsToOwners(_accommodationController.GetAll());
 
-            _locationController = locationController;
-            _photoController = photoController;
+            _locationController = app.LocationController;
+            _photoController = app.PhotoController;
 
             LogedUser = owner;
 
@@ -93,7 +95,7 @@ namespace TouristAgency.View.Home
 
                 if (dateDif < 5.0)
                 {
-                    notification += $"{reservation.Accommodation.Name} {reservation.End}\n";
+                    notification += $"{reservation.Guest.FirstName} {reservation.Guest.LastName}{dateDif} days left\n";
                     changes++;
                 }
                 else

@@ -28,18 +28,17 @@ namespace TouristAgency
     /// </summary>
     public partial class MainWindow : Window,INotifyPropertyChanged,IDataErrorInfo
     {
-        private CheckpointController _checkpointController;
-        private TourController _tourController;
-        private AccommodationController _accommodationController;
-        private LocationController _locationController;
-        private PhotoController _photoController;
+        
         private TourCheckpointController _tourCheckpointController;
-        private OwnerController _ownerController;
-        private ReservationController _reservationController;
-        private TouristController _touristController;
-        private TourTouristController _tourTouristController;
         private TourTouristCheckpointController _tourTouristCheckpointController;
+        private TourTouristController _tourTouristController;
+        private TouristController _touristController;
+        private TourController _tourController;
+        private CheckpointController _checkpointController;
+        private OwnerController _ownerController;
         private GuestController _guestController;
+
+        public App app;
 
         public object User { get; set; }
 
@@ -104,42 +103,21 @@ namespace TouristAgency
             InitializeComponent();
             DataContext = this;
 
-            _checkpointController = new CheckpointController();
-            _tourController = new TourController();
-            _locationController = new LocationController();
-            _accommodationController = new AccommodationController();
-            _photoController = new PhotoController();
-            _tourCheckpointController = new TourCheckpointController();
-            _ownerController = new OwnerController();
-            _reservationController = new ReservationController();
-            _touristController = new TouristController();
-            _tourTouristController = new TourTouristController();
-            _tourTouristCheckpointController = new TourTouristCheckpointController();
-            _guestController = new GuestController();
+            app = (App)Application.Current;
 
-            _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
-            _accommodationController.LoadPhotosToAccommodations(_photoController.GetAll());
-            _checkpointController.LoadLocationsToCheckpoints(_locationController.GetAll());
-            _tourController.LoadLocationsToTours(_locationController.GetAll());
-            _photoController.LoadToursToPhotos(_tourController.GetAll());
-            _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
-            _reservationController.LoadGuestsToReservations(_guestController.GetAll());
-            _tourCheckpointController.LoadCheckpoints(_checkpointController.GetAll());
-            _ownerController.LoadAccommodationsToOwners(_accommodationController.GetAll());
+            this._ownerController = app.OwnerController;
+            this._guestController = app.GuestController;
+            this._tourCheckpointController = app.TourCheckpointController;
+            this._tourTouristCheckpointController = app.TourTouristCheckpointController;
+            this._tourCheckpointController = app.TourCheckpointController;
+            this._tourTouristController = app.TourTouristController;
+            this._tourController = app.TourController;
+            this._touristController = app.TouristController;
+            this._checkpointController = app.CheckpointController;
+            
 
             LoadTourToTourist(_tourTouristController.GetAll());
             LoadCheckpointToTourist(_tourCheckpointController.GetAll());
-        }
-
-        public void LoadCheckpointToTourist(List<TourCheckpoint> tourCheckpoints)
-        {
-            foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
-            {
-                Tour tour = _tourController.FindById(tourCheckpoint.TourID);
-                Checkpoint checkpoint = _checkpointController.FindByID(tourCheckpoint.CheckpointID);
-                tour.Checkpoints.Add(checkpoint);
-                _tourController.Update(tour, tour.ID);
-            }
         }
 
         public void LoadTourToTourist(List<TourTourist> tourTourists)
@@ -157,27 +135,38 @@ namespace TouristAgency
             }
         }
 
+        public void LoadCheckpointToTourist(List<TourCheckpoint> tourCheckpoints)
+        {
+            foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
+            {
+                Tour tour = _tourController.FindById(tourCheckpoint.TourID);
+                Checkpoint checkpoint = _checkpointController.FindByID(tourCheckpoint.CheckpointID);
+                tour.Checkpoints.Add(checkpoint);
+                _tourController.Update(tour, tour.ID);
+            }
+        }
+
         private void TourButton_Click(object sender, RoutedEventArgs e)
         {
-            TourCreation creation = new TourCreation(_tourController, _checkpointController, _photoController, _tourCheckpointController, _locationController);
+            TourCreation creation = new TourCreation();
             creation.Show();
         }
 
         private void TourDisplay_Click(object sender, RoutedEventArgs e)
         {
-            TourDisplay display = new TourDisplay(_tourController, _tourTouristController, _touristController);
+            TourDisplay display = new TourDisplay();
             display.Show();
         }
 
         private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationDisplay display = new AccommodationDisplay(_accommodationController, _reservationController);
+            AccommodationDisplay display = new AccommodationDisplay();
             display.Show();
         }
 
         private void ActiveTourDisplayButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ActiveTourDisplay y = new ActiveTourDisplay(_tourController,_tourCheckpointController,_checkpointController, _touristController, _tourTouristCheckpointController);
+            ActiveTourDisplay y = new ActiveTourDisplay();
             y.Show();
         }
 
@@ -188,11 +177,11 @@ namespace TouristAgency
             {
                 return User.GetType().ToString();
             }
-            /*User = GuestController.GetAll().Find(g => g.Username == Username && g.Password == Password);
+            User = _guestController.GetAll().Find(g => g.Username == Username && g.Password == Password);
             if (User != null)
             {
                 return User.GetType().ToString();
-            }*/
+            }
 
             return null;
         }
@@ -207,13 +196,14 @@ namespace TouristAgency
                 {
                     case "TouristAgency.Model.Owner":
                         {
-                            OwnerHome x = new OwnerHome(_reservationController, _accommodationController,_ownerController, _locationController, _photoController, (Owner)User);
+                            OwnerHome x = new OwnerHome((Owner)User);
                             x.Show();
                         }
                         break;
                     case "TouristAgency.Model.Guest":
                         {
-                            //TourDisplay x = new TourDisplay((Guest)User);
+                            AccommodationDisplay x = new AccommodationDisplay();
+                            x.Show();
                         }
                         break;
                     default: MessageBox.Show("Failure"); break;

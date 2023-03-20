@@ -34,13 +34,13 @@
 
         <Label Grid.Row="1" Grid.Column="0" Height="30" HorizontalAlignment="Center" Content="Username" FontSize="15"/>
         <Label Grid.Row="2" Grid.Column="0" Height="30" HorizontalAlignment="Center" Content="Password" FontSize="15"/>
-        <Button Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Content="Log in" Width="80" Height="40" Click="ButtonLogin_Click"/>
+        <Button Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Content="Log in" Width="90" Height="50" Click="ButtonLogin_Click"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=Username,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=Password,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Content="Cancel" Width="80" Height="40" Click="ButtonCancel_Click"/>
+        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Content="Cancel" Width="90" Height="50" Click="ButtonCancel_Click"/>
 
         <StackPanel Grid.Row="4" Grid.RowSpan="3" Grid.Column="0">
             <Button Content="TourCreation" Height="40" Click="TourButton_Click"/>

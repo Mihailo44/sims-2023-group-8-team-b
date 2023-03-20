@@ -38,17 +38,19 @@ namespace TouristAgency.View.Display
         private int _numberOfReservation;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TourDisplay(TourController tourController, TourTouristController tourTouristController, TouristController touristController)
+        public TourDisplay()
         {
             InitializeComponent();
             DataContext = this;
-            _tourController = tourController;
-            _tourTouristController = tourTouristController;
-            _touristController = touristController;
-            Tours = new ObservableCollection<Tour>(tourController.GetValidTours());
-            Countries = tourController.GetAllCountires();
-            Cities = tourController.GetAllCitites();
-            Languages = tourController.GetAllLanguages();
+            var app = (App)Application.Current;
+
+            _tourController = app.TourController;
+            _tourTouristController = app.TourTouristController;
+            _touristController = app.TouristController;
+            Tours = new ObservableCollection<Tour>(_tourController.GetValidTours());
+            Countries = _tourController.GetAllCountires();
+            Cities = _tourController.GetAllCitites();
+            Languages = _tourController.GetAllLanguages();
         }
 
         public ObservableCollection<Tour> Tours
@@ -162,11 +164,6 @@ namespace TouristAgency.View.Display
             string language = LanguageComboBox.SelectedItem.ToString();
             
             Tours = new ObservableCollection<Tour>(_tourController.Search(country, city, language, MinDuration, MaxDuration, MaxCapacity));
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-                        
         }
 
         protected void OnPropertyChanged(string propertyName)

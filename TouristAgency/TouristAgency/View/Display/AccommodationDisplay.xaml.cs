@@ -177,7 +177,7 @@ namespace TouristAgency.View.Display
             get => _end;
             set
             {
-                if (_start != value)
+                if (_end != value)
                 {
                     _end = value;
                     OnPropertyChanged("End");
@@ -197,19 +197,23 @@ namespace TouristAgency.View.Display
                 }
             }
         }
-        public AccommodationDisplay(AccommodationController accommodationController, ReservationController reservationController)
+        public AccommodationDisplay()
         {
-            _accommodationController = accommodationController;
-            _reservationController = reservationController;
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
-            Reservations = new ObservableCollection<Reservation>();
             InitializeComponent();
             DataContext = this;
-            Countries = accommodationController.GetCountries();
-            Cities = accommodationController.GetCities();
-            Names = accommodationController.GetNames();
-            Types = accommodationController.GetTypes();
-            
+
+            var app = (App)Application.Current;
+
+            _accommodationController = app.AccommodationController;
+            _reservationController = app.ReservationController;
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
+            Reservations = new ObservableCollection<Reservation>();
+            Countries = _accommodationController.GetCountries();
+            Cities = _accommodationController.GetCities();
+            Names = _accommodationController.GetNames();
+            Types = _accommodationController.GetTypes();
+            Start = DateTime.Today;
+            End = DateTime.Today;
         }
 
         protected void OnPropertyChanged(string propertyName)

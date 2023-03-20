@@ -6,7 +6,7 @@
         xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Tour" Height="550" Width="640" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="Tour" Height="550" Width="640" WindowStartupLocation="CenterScreen">
     
     <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>

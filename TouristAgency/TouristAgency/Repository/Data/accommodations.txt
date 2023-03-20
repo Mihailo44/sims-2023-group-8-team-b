@@ -7,3 +7,4 @@
 6|1|mozda|1|HOTEL|0|0|1
 7|0|aa|1|HOTEL|0|0|1
 8|0|provera|1|HUT|40|10|69
+9|0|nzm|1|APARTMENT|0|0|1

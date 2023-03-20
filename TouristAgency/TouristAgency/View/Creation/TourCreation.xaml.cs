@@ -37,23 +37,24 @@ namespace TouristAgency.View.Creation
         private string _photoLinks;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TourCreation(TourController tourController, CheckpointController checkpointController,
-            PhotoController photoController, TourCheckpointController tourCheckpointController, LocationController locationController)
+        public TourCreation()
         {
             InitializeComponent();
+            this.DataContext = this;
+            var app = (App)Application.Current;
+
             NewTour = new Tour();
             NewLocation = new Location();
-            _tourController = tourController;
-            _checkpointController = checkpointController;
-            _photoController = photoController;
-            _tourCheckpointController = tourCheckpointController;
-            _locationController = locationController;
+
+            _tourController = app.TourController;
+            _checkpointController = app.CheckpointController;
+            _photoController = app.PhotoController;
+            _tourCheckpointController = app.TourCheckpointController;
+            _locationController = app.LocationController;
             _availableCheckpoints = new ObservableCollection<Checkpoint>();
             _selectedCheckpoints = new ObservableCollection<Checkpoint>();
             _multipleDateTimes = new List<DateTime>();
             _datecount = _multipleDateTimes.Count;
-
-            this.DataContext = this;
         }
 
         public string Error => null;

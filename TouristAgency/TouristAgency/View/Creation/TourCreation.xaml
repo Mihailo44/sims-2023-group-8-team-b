@@ -13,7 +13,7 @@
             <Grid>
                 <AdornedElementPlaceholder/>
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
-                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Margin="0,0,7,0"/>
+                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="7"/>
             </Grid>
         </ControlTemplate>
     </Window.Resources>
