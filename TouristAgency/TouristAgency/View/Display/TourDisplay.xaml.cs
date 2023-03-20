@@ -25,9 +25,6 @@ namespace TouristAgency.View.Display
     /// </summary>
     public partial class TourDisplay : Window, INotifyPropertyChanged
     {
-        TourController _tourController;
-        TourTouristController _tourTouristController;
-        TouristController _touristController;
         private ObservableCollection<Tour> _tours;
         private ObservableCollection<string> _countires;
         private ObservableCollection<string> _cities;
@@ -36,21 +33,34 @@ namespace TouristAgency.View.Display
         private int _maxDuration;
         private int _maxCapacity;
         private int _numberOfReservation;
+        private Tourist loggedInTourist;
+        private App _app;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TourDisplay()
+        public TourDisplay(Tourist tourist)
         {
             InitializeComponent();
             DataContext = this;
-            var app = (App)Application.Current;
+            _app = (App)Application.Current;
 
-            _tourController = app.TourController;
-            _tourTouristController = app.TourTouristController;
-            _touristController = app.TouristController;
-            Tours = new ObservableCollection<Tour>(_tourController.GetValidTours());
-            Countries = _tourController.GetAllCountires();
-            Cities = _tourController.GetAllCitites();
-            Languages = _tourController.GetAllLanguages();
+            Tours = new ObservableCollection<Tour>(_app.TourController.GetValidTours());;
+            Countries = _app.TourController.GetAllCountires();
+            Cities = _app.TourController.GetAllCitites();
+            Languages = _app.TourController.GetAllLanguages();
+            loggedInTourist = tourist;
+
+            foreach(var ttc in _app.TourTouristCheckpointController.GetPendingInvitations(tourist.ID))
+            {
+                MessageBoxResult result = MessageBox.Show("Are you at " + _app.CheckpointController.FindByID(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
+                if(result == MessageBoxResult.Yes)
+                {
+                    _app.TourTouristCheckpointController.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
+                }
+            }
+
+            CountryComboBox.SelectedIndex = 0;
+            CityComboBox.SelectedIndex = 0;
+            LanguageComboBox.SelectedIndex = 0;
         }
 
         public ObservableCollection<Tour> Tours
@@ -163,7 +173,7 @@ namespace TouristAgency.View.Display
             string city = CityComboBox.SelectedItem.ToString();
             string language = LanguageComboBox.SelectedItem.ToString();
             
-            Tours = new ObservableCollection<Tour>(_tourController.Search(country, city, language, MinDuration, MaxDuration, MaxCapacity));
+            Tours = new ObservableCollection<Tour>(_app.TourController.Search(country, city, language, MinDuration, MaxDuration, MaxCapacity));
         }
 
         protected void OnPropertyChanged(string propertyName)
@@ -174,7 +184,9 @@ namespace TouristAgency.View.Display
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            Tours = new ObservableCollection<Tour>(_tourController.GetAll());
+            Tours = new ObservableCollection<Tour>(_app.TourController.GetAll());
+            MinDurationIntegerUpDown.Value = 0;
+            MaxDurationIntegerUpDown.Value = 0;
         }
 
         private void MakeAReservation_Click(object sender, RoutedEventArgs e)
@@ -194,7 +206,7 @@ namespace TouristAgency.View.Display
                 
                 if(result == MessageBoxResult.Yes) 
                 {
-                    Tours = new ObservableCollection<Tour>(_tourController.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, MaxCapacity));
+                    Tours = new ObservableCollection<Tour>(_app.TourController.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, MaxCapacity));
                     List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
                     Tours.Remove(selectedTour);
                     foreach(Tour tour in emptyTours) 
@@ -212,9 +224,9 @@ namespace TouristAgency.View.Display
             }
 
             selectedTour.CurrentAttendants += NumberOfReservation;
-            _tourController.Update(selectedTour, selectedTour.ID);
-            _tourTouristController.Create(new TourTourist(selectedTour.ID, 6)); //TODO zakucan je na korisnika sa IDem 6, promeni kad se implementira logovanje
-            Tourist tourist = _touristController.FindById(6);
+            _app.TourController.Update(selectedTour, selectedTour.ID);
+            _app.TourTouristController.Create(new TourTourist(selectedTour.ID, loggedInTourist.ID)); 
+            Tourist tourist = _app.TouristController.FindById(loggedInTourist.ID);
             tourist.AppliedTours.Add(selectedTour);
 
             MessageBox.Show("Successfully made a reservation.", "Success");

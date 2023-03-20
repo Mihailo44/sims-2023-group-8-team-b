@@ -39,19 +39,14 @@ namespace TouristAgency.Model.DAO
         public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration, int maxCapacity)
         {
             List<Tour> filteredTours = new List<Tour>();
-
-            //bool country = tour.ShortLocation.Country == CountryComboBox.SelectedItem.ToString();
-            //bool city = tour.ShortLocation.City == CityComboBox.SelectedItem.ToString();
-            //bool language = tour.Language == LanguageComboBox.SelectedItem.ToString();
-            //bool duration = tour.Duration >= MinDuration && tour.Duration <= MaxDuration;
-            //bool maxCapacity = tour.MaxAttendants >= MaxCapacity;
-
-            /*if (country && city && language && duration && maxCapacity)
+            if(minDuration > 0 && maxDuration == 0)
             {
-                filteredTours.Add(tour);
-            }*/
-
-            return _tours.Where(t => t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) && t.Language.Contains(language) && t.Duration >= minDuration && t.Duration <= maxDuration && t.MaxAttendants >= maxCapacity).ToList();
+                return _tours.Where(t => t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) && t.Language.Contains(language) && t.Duration >= minDuration && t.MaxAttendants >= maxCapacity).ToList();
+            }
+            else
+            {
+                return _tours.Where(t => t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) && t.Language.Contains(language) && t.Duration >= minDuration && t.Duration <= maxDuration && t.MaxAttendants >= maxCapacity).ToList();
+            }
         }
 
         public Tour Create(Tour newTour)

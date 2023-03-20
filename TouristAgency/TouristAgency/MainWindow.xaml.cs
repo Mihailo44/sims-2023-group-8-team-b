@@ -152,12 +152,6 @@ namespace TouristAgency
             creation.Show();
         }
 
-        private void TourDisplay_Click(object sender, RoutedEventArgs e)
-        {
-            TourDisplay display = new TourDisplay();
-            display.Show();
-        }
-
         private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
         {
             AccommodationDisplay display = new AccommodationDisplay();
@@ -178,6 +172,11 @@ namespace TouristAgency
                 return User.GetType().ToString();
             }
             User = _guestController.GetAll().Find(g => g.Username == Username && g.Password == Password);
+            if (User != null)
+            {
+                return User.GetType().ToString();
+            }
+            User = _touristController.GetAll().Find(t => t.Username == Username && t.Password == Password);
             if (User != null)
             {
                 return User.GetType().ToString();
@@ -203,6 +202,12 @@ namespace TouristAgency
                     case "TouristAgency.Model.Guest":
                         {
                             AccommodationDisplay x = new AccommodationDisplay();
+                            x.Show();
+                        }
+                        break;
+                    case "TouristAgency.Model.Tourist":
+                        {
+                            TourDisplay x = new TourDisplay((Tourist)User);
                             x.Show();
                         }
                         break;

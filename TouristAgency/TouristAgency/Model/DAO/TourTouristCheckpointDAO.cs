@@ -51,7 +51,7 @@ namespace TouristAgency.Model.DAO
             TourTouristCheckpoint tourTouristCheckpoint = _tourtouristcheckpoint.Find(t =>
                 t.TouristID == touristID && t.TourCheckpoint.CheckpointID == checkpointID);
 
-            tourTouristCheckpoint.InvitationStatus = INVITATION_STATUS.PENDING;
+            tourTouristCheckpoint.InvitationStatus = INVITATION_STATUS.ACCEPTED;
             _storage.Save(_tourtouristcheckpoint);
             NotifyObservers();
         }

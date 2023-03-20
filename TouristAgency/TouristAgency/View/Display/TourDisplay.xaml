@@ -49,9 +49,9 @@
                 <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Duration:"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4">
                     <Label Grid.Row="1" Grid.Column="2" Content="Min:"/>
-                    <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="3" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MinDuration}"/>
+                    <WPFExtended:UIntegerUpDown x:Name="MinDurationIntegerUpDown" Grid.Row="1" Grid.Column="3" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MinDuration}"/>
                     <Label Grid.Row="1" Grid.Column="4" Content="Max:"/>
-                    <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="5" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MaxDuration}"/>
+                    <WPFExtended:UIntegerUpDown x:Name="MaxDurationIntegerUpDown" Grid.Row="1" Grid.Column="5" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MaxDuration}"/>
                 </StackPanel>
                 <Label Grid.Row="2" Grid.Column="2" Content="Max capacity:"/>
                 <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="24" Width="45" HorizontalAlignment="Left" Value="{Binding Path=MaxCapacity}"/>
@@ -78,6 +78,13 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="Photo">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="80" Width="80" Source="{Binding Path=Photos[0].Link}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>

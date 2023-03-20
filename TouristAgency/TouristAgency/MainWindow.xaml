@@ -44,7 +44,6 @@
 
         <StackPanel Grid.Row="4" Grid.RowSpan="3" Grid.Column="0">
             <Button Content="TourCreation" Height="40" Click="TourButton_Click"/>
-            <Button Content="TourDisplay" Height="40" Click="TourDisplay_Click"/>
             <Button Content="AccommodationDisplay" Height="40" Click="AccommodationDisplay_Click"/>
             <Button x:Name="ActiveTourDisplayButton" Content="ActiveTourDisplay" Height="40" Click="ActiveTourDisplayButton_OnClick"/>
         </StackPanel>
