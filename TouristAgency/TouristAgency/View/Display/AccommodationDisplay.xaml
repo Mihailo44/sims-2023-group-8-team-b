@@ -12,6 +12,13 @@
         <ListView x:Name="AccommodationsListView" ItemsSource="{Binding Path=Accommodations}" Margin="10,59,399,406" RenderTransformOrigin="0.509,0.477">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="Photo">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="80" Width="80" Source="{Binding Path=Photos[0].Link}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding Location.City}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Location.Country}"/>

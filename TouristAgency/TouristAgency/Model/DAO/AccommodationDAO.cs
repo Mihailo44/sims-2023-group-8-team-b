@@ -81,6 +81,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetNames()
         {
             List<string> names = new List<string>();
+            names.Add(String.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -96,6 +97,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetCities()
         {
             List<string> citites = new List<string>();
+            citites.Add(String.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -111,6 +113,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetCountries()
         {
             List<string> countries = new List<string>();
+            countries.Add(String.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -126,6 +129,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetTypes()
         {
             List<string> types = new List<string>();
+            types.Add(String.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {

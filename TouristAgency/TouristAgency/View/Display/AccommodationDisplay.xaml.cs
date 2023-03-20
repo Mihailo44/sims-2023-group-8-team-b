@@ -38,8 +38,34 @@ namespace TouristAgency.View.Display
         private DateTime _end;
         private int _numOfDays;
         private int _numOfPeople;
-        private Guest _tempGuest;
+        private Guest _loggedInGuest;
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public AccommodationDisplay(Guest guest)
+        {
+            InitializeComponent();
+            DataContext = this;
+
+            var app = (App)Application.Current;
+
+            _accommodationController = app.AccommodationController;
+            _reservationController = app.ReservationController;
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
+            Reservations = new ObservableCollection<Reservation>();
+            Countries = _accommodationController.GetCountries();
+            Cities = _accommodationController.GetCities();
+            Names = _accommodationController.GetNames();
+            Types = _accommodationController.GetTypes();
+            Start = DateTime.Today;
+            End = DateTime.Today;
+
+            _loggedInGuest = guest;
+
+            CountryComboBox.SelectedIndex = 0;
+            CityComboBox.SelectedIndex = 0;
+            TypeComboBox.SelectedIndex = 0;
+            NameComboBox.SelectedIndex = 0;
+        }
 
 
         public ObservableCollection<Accommodation> Accommodations
@@ -197,24 +223,7 @@ namespace TouristAgency.View.Display
                 }
             }
         }
-        public AccommodationDisplay()
-        {
-            InitializeComponent();
-            DataContext = this;
-
-            var app = (App)Application.Current;
-
-            _accommodationController = app.AccommodationController;
-            _reservationController = app.ReservationController;
-            Accommodations = new ObservableCollection<Accommodation>(_accommodationController.GetAll());
-            Reservations = new ObservableCollection<Reservation>();
-            Countries = _accommodationController.GetCountries();
-            Cities = _accommodationController.GetCities();
-            Names = _accommodationController.GetNames();
-            Types = _accommodationController.GetTypes();
-            Start = DateTime.Today;
-            End = DateTime.Today;
-        }
+       
 
         protected void OnPropertyChanged(string propertyName)
         {
@@ -253,9 +262,6 @@ namespace TouristAgency.View.Display
             Reservations.Clear();
 
             int numOfReservations = ((End - Start).Days - NumOfDays + 2); // TODO: Smisli formulu
-             _tempGuest = new Guest(new User("nesto", "ftn", "miko", "mikic", new DateOnly(2001, 3, 15),
-                "nesto@gmail.com", new Location("Spanija", "Madrid", "Salvadora Dalija", "5"), "065621489"));
-             _tempGuest.ID = 7; //TODO: skloniti kad se implementira login
             Accommodation selectedAccommodation = (Accommodation)AccommodationsListView.SelectedItem;
 
             if (selectedAccommodation != null && selectedAccommodation.MinNumOfDays <= NumOfDays)
@@ -268,7 +274,7 @@ namespace TouristAgency.View.Display
                     if (_reservationController.IsReserved(selectedAccommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) ==
                         false)
                     {
-                        Reservations.Add(new Reservation(_tempGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
+                        Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
                     }
                     
                 }
@@ -290,7 +296,7 @@ namespace TouristAgency.View.Display
                             if (_reservationController.IsReserved(selectedAccommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
                                 false)
                             {
-                                Reservations.Add(new Reservation(_tempGuest, selectedAccommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
+                                Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
                             }
                         }
 
@@ -299,7 +305,7 @@ namespace TouristAgency.View.Display
                             if (_reservationController.IsReserved(selectedAccommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
                                 false)
                             {
-                                Reservations.Add(new Reservation(_tempGuest, selectedAccommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
+                                Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
                             }
 
                         }
@@ -325,8 +331,8 @@ namespace TouristAgency.View.Display
             {
                 newReservation.Accommodation = selectedAccommodation;
                 newReservation.AccommodationId = selectedAccommodation.Id;
-                newReservation.Guest = _tempGuest;
-                newReservation.GuestId = _tempGuest.ID;
+                newReservation.Guest = _loggedInGuest;
+                newReservation.GuestId = _loggedInGuest.ID;
                 _reservationController.Create(newReservation);
                 Reservations.Remove(newReservation);
                 MessageBox.Show("Successfully reserved");

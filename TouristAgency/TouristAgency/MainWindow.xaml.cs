@@ -152,11 +152,6 @@ namespace TouristAgency
             creation.Show();
         }
 
-        private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationDisplay display = new AccommodationDisplay();
-            display.Show();
-        }
 
         private void ActiveTourDisplayButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -201,7 +196,7 @@ namespace TouristAgency
                         break;
                     case "TouristAgency.Model.Guest":
                         {
-                            AccommodationDisplay x = new AccommodationDisplay();
+                            AccommodationDisplay x = new AccommodationDisplay((Guest)User);
                             x.Show();
                         }
                         break;
