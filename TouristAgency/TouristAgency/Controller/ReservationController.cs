@@ -48,14 +48,19 @@ namespace TouristAgency.Controller
             _reservation.LoadGuestsToReservations(guests);
         }
 
-        public List<Reservation> GetUnreviewed()
+        public List<Reservation> GetUnreviewed(int ownerId = 0)
         {
-             return _reservation.GetUnreviewed();
+             return _reservation.GetUnreviewed(ownerId);
         }
 
-        public List<Reservation> GetByOwnerId(int id = 0)
+        public List<Reservation> GetByOwnerId(int id)
         {
             return _reservation.GetByOwnerId(id);
+        }
+
+        public bool IsReserved(int accommodationID, DateTime start, DateTime end)
+        {
+            return _reservation.IsReserved(accommodationID, start, end);
         }
 
         public void Subcribe(IObserver observer)

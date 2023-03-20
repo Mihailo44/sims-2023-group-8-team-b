@@ -60,17 +60,18 @@ namespace TouristAgency.Model
                 }
             }
         }
-        //Dodati location
+        
         public void FromCSV(string[] values)
         {
-            ID = int.Parse(values[1]);
+            ID = int.Parse(values[0]);
             FirstName = values[1];
             LastName = values[2];
             DateOfBirth = DateOnly.Parse(values[3]);
-            Phone = values[3];
-            Email = values[4];
-            Username = values[5];
-            Password = values[6];
+            FullLocationID = int.Parse(values[4]);
+            Phone = values[5];
+            Email = values[6];
+            Username = values[7];
+            Password = values[8];
         }
 
         public string[] ToCSV()
@@ -81,6 +82,7 @@ namespace TouristAgency.Model
                 FirstName,
                 LastName,
                 DateOfBirth.ToString(),
+                FullLocationID.ToString(),
                 Phone,
                 Email,
                 Username,

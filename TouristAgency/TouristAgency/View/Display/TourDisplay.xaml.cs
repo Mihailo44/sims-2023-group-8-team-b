@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,8 @@ namespace TouristAgency.View.Display
         private ObservableCollection<string> _countires;
         private ObservableCollection<string> _cities;
         private ObservableCollection<string> _languages;
-        private int _duration;
+        private int _minDuration;
+        private int _maxDuration;
         private int _maxCapacity;
         private int _numberOfReservation;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -101,15 +103,28 @@ namespace TouristAgency.View.Display
             }
         }
 
-        public int Duration
+        public int MinDuration
         {
-            get => _duration;
+            get => _minDuration;
             set
             {
-                if(_duration != value)
+                if(_minDuration != value)
                 {
-                    _duration = value;
-                    OnPropertyChanged("Duration");
+                    _minDuration = value;
+                    OnPropertyChanged("MinDuration");
+                }
+            }
+        }
+
+        public int MaxDuration
+        {
+            get => _maxDuration;
+            set
+            {
+                if (_maxDuration != value)
+                {
+                    _maxDuration = value;
+                    OnPropertyChanged("MaxDuration");
                 }
             }
         }
@@ -142,22 +157,11 @@ namespace TouristAgency.View.Display
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Tour> filteredTours = new ObservableCollection<Tour>();
-            foreach(Tour tour in _tourController.GetAll())
-            {
-                bool country = tour.ShortLocation.Country == CountryComboBox.SelectedItem.ToString();
-                bool city = tour.ShortLocation.City == CityComboBox.SelectedItem.ToString();
-                bool language = tour.Language == LanguageComboBox.SelectedItem.ToString();
-                bool duration = tour.Duration == Duration;
-                bool maxCapacity = tour.MaxAttendants >= MaxCapacity;
-
-                if(country && city && language && duration && maxCapacity)
-                {
-                    filteredTours.Add(tour);
-                }
-            }
-
-            Tours = filteredTours;
+            string country = CountryComboBox.SelectedItem.ToString();
+            string city = CityComboBox.SelectedItem.ToString();
+            string language = LanguageComboBox.SelectedItem.ToString();
+            
+            Tours = new ObservableCollection<Tour>(_tourController.Search(country, city, language, MinDuration, MaxDuration, MaxCapacity));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -186,9 +190,27 @@ namespace TouristAgency.View.Display
             }
 
             int availableReservations = selectedTour.MaxAttendants - selectedTour.CurrentAttendants - NumberOfReservation;
+
+            if(selectedTour.MaxAttendants == selectedTour.CurrentAttendants) 
+            {
+                MessageBoxResult result = MessageBox.Show("The tour does not have any places left. Would you like to see an alternative?", "Alert", MessageBoxButton.YesNo); 
+                
+                if(result == MessageBoxResult.Yes) 
+                {
+                    Tours = new ObservableCollection<Tour>(_tourController.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, MaxCapacity));
+                    List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
+                    Tours.Remove(selectedTour);
+                    foreach(Tour tour in emptyTours) 
+                    {
+                        Tours.Remove(tour);
+                    }
+                    return;
+                }
+            }
+
             if(availableReservations < 0) 
             {
-                MessageBox.Show("The selected tour does not have enough capacity.", "Alert");
+                MessageBox.Show("The selected tour does not have enough capacity. Try to reduce number of reservation or pick another tour.", "Alert");
                 return;
             }
 
@@ -197,6 +219,13 @@ namespace TouristAgency.View.Display
             _tourTouristController.Create(new TourTourist(selectedTour.ID, 6)); //TODO zakucan je na korisnika sa IDem 6, promeni kad se implementira logovanje
             Tourist tourist = _touristController.FindById(6);
             tourist.AppliedTours.Add(selectedTour);
+
+            MessageBox.Show("Successfully made a reservation.", "Success");
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            numOfReservation.Value = 0;
         }
     }
 }

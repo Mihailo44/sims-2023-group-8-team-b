@@ -37,6 +37,8 @@ namespace TouristAgency.View.Display
         private DateTime _start;
         private DateTime _end;
         private int _numOfDays;
+        private int _numOfPeople;
+        private Guest _tempGuest;
         public event PropertyChangedEventHandler PropertyChanged;
 
 
@@ -182,6 +184,19 @@ namespace TouristAgency.View.Display
                 }
             }
         }
+
+        public int NumOfPeople
+        {
+            get => _numOfPeople;
+            set
+            {
+                if (_numOfPeople != value)
+                {
+                    _numOfPeople = value;
+                    OnPropertyChanged("NumOfPeople");
+                }
+            }
+        }
         public AccommodationDisplay(AccommodationController accommodationController, ReservationController reservationController)
         {
             _accommodationController = accommodationController;
@@ -233,9 +248,10 @@ namespace TouristAgency.View.Display
         {
             Reservations.Clear();
 
-            int numOfReservations = ((End - Start).Days + 1) / NumOfDays; // TODO: Smisli formulu
-            Guest tempGuest = new Guest(new User("nesto", "ftn", "miko", "mikic", new DateOnly(2001, 3, 15),
+            int numOfReservations = ((End - Start).Days - NumOfDays + 2); // TODO: Smisli formulu
+             _tempGuest = new Guest(new User("nesto", "ftn", "miko", "mikic", new DateOnly(2001, 3, 15),
                 "nesto@gmail.com", new Location("Spanija", "Madrid", "Salvadora Dalija", "5"), "065621489"));
+             _tempGuest.ID = 7; //TODO: skloniti kad se implementira login
             Accommodation selectedAccommodation = (Accommodation)AccommodationsListView.SelectedItem;
 
             if (selectedAccommodation != null && selectedAccommodation.MinNumOfDays <= NumOfDays)
@@ -245,8 +261,47 @@ namespace TouristAgency.View.Display
 
                 for (int i = 0; i < numOfReservations; i++)
                 {
-                    Reservations.Add(new Reservation(tempGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
+                    if (_reservationController.IsReserved(selectedAccommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) ==
+                        false)
+                    {
+                        Reservations.Add(new Reservation(_tempGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
+                    }
+                    
                 }
+
+                if (ReservationsListView.Items.Count == 0)
+                {
+                    MessageBoxResult result =
+                        MessageBox.Show(
+                            "There are no available dates in this date range. Would you like some alternatives?", "Question", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        DateTime startFirstInterval = Start.AddMonths(1);
+                        DateTime startSecondInterval = Start.AddMonths(-1);
+                        DateTime endFirstInterval = startFirstInterval.AddDays(NumOfDays - 1);
+                        DateTime endSecondInterval = startSecondInterval.AddDays(NumOfDays - 1);
+
+                        for (int i = 0; i < numOfReservations; i++)
+                        {
+                            if (_reservationController.IsReserved(selectedAccommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
+                                false)
+                            {
+                                Reservations.Add(new Reservation(_tempGuest, selectedAccommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
+                            }
+                        }
+
+                        for (int i = 0; i < numOfReservations; i++)
+                        {
+                            if (_reservationController.IsReserved(selectedAccommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
+                                false)
+                            {
+                                Reservations.Add(new Reservation(_tempGuest, selectedAccommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
+                            }
+
+                        }
+                    }
+                }
+
             }
             else
             {
@@ -256,10 +311,28 @@ namespace TouristAgency.View.Display
             
         }
 
-        private void MakeReservationButton_OnClick(object sender, RoutedEventArgs e)
+        private void MakeReservation_Click(object sender, RoutedEventArgs e)
         {
             Reservation newReservation = (Reservation)ReservationsListView.SelectedItem;
-            _reservationController.Create(newReservation);
+            Accommodation selectedAccommodation = (Accommodation)AccommodationsListView.SelectedItem;
+
+
+            if (selectedAccommodation.MaxGuestNum >= NumOfPeople && selectedAccommodation.MinNumOfDays <= NumOfDays && newReservation != null)
+            {
+                newReservation.Accommodation = selectedAccommodation;
+                newReservation.AccommodationId = selectedAccommodation.Id;
+                newReservation.Guest = _tempGuest;
+                newReservation.GuestId = _tempGuest.ID;
+                _reservationController.Create(newReservation);
+                Reservations.Remove(newReservation);
+                MessageBox.Show("Successfully reserved");
+            }
+        }
+
+        private void CancelReservation_Click(object sender, RoutedEventArgs e)
+        {
+            NumOfPeople = 0;
+            Reservations.Clear();
         }
     }
 }
