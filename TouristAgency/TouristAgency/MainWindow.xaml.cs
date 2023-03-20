@@ -124,7 +124,6 @@ namespace TouristAgency
             _photoController.LoadToursToPhotos(_tourController.GetAll());
             _reservationController.LoadAccommodationsToReservations(_accommodationController.GetAll());
             _reservationController.LoadGuestsToReservations(_guestController.GetAll());
-            _accommodationController.LoadLocationsToAccommodations(_locationController.GetAll());
             _tourCheckpointController.LoadCheckpoints(_checkpointController.GetAll());
             _ownerController.LoadAccommodationsToOwners(_accommodationController.GetAll());
 

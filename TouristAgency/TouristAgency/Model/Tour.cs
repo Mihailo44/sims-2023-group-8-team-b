@@ -371,6 +371,5 @@ namespace TouristAgency.Model
             AssignedGuide.ID = Convert.ToInt32(values[9]);
             ShortLocationID = Convert.ToInt32(values[10]);
         }
-
     }
 }

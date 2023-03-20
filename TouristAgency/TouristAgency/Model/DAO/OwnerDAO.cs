@@ -87,6 +87,7 @@ namespace TouristAgency.Model.DAO
                 if(owner != null)
                 {
                     owner.Accommodations.Add(accommodation);
+                    accommodation.Owner = owner;
                 }
             }
         }
