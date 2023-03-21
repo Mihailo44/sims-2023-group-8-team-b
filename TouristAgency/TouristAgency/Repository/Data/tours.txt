@@ -1,0 +1,18 @@
+0|Beautiful visit to Novi Sad|A beautiful visit to Novi Sad|Serbian|15|0|0|3|3/21/2023 15:30:00 PM|50|0
+1|Beautiful visit to Novi Sad|A beautiful visit to Novi Sad|Serbian|15|0|0|3|3/22/2023 15:30:00 PM|50|0
+2|Beautiful visit to Novi Sad|A beautiful visit to Novi Sad|Serbian|15|0|0|3|3/23/2023 15:30:00 PM|50|0
+3|Beautiful visit to Novi Sad|A beautiful visit to Novi Sad|Serbian|15|0|0|3|3/24/2023 15:30:00 PM|50|0
+4|Beautiful visit to Novi Sad|A beautiful visit to Novi Sad|Serbian|15|0|0|3|3/25/2023 15:30:00 PM|50|0
+5|Fantastic visit to Belgrade|Fantastic!|English|10|0|0|3|3/21/2023 0:00:00 AM|50|1
+6|Fantastic visit to Belgrade|Fantastic!|English|10|0|0|3|3/22/2023 0:00:00 AM|50|1
+7|Fantastic visit to Belgrade|Fantastic!|English|10|0|0|3|3/23/2023 0:00:00 AM|50|1
+8|Fantastic visit to Belgrade|Fantastic!|English|10|0|0|3|3/24/2023 0:00:00 AM|50|1
+9|Fantastic visit to Belgrade|Fantastic!|English|10|0|0|3|3/25/2023 0:00:00 AM|50|1
+10|Fantastic visit to Belgrade|Fantastic!|English|10|0|0|3|3/26/2023 0:00:00 AM|50|1
+11|Unforgetable visit to Nis|Unforgetable!|Serbian|13|0|0|3|3/21/2023 0:00:00 AM|50|2
+12|Unforgetable visit to Nis|Unforgetable!|Serbian|13|0|0|3|3/22/2023 0:00:00 AM|50|2
+13|Unforgetable visit to Nis|Unforgetable!|Serbian|13|0|0|3|3/23/2023 0:00:00 AM|50|2
+14|Unforgetable visit to Nis|Unforgetable!|Serbian|13|0|0|3|3/24/2023 0:00:00 AM|50|2
+15|Unforgetable visit to Nis|Unforgetable!|Serbian|13|0|0|3|3/25/2023 0:00:00 AM|50|2
+16|Unforgetable visit to Nis|Unforgetable!|Serbian|13|0|0|3|3/26/2023 0:00:00 AM|50|2
+17|Unforgetable visit to Nis|Unforgetable!|Serbian|13|0|0|3|3/27/2023 0:00:00 AM|50|2
