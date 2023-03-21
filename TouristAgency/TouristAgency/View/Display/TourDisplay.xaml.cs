@@ -223,13 +223,21 @@ namespace TouristAgency.View.Display
                 return;
             }
 
-            selectedTour.CurrentAttendants += NumberOfReservation;
-            _app.TourController.Update(selectedTour, selectedTour.ID);
-            _app.TourTouristController.Create(new TourTourist(selectedTour.ID, loggedInTourist.ID)); 
-            Tourist tourist = _app.TouristController.FindById(loggedInTourist.ID);
-            tourist.AppliedTours.Add(selectedTour);
+            if(NumberOfReservation != 0)
+            {
+                selectedTour.CurrentAttendants += NumberOfReservation;
+                _app.TourController.Update(selectedTour, selectedTour.ID);
+                _app.TourTouristController.Create(new TourTourist(selectedTour.ID, loggedInTourist.ID));
+                Tourist tourist = _app.TouristController.FindById(loggedInTourist.ID);
+                tourist.AppliedTours.Add(selectedTour);
 
-            MessageBox.Show("Successfully made a reservation.", "Success");
+                MessageBox.Show("Successfully made a reservation.", "Success");
+            }
+            else
+            {
+                MessageBox.Show("Number of reservation can not be a null!", "Alert");
+            }
+            
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
