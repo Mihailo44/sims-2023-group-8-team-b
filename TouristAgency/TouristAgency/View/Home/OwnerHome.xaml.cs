@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using TouristAgency.Controller;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -20,9 +21,6 @@ namespace TouristAgency.View.Home
     {
         private ReservationController _reservationController;
         private AccommodationController _accommodationController;
-        private OwnerController _ownerController;
-        private LocationController _locationController;
-        private PhotoController _photoController;
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
@@ -44,12 +42,6 @@ namespace TouristAgency.View.Home
 
             _accommodationController = app.AccommodationController;
             _accommodationController.Subscribe(this);
-
-            _ownerController = app.OwnerController;
-            _ownerController.LoadAccommodationsToOwners(_accommodationController.GetAll());
-
-            _locationController = app.LocationController;
-            _photoController = app.PhotoController;
 
             LoggedUser = owner;
 
@@ -146,6 +138,26 @@ namespace TouristAgency.View.Home
                     x.Show();
                 }
             }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.Q))
+            {
+                MenuBitanItem_Click(sender, e);
+            }
+        }
+
+        private void MenuBitanItem_Click(object sender, RoutedEventArgs e)
+        {
+            string paris = "https://youtu.be/gG_dA32oH44?t=22";
+            string guidance = "https://youtu.be/oOni4BMeMp0?t=9";
+            ProcessStartInfo ps = new ProcessStartInfo
+            {
+                FileName = paris,
+                UseShellExecute = true
+            };
+            Process.Start(ps);
         }
     }
 }

@@ -22,3 +22,4 @@
 21|T|15|https://princ.rs/wp-content/uploads/2019/12/cair2.jpg
 22|T|16|https://princ.rs/wp-content/uploads/2019/12/cair2.jpg
 23|T|17|https://princ.rs/wp-content/uploads/2019/12/cair2.jpg
+5|A|5|https://assets.anantara.com/image/upload/q_auto,f_auto/media/minor/anantara/images/anantara-palazzo-naiadi-rome/sneak-peak/anantara_palazzo_naiadi_rome_hotel_new_opening_944x510.jpg

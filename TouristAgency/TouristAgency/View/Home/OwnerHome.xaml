@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
-        Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" 
+        ResizeMode="CanMinimize"
+        KeyDown="Window_KeyDown">
     <Grid>
         <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
             <StackPanel Orientation="Horizontal" Height="35" Width="1000" Background="Blue">
@@ -24,7 +26,7 @@
                             <MenuItem Header="Reservation" FontSize="15"/>
                         </MenuItem>
                         <MenuItem Header="Delete" FontSize="15"/>
-                        <MenuItem x:Name="MenuBitanItem" Header="N.I.P." InputGestureText="Ctrl+Q" Visibility="Collapsed"/>
+                        <MenuItem x:Name="MenuBitanItem" Header="N.I.P." InputGestureText="Ctrl+Q" Visibility="Collapsed" Click="MenuBitanItem_Click"/>
                     </MenuItem>
                 </Menu>
             </StackPanel>
@@ -59,9 +61,6 @@
                     </DataGrid>
                 </TabItem>
             </TabControl>
-            <!--<StatusBar Height="30">
-                <Label x:Name="lblVreme" Width="140" FontSize="13" Margin="25,-3,0,0"/>
-            </StatusBar> -->
         </StackPanel>
     </Grid>
 </Window>

@@ -39,10 +39,10 @@ namespace TouristAgency.View.Creation
             FillComboBoxes();
 
             _guestReviewController = new GuestReviewController();
-            NewGuestReview = new();
 
             Selected = SelectedReservation;
             _controller = app.ReservationController;
+            NewGuestReview = new();
             NewGuestReview.Guest = Selected.Guest;
             NewGuestReview.GuestId = Selected.GuestId;
         }
