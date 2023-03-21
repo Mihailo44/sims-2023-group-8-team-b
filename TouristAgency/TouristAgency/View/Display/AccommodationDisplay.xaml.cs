@@ -23,7 +23,6 @@ namespace TouristAgency.View.Display
     /// </summary>
     public partial class AccommodationDisplay : Window, INotifyPropertyChanged
     {
-        //private List<Accommodation> _accommodations;
         private ObservableCollection<Accommodation> _accommodations;
         private ObservableCollection<Reservation> _reservations;
         private ObservableCollection<string> _countires;
