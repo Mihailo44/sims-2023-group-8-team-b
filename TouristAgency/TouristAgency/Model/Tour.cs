@@ -9,10 +9,12 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
+    public enum STATUS {NOT_STARTED, IN_PROGRESS, ENDED}
     public class Tour : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int _ID;
         private string _name;
+        private STATUS _status;
         private string _description;
         private Location _shortLocation;
         private int _shortLocationID; //TODO PROVERA DA LI POSTOJI
@@ -39,8 +41,7 @@ namespace TouristAgency.Model
         public Tour()
         {
             _ID = -1;
-            //_maxAttendants = -1;
-            //_duration = -1;
+            _status = STATUS.NOT_STARTED;
             _startDateTime = DateTime.Today;
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
@@ -52,6 +53,7 @@ namespace TouristAgency.Model
         public Tour(int id, string name, string description, Location location, string language, int maxAttendants, int duration, DateTime startDateTime)
         {
             _ID = id;
+            _status = STATUS.NOT_STARTED;
             _name = name;
             _description = description;
             _shortLocation = location;
@@ -70,6 +72,7 @@ namespace TouristAgency.Model
         public Tour(Tour newTour)
         {
             _ID = newTour.ID;
+            _status = newTour._status;
             _name = newTour.Name;
             _description = newTour.Description;
             _shortLocation = newTour.ShortLocation;
@@ -94,6 +97,19 @@ namespace TouristAgency.Model
                 if (value != _ID)
                 {
                     _ID = value; 
+                }
+            }
+        }
+
+        public STATUS Status
+        {
+            get => _status;
+            set
+            {
+                if (value != _status)
+                {
+                    _status = value;
+                    OnPropertyChanged("Status");
                 }
             }
         }
@@ -344,6 +360,7 @@ namespace TouristAgency.Model
             {
                 ID.ToString(),
                 Name,
+                Status.ToString(),
                 Description,
                 Language,
                 MaxAttendants.ToString(),
@@ -361,15 +378,16 @@ namespace TouristAgency.Model
         {
             ID = Convert.ToInt32(values[0]);
             Name = values[1];
-            Description = values[2];
-            Language = values[3];
-            MaxAttendants = Convert.ToInt32(values[4]);
-            CurrentAttendants = Convert.ToInt32(values[5]);
-            RemainingCapacity = Convert.ToInt32(values[6]);
-            Duration = Convert.ToInt32(values[7]);
-            StartDateTime = DateTime.Parse(values[8]);
-            AssignedGuideID = Convert.ToInt32(values[9]);
-            ShortLocationID = Convert.ToInt32(values[10]);
+            Status = Enum.Parse<STATUS>(values[2]);
+            Description = values[3];
+            Language = values[4];
+            MaxAttendants = Convert.ToInt32(values[5]);
+            CurrentAttendants = Convert.ToInt32(values[6]);
+            RemainingCapacity = Convert.ToInt32(values[7]);
+            Duration = Convert.ToInt32(values[8]);
+            StartDateTime = DateTime.Parse(values[9]);
+            AssignedGuideID = Convert.ToInt32(values[10]);
+            ShortLocationID = Convert.ToInt32(values[11]);
         }
     }
 }

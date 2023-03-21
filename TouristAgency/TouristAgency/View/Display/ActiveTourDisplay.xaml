@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="ActiveTourDisplay" Height="450" Width="800">
+        Title="ActiveTourDisplay" Height="750" Width="410">
     <Grid>
         <StackPanel>
-            <ListView x:Name="AvailableToursListView" ItemsSource="{Binding Path=AvailableTours}" Foreground="Black" SelectionMode="Single">
+            <ListView x:Name="AvailableToursListView" Height="300px"  ItemsSource="{Binding Path=AvailableTours}" Foreground="Black" SelectionMode="Single" SelectionChanged="AvailableToursListView_SelectionChanged">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -26,9 +26,21 @@
                         </ListView.View>
                     </ListView>
 
-                <Button x:Name="BeginTourButton" Content="Zapocni turu!" Width="100px" Click="BeginTourButton_OnClick"></Button>
+                <Button x:Name="BeginTourButton" Margin="0,10,0,0" Content="Zapocni turu!" Width="100px" Height="40" Click="BeginTourButton_OnClick"></Button>
 
-            <StackPanel Orientation="Horizontal">
+            <ListView x:Name="AvailableCheckpointsListView" ItemsSource="{Binding Path=AvailableCheckpoints}" Foreground="Black" SelectionChanged="AvailableCheckpointsListView_SelectionChanged" Height="180" Margin="0,10,0,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding Path=Checkpoint.AttractionName}"/>
+                            <CheckBox Content="Visited" IsChecked="{Binding Path=IsVisited}"></CheckBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center" Height="100">
                 <ListView x:Name="RegisteredTouristsListView" ItemsSource="{Binding Path=RegisteredTourists}" Foreground="Black" SelectionMode="Multiple">
                     <ListView.View>
                         <GridView>
@@ -39,18 +51,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView x:Name="AvailableCheckpointsListView" ItemsSource="{Binding Path=AvailableCheckpoints}" Foreground="Black" SelectionChanged="AvailableCheckpointsListView_SelectionChanged">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding Path=Checkpoint.AttractionName}"/>
-                                <CheckBox Content="Visited" IsChecked="{Binding Path=IsVisited}"></CheckBox>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
-                <StackPanel>
+                <StackPanel VerticalAlignment="Center">
                     <Button x:Name="RightButton" Content="Right" Click="RightButton_OnClick "></Button>
                     <Button x:Name="LeftButton" Content="Left" Click="LeftButton_OnClick"></Button>
                 </StackPanel>
@@ -66,7 +67,7 @@
                 </ListView>
             </StackPanel>
 
-            <Button x:Name="FinishButton" Content="Finish" Click="FinishButton_OnClick"></Button>
+            <Button x:Name="FinishButton" Content="Finish" Click="FinishButton_OnClick" Margin="0,10,0,0" Width="100px" Height="40"></Button>
         </StackPanel>
     </Grid>
 </Window>

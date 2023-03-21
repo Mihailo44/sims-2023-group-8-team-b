@@ -51,7 +51,7 @@ namespace TouristAgency.Controller
 
         public ObservableCollection<Tour> GetValidTours()
         {
-            return new ObservableCollection<Tour>(_tour.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date));
+            return new ObservableCollection<Tour>(_tour.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status != STATUS.ENDED));
         }
 
         public void LoadLocationsToTours(List<Location> locations)

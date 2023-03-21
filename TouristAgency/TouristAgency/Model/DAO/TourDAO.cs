@@ -158,7 +158,7 @@ namespace TouristAgency.Model.DAO
             List<Tour> todayTours = new List<Tour>();
             foreach (Tour tour in _tours)
             {
-                if (tour.StartDateTime.Date == DateTime.Now.Date && tour.AssignedGuideID == guideID)
+                if (tour.StartDateTime.Date == DateTime.Now.Date && tour.AssignedGuideID == guideID && tour.Status != STATUS.ENDED)
                 {
                     todayTours.Add(tour);
                 }

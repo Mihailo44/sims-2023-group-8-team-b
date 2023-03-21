@@ -27,6 +27,7 @@ namespace TouristAgency.View.Display
         private App _app;
         private Guide _loggedInGuide;
         private ObservableCollection<Tour> _availableTours;
+        private Tour _selectedTour;
         private ObservableCollection<TourCheckpoint> _availableCheckpoints;
         private ObservableCollection<Tourist> _registeredTourists;
         private ObservableCollection<Tourist> _arrivedTourists;
@@ -42,6 +43,7 @@ namespace TouristAgency.View.Display
             AvailableTours = _app.TourController.GetTodayTours(_loggedInGuide.ID);
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
+            CheckAndSelectStartedTour();
 
         }
 
@@ -105,12 +107,14 @@ namespace TouristAgency.View.Display
 
         private void BeginTourButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //TODO
-            //Do ovog momenta bi trebalo da su ucitane sve ture, pa logika moze da ide u DAO
-            //Pogledaj ostale metode i primeni slican princip
-            Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
-            RegisteredTourists = _app.TourController.GetTouristsFromTour(selectedTour.ID);
-            AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(selectedTour.ID));
+            BeginTourButton.IsEnabled = false;
+            AvailableToursListView.IsEnabled = false;
+            FinishButton.IsEnabled = true;
+            _selectedTour = (Tour)AvailableToursListView.SelectedItem;
+            _selectedTour.Status = STATUS.IN_PROGRESS;
+            _app.TourController.Update(_selectedTour,_selectedTour.ID);
+            RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
+            AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
         }
 
         private void RightButton_OnClick(object sender, RoutedEventArgs e)
@@ -131,11 +135,10 @@ namespace TouristAgency.View.Display
         private void AvailableCheckpointsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ArrivedTourists.Clear();
-            Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
             TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
             foreach (TourTouristCheckpoint tourTouristCheckpoint in _app.TourTouristCheckpointController.GetAll())
             {
-                bool isSameTour = selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
+                bool isSameTour = _selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
                 bool isSameCheckpoint = selectedTourCheckpoint.CheckpointID == tourTouristCheckpoint.TourCheckpoint.CheckpointID;
                 if (isSameTour && isSameCheckpoint)
                 {
@@ -162,15 +165,66 @@ namespace TouristAgency.View.Display
 
         private void FinishButton_OnClick(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to finish the tour?","Question",MessageBoxButton.YesNo);
+            MessageBoxResult result;
+            if (AllCheckpointsVisited())
+            {
+                result = MessageBox.Show("Do you want to finish the tour?", "Question", MessageBoxButton.YesNo);
+            }
+
+            else
+            {
+                result = MessageBox.Show("Not all checkpoints were visited, would you like to end the tour?",
+                    "Question", MessageBoxButton.YesNo);
+            }
+
             if (result == MessageBoxResult.Yes)
             {
+                AvailableToursListView.IsEnabled = true;
+                BeginTourButton.IsEnabled = true;
+                FinishButton.IsEnabled = false;
                 foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
                 {
                     _app.TourCheckpointController.Update(tourCheckpoint);
                 }
-                //TODO Tour isFinished property
+
+                _selectedTour.Status = STATUS.ENDED;
+                _app.TourController.Update(_selectedTour,_selectedTour.ID);
                 MessageBox.Show("Tour ended!");
+            }
+        }
+
+        public bool AllCheckpointsVisited()
+        {
+            foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
+            {
+                if (tourCheckpoint.IsVisited == false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void AvailableToursListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _selectedTour = (Tour)AvailableToursListView.SelectedItem;
+        }
+
+        private void CheckAndSelectStartedTour()
+        {
+            foreach (Tour tour in AvailableTours)
+            {
+                if (tour.Status == STATUS.IN_PROGRESS)
+                {
+                    _selectedTour = tour;
+                    AvailableToursListView.IsEnabled = false;
+                    BeginTourButton.IsEnabled = false;
+                    FinishButton.IsEnabled = true;
+                    RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
+                    AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
+
+                }
             }
         }
     }
