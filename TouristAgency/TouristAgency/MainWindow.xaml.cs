@@ -219,5 +219,13 @@ namespace TouristAgency
         {
             this.Close();
         }
+
+        private void PasswordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter) 
+            {
+                ButtonLogin_Click(sender, e);
+            }
+        }
     }
 }

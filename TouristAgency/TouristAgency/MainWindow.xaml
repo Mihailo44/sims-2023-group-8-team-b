@@ -39,7 +39,7 @@
         <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=Username,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=Password,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" KeyDown="PasswordTextBox_KeyDown"/>
         <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Content="Cancel" Width="90" Height="50" Click="ButtonCancel_Click"/>
 
         <StackPanel Grid.Row="4" Grid.RowSpan="3" Grid.Column="0">

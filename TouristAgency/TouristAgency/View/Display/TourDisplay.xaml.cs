@@ -184,7 +184,7 @@ namespace TouristAgency.View.Display
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            Tours = new ObservableCollection<Tour>(_app.TourController.GetAll());
+            Tours = new ObservableCollection<Tour>(_app.TourController.GetValidTours());
             MinDurationIntegerUpDown.Value = 0;
             MaxDurationIntegerUpDown.Value = 0;
         }
