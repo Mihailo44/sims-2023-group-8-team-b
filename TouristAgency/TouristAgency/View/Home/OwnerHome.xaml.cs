@@ -30,7 +30,7 @@ namespace TouristAgency.View.Home
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
 
-        public Owner LogedUser { get; set; }
+        public Owner LoggedUser { get; set; }
 
         public OwnerHome(Owner owner)
         {
@@ -51,13 +51,13 @@ namespace TouristAgency.View.Home
             _locationController = app.LocationController;
             _photoController = app.PhotoController;
 
-            LogedUser = owner;
+            LoggedUser = owner;
 
             Accommodations = new ObservableCollection<Accommodation>();
-            LoadAccommodations(LogedUser.ID);
+            LoadAccommodations(LoggedUser.ID);
 
             Reservations = new ObservableCollection<Reservation>();
-            LoadReservations(LogedUser.ID);
+            LoadReservations(LoggedUser.ID);
             ReviewNotification();
         }
 
@@ -89,7 +89,7 @@ namespace TouristAgency.View.Home
             double dateDif;
             int changes = 0;
 
-            foreach (var reservation in _reservationController.GetUnreviewed(LogedUser.ID))
+            foreach (var reservation in _reservationController.GetUnreviewed(LoggedUser.ID))
             {
                 dateDif = (today - reservation.End).TotalDays;
 
@@ -113,19 +113,19 @@ namespace TouristAgency.View.Home
 
         public void Update()
         {
-            LoadAccommodations(LogedUser.ID);
-            LoadReservations(LogedUser.ID);
+            LoadAccommodations(LoggedUser.ID);
+            LoadReservations(LoggedUser.ID);
         }
 
         private void MenuNewAccommodation_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationCreation x = new AccommodationCreation(_accommodationController,_locationController,_photoController);
+            AccommodationCreation x = new AccommodationCreation(LoggedUser);
             x.Show();
         }
 
         private void ToolBarCreate_Click(object sender, RoutedEventArgs e)
         {
-            AccommodationCreation x = new AccommodationCreation(_accommodationController, _locationController,_photoController);
+            AccommodationCreation x = new AccommodationCreation(LoggedUser);
             x.Show();
         }
 
@@ -142,7 +142,7 @@ namespace TouristAgency.View.Home
                 }
                 else
                 {
-                    GuestReviewCreation x = new GuestReviewCreation(SelectedReservation, _reservationController);
+                    GuestReviewCreation x = new GuestReviewCreation(SelectedReservation);
                     x.Show();
                 }
             }

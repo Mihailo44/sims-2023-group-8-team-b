@@ -119,7 +119,7 @@ namespace TouristAgency.Model.DAO
             return _reservations.Where(r =>r.Accommodation.OwnerId == ownerId && r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
         }
 
-        public List<Reservation> GetByOwnerId(int id = 0)
+        public List<Reservation> GetByOwnerId(int id)
         {
             return _reservations.Where(r => r.Accommodation.OwnerId == id).ToList();
         }

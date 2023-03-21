@@ -30,10 +30,11 @@ namespace TouristAgency.View.Creation
 
         public ReservationController _controller { get; set; }
 
-        public GuestReviewCreation(Reservation SelectedReservation,ReservationController rc)
+        public GuestReviewCreation(Reservation SelectedReservation)
         {
             InitializeComponent();
             DataContext = this;
+            var app = (App)Application.Current;
 
             FillComboBoxes();
 
@@ -41,7 +42,7 @@ namespace TouristAgency.View.Creation
             NewGuestReview = new();
 
             Selected = SelectedReservation;
-            _controller = rc;
+            _controller = app.ReservationController;
             NewGuestReview.Guest = Selected.Guest;
             NewGuestReview.GuestId = Selected.GuestId;
         }

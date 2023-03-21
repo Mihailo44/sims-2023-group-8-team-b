@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="MainWindow" Height="500" Width="800" WindowStartupLocation="CenterScreen" 
+        ResizeMode="CanMinimize"
+        KeyDown="Window_KeyDown">
 
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -39,7 +41,7 @@
         <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=Username,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <TextBox Grid.Row="2" Grid.Column="1" Width="250" Height="25" Text="{Binding Path=Password,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" KeyDown="PasswordTextBox_KeyDown"/>
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Content="Cancel" Width="90" Height="50" Click="ButtonCancel_Click"/>
 
     </Grid>
