@@ -42,9 +42,5 @@
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" KeyDown="PasswordTextBox_KeyDown"/>
         <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Content="Cancel" Width="90" Height="50" Click="ButtonCancel_Click"/>
 
-        <StackPanel Grid.Row="4" Grid.RowSpan="3" Grid.Column="0">
-            <Button Content="TourCreation" Height="40" Click="TourButton_Click"/>
-            <Button x:Name="ActiveTourDisplayButton" Content="ActiveTourDisplay" Height="40" Click="ActiveTourDisplayButton_OnClick"/>
-        </StackPanel>
     </Grid>
 </Window>

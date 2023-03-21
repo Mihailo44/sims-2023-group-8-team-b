@@ -54,9 +54,9 @@ namespace TouristAgency.Model.DAO
             currentTourist.Password = newTourist.Password;
             currentTourist.FirstName = newTourist.FirstName;
             currentTourist.LastName = newTourist.LastName;
-            currentTourist.DateOfBirth = newTourist.DateOfBirth; //! Duboka kopija?
+            currentTourist.DateOfBirth = newTourist.DateOfBirth;
             currentTourist.Email = newTourist.Email;
-            currentTourist.FullLocation = newTourist.FullLocation; //! -||-?
+            currentTourist.FullLocation = newTourist.FullLocation;
             currentTourist.Phone = newTourist.Phone;
 
             return currentTourist;
@@ -73,6 +73,21 @@ namespace TouristAgency.Model.DAO
         public List<Tourist> GetAll()
         {
             return _tourists;
+        }
+
+        public void LoadToursToTourist(List<TourTourist> tourTourists, List<Tour> tours)
+        {
+            foreach (TourTourist tourTourist in tourTourists)
+            {
+                Tourist selectedTourist = FindById(tourTourist.TourID);
+                foreach (Tour tour in tours)
+                {
+                    if (tour.ID == tourTourist.TourID)
+                    {
+                        selectedTourist.AppliedTours.Add(tour);
+                    }
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

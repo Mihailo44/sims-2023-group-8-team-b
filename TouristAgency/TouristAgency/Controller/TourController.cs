@@ -44,14 +44,14 @@ namespace TouristAgency.Controller
             return _tour.GetAll();
         }
 
-        public ObservableCollection<Tour> GetTodayTours()
+        public ObservableCollection<Tour> GetTodayTours(int guideID)
         {
-            return new ObservableCollection<Tour>(_tour.GetTodayTours());
+            return new ObservableCollection<Tour>(_tour.GetTodayTours(guideID));
         }
 
         public ObservableCollection<Tour> GetValidTours()
         {
-            return new ObservableCollection<Tour>(_tour.GetAll().Where(t => t.StartDateTime >= DateTime.Now));
+            return new ObservableCollection<Tour>(_tour.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date));
         }
 
         public void LoadLocationsToTours(List<Location> locations)
@@ -87,6 +87,22 @@ namespace TouristAgency.Controller
         public void Delete(Tour Tour)
         {
             _tour.Delete(Tour.ID);
+        }
+
+
+        public void LoadTouristsToTours(List<TourTourist> tourTourists, List<Tourist> tourists)
+        {
+            _tour.LoadTouristsToTours(tourTourists, tourists);
+        }
+
+        public void LoadCheckpointsToTours(List<TourCheckpoint> tourCheckpoints, List<Checkpoint> checkpoints)
+        {
+            _tour.LoadCheckpointsToTours(tourCheckpoints, checkpoints);
+        }
+
+        public void LoadPhotosToTours(List<Photo> photos)
+        {
+            _tour.LoadPhotosToTours(photos);
         }
 
         public void Subscribe(IObserver observer)

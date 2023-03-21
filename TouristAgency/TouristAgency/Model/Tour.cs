@@ -79,6 +79,7 @@ namespace TouristAgency.Model
             _startDateTime = newTour.StartDateTime;
             _checkpoints = new List<Checkpoint>();
             _assignedGuide = new Guide();
+            _assignedGuideID = newTour.AssignedGuideID;
             _registeredTourists = new List<Tourist>();
             _photos = new List<Photo>();
             _shortLocationID = newTour.ShortLocationID;
@@ -350,9 +351,8 @@ namespace TouristAgency.Model
                 RemainingCapacity.ToString(),
                 Duration.ToString(),
                 StartDateTime.ToString(),
-                AssignedGuide.ID.ToString(),
+                AssignedGuideID.ToString(),
                 ShortLocationID.ToString()
-                //Slike mozda u svoju klasu
             };
             return csvValues;
         }
@@ -368,7 +368,7 @@ namespace TouristAgency.Model
             RemainingCapacity = Convert.ToInt32(values[6]);
             Duration = Convert.ToInt32(values[7]);
             StartDateTime = DateTime.Parse(values[8]);
-            AssignedGuide.ID = Convert.ToInt32(values[9]);
+            AssignedGuideID = Convert.ToInt32(values[9]);
             ShortLocationID = Convert.ToInt32(values[10]);
         }
     }

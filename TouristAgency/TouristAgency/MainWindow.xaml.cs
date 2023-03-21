@@ -29,14 +29,15 @@ namespace TouristAgency
     public partial class MainWindow : Window,INotifyPropertyChanged,IDataErrorInfo
     {
         
-        private TourCheckpointController _tourCheckpointController;
+        /*private TourCheckpointController _tourCheckpointController;
         private TourTouristCheckpointController _tourTouristCheckpointController;
         private TourTouristController _tourTouristController;
-        private TouristController _touristController;
         private TourController _tourController;
-        private CheckpointController _checkpointController;
+        private CheckpointController _checkpointController;*/
         private OwnerController _ownerController;
         private GuestController _guestController;
+        private TouristController _touristController;
+        private GuideController _guideController;
 
         public App app;
 
@@ -105,22 +106,25 @@ namespace TouristAgency
 
             app = (App)Application.Current;
 
-            this._ownerController = app.OwnerController;
-            this._guestController = app.GuestController;
-            this._tourCheckpointController = app.TourCheckpointController;
+            _ownerController = app.OwnerController;
+            _guestController = app.GuestController;
+            _touristController = app.TouristController;
+            _guideController = app.GuideController;
+
+            /*this._tourCheckpointController = app.TourCheckpointController;
             this._tourTouristCheckpointController = app.TourTouristCheckpointController;
             this._tourCheckpointController = app.TourCheckpointController;
             this._tourTouristController = app.TourTouristController;
             this._tourController = app.TourController;
-            this._touristController = app.TouristController;
-            this._checkpointController = app.CheckpointController;
-            
+            this._checkpointController = app.CheckpointController;*/
 
-            LoadTourToTourist(_tourTouristController.GetAll());
-            LoadCheckpointToTourist(_tourCheckpointController.GetAll());
+
+            //LoadTourToTourist(_tourTouristController.GetAll());
+            //LoadCheckpointToTourist(_tourCheckpointController.GetAll());
         }
 
-        public void LoadTourToTourist(List<TourTourist> tourTourists)
+        //TODO Ne dirati, testira se trenutno!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /*public void LoadTourToTourist(List<TourTourist> tourTourists)
         {
             foreach (TourTourist tourTourist in tourTourists)
             {
@@ -133,31 +137,18 @@ namespace TouristAgency
                 }
                
             }
-        }
+        }*/
 
-        public void LoadCheckpointToTourist(List<TourCheckpoint> tourCheckpoints)
+        /*public void LoadCheckpointToTourist(List<TourCheckpoint> tourCheckpoints)
         {
             foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
             {
                 Tour tour = _tourController.FindById(tourCheckpoint.TourID);
                 Checkpoint checkpoint = _checkpointController.FindByID(tourCheckpoint.CheckpointID);
                 tour.Checkpoints.Add(checkpoint);
-                _tourController.Update(tour, tour.ID);
+                _tourController.Update(tour, tour.ID); //?
             }
-        }
-
-        private void TourButton_Click(object sender, RoutedEventArgs e)
-        {
-            TourCreation creation = new TourCreation();
-            creation.Show();
-        }
-
-
-        private void ActiveTourDisplayButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            ActiveTourDisplay y = new ActiveTourDisplay();
-            y.Show();
-        }
+        }*/
 
         private string GetUserType()
         {
@@ -172,6 +163,11 @@ namespace TouristAgency
                 return User.GetType().ToString();
             }
             User = _touristController.GetAll().Find(t => t.Username == Username && t.Password == Password);
+            if (User != null)
+            {
+                return User.GetType().ToString();
+            }
+            User = _guideController.GetAll().Find(g => g.Username == Username && g.Password == Password);
             if (User != null)
             {
                 return User.GetType().ToString();
@@ -205,6 +201,12 @@ namespace TouristAgency
                             TourDisplay x = new TourDisplay((Tourist)User);
                             x.Show();
                         }
+                        break;
+                    case "TouristAgency.Model.Guide":
+                    {
+                        GuideHome x = new GuideHome((Guide)User);
+                        x.Show();
+                    }
                         break;
                     default: MessageBox.Show("Failure"); break;
                 }

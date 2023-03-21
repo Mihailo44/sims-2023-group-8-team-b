@@ -48,10 +48,10 @@ namespace TouristAgency.Controller
             return _photo.GetAll();
         }
 
-        public void LoadToursToPhotos(List<Tour> tours)
+        /*public void LoadToursToPhotos(List<Tour> tours)
         {
             _photo.LoadToursToPhotos(tours);
-        }
+        }*/
 
         public void Subscribe(IObserver observer)
         {

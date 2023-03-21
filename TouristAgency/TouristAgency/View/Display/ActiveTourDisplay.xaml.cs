@@ -24,31 +24,25 @@ namespace TouristAgency.View.Display
     public partial class ActiveTourDisplay : Window, INotifyPropertyChanged
     {
 
-        private TourController _tourController;
-        private TourCheckpointController _tourCheckpointController;
-        private CheckpointController _checkpointController;
-        private TouristController _touristController;
-        private TourTouristCheckpointController _tourTouristCheckpointController;
+        private App _app;
+        private Guide _loggedInGuide;
         private ObservableCollection<Tour> _availableTours;
         private ObservableCollection<TourCheckpoint> _availableCheckpoints;
         private ObservableCollection<Tourist> _registeredTourists;
         private ObservableCollection<Tourist> _arrivedTourists;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ActiveTourDisplay()
+        public ActiveTourDisplay(Guide guide)
         {
             InitializeComponent();
             this.DataContext = this;
-            var app = (App)Application.Current;
+            _app = (App)Application.Current;
 
-            _tourController = app.TourController;
-            _tourCheckpointController = app.TourCheckpointController;
-            _checkpointController = app.CheckpointController;
-            _touristController = app.TouristController;
-            _tourTouristCheckpointController = app.TourTouristCheckpointController;
-            AvailableTours = _tourController.GetTodayTours();
+            _loggedInGuide = guide;
+            AvailableTours = _app.TourController.GetTodayTours(_loggedInGuide.ID);
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
+
         }
 
         public ObservableCollection<Tour> AvailableTours
@@ -115,8 +109,8 @@ namespace TouristAgency.View.Display
             //Do ovog momenta bi trebalo da su ucitane sve ture, pa logika moze da ide u DAO
             //Pogledaj ostale metode i primeni slican princip
             Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
-            RegisteredTourists = _tourController.GetTouristsFromTour(selectedTour.ID);
-            AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_tourCheckpointController.FindByID(selectedTour.ID));
+            RegisteredTourists = _app.TourController.GetTouristsFromTour(selectedTour.ID);
+            AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(selectedTour.ID));
         }
 
         private void RightButton_OnClick(object sender, RoutedEventArgs e)
@@ -128,7 +122,7 @@ namespace TouristAgency.View.Display
                     ArrivedTourists.Add(selectedTourist);
                     Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
                     TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-                    _tourTouristCheckpointController.Create(new TourTouristCheckpoint(selectedTour.ID,
+                    _app.TourTouristCheckpointController.Create(new TourTouristCheckpoint(selectedTour.ID,
                         selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
                 }
             }
@@ -139,13 +133,13 @@ namespace TouristAgency.View.Display
             ArrivedTourists.Clear();
             Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
             TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-            foreach (TourTouristCheckpoint tourTouristCheckpoint in _tourTouristCheckpointController.GetAll())
+            foreach (TourTouristCheckpoint tourTouristCheckpoint in _app.TourTouristCheckpointController.GetAll())
             {
                 bool isSameTour = selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
                 bool isSameCheckpoint = selectedTourCheckpoint.CheckpointID == tourTouristCheckpoint.TourCheckpoint.CheckpointID;
                 if (isSameTour && isSameCheckpoint)
                 {
-                    ArrivedTourists.Add(_touristController.FindById(tourTouristCheckpoint.TouristID));
+                    ArrivedTourists.Add(_app.TouristController.FindById(tourTouristCheckpoint.TouristID));
                 }
             }
         }
@@ -161,7 +155,7 @@ namespace TouristAgency.View.Display
             foreach (Tourist tourist in touristsToDelete)
             {
                 ArrivedTourists.Remove(tourist);
-                _tourTouristCheckpointController.Delete(tourist.ID);
+                _app.TourTouristCheckpointController.Delete(tourist.ID);
             }
             touristsToDelete.Clear();
         }
@@ -173,7 +167,7 @@ namespace TouristAgency.View.Display
             {
                 foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
                 {
-                    _tourCheckpointController.Update(tourCheckpoint);
+                    _app.TourCheckpointController.Update(tourCheckpoint);
                 }
                 //TODO Tour isFinished property
                 MessageBox.Show("Tour ended!");

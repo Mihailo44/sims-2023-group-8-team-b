@@ -71,6 +71,16 @@ namespace TouristAgency.Model.DAO
             return _guides;
         }
 
+        public void LoadToursToGuide(List<Tour> tours)
+        {
+            foreach (Tour tour in tours)
+            {
+                Guide selectedGuide = FindById(tour.AssignedGuideID);
+                if(selectedGuide != null)
+                    selectedGuide.AssignedTours.Add(tour);
+            }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

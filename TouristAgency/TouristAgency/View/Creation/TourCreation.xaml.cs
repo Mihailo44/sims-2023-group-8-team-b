@@ -23,11 +23,8 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class TourCreation : Window, INotifyPropertyChanged, IDataErrorInfo
     {
-        private TourController _tourController;
-        private CheckpointController _checkpointController;
-        private PhotoController _photoController;
-        private TourCheckpointController _tourCheckpointController;
-        private LocationController _locationController;
+        private App _app;
+        private Guide _loggedInGuide;
         private ObservableCollection<Checkpoint> _availableCheckpoints;
         private ObservableCollection<Checkpoint> _selectedCheckpoints;
         private List<DateTime> _multipleDateTimes;
@@ -37,24 +34,21 @@ namespace TouristAgency.View.Creation
         private string _photoLinks;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TourCreation()
+        public TourCreation(Guide guide)
         {
             InitializeComponent();
             this.DataContext = this;
-            var app = (App)Application.Current;
+            _app = (App)Application.Current;
 
             NewTour = new Tour();
             NewLocation = new Location();
-
-            _tourController = app.TourController;
-            _checkpointController = app.CheckpointController;
-            _photoController = app.PhotoController;
-            _tourCheckpointController = app.TourCheckpointController;
-            _locationController = app.LocationController;
             _availableCheckpoints = new ObservableCollection<Checkpoint>();
             _selectedCheckpoints = new ObservableCollection<Checkpoint>();
             _multipleDateTimes = new List<DateTime>();
             _datecount = _multipleDateTimes.Count;
+            _loggedInGuide = guide;
+            _newTour.AssignedGuideID = guide.ID;
+            _newTour.AssignedGuide = guide;
         }
 
         public string Error => null;
@@ -144,7 +138,7 @@ namespace TouristAgency.View.Creation
         private void LoadCheckpoints()
         {
             AvailableCheckpoints =
-                new ObservableCollection<Checkpoint>(_checkpointController.FindSuitableByLocation(NewLocation));
+                new ObservableCollection<Checkpoint>(_app.CheckpointController.FindSuitableByLocation(NewLocation));
         }
 
         private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -163,22 +157,22 @@ namespace TouristAgency.View.Creation
             {
                 PrepareLocation();
                 _newTour.StartDateTime = dateTime;
-                _tourController.Create(new Tour(_newTour));
+                _app.TourController.Create(new Tour(_newTour));
                 AddPhotos();
                 LoadToursToCheckpoints();
-                PrepareLocation();
-                MessageBox.Show("Successfully created tours!");
+                //PrepareLocation();
             }
+            MessageBox.Show("Successfully created tour!");
         }
 
 
         private void PrepareLocation()
         {
-            int locationID = _locationController.FindLocationID(NewLocation);
+            int locationID = _app.LocationController.FindLocationID(NewLocation);
             NewLocation.Id = locationID;
             if (locationID == -1)
             {
-                _locationController.Create(NewLocation);
+                _app.LocationController.Create(NewLocation);
             }
 
             _newTour.ShortLocation = NewLocation;
@@ -187,20 +181,20 @@ namespace TouristAgency.View.Creation
 
         private void AddPhotos()
         {
-            int tourID = _tourController.GenerateID() - 1;
+            int tourID = _app.TourController.GenerateID() - 1;
             PhotoLinks = PhotoLinks.Replace("\r\n", "|");
             string[] photoLinks = PhotoLinks.Split("|");
             foreach (string photoLink in photoLinks)
             {
                 Photo photo = new Photo(photoLink, 'T', tourID);
                 _newTour.Photos.Add(photo);
-                _photoController.Create(photo);
+                _app.PhotoController.Create(photo);
             }
         }
 
         private void LoadToursToCheckpoints()
         {
-            int tourID = _tourController.GenerateID() - 1;
+            int tourID = _app.TourController.GenerateID() - 1;
             int i = 0;
             bool firstVisit = true;
             foreach (Checkpoint checkpoint in SelectedCheckpoints)
@@ -209,7 +203,7 @@ namespace TouristAgency.View.Creation
                 {
                     firstVisit = false;
                 }
-                _tourCheckpointController.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
+                _app.TourCheckpointController.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
                 i++;
             }
         }

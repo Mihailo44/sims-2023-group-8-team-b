@@ -10,7 +10,7 @@ namespace TouristAgency.Model
     public class Photo : ISerializable
     {
         private int _ID;
-        private string _link;//mozda da promenimo u url treba da bude niz koji ce se split
+        private string _link;
         private char _type; //T for tour, A for accomodation
         private int _externalID; //tourID or accomodationID
 

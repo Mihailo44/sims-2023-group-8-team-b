@@ -21,6 +21,7 @@ namespace TouristAgency
         public GuestReviewController GuestReviewController { get; set; } = new GuestReviewController();
         public LocationController LocationController { get; set; } = new LocationController();
         public OwnerController OwnerController { get; set; } = new OwnerController();
+        public GuideController GuideController { get; set; } = new GuideController();
         public PhotoController PhotoController { get; set; } = new PhotoController();
         public TourCheckpointController TourCheckpointController { get; set; } = new TourCheckpointController();
         public TourController TourController { get; set; } = new TourController();
@@ -35,11 +36,16 @@ namespace TouristAgency
             AccommodationController.LoadPhotosToAccommodations(PhotoController.GetAll());
             CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());
             TourController.LoadLocationsToTours(LocationController.GetAll());
-            PhotoController.LoadToursToPhotos(TourController.GetAll());
+            TourController.LoadPhotosToTours(PhotoController.GetAll());
             ReservationController.LoadAccommodationsToReservations(AccommodationController.GetAll());
             ReservationController.LoadGuestsToReservations(GuestController.GetAll());
             TourCheckpointController.LoadCheckpoints(CheckpointController.GetAll());
             OwnerController.LoadAccommodationsToOwners(AccommodationController.GetAll());
+            GuideController.LoadToursToGuide(TourController.GetAll());
+
+            TourController.LoadTouristsToTours(TourTouristController.GetAll(),TouristController.GetAll());
+            TouristController.LoadToursToTourist(TourTouristController.GetAll(), TourController.GetAll());
+            TourController.LoadCheckpointsToTours(TourCheckpointController.GetAll(), CheckpointController.GetAll());
         }
     }
 }

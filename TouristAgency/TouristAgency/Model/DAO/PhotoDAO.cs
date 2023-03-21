@@ -70,7 +70,7 @@ namespace TouristAgency.Model.DAO
             return _photos;
         }
 
-        public void LoadToursToPhotos(List<Tour> tours)
+        /*public void LoadToursToPhotos(List<Tour> tours)
         {
             foreach (Tour tour in tours)
             {
@@ -82,7 +82,7 @@ namespace TouristAgency.Model.DAO
                     }
                 }
             }
-        }
+        }*/
 
         public void Subscribe(IObserver observer)
         {

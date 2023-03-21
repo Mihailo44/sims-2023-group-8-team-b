@@ -48,6 +48,10 @@ namespace TouristAgency.Controller
             return _tourist.GetAll();
         }
 
+        public void LoadToursToTourist(List<TourTourist> tourTourists, List<Tour> tours)
+        {
+            _tourist.LoadToursToTourist(tourTourists, tours);
+        }
         public void Subscribe(IObserver observer)
         {
             _tourist.Subscribe(observer);

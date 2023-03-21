@@ -127,14 +127,14 @@ namespace TouristAgency.Model
             Location newLocation = (Location)obj;
             if (newLocation.Street == "" && newLocation.StreetNumber == "")
             {
-                return this.City == newLocation.City && this.Country == newLocation.Country;
+                return this.City.ToLower() == newLocation.City.ToLower() && this.Country.ToLower() == newLocation.Country.ToLower();
             }
             else
             {
-                bool country = Country == newLocation.Country;
-                bool city = City == newLocation.City;
-                bool street = Street == newLocation.Street;
-                bool streetNum = StreetNumber == newLocation.StreetNumber;
+                bool country = Country.ToLower() == newLocation.Country.ToLower();
+                bool city = City.ToLower() == newLocation.City.ToLower();
+                bool street = Street.ToLower() == newLocation.Street.ToLower();
+                bool streetNum = StreetNumber.ToLower() == newLocation.StreetNumber.ToLower();
                 return country && city && street && streetNum;
             }
         }

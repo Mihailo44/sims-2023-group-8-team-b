@@ -109,12 +109,56 @@ namespace TouristAgency.Model.DAO
             }
         }
 
-        public List<Tour> GetTodayTours()
+        public void LoadPhotosToTours(List<Photo>photos)
+        {
+            foreach (Tour tour in _tours)
+            {
+                foreach (Photo photo in photos)
+                {
+                    if (photo.ExternalID == tour.ID && photo.Type == 'T')
+                    {
+                        tour.Photos.Add(new Photo(photo));
+                    }
+                }
+            }
+        }
+
+        public void LoadTouristsToTours(List<TourTourist> tourTourists, List<Tourist> tourists)
+        {
+ 
+            foreach (TourTourist tourtourist in tourTourists)
+            {
+                Tour selectedTour = FindById(tourtourist.TourID);
+                foreach (Tourist tourist in tourists)
+                {
+                    if (tourist.ID == tourtourist.TouristID)
+                    {
+                        selectedTour.RegisteredTourists.Add(tourist);
+                    }
+                }
+            }
+        }
+
+        public void LoadCheckpointsToTours(List<TourCheckpoint> tourCheckpoints, List<Checkpoint> checkpoints)
+        {
+            foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
+            {
+                foreach (Tour tour in _tours)
+                {
+                    if (tour.ID == tourCheckpoint.TourID)
+                    {
+                        tour.Checkpoints.Add(checkpoints.Find(c => c.ID == tourCheckpoint.CheckpointID));
+                    }
+                }
+            }
+        }
+
+        public List<Tour> GetTodayTours(int guideID)
         {
             List<Tour> todayTours = new List<Tour>();
             foreach (Tour tour in _tours)
             {
-                if (tour.StartDateTime.Date == DateTime.Now.Date)
+                if (tour.StartDateTime.Date == DateTime.Now.Date && tour.AssignedGuideID == guideID)
                 {
                     todayTours.Add(tour);
                 }
