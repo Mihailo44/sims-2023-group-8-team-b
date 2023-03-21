@@ -31,7 +31,6 @@ namespace TouristAgency
 
         public App()
         {
-
             AccommodationController.LoadLocationsToAccommodations(LocationController.GetAll());
             AccommodationController.LoadPhotosToAccommodations(PhotoController.GetAll());
             CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());
@@ -42,10 +41,10 @@ namespace TouristAgency
             TourCheckpointController.LoadCheckpoints(CheckpointController.GetAll());
             OwnerController.LoadAccommodationsToOwners(AccommodationController.GetAll());
             GuideController.LoadToursToGuide(TourController.GetAll());
-
             TourController.LoadTouristsToTours(TourTouristController.GetAll(),TouristController.GetAll());
             TouristController.LoadToursToTourist(TourTouristController.GetAll(), TourController.GetAll());
             TourController.LoadCheckpointsToTours(TourCheckpointController.GetAll(), CheckpointController.GetAll());
+            OwnerController.LoadLocationsToOwners(LocationController.GetAll());
         }
     }
 }

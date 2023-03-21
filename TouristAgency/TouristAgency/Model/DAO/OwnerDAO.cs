@@ -92,6 +92,14 @@ namespace TouristAgency.Model.DAO
             }
         }
 
+        public void LoadLocationsToOwners(List<Location> locations)
+        {
+            foreach(var owner in _owners)
+            {
+                owner.FullLocation = locations.Find(l => l.Id == owner.FullLocationID);
+            }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

@@ -43,6 +43,11 @@ namespace TouristAgency.Controller
             _owner.LoadAccommodationsToOwners(accommodations);
         }
 
+        public void LoadLocationsToOwners(List<Location> locations)
+        {
+            _owner.LoadLocationsToOwners(locations);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _owner.Subscribe(observer);
