@@ -161,17 +161,17 @@ namespace TouristAgency
 
         private string GetUserType()
         {
-            User = _ownerController.GetAll().Find(o => o.Username == Username && o.Password == Password);
+            User = _ownerController.GetAll().Find(o => o.Username == Username.Trim() && o.Password == Password.Trim());
             if (User != null)
             {
                 return User.GetType().ToString();
             }
-            User = _guestController.GetAll().Find(g => g.Username == Username && g.Password == Password);
+            User = _guestController.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
             if (User != null)
             {
                 return User.GetType().ToString();
             }
-            User = _touristController.GetAll().Find(t => t.Username == Username && t.Password == Password);
+            User = _touristController.GetAll().Find(t => t.Username == Username.Trim() && t.Password == Password.Trim());
             if (User != null)
             {
                 return User.GetType().ToString();
@@ -220,9 +220,9 @@ namespace TouristAgency
             this.Close();
         }
 
-        private void PasswordTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter) 
+            if (Keyboard.IsKeyDown(Key.Enter))
             {
                 ButtonLogin_Click(sender, e);
             }

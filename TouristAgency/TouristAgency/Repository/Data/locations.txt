@@ -6,3 +6,8 @@
 5|||Madrid|Spanija
 6|Dunavska|6|Novi Sad|Srbija
 7|Jevrejska|3|Novi Sad|Srbija
+8|||Estes Park|USA
+9|||New York|USA
+10|||Paris|France
+11|||Cairo|Egypt
+12|||Rome|Italy

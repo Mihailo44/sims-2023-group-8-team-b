@@ -17,6 +17,7 @@ namespace TouristAgency.View.Creation
         private string _photoLinks;
 
         public Accommodation NewAccommodation { get; set; }
+        public Owner LoggedUser { get; set; }
         public Location NewLocation { get; set; }
 
         public string PhotoLinks
@@ -61,15 +62,17 @@ namespace TouristAgency.View.Creation
             }
         }
 
-        public AccommodationCreation(AccommodationController ac,LocationController lc,PhotoController pc)
+        public AccommodationCreation(Owner owner)
         {
             InitializeComponent();
             DataContext = this;
-            
-            _controller = ac;
 
-            _locationController = lc;
-            _photoController = pc;
+            var app = (App)Application.Current;
+
+            _controller = app.AccommodationController;
+            _locationController = app.LocationController;
+            _photoController = app.PhotoController;
+            LoggedUser = owner;
 
             FillComboBoxes();
 
@@ -86,7 +89,8 @@ namespace TouristAgency.View.Creation
 
         private void PrepareAccommodationForCreation()
         {
-            NewAccommodation.OwnerId = 0; // ovo treba menjati kad login bude funkcionalan
+            NewAccommodation.OwnerId = LoggedUser.ID;
+            NewAccommodation.Owner = LoggedUser;
             NewAccommodation.Location = _locationController.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim());
             NewAccommodation.LocationId = _locationController.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
             NewAccommodation.Type = Enum.Parse<TYPE>(cbType.SelectedValue.ToString());
