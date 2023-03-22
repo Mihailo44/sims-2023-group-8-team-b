@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TouristAgency.Storage;
-using TouristAgency.Model;
 using TouristAgency.Interfaces;
-using TouristAgency.Controller;
+using TouristAgency.Storage;
 
 namespace TouristAgency.Model.DAO
 {
-    internal class ReservationDAO : ICrud<Reservation>,ISubject
+    internal class ReservationDAO : ICrud<Reservation>, ISubject
     {
         private readonly ReservationStorage _storage;
         private readonly List<Reservation> _reservations;
@@ -25,7 +21,7 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
-            return (_reservations.Count == 0) ? 0: _reservations.Max(r => r.Id) + 1;
+            return (_reservations.Count == 0) ? 0 : _reservations.Max(r => r.Id) + 1;
         }
 
         public Reservation FindById(int id)
@@ -35,7 +31,7 @@ namespace TouristAgency.Model.DAO
 
         public bool IsReserved(int accommodationID, DateTime start, DateTime end)
         {
-            foreach (Reservation reservation in _reservations) 
+            foreach (Reservation reservation in _reservations)
             {
                 if (reservation.AccommodationId == accommodationID && end.Date >= reservation.Start.Date &&
                     end.Date <= reservation.End.Date)
@@ -72,7 +68,7 @@ namespace TouristAgency.Model.DAO
             return newReservation;
         }
 
-        public Reservation Update(Reservation updatedReservation,int id)
+        public Reservation Update(Reservation updatedReservation, int id)
         {
             Reservation currentReservation = FindById(id);
             if (currentReservation == null)
@@ -131,12 +127,40 @@ namespace TouristAgency.Model.DAO
 
         public List<Reservation> GetUnreviewed(int ownerId)
         {
-            return _reservations.Where(r =>r.Accommodation.OwnerId == ownerId && r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
+            return _reservations.Where(r => r.Accommodation.OwnerId == ownerId && r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
         }
 
         public List<Reservation> GetByOwnerId(int id)
         {
             return _reservations.Where(r => r.Accommodation.OwnerId == id).ToList();
+        }
+
+        public string ReviewNotification(int ownerId, out int changes)
+        {
+            DateTime today = DateTime.UtcNow.Date;
+
+            string notification = "Unreviewed guests:\n";
+            double dateDiff;
+            changes = 0;
+
+            foreach (var reservation in GetUnreviewed(ownerId))
+            {
+                dateDiff = (today - reservation.End).TotalDays;
+
+                if ( today > reservation.End && dateDiff < 5.0)
+                {
+                    notification += $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {dateDiff} days left\n";
+                    changes++;
+                }
+                else
+                {
+                    reservation.Status = REVIEW_STATUS.EXPIRED;
+                    Update(reservation, reservation.Id);
+                }
+            }
+
+            return notification;
+
         }
 
         public void Subscribe(IObserver observer)
@@ -151,7 +175,7 @@ namespace TouristAgency.Model.DAO
 
         public void NotifyObservers()
         {
-            foreach(var observer in _observers)
+            foreach (var observer in _observers)
             {
                 observer.Update();
             }

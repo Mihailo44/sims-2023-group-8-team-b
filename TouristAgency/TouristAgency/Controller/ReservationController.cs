@@ -63,6 +63,11 @@ namespace TouristAgency.Controller
             return _reservation.IsReserved(accommodationID, start, end);
         }
 
+        public string ReviewNotification(Owner owner, out int changes)
+        {
+            return _reservation.ReviewNotification(owner.ID, out changes);
+        }
+
         public void Subcribe(IObserver observer)
         {
             _reservation.Subscribe(observer);

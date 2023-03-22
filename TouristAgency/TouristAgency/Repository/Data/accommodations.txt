@@ -4,3 +4,4 @@
 3|1|Shangri-La Hotel|10|HOTEL|90|5|4
 4|1|Hilton Luxor Resort|11|HOTEL|200|4|7
 5|1|Anantara Palazzo Naiadi|12|HOTEL|80|5|10
+6|0|PMF|0|HUT|40|10|1
