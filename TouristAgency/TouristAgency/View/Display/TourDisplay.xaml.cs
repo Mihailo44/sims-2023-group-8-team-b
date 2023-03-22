@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using TouristAgency.Controller;
 using TouristAgency.Model;
 using TouristAgency.Storage;
+using TouristAgency.Test;
 
 namespace TouristAgency.View.Display
 {
@@ -31,9 +32,9 @@ namespace TouristAgency.View.Display
         private ObservableCollection<string> _languages;
         private int _minDuration;
         private int _maxDuration;
-        private int _maxCapacity;
+        private int _numberOfPeople;
         private int _numberOfReservation;
-        private Tourist loggedInTourist;
+        private Tourist _loggedInTourist;
         private App _app;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -47,7 +48,7 @@ namespace TouristAgency.View.Display
             Countries = _app.TourController.GetAllCountires();
             Cities = _app.TourController.GetAllCitites();
             Languages = _app.TourController.GetAllLanguages();
-            loggedInTourist = tourist;
+            _loggedInTourist = tourist;
 
             foreach(var ttc in _app.TourTouristCheckpointController.GetPendingInvitations(tourist.ID))
             {
@@ -141,15 +142,15 @@ namespace TouristAgency.View.Display
             }
         }
 
-        public int MaxCapacity
+        public int NumberOfPeople
         {
-            get => _maxCapacity;
+            get => _numberOfPeople;
             set
             {
-                if(_maxCapacity != value)
+                if(_numberOfPeople != value)
                 {
-                    _maxCapacity = value;
-                    OnPropertyChanged("MaxCapacity");
+                    _numberOfPeople = value;
+                    OnPropertyChanged("NumberOfPeople");
                 }
             }
         }
@@ -173,7 +174,12 @@ namespace TouristAgency.View.Display
             string city = CityComboBox.SelectedItem.ToString();
             string language = LanguageComboBox.SelectedItem.ToString();
             
-            Tours = new ObservableCollection<Tour>(_app.TourController.Search(country, city, language, MinDuration, MaxDuration, MaxCapacity));
+            Tours = new ObservableCollection<Tour>(_app.TourController.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
+        
+            if(MinDuration == 0 && MaxDuration == 0)
+            {
+                MessageBox.Show("You must change the value for min or max duration of tour.", "Alert");
+            }
         }
 
         protected void OnPropertyChanged(string propertyName)
@@ -206,7 +212,7 @@ namespace TouristAgency.View.Display
                 
                 if(result == MessageBoxResult.Yes) 
                 {
-                    Tours = new ObservableCollection<Tour>(_app.TourController.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, MaxCapacity));
+                    Tours = new ObservableCollection<Tour>(_app.TourController.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople));
                     List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
                     Tours.Remove(selectedTour);
                     foreach(Tour tour in emptyTours) 
@@ -225,10 +231,14 @@ namespace TouristAgency.View.Display
 
             if(NumberOfReservation != 0)
             {
+                Tourist tourist = _app.TouristController.FindById(_loggedInTourist.ID);
                 selectedTour.CurrentAttendants += NumberOfReservation;
+                if (!selectedTour.RegisteredTourists.Contains(tourist))
+                {
+                    selectedTour.RegisteredTourists.Add(_loggedInTourist);
+                }
                 _app.TourController.Update(selectedTour, selectedTour.ID);
-                _app.TourTouristController.Create(new TourTourist(selectedTour.ID, loggedInTourist.ID));
-                Tourist tourist = _app.TouristController.FindById(loggedInTourist.ID);
+                _app.TourTouristController.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 tourist.AppliedTours.Add(selectedTour);
 
                 MessageBox.Show("Successfully made a reservation.", "Success");

@@ -46,7 +46,7 @@ namespace TouristAgency.Model
             _password = originalUser.Password;
             _firstName = originalUser.FirstName;
             _lastName = originalUser.LastName;
-            _dateOfBirth = originalUser.DateOfBirth; //Duboka ili plitka kopija?
+            _dateOfBirth = originalUser.DateOfBirth;
             _email = originalUser.Email;
             _fullLocation = new Location(originalUser.FullLocation);
             _phone = originalUser.Phone;

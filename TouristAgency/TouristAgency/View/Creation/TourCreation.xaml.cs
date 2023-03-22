@@ -157,12 +157,12 @@ namespace TouristAgency.View.Creation
             {
                 PrepareLocation();
                 _newTour.StartDateTime = dateTime;
+                _newTour.RemainingCapacity = _newTour.MaxAttendants;
                 _app.TourController.Create(new Tour(_newTour));
                 AddPhotos();
                 LoadToursToCheckpoints();
-                //PrepareLocation();
             }
-            MessageBox.Show("Successfully created tour!");
+            MessageBox.Show("Successfully created tour!", "Success");
         }
 
 
@@ -203,6 +203,7 @@ namespace TouristAgency.View.Creation
                 {
                     firstVisit = false;
                 }
+                _newTour.Checkpoints.Add(checkpoint); //!
                 _app.TourCheckpointController.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
                 i++;
             }

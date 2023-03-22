@@ -114,7 +114,13 @@ namespace TouristAgency.View.Display
             _selectedTour.Status = STATUS.IN_PROGRESS;
             _app.TourController.Update(_selectedTour,_selectedTour.ID);
             RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
-            AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
+            //TODO REFAKTORISATI KASNIJE
+            ObservableCollection<TourCheckpoint> checkpointsTemp = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
+            foreach(TourCheckpoint checkpoint in checkpointsTemp)
+            {
+                checkpoint.Checkpoint = _app.CheckpointController.FindByID(checkpoint.CheckpointID);
+            }
+            AvailableCheckpoints = checkpointsTemp;
         }
 
         private void RightButton_OnClick(object sender, RoutedEventArgs e)
@@ -124,9 +130,8 @@ namespace TouristAgency.View.Display
                 if (!ArrivedTourists.Contains(selectedTourist))
                 {
                     ArrivedTourists.Add(selectedTourist);
-                    Tour selectedTour = (Tour)AvailableToursListView.SelectedItem;
                     TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-                    _app.TourTouristCheckpointController.Create(new TourTouristCheckpoint(selectedTour.ID,
+                    _app.TourTouristCheckpointController.Create(new TourTouristCheckpoint(_selectedTour.ID,
                         selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
                 }
             }
@@ -138,11 +143,15 @@ namespace TouristAgency.View.Display
             TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
             foreach (TourTouristCheckpoint tourTouristCheckpoint in _app.TourTouristCheckpointController.GetAll())
             {
-                bool isSameTour = _selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
-                bool isSameCheckpoint = selectedTourCheckpoint.CheckpointID == tourTouristCheckpoint.TourCheckpoint.CheckpointID;
-                if (isSameTour && isSameCheckpoint)
+                if (_selectedTour != null)
                 {
-                    ArrivedTourists.Add(_app.TouristController.FindById(tourTouristCheckpoint.TouristID));
+                    bool isSameTour = _selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
+                    bool isSameCheckpoint = selectedTourCheckpoint.CheckpointID == tourTouristCheckpoint.TourCheckpoint.CheckpointID;
+
+                    if (isSameTour && isSameCheckpoint)
+                    {
+                        ArrivedTourists.Add(_app.TouristController.FindById(tourTouristCheckpoint.TouristID));
+                    }
                 }
             }
         }
@@ -189,7 +198,11 @@ namespace TouristAgency.View.Display
 
                 _selectedTour.Status = STATUS.ENDED;
                 _app.TourController.Update(_selectedTour,_selectedTour.ID);
-                MessageBox.Show("Tour ended!");
+                AvailableTours.Remove(_selectedTour);
+                AvailableCheckpoints.Clear();
+                ArrivedTourists.Clear();
+                RegisteredTourists.Clear();
+                MessageBox.Show("Tour ended!", "Notification");
             }
         }
 
@@ -223,7 +236,6 @@ namespace TouristAgency.View.Display
                     FinishButton.IsEnabled = true;
                     RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
                     AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
-
                 }
             }
         }

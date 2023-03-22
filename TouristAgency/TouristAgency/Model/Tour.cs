@@ -84,7 +84,8 @@ namespace TouristAgency.Model
             _assignedGuide = new Guide();
             _assignedGuideID = newTour.AssignedGuideID;
             _registeredTourists = new List<Tourist>();
-            _photos = new List<Photo>();
+            _remainingCapacity = newTour.RemainingCapacity;
+            _photos = newTour.Photos;
             _shortLocationID = newTour.ShortLocationID;
         }
 
