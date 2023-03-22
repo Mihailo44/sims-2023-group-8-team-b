@@ -75,29 +75,9 @@ namespace TouristAgency.View.Home
 
         private void ReviewNotification()
         {
-            DateTime today = DateTime.UtcNow.Date;
-
-            string notification = "Unreviewed guests:\n";
-            double dateDif;
-            int changes = 0;
-
-            foreach (var reservation in _reservationController.GetUnreviewed(LoggedUser.ID))
-            {
-                dateDif = (today - reservation.End).TotalDays;
-
-                if (dateDif < 5.0)
-                {
-                    notification += $"{reservation.Guest.FirstName} {reservation.Guest.LastName}{dateDif} days left\n";
-                    changes++;
-                }
-                else
-                {
-                    reservation.Status = REVIEW_STATUS.EXPIRED;
-                    _reservationController.Update(reservation,reservation.Id);
-                }
-            }
-
-            if (changes > 0)
+            int changes;
+            string notification = _reservationController.ReviewNotification(LoggedUser,out changes);
+            if(changes > 0)
             {
                 MessageBox.Show(notification);
             }
@@ -151,10 +131,10 @@ namespace TouristAgency.View.Home
         private void MenuBitanItem_Click(object sender, RoutedEventArgs e)
         {
             string paris = "https://youtu.be/gG_dA32oH44?t=22";
-            string guidance = "https://youtu.be/oOni4BMeMp0?t=9";
+            string blood = "https://youtu.be/0-Tm65i96TY?t=15";
             ProcessStartInfo ps = new ProcessStartInfo
             {
-                FileName = paris,
+                FileName = blood,
                 UseShellExecute = true
             };
             Process.Start(ps);

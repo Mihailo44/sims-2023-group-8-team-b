@@ -21,13 +21,7 @@
                         </MenuItem>
                         <MenuItem x:Name="MenuItemExit" InputGestureText="Ctrl+C" Header="Close"/>
                     </MenuItem>
-                    <MenuItem Header="_Edit" Width="50" Height="35" Padding="10,0,0,0" FontSize="15">
-                        <MenuItem Header="Edit" FontSize="15">
-                            <MenuItem Header="Reservation" FontSize="15"/>
-                        </MenuItem>
-                        <MenuItem Header="Delete" FontSize="15"/>
-                        <MenuItem x:Name="MenuBitanItem" Header="N.I.P." InputGestureText="Ctrl+Q" Visibility="Collapsed" Click="MenuBitanItem_Click"/>
-                    </MenuItem>
+                    <MenuItem x:Name="MenuBitanItem" Header="_N.I.P." InputGestureText="Ctrl+Q" FontSize="15" Click="MenuBitanItem_Click"/>
                 </Menu>
             </StackPanel>
             <ToolBar Width="1000" Height="40" Margin="0,0,0,35">
