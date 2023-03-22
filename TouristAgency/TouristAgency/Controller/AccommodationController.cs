@@ -74,6 +74,11 @@ namespace TouristAgency.Controller
             return _accommodation.GetByOwnerId(id);
         }
 
+        public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
+        {
+            return _accommodation.Search(country, city, name, type, maxGuest, minDays);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _accommodation.Subscribe(observer);

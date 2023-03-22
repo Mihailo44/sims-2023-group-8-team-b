@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 using TouristAgency.Controller;
 using TouristAgency.Model;
-using TouristAgency.Test;
-using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 using TouristAgency.View.Home;
 
@@ -26,14 +12,8 @@ namespace TouristAgency
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window,INotifyPropertyChanged,IDataErrorInfo
+    public partial class MainWindow : Window, INotifyPropertyChanged, IDataErrorInfo
     {
-        
-        /*private TourCheckpointController _tourCheckpointController;
-        private TourTouristCheckpointController _tourTouristCheckpointController;
-        private TourTouristController _tourTouristController;
-        private TourController _tourController;
-        private CheckpointController _checkpointController;*/
         private OwnerController _ownerController;
         private GuestController _guestController;
         private TouristController _touristController;
@@ -49,7 +29,7 @@ namespace TouristAgency
             get => _username;
             set
             {
-                if(_username != value)
+                if (_username != value)
                 {
                     _username = value;
                     OnPropertyChanged();
@@ -63,7 +43,7 @@ namespace TouristAgency
             get => _password;
             set
             {
-                if(_password != value)
+                if (_password != value)
                 {
                     _password = value;
                     OnPropertyChanged();
@@ -84,12 +64,12 @@ namespace TouristAgency
         {
             get
             {
-                if(columnName == "Username")
+                if (columnName == "Username")
                 {
                     if (string.IsNullOrEmpty(Username))
                         return "Required field";
                 }
-                else if(columnName == "Password")
+                else if (columnName == "Password")
                 {
                     if (string.IsNullOrEmpty(Password))
                         return "Required field";
@@ -110,45 +90,9 @@ namespace TouristAgency
             _guestController = app.GuestController;
             _touristController = app.TouristController;
             _guideController = app.GuideController;
-
-            /*this._tourCheckpointController = app.TourCheckpointController;
-            this._tourTouristCheckpointController = app.TourTouristCheckpointController;
-            this._tourCheckpointController = app.TourCheckpointController;
-            this._tourTouristController = app.TourTouristController;
-            this._tourController = app.TourController;
-            this._checkpointController = app.CheckpointController;*/
-
-
-            //LoadTourToTourist(_tourTouristController.GetAll());
-            //LoadCheckpointToTourist(_tourCheckpointController.GetAll());
+            Username = "(Username)";
+            Password = "(Password)";
         }
-
-        //TODO Ne dirati, testira se trenutno!!!!!!!!!!!!!!!!!!!!!!!!!!
-        /*public void LoadTourToTourist(List<TourTourist> tourTourists)
-        {
-            foreach (TourTourist tourTourist in tourTourists)
-            {
-                Tour tour = _tourController.FindById(tourTourist.TourID);
-                Tourist tourist = _touristController.FindById(tourTourist.TouristID);
-                if (tourist != null)
-                {
-                    tour.RegisteredTourists.Add(tourist);
-                    tourist.AppliedTours.Add(tour);
-                }
-               
-            }
-        }*/
-
-        /*public void LoadCheckpointToTourist(List<TourCheckpoint> tourCheckpoints)
-        {
-            foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
-            {
-                Tour tour = _tourController.FindById(tourCheckpoint.TourID);
-                Checkpoint checkpoint = _checkpointController.FindByID(tourCheckpoint.CheckpointID);
-                tour.Checkpoints.Add(checkpoint);
-                _tourController.Update(tour, tour.ID); //?
-            }
-        }*/
 
         private string GetUserType()
         {
@@ -188,25 +132,33 @@ namespace TouristAgency
                         {
                             OwnerHome x = new OwnerHome((Owner)User);
                             x.Show();
+                            Username = "";
+                            Password = "";
                         }
                         break;
                     case "TouristAgency.Model.Guest":
                         {
                             AccommodationDisplay x = new AccommodationDisplay((Guest)User);
                             x.Show();
+                            Username = "";
+                            Password = "";
                         }
                         break;
                     case "TouristAgency.Model.Tourist":
                         {
                             TourDisplay x = new TourDisplay((Tourist)User);
                             x.Show();
+                            Username = "";
+                            Password = "";
                         }
                         break;
                     case "TouristAgency.Model.Guide":
-                    {
-                        GuideHome x = new GuideHome((Guide)User);
-                        x.Show();
-                    }
+                        {
+                            GuideHome x = new GuideHome((Guide)User);
+                            x.Show();
+                            Username = "";
+                            Password = "";
+                        }
                         break;
                     default: MessageBox.Show("Failure"); break;
                 }

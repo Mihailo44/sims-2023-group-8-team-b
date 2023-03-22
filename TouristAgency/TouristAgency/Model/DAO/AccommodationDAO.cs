@@ -175,6 +175,12 @@ namespace TouristAgency.Model.DAO
             return _accommodations.Where(a => a.OwnerId == id).ToList();
         }
 
+        public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
+        {
+            
+            return _accommodations.Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).ToList();
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

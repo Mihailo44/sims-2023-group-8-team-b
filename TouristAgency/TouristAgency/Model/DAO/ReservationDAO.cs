@@ -37,8 +37,23 @@ namespace TouristAgency.Model.DAO
         {
             foreach (Reservation reservation in _reservations) 
             {
-                if (reservation.AccommodationId == accommodationID && reservation.Start.Date == start.Date &&
-                    reservation.End.Date == end.Date)
+                if (reservation.AccommodationId == accommodationID && end.Date >= reservation.Start.Date &&
+                    end.Date <= reservation.End.Date)
+                {
+                    return true;
+                }
+                else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
+                         end.Date <= reservation.End.Date)
+                {
+                    return true;
+                }
+                else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
+                         start.Date <= reservation.End.Date)
+                {
+                    return true;
+                }
+                else if (reservation.AccommodationId == accommodationID && start.Date <= reservation.Start.Date &&
+                         end.Date >= reservation.End.Date)
                 {
                     return true;
                 }
