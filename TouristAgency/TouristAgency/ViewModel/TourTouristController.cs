@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Model.DAO;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
     public class TourTouristController
     {

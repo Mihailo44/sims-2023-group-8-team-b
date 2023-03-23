@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using TouristAgency.Controller;
 using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Creation
 {
@@ -11,7 +11,7 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class AccommodationCreation : Window, IDataErrorInfo
     {
-        private readonly AccommodationController _accommodationController;
+        private readonly AccommodationViewModel _accommodationViewModel;
         private readonly LocationController _locationController;
         private readonly PhotoController _photoController;
         private string _photoLinks;
@@ -69,7 +69,7 @@ namespace TouristAgency.View.Creation
             var app = (App)Application.Current;
             FillComboBoxes();
 
-            _accommodationController = app.AccommodationController;
+            _accommodationViewModel = app.AccommodationViewModel;
             _locationController = app.LocationController;
             _photoController = app.PhotoController;
             LoggedUser = owner;
@@ -113,7 +113,7 @@ namespace TouristAgency.View.Creation
                 PrepareAccommodationForCreation();
                 if (NewAccommodation.IsValid && IsValid)
                 {
-                    _accommodationController.Create(NewAccommodation);
+                    _accommodationViewModel.Create(NewAccommodation);
                     AddPhotos();
                     MessageBox.Show("Accommodation created successfully");
                 }

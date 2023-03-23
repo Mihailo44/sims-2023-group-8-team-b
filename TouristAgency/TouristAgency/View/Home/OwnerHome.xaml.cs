@@ -7,10 +7,10 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
-using TouristAgency.Controller;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.View.Creation;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Home
 {
@@ -19,8 +19,8 @@ namespace TouristAgency.View.Home
     /// </summary>
     public partial class OwnerHome : Window, IObserver
     {
-        private ReservationController _reservationController;
-        private AccommodationController _accommodationController;
+        private ReservationViewModel _reservationViewModel;
+        private AccommodationViewModel _accommodationViewModel;
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
@@ -37,11 +37,11 @@ namespace TouristAgency.View.Home
 
             var app = (App)Application.Current;
 
-            _reservationController = app.ReservationController;
-            _reservationController.Subcribe(this);
+            _reservationViewModel = app.ReservationViewModel;
+            _reservationViewModel.Subcribe(this);
 
-            _accommodationController = app.AccommodationController;
-            _accommodationController.Subscribe(this);
+            _accommodationViewModel = app.AccommodationViewModel;
+            _accommodationViewModel.Subscribe(this);
 
             LoggedUser = owner;
 
@@ -56,7 +56,7 @@ namespace TouristAgency.View.Home
         private void LoadAccommodations(int ownerId = 0)
         {
             Accommodations.Clear();
-            List<Accommodation> accommodations = _accommodationController.GetByOwnerId(ownerId);
+            List<Accommodation> accommodations = _accommodationViewModel.GetByOwnerId(ownerId);
             foreach(var accommodation in accommodations)
             {
                 Accommodations.Add(accommodation);
@@ -66,7 +66,7 @@ namespace TouristAgency.View.Home
         private void LoadReservations(int ownerId = 0)
         {
             Reservations.Clear();
-            List<Reservation> reservations = _reservationController.GetByOwnerId(ownerId);
+            List<Reservation> reservations = _reservationViewModel.GetByOwnerId(ownerId);
             foreach (var reservation in reservations)
             {
                 Reservations.Add(reservation);
@@ -76,7 +76,7 @@ namespace TouristAgency.View.Home
         private void ReviewNotification()
         {
             int changes;
-            string notification = _reservationController.ReviewNotification(LoggedUser,out changes);
+            string notification = _reservationViewModel.ReviewNotification(LoggedUser,out changes);
             if(changes > 0)
             {
                 MessageBox.Show(notification);

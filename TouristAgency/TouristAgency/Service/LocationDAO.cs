@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Storage;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
     internal class LocationDAO : ICrud<Location>, ISubject
     {
@@ -20,7 +21,7 @@ namespace TouristAgency.Model.DAO
             _locations = _storage.Load();
             _observers = new List<IObserver>();
         }
-       
+
         public int GenerateId()
         {
             if (_locations.Count == 0)
@@ -49,7 +50,7 @@ namespace TouristAgency.Model.DAO
             return newLocation;
         }
 
-        public Location Update(Location newLocation,int id)
+        public Location Update(Location newLocation, int id)
         {
             Location currentLocation = FindById(id);
             if (currentLocation == null)
@@ -75,12 +76,12 @@ namespace TouristAgency.Model.DAO
             return _locations;
         }
 
-        public Location FindByCountryAndCity(string country,string city) // proveri da li radi kako treba
+        public Location FindByCountryAndCity(string country, string city) // proveri da li radi kako treba
         {
             Location location = _locations.Find(l => l.Country.ToLower() == country.ToLower() && l.City.ToLower() == city.ToLower());
             if (location == null)
             {
-                location = new Location(country,city);
+                location = new Location(country, city);
                 Create(location);
             }
 
@@ -99,7 +100,7 @@ namespace TouristAgency.Model.DAO
 
         public void NotifyObservers()
         {
-            foreach(var observer in _observers)
+            foreach (var observer in _observers)
             {
                 observer.Update();
             }

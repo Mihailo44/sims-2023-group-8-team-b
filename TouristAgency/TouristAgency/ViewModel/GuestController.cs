@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Model.DAO;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
     public class GuestController
     {
         private readonly GuestDAO _guest;
 
-        public GuestController() 
+        public GuestController()
         {
             _guest = new GuestDAO();
         }

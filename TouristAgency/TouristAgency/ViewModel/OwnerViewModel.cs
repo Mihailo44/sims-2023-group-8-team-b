@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Model;
-using TouristAgency.Model.DAO;
 using TouristAgency.Interfaces;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
-    public class OwnerController
+    public class OwnerViewModel
     {
-        private readonly OwnerDAO _owner;
+        private readonly OwnerService _owner;
 
-        public OwnerController()
+        public OwnerViewModel()
         {
-            _owner = new OwnerDAO();
+            _owner = new OwnerService();
         }
 
         public List<Owner> GetAll()
@@ -28,7 +28,7 @@ namespace TouristAgency.Controller
             _owner.Create(newOwner);
         }
 
-        public void Update(Owner updatedOwner,int id)
+        public void Update(Owner updatedOwner, int id)
         {
             _owner.Update(updatedOwner, id);
         }

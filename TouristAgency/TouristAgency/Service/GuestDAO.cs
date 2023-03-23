@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Storage;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
     public class GuestDAO : ICrud<Guest>, ISubject
     {
@@ -54,9 +55,9 @@ namespace TouristAgency.Model.DAO
             currentGuest.Password = newGuest.Password;
             currentGuest.FirstName = newGuest.FirstName;
             currentGuest.LastName = newGuest.LastName;
-            currentGuest.DateOfBirth = newGuest.DateOfBirth; 
+            currentGuest.DateOfBirth = newGuest.DateOfBirth;
             currentGuest.Email = newGuest.Email;
-            currentGuest.FullLocation = newGuest.FullLocation; 
+            currentGuest.FullLocation = newGuest.FullLocation;
             currentGuest.Phone = newGuest.Phone;
 
             return currentGuest;

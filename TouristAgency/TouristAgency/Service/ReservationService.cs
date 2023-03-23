@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Storage;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
-    internal class ReservationDAO : ICrud<Reservation>, ISubject
+    internal class ReservationService : ICrud<Reservation>, ISubject
     {
         private readonly ReservationStorage _storage;
         private readonly List<Reservation> _reservations;
         private List<IObserver> _observers;
 
-        public ReservationDAO()
+        public ReservationService()
         {
             _storage = new ReservationStorage();
             _reservations = _storage.Load();
@@ -21,7 +22,7 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
-            return (_reservations.Count == 0) ? 0 : _reservations.Max(r => r.Id) + 1;
+            return _reservations.Count == 0 ? 0 : _reservations.Max(r => r.Id) + 1;
         }
 
         public Reservation FindById(int id)
@@ -147,7 +148,7 @@ namespace TouristAgency.Model.DAO
             {
                 dateDiff = (today - reservation.End).TotalDays;
 
-                if ( today > reservation.End && dateDiff < 5.0)
+                if (today > reservation.End && dateDiff < 5.0)
                 {
                     notification += $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {dateDiff} days left\n";
                     changes++;

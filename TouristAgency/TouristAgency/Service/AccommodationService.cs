@@ -7,15 +7,15 @@ using TouristAgency.Model;
 using TouristAgency.Storage;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
-    internal class AccommodationDAO : ICrud<Accommodation>,ISubject
+    internal class AccommodationService : ICrud<Accommodation>, ISubject
     {
         private readonly AccommodationStorage _storage;
         private readonly List<Accommodation> _accommodations;
         private List<IObserver> _observers;
 
-        public AccommodationDAO()
+        public AccommodationService()
         {
             _storage = new AccommodationStorage();
             _accommodations = _storage.Load();
@@ -45,10 +45,10 @@ namespace TouristAgency.Model.DAO
             return newAccommodation;
         }
 
-        public Accommodation Update(Accommodation updatedAccommodation,int id)
+        public Accommodation Update(Accommodation updatedAccommodation, int id)
         {
             Accommodation currentAccommodation = FindById(id);
-            if(currentAccommodation == null)
+            if (currentAccommodation == null)
                 return null;
 
             currentAccommodation.OwnerId = updatedAccommodation.OwnerId;
@@ -81,7 +81,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetNames()
         {
             List<string> names = new List<string>();
-            names.Add(String.Empty);
+            names.Add(string.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -97,7 +97,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetCities()
         {
             List<string> citites = new List<string>();
-            citites.Add(String.Empty);
+            citites.Add(string.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -113,7 +113,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetCountries()
         {
             List<string> countries = new List<string>();
-            countries.Add(String.Empty);
+            countries.Add(string.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -129,7 +129,7 @@ namespace TouristAgency.Model.DAO
         public List<string> GetTypes()
         {
             List<string> types = new List<string>();
-            types.Add(String.Empty);
+            types.Add(string.Empty);
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -177,7 +177,7 @@ namespace TouristAgency.Model.DAO
 
         public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
         {
-            
+
             return _accommodations.Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).ToList();
         }
 

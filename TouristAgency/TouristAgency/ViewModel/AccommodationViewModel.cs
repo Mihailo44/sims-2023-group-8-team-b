@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Model.DAO;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using System.Collections.ObjectModel;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
-    public class AccommodationController
+    public class AccommodationViewModel
     {
-        private readonly AccommodationDAO _accommodation;
+        private readonly AccommodationService _accommodation;
 
-        public AccommodationController()
+        public AccommodationViewModel()
         {
-            _accommodation = new AccommodationDAO();
+            _accommodation = new AccommodationService();
         }
 
         public List<Accommodation> GetAll()
@@ -59,7 +59,7 @@ namespace TouristAgency.Controller
             _accommodation.Create(newAccommodation);
         }
 
-        public void Update(Accommodation updatedAccommodation,int id)
+        public void Update(Accommodation updatedAccommodation, int id)
         {
             _accommodation.Update(updatedAccommodation, id);
         }

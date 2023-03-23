@@ -14,7 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Controller;
+using TouristAgency.ViewModel;
 using TouristAgency.Model;
 using TouristAgency.Storage;
 using TouristAgency.Test;

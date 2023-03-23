@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Storage;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
-    internal class GuestReviewDAO : ICrud<GuestReview>, ISubject
+    internal class GuestReviewService : ICrud<GuestReview>, ISubject
     {
         private readonly GuestReviewStorage _storage;
         private readonly List<GuestReview> _guestReviews;
         public List<IObserver> _observers;
-        
-        public GuestReviewDAO()
+
+        public GuestReviewService()
         {
             _storage = new GuestReviewStorage();
             _guestReviews = _storage.Load();
@@ -23,7 +24,7 @@ namespace TouristAgency.Model.DAO
 
         public int GenerateId()
         {
-            return (_guestReviews.Count == 0) ? 0 : _guestReviews.Max(g => g.Id) + 1; 
+            return _guestReviews.Count == 0 ? 0 : _guestReviews.Max(g => g.Id) + 1;
         }
 
         public GuestReview FindById(int id)

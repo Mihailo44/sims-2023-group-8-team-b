@@ -4,26 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Storage;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
-    internal class OwnerDAO : ICrud<Owner>, ISubject
+    internal class OwnerService : ICrud<Owner>, ISubject
     {
         private readonly OwnerStorage _storage;
         private readonly List<Owner> _owners;
         private List<IObserver> _observers;
 
-        public OwnerDAO()
+        public OwnerService()
         {
             _storage = new OwnerStorage();
             _owners = _storage.Load();
             _observers = new List<IObserver>();
         }
-       
+
         public int GenerateId()
         {
-            if(_owners.Count == 0)
+            if (_owners.Count == 0)
                 return 0;
             else
                 return _owners.Max(o => o.ID) + 1;
@@ -44,10 +45,10 @@ namespace TouristAgency.Model.DAO
             return newOwner;
         }
 
-        public Owner Update(Owner updatedOwner,int id)
+        public Owner Update(Owner updatedOwner, int id)
         {
             Owner currentOwner = FindById(id);
-            if(currentOwner == null)
+            if (currentOwner == null)
                 return null;
 
             currentOwner.FirstName = updatedOwner.FirstName;
@@ -81,10 +82,10 @@ namespace TouristAgency.Model.DAO
 
         public void LoadAccommodationsToOwners(List<Accommodation> accommodations)
         {
-            foreach(var accommodation in accommodations)
+            foreach (var accommodation in accommodations)
             {
                 Owner owner = _owners.Find(o => o.ID == accommodation.OwnerId);
-                if(owner != null)
+                if (owner != null)
                 {
                     owner.Accommodations.Add(accommodation);
                     accommodation.Owner = owner;
@@ -94,7 +95,7 @@ namespace TouristAgency.Model.DAO
 
         public void LoadLocationsToOwners(List<Location> locations)
         {
-            foreach(var owner in _owners)
+            foreach (var owner in _owners)
             {
                 owner.FullLocation = locations.Find(l => l.Id == owner.FullLocationID);
             }

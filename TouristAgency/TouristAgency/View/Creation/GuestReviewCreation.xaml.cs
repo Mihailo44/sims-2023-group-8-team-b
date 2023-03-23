@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using TouristAgency.Model;
-using TouristAgency.Controller;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Creation
 {
@@ -22,13 +22,13 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class GuestReviewCreation : Window
     {
-        private readonly GuestReviewController _guestReviewController;
+        private readonly GuestReviewViewModel _guestReviewViewModel;
 
         public GuestReview NewGuestReview { get; set; }
 
         public Reservation Selected { get; set; }
 
-        public ReservationController _controller { get; set; }
+        public ReservationViewModel _controller { get; set; }
 
         public GuestReviewCreation(Reservation SelectedReservation)
         {
@@ -38,10 +38,10 @@ namespace TouristAgency.View.Creation
 
             FillComboBoxes();
 
-            _guestReviewController = new GuestReviewController();
+            _guestReviewViewModel = new GuestReviewViewModel();
 
             Selected = SelectedReservation;
-            _controller = app.ReservationController;
+            _controller = app.ReservationViewModel;
             NewGuestReview = new();
             NewGuestReview.Guest = Selected.Guest;
             NewGuestReview.GuestId = Selected.GuestId;
@@ -65,7 +65,7 @@ namespace TouristAgency.View.Creation
             {
                 if (Selected.Status == REVIEW_STATUS.UNREVIEWED)
                 {
-                    _guestReviewController.Create(NewGuestReview);
+                    _guestReviewViewModel.Create(NewGuestReview);
                     Selected.Status = REVIEW_STATUS.REVIEWED;
                     _controller.Update(Selected, Selected.Id);
                     MessageBox.Show("Guest review created successfully");

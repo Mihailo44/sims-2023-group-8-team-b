@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Model;
-using TouristAgency.Model.DAO;
 using TouristAgency.Interfaces;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
-    public class ReservationController
+    public class ReservationViewModel
     {
-        private readonly ReservationDAO _reservation;
+        private readonly ReservationService _reservation;
 
-        public ReservationController()
+        public ReservationViewModel()
         {
-            _reservation = new ReservationDAO();
+            _reservation = new ReservationService();
         }
 
         public List<Reservation> GetAll()
@@ -28,7 +28,7 @@ namespace TouristAgency.Controller
             _reservation.Create(newReservation);
         }
 
-        public void Update(Reservation updatedReservation,int id)
+        public void Update(Reservation updatedReservation, int id)
         {
             _reservation.Update(updatedReservation, id);
         }
@@ -50,7 +50,7 @@ namespace TouristAgency.Controller
 
         public List<Reservation> GetUnreviewed(int ownerId = 0)
         {
-             return _reservation.GetUnreviewed(ownerId);
+            return _reservation.GetUnreviewed(ownerId);
         }
 
         public List<Reservation> GetByOwnerId(int id)

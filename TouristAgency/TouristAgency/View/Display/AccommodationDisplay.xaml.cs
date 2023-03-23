@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Controller;
+using TouristAgency.ViewModel;
 using TouristAgency.Model;
 
 namespace TouristAgency.View.Display
@@ -46,12 +46,12 @@ namespace TouristAgency.View.Display
             
             _app = (App)Application.Current;
 
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationController.GetAll());
+            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationViewModel.GetAll());
             Reservations = new ObservableCollection<Reservation>();
-            Countries = _app.AccommodationController.GetCountries();
-            Cities = _app.AccommodationController.GetCities();
-            Names = _app.AccommodationController.GetNames();
-            Types = _app.AccommodationController.GetTypes();
+            Countries = _app.AccommodationViewModel.GetCountries();
+            Cities = _app.AccommodationViewModel.GetCities();
+            Names = _app.AccommodationViewModel.GetNames();
+            Types = _app.AccommodationViewModel.GetTypes();
             Start = DateTime.Today;
             End = DateTime.Today;
 
@@ -237,12 +237,12 @@ namespace TouristAgency.View.Display
 
 
                 Accommodations = new ObservableCollection<Accommodation>(
-                    _app.AccommodationController.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
+                    _app.AccommodationViewModel.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
         }
 
         private void ShowAll_Click(object sender, RoutedEventArgs e)
         {
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationController.GetAll());
+            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationViewModel.GetAll());
         }
 
         private void SearchDate_Click(object sender, RoutedEventArgs e)
@@ -259,7 +259,7 @@ namespace TouristAgency.View.Display
 
                 for (int i = 0; i < numOfReservations; i++)
                 {
-                    if (_app.ReservationController.IsReserved(selectedAccommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) ==
+                    if (_app.ReservationViewModel.IsReserved(selectedAccommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) ==
                         false)
                     {
                         Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
@@ -281,7 +281,7 @@ namespace TouristAgency.View.Display
 
                         for (int i = 0; i < numOfReservations; i++)
                         {
-                            if (_app.ReservationController.IsReserved(selectedAccommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
+                            if (_app.ReservationViewModel.IsReserved(selectedAccommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
                                 false)
                             {
                                 Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
@@ -290,7 +290,7 @@ namespace TouristAgency.View.Display
 
                         for (int i = 0; i < numOfReservations; i++)
                         {
-                            if (_app.ReservationController.IsReserved(selectedAccommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
+                            if (_app.ReservationViewModel.IsReserved(selectedAccommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
                                 false)
                             {
                                 Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
@@ -321,7 +321,7 @@ namespace TouristAgency.View.Display
                 newReservation.AccommodationId = selectedAccommodation.Id;
                 newReservation.Guest = _loggedInGuest;
                 newReservation.GuestId = _loggedInGuest.ID;
-                _app.ReservationController.Create(newReservation);
+                _app.ReservationViewModel.Create(newReservation);
                 Reservations.Remove(newReservation);
                 MessageBox.Show("Successfully reserved");
             }

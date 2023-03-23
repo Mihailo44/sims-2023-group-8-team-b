@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Model.DAO;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
-    public class GuestReviewController
+    public class GuestReviewViewModel
     {
-        private readonly GuestReviewDAO _guestReview;
+        private readonly GuestReviewService _guestReview;
 
-        public GuestReviewController()
+        public GuestReviewViewModel()
         {
-            _guestReview = new GuestReviewDAO();
+            _guestReview = new GuestReviewService();
         }
 
         public List<GuestReview> GetAll()
         {
-           return _guestReview.GetAll();
+            return _guestReview.GetAll();
         }
 
         public void Create(GuestReview newGuestReview)
@@ -28,7 +28,7 @@ namespace TouristAgency.Controller
             _guestReview.Create(newGuestReview);
         }
 
-        public void Update(GuestReview updatedGuestReview,int id)
+        public void Update(GuestReview updatedGuestReview, int id)
         {
             _guestReview.Update(updatedGuestReview, id);
         }

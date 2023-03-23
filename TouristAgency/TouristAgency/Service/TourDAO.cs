@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Storage;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
     public class TourDAO : ICrud<Tour>, ISubject
     {
@@ -39,7 +40,7 @@ namespace TouristAgency.Model.DAO
         public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration, int maxCapacity)
         {
             List<Tour> filteredTours = new List<Tour>();
-            if(minDuration > 0 && maxDuration == 0)
+            if (minDuration > 0 && maxDuration == 0)
             {
                 return _tours.Where(t => t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) && t.Language.Contains(language) && t.Duration >= minDuration && t.MaxAttendants >= maxCapacity).ToList();
             }
@@ -109,7 +110,7 @@ namespace TouristAgency.Model.DAO
             }
         }
 
-        public void LoadPhotosToTours(List<Photo>photos)
+        public void LoadPhotosToTours(List<Photo> photos)
         {
             foreach (Tour tour in _tours)
             {
@@ -125,7 +126,7 @@ namespace TouristAgency.Model.DAO
 
         public void LoadTouristsToTours(List<TourTourist> tourTourists, List<Tourist> tourists)
         {
- 
+
             foreach (TourTourist tourtourist in tourTourists)
             {
                 Tour selectedTour = FindById(tourtourist.TourID);
@@ -187,9 +188,9 @@ namespace TouristAgency.Model.DAO
             List<string> cities = new List<string>();
             cities.Add("");
 
-            foreach (Tour tour in _tours) 
+            foreach (Tour tour in _tours)
             {
-                if(!cities.Contains(tour.ShortLocation.City) && tour.ShortLocation.City != "")
+                if (!cities.Contains(tour.ShortLocation.City) && tour.ShortLocation.City != "")
                 {
                     cities.Add(tour.ShortLocation.City);
                 }

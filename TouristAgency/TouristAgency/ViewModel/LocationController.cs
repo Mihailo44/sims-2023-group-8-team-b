@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Model.DAO;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
     public class LocationController
     {
@@ -28,7 +28,7 @@ namespace TouristAgency.Controller
             _location.Create(newLocation);
         }
 
-        public void Update(Location updatedLocation,int id)
+        public void Update(Location updatedLocation, int id)
         {
             _location.Update(updatedLocation, id);
         }
@@ -38,7 +38,7 @@ namespace TouristAgency.Controller
             _location.Delete(location.Id);
         }
 
-        public Location FindByCountryAndCity(string country,string city)
+        public Location FindByCountryAndCity(string country, string city)
         {
             return _location.FindByCountryAndCity(country, city);
         }

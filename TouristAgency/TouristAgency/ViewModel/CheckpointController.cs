@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using TouristAgency.Interfaces;
-using TouristAgency.Model.DAO;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
-namespace TouristAgency.Controller
+namespace TouristAgency.ViewModel
 {
     public class CheckpointController
     {

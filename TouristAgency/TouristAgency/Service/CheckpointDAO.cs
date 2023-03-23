@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Storage;
 using TouristAgency.View.Home;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
     public class CheckpointDAO : ICrud<Checkpoint>, ISubject
     {
@@ -99,12 +100,12 @@ namespace TouristAgency.Model.DAO
 
         public void Subscribe(IObserver observer)
         {
-            _observers.Add(observer);;
+            _observers.Add(observer); ;
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            _observers.Remove(observer);;
+            _observers.Remove(observer); ;
         }
 
         public void NotifyObservers()

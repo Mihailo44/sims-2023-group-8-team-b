@@ -2,10 +2,10 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using TouristAgency.Controller;
 using TouristAgency.Model;
 using TouristAgency.View.Display;
 using TouristAgency.View.Home;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency
 {
@@ -14,7 +14,7 @@ namespace TouristAgency
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged, IDataErrorInfo
     {
-        private OwnerController _ownerController;
+        private OwnerViewModel _OwnerViewModel;
         private GuestController _guestController;
         private TouristController _touristController;
         private GuideController _guideController;
@@ -86,7 +86,7 @@ namespace TouristAgency
 
             app = (App)Application.Current;
 
-            _ownerController = app.OwnerController;
+            _OwnerViewModel = app.OwnerViewModel;
             _guestController = app.GuestController;
             _touristController = app.TouristController;
             _guideController = app.GuideController;
@@ -96,7 +96,7 @@ namespace TouristAgency
 
         private string GetUserType()
         {
-            User = _ownerController.GetAll().Find(o => o.Username == Username.Trim() && o.Password == Password.Trim());
+            User = _OwnerViewModel.GetAll().Find(o => o.Username == Username.Trim() && o.Password == Password.Trim());
             if (User != null)
             {
                 return User.GetType().ToString();

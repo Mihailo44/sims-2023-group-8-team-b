@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Storage;
 
-namespace TouristAgency.Model.DAO
+namespace TouristAgency.Service
 {
     public class GuideDAO : ICrud<Guide>, ISubject
     {
@@ -76,7 +77,7 @@ namespace TouristAgency.Model.DAO
             foreach (Tour tour in tours)
             {
                 Guide selectedGuide = FindById(tour.AssignedGuideID);
-                if(selectedGuide != null)
+                if (selectedGuide != null)
                     selectedGuide.AssignedTours.Add(tour);
             }
         }
