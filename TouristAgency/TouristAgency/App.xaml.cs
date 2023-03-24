@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.ViewModel;
+using TouristAgency.Model;
 
 namespace TouristAgency
 {
@@ -14,8 +15,9 @@ namespace TouristAgency
     /// </summary>
     public partial class App : Application
     {
+        public Owner namestanje; // ovo je privremeno
         public ReservationViewModel ReservationViewModel { get; set; } = new ReservationViewModel();
-        public AccommodationViewModel AccommodationViewModel { get; set; } = new AccommodationViewModel();
+        public AccommodationViewModel AccommodationViewModel { get; set; }
         public CheckpointController CheckpointController { get; set; } = new CheckpointController();    
         public GuestController GuestController { get; set; } = new GuestController();
         public GuestReviewViewModel GuestReviewViewModel { get; set; } = new GuestReviewViewModel();
@@ -31,6 +33,7 @@ namespace TouristAgency
 
         public App()
         {
+            AccommodationViewModel = new AccommodationViewModel(namestanje);
             AccommodationViewModel.LoadLocationsToAccommodations(LocationController.GetAll());
             AccommodationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
             CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());
