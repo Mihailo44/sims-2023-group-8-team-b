@@ -9,13 +9,13 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    public class PhotoDAO : ICrud<Photo>, ISubject
+    public class PhotoService : ICrud<Photo>, ISubject
     {
         private readonly PhotoStorage _storage;
         private readonly List<Photo> _photos;
         private List<IObserver> _observers;
 
-        public PhotoDAO()
+        public PhotoService()
         {
             _storage = new PhotoStorage();
             _photos = _storage.Load();

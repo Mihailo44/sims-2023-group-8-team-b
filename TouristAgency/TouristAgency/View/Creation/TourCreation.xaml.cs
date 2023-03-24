@@ -152,7 +152,7 @@ namespace TouristAgency.View.Creation
 
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Implementirati proveru da li postoji vec slika u PhotoDAO!
+            //TODO Implementirati proveru da li postoji vec slika u PhotoService!
             foreach (DateTime dateTime in _multipleDateTimes)
             {
                 PrepareLocation();
@@ -188,7 +188,7 @@ namespace TouristAgency.View.Creation
             {
                 Photo photo = new Photo(photoLink, 'T', tourID);
                 _newTour.Photos.Add(photo);
-                _app.PhotoController.Create(photo);
+                _app.PhotoViewModel.Create(photo);
             }
         }
 

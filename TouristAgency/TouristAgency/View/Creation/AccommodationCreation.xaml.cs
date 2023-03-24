@@ -13,7 +13,7 @@ namespace TouristAgency.View.Creation
     {
         private readonly AccommodationViewModel _accommodationViewModel;
         private readonly LocationController _locationController;
-        private readonly PhotoController _photoController;
+        private readonly PhotoViewModel _PhotoViewModel;
         private string _photoLinks;
 
         public Accommodation NewAccommodation { get; set; }
@@ -71,7 +71,7 @@ namespace TouristAgency.View.Creation
 
             _accommodationViewModel = app.AccommodationViewModel;
             _locationController = app.LocationController;
-            _photoController = app.PhotoController;
+            _PhotoViewModel = app.PhotoViewModel;
             LoggedUser = owner;
 
             NewAccommodation = new();
@@ -102,7 +102,7 @@ namespace TouristAgency.View.Creation
             {
                 Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
                 NewAccommodation.Photos.Add(photo);
-                _photoController.Create(photo);
+                _PhotoViewModel.Create(photo);
             }
         }
 

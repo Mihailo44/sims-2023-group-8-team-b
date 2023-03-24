@@ -22,7 +22,7 @@ namespace TouristAgency
         public LocationController LocationController { get; set; } = new LocationController();
         public OwnerViewModel OwnerViewModel { get; set; } = new OwnerViewModel();
         public GuideController GuideController { get; set; } = new GuideController();
-        public PhotoController PhotoController { get; set; } = new PhotoController();
+        public PhotoViewModel PhotoViewModel { get; set; } = new PhotoViewModel();
         public TourCheckpointController TourCheckpointController { get; set; } = new TourCheckpointController();
         public TourController TourController { get; set; } = new TourController();
         public TouristController TouristController { get; set; } = new TouristController();
@@ -32,10 +32,10 @@ namespace TouristAgency
         public App()
         {
             AccommodationViewModel.LoadLocationsToAccommodations(LocationController.GetAll());
-            AccommodationViewModel.LoadPhotosToAccommodations(PhotoController.GetAll());
+            AccommodationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
             CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());
             TourController.LoadLocationsToTours(LocationController.GetAll());
-            TourController.LoadPhotosToTours(PhotoController.GetAll());
+            TourController.LoadPhotosToTours(PhotoViewModel.GetAll());
             ReservationViewModel.LoadAccommodationsToReservations(AccommodationViewModel.GetAll());
             ReservationViewModel.LoadGuestsToReservations(GuestController.GetAll());
             TourCheckpointController.LoadCheckpoints(CheckpointController.GetAll());

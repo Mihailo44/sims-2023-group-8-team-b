@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Service;
+using TouristAgency.Base;
 
 namespace TouristAgency.ViewModel
 {
-    public class OwnerViewModel
+    public class OwnerViewModel : ViewModelBase 
     {
         private readonly OwnerService _owner;
 

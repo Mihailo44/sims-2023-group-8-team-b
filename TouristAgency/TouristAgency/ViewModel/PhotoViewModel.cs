@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Service;
+using TouristAgency.Base;
 
 namespace TouristAgency.ViewModel
 {
-    public class PhotoController
+    public class PhotoViewModel : ViewModelBase
     {
-        private readonly PhotoDAO _photo;
+        private readonly PhotoService _photo;
 
-        public PhotoController()
+        public PhotoViewModel()
         {
-            _photo = new PhotoDAO();
+            _photo = new PhotoService();
         }
 
         public int GenerateId()

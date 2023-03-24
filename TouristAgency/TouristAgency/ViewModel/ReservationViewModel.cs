@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Service;
+using TouristAgency.Base;
 
 namespace TouristAgency.ViewModel
 {
-    public class ReservationViewModel
+    public class ReservationViewModel : ViewModelBase
     {
         private readonly ReservationService _reservation;
 

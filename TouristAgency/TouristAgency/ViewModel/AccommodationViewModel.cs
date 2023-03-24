@@ -7,10 +7,11 @@ using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using System.Collections.ObjectModel;
 using TouristAgency.Service;
+using TouristAgency.Base;
 
 namespace TouristAgency.ViewModel
 {
-    public class AccommodationViewModel
+    public class AccommodationViewModel : ViewModelBase
     {
         private readonly AccommodationService _accommodation;
 
