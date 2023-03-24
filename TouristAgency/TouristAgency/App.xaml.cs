@@ -15,9 +15,8 @@ namespace TouristAgency
     /// </summary>
     public partial class App : Application
     {
-        public Owner namestanje; // ovo je privremeno
         public ReservationViewModel ReservationViewModel { get; set; } = new ReservationViewModel();
-        public AccommodationViewModel AccommodationViewModel { get; set; }
+        public AccommodationViewModel AccommodationViewModel { get; set; } = new AccommodationViewModel();
         public CheckpointController CheckpointController { get; set; } = new CheckpointController();    
         public GuestController GuestController { get; set; } = new GuestController();
         public GuestReviewViewModel GuestReviewViewModel { get; set; } = new GuestReviewViewModel();
@@ -33,7 +32,6 @@ namespace TouristAgency
 
         public App()
         {
-            AccommodationViewModel = new AccommodationViewModel(namestanje);
             AccommodationViewModel.LoadLocationsToAccommodations(LocationController.GetAll());
             AccommodationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
             CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());

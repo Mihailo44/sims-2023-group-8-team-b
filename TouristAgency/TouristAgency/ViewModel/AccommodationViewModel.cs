@@ -41,6 +41,11 @@ namespace TouristAgency.ViewModel
             CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(),param => CanCreateAccommodationExecute());
         }
 
+        public AccommodationViewModel()
+        {
+            _accommodation = new AccommodationService();
+        }
+
         public Owner Owner
         {
             get => _owner;
@@ -163,7 +168,6 @@ namespace TouristAgency.ViewModel
             NewAccommodation.Owner = LoggedUser;
             NewAccommodation.Location = _locationDAO.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim());
             NewAccommodation.LocationId = _locationDAO.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
-            NewAccommodation.Type = TYPE.HOTEL; //prepraviti
         }
 
         public bool CanCreateAccommodationExecute()
