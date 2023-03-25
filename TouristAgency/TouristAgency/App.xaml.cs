@@ -16,7 +16,7 @@ namespace TouristAgency
     public partial class App : Application
     {
         public ReservationViewModel ReservationViewModel { get; set; } = new ReservationViewModel();
-        public AccommodationViewModel AccommodationViewModel { get; set; } = new AccommodationViewModel();
+        public AccommodationCreationViewModel AccommodationCreationViewModel { get; set; } = new AccommodationCreationViewModel();
         public CheckpointController CheckpointController { get; set; } = new CheckpointController();    
         public GuestController GuestController { get; set; } = new GuestController();
         public GuestReviewViewModel GuestReviewViewModel { get; set; } = new GuestReviewViewModel();
@@ -32,15 +32,15 @@ namespace TouristAgency
 
         public App()
         {
-            AccommodationViewModel.LoadLocationsToAccommodations(LocationController.GetAll());
-            AccommodationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
+            AccommodationCreationViewModel.LoadLocationsToAccommodations(LocationController.GetAll());
+            AccommodationCreationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
             CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());
             TourController.LoadLocationsToTours(LocationController.GetAll());
             TourController.LoadPhotosToTours(PhotoViewModel.GetAll());
-            ReservationViewModel.LoadAccommodationsToReservations(AccommodationViewModel.GetAll());
+            ReservationViewModel.LoadAccommodationsToReservations(AccommodationCreationViewModel.GetAll());
             ReservationViewModel.LoadGuestsToReservations(GuestController.GetAll());
             TourCheckpointController.LoadCheckpoints(CheckpointController.GetAll());
-            OwnerViewModel.LoadAccommodationsToOwners(AccommodationViewModel.GetAll());
+            OwnerViewModel.LoadAccommodationsToOwners(AccommodationCreationViewModel.GetAll());
             GuideController.LoadToursToGuide(TourController.GetAll());
             TourController.LoadTouristsToTours(TourTouristController.GetAll(),TouristController.GetAll());
             TouristController.LoadToursToTourist(TourTouristController.GetAll(), TourController.GetAll());

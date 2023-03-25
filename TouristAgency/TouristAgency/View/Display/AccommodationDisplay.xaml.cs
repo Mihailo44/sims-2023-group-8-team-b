@@ -46,12 +46,12 @@ namespace TouristAgency.View.Display
             
             _app = (App)Application.Current;
 
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationViewModel.GetAll());
+            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationCreationViewModel.GetAll());
             Reservations = new ObservableCollection<Reservation>();
-            Countries = _app.AccommodationViewModel.GetCountries();
-            Cities = _app.AccommodationViewModel.GetCities();
-            Names = _app.AccommodationViewModel.GetNames();
-            Types = _app.AccommodationViewModel.GetTypes();
+            Countries = _app.AccommodationCreationViewModel.GetCountries();
+            Cities = _app.AccommodationCreationViewModel.GetCities();
+            Names = _app.AccommodationCreationViewModel.GetNames();
+            Types = _app.AccommodationCreationViewModel.GetTypes();
             Start = DateTime.Today;
             End = DateTime.Today;
 
@@ -237,12 +237,12 @@ namespace TouristAgency.View.Display
 
 
                 Accommodations = new ObservableCollection<Accommodation>(
-                    _app.AccommodationViewModel.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
+                    _app.AccommodationCreationViewModel.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
         }
 
         private void ShowAll_Click(object sender, RoutedEventArgs e)
         {
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationViewModel.GetAll());
+            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationCreationViewModel.GetAll());
         }
 
         private void SearchDate_Click(object sender, RoutedEventArgs e)

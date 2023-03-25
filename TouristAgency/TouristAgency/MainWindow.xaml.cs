@@ -6,6 +6,7 @@ using TouristAgency.Model;
 using TouristAgency.View.Display;
 using TouristAgency.View.Home;
 using TouristAgency.ViewModel;
+using TouristAgency.Service;
 
 namespace TouristAgency
 {
@@ -14,13 +15,10 @@ namespace TouristAgency
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged, IDataErrorInfo
     {
-        private OwnerViewModel _OwnerViewModel;
-        private GuestController _guestController;
-        private TouristController _touristController;
-        private GuideController _guideController;
-
+   
+        private UserService _userService;
+        
         public App app;
-
         public object User { get; set; }
 
         private string _username;
@@ -86,47 +84,19 @@ namespace TouristAgency
 
             app = (App)Application.Current;
 
-            _OwnerViewModel = app.OwnerViewModel;
-            _guestController = app.GuestController;
-            _touristController = app.TouristController;
-            _guideController = app.GuideController;
+            _userService = new UserService();
+
             Username = "(Username)";
             Password = "(Password)";
         }
 
-        private string GetUserType()
-        {
-            User = _OwnerViewModel.GetAll().Find(o => o.Username == Username.Trim() && o.Password == Password.Trim());
-            if (User != null)
-            {
-                return User.GetType().ToString();
-            }
-            User = _guestController.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
-            if (User != null)
-            {
-                return User.GetType().ToString();
-            }
-            User = _touristController.GetAll().Find(t => t.Username == Username.Trim() && t.Password == Password.Trim());
-            if (User != null)
-            {
-                return User.GetType().ToString();
-            }
-            User = _guideController.GetAll().Find(g => g.Username == Username && g.Password == Password);
-            if (User != null)
-            {
-                return User.GetType().ToString();
-            }
-
-            return null;
-        }
-
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            string type = GetUserType();
+            User = _userService.GetUser(Username,Password);
 
-            if (type != null)
+            if (User != null)
             {
-                switch (type)
+                switch (User.GetType().ToString())
                 {
                     case "TouristAgency.Model.Owner":
                         {

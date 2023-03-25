@@ -8,7 +8,7 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class AccommodationViewModel : ViewModelBase, ICloseable, ICreate
+    public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate
     {
         private readonly AccommodationService _accommodation;
         private readonly PhotoService _photoService;
@@ -29,7 +29,12 @@ namespace TouristAgency.ViewModel
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
 
-        public AccommodationViewModel(Owner owner, Window window)
+        public AccommodationCreationViewModel()
+        {
+            _accommodation = new AccommodationService();
+        }
+
+        public AccommodationCreationViewModel(Owner owner, Window window)
         {
             _accommodation = new AccommodationService();
             _photoService = new PhotoService();
@@ -40,11 +45,6 @@ namespace TouristAgency.ViewModel
             NewLocation = new();
             CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
-        }
-
-        public AccommodationViewModel()
-        {
-            _accommodation = new AccommodationService();
         }
 
         public Owner Owner
@@ -179,8 +179,21 @@ namespace TouristAgency.ViewModel
         public void CreateAccommodationExecute()
         {
             PrepareAccommodationForCreation();
-            Create(NewAccommodation);
-            //_accommodation.Create(NewAccommodation);
+            try
+            {
+                //_accommodation.Create(NewAccommodation);
+                Create(NewAccommodation);
+                AddPhotos();
+                MessageBox.Show("Accommodation created successfully");
+            }
+            catch(System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                _window.Close();
+            }
         }
 
         public bool CanCloseWindowExecute()

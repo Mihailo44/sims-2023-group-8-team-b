@@ -44,7 +44,7 @@ namespace TouristAgency.View.Creation
         public AccommodationCreation(Owner owner)
         {
             InitializeComponent();
-            DataContext = new AccommodationViewModel(owner,this);
+            DataContext = new AccommodationCreationViewModel(owner,this);
             FillComboBoxes();
         }
 
@@ -62,7 +62,7 @@ namespace TouristAgency.View.Creation
                 PrepareAccommodationForCreation();
                 if (NewAccommodation.IsValid && IsValid)
                 {
-                    _accommodationViewModel.Create(NewAccommodation);
+                    _AccommodationCreationViewModel.Create(NewAccommodation);
                     AddPhotos();
                     MessageBox.Show("Accommodation created successfully");
                 }
