@@ -13,50 +13,9 @@ namespace TouristAgency
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged, IDataErrorInfo
-    {
-   
-        private UserService _userService;
-        
-        public App app;
-        public object User { get; set; }
-
-        private string _username;
-        public string Username
-        {
-            get => _username;
-            set
-            {
-                if (_username != value)
-                {
-                    _username = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _password;
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                if (_password != value)
-                {
-                    _password = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public string Error => null;
+    public partial class MainWindow : Window
+    {        
+       /* public string Error => null;
 
         public string this[string columnName]
         {
@@ -75,22 +34,15 @@ namespace TouristAgency
 
                 return null;
             }
-        }
+        } */
 
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = this;
-
-            app = (App)Application.Current;
-
-            _userService = new UserService();
-
-            Username = "(Username)";
-            Password = "(Password)";
+            DataContext = new MainWindowViewModel(this);
         }
 
-        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
+       /* private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
             User = _userService.GetUser(Username,Password);
 
@@ -150,6 +102,6 @@ namespace TouristAgency
             {
                 ButtonLogin_Click(sender, e);
             }
-        }
+        } */
     }
 }
