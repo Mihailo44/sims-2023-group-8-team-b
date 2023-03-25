@@ -44,7 +44,7 @@ namespace TouristAgency.View.Creation
         public AccommodationCreation(Owner owner)
         {
             InitializeComponent();
-            DataContext = new AccommodationViewModel(owner);
+            DataContext = new AccommodationViewModel(owner,this);
             FillComboBoxes();
         }
 

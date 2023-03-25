@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TouristAgency.Model;
-using TouristAgency.Interfaces;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using TouristAgency.Service;
+using System.Windows;
 using TouristAgency.Base;
+using TouristAgency.Interfaces;
+using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class AccommodationViewModel : ViewModelBase
+    public class AccommodationViewModel : ViewModelBase, ICloseable, ICreate
     {
         private readonly AccommodationService _accommodation;
         private readonly PhotoService _photoService;
@@ -24,21 +21,25 @@ namespace TouristAgency.ViewModel
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
         private string _photoLinks;
+        private readonly Window _window;
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
-        public Owner LoggedUser { get; set; }
-        public DelegateCommand CreateCmd { get; set; }
+        public Owner LoggedUser { get; }
+        public DelegateCommand CreateCmd { get; }
+        public DelegateCommand CloseCmd { get; }
 
-        public AccommodationViewModel(Owner owner)
+        public AccommodationViewModel(Owner owner, Window window)
         {
             _accommodation = new AccommodationService();
             _photoService = new PhotoService();
             _locationDAO = new LocationDAO();
             LoggedUser = owner;
+            _window = window;
             NewAccommodation = new();
             NewLocation = new();
-            CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(),param => CanCreateAccommodationExecute());
+            CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }
 
         public AccommodationViewModel()
@@ -177,7 +178,19 @@ namespace TouristAgency.ViewModel
 
         public void CreateAccommodationExecute()
         {
-            Create(NewAccommodation);   
+            PrepareAccommodationForCreation();
+            Create(NewAccommodation);
+            //_accommodation.Create(NewAccommodation);
+        }
+
+        public bool CanCloseWindowExecute()
+        {
+            return true;
+        }
+
+        public void CloseWindowExecute()
+        {
+            _window.Close();
         }
 
         //----------------------------------------------------------------------------------------------

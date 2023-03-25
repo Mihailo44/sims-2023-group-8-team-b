@@ -67,6 +67,6 @@
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="180" Height="80" FontSize="23"/>
+        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="180" Height="80" FontSize="23" Command="{Binding CloseCmd}"/>
     </Grid>
 </Window>
