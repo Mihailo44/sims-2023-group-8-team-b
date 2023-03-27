@@ -77,11 +77,10 @@ namespace TouristAgency.Service
 
             //currentReservation.GuestId = newReservation.GuestId;
             //currentReservation.Guest = newReservation.Guest;
-            currentReservation.AccommodationId = updatedReservation.AccommodationId;
-            currentReservation.Accommodation = updatedReservation.Accommodation;
             currentReservation.Start = updatedReservation.Start;
             currentReservation.End = updatedReservation.End;
             currentReservation.Status = updatedReservation.Status;
+            currentReservation.Postponed = updatedReservation.Postponed;
 
             _storage.Save(_reservations);
             NotifyObservers();

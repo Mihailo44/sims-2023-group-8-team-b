@@ -21,7 +21,7 @@ namespace TouristAgency.ViewModel
         private string _username;
         private string _password;
 
-        public object User { get; set; }
+        public dynamic User { get; set; }
         public DelegateCommand CloseCmd { get; }
         public DelegateCommand LoginCmd { get; }
 
@@ -91,7 +91,7 @@ namespace TouristAgency.ViewModel
                 {
                     case "TouristAgency.Model.Owner":
                         {
-                            OwnerHome x = new OwnerHome((Owner)User);
+                            OwnerHome x = new OwnerHome(User);
                             x.Show();
                             Username = "";
                             Password = "";
@@ -99,7 +99,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case "TouristAgency.Model.Guest":
                         {
-                            AccommodationDisplay x = new AccommodationDisplay((Guest)User);
+                            AccommodationDisplay x = new AccommodationDisplay(User);
                             x.Show();
                             Username = "";
                             Password = "";
@@ -107,7 +107,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case "TouristAgency.Model.Tourist":
                         {
-                            TourDisplay x = new TourDisplay((Tourist)User);
+                            TourDisplay x = new TourDisplay(User);
                             x.Show();
                             Username = "";
                             Password = "";
@@ -115,7 +115,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case "TouristAgency.Model.Guide":
                         {
-                            GuideHome x = new GuideHome((Guide)User);
+                            GuideHome x = new GuideHome(User);
                             x.Show();
                             Username = "";
                             Password = "";
