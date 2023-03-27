@@ -17,34 +17,34 @@ namespace TouristAgency
     {
         public ReservationViewModel ReservationViewModel { get; set; } = new ReservationViewModel();
         public AccommodationViewModel AccommodationViewModel { get; set; } = new AccommodationViewModel();
-        public CheckpointController CheckpointController { get; set; } = new CheckpointController();    
+        public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();    
         public GuestController GuestController { get; set; } = new GuestController();
         public GuestReviewViewModel GuestReviewViewModel { get; set; } = new GuestReviewViewModel();
         public LocationController LocationController { get; set; } = new LocationController();
         public OwnerViewModel OwnerViewModel { get; set; } = new OwnerViewModel();
-        public GuideController GuideController { get; set; } = new GuideController();
+        public GuideViewModel GuideViewModel { get; set; } = new GuideViewModel();
         public PhotoViewModel PhotoViewModel { get; set; } = new PhotoViewModel();
-        public TourCheckpointController TourCheckpointController { get; set; } = new TourCheckpointController();
-        public TourController TourController { get; set; } = new TourController();
+        public TourCheckpointViewModel TourCheckpointViewModel { get; set; } = new TourCheckpointViewModel();
+        public TourViewModel TourViewModel { get; set; } = new TourViewModel();
         public TouristController TouristController { get; set; } = new TouristController();
-        public TourTouristCheckpointController TourTouristCheckpointController { get; set; } = new TourTouristCheckpointController();
-        public TourTouristController TourTouristController { get; set; } = new TourTouristController();
+        public TourTouristCheckpointViewModel TourTouristCheckpointViewModel { get; set; } = new TourTouristCheckpointViewModel();
+        public TourTouristViewModel TourTouristViewModel { get; set; } = new TourTouristViewModel();
 
         public App()
         {
             AccommodationViewModel.LoadLocationsToAccommodations(LocationController.GetAll());
             AccommodationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
-            CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());
-            TourController.LoadLocationsToTours(LocationController.GetAll());
-            TourController.LoadPhotosToTours(PhotoViewModel.GetAll());
+            CheckpointViewModel.LoadLocationsToCheckpoints(LocationController.GetAll());
+            TourViewModel.LoadLocationsToTours(LocationController.GetAll());
+            TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
             ReservationViewModel.LoadAccommodationsToReservations(AccommodationViewModel.GetAll());
             ReservationViewModel.LoadGuestsToReservations(GuestController.GetAll());
-            TourCheckpointController.LoadCheckpoints(CheckpointController.GetAll());
+            TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
             OwnerViewModel.LoadAccommodationsToOwners(AccommodationViewModel.GetAll());
-            GuideController.LoadToursToGuide(TourController.GetAll());
-            TourController.LoadTouristsToTours(TourTouristController.GetAll(),TouristController.GetAll());
-            TouristController.LoadToursToTourist(TourTouristController.GetAll(), TourController.GetAll());
-            TourController.LoadCheckpointsToTours(TourCheckpointController.GetAll(), CheckpointController.GetAll());
+            GuideViewModel.LoadToursToGuide(TourViewModel.GetAll());
+            TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(),TouristController.GetAll());
+            TouristController.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
+            TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
             OwnerViewModel.LoadLocationsToOwners(LocationController.GetAll());
         }
     }

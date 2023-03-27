@@ -10,60 +10,60 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class TourTouristCheckpointController
+    public class TourTouristCheckpointViewModel
     {
-        private readonly TourTouristCheckpointDAO _tourTouristCheckpointDAO;
+        private readonly TourTouristCheckpointService _tourTouristCheckpointService;
 
-        public TourTouristCheckpointController()
+        public TourTouristCheckpointViewModel()
         {
-            _tourTouristCheckpointDAO = new TourTouristCheckpointDAO();
+            _tourTouristCheckpointService = new TourTouristCheckpointService();
         }
 
         public void Create(TourTouristCheckpoint tourTouristCheckpoint)
         {
-            _tourTouristCheckpointDAO.Create(tourTouristCheckpoint);
+            _tourTouristCheckpointService.Create(tourTouristCheckpoint);
         }
 
         public void Delete(int touristID)
         {
-            _tourTouristCheckpointDAO.Delete(touristID);
+            _tourTouristCheckpointService.Delete(touristID);
         }
 
         public List<TourTouristCheckpoint> GetAll()
         {
-            return _tourTouristCheckpointDAO.GetAll();
+            return _tourTouristCheckpointService.GetAll();
         }
 
         public ObservableCollection<Tourist> FilterTouristsOnCheckpoint(int tourID, int checkpointID,
             ObservableCollection<Tourist> allTourists)
         {
-            return _tourTouristCheckpointDAO.FilterTouristsOnCheckpoint(tourID, checkpointID, allTourists);
+            return _tourTouristCheckpointService.FilterTouristsOnCheckpoint(tourID, checkpointID, allTourists);
         }
 
 
         public List<TourTouristCheckpoint> GetPendingInvitations(int touristID)
         {
-            return _tourTouristCheckpointDAO.GetPendingInvitations(touristID);
+            return _tourTouristCheckpointService.GetPendingInvitations(touristID);
         }
 
         public void AcceptInvitation(int touristID, int checkpointID)
         {
-            _tourTouristCheckpointDAO.AcceptInvitation(touristID, checkpointID);
+            _tourTouristCheckpointService.AcceptInvitation(touristID, checkpointID);
         }
 
         public void Subscribe(IObserver observer)
         {
-            _tourTouristCheckpointDAO.Subscribe(observer);
+            _tourTouristCheckpointService.Subscribe(observer);
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            _tourTouristCheckpointDAO.Subscribe(observer);
+            _tourTouristCheckpointService.Subscribe(observer);
         }
 
         public void NotifyObservers()
         {
-            _tourTouristCheckpointDAO.NotifyObservers();
+            _tourTouristCheckpointService.NotifyObservers();
         }
     }
 }

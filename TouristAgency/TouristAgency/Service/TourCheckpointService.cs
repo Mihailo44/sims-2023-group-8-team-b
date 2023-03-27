@@ -10,13 +10,13 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    public class TourCheckpointDAO : ISubject
+    public class TourCheckpointService : ISubject
     {
         private readonly TourCheckpointStorage _storage;
         private readonly List<TourCheckpoint> _tourCheckpoint;
         private List<IObserver> _observers;
 
-        public TourCheckpointDAO()
+        public TourCheckpointService()
         {
             _storage = new TourCheckpointStorage();
             _tourCheckpoint = _storage.Load();

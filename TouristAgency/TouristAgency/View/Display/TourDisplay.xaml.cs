@@ -44,18 +44,18 @@ namespace TouristAgency.View.Display
             DataContext = this;
             _app = (App)Application.Current;
 
-            Tours = new ObservableCollection<Tour>(_app.TourController.GetValidTours());;
-            Countries = _app.TourController.GetAllCountires();
-            Cities = _app.TourController.GetAllCitites();
-            Languages = _app.TourController.GetAllLanguages();
+            Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetValidTours());;
+            Countries = _app.TourViewModel.GetAllCountires();
+            Cities = _app.TourViewModel.GetAllCitites();
+            Languages = _app.TourViewModel.GetAllLanguages();
             _loggedInTourist = tourist;
 
-            foreach(var ttc in _app.TourTouristCheckpointController.GetPendingInvitations(tourist.ID))
+            foreach(var ttc in _app.TourTouristCheckpointViewModel.GetPendingInvitations(tourist.ID))
             {
-                MessageBoxResult result = MessageBox.Show("Are you at " + _app.CheckpointController.FindByID(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show("Are you at " + _app.CheckpointViewModel.FindByID(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
                 if(result == MessageBoxResult.Yes)
                 {
-                    _app.TourTouristCheckpointController.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
+                    _app.TourTouristCheckpointViewModel.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
                 }
             }
 
@@ -174,7 +174,7 @@ namespace TouristAgency.View.Display
             string city = CityComboBox.SelectedItem.ToString();
             string language = LanguageComboBox.SelectedItem.ToString();
             
-            Tours = new ObservableCollection<Tour>(_app.TourController.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
+            Tours = new ObservableCollection<Tour>(_app.TourViewModel.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
         
             if(MinDuration == 0 && MaxDuration == 0)
             {
@@ -190,7 +190,7 @@ namespace TouristAgency.View.Display
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            Tours = new ObservableCollection<Tour>(_app.TourController.GetValidTours());
+            Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetValidTours());
             MinDurationIntegerUpDown.Value = 0;
             MaxDurationIntegerUpDown.Value = 0;
         }
@@ -212,7 +212,7 @@ namespace TouristAgency.View.Display
                 
                 if(result == MessageBoxResult.Yes) 
                 {
-                    Tours = new ObservableCollection<Tour>(_app.TourController.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople));
+                    Tours = new ObservableCollection<Tour>(_app.TourViewModel.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople));
                     List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
                     Tours.Remove(selectedTour);
                     foreach(Tour tour in emptyTours) 
@@ -237,8 +237,8 @@ namespace TouristAgency.View.Display
                 {
                     selectedTour.RegisteredTourists.Add(_loggedInTourist);
                 }
-                _app.TourController.Update(selectedTour, selectedTour.ID);
-                _app.TourTouristController.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
+                _app.TourViewModel.Update(selectedTour, selectedTour.ID);
+                _app.TourTouristViewModel.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 tourist.AppliedTours.Add(selectedTour);
 
                 MessageBox.Show("Successfully made a reservation.", "Success");

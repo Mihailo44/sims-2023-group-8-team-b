@@ -22,3 +22,4 @@
 20|T|11|www.google.rs
 21|T|12|https://previews.123rf.com/images/alexwhite/alexwhite1412/alexwhite141203022/35188258-test-icon.jpg
 22|T|13|https://previews.123rf.com/images/alexwhite/alexwhite1412/alexwhite141203022/35188258-test-icon.jpg
+23|T|16|https://cdn-icons-png.flaticon.com/512/825/825590.png

@@ -10,63 +10,63 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class TourCheckpointController
+    public class TourCheckpointViewModel
     {
-        private readonly TourCheckpointDAO _tourCheckpointDAO;
+        private readonly TourCheckpointService _tourCheckpointService;
 
-        public TourCheckpointController()
+        public TourCheckpointViewModel()
         {
-            _tourCheckpointDAO = new TourCheckpointDAO();
+            _tourCheckpointService = new TourCheckpointService();
         }
 
         public List<TourCheckpoint> FindByID(int id)
         {
-            return _tourCheckpointDAO.FindByID(id);
+            return _tourCheckpointService.FindByID(id);
         }
 
         public void Create(TourCheckpoint TourCheckpoint)
         {
-            _tourCheckpointDAO.Create(TourCheckpoint);
+            _tourCheckpointService.Create(TourCheckpoint);
         }
 
         public void Update(TourCheckpoint TourCheckpoint)
         {
-            _tourCheckpointDAO.Update(TourCheckpoint);
+            _tourCheckpointService.Update(TourCheckpoint);
         }
 
         public void Delete(int tourID)
         {
-            _tourCheckpointDAO.Delete(tourID);
+            _tourCheckpointService.Delete(tourID);
         }
 
         public List<TourCheckpoint> GetAll()
         {
-            return _tourCheckpointDAO.GetAll();
+            return _tourCheckpointService.GetAll();
         }
 
         public void LoadCheckpoints(List<Checkpoint> checkpoints)
         {
-            _tourCheckpointDAO.LoadCheckpoints(checkpoints);
+            _tourCheckpointService.LoadCheckpoints(checkpoints);
         }
 
         public ObservableCollection<TourCheckpoint> GetTourCheckpointsByTourID(int tourID, List<Checkpoint> checkpoints)
         {
-            return _tourCheckpointDAO.GetTourCheckpointsByTourID(tourID, checkpoints);
+            return _tourCheckpointService.GetTourCheckpointsByTourID(tourID, checkpoints);
         }
 
         public void Subscribe(IObserver observer)
         {
-            _tourCheckpointDAO.Subscribe(observer);
+            _tourCheckpointService.Subscribe(observer);
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            _tourCheckpointDAO.Unsubscribe(observer);
+            _tourCheckpointService.Unsubscribe(observer);
         }
 
         public void NotifyObservers()
         {
-            _tourCheckpointDAO.NotifyObservers();
+            _tourCheckpointService.NotifyObservers();
         }
 
     }

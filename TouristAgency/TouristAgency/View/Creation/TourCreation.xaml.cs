@@ -138,7 +138,7 @@ namespace TouristAgency.View.Creation
         private void LoadCheckpoints()
         {
             AvailableCheckpoints =
-                new ObservableCollection<Checkpoint>(_app.CheckpointController.FindSuitableByLocation(NewLocation));
+                new ObservableCollection<Checkpoint>(_app.CheckpointViewModel.FindSuitableByLocation(NewLocation));
         }
 
         private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -164,7 +164,7 @@ namespace TouristAgency.View.Creation
                 PrepareLocation();
                 _newTour.StartDateTime = dateTime;
                 _newTour.RemainingCapacity = _newTour.MaxAttendants;
-                _app.TourController.Create(new Tour(_newTour));
+                _app.TourViewModel.Create(new Tour(_newTour));
                 AddPhotos();
                 LoadToursToCheckpoints();
             }
@@ -187,7 +187,7 @@ namespace TouristAgency.View.Creation
 
         private void AddPhotos()
         {
-            int tourID = _app.TourController.GenerateID() - 1;
+            int tourID = _app.TourViewModel.GenerateID() - 1;
             if (PhotoLinks != null)
             {
                 PhotoLinks = PhotoLinks.Replace("\r\n", "|");
@@ -203,7 +203,7 @@ namespace TouristAgency.View.Creation
 
         private void LoadToursToCheckpoints()
         {
-            int tourID = _app.TourController.GenerateID() - 1;
+            int tourID = _app.TourViewModel.GenerateID() - 1;
             int i = 0;
             bool firstVisit = true;
             foreach (Checkpoint checkpoint in SelectedCheckpoints)
@@ -213,7 +213,7 @@ namespace TouristAgency.View.Creation
                     firstVisit = false;
                 }
                 _newTour.Checkpoints.Add(checkpoint); //!
-                _app.TourCheckpointController.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
+                _app.TourCheckpointViewModel.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
                 i++;
             }
         }
