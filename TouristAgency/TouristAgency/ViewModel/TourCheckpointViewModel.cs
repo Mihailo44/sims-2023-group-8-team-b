@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,11 @@ namespace TouristAgency.ViewModel
         public void LoadCheckpoints(List<Checkpoint> checkpoints)
         {
             _tourCheckpointDAO.LoadCheckpoints(checkpoints);
+        }
+
+        public ObservableCollection<TourCheckpoint> GetTourCheckpointsByTourID(int tourID, List<Checkpoint> checkpoints)
+        {
+            return _tourCheckpointDAO.GetTourCheckpointsByTourID(tourID, checkpoints);
         }
 
         public void Subscribe(IObserver observer)

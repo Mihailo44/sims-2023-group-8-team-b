@@ -18,3 +18,7 @@
 16|T|10|https://bookaweb.s3.eu-central-1.amazonaws.com/media/23885/ni%C5%A1___media_library_original_2000_1300-%281%29.jpg
 17|A|6|link1
 18|A|6|link2
+19|T|11|www.google.rs
+20|T|11|www.google.rs
+21|T|12|https://previews.123rf.com/images/alexwhite/alexwhite1412/alexwhite141203022/35188258-test-icon.jpg
+22|T|13|https://previews.123rf.com/images/alexwhite/alexwhite1412/alexwhite141203022/35188258-test-icon.jpg

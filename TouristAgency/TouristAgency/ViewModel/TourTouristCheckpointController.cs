@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,13 @@ namespace TouristAgency.ViewModel
         {
             return _tourTouristCheckpointDAO.GetAll();
         }
+
+        public ObservableCollection<Tourist> FilterTouristsOnCheckpoint(int tourID, int checkpointID,
+            ObservableCollection<Tourist> allTourists)
+        {
+            return _tourTouristCheckpointDAO.FilterTouristsOnCheckpoint(tourID, checkpointID, allTourists);
+        }
+
 
         public List<TourTouristCheckpoint> GetPendingInvitations(int touristID)
         {

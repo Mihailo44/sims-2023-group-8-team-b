@@ -153,6 +153,12 @@ namespace TouristAgency.View.Creation
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoService!
+            if (SelectedCheckpoints.Count < 2)
+            {
+                MessageBox.Show("Must have selected at least 2 checkpoints!");
+                return;
+            }
+
             foreach (DateTime dateTime in _multipleDateTimes)
             {
                 PrepareLocation();
@@ -182,13 +188,16 @@ namespace TouristAgency.View.Creation
         private void AddPhotos()
         {
             int tourID = _app.TourController.GenerateID() - 1;
-            PhotoLinks = PhotoLinks.Replace("\r\n", "|");
-            string[] photoLinks = PhotoLinks.Split("|");
-            foreach (string photoLink in photoLinks)
+            if (PhotoLinks != null)
             {
-                Photo photo = new Photo(photoLink, 'T', tourID);
-                _newTour.Photos.Add(photo);
-                _app.PhotoViewModel.Create(photo);
+                PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+                string[] photoLinks = PhotoLinks.Split("|");
+                foreach (string photoLink in photoLinks)
+                {
+                    Photo photo = new Photo(photoLink, 'T', tourID);
+                    _newTour.Photos.Add(photo);
+                    _app.PhotoViewModel.Create(photo);
+                }
             }
         }
 

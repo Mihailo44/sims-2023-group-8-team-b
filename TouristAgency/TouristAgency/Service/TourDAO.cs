@@ -73,14 +73,18 @@ namespace TouristAgency.Service
             currentTour.MaxAttendants = newTour.MaxAttendants;
             currentTour.CurrentAttendants = newTour.CurrentAttendants;
             currentTour.Duration = newTour.Duration;
-            currentTour.StartDateTime = newTour.StartDateTime; //! Mozda mora new!
+            currentTour.StartDateTime = newTour.StartDateTime;
             currentTour.RemainingCapacity = currentTour.MaxAttendants - currentTour.CurrentAttendants;
-            //TODO liste, kada napravis update formu
-            //currentTour.GuideID = ..
-            //slike...
             _storage.Save(_tours);
             NotifyObservers();
             return currentTour;
+        }
+
+        public void ChangeTourStatus(int id, STATUS status)
+        {
+            Tour selectedTour = FindById(id);
+            selectedTour.Status = status; 
+            Update(selectedTour, selectedTour.ID);
         }
 
         public void Delete(int id)
