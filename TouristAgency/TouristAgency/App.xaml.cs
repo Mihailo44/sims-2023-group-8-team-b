@@ -18,7 +18,7 @@ namespace TouristAgency
         public ReservationViewModel ReservationViewModel { get; set; } = new ReservationViewModel();
         public AccommodationCreationViewModel AccommodationCreationViewModel { get; set; } = new AccommodationCreationViewModel();
         public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();    
-        public GuestController GuestController { get; set; } = new GuestController();
+        public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
         public GuestReviewViewModel GuestReviewViewModel { get; set; } = new GuestReviewViewModel();
         public LocationViewModel LocationViewModel { get; set; } = new LocationViewModel();
         public OwnerViewModel OwnerViewModel { get; set; } = new OwnerViewModel();
@@ -44,7 +44,7 @@ namespace TouristAgency
             TourViewModel.LoadLocationsToTours(LocationViewModel.GetAll());
             TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
             ReservationViewModel.LoadAccommodationsToReservations(AccommodationCreationViewModel.GetAll());
-            ReservationViewModel.LoadGuestsToReservations(GuestController.GetAll());
+            ReservationViewModel.LoadGuestsToReservations(GuestViewModel.GetAll());
             TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
             OwnerViewModel.LoadAccommodationsToOwners(AccommodationCreationViewModel.GetAll());
             GuideViewModel.LoadToursToGuide(TourViewModel.GetAll());

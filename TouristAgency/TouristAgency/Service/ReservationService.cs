@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -28,6 +30,103 @@ namespace TouristAgency.Service
         public Reservation FindById(int id)
         {
             return _reservations.Find(r => r.Id == id);
+        }
+
+        public ObservableCollection<Reservation> GeneratePotentionalReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
+        {
+            ObservableCollection<Reservation> reservations = new ObservableCollection<Reservation>();
+            DateTime startInterval = start;
+            DateTime endInterval = start.AddDays(numOfDays - 1);
+
+            for (int i = 0; i < numOfReservations; i++)
+            {
+                if (IsReserved(accommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) ==
+                    false)
+                {
+                    reservations.Add(new Reservation(guest, accommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
+                }
+
+            }
+
+            return reservations;
+        }
+
+        public ObservableCollection<Reservation> GenerateAlternativeReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
+        {
+            ObservableCollection<Reservation> reservations = new ObservableCollection<Reservation>();
+            //DateTime startFirstInterval = start.AddMonths(1);
+            //DateTime startSecondInterval = start.AddMonths(-1);
+            // DateTime endFirstInterval = startFirstInterval.AddDays(numOfDays - 1);
+            //DateTime endSecondInterval = startSecondInterval.AddDays(numOfDays - 1);
+
+            /*for (int i = 0; i < numOfReservations; i++)
+            {
+                if (IsReserved(accommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
+                    false)
+                {
+                    reservations.Add(new Reservation(guest, accommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
+                }
+            }*/
+
+            /*for (int i = 0; i < numOfReservations; i++)
+            {
+                if (IsReserved(accommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
+                    false)
+                {
+                    reservations.Add(new Reservation(guest, accommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
+                }
+
+            }*/
+
+            foreach (Reservation reservation in GenerateSecondInterval(start, numOfDays, numOfReservations, accommodation, guest))
+            {
+                reservations.Add(reservation);
+            }
+
+            foreach (Reservation reservation in GenerateFirstInterval(start, numOfDays, numOfReservations, accommodation, guest))
+            {
+                reservations.Add(reservation);
+            }
+
+            return reservations;
+        }
+
+        public ObservableCollection<Reservation> GenerateFirstInterval(DateTime start, int numOfDays,
+            int numOfReservations, Accommodation accommodation, Guest guest)
+        {
+            ObservableCollection<Reservation> reservations = new ObservableCollection<Reservation>();
+            DateTime startFirstInterval = start.AddMonths(1);
+            DateTime endFirstInterval = startFirstInterval.AddDays(numOfDays - 1);
+
+            for (int i = 0; i < numOfReservations; i++)
+            {
+                if (IsReserved(accommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
+                    false)
+                {
+                    reservations.Add(new Reservation(guest, accommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
+                }
+
+            }
+            return reservations;
+        }
+
+        public ObservableCollection<Reservation> GenerateSecondInterval(DateTime start, int numOfDays,
+            int numOfReservations, Accommodation accommodation, Guest guest)
+        {
+            ObservableCollection<Reservation> reservations = new ObservableCollection<Reservation>();
+            DateTime startSecondInterval = start.AddMonths(-1);
+            DateTime endSecondInterval = startSecondInterval.AddDays(numOfDays - 1);
+
+            for (int i = 0; i < numOfReservations; i++)
+            {
+                if (IsReserved(accommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
+                    false)
+                {
+                    reservations.Add(new Reservation(guest, accommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
+                }
+            }
+
+            return reservations;
         }
 
         public bool IsReserved(int accommodationID, DateTime start, DateTime end)

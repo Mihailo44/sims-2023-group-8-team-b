@@ -249,12 +249,17 @@ namespace TouristAgency.View.Display
         {
             Reservations.Clear();
 
-            int numOfReservations = ((End - Start).Days - NumOfDays + 2); // TODO: Smisli formulu
+            int numOfReservations = ((End - Start).Days - NumOfDays + 2); 
             Accommodation selectedAccommodation = (Accommodation)AccommodationsListView.SelectedItem;
 
             if (selectedAccommodation != null && selectedAccommodation.MinNumOfDays <= NumOfDays)
-            {
-                DateTime startInterval = Start;
+            {   //!
+
+                Reservations = _app.ReservationViewModel.GeneratePotentionalReservations(Start, NumOfDays, numOfReservations,
+                    selectedAccommodation, _loggedInGuest);
+
+
+                /*DateTime startInterval = Start;
                 DateTime endInterval = Start.AddDays(NumOfDays - 1);
 
                 for (int i = 0; i < numOfReservations; i++)
@@ -265,7 +270,8 @@ namespace TouristAgency.View.Display
                         Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
                     }
                     
-                }
+                }*/
+                //!
 
                 if (ReservationsListView.Items.Count == 0)
                 {
@@ -273,8 +279,8 @@ namespace TouristAgency.View.Display
                         MessageBox.Show(
                             "There are no available dates in this date range. Would you like some alternatives?", "Question", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
-                    {
-                        DateTime startFirstInterval = Start.AddMonths(1);
+                    {   //!!!
+                       /* DateTime startFirstInterval = Start.AddMonths(1);
                         DateTime startSecondInterval = Start.AddMonths(-1);
                         DateTime endFirstInterval = startFirstInterval.AddDays(NumOfDays - 1);
                         DateTime endSecondInterval = startSecondInterval.AddDays(NumOfDays - 1);
@@ -296,7 +302,11 @@ namespace TouristAgency.View.Display
                                 Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
                             }
 
-                        }
+                        }*/
+                       Reservations = _app.ReservationViewModel.GenerateAlternativeReservations(Start, NumOfDays,
+                           numOfReservations,
+                           selectedAccommodation, _loggedInGuest);
+                       //!!!
                     }
                 }
 

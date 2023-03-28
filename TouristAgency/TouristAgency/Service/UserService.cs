@@ -12,14 +12,14 @@ namespace TouristAgency.Service
         public object User { get; set; }
 
         private OwnerService _ownerService;
-        private GuestDAO _guestDAO;
+        private GuestService _guestService;
         private TouristService _TouristService;
         private GuideService _GuideService;
 
         public UserService()
         {
             _ownerService = new();
-            _guestDAO = new();
+            _guestService = new();
             _TouristService = new();
             _GuideService = new();
         }
@@ -31,7 +31,7 @@ namespace TouristAgency.Service
             {
                 return User as Owner;
             }
-            User = _guestDAO.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
+            User = _guestService.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
             if (User != null)
             {
                 return User as Guest;

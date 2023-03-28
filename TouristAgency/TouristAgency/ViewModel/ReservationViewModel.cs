@@ -7,6 +7,7 @@ using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Service;
 using TouristAgency.Base;
+using System.Collections.ObjectModel;
 
 namespace TouristAgency.ViewModel
 {
@@ -57,6 +58,19 @@ namespace TouristAgency.ViewModel
         public List<Reservation> GetByOwnerId(int id)
         {
             return _reservation.GetByOwnerId(id);
+        }
+
+        public ObservableCollection<Reservation> GeneratePotentionalReservations(DateTime start, int numOfDays,
+            int numOfReservations, Accommodation accommodation, Guest guest)
+        {
+            return _reservation.GeneratePotentionalReservations(start, numOfDays, numOfReservations, accommodation,
+                guest);
+        }
+
+        public ObservableCollection<Reservation> GenerateAlternativeReservations(DateTime start, int numOfDays,
+            int numOfReservations, Accommodation accommodation, Guest guest)
+        {
+            return _reservation.GenerateAlternativeReservations(start, numOfDays, numOfReservations, accommodation, guest);
         }
 
         public bool IsReserved(int accommodationID, DateTime start, DateTime end)

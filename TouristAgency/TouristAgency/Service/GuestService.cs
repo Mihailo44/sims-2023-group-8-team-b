@@ -9,13 +9,13 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    public class GuestDAO : ICrud<Guest>, ISubject
+    public class GuestService : ICrud<Guest>, ISubject
     {
         private readonly GuestStorage _storage;
         private readonly List<Guest> _guests;
         private List<IObserver> _observers;
 
-        public GuestDAO()
+        public GuestService()
         {
             _storage = new GuestStorage();
             _guests = _storage.Load();
