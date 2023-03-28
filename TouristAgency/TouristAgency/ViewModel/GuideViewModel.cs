@@ -9,13 +9,13 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class GuideController
+    public class GuideViewModel
     {
-        private readonly GuideDAO _guide;
+        private readonly GuideService _guide;
 
-        public GuideController()
+        public GuideViewModel()
         {
-            _guide = new GuideDAO();
+            _guide = new GuideService();
         }
 
         public int GenerateId()

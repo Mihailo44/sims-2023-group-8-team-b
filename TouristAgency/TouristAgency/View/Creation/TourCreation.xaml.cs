@@ -138,7 +138,7 @@ namespace TouristAgency.View.Creation
         private void LoadCheckpoints()
         {
             AvailableCheckpoints =
-                new ObservableCollection<Checkpoint>(_app.CheckpointController.FindSuitableByLocation(NewLocation));
+                new ObservableCollection<Checkpoint>(_app.CheckpointViewModel.FindSuitableByLocation(NewLocation));
         }
 
         private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -153,12 +153,18 @@ namespace TouristAgency.View.Creation
         private void CreateTourButton_Click(object sender, RoutedEventArgs e)
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoService!
+            if (SelectedCheckpoints.Count < 2)
+            {
+                MessageBox.Show("Must have selected at least 2 checkpoints!");
+                return;
+            }
+
             foreach (DateTime dateTime in _multipleDateTimes)
             {
                 PrepareLocation();
                 _newTour.StartDateTime = dateTime;
                 _newTour.RemainingCapacity = _newTour.MaxAttendants;
-                _app.TourController.Create(new Tour(_newTour));
+                _app.TourViewModel.Create(new Tour(_newTour));
                 AddPhotos();
                 LoadToursToCheckpoints();
             }
@@ -168,33 +174,36 @@ namespace TouristAgency.View.Creation
 
         private void PrepareLocation()
         {
-            int locationID = _app.LocationController.FindLocationID(NewLocation);
+            int locationID = _app.LocationViewModel.FindLocationID(NewLocation);
             NewLocation.Id = locationID;
             if (locationID == -1)
             {
-                _app.LocationController.Create(NewLocation);
+                _app.LocationViewModel.Create(NewLocation);
             }
 
             _newTour.ShortLocation = NewLocation;
             _newTour.ShortLocationID = NewLocation.Id;
-            }
+        }
 
         private void AddPhotos()
         {
-            int tourID = _app.TourController.GenerateID() - 1;
-            PhotoLinks = PhotoLinks.Replace("\r\n", "|");
-            string[] photoLinks = PhotoLinks.Split("|");
-            foreach (string photoLink in photoLinks)
+            int tourID = _app.TourViewModel.GenerateID() - 1;
+            if (PhotoLinks != null)
             {
-                Photo photo = new Photo(photoLink, 'T', tourID);
-                _newTour.Photos.Add(photo);
-                _app.PhotoViewModel.Create(photo);
+                PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+                string[] photoLinks = PhotoLinks.Split("|");
+                foreach (string photoLink in photoLinks)
+                {
+                    Photo photo = new Photo(photoLink, 'T', tourID);
+                    _newTour.Photos.Add(photo);
+                    _app.PhotoViewModel.Create(photo);
+                }
             }
         }
 
         private void LoadToursToCheckpoints()
         {
-            int tourID = _app.TourController.GenerateID() - 1;
+            int tourID = _app.TourViewModel.GenerateID() - 1;
             int i = 0;
             bool firstVisit = true;
             foreach (Checkpoint checkpoint in SelectedCheckpoints)
@@ -204,7 +213,7 @@ namespace TouristAgency.View.Creation
                     firstVisit = false;
                 }
                 _newTour.Checkpoints.Add(checkpoint); //!
-                _app.TourCheckpointController.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
+                _app.TourCheckpointViewModel.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
                 i++;
             }
         }
@@ -252,6 +261,5 @@ namespace TouristAgency.View.Creation
             _multipleDateTimes.Remove(NewTour.StartDateTime);
             DateCount = _multipleDateTimes.Count;
         }
-
     }
 }

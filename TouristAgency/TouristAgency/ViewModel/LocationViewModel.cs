@@ -9,13 +9,13 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class LocationController
+    public class LocationViewModel
     {
-        private readonly LocationDAO _location;
+        private readonly LocationService _location;
 
-        public LocationController()
+        public LocationViewModel()
         {
-            _location = new LocationDAO();
+            _location = new LocationService();
         }
 
         public List<Location> GetAll()

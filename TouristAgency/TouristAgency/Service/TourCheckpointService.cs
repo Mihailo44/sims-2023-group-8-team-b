@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,13 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    public class TourCheckpointDAO : ISubject
+    public class TourCheckpointService : ISubject
     {
         private readonly TourCheckpointStorage _storage;
         private readonly List<TourCheckpoint> _tourCheckpoint;
         private List<IObserver> _observers;
 
-        public TourCheckpointDAO()
+        public TourCheckpointService()
         {
             _storage = new TourCheckpointStorage();
             _tourCheckpoint = _storage.Load();
@@ -73,6 +74,22 @@ namespace TouristAgency.Service
                     }
                 }
             }
+        }
+
+        public ObservableCollection<TourCheckpoint> GetTourCheckpointsByTourID(int tourID, List<Checkpoint> checkpoints)
+        {
+            ObservableCollection<TourCheckpoint> tourCheckpoints = new ObservableCollection<TourCheckpoint>(FindByID(tourID));
+            foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
+            {
+                foreach (Checkpoint checkpoint in checkpoints)
+                {
+                    if (checkpoint.ID == tourCheckpoint.CheckpointID)
+                    {
+                        tourCheckpoint.Checkpoint = checkpoint;
+                    }
+                }
+            }
+            return tourCheckpoints;
         }
 
         public void Subscribe(IObserver observer)

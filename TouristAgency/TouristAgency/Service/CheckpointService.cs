@@ -10,13 +10,13 @@ using TouristAgency.View.Home;
 
 namespace TouristAgency.Service
 {
-    public class CheckpointDAO : ICrud<Checkpoint>, ISubject
+    public class CheckpointService : ICrud<Checkpoint>, ISubject
     {
         private readonly CheckpointStorage _storage;
         private readonly List<Checkpoint> _checkpoints;
         private List<IObserver> _observers;
 
-        public CheckpointDAO()
+        public CheckpointService()
         {
             _storage = new CheckpointStorage();
             _checkpoints = _storage.Load(); ;
