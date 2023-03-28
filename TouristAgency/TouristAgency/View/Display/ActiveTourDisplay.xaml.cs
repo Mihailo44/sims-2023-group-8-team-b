@@ -40,7 +40,7 @@ namespace TouristAgency.View.Display
             _app = (App)Application.Current;
 
             _loggedInGuide = guide;
-            AvailableTours = _app.TourController.GetTodayTours(_loggedInGuide.ID);
+            AvailableTours = _app.TourViewModel.GetTodayTours(_loggedInGuide.ID);
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
             CheckAndSelectStartedTour();
@@ -111,16 +111,9 @@ namespace TouristAgency.View.Display
             AvailableToursListView.IsEnabled = false;
             FinishButton.IsEnabled = true;
             _selectedTour = (Tour)AvailableToursListView.SelectedItem;
-            _selectedTour.Status = STATUS.IN_PROGRESS;
-            _app.TourController.Update(_selectedTour,_selectedTour.ID);
-            RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
-            //TODO REFAKTORISATI KASNIJE
-            ObservableCollection<TourCheckpoint> checkpointsTemp = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
-            foreach(TourCheckpoint checkpoint in checkpointsTemp)
-            {
-                checkpoint.Checkpoint = _app.CheckpointController.FindByID(checkpoint.CheckpointID);
-            }
-            AvailableCheckpoints = checkpointsTemp;
+            RegisteredTourists = _app.TourViewModel.GetTouristsFromTour(_selectedTour.ID);
+            _app.TourViewModel.ChangeTourStatus(_selectedTour.ID, STATUS.IN_PROGRESS);
+            AvailableCheckpoints = _app.TourCheckpointViewModel.GetTourCheckpointsByTourID(_selectedTour.ID, _app.CheckpointViewModel.GetAll());
         }
 
         private void RightButton_OnClick(object sender, RoutedEventArgs e)
@@ -131,7 +124,7 @@ namespace TouristAgency.View.Display
                 {
                     ArrivedTourists.Add(selectedTourist);
                     TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-                    _app.TourTouristCheckpointController.Create(new TourTouristCheckpoint(_selectedTour.ID,
+                    _app.TourTouristCheckpointViewModel.Create(new TourTouristCheckpoint(_selectedTour.ID,
                         selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
                 }
             }
@@ -141,18 +134,12 @@ namespace TouristAgency.View.Display
         {
             ArrivedTourists.Clear();
             TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-            foreach (TourTouristCheckpoint tourTouristCheckpoint in _app.TourTouristCheckpointController.GetAll())
+            //TODO Ukloni kada se svi prebacimo na observablecollection
+            ObservableCollection<Tourist> allTourists = new ObservableCollection<Tourist>(_app.TouristViewModel.GetAll());
+            if (selectedTourCheckpoint != null && _selectedTour != null)
             {
-                if (_selectedTour != null)
-                {
-                    bool isSameTour = _selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
-                    bool isSameCheckpoint = selectedTourCheckpoint.CheckpointID == tourTouristCheckpoint.TourCheckpoint.CheckpointID;
-
-                    if (isSameTour && isSameCheckpoint)
-                    {
-                        ArrivedTourists.Add(_app.TouristController.FindById(tourTouristCheckpoint.TouristID));
-                    }
-                }
+                ArrivedTourists = _app.TourTouristCheckpointViewModel.FilterTouristsOnCheckpoint(_selectedTour.ID,
+                    selectedTourCheckpoint.CheckpointID, allTourists);
             }
         }
 
@@ -167,7 +154,7 @@ namespace TouristAgency.View.Display
             foreach (Tourist tourist in touristsToDelete)
             {
                 ArrivedTourists.Remove(tourist);
-                _app.TourTouristCheckpointController.Delete(tourist.ID);
+                _app.TourTouristCheckpointViewModel.Delete(tourist.ID);
             }
             touristsToDelete.Clear();
         }
@@ -191,13 +178,13 @@ namespace TouristAgency.View.Display
                 AvailableToursListView.IsEnabled = true;
                 BeginTourButton.IsEnabled = true;
                 FinishButton.IsEnabled = false;
+
                 foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
                 {
-                    _app.TourCheckpointController.Update(tourCheckpoint);
+                    _app.TourCheckpointViewModel.Update(tourCheckpoint);
                 }
+                _app.TourViewModel.ChangeTourStatus(_selectedTour.ID, STATUS.ENDED);
 
-                _selectedTour.Status = STATUS.ENDED;
-                _app.TourController.Update(_selectedTour,_selectedTour.ID);
                 AvailableTours.Remove(_selectedTour);
                 AvailableCheckpoints.Clear();
                 ArrivedTourists.Clear();
@@ -234,8 +221,8 @@ namespace TouristAgency.View.Display
                     AvailableToursListView.IsEnabled = false;
                     BeginTourButton.IsEnabled = false;
                     FinishButton.IsEnabled = true;
-                    RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
-                    AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
+                    RegisteredTourists = _app.TourViewModel.GetTouristsFromTour(_selectedTour.ID);
+                    AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointViewModel.FindByID(_selectedTour.ID));
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,13 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    public class TourTouristCheckpointDAO : ISubject
+    public class TourTouristCheckpointService : ISubject
     {
         private readonly TourTouristCheckpointStorage _storage;
         private readonly List<TourTouristCheckpoint> _tourtouristcheckpoint;
         private List<IObserver> _observers;
 
-        public TourTouristCheckpointDAO()
+        public TourTouristCheckpointService()
         {
             _storage = new TourTouristCheckpointStorage();
             _tourtouristcheckpoint = _storage.Load();
@@ -41,6 +42,24 @@ namespace TouristAgency.Service
         {
             return _tourtouristcheckpoint;
         }
+
+        public ObservableCollection<Tourist> FilterTouristsOnCheckpoint(int tourID, int checkpointID, ObservableCollection<Tourist> allTourists)
+        {
+            //TTC sadrzi ID ture, checkpoint i turiste, samim tim onda kada se poklope prva dva, to nam je turista
+            //koji nam treba.
+            ObservableCollection<Tourist> filtered = new ObservableCollection<Tourist>();
+            foreach (TourTouristCheckpoint ttc in _tourtouristcheckpoint)
+            {
+                bool isSameTour = tourID == ttc.TourCheckpoint.TourID;
+                bool isSameCheckpoint = checkpointID == ttc.TourCheckpoint.CheckpointID;
+                if (isSameTour && isSameCheckpoint)
+                {
+                    filtered.Add(allTourists.Single(t => t.ID == ttc.TouristID));
+                }
+            }
+            return filtered;
+        }
+
 
         public List<TourTouristCheckpoint> GetPendingInvitations(int touristID)
         {

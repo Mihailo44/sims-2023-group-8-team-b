@@ -9,43 +9,43 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class TourTouristController
+    public class TourTouristViewModel
     {
-        private readonly TourTouristDAO _tourTouristCheckpointDAO;
+        private readonly TourTouristService _tourTouristCheckpointService;
 
-        public TourTouristController()
+        public TourTouristViewModel()
         {
-            _tourTouristCheckpointDAO = new TourTouristDAO();
+            _tourTouristCheckpointService = new TourTouristService();
         }
 
         public void Create(TourTourist tourTourist)
         {
-            _tourTouristCheckpointDAO.Create(tourTourist);
+            _tourTouristCheckpointService.Create(tourTourist);
         }
 
         public void Delete(int touristID)
         {
-            _tourTouristCheckpointDAO.Delete(touristID);
+            _tourTouristCheckpointService.Delete(touristID);
         }
 
         public List<TourTourist> GetAll()
         {
-            return _tourTouristCheckpointDAO.GetAll();
+            return _tourTouristCheckpointService.GetAll();
         }
 
         public void Subscribe(IObserver observer)
         {
-            _tourTouristCheckpointDAO.Subscribe(observer);
+            _tourTouristCheckpointService.Subscribe(observer);
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            _tourTouristCheckpointDAO.Subscribe(observer);
+            _tourTouristCheckpointService.Subscribe(observer);
         }
 
         public void NotifyObservers()
         {
-            _tourTouristCheckpointDAO.NotifyObservers();
+            _tourTouristCheckpointService.NotifyObservers();
         }
     }
 }

@@ -10,13 +10,13 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class TourController
+    public class TourViewModel
     {
-        private readonly TourDAO _tour;
+        private readonly TourService _tour;
 
-        public TourController()
+        public TourViewModel()
         {
-            _tour = new TourDAO();
+            _tour = new TourService();
         }
 
         public int GenerateID()
@@ -82,6 +82,16 @@ namespace TouristAgency.ViewModel
         public void Update(Tour updatedTour, int id)
         {
             _tour.Update(updatedTour, id);
+        }
+
+        public void RegisterTourist(int tourID, Tourist tourist, int numberOfReservations)
+        {
+            _tour.RegisterTourist(tourID, tourist, numberOfReservations);
+        }
+
+        public void ChangeTourStatus(int id, STATUS status)
+        {
+            _tour.ChangeTourStatus(id, status);
         }
 
         public void Delete(Tour Tour)

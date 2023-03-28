@@ -10,13 +10,13 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    public class TourDAO : ICrud<Tour>, ISubject
+    public class TourService : ICrud<Tour>, ISubject
     {
         private readonly TourStorage _storage;
         private readonly List<Tour> _tours;
         private List<IObserver> _observers;
 
-        public TourDAO()
+        public TourService()
         {
             _storage = new TourStorage();
             _tours = _storage.Load();
@@ -73,14 +73,29 @@ namespace TouristAgency.Service
             currentTour.MaxAttendants = newTour.MaxAttendants;
             currentTour.CurrentAttendants = newTour.CurrentAttendants;
             currentTour.Duration = newTour.Duration;
-            currentTour.StartDateTime = newTour.StartDateTime; //! Mozda mora new!
+            currentTour.StartDateTime = newTour.StartDateTime;
             currentTour.RemainingCapacity = currentTour.MaxAttendants - currentTour.CurrentAttendants;
-            //TODO liste, kada napravis update formu
-            //currentTour.GuideID = ..
-            //slike...
             _storage.Save(_tours);
             NotifyObservers();
             return currentTour;
+        }
+
+        public void RegisterTourist(int tourID, Tourist tourist, int numberOfReservations)
+        {
+            Tour tour = FindById(tourID);
+            tour.CurrentAttendants += numberOfReservations;
+            if (!tour.RegisteredTourists.Contains(tourist))
+            {
+                tour.RegisteredTourists.Add(tourist);
+            }
+            Update(tour, tourID);
+        }
+
+        public void ChangeTourStatus(int id, STATUS status)
+        {
+            Tour selectedTour = FindById(id);
+            selectedTour.Status = status; 
+            Update(selectedTour, selectedTour.ID);
         }
 
         public void Delete(int id)

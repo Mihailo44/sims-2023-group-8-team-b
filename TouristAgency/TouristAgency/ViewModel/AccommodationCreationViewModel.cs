@@ -12,7 +12,7 @@ namespace TouristAgency.ViewModel
     {
         private readonly AccommodationService _accommodation;
         private readonly PhotoService _photoService;
-        private readonly LocationDAO _locationDAO;
+        private readonly LocationService _locationService;
         private Owner _owner;
         private int _ownerId;
         private string _name;
@@ -38,7 +38,7 @@ namespace TouristAgency.ViewModel
         {
             _accommodation = new AccommodationService();
             _photoService = new PhotoService();
-            _locationDAO = new LocationDAO();
+            _locationService = new LocationService();
             LoggedUser = owner;
             _window = window;
             NewAccommodation = new();
@@ -167,8 +167,8 @@ namespace TouristAgency.ViewModel
         {
             NewAccommodation.OwnerId = LoggedUser.ID;
             NewAccommodation.Owner = LoggedUser;
-            NewAccommodation.Location = _locationDAO.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim());
-            NewAccommodation.LocationId = _locationDAO.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
+            NewAccommodation.Location = _locationService.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim());
+            NewAccommodation.LocationId = _locationService.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
         }
 
         public bool CanCreateAccommodationExecute()

@@ -10,13 +10,13 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class CheckpointController
+    public class CheckpointViewModel
     {
-        private readonly CheckpointDAO _checkpoint;
+        private readonly CheckpointService _checkpoint;
 
-        public CheckpointController()
+        public CheckpointViewModel()
         {
-            _checkpoint = new CheckpointDAO();
+            _checkpoint = new CheckpointService();
         }
 
         public Checkpoint FindByID(int id)

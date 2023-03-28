@@ -17,35 +17,48 @@ namespace TouristAgency
     {
         public ReservationViewModel ReservationViewModel { get; set; } = new ReservationViewModel();
         public AccommodationCreationViewModel AccommodationCreationViewModel { get; set; } = new AccommodationCreationViewModel();
-        public CheckpointController CheckpointController { get; set; } = new CheckpointController();    
+        public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();    
         public GuestController GuestController { get; set; } = new GuestController();
         public GuestReviewViewModel GuestReviewViewModel { get; set; } = new GuestReviewViewModel();
-        public LocationController LocationController { get; set; } = new LocationController();
+        public LocationViewModel LocationViewModel { get; set; } = new LocationViewModel();
         public OwnerViewModel OwnerViewModel { get; set; } = new OwnerViewModel();
-        public GuideController GuideController { get; set; } = new GuideController();
+        public GuideViewModel GuideViewModel { get; set; } = new GuideViewModel();
         public PhotoViewModel PhotoViewModel { get; set; } = new PhotoViewModel();
-        public TourCheckpointController TourCheckpointController { get; set; } = new TourCheckpointController();
-        public TourController TourController { get; set; } = new TourController();
-        public TouristController TouristController { get; set; } = new TouristController();
-        public TourTouristCheckpointController TourTouristCheckpointController { get; set; } = new TourTouristCheckpointController();
-        public TourTouristController TourTouristController { get; set; } = new TourTouristController();
+        public TourCheckpointViewModel TourCheckpointViewModel { get; set; } = new TourCheckpointViewModel();
+        public TourViewModel TourViewModel { get; set; } = new TourViewModel();
+        public TouristViewModel TouristViewModel { get; set; } = new TouristViewModel();
+        public TourTouristCheckpointViewModel TourTouristCheckpointViewModel { get; set; } = new TourTouristCheckpointViewModel();
+        public TourTouristViewModel TourTouristViewModel { get; set; } = new TourTouristViewModel();
 
         public App()
         {
-            AccommodationCreationViewModel.LoadLocationsToAccommodations(LocationController.GetAll());
+            AccommodationCreationViewModel.LoadLocationsToAccommodations(LocationViewModel.GetAll());
             AccommodationCreationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
-            CheckpointController.LoadLocationsToCheckpoints(LocationController.GetAll());
-            TourController.LoadLocationsToTours(LocationController.GetAll());
-            TourController.LoadPhotosToTours(PhotoViewModel.GetAll());
+            CheckpointViewModel.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
+            TourViewModel.LoadLocationsToTours(LocationViewModel.GetAll());
+            TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
+            ReservationViewModel.LoadAccommodationsToReservations(AccommodationCreationViewModel.GetAll());
+            AccommodationCreationViewModel.LoadLocationsToAccommodations(LocationViewModel.GetAll());
+            AccommodationCreationViewModel.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
+            CheckpointViewModel.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
+            TourViewModel.LoadLocationsToTours(LocationViewModel.GetAll());
+            TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
             ReservationViewModel.LoadAccommodationsToReservations(AccommodationCreationViewModel.GetAll());
             ReservationViewModel.LoadGuestsToReservations(GuestController.GetAll());
-            TourCheckpointController.LoadCheckpoints(CheckpointController.GetAll());
+            TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
             OwnerViewModel.LoadAccommodationsToOwners(AccommodationCreationViewModel.GetAll());
-            GuideController.LoadToursToGuide(TourController.GetAll());
-            TourController.LoadTouristsToTours(TourTouristController.GetAll(),TouristController.GetAll());
-            TouristController.LoadToursToTourist(TourTouristController.GetAll(), TourController.GetAll());
-            TourController.LoadCheckpointsToTours(TourCheckpointController.GetAll(), CheckpointController.GetAll());
-            OwnerViewModel.LoadLocationsToOwners(LocationController.GetAll());
+            GuideViewModel.LoadToursToGuide(TourViewModel.GetAll());
+            TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(),TouristViewModel.GetAll());
+            TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
+            TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
+            OwnerViewModel.LoadLocationsToOwners(LocationViewModel.GetAll());
+            TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
+            OwnerViewModel.LoadAccommodationsToOwners(AccommodationCreationViewModel.GetAll());
+            GuideViewModel.LoadToursToGuide(TourViewModel.GetAll());
+            TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(),TouristViewModel.GetAll());
+            TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
+            TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
+            OwnerViewModel.LoadLocationsToOwners(LocationViewModel.GetAll());
         }
     }
 }
