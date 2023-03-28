@@ -80,6 +80,17 @@ namespace TouristAgency.Service
             return currentTour;
         }
 
+        public void RegisterTourist(int tourID, Tourist tourist, int numberOfReservations)
+        {
+            Tour tour = FindById(tourID);
+            tour.CurrentAttendants += numberOfReservations;
+            if (!tour.RegisteredTourists.Contains(tourist))
+            {
+                tour.RegisteredTourists.Add(tourist);
+            }
+            Update(tour, tourID);
+        }
+
         public void ChangeTourStatus(int id, STATUS status)
         {
             Tour selectedTour = FindById(id);

@@ -9,13 +9,13 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class TouristController
+    public class TouristViewModel
     {
-        private readonly TouristDAO _tourist;
+        private readonly TouristService _tourist;
 
-        public TouristController()
+        public TouristViewModel()
         {
-            _tourist = new TouristDAO();
+            _tourist = new TouristService();
         }
 
         public int GenerateId()

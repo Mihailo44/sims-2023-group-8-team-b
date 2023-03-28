@@ -16,7 +16,7 @@ namespace TouristAgency
     {
         private OwnerViewModel _OwnerViewModel;
         private GuestController _guestController;
-        private TouristController _touristController;
+        private TouristViewModel _touristViewModel;
         private GuideViewModel _guideViewModel;
 
         public App app;
@@ -88,7 +88,7 @@ namespace TouristAgency
 
             _OwnerViewModel = app.OwnerViewModel;
             _guestController = app.GuestController;
-            _touristController = app.TouristController;
+            _touristViewModel = app.TouristViewModel;
             _guideViewModel = app.GuideViewModel;
             Username = "(Username)";
             Password = "(Password)";
@@ -106,7 +106,7 @@ namespace TouristAgency
             {
                 return User.GetType().ToString();
             }
-            User = _touristController.GetAll().Find(t => t.Username == Username.Trim() && t.Password == Password.Trim());
+            User = _touristViewModel.GetAll().Find(t => t.Username == Username.Trim() && t.Password == Password.Trim());
             if (User != null)
             {
                 return User.GetType().ToString();

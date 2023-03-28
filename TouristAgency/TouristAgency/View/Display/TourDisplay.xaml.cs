@@ -231,15 +231,9 @@ namespace TouristAgency.View.Display
 
             if(NumberOfReservation != 0)
             {
-                Tourist tourist = _app.TouristController.FindById(_loggedInTourist.ID);
-                selectedTour.CurrentAttendants += NumberOfReservation;
-                if (!selectedTour.RegisteredTourists.Contains(tourist))
-                {
-                    selectedTour.RegisteredTourists.Add(_loggedInTourist);
-                }
-                _app.TourViewModel.Update(selectedTour, selectedTour.ID);
+                _app.TourViewModel.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
                 _app.TourTouristViewModel.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
-                tourist.AppliedTours.Add(selectedTour);
+                _loggedInTourist.AppliedTours.Add(selectedTour);
 
                 MessageBox.Show("Successfully made a reservation.", "Success");
             }
@@ -247,7 +241,6 @@ namespace TouristAgency.View.Display
             {
                 MessageBox.Show("Number of reservation can not be a null!", "Alert");
             }
-            
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

@@ -84,6 +84,11 @@ namespace TouristAgency.ViewModel
             _tour.Update(updatedTour, id);
         }
 
+        public void RegisterTourist(int tourID, Tourist tourist, int numberOfReservations)
+        {
+            _tour.RegisterTourist(tourID, tourist, numberOfReservations);
+        }
+
         public void ChangeTourStatus(int id, STATUS status)
         {
             _tour.ChangeTourStatus(id, status);

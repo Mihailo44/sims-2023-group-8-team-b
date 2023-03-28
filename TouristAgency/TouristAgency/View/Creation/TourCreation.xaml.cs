@@ -174,16 +174,16 @@ namespace TouristAgency.View.Creation
 
         private void PrepareLocation()
         {
-            int locationID = _app.LocationController.FindLocationID(NewLocation);
+            int locationID = _app.LocationViewModel.FindLocationID(NewLocation);
             NewLocation.Id = locationID;
             if (locationID == -1)
             {
-                _app.LocationController.Create(NewLocation);
+                _app.LocationViewModel.Create(NewLocation);
             }
 
             _newTour.ShortLocation = NewLocation;
             _newTour.ShortLocationID = NewLocation.Id;
-            }
+        }
 
         private void AddPhotos()
         {
@@ -261,6 +261,5 @@ namespace TouristAgency.View.Creation
             _multipleDateTimes.Remove(NewTour.StartDateTime);
             DateCount = _multipleDateTimes.Count;
         }
-
     }
 }
