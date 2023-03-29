@@ -232,16 +232,6 @@ namespace TouristAgency.ViewModel
             return new ObservableCollection<string>(_accommodation.GetTypes());
         }
 
-        public void LoadLocationsToAccommodations(List<Location> locations)
-        {
-            _accommodation.LoadLocationsToAccommodations(locations);
-        }
-
-        public void LoadPhotosToAccommodations(List<Photo> photos)
-        {
-            _accommodation.LoadPhotosToAccommodations(photos);
-        }
-
         public void Create(Accommodation newAccommodation)
         {
             _accommodation.Create(newAccommodation);
