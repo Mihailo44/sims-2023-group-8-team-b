@@ -48,12 +48,6 @@ namespace TouristAgency
             TourViewModel.LoadLocationsToTours(LocationViewModel.GetAll());
             TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
             _reservationService.LoadAccommodationsToReservations(_accommodationService.GetAll());
-            _accommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
-            _accommodationService.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
-            CheckpointViewModel.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
-            TourViewModel.LoadLocationsToTours(LocationViewModel.GetAll());
-            TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
-            _reservationService.LoadAccommodationsToReservations(_accommodationService.GetAll());
             _reservationService.LoadGuestsToReservations(GuestViewModel.GetAll());
             TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
             _ownerService.LoadAccommodationsToOwners(_accommodationService.GetAll());
@@ -62,13 +56,7 @@ namespace TouristAgency
             TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
             TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
             _ownerService.LoadLocationsToOwners(LocationViewModel.GetAll());
-            TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
-            _ownerService.LoadAccommodationsToOwners(_accommodationService.GetAll());
-            GuideViewModel.LoadToursToGuide(TourViewModel.GetAll());
-            TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(),TouristViewModel.GetAll());
-            TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
-            TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
-            _ownerService.LoadLocationsToOwners(LocationViewModel.GetAll());
+         
         }
     }
 }
