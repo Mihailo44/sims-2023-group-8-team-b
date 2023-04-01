@@ -178,7 +178,7 @@ namespace TouristAgency.Model
             {
                 Id.ToString(),
                 GuestId.ToString(),
-                ReviewDate.ToShortDateString(), // mozda treba drugacije
+                ReviewDate.ToShortDateString(),
                 Cleanliness.ToString(),
                 RuleAbiding.ToString(),
                 Communication.ToString(),

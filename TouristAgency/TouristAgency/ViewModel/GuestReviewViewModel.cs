@@ -41,8 +41,8 @@ namespace TouristAgency.ViewModel
 
         public GuestReviewViewModel(Reservation reservation,Window window)
         {
-            _guestReview = new GuestReviewService();
-            _reservationService = new ReservationService();
+            _guestReview = app.GuestReviewService;
+            _reservationService = app.ReservationService;
             _window = window;
             Selected = reservation;
             NewGuestReview = new();

@@ -14,6 +14,7 @@ namespace TouristAgency
         public GuestReviewService GuestReviewService { get; }   
         public OwnerService OwnerService { get; }
         public UserService UserService { get; }
+        public OwnerReviewService OwnerReviewService { get; }
        
         public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();
         public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
@@ -33,6 +34,7 @@ namespace TouristAgency
             GuestReviewService = new();
             OwnerService = new();
             UserService = new();
+            OwnerReviewService = new();
 
             AccommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
             AccommodationService.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
@@ -49,6 +51,7 @@ namespace TouristAgency
             TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(), TouristViewModel.GetAll());
             TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
             TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
+            OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
         }
     }
 }
