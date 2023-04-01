@@ -76,7 +76,7 @@ namespace TouristAgency.ViewModel
             return _reservation.ReviewNotification(owner.ID, out changes);
         }
 
-        public void Subcribe(IObserver observer)
+        public void Subscribe(IObserver observer)
         {
             _reservation.Subscribe(observer);
         }

@@ -183,7 +183,7 @@ namespace TouristAgency.ViewModel
             try
             {
                 //_accommodation.Create(NewAccommodation);
-                Create(NewAccommodation);
+                _accommodation.Create(NewAccommodation);
                 AddPhotos();
                 MessageBox.Show("Accommodation created successfully");
             }
@@ -208,30 +208,6 @@ namespace TouristAgency.ViewModel
         }
 
         //----------------------------------------------------------------------------------------------
-        public List<Accommodation> GetAll()
-        {
-            return _accommodation.GetAll();
-        }
-
-        public void Create(Accommodation newAccommodation)
-        {
-            _accommodation.Create(newAccommodation);
-        }
-
-        public void Update(Accommodation updatedAccommodation, int id)
-        {
-            _accommodation.Update(updatedAccommodation, id);
-        }
-
-        public void Delete(Accommodation accommodation)
-        {
-            _accommodation.Delete(accommodation.Id);
-        }
-
-        public List<Accommodation> GetByOwnerId(int id = 0)
-        {
-            return _accommodation.GetByOwnerId(id);
-        }
 
         public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
         {
