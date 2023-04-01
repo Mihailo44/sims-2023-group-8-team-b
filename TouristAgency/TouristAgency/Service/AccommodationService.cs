@@ -9,7 +9,7 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Service
 {
-    internal class AccommodationService : ICrud<Accommodation>, ISubject
+    public class AccommodationService : ICrud<Accommodation>, ISubject
     {
         private readonly AccommodationStorage _storage;
         private readonly List<Accommodation> _accommodations;
@@ -172,7 +172,7 @@ namespace TouristAgency.Service
 
         public List<Accommodation> GetByOwnerId(int id = 0)
         {
-            return _accommodations.Where(a => a.OwnerId == id).ToList();
+            return _accommodations.FindAll(a => a.OwnerId == id);
         }
 
         public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)

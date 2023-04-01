@@ -13,10 +13,11 @@ namespace TouristAgency.ViewModel
     public class OwnerViewModel : ViewModelBase 
     {
         private readonly OwnerService _owner;
+        private App app = (App)App.Current;
 
         public OwnerViewModel()
         {
-            _owner = new OwnerService();
+            _owner = app.OwnerService;
         }
 
         public List<Owner> GetAll()

@@ -8,16 +8,19 @@ using TouristAgency.Interfaces;
 using TouristAgency.Service;
 using TouristAgency.Base;
 using System.Collections.ObjectModel;
+using TouristAgency;
+
 
 namespace TouristAgency.ViewModel
 {
     public class ReservationViewModel : ViewModelBase
     {
         private readonly ReservationService _reservation;
+        private App app = (App)App.Current;
 
         public ReservationViewModel()
         {
-            _reservation = new ReservationService();
+            _reservation = app.ReservationService;
         }
 
         public List<Reservation> GetAll()

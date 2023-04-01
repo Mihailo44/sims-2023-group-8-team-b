@@ -80,16 +80,10 @@ namespace TouristAgency.Model
             }
         }
 
-        public Accommodation Accommodation
+       public Accommodation Accommodation 
         {
             get => _accommodation;
-            set
-            {
-                if (_accommodation != value)
-                {
-                    _accommodation = value;
-                }
-            }
+            set => _accommodation = value;
         }
 
         public int AccommodationId

@@ -9,7 +9,7 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    internal class ReservationService : ICrud<Reservation>, ISubject
+    public class ReservationService : ICrud<Reservation>, ISubject
     {
         private readonly ReservationStorage _storage;
         private readonly List<Reservation> _reservations;
@@ -231,7 +231,7 @@ namespace TouristAgency.Service
 
         public List<Reservation> GetByOwnerId(int id)
         {
-            return _reservations.Where(r => r.Accommodation.OwnerId == id).ToList();
+            return _reservations.FindAll(r => r.Accommodation.OwnerId == id);
         }
 
         public string ReviewNotification(int ownerId, out int changes)

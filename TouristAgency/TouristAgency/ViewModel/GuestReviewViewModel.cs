@@ -27,6 +27,7 @@ namespace TouristAgency.ViewModel
         private int _noiseLevel;
         private string _comment;
         private readonly Window _window;
+        private App app = (App)App.Current;
 
         public GuestReview NewGuestReview { get; set; }
         public Reservation Selected { get; }
@@ -35,7 +36,7 @@ namespace TouristAgency.ViewModel
 
         public GuestReviewViewModel()
         {
-            _guestReview = new GuestReviewService();
+            _guestReview = app.GuestReviewService;
         }
 
         public GuestReviewViewModel(Reservation reservation,Window window)

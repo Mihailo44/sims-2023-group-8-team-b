@@ -9,7 +9,7 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    internal class OwnerService : ICrud<Owner>, ISubject
+    public class OwnerService : ICrud<Owner>, ISubject
     {
         private readonly OwnerStorage _storage;
         private readonly List<Owner> _owners;

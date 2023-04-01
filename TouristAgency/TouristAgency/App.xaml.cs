@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using TouristAgency.ViewModel;
+﻿using System.Windows;
 using TouristAgency.Service;
-using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency
 {
@@ -16,17 +9,15 @@ namespace TouristAgency
     /// </summary>
     public partial class App : Application
     {
-        private readonly ReservationService _reservationService;
-        private readonly AccommodationService _accommodationService;
-        private readonly GuestReviewService _guestReviewService;
-        private readonly OwnerService _ownerService;
-        public ReservationViewModel ReservationViewModel { get; set; } = new ReservationViewModel();
-        public AccommodationCreationViewModel AccommodationCreationViewModel { get; set; } = new AccommodationCreationViewModel();
-        public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();    
+        public ReservationService ReservationService { get; }
+        public AccommodationService AccommodationService { get; }
+        public GuestReviewService GuestReviewService { get; }   
+        public OwnerService OwnerService { get; }
+        public UserService UserService { get; }
+       
+        public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();
         public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
-        //public GuestReviewViewModel GuestReviewViewModel { get; set; } = new GuestReviewViewModel();
         public LocationViewModel LocationViewModel { get; set; } = new LocationViewModel();
-        //public OwnerViewModel OwnerViewModel { get; set; } = new OwnerViewModel();
         public GuideViewModel GuideViewModel { get; set; } = new GuideViewModel();
         public PhotoViewModel PhotoViewModel { get; set; } = new PhotoViewModel();
         public TourCheckpointViewModel TourCheckpointViewModel { get; set; } = new TourCheckpointViewModel();
@@ -37,26 +28,27 @@ namespace TouristAgency
 
         public App()
         {
-            _reservationService = new();
-            _accommodationService = new();
-            _guestReviewService = new();
-            _ownerService = new();
+            ReservationService = new();
+            AccommodationService = new();
+            GuestReviewService = new();
+            OwnerService = new();
+            UserService = new();
 
-            _accommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
-            _accommodationService.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
+            AccommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
+            AccommodationService.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
+            OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());
+            OwnerService.LoadLocationsToOwners(LocationViewModel.GetAll());
+            GuestReviewService.LoadGuestsToGuestReviews(GuestViewModel.GetAll());
             CheckpointViewModel.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
             TourViewModel.LoadLocationsToTours(LocationViewModel.GetAll());
             TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
-            _reservationService.LoadAccommodationsToReservations(_accommodationService.GetAll());
-            _reservationService.LoadGuestsToReservations(GuestViewModel.GetAll());
+            ReservationService.LoadAccommodationsToReservations(AccommodationService.GetAll());
+            ReservationService.LoadGuestsToReservations(GuestViewModel.GetAll());
             TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
-            _ownerService.LoadAccommodationsToOwners(_accommodationService.GetAll());
             GuideViewModel.LoadToursToGuide(TourViewModel.GetAll());
-            TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(),TouristViewModel.GetAll());
+            TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(), TouristViewModel.GetAll());
             TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
             TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
-            _ownerService.LoadLocationsToOwners(LocationViewModel.GetAll());
-         
         }
     }
 }

@@ -22,6 +22,7 @@ namespace TouristAgency.ViewModel
         private int _allowedNumOfDaysForCancelation;
         private string _photoLinks;
         private readonly Window _window;
+        private App app = (App)App.Current;
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
@@ -31,12 +32,12 @@ namespace TouristAgency.ViewModel
 
         public AccommodationCreationViewModel()
         {
-            _accommodation = new AccommodationService();
+            _accommodation = app.AccommodationService;
         }
 
         public AccommodationCreationViewModel(Owner owner, Window window)
         {
-            _accommodation = new AccommodationService();
+            _accommodation = app.AccommodationService;
             _photoService = new PhotoService();
             _locationService = new LocationService();
             LoggedUser = owner;
@@ -210,26 +211,6 @@ namespace TouristAgency.ViewModel
         public List<Accommodation> GetAll()
         {
             return _accommodation.GetAll();
-        }
-
-        public ObservableCollection<string> GetNames()
-        {
-            return new ObservableCollection<string>(_accommodation.GetNames());
-        }
-
-        public ObservableCollection<string> GetCities()
-        {
-            return new ObservableCollection<string>(_accommodation.GetCities());
-        }
-
-        public ObservableCollection<string> GetCountries()
-        {
-            return new ObservableCollection<string>(_accommodation.GetCountries());
-        }
-
-        public ObservableCollection<string> GetTypes()
-        {
-            return new ObservableCollection<string>(_accommodation.GetTypes());
         }
 
         public void Create(Accommodation newAccommodation)

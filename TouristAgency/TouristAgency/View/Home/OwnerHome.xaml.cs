@@ -20,7 +20,7 @@ namespace TouristAgency.View.Home
     public partial class OwnerHome : Window, IObserver
     {
         private ReservationViewModel _reservationViewModel;
-        private AccommodationCreationViewModel _AccommodationCreationViewModel;
+        private AccommodationCreationViewModel _accommodationCreationViewModel;
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
@@ -30,18 +30,18 @@ namespace TouristAgency.View.Home
 
         public Owner LoggedUser { get; set; }
 
+        private App app = (App)Application.Current;
+
         public OwnerHome(Owner owner)
         {
             InitializeComponent();
             DataContext = this;
 
-            var app = (App)Application.Current;
-
-            _reservationViewModel = app.ReservationViewModel;
+            _reservationViewModel = new();
             _reservationViewModel.Subcribe(this);
 
-            _AccommodationCreationViewModel = app.AccommodationCreationViewModel;
-            _AccommodationCreationViewModel.Subscribe(this);
+            _accommodationCreationViewModel = new();
+            _accommodationCreationViewModel.Subscribe(this); 
 
             LoggedUser = owner;
 
@@ -56,7 +56,7 @@ namespace TouristAgency.View.Home
         private void LoadAccommodations(int ownerId = 0)
         {
             Accommodations.Clear();
-            List<Accommodation> accommodations = _AccommodationCreationViewModel.GetByOwnerId(ownerId);
+            List<Accommodation> accommodations = _accommodationCreationViewModel.GetByOwnerId(ownerId);
             foreach(var accommodation in accommodations)
             {
                 Accommodations.Add(accommodation);

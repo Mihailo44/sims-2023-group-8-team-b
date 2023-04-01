@@ -9,7 +9,7 @@ using TouristAgency.Model;
 
 namespace TouristAgency.Service
 {
-    internal class GuestReviewService : ICrud<GuestReview>, ISubject
+    public class GuestReviewService : ICrud<GuestReview>, ISubject
     {
         private readonly GuestReviewStorage _storage;
         private readonly List<GuestReview> _guestReviews;
@@ -70,6 +70,18 @@ namespace TouristAgency.Service
         public List<GuestReview> GetAll()
         {
             return _guestReviews;
+        }
+
+        public void LoadGuestsToGuestReviews(List<Guest> guests)
+        {
+            foreach(GuestReview guestReview in _guestReviews)
+            {
+               Guest guest = guests.Find(g => g.ID == guestReview.GuestId);
+                if(guest != null)
+                {
+                    guestReview.Guest = guest;
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

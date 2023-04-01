@@ -20,6 +20,7 @@ namespace TouristAgency.ViewModel
         private Window _window;
         private string _username;
         private string _password;
+        private App app = (App)App.Current;
 
         public dynamic User { get; set; }
         public DelegateCommand CloseCmd { get; }
@@ -27,15 +28,15 @@ namespace TouristAgency.ViewModel
 
         public MainWindowViewModel()
         {
-            _userService = new();
+            _userService = app.UserService;
         }
 
         public MainWindowViewModel(Window window)
         {
-            _userService = new();
+            _userService = app.UserService;
             _window = window;
-            Username = "(Username)";
-            Password = "(Password)";
+            Username = "User";
+            Password = "Pass";
             LoginCmd = new DelegateCommand(param => LoginExecute(),param => CanLoginExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
         }
