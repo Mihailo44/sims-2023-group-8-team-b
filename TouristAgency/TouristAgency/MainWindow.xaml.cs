@@ -42,61 +42,7 @@ namespace TouristAgency
             DataContext = new MainWindowViewModel(this);
         }
 
-       /* private void ButtonLogin_Click(object sender, RoutedEventArgs e)
-        {
-            User = _userService.GetUser(Username,Password);
-
-            if (User != null)
-            {
-                switch (User.GetType().ToString())
-                {
-                    case "TouristAgency.Model.Owner":
-                        {
-                            OwnerHome x = new OwnerHome((Owner)User);
-                            x.Show();
-                            Username = "";
-                            Password = "";
-                        }
-                        break;
-                    case "TouristAgency.Model.Guest":
-                        {
-                            AccommodationDisplay x = new AccommodationDisplay((Guest)User);
-                            x.Show();
-                            Username = "";
-                            Password = "";
-                        }
-                        break;
-                    case "TouristAgency.Model.Tourist":
-                        {
-                            TourDisplay x = new TourDisplay((Tourist)User);
-                            x.Show();
-                            Username = "";
-                            Password = "";
-                        }
-                        break;
-                    case "TouristAgency.Model.Guide":
-                        {
-                            GuideHome x = new GuideHome((Guide)User);
-                            x.Show();
-                            Username = "";
-                            Password = "";
-                        }
-                        break;
-                    default: MessageBox.Show("Failure"); break;
-                }
-            }
-            else
-            {
-                MessageBox.Show("User is not registered");
-            }
-        }
-
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+       /* private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.Enter))
             {

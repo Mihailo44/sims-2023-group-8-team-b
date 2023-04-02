@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class OwnerReview 
+    public class OwnerReview : ISerializable 
     {
         private int _id;
         private Reservation _reservation;
@@ -35,9 +34,10 @@ namespace TouristAgency.Model
             _photos = new List<Photo>();
         }
 
-        public OwnerReview(int cleanliness, int ownerCorrectness, int location, int comfort, int wifi, string comment = "")
+        public OwnerReview(Reservation reservation,int cleanliness, int ownerCorrectness, int location, int comfort, int wifi, string comment = "")
         {
-           
+            _reservation = reservation;
+            _reservationId = reservation.Id;
             _reviewDate = DateTime.Now;
             _cleanliness = cleanliness;
             _ownerCorrectness = ownerCorrectness;
@@ -45,6 +45,7 @@ namespace TouristAgency.Model
             _comfort = comfort;
             _wifi = wifi;
             _comment = comment;
+            _photos = new List<Photo>();
         }
 
         public int Id
@@ -55,6 +56,30 @@ namespace TouristAgency.Model
                 if (value != _id)
                 {
                     _id = value;
+                }
+            }
+        }
+        
+        public Reservation Reservation
+        {
+            get => _reservation;
+            set
+            {
+                if(value != _reservation)
+                {
+                    _reservation = value;
+                }
+            }
+        }
+
+        public int ReservationId
+        {
+            get => _reservationId;
+            set
+            {
+                if(value != _reservationId)
+                {
+                    _reservationId = value;
                 }
             }
         }
@@ -152,13 +177,14 @@ namespace TouristAgency.Model
         /*public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            ReviewDate = DateTime.Parse(values[3]);
-            Cleanliness = int.Parse(values[4]);
-            OwnerCorrectness = int.Parse(values[5]);
-            Location = int.Parse(values[6]);
-            Comfort = int.Parse(values[7]);
-            Wifi = int.Parse(values[8]);
-            Comment = values[9];
+            ReservationId = int.Parse(values[1]);
+            ReviewDate = DateTime.Parse(values[2]);
+            Cleanliness = int.Parse(values[3]);
+            OwnerCorrectness = int.Parse(values[4]);
+            Location = int.Parse(values[5]);
+            Comfort = int.Parse(values[6]);
+            Wifi = int.Parse(values[7]);
+            Comment = values[8];
         }
 
         public string[] ToCSV()
@@ -166,6 +192,7 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                ReservationId.ToString(),
                 ReviewDate.ToShortDateString(), 
                 Cleanliness.ToString(),
                 OwnerCorrectness.ToString(),

@@ -8,16 +8,19 @@ using TouristAgency.Interfaces;
 using TouristAgency.Service;
 using TouristAgency.Base;
 using System.Collections.ObjectModel;
+using TouristAgency;
+
 
 namespace TouristAgency.ViewModel
 {
     public class ReservationViewModel : ViewModelBase
     {
         private readonly ReservationService _reservation;
+        private App app = (App)App.Current;
 
         public ReservationViewModel()
         {
-            _reservation = new ReservationService();
+            _reservation = app.ReservationService;
         }
 
         public List<Reservation> GetAll()
@@ -38,16 +41,6 @@ namespace TouristAgency.ViewModel
         public void Delete(Reservation reservation)
         {
             _reservation.Delete(reservation.Id);
-        }
-
-        public void LoadAccommodationsToReservations(List<Accommodation> accommodations)
-        {
-            _reservation.LoadAccommodationsToReservations(accommodations);
-        }
-
-        public void LoadGuestsToReservations(List<Guest> guests)
-        {
-            _reservation.LoadGuestsToReservations(guests);
         }
 
         public List<Reservation> GetUnreviewed(int ownerId = 0)
@@ -83,7 +76,7 @@ namespace TouristAgency.ViewModel
             return _reservation.ReviewNotification(owner.ID, out changes);
         }
 
-        public void Subcribe(IObserver observer)
+        public void Subscribe(IObserver observer)
         {
             _reservation.Subscribe(observer);
         }

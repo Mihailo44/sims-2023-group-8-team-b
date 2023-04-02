@@ -27,7 +27,8 @@ namespace TouristAgency.Base
 
         public bool CanExecute(object parameter)
         {
-            return true; // mozda drugacije
+            //return true;
+            return _canExecute(parameter);
         }
 
         public void Execute(object parameter)

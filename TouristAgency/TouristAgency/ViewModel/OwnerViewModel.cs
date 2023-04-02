@@ -13,10 +13,11 @@ namespace TouristAgency.ViewModel
     public class OwnerViewModel : ViewModelBase 
     {
         private readonly OwnerService _owner;
+        private App app = (App)App.Current;
 
         public OwnerViewModel()
         {
-            _owner = new OwnerService();
+            _owner = app.OwnerService;
         }
 
         public List<Owner> GetAll()
@@ -39,7 +40,7 @@ namespace TouristAgency.ViewModel
             _owner.Delete(newOwner.ID);
         }
 
-        public void LoadAccommodationsToOwners(List<Accommodation> accommodations)
+        /*public void LoadAccommodationsToOwners(List<Accommodation> accommodations)
         {
             _owner.LoadAccommodationsToOwners(accommodations);
         }
@@ -47,7 +48,7 @@ namespace TouristAgency.ViewModel
         public void LoadLocationsToOwners(List<Location> locations)
         {
             _owner.LoadLocationsToOwners(locations);
-        }
+        } */
 
         public void Subscribe(IObserver observer)
         {
