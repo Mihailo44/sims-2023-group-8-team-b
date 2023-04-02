@@ -174,7 +174,7 @@ namespace TouristAgency.Model
             set => _photos = value;
         }
 
-        /*public void FromCSV(string[] values)
+        public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
@@ -203,6 +203,6 @@ namespace TouristAgency.Model
             };
 
             return csvValues;
-        } */
+        } 
     }
 }
