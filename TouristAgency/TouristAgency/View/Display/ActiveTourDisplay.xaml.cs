@@ -36,18 +36,19 @@ namespace TouristAgency.View.Display
         public ActiveTourDisplay(Guide guide)
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = new ActiveTourDisplayViewModel(guide, this);
+            /*this.DataContext = this;
             _app = (App)Application.Current;
 
             _loggedInGuide = guide;
             AvailableTours = _app.TourViewModel.GetTodayTours(_loggedInGuide.ID);
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
-            CheckAndSelectStartedTour();
+            CheckAndSelectStartedTour();*/
 
         }
 
-        public ObservableCollection<Tour> AvailableTours
+/*        public ObservableCollection<Tour> AvailableTours
         {
             get => _availableTours;
             set
@@ -105,7 +106,7 @@ namespace TouristAgency.View.Display
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void BeginTourButton_OnClick(object sender, RoutedEventArgs e)
+        private void BeginTourButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             BeginTourButton.IsEnabled = false;
             AvailableToursListView.IsEnabled = false;
@@ -116,7 +117,7 @@ namespace TouristAgency.View.Display
             AvailableCheckpoints = _app.TourCheckpointViewModel.GetTourCheckpointsByTourID(_selectedTour.ID, _app.CheckpointViewModel.GetAll());
         }
 
-        private void RightButton_OnClick(object sender, RoutedEventArgs e)
+        private void RightButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             foreach (Tourist selectedTourist in RegisteredTouristsListView.SelectedItems)
             {
@@ -130,7 +131,7 @@ namespace TouristAgency.View.Display
             }
         }
 
-        private void AvailableCheckpointsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AvailableCheckpointsListView_SelectionChanged(object sender, SelectionChangedEventArgs e) //OK
         {
             ArrivedTourists.Clear();
             TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
@@ -142,7 +143,7 @@ namespace TouristAgency.View.Display
             }
         }
 
-        private void LeftButton_OnClick(object sender, RoutedEventArgs e)
+        private void LeftButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             List<Tourist> touristsToDelete = new List<Tourist>();
             foreach (Tourist tourist in ArrivedTouristListView.SelectedItems)
@@ -158,7 +159,7 @@ namespace TouristAgency.View.Display
             touristsToDelete.Clear();
         }
 
-        private void FinishButton_OnClick(object sender, RoutedEventArgs e)
+        private void FinishButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             MessageBoxResult result;
             if (AllCheckpointsVisited())
@@ -192,7 +193,7 @@ namespace TouristAgency.View.Display
             }
         }
 
-        public bool AllCheckpointsVisited()
+        public bool AllCheckpointsVisited() //OK
         {
             foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
             {
@@ -205,12 +206,12 @@ namespace TouristAgency.View.Display
             return true;
         }
 
-        private void AvailableToursListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AvailableToursListView_SelectionChanged(object sender, SelectionChangedEventArgs e) //No need
         {
             _selectedTour = (Tour)AvailableToursListView.SelectedItem;
         }
 
-        private void CheckAndSelectStartedTour()
+        private void CheckAndSelectStartedTour() //OK
         {
             foreach (Tour tour in AvailableTours)
             {
@@ -224,6 +225,6 @@ namespace TouristAgency.View.Display
                     AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointViewModel.FindByID(_selectedTour.ID));
                 }
             }
-        }
+        }*/
     }
 }

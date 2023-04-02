@@ -11,6 +11,4 @@
 10|||Paris|France
 11|||Cairo|Egypt
 12|||Rome|Italy
-13|||Novi Sad|Serbia
-14|||Novi Sad|Srbija
-15|||Kinsasa|Kongo
+13|||Kinsasa|Kongo
