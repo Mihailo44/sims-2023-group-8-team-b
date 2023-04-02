@@ -5,17 +5,15 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using ISerializable = TouristAgency.Interfaces.ISerializable;
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class OwnerReview : ISerializable
+    public class OwnerReview 
     {
         private int _id;
-        private Owner _owner;
-        private Accommodation _accommodation;
-        private int _ownerId;
-        private int _accommodationId;
+        private Reservation _reservation;
+        private int _reservationId;
         private DateTime _reviewDate;
         private int _cleanliness;
         private int _ownerCorrectness;
@@ -37,12 +35,9 @@ namespace TouristAgency.Model
             _photos = new List<Photo>();
         }
 
-        public OwnerReview(Owner owner, Accommodation accommodation, int cleanliness, int ownerCorrectness, int location, int comfort, int wifi, string comment = "")
+        public OwnerReview(int cleanliness, int ownerCorrectness, int location, int comfort, int wifi, string comment = "")
         {
-            _owner = owner;
-            _accommodation = accommodation;
-            _ownerId = owner.ID;
-            _accommodationId = accommodation.Id;
+           
             _reviewDate = DateTime.Now;
             _cleanliness = cleanliness;
             _ownerCorrectness = ownerCorrectness;
@@ -62,42 +57,6 @@ namespace TouristAgency.Model
                     _id = value;
                 }
             }
-        }
-
-        public Owner Owner
-        {
-            get => _owner;
-            set
-            {
-                if (value != _owner)
-                {
-                    _owner = value;
-                }
-            }
-        }
-
-        public int OwnerId
-        {
-            get => _ownerId;
-            set => _ownerId = value;
-        }
-
-        public Accommodation Accommodation
-        {
-            get => _accommodation;
-            set
-            {
-                if (value != _accommodation)
-                {
-                    _accommodation = value;
-                }
-            }
-        }
-
-        public int AccommodationId
-        {
-            get => _accommodationId;
-            set => _accommodationId = value;
         }
 
         public DateTime ReviewDate
@@ -190,11 +149,9 @@ namespace TouristAgency.Model
             set => _photos = value;
         }
 
-        public void FromCSV(string[] values)
+        /*public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            OwnerId = int.Parse(values[1]);
-            AccommodationId = int.Parse(values[2]);
             ReviewDate = DateTime.Parse(values[3]);
             Cleanliness = int.Parse(values[4]);
             OwnerCorrectness = int.Parse(values[5]);
@@ -209,8 +166,6 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                OwnerId.ToString(),
-                AccommodationId.ToString(),
                 ReviewDate.ToShortDateString(), 
                 Cleanliness.ToString(),
                 OwnerCorrectness.ToString(),
@@ -221,6 +176,6 @@ namespace TouristAgency.Model
             };
 
             return csvValues;
-        }
+        } */
     }
 }
