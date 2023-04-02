@@ -1,29 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using TouristAgency.ViewModel;
+using TouristAgency.Base;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
 
-namespace TouristAgency.View.Creation
+namespace TouristAgency.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for TourCreation.xaml
-    /// </summary>
-    public partial class TourCreation : Window
+    public class TourCreationViewModel : ViewModelBase, ICloseable, ICreate
     {
-        /*private App _app;
+        private App _app;
         private Guide _loggedInGuide;
         private ObservableCollection<Checkpoint> _availableCheckpoints;
         private ObservableCollection<Checkpoint> _selectedCheckpoints;
@@ -32,13 +22,9 @@ namespace TouristAgency.View.Creation
         private Tour _newTour;
         private Location _newLocation;
         private string _photoLinks;
-        public event PropertyChangedEventHandler PropertyChanged;*/
 
-        public TourCreation(Guide guide)
+        public TourCreationViewModel(Guide guide, Window window)
         {
-            InitializeComponent();
-            DataContext = new TourCreationViewModel(guide, this);
-            /*this.DataContext = this;
             _app = (App)Application.Current;
 
             NewTour = new Tour();
@@ -49,37 +35,27 @@ namespace TouristAgency.View.Creation
             _datecount = _multipleDateTimes.Count;
             _loggedInGuide = guide;
             _newTour.AssignedGuideID = guide.ID;
-            _newTour.AssignedGuide = guide;*/
+            _newTour.AssignedGuide = guide;
+            AddCheckpointCmd =
+                new DelegateCommand(param => AddCheckpointsExecute(), param => CanAddCheckpointsExecute());
+            RemoveCheckpointCmd = new DelegateCommand(param => RemoveCheckpointsExecute(),
+                param => CanRemoveCheckpointsExecute());
+            AddMultipleDatesCmd =
+                new DelegateCommand(param => AddMultipleDatesExecute(), param => CanAddMultipleDatesExecute());
+            RemoveMultipleDatesCmd = new DelegateCommand(param => RemoveMultipleDatesExecute(),
+                param => CanRemoveMultipleDatesExecute());
+            LoadCheckpointsIntoListViewCmd = new DelegateCommand(param => LoadCheckpointsIntoListView(),
+                param => CanLoadCheckpointsIntoListView());
+            CreateCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
         }
 
-        /*public string Error => null;
-        public string this[string columnName]
-        {
-            get
-            {
-                if (columnName == "PhotoLinks")
-                {
-                    if (string.IsNullOrEmpty(PhotoLinks))
-                        return "Required field";
-                }
-                return null;
-            }
-        }
-        private readonly string[] _validatedProperties = { "PhotoLinks" };
-        public bool IsValid
-        {
-            get
-            {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != null)
-                        return false;
-                }
-
-                return true;
-            }
-        }
-
+        public DelegateCommand AddCheckpointCmd { get; }
+        public DelegateCommand RemoveCheckpointCmd { get; }
+        public DelegateCommand AddMultipleDatesCmd { get; }
+        public DelegateCommand RemoveMultipleDatesCmd { get; }
+        public DelegateCommand LoadCheckpointsIntoListViewCmd { get; }
+        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand CreateCmd { get; }
 
         public Tour NewTour
         {
@@ -138,13 +114,18 @@ namespace TouristAgency.View.Creation
             set => _photoLinks = value;
         }
 
-        private void LoadCheckpoints() //OK
+        public void LoadCheckpoints()
         {
             AvailableCheckpoints =
                 new ObservableCollection<Checkpoint>(_app.CheckpointViewModel.FindSuitableByLocation(NewLocation));
         }
 
-        private void DescriptionTextBox_GotFocus(object sender, RoutedEventArgs e)
+        public bool CanLoadCheckpointsIntoListView()
+        {
+            return true;
+        }
+
+        public void LoadCheckpointsIntoListView()
         {
             SelectedCheckpoints = new ObservableCollection<Checkpoint>();
             if (NewLocation.Country != "" && NewLocation.City != "")
@@ -153,7 +134,60 @@ namespace TouristAgency.View.Creation
             }
         }
 
-        private void CreateTourButton_Click(object sender, RoutedEventArgs e) //OK
+        public void PrepareLocation()
+        {
+            int locationID = _app.LocationViewModel.FindLocationID(NewLocation);
+            NewLocation.Id = locationID;
+
+            if (locationID == -1)
+            {
+                _app.LocationViewModel.Create(NewLocation);
+            }
+
+            _newTour.ShortLocation = NewLocation;
+            _newTour.ShortLocationID = NewLocation.Id;
+        }
+
+        public void AddPhotos()
+        {
+            int tourID = _app.TourViewModel.GenerateID() - 1;
+            if (PhotoLinks != null)
+            {
+                PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+                string[] photoLinks = PhotoLinks.Split("|");
+                foreach (string photoLink in photoLinks)
+                {
+                    Photo photo = new Photo(photoLink, 'T', tourID);
+                    _newTour.Photos.Add(photo);
+                    _app.PhotoViewModel.Create(photo);
+                }
+            }
+        }
+
+        public void LoadToursToCheckpoints()
+        {
+            int tourID = _app.TourViewModel.GenerateID() - 1;
+            int i = 0;
+            bool firstVisit = true;
+            foreach (Checkpoint checkpoint in SelectedCheckpoints)
+            {
+                if (i != 0)
+                {
+                    firstVisit = false;
+                }
+
+                _newTour.Checkpoints.Add(checkpoint);
+                _app.TourCheckpointViewModel.Create(new TourCheckpoint(tourID, checkpoint.ID, firstVisit));
+                i++;
+            }
+        }
+
+        public bool CanCreateTourExecute()
+        {
+            return true;
+        }
+
+        public void CreateTourExecute()
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoService!
             if (SelectedCheckpoints.Count < 2)
@@ -171,98 +205,68 @@ namespace TouristAgency.View.Creation
                 AddPhotos();
                 LoadToursToCheckpoints();
             }
+
             MessageBox.Show("Successfully created tour!", "Success");
         }
 
-
-        private void PrepareLocation() //OK
+        public bool CanAddCheckpointsExecute()
         {
-            int locationID = _app.LocationViewModel.FindLocationID(NewLocation);
-            NewLocation.Id = locationID;
-            if (locationID == -1)
-            {
-                _app.LocationViewModel.Create(NewLocation);
-            }
-
-            _newTour.ShortLocation = NewLocation;
-            _newTour.ShortLocationID = NewLocation.Id;
+            return true;
         }
 
-        private void AddPhotos() //OK
+        public void AddCheckpointsExecute()
         {
-            int tourID = _app.TourViewModel.GenerateID() - 1;
-            if (PhotoLinks != null)
+            foreach (Checkpoint checkpoint in AvailableCheckpoints)
             {
-                PhotoLinks = PhotoLinks.Replace("\r\n", "|");
-                string[] photoLinks = PhotoLinks.Split("|");
-                foreach (string photoLink in photoLinks)
-                {
-                    Photo photo = new Photo(photoLink, 'T', tourID);
-                    _newTour.Photos.Add(photo);
-                    _app.PhotoViewModel.Create(photo);
-                }
-            }
-        }
-
-        private void LoadToursToCheckpoints() //OK
-        {
-            int tourID = _app.TourViewModel.GenerateID() - 1;
-            int i = 0;
-            bool firstVisit = true;
-            foreach (Checkpoint checkpoint in SelectedCheckpoints)
-            {
-                if (i != 0)
-                {
-                    firstVisit = false;
-                }
-                _newTour.Checkpoints.Add(checkpoint); //!
-                _app.TourCheckpointViewModel.Create(new TourCheckpoint(tourID,checkpoint.ID, firstVisit));
-                i++;
-            }
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void RightButton_OnClick(object sender, RoutedEventArgs e) //OK
-        {
-            foreach (Checkpoint checkpoint in AvailableListView.SelectedItems)
-            {
-                if (!SelectedCheckpoints.Contains(checkpoint))
+                if (!SelectedCheckpoints.Contains(checkpoint) && checkpoint.IsSelected == true)
                 {
                     SelectedCheckpoints.Add(checkpoint);
                 }
             }
         }
 
-        private void LeftButton_OnClick(object sender, RoutedEventArgs e) //OK
+        public bool CanRemoveCheckpointsExecute()
+        {
+            return true;
+        }
+
+        public void RemoveCheckpointsExecute()
         {
             List<Checkpoint> checkpointsToDelete = new List<Checkpoint>();
-            foreach (Checkpoint checkpoint in SelectedListView.SelectedItems)
+            foreach (Checkpoint checkpoint in SelectedCheckpoints)
             {
-                checkpointsToDelete.Add(checkpoint);
+                if (checkpoint.IsSelected == true)
+                    checkpointsToDelete.Add(checkpoint);
             }
 
             foreach (Checkpoint checkpoint in checkpointsToDelete)
             {
                 SelectedCheckpoints.Remove(checkpoint);
             }
+
             checkpointsToDelete.Clear();
         }
 
-        private void AddDateButton_OnClick(object sender, RoutedEventArgs e) //OK
+        public bool CanAddMultipleDatesExecute()
+        {
+            return true;
+        }
+
+        public void AddMultipleDatesExecute()
         {
             _multipleDateTimes.Add(NewTour.StartDateTime);
             DateCount = _multipleDateTimes.Count;
         }
 
-        private void RemoveDateButton_OnClick(object sender, RoutedEventArgs e) //OK
+        public bool CanRemoveMultipleDatesExecute()
+        {
+            return true;
+        }
+
+        public void RemoveMultipleDatesExecute()
         {
             _multipleDateTimes.Remove(NewTour.StartDateTime);
             DateCount = _multipleDateTimes.Count;
-        }*/
+        }
     }
 }

@@ -13,3 +13,5 @@
 11|A|11|link4
 12|A|13|link2
 13|A|14|link2
+14|T|0|https://img.favpng.com/14/0/3/standard-test-image-acceptance-testing-png-favpng-Yy97FH3TSHfV906y3fKtRFFzL.jpg
+15|T|1|https://img.favpng.com/14/0/3/standard-test-image-acceptance-testing-png-favpng-Yy97FH3TSHfV906y3fKtRFFzL.jpg
