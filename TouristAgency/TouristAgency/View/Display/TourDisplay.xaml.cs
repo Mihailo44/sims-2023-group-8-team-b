@@ -17,7 +17,6 @@ using System.Windows.Shapes;
 using TouristAgency.ViewModel;
 using TouristAgency.Model;
 using TouristAgency.Storage;
-using TouristAgency.Test;
 
 namespace TouristAgency.View.Display
 {
