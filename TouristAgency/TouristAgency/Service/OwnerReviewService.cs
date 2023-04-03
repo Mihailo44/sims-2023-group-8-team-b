@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Storage;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Service
 {
@@ -78,6 +79,20 @@ namespace TouristAgency.Service
         public List<OwnerReview> GetByOwnerId(int id)
         {
             return _ownerReviews.FindAll(o => o.Reservation.Accommodation.OwnerId == id);
+        }
+
+        public List<OwnerReview> GetReviewedReservationsByOwnerId(int id) //kako da je nazovem
+        {
+            List<OwnerReview> reviewedReservations = new List<OwnerReview>();
+
+            foreach (var ownerReview in _ownerReviews)
+            {
+                if(ownerReview.Reservation.Status == GuestReviewStatus.REVIEWED)
+                {
+                    reviewedReservations.Add(ownerReview);
+                }
+            }
+            return reviewedReservations;
         }
 
         public void LoadReservationsToOwnerReviews(List<Reservation> reservations)

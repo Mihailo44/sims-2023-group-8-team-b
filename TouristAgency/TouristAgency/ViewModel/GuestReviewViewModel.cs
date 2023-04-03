@@ -7,6 +7,7 @@ using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Service;
 using TouristAgency.Base;
+using TouristAgency.Model.Enums;
 using System.Windows;
 using System.Windows.Input;
 
@@ -163,7 +164,7 @@ namespace TouristAgency.ViewModel
 
         public bool CanCreateGuestReviewExecute()
         {
-            if (Selected.Status == REVIEW_STATUS.UNREVIEWED)
+            if (Selected.Status == GuestReviewStatus.UNREVIEWED)
             {
                 return true;
             }
@@ -177,10 +178,10 @@ namespace TouristAgency.ViewModel
         {
             try
             {
-                if (Selected.Status == REVIEW_STATUS.UNREVIEWED)
+                if (Selected.Status == GuestReviewStatus.UNREVIEWED)
                 {
                     Create(NewGuestReview);
-                    Selected.Status = REVIEW_STATUS.REVIEWED;
+                    Selected.Status = GuestReviewStatus.REVIEWED;
                     _reservationService.Update(Selected, Selected.Id);
                     MessageBox.Show("Guest review created successfully");
                 }
