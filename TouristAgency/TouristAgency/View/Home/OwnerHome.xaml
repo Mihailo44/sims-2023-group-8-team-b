@@ -33,7 +33,7 @@
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
                               SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
+                            <i:EventTrigger EventName="MouseDoubleClick">
                                 <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>

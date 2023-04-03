@@ -154,7 +154,7 @@ namespace TouristAgency.ViewModel
             {
                 if(dateDif > 5.0)
                 { 
-                    MessageBox.Show("Guest review time window expired"); // da li je ok staviti ovde ispis
+                    MessageBox.Show("Guest review time window expired");
                 }
                 else if(SelectedReservation.Status == GuestReviewStatus.REVIEWED)
                 {

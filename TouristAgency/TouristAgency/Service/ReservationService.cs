@@ -175,12 +175,15 @@ namespace TouristAgency.Service
             if (currentReservation == null)
                 return null;
 
-            //currentReservation.GuestId = newReservation.GuestId;
-            //currentReservation.Guest = newReservation.Guest;
-            currentReservation.Start = updatedReservation.Start;
-            currentReservation.End = updatedReservation.End;
+            currentReservation.Accommodation = updatedReservation.Accommodation;
+            currentReservation.AccommodationId = updatedReservation.AccommodationId;
+            if (currentReservation.Start != updatedReservation.Start || currentReservation.End != updatedReservation.End)
+            {
+                currentReservation.Start = updatedReservation.Start;
+                currentReservation.End = updatedReservation.End;
+                currentReservation.Postponed = true;
+            }
             currentReservation.Status = updatedReservation.Status;
-            currentReservation.Postponed = updatedReservation.Postponed;
 
             _storage.Save(_reservations);
             NotifyObservers();
