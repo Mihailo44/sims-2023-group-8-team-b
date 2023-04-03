@@ -1,32 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using TouristAgency.ViewModel;
+using TouristAgency.Base;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
 
-
-namespace TouristAgency.View.Display
+namespace TouristAgency.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for TourDisplay.xaml
-    /// </summary>
-    public partial class TourDisplay : Window
+    public class TourDisplayViewModel : ViewModelBase, ICloseable, ICreate
     {
-        /*private ObservableCollection<Tour> _tours;
+        private ObservableCollection<Tour> _tours;
         private ObservableCollection<string> _countires;
         private ObservableCollection<string> _cities;
         private ObservableCollection<string> _languages;
@@ -36,42 +24,49 @@ namespace TouristAgency.View.Display
         private int _numberOfReservation;
         private Tourist _loggedInTourist;
         private App _app;
-        public event PropertyChangedEventHandler PropertyChanged;*/
 
-        public TourDisplay(Tourist tourist)
+        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand FilterCmd { get; }
+        public DelegateCommand CreateCmd { get; }
+        public DelegateCommand ClearCmd { get; }
+        public DelegateCommand CancelCmd { get; }
+
+        public TourDisplayViewModel(Tourist tourist, Window window)
         {
-            InitializeComponent();
-            DataContext = new TourDisplayViewModel(tourist, this);
-            /*InitializeComponent();
-            DataContext = this;
             _app = (App)Application.Current;
 
-            Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetValidTours());;
+            Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetValidTours()); ;
             Countries = _app.TourViewModel.GetAllCountires();
             Cities = _app.TourViewModel.GetAllCitites();
             Languages = _app.TourViewModel.GetAllLanguages();
             _loggedInTourist = tourist;
 
-            foreach(var ttc in _app.TourTouristCheckpointViewModel.GetPendingInvitations(tourist.ID))
+            foreach (var ttc in _app.TourTouristCheckpointViewModel.GetPendingInvitations(tourist.ID))
             {
                 MessageBoxResult result = MessageBox.Show("Are you at " + _app.CheckpointViewModel.FindByID(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
-                if(result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.Yes)
                 {
                     _app.TourTouristCheckpointViewModel.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
                 }
             }
 
-            CountryComboBox.SelectedIndex = 0;
-            CityComboBox.SelectedIndex = 0;
-            LanguageComboBox.SelectedIndex = 0;*/
+            //TODO
+            //CountryComboBox.SelectedIndex = 0;
+            //CityComboBox.SelectedIndex = 0;
+            //LanguageComboBox.SelectedIndex = 0;
+
+            FilterCmd = new DelegateCommand(param => FilterCmdExecute(), param => CanFilterCmdExecute());
+            CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+            ClearCmd = new DelegateCommand(param => ClearCmdExecute(), param => CanClearCmdExecute());
+            CancelCmd = new DelegateCommand(param => CancelCmdExecute(), param => CanCancelCmdExecute());
         }
 
-        /*public ObservableCollection<Tour> Tours
+        public ObservableCollection<Tour> Tours
         {
             get => _tours;
             set
             {
-                if(value != _tours) 
+                if (value != _tours)
                 {
                     _tours = value;
                     OnPropertyChanged("Tours");
@@ -84,7 +79,7 @@ namespace TouristAgency.View.Display
             get => _countires;
             set
             {
-                if(value != _countires) 
+                if (value != _countires)
                 {
                     _countires = value;
                     OnPropertyChanged("Countries");
@@ -110,7 +105,7 @@ namespace TouristAgency.View.Display
             get => _languages;
             set
             {
-                if(value != _languages)
+                if (value != _languages)
                 {
                     _languages = value;
                     OnPropertyChanged("Languages");
@@ -123,7 +118,7 @@ namespace TouristAgency.View.Display
             get => _minDuration;
             set
             {
-                if(_minDuration != value)
+                if (_minDuration != value)
                 {
                     _minDuration = value;
                     OnPropertyChanged("MinDuration");
@@ -149,7 +144,7 @@ namespace TouristAgency.View.Display
             get => _numberOfPeople;
             set
             {
-                if(_numberOfPeople != value)
+                if (_numberOfPeople != value)
                 {
                     _numberOfPeople = value;
                     OnPropertyChanged("NumberOfPeople");
@@ -162,7 +157,7 @@ namespace TouristAgency.View.Display
             get => _numberOfReservation;
             set
             {
-                if( value != _numberOfReservation) 
+                if (value != _numberOfReservation)
                 {
                     _numberOfReservation = value;
                     OnPropertyChanged("NumberOfReservation");
@@ -170,37 +165,71 @@ namespace TouristAgency.View.Display
             }
         }
 
-        private void Filter_Click(object sender, RoutedEventArgs e) //OK
+        //TODO bindovati u xaml
+        public string SelectedCountry
         {
-            string country = CountryComboBox.SelectedItem.ToString();
-            string city = CityComboBox.SelectedItem.ToString();
-            string language = LanguageComboBox.SelectedItem.ToString();
-            
+            get;
+            set;
+        }
+
+        public string SelectedCity
+        {
+            get;
+            set;
+        }
+
+        public string SelectedLanguage
+        {
+            get;
+            set;
+        }
+
+        public Tour SelectedTour
+        {
+            get;
+            set;
+        }
+
+        public bool CanFilterCmdExecute()
+        {
+            return true;
+        }
+
+        private void FilterCmdExecute()
+        {
+            string country = SelectedCountry;
+            string city = SelectedCity;
+            string language = SelectedLanguage;
+
             Tours = new ObservableCollection<Tour>(_app.TourViewModel.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
-        
-            if(MinDuration == 0 && MaxDuration == 0)
+
+            if (MinDuration == 0 && MaxDuration == 0)
             {
                 MessageBox.Show("You must change the value for min or max duration of tour.", "Alert");
             }
         }
 
-        protected void OnPropertyChanged(string propertyName)
+        public bool CanClearCmdExecute()
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            return true;
         }
 
-        private void Clear_Click(object sender, RoutedEventArgs e) //OK
+        private void ClearCmdExecute()
         {
             Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetValidTours());
-            MinDurationIntegerUpDown.Value = 0;
-            MaxDurationIntegerUpDown.Value = 0;
+            MinDuration = 0;
+            MaxDuration = 0;
         }
 
-        private void MakeAReservation_Click(object sender, RoutedEventArgs e) //OK
+        public bool CanCreateCmdExecute()
         {
-            Tour selectedTour = (Tour)ToursListView.SelectedItem;
-            if(selectedTour == null)
+            return true;
+        }
+
+        private void CreateCmdExecute()
+        {
+            Tour selectedTour = SelectedTour;
+            if (selectedTour == null)
             {
                 MessageBox.Show("You must select a tour from the list.");
                 return;
@@ -208,16 +237,16 @@ namespace TouristAgency.View.Display
 
             int availableReservations = selectedTour.MaxAttendants - selectedTour.CurrentAttendants - NumberOfReservation;
 
-            if(selectedTour.MaxAttendants == selectedTour.CurrentAttendants) 
+            if (selectedTour.MaxAttendants == selectedTour.CurrentAttendants)
             {
-                MessageBoxResult result = MessageBox.Show("The tour does not have any places left. Would you like to see an alternative?", "Alert", MessageBoxButton.YesNo); 
-                
-                if(result == MessageBoxResult.Yes) 
+                MessageBoxResult result = MessageBox.Show("The tour does not have any places left. Would you like to see an alternative?", "Alert", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
                 {
                     Tours = new ObservableCollection<Tour>(_app.TourViewModel.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople));
                     List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
                     Tours.Remove(selectedTour);
-                    foreach(Tour tour in emptyTours) 
+                    foreach (Tour tour in emptyTours)
                     {
                         Tours.Remove(tour);
                     }
@@ -225,13 +254,13 @@ namespace TouristAgency.View.Display
                 }
             }
 
-            if(availableReservations < 0) 
+            if (availableReservations < 0)
             {
                 MessageBox.Show("The selected tour does not have enough capacity. Try to reduce number of reservation or pick another tour.", "Alert");
                 return;
             }
 
-            if(NumberOfReservation != 0)
+            if (NumberOfReservation != 0)
             {
                 _app.TourViewModel.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
                 _app.TourTouristViewModel.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
@@ -245,9 +274,14 @@ namespace TouristAgency.View.Display
             }
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        public bool CanCancelCmdExecute()
         {
-            numOfReservation.Value = 0;
-        }*/
+            return true;
+        }
+
+        private void CancelCmdExecute()
+        {
+            NumberOfReservation = 0;
+        }
     }
 }
