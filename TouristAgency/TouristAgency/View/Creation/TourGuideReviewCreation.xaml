@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
         Title="TourGuideReviewCreation" Height="810" Width="1100">
-    <Grid HorizontalAlignment="Center">
+    <Grid HorizontalAlignment="Center" Height="780">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
