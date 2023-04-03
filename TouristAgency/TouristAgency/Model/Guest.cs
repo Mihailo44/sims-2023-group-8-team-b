@@ -27,6 +27,12 @@ namespace TouristAgency.Model
             }
         }
 
+        public bool IsSelected
+        {
+            get;
+            set;
+        }
+
         public Guest(User user) : base(user)
         {
             _reservations = new List<Reservation>();
