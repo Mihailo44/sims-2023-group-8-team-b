@@ -1,0 +1,23 @@
+﻿<Window x:Class="TouristAgency.View.Home.TouristHome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Home"
+        mc:Ignorable="d"
+        Title="TouristHome" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button Content="TourDisplay" Grid.Row="0" Width="200" Height="40" Click="TourDisplay_Click"></Button>
+        <Button Content="TourAttendance" Grid.Row="1" Width="200" Height="40" Click="TourAttendance_Click"></Button>
+        <Button Content="TourGuideReview" Grid.Row="2" Width="200" Height="40" Click="TourGuideReview_Click"></Button>
+    </Grid>
+</Window>
