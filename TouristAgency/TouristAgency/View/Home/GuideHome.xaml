@@ -10,6 +10,8 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="TourCreation" Click="TourButton_Click" Width="200" Height="40"/>
             <Button Content="ActiveTourDisplay" Click="ActiveTourDisplayButton_Click" Width="200" Height="40"/>
+            <Button Content="CancelTourDisplay" Click="CancelTourDisplayButton_Click" Width="200" Height="40"/>
+            <Button Content="TourStatisticsDisplay" Click="TourStatisticsDisplayButton_Click" Width="200" Height="40"/>
         </StackPanel>
     </Grid>
 </Window>
