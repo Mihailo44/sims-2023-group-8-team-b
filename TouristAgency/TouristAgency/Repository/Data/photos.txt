@@ -7,3 +7,9 @@
 5|A|5|https://assets.anantara.com/image/upload/q_auto,f_auto/media/minor/anantara/images/anantara-palazzo-naiadi-rome/sneak-peak/anantara_palazzo_naiadi_rome_hotel_new_opening_944x510.jpg
 6|A|6|link1
 7|A|6|link2
+8|T|0|https://image.stern.de/31476586/t/b4/v4/w1440/r1/-/novi-sad-1.jpg
+9|T|1|https://image.stern.de/31476586/t/b4/v4/w1440/r1/-/novi-sad-1.jpg
+10|T|2|https://image.stern.de/31476586/t/b4/v4/w1440/r1/-/novi-sad-1.jpg
+11|T|3|https://www.serbia.travel/files/1-Kalemegdan%20%2C%20Beograd%20%2C%20Leto%20%2C%20Pobednik%20%2C%20Shutterstock%20(2)-0-1280x768.jpg
+12|T|4|https://www.serbia.travel/files/1-Kalemegdan%20%2C%20Beograd%20%2C%20Leto%20%2C%20Pobednik%20%2C%20Shutterstock%20(2)-0-1280x768.jpg
+13|T|5|https://www.serbia.travel/files/1-Kalemegdan%20%2C%20Beograd%20%2C%20Leto%20%2C%20Pobednik%20%2C%20Shutterstock%20(2)-0-1280x768.jpg

@@ -299,6 +299,12 @@ namespace TouristAgency.Model
             }
         }
 
+        public bool IsSelected
+        {
+            get;
+            set;
+        }
+
         public string Error => null;
         public string this[string columnName]
         {
