@@ -6,6 +6,7 @@ using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Storage;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Service
 {
@@ -226,7 +227,7 @@ namespace TouristAgency.Service
 
         public List<Reservation> GetUnreviewed(int ownerId)
         {
-            return _reservations.Where(r => r.Accommodation.OwnerId == ownerId && r.Status == REVIEW_STATUS.UNREVIEWED).ToList();
+            return _reservations.Where(r => r.Accommodation.OwnerId == ownerId && r.Status == GuestReviewStatus.UNREVIEWED).ToList();
         }
 
         public List<Reservation> GetByOwnerId(int id)
@@ -253,7 +254,7 @@ namespace TouristAgency.Service
                 }
                 else
                 {
-                    reservation.Status = REVIEW_STATUS.EXPIRED;
+                    reservation.Status = GuestReviewStatus.EXPIRED;
                     Update(reservation, reservation.Id);
                 }
             }

@@ -7,6 +7,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Service;
 using TouristAgency.View.Creation;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.ViewModel
 {
@@ -14,12 +15,19 @@ namespace TouristAgency.ViewModel
     {
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
+        private OwnerReviewService _ownerReviewService;
+        private OwnerService _ownerService;
+
+        public string Status { get; set; }
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
+
+        public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
+
         public Owner LoggedUser { get; set; }
 
         private readonly Window _window;
@@ -44,11 +52,22 @@ namespace TouristAgency.ViewModel
             _accommodationService = app.AccommodationService;
             _accommodationService.Subscribe(this);
 
+            _ownerReviewService = app.OwnerReviewService;
+            _ownerReviewService.Subscribe(this);
+
+            _ownerService = app.OwnerService;
+
+            SetUserStatus();
+
             Accommodations = new ObservableCollection<Accommodation>();
             LoadAccommodations(LoggedUser.ID);
 
             Reservations = new ObservableCollection<Reservation>();
             LoadReservations(LoggedUser.ID);
+
+            OwnerReviews = new ObservableCollection<OwnerReview>();
+            LoadOwnerReviews(LoggedUser.ID);
+
             ReviewNotification();
 
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
@@ -75,6 +94,16 @@ namespace TouristAgency.ViewModel
             }
         }
 
+        public void LoadOwnerReviews(int ownerId = 0)
+        {
+            OwnerReviews.Clear();
+            List<OwnerReview> ownerReviews = _ownerReviewService.GetReviewedReservationsByOwnerId(ownerId);
+            foreach(var ownerReview in ownerReviews)
+            {
+                OwnerReviews.Add(ownerReview);
+            }
+        }
+
         private void ReviewNotification()
         {
             int changes;
@@ -89,6 +118,16 @@ namespace TouristAgency.ViewModel
         {
             LoadAccommodations(LoggedUser.ID);
             LoadReservations(LoggedUser.ID);
+            LoadOwnerReviews(LoggedUser.ID);
+        }
+
+        public void SetUserStatus()
+        {
+            LoggedUser.SuperUser = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID));
+            if (LoggedUser.SuperUser)
+                Status = "SUPER OWNER";
+            else
+                Status = "";
         }
 
         public bool CanOpenAccommodationCreationExecute()
@@ -107,13 +146,21 @@ namespace TouristAgency.ViewModel
             DateTime today = DateTime.UtcNow.Date;
             double dateDif = (today - SelectedReservation.End).TotalDays;
 
-            if (SelectedReservation.Status == REVIEW_STATUS.UNREVIEWED && dateDif < 5.0)
+            if (SelectedReservation.Status == GuestReviewStatus.UNREVIEWED && dateDif < 5.0)
             {
                 return true;
             }
             else
             {
-                MessageBox.Show("Guest review time window expired"); // da li je ok staviti ovde ispis
+                if(dateDif > 5.0)
+                { 
+                    MessageBox.Show("Guest review time window expired"); // da li je ok staviti ovde ispis
+                }
+                else if(SelectedReservation.Status == GuestReviewStatus.REVIEWED)
+                {
+                    MessageBox.Show("Guest has already been reviewed");
+                }
+
                 return false;
             }
         }
