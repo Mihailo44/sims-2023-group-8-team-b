@@ -48,13 +48,22 @@
                 </TabItem>
                 <TabItem Header="Postponation Requests" Width="180" Height="30" FontSize="15">
                     <DataGrid Height="550" FontSize="15" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
-                        
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15"/>
                             <DataGridTextColumn Width="*" Header="Last Name" FontSize="15"/>
                             <DataGridTextColumn Width="*" Header="(New)Start Date" FontSize="15"/>
                             <DataGridTextColumn Width="*" Header="(New)End Date" FontSize="15"/>
                             <DataGridTextColumn Width="*" Header="Avaliable" FontSize="15"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Reviews" Width="180" Height="30" FontSize="15">
+                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Reservation.Guest.FirstName}"/>
+                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
+                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
+                            <DataGridTextColumn Width="3*" Header="Comment" FontSize="15" Binding="{Binding Comment}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
