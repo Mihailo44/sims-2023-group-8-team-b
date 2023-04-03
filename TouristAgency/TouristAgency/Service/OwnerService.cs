@@ -53,7 +53,6 @@ namespace TouristAgency.Service
 
             currentOwner.FirstName = updatedOwner.FirstName;
             currentOwner.LastName = updatedOwner.LastName;
-            currentOwner.FullLocation = new Location(updatedOwner.FullLocation); //(!)
             currentOwner.DateOfBirth = updatedOwner.DateOfBirth;
             currentOwner.Phone = updatedOwner.Phone;
             currentOwner.Email = updatedOwner.Email;
@@ -78,6 +77,26 @@ namespace TouristAgency.Service
         public List<Owner> GetAll()
         {
             return _owners;
+        }
+
+        public bool IsSuperOwner(List<OwnerReview> ownerReviews)
+        {
+            if(ownerReviews.Count() >= 5) //stavi na 50
+            {
+                double sum = 0;
+                double ownerScore = 0;
+                foreach (OwnerReview ownerReview in ownerReviews)
+                {
+                    sum += ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi;
+                }
+                ownerScore = sum / ownerReviews.Count();
+                if(ownerScore > 4.5)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void LoadAccommodationsToOwners(List<Accommodation> accommodations)

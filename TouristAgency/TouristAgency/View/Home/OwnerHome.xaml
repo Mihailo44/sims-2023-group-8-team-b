@@ -14,6 +14,7 @@
                 <Button Width="70" Height="35" Content="Create" Margin="10,0,0,0" FontSize="15" Command="{Binding NewAccommodationCmd}"/>
                 <Button Width="70" Height="35" Content="Edit"  Margin="10,0,0,0" FontSize="15"/>
                 <Button Width="70" Height="35" Content="Delete"  Margin="10,0,0,0" FontSize="15"/>
+                <Label Width="140" Height="35" Content="{Binding Status}" FontSize="15"/>
             </ToolBar>
 
             <TabControl x:Name="tbCtrl" Background="Aquamarine">

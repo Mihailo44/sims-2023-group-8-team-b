@@ -14,6 +14,10 @@ namespace TouristAgency.ViewModel
     {
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
+        private OwnerReviewService _ownerReviewService;
+        private OwnerService _ownerService;
+
+        public string Status { get; set; }
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
@@ -43,6 +47,11 @@ namespace TouristAgency.ViewModel
 
             _accommodationService = app.AccommodationService;
             _accommodationService.Subscribe(this);
+
+            _ownerReviewService = app.OwnerReviewService;
+            _ownerService = app.OwnerService;
+
+            SetUserStatus();
 
             Accommodations = new ObservableCollection<Accommodation>();
             LoadAccommodations(LoggedUser.ID);
@@ -91,6 +100,15 @@ namespace TouristAgency.ViewModel
             LoadReservations(LoggedUser.ID);
         }
 
+        public void SetUserStatus()
+        {
+            LoggedUser.SuperUser = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID));
+            if (LoggedUser.SuperUser)
+                Status = "SUPER OWNER";
+            else
+                Status = "";
+        }
+
         public bool CanOpenAccommodationCreationExecute()
         {
             return true;
@@ -113,7 +131,15 @@ namespace TouristAgency.ViewModel
             }
             else
             {
-                MessageBox.Show("Guest review time window expired"); // da li je ok staviti ovde ispis
+                if(dateDif > 5.0)
+                { 
+                    MessageBox.Show("Guest review time window expired"); // da li je ok staviti ovde ispis
+                }
+                else if(SelectedReservation.Status == REVIEW_STATUS.REVIEWED)
+                {
+                    MessageBox.Show("Guest has already been reviewed");
+                }
+
                 return false;
             }
         }

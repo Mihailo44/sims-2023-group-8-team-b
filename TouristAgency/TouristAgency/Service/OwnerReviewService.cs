@@ -75,6 +75,11 @@ namespace TouristAgency.Service
             return _ownerReviews;
         }
 
+        public List<OwnerReview> GetByOwnerId(int id)
+        {
+            return _ownerReviews.FindAll(o => o.Reservation.Accommodation.OwnerId == id);
+        }
+
         public void LoadReservationsToOwnerReviews(List<Reservation> reservations)
         {
             foreach(var ownerReview in _ownerReviews)
