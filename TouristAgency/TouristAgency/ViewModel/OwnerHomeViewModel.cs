@@ -5,9 +5,9 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Creation;
-using TouristAgency.Model.Enums;
 
 namespace TouristAgency.ViewModel
 {
@@ -39,6 +39,7 @@ namespace TouristAgency.ViewModel
 
         public DelegateCommand NewAccommodationCmd { get; }
         public DelegateCommand NewReviewCmd { get; }
+        public DelegateCommand PostponeCmd { get; }
 
         public OwnerHomeViewModel()
         {
@@ -81,7 +82,8 @@ namespace TouristAgency.ViewModel
             ReviewNotification();
 
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
-            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(),param=> CanOpenGuestReviewCreation());
+            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
+            PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute()); 
         }
 
         private void LoadAccommodations(int ownerId = 0)
@@ -108,7 +110,7 @@ namespace TouristAgency.ViewModel
         {
             PostponementRequests.Clear();
             List<PostponementRequest> postponementRequests = _postponementRequestService.GetByOwnerId(ownerId);
-            foreach(var postponementRequest in postponementRequests)
+            foreach (var postponementRequest in postponementRequests)
             {
                 PostponementRequests.Add(postponementRequest);
             }
@@ -118,7 +120,7 @@ namespace TouristAgency.ViewModel
         {
             OwnerReviews.Clear();
             List<OwnerReview> ownerReviews = _ownerReviewService.GetReviewedReservationsByOwnerId(ownerId);
-            foreach(var ownerReview in ownerReviews)
+            foreach (var ownerReview in ownerReviews)
             {
                 OwnerReviews.Add(ownerReview);
             }
@@ -173,11 +175,11 @@ namespace TouristAgency.ViewModel
             }
             else
             {
-                if(dateDif > 5.0)
-                { 
+                if (dateDif > 5.0)
+                {
                     MessageBox.Show("Guest review time window expired");
                 }
-                else if(SelectedReservation.Status == GuestReviewStatus.REVIEWED)
+                else if (SelectedReservation.Status == GuestReviewStatus.REVIEWED)
                 {
                     MessageBox.Show("Guest has already been reviewed");
                 }
@@ -193,6 +195,46 @@ namespace TouristAgency.ViewModel
                 GuestReviewCreation x = new GuestReviewCreation(SelectedReservation);
                 x.Show();
             }
+        }
+
+        public bool CanPostponeReservationExecute()
+        {
+            if (SelectedRequest != null)
+                return true;
+            else
+                return false;
+        }
+
+        public void PostponeReservationExecute()
+        {
+            MessageBoxResult result = ApprovePostponementRequest();
+            if (result == MessageBoxResult.Yes)
+            {
+                Reservation postponed = _reservationService.FindById(SelectedRequest.Reservation.Id);
+                if (postponed != null)
+                {
+                    postponed.Start = SelectedRequest.Start;
+                    postponed.End = SelectedRequest.End;
+                    _reservationService.Update(postponed, postponed.Id);
+                    SelectedRequest.Status = PostponementRequestStatus.APPROVED;
+                    _postponementRequestService.Update(SelectedRequest, SelectedRequest.Id);
+                }
+            }
+        }
+
+        private MessageBoxResult ApprovePostponementRequest()
+        {
+            string sMessageBoxText;
+            string sCaption;
+
+            sMessageBoxText = $"Do you want to approve postponement request?\n{SelectedRequest.Start}\n{SelectedRequest.End}";
+            sCaption = "Postponement Request Dialog";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+            return result;
         }
     }
 }

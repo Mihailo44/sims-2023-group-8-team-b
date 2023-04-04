@@ -17,6 +17,7 @@ namespace TouristAgency.Model
         private string _comment;
         private Reservation _reservation;
         private int _reservationId;
+        private PostponementRequestStatus _status;
 
         public PostponementRequest()
         {
@@ -87,12 +88,24 @@ namespace TouristAgency.Model
 
         public string Comment
         {
-            get { return _comment; }
+            get => _comment; 
             set
             {
                 if (value != _comment)
                 {
                     _comment = value;
+                }
+            }
+        }
+
+        public PostponementRequestStatus Status
+        {
+            get => _status;
+            set
+            {
+                if(value != _status)
+                {
+                    _status = value;
                 }
             }
         }
@@ -104,6 +117,7 @@ namespace TouristAgency.Model
             Start = DateTime.Parse(values[2]);
             End = DateTime.Parse(values[3]);
             Comment = values[4];
+            Status = Enum.Parse<PostponementRequestStatus>(values[5]);
         }
 
         public string[] ToCSV()
@@ -114,7 +128,8 @@ namespace TouristAgency.Model
                 ReservationId.ToString(),
                 Start.ToString(),
                 End.ToString(),
-                Comment
+                Comment,
+                Status.ToString()
             };
 
             return csvValues;

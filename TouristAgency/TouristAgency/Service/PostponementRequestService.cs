@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Storage;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Service
 {
@@ -42,7 +43,7 @@ namespace TouristAgency.Service
             return newRequest;
         }
 
-        public PostponementRequest Update(PostponementRequest newRequest, int id)
+        public PostponementRequest Update(PostponementRequest updatedRequest, int id)
         {
             PostponementRequest currentRequest = FindById(id);
 
@@ -51,7 +52,8 @@ namespace TouristAgency.Service
                 return null;
             }
 
-            currentRequest.Comment = newRequest.Comment;
+            currentRequest.Comment = updatedRequest.Comment;
+            currentRequest.Status = updatedRequest.Status;
 
             return currentRequest;
         }
@@ -71,7 +73,7 @@ namespace TouristAgency.Service
 
         public List<PostponementRequest> GetByOwnerId(int ownerId)
         {
-            return _requests.FindAll(r => r.Reservation.Accommodation.OwnerId == ownerId); // treba dodati ?? operator
+            return _requests.FindAll(r => r.Reservation.Accommodation.OwnerId == ownerId && r.Status == PostponementRequestStatus.PENDING); // treba dodati ?? operator
         }
 
         public void LoadReservationsToPostponementRequests(List<Reservation> reservations)
