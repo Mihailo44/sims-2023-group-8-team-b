@@ -24,7 +24,7 @@ namespace TouristAgency.Service
 
         public int GenerateId()
         {
-            return _requests.Max(g => g.Id) + 1;
+            return _requests.Count() == 0 ? 0 : _requests.Max(g => g.Id) + 1;
         }
 
         public PostponementRequest FindById(int id)
@@ -51,8 +51,6 @@ namespace TouristAgency.Service
                 return null;
             }
 
-            currentRequest.Start = newRequest.Start;
-            currentRequest.End = newRequest.End;
             currentRequest.Comment = newRequest.Comment;
 
             return currentRequest;
@@ -69,6 +67,23 @@ namespace TouristAgency.Service
         public List<PostponementRequest> GetAll()
         {
             return _requests;
+        }
+
+        public List<PostponementRequest> GetByOwnerId(int ownerId)
+        {
+            return _requests.FindAll(r => r.Reservation.Accommodation.OwnerId == ownerId); // treba dodati ?? operator
+        }
+
+        public void LoadReservationsToPostponementRequests(List<Reservation> reservations)
+        {
+            foreach(var request in _requests)
+            {
+                Reservation reservation = reservations.Find(r => r.Id == request.ReservationId);
+                if(reservation != null)
+                {
+                    request.Reservation = reservation;
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

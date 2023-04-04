@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using TouristAgency.Model;
 using TouristAgency.ViewModel;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.View.Creation
 {

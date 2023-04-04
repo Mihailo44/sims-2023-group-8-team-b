@@ -17,6 +17,7 @@ namespace TouristAgency.ViewModel
         private AccommodationService _accommodationService;
         private OwnerReviewService _ownerReviewService;
         private OwnerService _ownerService;
+        private PostponementRequestService _postponementRequestService;
 
         public string Status { get; set; }
 
@@ -25,6 +26,9 @@ namespace TouristAgency.ViewModel
 
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
+
+        public ObservableCollection<PostponementRequest> PostponementRequests { get; set; }
+        public PostponementRequest SelectedRequest { get; set; }
 
         public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
 
@@ -55,6 +59,9 @@ namespace TouristAgency.ViewModel
             _ownerReviewService = app.OwnerReviewService;
             _ownerReviewService.Subscribe(this);
 
+            _postponementRequestService = app.PostponementRequestService;
+            _postponementRequestService.Subscribe(this);
+
             _ownerService = app.OwnerService;
 
             SetUserStatus();
@@ -64,6 +71,9 @@ namespace TouristAgency.ViewModel
 
             Reservations = new ObservableCollection<Reservation>();
             LoadReservations(LoggedUser.ID);
+
+            PostponementRequests = new ObservableCollection<PostponementRequest>();
+            LoadPostponementRequests(LoggedUser.ID);
 
             OwnerReviews = new ObservableCollection<OwnerReview>();
             LoadOwnerReviews(LoggedUser.ID);
@@ -94,6 +104,16 @@ namespace TouristAgency.ViewModel
             }
         }
 
+        public void LoadPostponementRequests(int ownerId = 0)
+        {
+            PostponementRequests.Clear();
+            List<PostponementRequest> postponementRequests = _postponementRequestService.GetByOwnerId(ownerId);
+            foreach(var postponementRequest in postponementRequests)
+            {
+                PostponementRequests.Add(postponementRequest);
+            }
+        }
+
         public void LoadOwnerReviews(int ownerId = 0)
         {
             OwnerReviews.Clear();
@@ -119,6 +139,7 @@ namespace TouristAgency.ViewModel
             LoadAccommodations(LoggedUser.ID);
             LoadReservations(LoggedUser.ID);
             LoadOwnerReviews(LoggedUser.ID);
+            LoadPostponementRequests(LoggedUser.ID);
         }
 
         public void SetUserStatus()

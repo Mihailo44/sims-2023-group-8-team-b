@@ -87,7 +87,9 @@ namespace TouristAgency.Service
 
             foreach (var ownerReview in _ownerReviews)
             {
-                if(ownerReview.Reservation.Accommodation.OwnerId == id &&  ownerReview.Reservation.Status == GuestReviewStatus.REVIEWED)
+                int ownerId = ownerReview.Reservation.Accommodation.OwnerId;
+
+                if (ownerId == id &&  ownerReview.Reservation.Status == GuestReviewStatus.REVIEWED)
                 {
                     reviewedReservations.Add(ownerReview);
                 }
