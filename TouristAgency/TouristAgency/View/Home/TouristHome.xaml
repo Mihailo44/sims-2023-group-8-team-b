@@ -19,5 +19,6 @@
         <Button Content="TourDisplay" Grid.Row="0" Width="200" Height="40" Click="TourDisplay_Click"></Button>
         <Button Content="TourAttendance" Grid.Row="1" Width="200" Height="40" Click="TourAttendance_Click"></Button>
         <Button Content="TourGuideReview" Grid.Row="2" Width="200" Height="40" Click="TourGuideReview_Click"></Button>
+        <Button Content="Notifications" Grid.Row="0" Width="200" Height="40" Click="Notification_Click" HorizontalAlignment="Right" VerticalAlignment="Top"></Button>
     </Grid>
 </Window>

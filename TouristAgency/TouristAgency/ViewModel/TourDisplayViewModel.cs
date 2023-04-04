@@ -35,7 +35,7 @@ namespace TouristAgency.ViewModel
         {
             _app = (App)Application.Current;
 
-            Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetValidTours()); ;
+            Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetValidTours());
             Countries = _app.TourViewModel.GetAllCountires();
             Cities = _app.TourViewModel.GetAllCitites();
             Languages = _app.TourViewModel.GetAllLanguages();

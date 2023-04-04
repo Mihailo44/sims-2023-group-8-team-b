@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Model;
 
 namespace TouristAgency.View.Creation
 {
@@ -19,7 +20,7 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class TourGuideReviewCreation : Window
     {
-        public TourGuideReviewCreation()
+        public TourGuideReviewCreation(Tourist tourist)
         {
             InitializeComponent();
         }

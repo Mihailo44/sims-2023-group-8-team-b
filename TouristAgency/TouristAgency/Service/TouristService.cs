@@ -91,6 +91,20 @@ namespace TouristAgency.Service
             }
         }
 
+        public void LoadVouchersToTourist(List<Voucher> vouchers)
+        {
+            foreach(Voucher voucher in vouchers)
+            {
+                foreach(Tourist tourist in _tourists)
+                {
+                    if(voucher.ID == tourist.ID)
+                    {
+                        tourist.WonVouchers.Add(voucher);
+                    }
+                }
+            }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

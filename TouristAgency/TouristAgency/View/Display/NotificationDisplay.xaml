@@ -1,0 +1,41 @@
+﻿<Window x:Class="TouristAgency.View.Display.NotificationDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Display"
+        mc:Ignorable="d"
+        Title="NotificationDisplay" Height="720" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Content="Vouchers won" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
+        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="500" Height="250" ItemsSource="{Binding Vouchers}" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Margin="25,0,0,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Voucher no." Width="180" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Expires" Width="320" DisplayMemberBinding="{Binding ExpirationDate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Center" Width="420" Height="225" FontSize="28" HorizontalAlignment="Right" Margin="0,0,25,0">
+            A tourist can get a voucher if he goes on any 5 tours in a year, 
+            or if the tour is canceled by the guide. Vouchers won in this way 
+            last for 6 months and can be used for any tour.
+        </TextBlock>
+    </Grid>
+</Window>

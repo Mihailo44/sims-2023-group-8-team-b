@@ -39,14 +39,20 @@ namespace TouristAgency.View.Home
 
         private void TourAttendance_Click(object sender, RoutedEventArgs e)
         {
-            TourAttendance attendance = new TourAttendance();
+            TourAttendance attendance = new TourAttendance(_loggedInTourist);
             attendance.Show();
         }
 
         private void TourGuideReview_Click(object sender, RoutedEventArgs e)
         {
-            TourGuideReviewCreation creation = new TourGuideReviewCreation();
+            TourGuideReviewCreation creation = new TourGuideReviewCreation(_loggedInTourist);
             creation.Show();
+        }
+
+        private void Notification_Click(object sender, RoutedEventArgs e)
+        {
+            NotificationDisplay display = new NotificationDisplay(_loggedInTourist);
+            display.Show();
         }
     }
 }

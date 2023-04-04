@@ -10,10 +10,12 @@ namespace TouristAgency.Model
     public class Tourist : User, ISerializable
     {
         private List<Tour> _appliedTours;
+        private List<Voucher> _wonVouchers;
 
         public Tourist()
         {
             _appliedTours = new List<Tour>();
+            _wonVouchers = new List<Voucher>();
         }
 
         public List<Tour> AppliedTours
@@ -24,6 +26,18 @@ namespace TouristAgency.Model
                 if(_appliedTours != value) 
                 {
                     _appliedTours = value;
+                }
+            }
+        }
+
+        public List<Voucher> WonVouchers
+        {
+            get { return _wonVouchers; }
+            set
+            {
+                if (_wonVouchers != value)
+                {
+                    _wonVouchers = value;
                 }
             }
         }
