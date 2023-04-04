@@ -16,6 +16,8 @@ namespace TouristAgency.Model
         private DateTime _end;
         private string _comment;
         private Reservation _reservation;
+        private int _reservationId;
+        private PostponementRequestStatus _status;
 
         public PostponementRequest()
         {
@@ -25,6 +27,7 @@ namespace TouristAgency.Model
         public PostponementRequest(Reservation reservation, DateTime start, DateTime end)
         {
             _reservation = reservation;
+            _reservationId = reservation.Id;
             _start = start;
             _end = end;
         }
@@ -71,9 +74,21 @@ namespace TouristAgency.Model
             set => _reservation = value;
         }
 
+        public int ReservationId
+        {
+            get => _reservationId;
+            set
+            {
+                if(_reservationId != value)
+                {
+                    _reservationId = value;
+                }
+            }
+        }
+
         public string Comment
         {
-            get { return _comment; }
+            get => _comment; 
             set
             {
                 if (value != _comment)
@@ -83,12 +98,26 @@ namespace TouristAgency.Model
             }
         }
 
+        public PostponementRequestStatus Status
+        {
+            get => _status;
+            set
+            {
+                if(value != _status)
+                {
+                    _status = value;
+                }
+            }
+        }
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            Start = DateTime.Parse(values[1]);
-            End = DateTime.Parse(values[2]);
-            Comment = values[3];
+            ReservationId = int.Parse(values[1]);
+            Start = DateTime.Parse(values[2]);
+            End = DateTime.Parse(values[3]);
+            Comment = values[4];
+            Status = Enum.Parse<PostponementRequestStatus>(values[5]);
         }
 
         public string[] ToCSV()
@@ -96,9 +125,11 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                ReservationId.ToString(),
                 Start.ToString(),
                 End.ToString(),
-                Comment
+                Comment,
+                Status.ToString()
             };
 
             return csvValues;

@@ -5,9 +5,9 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Creation;
-using TouristAgency.Model.Enums;
 
 namespace TouristAgency.ViewModel
 {
@@ -17,6 +17,7 @@ namespace TouristAgency.ViewModel
         private AccommodationService _accommodationService;
         private OwnerReviewService _ownerReviewService;
         private OwnerService _ownerService;
+        private PostponementRequestService _postponementRequestService;
 
         public string Status { get; set; }
 
@@ -25,6 +26,9 @@ namespace TouristAgency.ViewModel
 
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
+
+        public ObservableCollection<PostponementRequest> PostponementRequests { get; set; }
+        public PostponementRequest SelectedRequest { get; set; }
 
         public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
 
@@ -35,6 +39,7 @@ namespace TouristAgency.ViewModel
 
         public DelegateCommand NewAccommodationCmd { get; }
         public DelegateCommand NewReviewCmd { get; }
+        public DelegateCommand PostponeCmd { get; }
 
         public OwnerHomeViewModel()
         {
@@ -55,6 +60,9 @@ namespace TouristAgency.ViewModel
             _ownerReviewService = app.OwnerReviewService;
             _ownerReviewService.Subscribe(this);
 
+            _postponementRequestService = app.PostponementRequestService;
+            _postponementRequestService.Subscribe(this);
+
             _ownerService = app.OwnerService;
 
             SetUserStatus();
@@ -65,13 +73,17 @@ namespace TouristAgency.ViewModel
             Reservations = new ObservableCollection<Reservation>();
             LoadReservations(LoggedUser.ID);
 
+            PostponementRequests = new ObservableCollection<PostponementRequest>();
+            LoadPostponementRequests(LoggedUser.ID);
+
             OwnerReviews = new ObservableCollection<OwnerReview>();
             LoadOwnerReviews(LoggedUser.ID);
 
             ReviewNotification();
 
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
-            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(),param=> CanOpenGuestReviewCreation());
+            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
+            PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute()); 
         }
 
         private void LoadAccommodations(int ownerId = 0)
@@ -94,11 +106,21 @@ namespace TouristAgency.ViewModel
             }
         }
 
+        public void LoadPostponementRequests(int ownerId = 0)
+        {
+            PostponementRequests.Clear();
+            List<PostponementRequest> postponementRequests = _postponementRequestService.GetByOwnerId(ownerId);
+            foreach (var postponementRequest in postponementRequests)
+            {
+                PostponementRequests.Add(postponementRequest);
+            }
+        }
+
         public void LoadOwnerReviews(int ownerId = 0)
         {
             OwnerReviews.Clear();
             List<OwnerReview> ownerReviews = _ownerReviewService.GetReviewedReservationsByOwnerId(ownerId);
-            foreach(var ownerReview in ownerReviews)
+            foreach (var ownerReview in ownerReviews)
             {
                 OwnerReviews.Add(ownerReview);
             }
@@ -119,6 +141,7 @@ namespace TouristAgency.ViewModel
             LoadAccommodations(LoggedUser.ID);
             LoadReservations(LoggedUser.ID);
             LoadOwnerReviews(LoggedUser.ID);
+            LoadPostponementRequests(LoggedUser.ID);
         }
 
         public void SetUserStatus()
@@ -152,11 +175,11 @@ namespace TouristAgency.ViewModel
             }
             else
             {
-                if(dateDif > 5.0)
-                { 
-                    MessageBox.Show("Guest review time window expired"); // da li je ok staviti ovde ispis
+                if (dateDif > 5.0)
+                {
+                    MessageBox.Show("Guest review time window expired");
                 }
-                else if(SelectedReservation.Status == GuestReviewStatus.REVIEWED)
+                else if (SelectedReservation.Status == GuestReviewStatus.REVIEWED)
                 {
                     MessageBox.Show("Guest has already been reviewed");
                 }
@@ -172,6 +195,46 @@ namespace TouristAgency.ViewModel
                 GuestReviewCreation x = new GuestReviewCreation(SelectedReservation);
                 x.Show();
             }
+        }
+
+        public bool CanPostponeReservationExecute()
+        {
+            if (SelectedRequest != null)
+                return true;
+            else
+                return false;
+        }
+
+        public void PostponeReservationExecute()
+        {
+            MessageBoxResult result = ApprovePostponementRequest();
+            if (result == MessageBoxResult.Yes)
+            {
+                Reservation postponed = _reservationService.FindById(SelectedRequest.Reservation.Id);
+                if (postponed != null)
+                {
+                    postponed.Start = SelectedRequest.Start;
+                    postponed.End = SelectedRequest.End;
+                    _reservationService.Update(postponed, postponed.Id);
+                    SelectedRequest.Status = PostponementRequestStatus.APPROVED;
+                    _postponementRequestService.Update(SelectedRequest, SelectedRequest.Id);
+                }
+            }
+        }
+
+        private MessageBoxResult ApprovePostponementRequest()
+        {
+            string sMessageBoxText;
+            string sCaption;
+
+            sMessageBoxText = $"Do you want to approve postponement request?\n{SelectedRequest.Start}\n{SelectedRequest.End}";
+            sCaption = "Postponement Request Dialog";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+            return result;
         }
     }
 }

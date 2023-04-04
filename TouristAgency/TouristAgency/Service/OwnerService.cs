@@ -58,7 +58,7 @@ namespace TouristAgency.Service
             currentOwner.Email = updatedOwner.Email;
             currentOwner.Password = updatedOwner.Password;
             currentOwner.Username = updatedOwner.Username;
-            currentOwner.Accommodations = updatedOwner.Accommodations; // ne znam da li ovo radi dobro
+            currentOwner.Accommodations = updatedOwner.Accommodations;
 
             _storage.Save(_owners);
             NotifyObservers();
@@ -89,6 +89,7 @@ namespace TouristAgency.Service
                 {
                     sum += ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi;
                 }
+
                 ownerScore = sum / ownerReviews.Count();
                 if(ownerScore > 4.5)
                 {

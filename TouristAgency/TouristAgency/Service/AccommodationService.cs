@@ -52,7 +52,7 @@ namespace TouristAgency.Service
                 return null;
 
             currentAccommodation.OwnerId = updatedAccommodation.OwnerId;
-            currentAccommodation.Owner = updatedAccommodation.Owner; //proveriti
+            currentAccommodation.Owner = updatedAccommodation.Owner;
             currentAccommodation.Name = updatedAccommodation.Name;
             currentAccommodation.MaxGuestNum = updatedAccommodation.MaxGuestNum;
             currentAccommodation.MinNumOfDays = updatedAccommodation.MinNumOfDays;

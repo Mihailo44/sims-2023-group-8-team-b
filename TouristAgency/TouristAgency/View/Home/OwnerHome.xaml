@@ -33,7 +33,7 @@
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
                               SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
+                            <i:EventTrigger EventName="MouseDoubleClick">
                                 <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -47,13 +47,13 @@
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="Postponation Requests" Width="180" Height="30" FontSize="15">
-                    <DataGrid Height="550" FontSize="15" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding PostponementRequests}" SelectedItem="{Binding SelectedRequest}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15"/>
-                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15"/>
-                            <DataGridTextColumn Width="*" Header="(New)Start Date" FontSize="15"/>
-                            <DataGridTextColumn Width="*" Header="(New)End Date" FontSize="15"/>
-                            <DataGridTextColumn Width="*" Header="Avaliable" FontSize="15"/>
+                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
+                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
+                            <DataGridTextColumn Width="*" Header="(New)Start Date" FontSize="15" Binding="{Binding Start}"/>
+                            <DataGridTextColumn Width="*" Header="(New)End Date" FontSize="15" Binding="{Binding End}"/>
+                            <!--<DataGridTextColumn Width="*" Header="Avaliable" FontSize="15"/> -->
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

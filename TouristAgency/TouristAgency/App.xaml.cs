@@ -15,6 +15,7 @@ namespace TouristAgency
         public OwnerService OwnerService { get; }
         public UserService UserService { get; }
         public OwnerReviewService OwnerReviewService { get; }
+        public PostponementRequestService PostponementRequestService { get; }
         public TouristService TouristService { get; }
         public VoucherService VoucherService { get; }
        
@@ -38,6 +39,7 @@ namespace TouristAgency
             OwnerService = new();
             UserService = new();
             OwnerReviewService = new();
+            PostponementRequestService = new();
             TouristService = new();
             VoucherService = new();
 
@@ -57,6 +59,7 @@ namespace TouristAgency
             TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
             TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
             OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
+            PostponementRequestService.LoadReservationsToPostponementRequests(ReservationService.GetAll());
             TouristService.LoadVouchersToTourist(VoucherService.GetAll());
         }
     }

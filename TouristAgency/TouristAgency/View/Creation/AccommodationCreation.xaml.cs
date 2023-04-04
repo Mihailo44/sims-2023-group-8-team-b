@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using TouristAgency.Model;
 using TouristAgency.ViewModel;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.View.Creation
 {
@@ -54,32 +55,6 @@ namespace TouristAgency.View.Creation
             cbType.Items.Add(TYPE.APARTMENT.ToString());
             cbType.Items.Add(TYPE.HUT.ToString());
         }
-
-       /* private void ButtonRegister_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                PrepareAccommodationForCreation();
-                if (NewAccommodation.IsValid && IsValid)
-                {
-                    _AccommodationCreationViewModel.Create(NewAccommodation);
-                    AddPhotos();
-                    MessageBox.Show("Accommodation created successfully");
-                }
-                else
-                {
-                    MessageBox.Show("Ne budi nepismen");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show((ex.Message));
-            }
-            finally
-            {
-                this.Close();
-            }
-        }*/
 
     }
 }

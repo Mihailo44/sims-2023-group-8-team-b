@@ -81,13 +81,15 @@ namespace TouristAgency.Service
             return _ownerReviews.FindAll(o => o.Reservation.Accommodation.OwnerId == id);
         }
 
-        public List<OwnerReview> GetReviewedReservationsByOwnerId(int id) //kako da je nazovem
+        public List<OwnerReview> GetReviewedReservationsByOwnerId(int id)
         {
             List<OwnerReview> reviewedReservations = new List<OwnerReview>();
 
             foreach (var ownerReview in _ownerReviews)
             {
-                if(ownerReview.Reservation.Status == GuestReviewStatus.REVIEWED)
+                int ownerId = ownerReview.Reservation.Accommodation.OwnerId;
+
+                if (ownerId == id &&  ownerReview.Reservation.Status == GuestReviewStatus.REVIEWED)
                 {
                     reviewedReservations.Add(ownerReview);
                 }
