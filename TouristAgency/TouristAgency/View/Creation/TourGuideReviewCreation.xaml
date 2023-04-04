@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
         Title="TourGuideReviewCreation" Height="810" Width="1100">
-    <Grid HorizontalAlignment="Center" Height="780">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="790">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -39,7 +39,7 @@
             </ListView.View>
         </ListView>
 
-        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Azure">
             <GroupBox.Header>
                 <Label Content="Review" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
@@ -66,12 +66,12 @@
                 <Label Content="Guide's language:" Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
                 <Label Content="Social interactoin:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
 
-                <Slider Grid.Row="0" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1"></Slider>
-                <Slider Grid.Row="1" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1"></Slider>
-                <Slider Grid.Row="2" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1"></Slider>
-                <Slider Grid.Row="3" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1"></Slider>
-                <Slider Grid.Row="4" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1"></Slider>
-                <Slider Grid.Row="5" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1"></Slider>
+                <Slider Grid.Row="0" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1" FontSize="28"/>
+                <Slider Grid.Row="1" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1" FontSize="28"></Slider>
+                <Slider Grid.Row="2" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1" FontSize="28"></Slider>
+                <Slider Grid.Row="3" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1" FontSize="28"></Slider>
+                <Slider Grid.Row="4" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1" FontSize="28"></Slider>
+                <Slider Grid.Row="5" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Maximum="5" Minimum="1" FontSize="28"></Slider>
 
                 <Label Content="Additional comment:" Grid.Row="0" Grid.Column="2" Height="40" FontSize="24" FontWeight="Bold"></Label>
                 <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Height="80" Width="416"></TextBox>
@@ -79,7 +79,7 @@
                 <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="2" Height="40" FontSize="24" FontWeight="Bold"></Label>
                 <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Height="80" Width="416"></TextBox>
 
-                <Button Content="Send review" Grid.Row="6" Grid.Column="2" Width="228" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right"></Button>
+                <Button Content="Send review" Grid.Row="6" Grid.Column="2" Width="228" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0"></Button>
             </Grid>
         </GroupBox>
     </Grid>
