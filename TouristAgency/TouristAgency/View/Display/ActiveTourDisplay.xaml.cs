@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Controller;
+using TouristAgency.ViewModel;
 using TouristAgency.Model;
 
 namespace TouristAgency.View.Display
@@ -36,18 +36,19 @@ namespace TouristAgency.View.Display
         public ActiveTourDisplay(Guide guide)
         {
             InitializeComponent();
-            this.DataContext = this;
+            DataContext = new ActiveTourDisplayViewModel(guide, this);
+            /*this.DataContext = this;
             _app = (App)Application.Current;
 
             _loggedInGuide = guide;
-            AvailableTours = _app.TourController.GetTodayTours(_loggedInGuide.ID);
+            AvailableTours = _app.TourViewModel.GetTodayTours(_loggedInGuide.ID);
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
-            CheckAndSelectStartedTour();
+            CheckAndSelectStartedTour();*/
 
         }
 
-        public ObservableCollection<Tour> AvailableTours
+/*        public ObservableCollection<Tour> AvailableTours
         {
             get => _availableTours;
             set
@@ -105,25 +106,18 @@ namespace TouristAgency.View.Display
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void BeginTourButton_OnClick(object sender, RoutedEventArgs e)
+        private void BeginTourButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             BeginTourButton.IsEnabled = false;
             AvailableToursListView.IsEnabled = false;
             FinishButton.IsEnabled = true;
             _selectedTour = (Tour)AvailableToursListView.SelectedItem;
-            _selectedTour.Status = STATUS.IN_PROGRESS;
-            _app.TourController.Update(_selectedTour,_selectedTour.ID);
-            RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
-            //TODO REFAKTORISATI KASNIJE
-            ObservableCollection<TourCheckpoint> checkpointsTemp = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
-            foreach(TourCheckpoint checkpoint in checkpointsTemp)
-            {
-                checkpoint.Checkpoint = _app.CheckpointController.FindByID(checkpoint.CheckpointID);
-            }
-            AvailableCheckpoints = checkpointsTemp;
+            RegisteredTourists = _app.TourViewModel.GetTouristsFromTour(_selectedTour.ID);
+            _app.TourViewModel.ChangeTourStatus(_selectedTour.ID, STATUS.IN_PROGRESS);
+            AvailableCheckpoints = _app.TourCheckpointViewModel.GetTourCheckpointsByTourID(_selectedTour.ID, _app.CheckpointViewModel.GetAll());
         }
 
-        private void RightButton_OnClick(object sender, RoutedEventArgs e)
+        private void RightButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             foreach (Tourist selectedTourist in RegisteredTouristsListView.SelectedItems)
             {
@@ -131,32 +125,25 @@ namespace TouristAgency.View.Display
                 {
                     ArrivedTourists.Add(selectedTourist);
                     TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-                    _app.TourTouristCheckpointController.Create(new TourTouristCheckpoint(_selectedTour.ID,
+                    _app.TourTouristCheckpointViewModel.Create(new TourTouristCheckpoint(_selectedTour.ID,
                         selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
                 }
             }
         }
 
-        private void AvailableCheckpointsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AvailableCheckpointsListView_SelectionChanged(object sender, SelectionChangedEventArgs e) //OK
         {
             ArrivedTourists.Clear();
             TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-            foreach (TourTouristCheckpoint tourTouristCheckpoint in _app.TourTouristCheckpointController.GetAll())
+            ObservableCollection<Tourist> allTourists = new ObservableCollection<Tourist>(_app.TouristViewModel.GetAll());
+            if (selectedTourCheckpoint != null && _selectedTour != null)
             {
-                if (_selectedTour != null)
-                {
-                    bool isSameTour = _selectedTour.ID == tourTouristCheckpoint.TourCheckpoint.TourID;
-                    bool isSameCheckpoint = selectedTourCheckpoint.CheckpointID == tourTouristCheckpoint.TourCheckpoint.CheckpointID;
-
-                    if (isSameTour && isSameCheckpoint)
-                    {
-                        ArrivedTourists.Add(_app.TouristController.FindById(tourTouristCheckpoint.TouristID));
-                    }
-                }
+                ArrivedTourists = _app.TourTouristCheckpointViewModel.FilterTouristsOnCheckpoint(_selectedTour.ID,
+                    selectedTourCheckpoint.CheckpointID, allTourists);
             }
         }
 
-        private void LeftButton_OnClick(object sender, RoutedEventArgs e)
+        private void LeftButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             List<Tourist> touristsToDelete = new List<Tourist>();
             foreach (Tourist tourist in ArrivedTouristListView.SelectedItems)
@@ -167,12 +154,12 @@ namespace TouristAgency.View.Display
             foreach (Tourist tourist in touristsToDelete)
             {
                 ArrivedTourists.Remove(tourist);
-                _app.TourTouristCheckpointController.Delete(tourist.ID);
+                _app.TourTouristCheckpointViewModel.Delete(tourist.ID);
             }
             touristsToDelete.Clear();
         }
 
-        private void FinishButton_OnClick(object sender, RoutedEventArgs e)
+        private void FinishButton_OnClick(object sender, RoutedEventArgs e) //OK
         {
             MessageBoxResult result;
             if (AllCheckpointsVisited())
@@ -191,13 +178,13 @@ namespace TouristAgency.View.Display
                 AvailableToursListView.IsEnabled = true;
                 BeginTourButton.IsEnabled = true;
                 FinishButton.IsEnabled = false;
+
                 foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
                 {
-                    _app.TourCheckpointController.Update(tourCheckpoint);
+                    _app.TourCheckpointViewModel.Update(tourCheckpoint);
                 }
+                _app.TourViewModel.ChangeTourStatus(_selectedTour.ID, STATUS.ENDED);
 
-                _selectedTour.Status = STATUS.ENDED;
-                _app.TourController.Update(_selectedTour,_selectedTour.ID);
                 AvailableTours.Remove(_selectedTour);
                 AvailableCheckpoints.Clear();
                 ArrivedTourists.Clear();
@@ -206,7 +193,7 @@ namespace TouristAgency.View.Display
             }
         }
 
-        public bool AllCheckpointsVisited()
+        public bool AllCheckpointsVisited() //OK
         {
             foreach (TourCheckpoint tourCheckpoint in AvailableCheckpoints)
             {
@@ -219,12 +206,12 @@ namespace TouristAgency.View.Display
             return true;
         }
 
-        private void AvailableToursListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AvailableToursListView_SelectionChanged(object sender, SelectionChangedEventArgs e) //No need
         {
             _selectedTour = (Tour)AvailableToursListView.SelectedItem;
         }
 
-        private void CheckAndSelectStartedTour()
+        private void CheckAndSelectStartedTour() //OK
         {
             foreach (Tour tour in AvailableTours)
             {
@@ -234,10 +221,10 @@ namespace TouristAgency.View.Display
                     AvailableToursListView.IsEnabled = false;
                     BeginTourButton.IsEnabled = false;
                     FinishButton.IsEnabled = true;
-                    RegisteredTourists = _app.TourController.GetTouristsFromTour(_selectedTour.ID);
-                    AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointController.FindByID(_selectedTour.ID));
+                    RegisteredTourists = _app.TourViewModel.GetTouristsFromTour(_selectedTour.ID);
+                    AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointViewModel.FindByID(_selectedTour.ID));
                 }
             }
-        }
+        }*/
     }
 }

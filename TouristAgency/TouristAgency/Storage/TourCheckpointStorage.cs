@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
-using TouristAgency.Model;
-using TouristAgency.Serialization;
 
 namespace TouristAgency.Storage
 {

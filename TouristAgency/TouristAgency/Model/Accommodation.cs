@@ -4,11 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using TouristAgency.Interfaces;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-    public enum TYPE { HOTEL, HUT, APARTMENT };
-
     public class Accommodation : ISerializable,INotifyPropertyChanged,IDataErrorInfo
     {
         private int _id;

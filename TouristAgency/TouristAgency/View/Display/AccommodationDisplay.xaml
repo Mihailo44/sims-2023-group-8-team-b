@@ -8,8 +8,8 @@
         mc:Ignorable="d"
         Title="AccommodationDisplay" Height="750" Width="850" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ComboBox x:Name="NameComboBox" HorizontalAlignment="Left" Margin="570,63,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=Names}"/>
-        <ListView x:Name="AccommodationsListView" ItemsSource="{Binding Path=Accommodations}" Margin="10,59,399,406" RenderTransformOrigin="0.509,0.477">
+        <ComboBox x:Name="NameComboBox" HorizontalAlignment="Left" Margin="570,63,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=Names}" SelectedItem="{Binding SelectedName}"/>
+        <ListView x:Name="AccommodationsListView" ItemsSource="{Binding Path=Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="10,59,399,406" RenderTransformOrigin="0.509,0.477">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Photo">
@@ -35,13 +35,13 @@
         <Label Content="Type:" HorizontalAlignment="Left" Margin="459,177,0,0" VerticalAlignment="Top"/>
         <Label Content="Max capacity:" HorizontalAlignment="Left" Margin="456,216,0,0" VerticalAlignment="Top" Height="29"/>
         <Label Content="Min days for&#xD;&#xA;reservation:" HorizontalAlignment="Left" Margin="632,210,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="CityComboBox" HorizontalAlignment="Left" Margin="570,101,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}"/>
-        <ComboBox x:Name="CountryComboBox" HorizontalAlignment="Left" Margin="570,139,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}"/>
-        <ComboBox x:Name="TypeComboBox" HorizontalAlignment="Left" Margin="570,177,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Types}"/>
+        <ComboBox x:Name="CityComboBox" HorizontalAlignment="Left" Margin="570,101,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}" SelectedItem="{Binding SelectedCity}"/>
+        <ComboBox x:Name="CountryComboBox" HorizontalAlignment="Left" Margin="570,139,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}" SelectedItem="{Binding SelectedCountry}"/>
+        <ComboBox x:Name="TypeComboBox" HorizontalAlignment="Left" Margin="570,177,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Types}" SelectedItem="{Binding SelectedType}"/>
         <WPFExtended:UIntegerUpDown HorizontalAlignment="Left" Margin="567,221,0,0" VerticalAlignment="Top" Width="45" Value="{Binding Path = MaxGuestNum}"/>
         <WPFExtended:UIntegerUpDown HorizontalAlignment="Left" Margin="727,221,0,0" VerticalAlignment="Top" Width="45" Value="{Binding Path = MinNumOfDays}"/>
-        <Button Content="Search" HorizontalAlignment="Left" Margin="478,262,0,0" VerticalAlignment="Top" Width="62" Height="28" Click="Search_Click"/>
-        <Button Content="Show all" HorizontalAlignment="Left" Margin="660,262,0,0" VerticalAlignment="Top" Width="62" Height="28" Click="ShowAll_Click"/>
+        <Button Content="Search" HorizontalAlignment="Left" Margin="478,262,0,0" VerticalAlignment="Top" Width="62" Height="28" Command="{Binding SearchCmd}"/>
+        <Button Content="Show all" HorizontalAlignment="Left" Margin="660,262,0,0" VerticalAlignment="Top" Width="62" Height="28" Command="{Binding ShowAllCmd}"/>
         <GroupBox Width="400" Margin="10,367,0,171" HorizontalAlignment="Left">
             <GroupBox.Header>
                 <Label Content="Search for available dates" FontSize="18" FontWeight="SemiBold"></Label>
@@ -64,7 +64,7 @@
                 <DatePicker HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="3" FontSize="12" SelectedDate="{Binding Path = End}"/>
                 <Label Content="Number of days:" HorizontalAlignment="Right" Margin="0,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Row="1"/>
                 <WPFExtended:UIntegerUpDown Grid.Column="1" Grid.Row="1" Height="25" Width="55" VerticalAlignment="Center"  HorizontalAlignment="Center" Value="{Binding Path=NumOfDays}"/>
-                <Button Content="Search" FontSize="13" Margin="18,2,18,0" VerticalAlignment="Top"  Width="73" Height="35" Grid.Column="3" Grid.Row="2" Click="SearchDate_Click"/>
+                <Button Content="Search" FontSize="13" Margin="18,2,18,0" VerticalAlignment="Top"  Width="73" Height="35" Grid.Column="3" Grid.Row="2" Command="{Binding SearchDateCmd}"/>
             </Grid>
         </GroupBox>
 
@@ -84,11 +84,11 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Content="Number of people:" Height="26"/>
                 <WPFExtended:UIntegerUpDown Grid.Column="1" Width="60" Height="27" HorizontalAlignment="Left" Value="{Binding Path = NumOfPeople}"/>
-                <Button x:Name="MakeReservationButton" Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right" Click="MakeReservation_Click"/>
-                <Button Grid.Column="3" Content="Cancel reservation" Width="110" Height="27" HorizontalAlignment="Right" Margin="0,0,10,0" Click="CancelReservation_Click"/>
+                <Button x:Name="MakeReservationButton" Grid.Column="2" Content="Make a reservation" Width="110" Height="27" HorizontalAlignment="Right" Command="{Binding CreateCmd}"/>
+                <Button Grid.Column="3" Content="Cancel reservation" Width="110" Height="27" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelReservationCmd}"/>
             </Grid>
         </GroupBox>
-        <ListView x:Name="ReservationsListView" ItemsSource="{Binding Path = Reservations}" Margin="459,382,58,171">
+        <ListView x:Name="ReservationsListView" ItemsSource="{Binding Path = Reservations}" SelectedItem="{Binding SelectedReservation}" Margin="459,382,58,171">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="from" DisplayMemberBinding="{Binding Path = Start}"></GridViewColumn>

@@ -39,8 +39,20 @@ namespace TouristAgency.View.Home
 
         private void ActiveTourDisplayButton_Click(object sender, RoutedEventArgs e)
         {
-            ActiveTourDisplay y = new ActiveTourDisplay(_loggedInGuide);
-            y.Show();
+            ActiveTourDisplay activeTour = new ActiveTourDisplay(_loggedInGuide);
+            activeTour.Show();
+        }
+
+        private void CancelTourDisplayButton_Click(object sender, RoutedEventArgs e)
+        {
+            CancelTourDisplay cancelTour = new CancelTourDisplay();
+            cancelTour.Show();
+        }
+
+        private void TourStatisticsDisplayButton_Click(object sender, RoutedEventArgs e)
+        {
+            TourStatisticsDisplay tourStatistics = new TourStatisticsDisplay();
+            tourStatistics.Show();
         }
     }
 }

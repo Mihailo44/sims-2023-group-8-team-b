@@ -7,101 +7,25 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
-using TouristAgency.Controller;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.View.Creation;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Home
 {
     /// <summary>
     /// Interaction logic for OwnerHome.xaml
     /// </summary>
-    public partial class OwnerHome : Window, IObserver
+    public partial class OwnerHome : Window
     {
-        private ReservationController _reservationController;
-        private AccommodationController _accommodationController;
-
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
-
-        public ObservableCollection<Reservation> Reservations { get; set; }
-        public Reservation SelectedReservation { get; set; }
-
-        public Owner LoggedUser { get; set; }
-
         public OwnerHome(Owner owner)
         {
             InitializeComponent();
-            DataContext = this;
-
-            var app = (App)Application.Current;
-
-            _reservationController = app.ReservationController;
-            _reservationController.Subcribe(this);
-
-            _accommodationController = app.AccommodationController;
-            _accommodationController.Subscribe(this);
-
-            LoggedUser = owner;
-
-            Accommodations = new ObservableCollection<Accommodation>();
-            LoadAccommodations(LoggedUser.ID);
-
-            Reservations = new ObservableCollection<Reservation>();
-            LoadReservations(LoggedUser.ID);
-            ReviewNotification();
+            DataContext = new OwnerHomeViewModel(this,owner);
         }
 
-        private void LoadAccommodations(int ownerId = 0)
-        {
-            Accommodations.Clear();
-            List<Accommodation> accommodations = _accommodationController.GetByOwnerId(ownerId);
-            foreach(var accommodation in accommodations)
-            {
-                Accommodations.Add(accommodation);
-            }
-        }
-
-        private void LoadReservations(int ownerId = 0)
-        {
-            Reservations.Clear();
-            List<Reservation> reservations = _reservationController.GetByOwnerId(ownerId);
-            foreach (var reservation in reservations)
-            {
-                Reservations.Add(reservation);
-            }
-        }
-
-        private void ReviewNotification()
-        {
-            int changes;
-            string notification = _reservationController.ReviewNotification(LoggedUser,out changes);
-            if(changes > 0)
-            {
-                MessageBox.Show(notification);
-            }
-        }
-
-        public void Update()
-        {
-            LoadAccommodations(LoggedUser.ID);
-            LoadReservations(LoggedUser.ID);
-        }
-
-        private void MenuNewAccommodation_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationCreation x = new AccommodationCreation(LoggedUser);
-            x.Show();
-        }
-
-        private void ToolBarCreate_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationCreation x = new AccommodationCreation(LoggedUser);
-            x.Show();
-        }
-
-        private void DataGridReservations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        /*private void DataGridReservations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedReservation != null)
             {
@@ -138,6 +62,6 @@ namespace TouristAgency.View.Home
                 UseShellExecute = true
             };
             Process.Start(ps);
-        }
+        } */
     }
 }

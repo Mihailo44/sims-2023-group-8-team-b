@@ -1,11 +1,6 @@
-0|Fantastic visit to Novi Sad|NOT_STARTED|Fantastic!|Serbian|8|0|8|1|3/22/2023 12:00:00 AM|50|0
-1|Fantastic visit to Novi Sad|NOT_STARTED|Fantastic!|Serbian|8|0|8|1|3/23/2023 12:00:00 AM|50|0
-2|Fantastic visit to Novi Sad|NOT_STARTED|Fantastic!|Serbian|8|0|8|1|3/24/2023 12:00:00 AM|50|0
-3|Fantastic visit to Novi Sad|NOT_STARTED|Fantastic!|Serbian|8|0|8|1|3/25/2023 12:00:00 AM|50|0
-4|Unforgetable visit to Belgrade|NOT_STARTED|Unforgetable!|Chinese|10|0|10|2|3/22/2023 12:00:00 AM|50|1
-5|Unforgetable visit to Belgrade|NOT_STARTED|Unforgetable!|Chinese|10|0|10|2|3/23/2023 12:00:00 AM|50|1
-6|Unforgetable visit to Belgrade|NOT_STARTED|Unforgetable!|Chinese|10|0|10|2|3/24/2023 12:00:00 AM|50|1
-7|Unbelivable visit to Nis|NOT_STARTED|Unbelivable|German|14|0|14|4|3/22/2023 12:00:00 AM|50|2
-8|Unbelivable visit to Nis|NOT_STARTED|Unbelivable|German|14|0|14|4|3/23/2023 12:00:00 AM|50|2
-9|Unbelivable visit to Nis|NOT_STARTED|Unbelivable|German|14|0|14|4|3/24/2023 12:00:00 AM|50|2
-10|Unbelivable visit to Nis|NOT_STARTED|Unbelivable|German|14|0|14|4|3/25/2023 12:00:00 AM|50|2
+0|dfthdrytghtrg|ENDED|rhgseht|Serbian|8|8|0|2|4/3/2023 12:00:00 AM|50|0
+1|dfthdrytghtrg|NOT_STARTED|rhgseht|Serbian|8|0|8|2|4/4/2023 12:00:00 AM|50|0
+2|dfthdrytghtrg|NOT_STARTED|rhgseht|Serbian|8|0|8|2|4/5/2023 12:00:00 AM|50|0
+3|dftrjhtesjt|NOT_STARTED|hetuyjnmtfntrd|Serbian|5|0|5|3|4/3/2023 12:00:00 AM|50|1
+4|dftrjhtesjt|NOT_STARTED|hetuyjnmtfntrd|Serbian|5|0|5|3|4/4/2023 12:00:00 AM|50|1
+5|dftrjhtesjt|NOT_STARTED|hetuyjnmtfntrd|Serbian|5|0|5|3|4/5/2023 12:00:00 AM|50|1

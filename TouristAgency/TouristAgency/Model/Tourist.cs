@@ -28,6 +28,12 @@ namespace TouristAgency.Model
             }
         }
 
+        public bool IsSelected
+        {
+            get;
+            set;
+        }
+
         public Tourist(User user) : base(user)
         {
             _appliedTours = new List<Tour>();
