@@ -6,32 +6,31 @@
         xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Tour" Height="720" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="Tour" Height="800" Width="1200" WindowStartupLocation="CenterScreen">
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center" Height="770" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"></RowDefinition>
-            <RowDefinition Height="400"></RowDefinition>
-            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="220"></RowDefinition>
+            <RowDefinition Height="390"></RowDefinition>
+            <RowDefinition Height="130"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Height="140" Width="850" VerticalAlignment="Top" Margin="0,5,0,0" Background="Beige">
+        <GroupBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Height="200" Width="1150" VerticalAlignment="Top" Margin="0,5,0,0" Background="Beige">
             <GroupBox.Header>
-                <Label Content="Filters" FontSize="22" FontWeight="Bold"></Label>
+                <Label Content="Filters" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90"></ColumnDefinition>
-                    <ColumnDefinition Width="170"></ColumnDefinition>
-                    <ColumnDefinition Width="125"></ColumnDefinition>
-                    <ColumnDefinition Width="70"></ColumnDefinition>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
-                    <ColumnDefinition Width="220"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="190"></ColumnDefinition>
+                    <ColumnDefinition Width="210"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -39,28 +38,28 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Country:" FontSize="16" FontWeight="SemiBold" Margin="5,0,0,0"/>
-                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="130" Height="26" ItemsSource="{Binding Path=Countries}" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold" SelectedItem="{Binding SelectedCountry}"/>
-                <Label Grid.Row="1" Grid.Column="0" Content="City:" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold" Margin="5,0,0,0" />
-                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="130" Height="26" ItemsSource="{Binding Path=Cities}" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold" SelectedItem="{Binding SelectedCity}"/>
-                <Label Grid.Row="2" Grid.Column="0" Content="Language:" FontSize="16" FontWeight="SemiBold" Margin="5,0,0,0"/>
-                <ComboBox x:Name="LanguageComboBox" Grid.Row="2" Grid.Column="1" Width="130" Height="26" ItemsSource="{Binding Path=Languages}" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold" SelectedItem="{Binding SelectedLanguage}"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Country:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,0"/>
+                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="150" Height="42" ItemsSource="{Binding Path=Countries}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" SelectedItem="{Binding SelectedCountry}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="City:" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,0" />
+                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="150" Height="42" ItemsSource="{Binding Path=Cities}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" SelectedItem="{Binding SelectedCity}"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="Language:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,0"/>
+                <ComboBox x:Name="LanguageComboBox" Grid.Row="2" Grid.Column="1" Width="150" Height="42" ItemsSource="{Binding Path=Languages}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" SelectedItem="{Binding SelectedLanguage}"/>
 
-                <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Duration (hours):" FontSize="16" FontWeight="SemiBold"/>
+                <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Content="Duration (hours):" FontSize="28" FontWeight="SemiBold"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4">
-                    <Label Grid.Row="1" Grid.Column="2" Content="Min:" FontSize="16" FontWeight="SemiBold"/>
-                    <WPFExtended:UIntegerUpDown x:Name="MinDurationIntegerUpDown" Grid.Row="1" Grid.Column="3" Height="24" Width="60" HorizontalAlignment="Left" Value="{Binding Path=MinDuration}" FontSize="16" FontWeight="SemiBold"/>
-                    <Label Grid.Row="1" Grid.Column="4" Content="Max:" FontSize="16" FontWeight="SemiBold"/>
-                    <WPFExtended:UIntegerUpDown x:Name="MaxDurationIntegerUpDown" Grid.Row="1" Grid.Column="5" Height="24" Width="60" HorizontalAlignment="Left" Value="{Binding Path=MaxDuration}" FontSize="16" FontWeight="SemiBold"/>
+                    <Label Grid.Row="1" Grid.Column="2" Content="Min:" FontSize="28" FontWeight="SemiBold"/>
+                    <WPFExtended:UIntegerUpDown x:Name="MinDurationIntegerUpDown" Grid.Row="1" Grid.Column="3" Height="39" Width="73" HorizontalAlignment="Left" Value="{Binding Path=MinDuration}" FontSize="28" FontWeight="SemiBold"/>
+                    <Label Grid.Row="1" Grid.Column="4" Content="Max:" FontSize="28" FontWeight="SemiBold"/>
+                    <WPFExtended:UIntegerUpDown x:Name="MaxDurationIntegerUpDown" Grid.Row="1" Grid.Column="5" Height="39" Width="73" HorizontalAlignment="Left" Value="{Binding Path=MaxDuration}" FontSize="28" FontWeight="SemiBold"/>
                 </StackPanel>
-                <Label Grid.Row="2" Grid.Column="2" Content="Num of people:" FontSize="16" FontWeight="SemiBold"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="24" Width="60" HorizontalAlignment="Left" Value="{Binding Path=NumberOfPeople}" FontSize="16" FontWeight="SemiBold"/>
-                <Button Grid.Row="1" Grid.Column="5" Content="Apply filter" Width="110" Height="32" Command="{Binding FilterCmd}" HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
-                <Button Grid.Row="1" Grid.Column="6" Content="Clear filter" Width="110" Height="32" Command="{Binding ClearCmd}" HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="2" Content="Num of people:" FontSize="28" FontWeight="SemiBold"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="39" Width="73" HorizontalAlignment="Left" Value="{Binding Path=NumberOfPeople}" FontSize="28" FontWeight="SemiBold"/>
+                <Button Grid.Row="1" Grid.Column="4" Content="Apply filter" Width="173" Height="40" Command="{Binding FilterCmd}" HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="28" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Button Grid.Row="1" Grid.Column="5" Content="Clear filter" Width="173" Height="40" Command="{Binding ClearCmd}" HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="28" FontWeight="Bold" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
 
-        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="850" Height="370" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" Margin="0,20,0,0" FontSize="16" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="1150" Height="350" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" Margin="0,20,0,0" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" Background="{x:Null}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -87,24 +86,24 @@
             </ListView.View>
         </ListView>
 
-        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Width="850" Height="100" Margin="0,0,0,5" Background="Beige">
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Width="1150" Height="120" Margin="0,0,0,5" Background="Beige">
             <GroupBox.Header>
-                <Label Content="Reservation" FontSize="22" FontWeight="Bold"></Label>
+                <Label Content="Reservation" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="190"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="330"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="400"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Content="Number of reservations:" Height="35" FontSize="16" FontWeight="SemiBold" Margin="5,0,0,0"/>
-                <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="1" Width="60" Height="24" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}" FontSize="16" FontWeight="SemiBold"/>
-                <Button Grid.Column="2" Content="Make a reservation" Width="160" Height="32" HorizontalAlignment="Right" Command="{Binding CreateCmd}" FontSize="16" FontWeight="Bold"/>
-                <Button Grid.Column="3" Content="Cancel reservation" Width="160" Height="32" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" FontSize="16" FontWeight="Bold"/>
+                <Label Grid.Column="0" Content="Number of reservations:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,10"/>
+                <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="1" Width="73" Height="39" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}" FontSize="28" FontWeight="Bold" Margin="0,0,0,8"/>
+                <Button Grid.Column="2" Content="Make a reservation" Width="270" Height="40" HorizontalAlignment="Right" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold"/>
+                <Button Grid.Column="3" Content="Cancel reservation" Width="270" Height="40" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" FontSize="28" FontWeight="Bold"/>
             </Grid>
         </GroupBox>
     </Grid>

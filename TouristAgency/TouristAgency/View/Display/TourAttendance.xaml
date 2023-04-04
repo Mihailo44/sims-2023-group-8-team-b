@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Title="TourAttendance" Height="600" Width="1100">
-    <Grid HorizontalAlignment="Center" Height="550">
+    <Grid HorizontalAlignment="Center" Height="580">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -58,6 +58,6 @@
             </Grid>
         </GroupBox>
 
-        <Button Content="Join the tour" Grid.Row="2" Grid.Column="1" Width="212" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="28" FontWeight="Bold" Margin="0,0,0,11"></Button>
+        <Button Content="Join the tour" Grid.Row="2" Grid.Column="1" Width="212" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="28" FontWeight="Bold" Margin="0,0,0,40"></Button>
     </Grid>
 </Window>
