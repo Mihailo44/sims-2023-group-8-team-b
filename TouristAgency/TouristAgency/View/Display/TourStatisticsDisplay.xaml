@@ -26,30 +26,33 @@
         
         <!-- TODO NAVIGATION BUTTON -->
 
-        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="250" Width="333">
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="250" Width="333" ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GetStatisticsCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                </GridView>
+            </ListView.View>
         </ListView>
 
         <StackPanel Grid.Row="3" Grid.Column="0">
             <Label FontSize="18" HorizontalAlignment="Center">Age statistics:</Label>
             <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
                 <lvc:PieChart.Series>
-                    <lvc:PieSeries Title="Maria" Values="3" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Charles" Values="4" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Frida" Values="6" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Frederic" Values="2" LabelPoint="Test"/>
-                    <!--<lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" LabelPoint="{Binding PointLabel}"/> -->
-                </lvc:PieChart.Series>
-            </lvc:PieChart>
-        </StackPanel>
-
-        <StackPanel Grid.Row="3" Grid.Column="0">
-            <Label FontSize="18" HorizontalAlignment="Center">Age statistics:</Label>
-            <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
-                <lvc:PieChart.Series>
-                    <lvc:PieSeries Title="Maria" Values="3" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Charles" Values="4" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Frida" Values="6" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Frederic" Values="2" LabelPoint="Test"/>
+                    <lvc:PieSeries Title="Less than 18" Values="{Binding Young}"/>
+                    <lvc:PieSeries Title="Between 18 and 50" Values="{Binding Adult}"/>
+                    <lvc:PieSeries Title="More than 50" Values="{Binding Old}"/>
                     <!--<lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" LabelPoint="{Binding PointLabel}"/> -->
                 </lvc:PieChart.Series>
             </lvc:PieChart>
@@ -59,10 +62,8 @@
             <Label FontSize="18" HorizontalAlignment="Center">Voucher statistics:</Label>
             <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
                 <lvc:PieChart.Series>
-                    <lvc:PieSeries Title="Maria" Values="3" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Charles" Values="4" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Frida" Values="6" LabelPoint="Test"/>
-                    <lvc:PieSeries Title="Frederic" Values="2" LabelPoint="Test"/>
+                    <lvc:PieSeries Title="With voucher" Values="3"/>
+                    <lvc:PieSeries Title="Without voucher" Values="4"/>
                     <!--<lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" LabelPoint="{Binding PointLabel}"/> -->
                 </lvc:PieChart.Series>
             </lvc:PieChart>

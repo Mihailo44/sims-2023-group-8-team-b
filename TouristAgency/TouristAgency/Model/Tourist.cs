@@ -82,5 +82,18 @@ namespace TouristAgency.Model
             _phone = values[7];
             _fullLocationID = Convert.ToInt32(8);
         }
+
+        public int GetAgeCategory()
+        {
+            //0 young, 1 adult, 2 old
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            int ageDifference = today.Year - DateOfBirth.Year;
+            if (ageDifference < 18)
+                return 0;
+            else if (ageDifference < 50)
+                return 1;
+            else
+                return 2;
+        }
     }
 }

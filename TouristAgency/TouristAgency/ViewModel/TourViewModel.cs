@@ -7,6 +7,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using System.Collections.ObjectModel;
 using TouristAgency.Service;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.ViewModel
 {
@@ -113,6 +114,16 @@ namespace TouristAgency.ViewModel
         public void LoadPhotosToTours(List<Photo> photos)
         {
             _tour.LoadPhotosToTours(photos);
+        }
+
+        public int[] GetTourAgeStatistics(Tour tour)
+        {
+            return _tour.GetTourAgeStatistics(tour);
+        }
+
+        public List<Tour> GetCancellabeTours()
+        {
+            return _tour.GetCancellabeTours();
         }
 
         public void Subscribe(IObserver observer)

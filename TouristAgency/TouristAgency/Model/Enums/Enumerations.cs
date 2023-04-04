@@ -10,4 +10,5 @@ namespace TouristAgency.Model.Enums
     public enum OwnerReviewStatus { REVIEWED, UNREVIEWED, EXPIRED }
     public enum TYPE { HOTEL, HUT, APARTMENT };
     public enum PostponementRequestStatus { PENDING,APPROVED,DENIED}
+    public enum STATUS { NOT_STARTED, IN_PROGRESS, ENDED, CANCELLED }
 }

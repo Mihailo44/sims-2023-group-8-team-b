@@ -1,4 +1,4 @@
-0|laki|l123|Lazar|Markovic|3/16/2002|laki@gmail.com|062315478|6
+0|laki|l123|Lazar|Markovic|3/16/2010|laki@gmail.com|062315478|6
 1|maki|m178|Marko|Mirkovic|5/16/2001|maki@gmail.com|062317878|6
 2|todor|todor123|Todor|Jankovic|1/11/2003|todor@gmail.com|064585478|6
 3|olja|olja111|Olga|Nikolic|3/16/2002|olja@gmail.com|069311178|6

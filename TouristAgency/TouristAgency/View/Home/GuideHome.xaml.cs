@@ -45,13 +45,13 @@ namespace TouristAgency.View.Home
 
         private void CancelTourDisplayButton_Click(object sender, RoutedEventArgs e)
         {
-            CancelTourDisplay cancelTour = new CancelTourDisplay();
+            CancelTourDisplay cancelTour = new CancelTourDisplay(_loggedInGuide);
             cancelTour.Show();
         }
 
         private void TourStatisticsDisplayButton_Click(object sender, RoutedEventArgs e)
         {
-            TourStatisticsDisplay tourStatistics = new TourStatisticsDisplay();
+            TourStatisticsDisplay tourStatistics = new TourStatisticsDisplay(_loggedInGuide);
             tourStatistics.Show();
         }
     }

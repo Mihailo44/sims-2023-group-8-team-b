@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Model.Enums;
 using TouristAgency.Storage;
 
 namespace TouristAgency.Service
@@ -109,6 +111,23 @@ namespace TouristAgency.Service
         public List<Tour> GetAll()
         {
             return _tours;
+        }
+
+        public int[] GetTourAgeStatistics(Tour tour)
+        {
+            int[] result = new int[3];
+            // 0 young, 1 adult, 2 old
+            foreach(Tourist tourist in tour.RegisteredTourists)
+            {
+                int ageCategory = tourist.GetAgeCategory();
+                if (ageCategory == 0)
+                    result[0] += 1;
+                else if (ageCategory == 1)
+                    result[1] += 1;
+                else
+                    result[2] += 1;
+            }
+            return result;
         }
 
         public void LoadLocationsToTours(List<Location> locations)
@@ -229,6 +248,12 @@ namespace TouristAgency.Service
 
             return languages;
         }
+
+        public List<Tour> GetCancellabeTours()
+        {
+            return _tours.Where(t => (DateTime.Today.Date - t.StartDateTime.Date).Days <= - 2).ToList();
+        }
+
 
         public void Subscribe(IObserver observer)
         {

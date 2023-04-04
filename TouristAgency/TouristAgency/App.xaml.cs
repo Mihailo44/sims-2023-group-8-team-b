@@ -18,6 +18,8 @@ namespace TouristAgency
         public PostponementRequestService PostponementRequestService { get; }
         public TouristService TouristService { get; }
         public VoucherService VoucherService { get; }
+
+        public TourService TourService { get; }
        
         public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();
         public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
@@ -42,7 +44,9 @@ namespace TouristAgency
             PostponementRequestService = new();
             TouristService = new();
             VoucherService = new();
+            TourService = new();
 
+            //TODO Preci na servise
             AccommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
             AccommodationService.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
             OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());

@@ -8,6 +8,7 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.ViewModel
 {
@@ -99,7 +100,6 @@ namespace TouristAgency.ViewModel
                 }
             }
         }
-        //TODO U WPF POVEZI!
         public Tour SelectedTour
         {
             get;

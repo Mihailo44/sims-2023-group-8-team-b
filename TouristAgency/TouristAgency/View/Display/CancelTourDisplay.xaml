@@ -33,7 +33,25 @@
             </TextBlock.Inlines>
         </TextBlock>
 
-        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="450" Width="333">
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding AvailableTours}" Height="450" Width="333" SelectionMode="Multiple">
+
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                </GridView>
+            </ListView.View>
         </ListView>
 
         <Button Grid.Row="3" Grid.Column="0" Height="57" Width="138" FontSize="20">Cancel tours</Button>

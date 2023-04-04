@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Display
 {
@@ -19,9 +21,10 @@ namespace TouristAgency.View.Display
     /// </summary>
     public partial class CancelTourDisplay : Window
     {
-        public CancelTourDisplay()
+        public CancelTourDisplay(Guide guide)
         {
             InitializeComponent();
+            DataContext = new CancelTourDisplayViewModel(guide, this);
         }
     }
 }
