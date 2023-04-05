@@ -13,11 +13,16 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         
-        <TextBox Grid.Row="0" Grid.RowSpan="3"  Height="200" Width="500" FontSize="23">
+        <TextBox Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"  Height="200" Width="500" FontSize="23" Text="{Binding Comment}">
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="3" Width="180" Height="80" Content="SUBMIT" FontSize="23"></Button>
+        <Button Grid.Row="3" Grid.Column="0" Width="150" Height="70" Content="SUBMIT" FontSize="21" Command="{Binding SubmitCommentCmd}"/>
+        <Button Grid.Row="3" Grid.Column="1" Width="150" Height="70" Content="CANCEL" FontSize="21" Command="{Binding CloseCmd}"/>
     </Grid>
 </Window>

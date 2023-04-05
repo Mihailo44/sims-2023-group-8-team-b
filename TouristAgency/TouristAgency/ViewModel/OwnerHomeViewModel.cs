@@ -86,7 +86,7 @@ namespace TouristAgency.ViewModel
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
             PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
-            PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
+            //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
         }
 
         private void LoadAccommodations(int ownerId = 0)
@@ -213,44 +213,45 @@ namespace TouristAgency.ViewModel
             MessageBoxResult result = ApprovePostponementRequest();
             if (SelectedRequest != null)
             {
-                Reservation postponed = _reservationService.FindById(SelectedRequest.Reservation.Id);
+                Reservation reservation = _reservationService.FindById(SelectedRequest.Reservation.Id);
                 PostponementRequest request = _postponementRequestService.FindById(SelectedRequest.Id);
-                bool accommodationAvailability = _reservationService.IsReserved(postponed.Id, SelectedRequest.Start, SelectedRequest.End);
+                bool accommodationAvailability = _reservationService.IsReserved(reservation.Id, SelectedRequest.Start, SelectedRequest.End);
 
                 if (result == MessageBoxResult.Yes)
                 {
                     if (!accommodationAvailability)
                     {
-                        postponed.Start = SelectedRequest.Start;
-                        postponed.End = SelectedRequest.End;
-                        _reservationService.Update(postponed, postponed.Id);
+                        reservation.Start = SelectedRequest.Start;
+                        reservation.End = SelectedRequest.End;
+                        _reservationService.Update(reservation, reservation.Id);
+
                         request.Status = PostponementRequestStatus.APPROVED;
-                        _postponementRequestService.Update(request, request.Id);
-                        OpenPostponeCommentExecute();
+                        OpenPostponeCommentExecute(request); // ovo ce trebati drugacije
                     }
                     else
                     {
+                        MessageBox.Show("Postponement is not possible");
                         request.Status = PostponementRequestStatus.DENIED;
                         request.Comment = "Sorry, the accommodation is reserved in this timeframe";
-                        _postponementRequestService.Update(SelectedRequest, SelectedRequest.Id);
+                        _postponementRequestService.Update(request, request.Id);
                     }
                 }
                 else if (result == MessageBoxResult.No)
                 {
                     request.Status = PostponementRequestStatus.DENIED;
-                    _postponementRequestService.Update(SelectedRequest, SelectedRequest.Id);
+                    OpenPostponeCommentExecute(request);
                 }
             }
         }
 
         public bool CanOpenPostponeCommentExecute()
         {
-            return true; // da li ovde treba nesto drugo
+            return true;
         }
 
-        public void OpenPostponeCommentExecute()
+        public void OpenPostponeCommentExecute(PostponementRequest postponementRequest)
         {
-            PostponementRequestCommentDialogue x = new PostponementRequestCommentDialogue();
+            PostponementRequestCommentDialogue x = new PostponementRequestCommentDialogue(postponementRequest);
             x.Show();
         }
 

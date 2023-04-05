@@ -183,7 +183,6 @@ namespace TouristAgency.ViewModel
             PrepareAccommodationForCreation();
             try
             {
-                //_accommodation.Create(NewAccommodation);
                 _accommodation.Create(NewAccommodation);
                 AddPhotos();
                 MessageBox.Show("Accommodation created successfully");
