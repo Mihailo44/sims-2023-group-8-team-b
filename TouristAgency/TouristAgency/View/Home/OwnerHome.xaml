@@ -48,6 +48,11 @@
                 </TabItem>
                 <TabItem Header="Postponation Requests" Width="180" Height="30" FontSize="15">
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding PostponementRequests}" SelectedItem="{Binding SelectedRequest}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
                             <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>

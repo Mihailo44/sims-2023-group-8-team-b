@@ -181,7 +181,6 @@ namespace TouristAgency.Service
             {
                 currentReservation.Start = updatedReservation.Start;
                 currentReservation.End = updatedReservation.End;
-                currentReservation.Postponed = true;
             }
             currentReservation.Status = updatedReservation.Status;
 

@@ -20,17 +20,25 @@ namespace TouristAgency
         public VoucherService VoucherService { get; }
 
         public TourService TourService { get; }
-       
-        public CheckpointViewModel CheckpointViewModel { get; set; } = new CheckpointViewModel();
+        public TourTouristService TourTouristService { get; }
+        public TourCheckpointService TourCheckpointService { get; }
+        public TourTouristCheckpointService TourTouristCheckpointService { get; }
+        public CheckpointService CheckpointService { get; }
+        public PhotoService PhotoService { get; }
+
+
+        public GuideService GuideService { get; }
+
+        //public CheckpointService CheckpointService { get; set; } = new CheckpointService();
         public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
         public LocationViewModel LocationViewModel { get; set; } = new LocationViewModel();
-        public GuideViewModel GuideViewModel { get; set; } = new GuideViewModel();
-        public PhotoViewModel PhotoViewModel { get; set; } = new PhotoViewModel();
-        public TourCheckpointViewModel TourCheckpointViewModel { get; set; } = new TourCheckpointViewModel();
-        public TourViewModel TourViewModel { get; set; } = new TourViewModel();
+        //public GuideService GuideService { get; set; } = new GuideService();
+        //public PhotoService PhotoService { get; set; } = new PhotoService();
+        //public TourCheckpointService TourCheckpointService { get; set; } = new TourCheckpointService();
+        //public TourService TourService { get; set; } = new TourService();
         public TouristViewModel TouristViewModel { get; set; } = new TouristViewModel();
-        public TourTouristCheckpointViewModel TourTouristCheckpointViewModel { get; set; } = new TourTouristCheckpointViewModel();
-        public TourTouristViewModel TourTouristViewModel { get; set; } = new TourTouristViewModel();
+        //public TourTouristCheckpointService TourTouristCheckpointService { get; set; } = new TourTouristCheckpointService();
+        //public TourTouristService TourTouristService { get; set; } = new TourTouristService();
         public VoucherViewModel VoucherViewModel { get; set; } = new VoucherViewModel();
 
         public App()
@@ -43,25 +51,31 @@ namespace TouristAgency
             OwnerReviewService = new();
             PostponementRequestService = new();
             TouristService = new();
+            TourTouristService = new();
             VoucherService = new();
             TourService = new();
+            TourCheckpointService = new();
+            TourTouristCheckpointService = new();
+            CheckpointService = new();
+            GuideService = new();
+            PhotoService = new();
 
             //TODO Preci na servise
             AccommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
-            AccommodationService.LoadPhotosToAccommodations(PhotoViewModel.GetAll());
+            AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());
             OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());
             OwnerService.LoadLocationsToOwners(LocationViewModel.GetAll());
             GuestReviewService.LoadGuestsToGuestReviews(GuestViewModel.GetAll());
-            CheckpointViewModel.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
-            TourViewModel.LoadLocationsToTours(LocationViewModel.GetAll());
-            TourViewModel.LoadPhotosToTours(PhotoViewModel.GetAll());
+            CheckpointService.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
+            TourService.LoadLocationsToTours(LocationViewModel.GetAll());
+            TourService.LoadPhotosToTours(PhotoService.GetAll());
             ReservationService.LoadAccommodationsToReservations(AccommodationService.GetAll());
             ReservationService.LoadGuestsToReservations(GuestViewModel.GetAll());
-            TourCheckpointViewModel.LoadCheckpoints(CheckpointViewModel.GetAll());
-            GuideViewModel.LoadToursToGuide(TourViewModel.GetAll());
-            TourViewModel.LoadTouristsToTours(TourTouristViewModel.GetAll(), TouristViewModel.GetAll());
-            TouristViewModel.LoadToursToTourist(TourTouristViewModel.GetAll(), TourViewModel.GetAll());
-            TourViewModel.LoadCheckpointsToTours(TourCheckpointViewModel.GetAll(), CheckpointViewModel.GetAll());
+            TourCheckpointService.LoadCheckpoints(CheckpointService.GetAll());
+            GuideService.LoadToursToGuide(TourService.GetAll());
+            TourService.LoadTouristsToTours(TourTouristService.GetAll(), TouristViewModel.GetAll());
+            TouristViewModel.LoadToursToTourist(TourTouristService.GetAll(), TourService.GetAll());
+            TourService.LoadCheckpointsToTours(TourCheckpointService.GetAll(), CheckpointService.GetAll());
             OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
             PostponementRequestService.LoadReservationsToPostponementRequests(ReservationService.GetAll());
             TouristService.LoadVouchersToTourist(VoucherService.GetAll());

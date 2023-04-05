@@ -8,6 +8,7 @@ using TouristAgency.Model;
 using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Creation;
+using TouristAgency.View.Dialogue;
 
 namespace TouristAgency.ViewModel
 {
@@ -40,6 +41,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand NewAccommodationCmd { get; }
         public DelegateCommand NewReviewCmd { get; }
         public DelegateCommand PostponeCmd { get; }
+        public DelegateCommand PostponeCommentCmd { get; }
 
         public OwnerHomeViewModel()
         {
@@ -83,7 +85,8 @@ namespace TouristAgency.ViewModel
 
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
-            PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute()); 
+            PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
+            PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
         }
 
         private void LoadAccommodations(int ownerId = 0)
@@ -208,18 +211,47 @@ namespace TouristAgency.ViewModel
         public void PostponeReservationExecute()
         {
             MessageBoxResult result = ApprovePostponementRequest();
-            if (result == MessageBoxResult.Yes)
+            if (SelectedRequest != null)
             {
                 Reservation postponed = _reservationService.FindById(SelectedRequest.Reservation.Id);
-                if (postponed != null)
+                PostponementRequest request = _postponementRequestService.FindById(SelectedRequest.Id);
+                bool accommodationAvailability = _reservationService.IsReserved(postponed.Id, SelectedRequest.Start, SelectedRequest.End);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    postponed.Start = SelectedRequest.Start;
-                    postponed.End = SelectedRequest.End;
-                    _reservationService.Update(postponed, postponed.Id);
-                    SelectedRequest.Status = PostponementRequestStatus.APPROVED;
+                    if (!accommodationAvailability)
+                    {
+                        postponed.Start = SelectedRequest.Start;
+                        postponed.End = SelectedRequest.End;
+                        _reservationService.Update(postponed, postponed.Id);
+                        request.Status = PostponementRequestStatus.APPROVED;
+                        _postponementRequestService.Update(request, request.Id);
+                        OpenPostponeCommentExecute();
+                    }
+                    else
+                    {
+                        request.Status = PostponementRequestStatus.DENIED;
+                        request.Comment = "Sorry, the accommodation is reserved in this timeframe";
+                        _postponementRequestService.Update(SelectedRequest, SelectedRequest.Id);
+                    }
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    request.Status = PostponementRequestStatus.DENIED;
                     _postponementRequestService.Update(SelectedRequest, SelectedRequest.Id);
                 }
             }
+        }
+
+        public bool CanOpenPostponeCommentExecute()
+        {
+            return true; // da li ovde treba nesto drugo
+        }
+
+        public void OpenPostponeCommentExecute()
+        {
+            PostponementRequestCommentDialogue x = new PostponementRequestCommentDialogue();
+            x.Show();
         }
 
         private MessageBoxResult ApprovePostponementRequest()
@@ -227,11 +259,11 @@ namespace TouristAgency.ViewModel
             string sMessageBoxText;
             string sCaption;
 
-            sMessageBoxText = $"Do you want to approve postponement request?\n{SelectedRequest.Start}\n{SelectedRequest.End}";
+            sMessageBoxText = $"Do you want to approve postponement request?\nStart Date:\t{SelectedRequest.Start}\nEnd Date:\t\t{SelectedRequest.End}";
             sCaption = "Postponement Request Dialog";
 
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Question;
 
             MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
             return result;

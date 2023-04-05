@@ -18,7 +18,6 @@ namespace TouristAgency.Model
         private DateTime _start;
         private DateTime _end;
         private bool _canceled;
-        private bool _postponed;
         private GuestReviewStatus _status;
         private OwnerReviewStatus _ostatus;
 
@@ -26,7 +25,6 @@ namespace TouristAgency.Model
         {
             _id = -1;
             _canceled = false;
-            _postponed = false;
             _status = GuestReviewStatus.UNREVIEWED;
             _ostatus = OwnerReviewStatus.UNREVIEWED;
         }
@@ -40,7 +38,6 @@ namespace TouristAgency.Model
             _start = start;
             _end = end;
             _canceled = false;
-            _postponed = false;
             _status = GuestReviewStatus.UNREVIEWED;
             _ostatus = OwnerReviewStatus.UNREVIEWED;
         }
@@ -131,18 +128,6 @@ namespace TouristAgency.Model
                 if (_canceled != value)
                 {
                     _canceled = value;
-                }
-            }
-        }
-        
-        public bool Postponed
-        {
-            get => _postponed; 
-            set
-            {
-                if (_postponed != value)
-                {
-                    _postponed = value;
                 }
             }
         }
