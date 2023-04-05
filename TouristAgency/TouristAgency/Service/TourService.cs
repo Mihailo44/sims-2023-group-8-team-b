@@ -130,6 +130,11 @@ namespace TouristAgency.Service
             return result;
         }
 
+        public List<Tourist> GetTouristsFromTour(int tourId)
+        {
+            return _tours.Find(t => t.ID == tourId).RegisteredTourists;
+        }
+
         public void LoadLocationsToTours(List<Location> locations)
         {
             foreach (Location location in locations)
@@ -253,7 +258,10 @@ namespace TouristAgency.Service
         {
             return _tours.Where(t => (DateTime.Today.Date - t.StartDateTime.Date).Days <= - 2).ToList();
         }
-
+        public ObservableCollection<Tour> GetValidTours()
+        {
+            return new ObservableCollection<Tour>(GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status != STATUS.ENDED));
+        }
 
         public void Subscribe(IObserver observer)
         {

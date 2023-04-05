@@ -52,8 +52,11 @@ namespace TouristAgency.Service
                 return null;
             }
 
-            currentRequest.Comment = updatedRequest.Comment;
             currentRequest.Status = updatedRequest.Status;
+            currentRequest.Comment = updatedRequest.Comment;
+
+            _storage.Save(_requests);
+            NotifyObservers();
 
             return currentRequest;
         }

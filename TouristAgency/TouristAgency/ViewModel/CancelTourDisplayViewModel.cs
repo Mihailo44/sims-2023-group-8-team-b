@@ -20,7 +20,7 @@ namespace TouristAgency.ViewModel
         {
             _app = (App)Application.Current;
             _guide = guide;
-            AvailableTours = new ObservableCollection<Tour>(_app.TourViewModel.GetCancellabeTours());
+            AvailableTours = new ObservableCollection<Tour>(_app.TourService.GetCancellabeTours());
         }
 
         public ObservableCollection<Tour> AvailableTours

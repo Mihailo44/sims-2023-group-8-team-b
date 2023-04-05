@@ -28,7 +28,7 @@ namespace TouristAgency.ViewModel
             _guide = guide;
             _tours = new ObservableCollection<Tour>();
             _app = (App)App.Current;
-            Tours = new ObservableCollection<Tour>(_app.TourViewModel.GetAll());
+            Tours = new ObservableCollection<Tour>(_app.TourService.GetAll());
             Young = new ChartValues<int>();
             Adult = new ChartValues<int>();
             Old = new ChartValues<int>();
@@ -117,7 +117,7 @@ namespace TouristAgency.ViewModel
 
         public void GetTourAgeStatistics()
         {
-            int[] results = _app.TourViewModel.GetTourAgeStatistics(SelectedTour);
+            int[] results = _app.TourService.GetTourAgeStatistics(SelectedTour);
             ClearAgeStatistics();
             Young.Add(results[0]);
             Adult.Add(results[1]);
