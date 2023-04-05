@@ -33,7 +33,7 @@
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
                               SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
@@ -49,7 +49,7 @@
                 <TabItem Header="Postponation Requests" Width="180" Height="30" FontSize="15">
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding PostponementRequests}" SelectedItem="{Binding SelectedRequest}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>

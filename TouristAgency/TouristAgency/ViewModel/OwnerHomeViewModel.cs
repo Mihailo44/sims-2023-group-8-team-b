@@ -169,24 +169,31 @@ namespace TouristAgency.ViewModel
 
         public bool CanOpenGuestReviewCreation()
         {
-            DateTime today = DateTime.UtcNow.Date;
-            double dateDif = (today - SelectedReservation.End).TotalDays;
-
-            if (SelectedReservation.Status == GuestReviewStatus.UNREVIEWED && dateDif < 5.0)
+            if (SelectedReservation != null)
             {
-                return true;
+                DateTime today = DateTime.UtcNow.Date;
+                double dateDif = (today - SelectedReservation.End).TotalDays;
+
+                if (SelectedReservation.Status == GuestReviewStatus.UNREVIEWED && dateDif < 5.0)
+                {
+                    return true;
+                }
+                else
+                {
+                    if (dateDif > 5.0)
+                    {
+                        MessageBox.Show("Guest review time window expired");
+                    }
+                    else if (SelectedReservation.Status == GuestReviewStatus.REVIEWED)
+                    {
+                        MessageBox.Show("Guest has already been reviewed");
+                    }
+
+                    return false;
+                }
             }
             else
             {
-                if (dateDif > 5.0)
-                {
-                    MessageBox.Show("Guest review time window expired");
-                }
-                else if (SelectedReservation.Status == GuestReviewStatus.REVIEWED)
-                {
-                    MessageBox.Show("Guest has already been reviewed");
-                }
-
                 return false;
             }
         }
