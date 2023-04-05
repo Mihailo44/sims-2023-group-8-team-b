@@ -117,7 +117,7 @@ namespace TouristAgency.ViewModel
         public void LoadCheckpoints()
         {
             AvailableCheckpoints =
-                new ObservableCollection<Checkpoint>(_app.CheckpointViewModel.FindSuitableByLocation(NewLocation));
+                new ObservableCollection<Checkpoint>(_app.CheckpointService.FindSuitableByLocation(NewLocation));
         }
 
         public bool CanLoadCheckpointsIntoListView()
@@ -150,7 +150,7 @@ namespace TouristAgency.ViewModel
 
         public void AddPhotos()
         {
-            int tourID = _app.TourViewModel.GenerateID() - 1;
+            int tourID = _app.TourService.GenerateId() - 1;
             if (PhotoLinks != null)
             {
                 PhotoLinks = PhotoLinks.Replace("\r\n", "|");
@@ -159,14 +159,14 @@ namespace TouristAgency.ViewModel
                 {
                     Photo photo = new Photo(photoLink, 'T', tourID);
                     _newTour.Photos.Add(photo);
-                    _app.PhotoViewModel.Create(photo);
+                    _app.PhotoService.Create(photo);
                 }
             }
         }
 
         public void LoadToursToCheckpoints()
         {
-            int tourID = _app.TourViewModel.GenerateID() - 1;
+            int tourID = _app.TourService.GenerateId() - 1;
             int i = 0;
             bool firstVisit = true;
             foreach (Checkpoint checkpoint in SelectedCheckpoints)
@@ -177,7 +177,7 @@ namespace TouristAgency.ViewModel
                 }
 
                 _newTour.Checkpoints.Add(checkpoint);
-                _app.TourCheckpointViewModel.Create(new TourCheckpoint(tourID, checkpoint.ID, firstVisit));
+                _app.TourCheckpointService.Create(new TourCheckpoint(tourID, checkpoint.ID, firstVisit));
                 i++;
             }
         }
@@ -201,7 +201,7 @@ namespace TouristAgency.ViewModel
                 PrepareLocation();
                 _newTour.StartDateTime = dateTime;
                 _newTour.RemainingCapacity = _newTour.MaxAttendants;
-                _app.TourViewModel.Create(new Tour(_newTour));
+                _app.TourService.Create(new Tour(_newTour));
                 AddPhotos();
                 LoadToursToCheckpoints();
             }
