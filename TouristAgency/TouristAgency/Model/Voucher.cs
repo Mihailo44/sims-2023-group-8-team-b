@@ -50,7 +50,7 @@ namespace TouristAgency.Model
             {
                 if (value != _ID)
                 {
-                    _touristID = value;
+                    _ID = value;
                     OnPropertyChanged("ID");
                 }
             }

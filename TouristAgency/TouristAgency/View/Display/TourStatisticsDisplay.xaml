@@ -62,8 +62,8 @@
             <Label FontSize="18" HorizontalAlignment="Center">Voucher statistics:</Label>
             <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
                 <lvc:PieChart.Series>
-                    <lvc:PieSeries Title="With voucher" Values="3"/>
-                    <lvc:PieSeries Title="Without voucher" Values="4"/>
+                    <lvc:PieSeries Title="With voucher" Values="{Binding WithVoucher}"/>
+                    <lvc:PieSeries Title="Without voucher" Values="{Binding WithoutVoucher}"/>
                     <!--<lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" LabelPoint="{Binding PointLabel}"/> -->
                 </lvc:PieChart.Series>
             </lvc:PieChart>

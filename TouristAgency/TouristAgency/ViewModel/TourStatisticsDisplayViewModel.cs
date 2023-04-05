@@ -20,6 +20,8 @@ namespace TouristAgency.ViewModel
         private ChartValues<int> _young;
         private ChartValues<int> _adult;
         private ChartValues<int> _old;
+        private ChartValues<int> _withVoucher;
+        private ChartValues<int> _withoutVoucher;
 
         public DelegateCommand GetStatisticsCmd{ get; }
 
@@ -32,7 +34,9 @@ namespace TouristAgency.ViewModel
             Young = new ChartValues<int>();
             Adult = new ChartValues<int>();
             Old = new ChartValues<int>();
-            GetStatisticsCmd = new DelegateCommand(param => GetTourAgeStatistics(), param => CanGetStatisticsExecute());
+            WithoutVoucher = new ChartValues<int>();
+            WithVoucher = new ChartValues<int>();
+            GetStatisticsCmd = new DelegateCommand(param => GetStatisticsExecute(), param => CanGetStatisticsExecute());
         }
 
         public ObservableCollection<Tour> Tours
@@ -100,6 +104,29 @@ namespace TouristAgency.ViewModel
             }
         }
 
+        public ChartValues<int> WithVoucher
+        {
+            get { return _withVoucher; }
+            set
+            {
+                if(value != _withVoucher)
+                {
+                    _withVoucher = value;
+                }
+            }
+        }
+
+        public ChartValues<int> WithoutVoucher
+        {
+            get { return _withoutVoucher; }
+            set
+            {
+                if(value != _withoutVoucher)
+                {
+                    _withoutVoucher = value;
+                }
+            }
+        }
 
         public bool CanGetStatisticsExecute()
         {
@@ -111,7 +138,7 @@ namespace TouristAgency.ViewModel
             if (SelectedTour != null)
             {
                 GetTourAgeStatistics();
-                //GetTourVoucherStatistics();
+                GetTourVoucherStatistics();
             }
         }
 
@@ -122,6 +149,14 @@ namespace TouristAgency.ViewModel
             Young.Add(results[0]);
             Adult.Add(results[1]);
             Old.Add(results[2]);
+        }
+
+        public void GetTourVoucherStatistics()
+        {
+            WithVoucher.Clear();
+            WithoutVoucher.Clear();
+            WithVoucher.Add(_app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
+            WithoutVoucher.Add(SelectedTour.CurrentAttendants - _app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
         }
 
         public void ClearAgeStatistics()
