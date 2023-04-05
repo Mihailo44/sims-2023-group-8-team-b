@@ -98,6 +98,7 @@
         </ListView>
         <Label Content="Dates when accommodation&#xD;&#xA;is available:" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Left" Margin="459,333,0,0" VerticalAlignment="Top" Width="165"/>
         <Label Content="Select the accommodation:" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="10,22,0,0" VerticalAlignment="Top"/>
+        <Button Content="Postponement request" HorizontalAlignment="Left" Margin="670,620,0,0" VerticalAlignment="Top" Height="39" Click="PostponementRequest_Click"/>
 
     </Grid>
 </Window>
