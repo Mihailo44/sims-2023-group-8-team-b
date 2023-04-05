@@ -243,7 +243,7 @@ namespace TouristAgency.ViewModel
                         _postponementRequestService.Update(request, request.Id);
                     }
                 }
-                else if (result == MessageBoxResult.No)
+                if (result == MessageBoxResult.No)
                 {
                     request.Status = PostponementRequestStatus.DENIED;
                     OpenPostponeCommentExecute(request);

@@ -13,15 +13,17 @@ namespace TouristAgency.Service
 
         private OwnerService _ownerService;
         private GuestService _guestService;
-        private TouristService _TouristService;
-        private GuideService _GuideService;
+        private TouristService _touristService;
+        private GuideService _guideService;
+        private readonly App app = (App)App.Current;
 
         public UserService()
         {
-            _ownerService = new();
+            _ownerService = app.OwnerService;
+            _touristService = app.TouristService;
+            _guideService = app.GuideService;
             _guestService = new();
-            _TouristService = new();
-            _GuideService = new();
+            //guest servis fali
         }
 
         public object GetUser(string Username,string Password)
@@ -36,12 +38,12 @@ namespace TouristAgency.Service
             {
                 return User as Guest;
             }
-            User = _TouristService.GetAll().Find(t => t.Username == Username.Trim() && t.Password == Password.Trim());
+            User = _touristService.GetAll().Find(t => t.Username == Username.Trim() && t.Password == Password.Trim());
             if (User != null)
             {
                 return User as Tourist;
             }
-            User = _GuideService.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
+            User = _guideService.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
             if (User != null)
             {
                 return User as Guide;
