@@ -24,7 +24,7 @@ namespace TouristAgency.ViewModel
             _app = (App)Application.Current;
             _tourist = tourist;
 
-            Vouchers = new ObservableCollection<Voucher>(_app.VoucherViewModel.GetAll());
+            Vouchers = new ObservableCollection<Voucher>(_app.TouristService.GetValidVouchers(tourist));
         }
 
         public ObservableCollection<Voucher> Vouchers

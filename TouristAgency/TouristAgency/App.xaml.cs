@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TouristAgency.Service;
 using TouristAgency.ViewModel;
 
@@ -25,6 +26,7 @@ namespace TouristAgency
         public TourTouristCheckpointService TourTouristCheckpointService { get; }
         public CheckpointService CheckpointService { get; }
         public PhotoService PhotoService { get; }
+        public GuestService GuestService { get; }
 
 
         public GuideService GuideService { get; }
@@ -47,10 +49,9 @@ namespace TouristAgency
             AccommodationService = new();
             GuestReviewService = new();
             OwnerService = new();
-            UserService = new();
             OwnerReviewService = new();
             PostponementRequestService = new();
-            TouristService = new();
+            TouristService = new TouristService();
             TourTouristService = new();
             VoucherService = new();
             TourService = new();
@@ -59,6 +60,8 @@ namespace TouristAgency
             CheckpointService = new();
             GuideService = new();
             PhotoService = new();
+            GuestService = new();
+            UserService = new();
 
             //TODO Preci na servise
             AccommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
@@ -79,6 +82,7 @@ namespace TouristAgency
             OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
             PostponementRequestService.LoadReservationsToPostponementRequests(ReservationService.GetAll());
             TouristService.LoadVouchersToTourist(VoucherService.GetAll());
+            Console.WriteLine("test");
         }
     }
 }

@@ -52,6 +52,22 @@ namespace TouristAgency.ViewModel
         {
             _tourist.LoadToursToTourist(tourTourists, tours);
         }
+
+        public void LoadVouchersToTourist(List<Voucher> vouchers)
+        {
+            _tourist.LoadVouchersToTourist(vouchers);
+        }
+
+        public Voucher FindFirstToExpire(Tourist tourist)
+        {
+            return _tourist.FindFirstToExpire(tourist);
+        }
+
+        public bool HasActiveVoucher(Tourist tourist)
+        {
+            return _tourist.HasActiveVoucher(tourist);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _tourist.Subscribe(observer);

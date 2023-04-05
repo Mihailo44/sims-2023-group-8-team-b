@@ -13,6 +13,7 @@ namespace TouristAgency.Model
     {
         private int _ID;
         private int _touristID;
+        private int _tourID;
         private string _name;
         private bool _isUsed;
         private DateTime _expirationDate;
@@ -21,12 +22,15 @@ namespace TouristAgency.Model
 
         public Voucher() 
         {
-
+            _touristID = -1;
+            _tourID = -1;
         }
 
-        public Voucher(int touristId, bool isUsed, DateTime expirationDate)
+        public Voucher(int touristId, int tourID, string name, bool isUsed, DateTime expirationDate)
         {
             _touristID = touristId;
+            _tourID = tourID;
+            _name = name;
             _isUsed = isUsed;
             _expirationDate = expirationDate;
         }
@@ -61,6 +65,19 @@ namespace TouristAgency.Model
                 {
                     _touristID = value;
                     OnPropertyChanged("TouristID");
+                }
+            }
+        }
+
+        public int TourID
+        {
+            get { return _tourID; }
+            set
+            {
+                if (value != _tourID)
+                {
+                    _tourID = value;
+                    OnPropertyChanged("TourID");
                 }
             }
         }
@@ -110,6 +127,7 @@ namespace TouristAgency.Model
             {
                 _ID.ToString(),
                 _touristID.ToString(),
+                _tourID.ToString(),
                 _name,
                 _isUsed.ToString(),
                 _expirationDate.ToString()
@@ -121,9 +139,10 @@ namespace TouristAgency.Model
         {
             _ID = Convert.ToInt32(values[0]);
             _touristID = Convert.ToInt32(values[1]);
-            _name = Convert.ToString(values[2]);
-            _isUsed = Convert.ToBoolean(values[3]);
-            _expirationDate = Convert.ToDateTime(values[4]);
+            _tourID = Convert.ToInt32(values[2]);
+            _name = Convert.ToString(values[3]);
+            _isUsed = Convert.ToBoolean(values[4]);
+            _expirationDate = Convert.ToDateTime(values[5]);
         }
     }
 }

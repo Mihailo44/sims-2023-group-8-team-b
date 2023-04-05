@@ -48,6 +48,16 @@ namespace TouristAgency.ViewModel
             return _voucher.GetAll();
         }
 
+        public int GetVouchersFromTours(int tourID)
+        {
+            return _voucher.GetVouchersFromTours(tourID);
+        }
+
+        public void UseVoucher(Voucher voucher, int tourID)
+        {
+            _voucher.UseVoucher(voucher, tourID);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _voucher.Subscribe(observer);

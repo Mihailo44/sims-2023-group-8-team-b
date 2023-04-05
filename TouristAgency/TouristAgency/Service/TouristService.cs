@@ -97,12 +97,48 @@ namespace TouristAgency.Service
             {
                 foreach(Tourist tourist in _tourists)
                 {
-                    if(voucher.ID == tourist.ID)
+                    if(voucher.TouristID == tourist.ID)
                     {
                         tourist.WonVouchers.Add(voucher);
                     }
                 }
             }
+        }
+
+        public List<Voucher> GetValidVouchers(Tourist tourist)
+        {
+            DateTime nowDateTime = DateTime.Now;
+            return tourist.WonVouchers.Where(v => v.ExpirationDate > nowDateTime && v.IsUsed == false).ToList();
+        }
+
+        public Voucher FindFirstToExpire(Tourist tourist)
+        {
+            DateTime min = DateTime.MaxValue;
+            Voucher foundVoucher = new Voucher();
+            foreach (Voucher voucher in tourist.WonVouchers)
+            {
+                if(voucher.ExpirationDate < min && voucher.IsUsed == false)
+                {
+                    min = voucher.ExpirationDate;
+                    foundVoucher = voucher;
+                }
+            }
+
+            return foundVoucher;
+        }
+
+        public bool HasActiveVoucher(Tourist tourist)
+        {
+            DateTime nowDateTime = DateTime.Now;
+            foreach(Voucher voucher in tourist.WonVouchers)
+            {
+                if(voucher.ExpirationDate > nowDateTime && voucher.IsUsed == false)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void Subscribe(IObserver observer)

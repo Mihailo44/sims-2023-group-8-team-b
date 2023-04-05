@@ -165,7 +165,6 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        //TODO bindovati u xaml
         public string SelectedCountry
         {
             get;
@@ -262,6 +261,18 @@ namespace TouristAgency.ViewModel
 
             if (NumberOfReservation != 0)
             {
+                if (_app.TouristService.HasActiveVoucher(_loggedInTourist))
+                {
+                    MessageBoxResult result = MessageBox.Show("Do you want to use one voucher for this reservation?", "Question", MessageBoxButton.YesNo);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        int tourID = selectedTour.ID;
+                        Voucher voucher = _app.TouristService.FindFirstToExpire(_loggedInTourist);
+                        _app.VoucherService.UseVoucher(voucher, tourID);
+                    }
+                }
+                
                 _app.TourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
                 _app.TourTouristService.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);

@@ -52,8 +52,13 @@ namespace TouristAgency.Service
             }
 
             currentVoucher.TouristID = currentVoucher.TouristID;
+            currentVoucher.TourID = newVoucher.TourID;
+            currentVoucher.Name = newVoucher.Name;
             currentVoucher.IsUsed = currentVoucher.IsUsed;
             currentVoucher.ExpirationDate = currentVoucher.ExpirationDate;
+
+            _storage.Save(_vouchers);
+            NotifyObservers();
 
             return currentVoucher;
         }
@@ -69,6 +74,27 @@ namespace TouristAgency.Service
         public List<Voucher> GetAll()
         {
             return _vouchers;
+        }
+
+        public int GetVouchersFromTours(int tourID)
+        {
+            int i = 0;
+            foreach(Voucher voucher in _vouchers)
+            {
+                if(voucher.TourID == tourID)
+                {
+                    i++;
+                }
+            }
+
+            return i;
+        }
+
+        public void UseVoucher(Voucher voucher, int tourID)
+        {
+            voucher.TourID = tourID;
+            voucher.IsUsed = true;
+            Update(voucher, voucher.ID);
         }
 
         public void Subscribe(IObserver observer)
