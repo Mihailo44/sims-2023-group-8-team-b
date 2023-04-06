@@ -9,6 +9,7 @@ namespace TouristAgency.Model
 {
     public class Owner : User,ISerializable
     {
+        private bool _superOwner;
         private double _average;
         private List<Accommodation> _accommodations;
         
@@ -21,6 +22,18 @@ namespace TouristAgency.Model
             base(username,password,firstName,lastName,dateOfBirth,email,location,phone)
         {
             _accommodations = new List<Accommodation>();   
+        }
+
+        public bool SuperOwner
+        {
+            get => _superOwner;
+            set
+            {
+                if (value != _superOwner)
+                {
+                    _superOwner = value;
+                }
+            }
         }
 
         public double Average

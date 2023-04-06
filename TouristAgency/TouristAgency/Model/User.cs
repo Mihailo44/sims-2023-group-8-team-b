@@ -19,12 +19,10 @@ namespace TouristAgency.Model
         protected Location _fullLocation;
         protected int _fullLocationID;
         protected string _phone;
-        protected bool _superUser;
 
         public User()
         {
             _ID = -1;
-            _superUser = false;
             _dateOfBirth = DateOnly.MinValue;
             _fullLocation = new Location();
         }
@@ -170,18 +168,6 @@ namespace TouristAgency.Model
                 if (value != _phone)
                 {
                     _phone = value;
-                }
-            }
-        }
-
-        public bool SuperUser
-        {
-            get => _superUser;
-            set
-            {
-                if (value != _superUser)
-                {
-                    _superUser = value;
                 }
             }
         }

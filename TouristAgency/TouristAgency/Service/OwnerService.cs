@@ -90,7 +90,8 @@ namespace TouristAgency.Service
                     sum += ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi;
                 }
 
-                ownerScore = sum / ownerReviews.Count();
+                ownerScore = CalculateOwnerScore(sum,ownerReviews.Count());
+
                 if(ownerScore > 4.5)
                 {
                     return true;
@@ -98,6 +99,11 @@ namespace TouristAgency.Service
             }
 
             return false;
+        }
+
+        public double CalculateOwnerScore(double gradeSum,double numOfReviews)
+        {
+            return gradeSum / numOfReviews;
         }
 
         public void LoadAccommodationsToOwners(List<Accommodation> accommodations)

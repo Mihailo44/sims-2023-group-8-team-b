@@ -149,8 +149,8 @@ namespace TouristAgency.ViewModel
 
         public void SetUserStatus()
         {
-            LoggedUser.SuperUser = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID));
-            if (LoggedUser.SuperUser)
+            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID));
+            if (LoggedUser.SuperOwner)
                 Status = "SUPER OWNER";
             else
                 Status = "";

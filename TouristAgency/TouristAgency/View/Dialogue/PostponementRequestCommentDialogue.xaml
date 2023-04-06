@@ -17,12 +17,13 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
+        <Label Grid.Row="0" Grid.Column="0" Margin="50,10,0,0" Content="Leave a comment: (Optional)" FontSize="18"/>
         <TextBox Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"  Height="200" Width="500" FontSize="23" Text="{Binding Comment}">
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="3" Grid.Column="0" Width="150" Height="70" Content="SUBMIT" FontSize="21" Command="{Binding SubmitCommentCmd}"/>
-        <Button Grid.Row="3" Grid.Column="1" Width="150" Height="70" Content="CANCEL" FontSize="21" Command="{Binding CloseCmd}"/>
+        <Button Grid.Row="3" Grid.Column="0" Width="120" Height="60" Content="SUBMIT" FontSize="20" Command="{Binding SubmitCommentCmd}"/>
+        <Button Grid.Row="3" Grid.Column="1" Width="120" Height="60" Content="CANCEL" FontSize="20" Command="{Binding CloseCmd}"/>
     </Grid>
 </Window>
