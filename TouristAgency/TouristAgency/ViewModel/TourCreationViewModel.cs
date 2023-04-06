@@ -136,12 +136,12 @@ namespace TouristAgency.ViewModel
 
         public void PrepareLocation()
         {
-            int locationID = _app.LocationViewModel.FindLocationID(NewLocation);
+            int locationID = _app.LocationService.FindLocationId(NewLocation);
             NewLocation.Id = locationID;
 
             if (locationID == -1)
             {
-                _app.LocationViewModel.Create(NewLocation);
+                _app.LocationService.Create(NewLocation);
             }
 
             _newTour.ShortLocation = NewLocation;

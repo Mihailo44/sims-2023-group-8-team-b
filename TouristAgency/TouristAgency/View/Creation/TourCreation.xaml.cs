@@ -177,11 +177,11 @@ namespace TouristAgency.View.Creation
 
         private void PrepareLocation() //OK
         {
-            int locationID = _app.LocationViewModel.FindLocationID(NewLocation);
+            int locationID = _app.LocationService.FindLocationID(NewLocation);
             NewLocation.Id = locationID;
             if (locationID == -1)
             {
-                _app.LocationViewModel.Create(NewLocation);
+                _app.LocationService.Create(NewLocation);
             }
 
             _newTour.ShortLocation = NewLocation;
