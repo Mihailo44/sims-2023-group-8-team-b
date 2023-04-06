@@ -135,7 +135,7 @@ namespace TouristAgency.View.Display
         {
             ArrivedTourists.Clear();
             TourCheckpoint selectedTourCheckpoint = (TourCheckpoint)AvailableCheckpointsListView.SelectedItem;
-            ObservableCollection<Tourist> allTourists = new ObservableCollection<Tourist>(_app.TouristViewModel.GetAll());
+            ObservableCollection<Tourist> allTourists = new ObservableCollection<Tourist>(_app.TouristService.GetAll());
             if (selectedTourCheckpoint != null && _selectedTour != null)
             {
                 ArrivedTourists = _app.TourTouristCheckpointViewModel.FilterTouristsOnCheckpoint(_selectedTour.ID,

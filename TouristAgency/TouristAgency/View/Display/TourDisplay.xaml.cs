@@ -234,7 +234,7 @@ namespace TouristAgency.View.Display
             if(NumberOfReservation != 0)
             {
                 _app.TourViewModel.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
-                _app.TourTouristViewModel.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
+                _app.TourTouristService.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);
 
                 MessageBox.Show("Successfully made a reservation.", "Success");

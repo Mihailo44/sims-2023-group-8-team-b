@@ -27,24 +27,26 @@ namespace TouristAgency
         public CheckpointService CheckpointService { get; }
         public PhotoService PhotoService { get; }
         public GuestService GuestService { get; }
+        public LocationService LocationService { get; }
 
 
         public GuideService GuideService { get; }
 
         //public CheckpointService CheckpointService { get; set; } = new CheckpointService();
         //public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
-        public LocationViewModel LocationViewModel { get; set; } = new LocationViewModel();
+        //public LocationService LocationService { get; set; } = new LocationService();
         //public GuideService GuideService { get; set; } = new GuideService();
         //public PhotoService PhotoService { get; set; } = new PhotoService();
         //public TourCheckpointService TourCheckpointService { get; set; } = new TourCheckpointService();
         //public TourService TourService { get; set; } = new TourService();
-        public TouristViewModel TouristViewModel { get; set; } = new TouristViewModel();
+        //public TouristService TouristService { get; set; } = new TouristService();
         //public TourTouristCheckpointService TourTouristCheckpointService { get; set; } = new TourTouristCheckpointService();
         //public TourTouristService TourTouristService { get; set; } = new TourTouristService();
-        public VoucherViewModel VoucherViewModel { get; set; } = new VoucherViewModel();
+        //public VoucherService VoucherService { get; set; } = new VoucherService();
 
         public App()
         {
+            LocationService = new();
             ReservationService = new();
             AccommodationService = new();
             GuestReviewService = new();
@@ -64,20 +66,20 @@ namespace TouristAgency
             UserService = new();
 
             //TODO Preci na servise
-            AccommodationService.LoadLocationsToAccommodations(LocationViewModel.GetAll());
+            AccommodationService.LoadLocationsToAccommodations(LocationService.GetAll());
             AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());
             OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());
-            OwnerService.LoadLocationsToOwners(LocationViewModel.GetAll());
+            OwnerService.LoadLocationsToOwners(LocationService.GetAll());
             GuestReviewService.LoadReservationsToGuestReviews(ReservationService.GetAll());
-            CheckpointService.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
-            TourService.LoadLocationsToTours(LocationViewModel.GetAll());
+            CheckpointService.LoadLocationsToCheckpoints(LocationService.GetAll());
+            TourService.LoadLocationsToTours(LocationService.GetAll());
             TourService.LoadPhotosToTours(PhotoService.GetAll());
             ReservationService.LoadAccommodationsToReservations(AccommodationService.GetAll());
             ReservationService.LoadGuestsToReservations(GuestService.GetAll());
             TourCheckpointService.LoadCheckpoints(CheckpointService.GetAll());
             GuideService.LoadToursToGuide(TourService.GetAll());
-            TourService.LoadTouristsToTours(TourTouristService.GetAll(), TouristViewModel.GetAll());
-            TouristViewModel.LoadToursToTourist(TourTouristService.GetAll(), TourService.GetAll());
+            TourService.LoadTouristsToTours(TourTouristService.GetAll(), TouristService.GetAll());
+            TouristService.LoadToursToTourist(TourTouristService.GetAll(), TourService.GetAll());
             TourService.LoadCheckpointsToTours(TourCheckpointService.GetAll(), CheckpointService.GetAll());
             OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
             PostponementRequestService.LoadReservationsToPostponementRequests(ReservationService.GetAll());

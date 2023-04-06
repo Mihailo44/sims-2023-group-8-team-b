@@ -9,6 +9,7 @@ using System.Windows.Input;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.View.Display;
 
 namespace TouristAgency.ViewModel
 {
@@ -267,17 +268,18 @@ namespace TouristAgency.ViewModel
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        int tourID = selectedTour.ID;
-                        Voucher voucher = _app.TouristService.FindFirstToExpire(_loggedInTourist);
-                        _app.VoucherService.UseVoucher(voucher, tourID);
+                        ChooseVoucherDisplay display = new ChooseVoucherDisplay(_loggedInTourist, selectedTour.ID);
+                        display.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Successfully made a reservation.", "Success");
                     }
                 }
                 
                 _app.TourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
                 _app.TourTouristService.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);
-
-                MessageBox.Show("Successfully made a reservation.", "Success");
             }
             else
             {

@@ -9,7 +9,7 @@ using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    internal class LocationService : ICrud<Location>, ISubject
+    public class LocationService : ICrud<Location>, ISubject
     {
         private readonly LocationStorage _storage;
         private readonly List<Location> _locations;
