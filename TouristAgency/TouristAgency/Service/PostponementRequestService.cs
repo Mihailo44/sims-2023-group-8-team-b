@@ -79,6 +79,11 @@ namespace TouristAgency.Service
             return _requests.FindAll(r => r.Reservation.Accommodation.OwnerId == ownerId && r.Status == PostponementRequestStatus.PENDING); // treba dodati ?? operator
         }
 
+        public List<PostponementRequest> GetByGuestId(int guestId)
+        {
+            return _requests.FindAll(r => r.Reservation.GuestId == guestId);
+        }
+
         public void LoadReservationsToPostponementRequests(List<Reservation> reservations)
         {
             foreach(var request in _requests)
@@ -89,6 +94,22 @@ namespace TouristAgency.Service
                     request.Reservation = reservation;
                 }
             }
+        }
+
+        public String ShowNotifications(int id)
+        {
+            string result = "No new notifications";
+            foreach (PostponementRequest request in _requests)
+            {
+                if (request.Seen == false && request.Status != PostponementRequestStatus.PENDING &&
+                    request.Reservation.GuestId == id)
+                {
+                    result = "One of your requests has changed";
+                    request.Seen = true;
+                }
+                
+            }
+            return result;
         }
 
         public void Subscribe(IObserver observer)

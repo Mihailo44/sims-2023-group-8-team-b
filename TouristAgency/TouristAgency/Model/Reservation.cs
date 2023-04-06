@@ -18,15 +18,15 @@ namespace TouristAgency.Model
         private DateTime _start;
         private DateTime _end;
         private bool _canceled;
-        private GuestReviewStatus _status;
-        private OwnerReviewStatus _ostatus;
+        private ReviewStatus _status;
+        private ReviewStatus _ostatus;
 
         public Reservation()
         {
             _id = -1;
             _canceled = false;
-            _status = GuestReviewStatus.UNREVIEWED;
-            _ostatus = OwnerReviewStatus.UNREVIEWED;
+            _status = ReviewStatus.UNREVIEWED;
+            _ostatus = ReviewStatus.UNREVIEWED;
         }
 
         public Reservation(Guest guest, Accommodation accommodation, DateTime start, DateTime end)
@@ -38,8 +38,8 @@ namespace TouristAgency.Model
             _start = start;
             _end = end;
             _canceled = false;
-            _status = GuestReviewStatus.UNREVIEWED;
-            _ostatus = OwnerReviewStatus.UNREVIEWED;
+            _status = ReviewStatus.UNREVIEWED;
+            _ostatus = ReviewStatus.UNREVIEWED;
         }
         
         public int Id
@@ -132,7 +132,7 @@ namespace TouristAgency.Model
             }
         }
 
-        public GuestReviewStatus Status
+        public ReviewStatus Status
         {
             get => _status;
             set
@@ -144,7 +144,7 @@ namespace TouristAgency.Model
             }
         }
 
-        public OwnerReviewStatus OStatus
+        public ReviewStatus OStatus
         {
             get => _ostatus;
             set
@@ -163,8 +163,8 @@ namespace TouristAgency.Model
             AccommodationId = int.Parse(values[2]);
             Start = DateTime.Parse(values[3]);
             End = DateTime.Parse(values[4]);
-            Status = Enum.Parse<GuestReviewStatus>(values[5]);
-            OStatus = Enum.Parse<OwnerReviewStatus>(values[6]);
+            Status = Enum.Parse<ReviewStatus>(values[5]);
+            OStatus = Enum.Parse<ReviewStatus>(values[6]);
         }
 
         public string[] ToCSV()

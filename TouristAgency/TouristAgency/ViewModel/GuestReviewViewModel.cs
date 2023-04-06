@@ -164,7 +164,7 @@ namespace TouristAgency.ViewModel
 
         public bool CanCreateGuestReviewExecute()
         {
-            if (Selected.Status == GuestReviewStatus.UNREVIEWED)
+            if (Selected.Status == ReviewStatus.UNREVIEWED)
             {
                 return true;
             }
@@ -178,10 +178,10 @@ namespace TouristAgency.ViewModel
         {
             try
             {
-                if (Selected.Status == GuestReviewStatus.UNREVIEWED)
+                if (Selected.Status == ReviewStatus.UNREVIEWED)
                 {
                     Create(NewGuestReview);
-                    Selected.Status = GuestReviewStatus.REVIEWED;
+                    Selected.Status = ReviewStatus.REVIEWED;
                     _reservationService.Update(Selected, Selected.Id);
                     MessageBox.Show("Guest review created successfully");
                 }

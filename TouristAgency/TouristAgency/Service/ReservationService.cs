@@ -229,12 +229,17 @@ namespace TouristAgency.Service
 
         public List<Reservation> GetUnreviewed(int ownerId)
         {
-            return _reservations.Where(r => r.Accommodation.OwnerId == ownerId && r.Status == GuestReviewStatus.UNREVIEWED).ToList();
+            return _reservations.Where(r => r.Accommodation.OwnerId == ownerId && r.Status == ReviewStatus.UNREVIEWED).ToList();
         }
 
         public List<Reservation> GetByOwnerId(int id)
         {
             return _reservations.FindAll(r => r.Accommodation.OwnerId == id);
+        }
+
+        public List<Reservation> GetByGuestId(int id)
+        {
+            return _reservations.FindAll(r => r.GuestId == id && r.Start >= DateTime.Now);
         }
 
         public string ReviewNotification(int ownerId, out int changes)
@@ -256,7 +261,7 @@ namespace TouristAgency.Service
                 }
                 else
                 {
-                    reservation.Status = GuestReviewStatus.EXPIRED;
+                    reservation.Status = ReviewStatus.EXPIRED;
                     Update(reservation, reservation.Id);
                 }
             }

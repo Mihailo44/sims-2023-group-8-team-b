@@ -89,7 +89,7 @@ namespace TouristAgency.Service
             {
                 int ownerId = ownerReview.Reservation.Accommodation.OwnerId;
 
-                if (ownerId == id &&  ownerReview.Reservation.Status == GuestReviewStatus.REVIEWED)
+                if (ownerId == id &&  ownerReview.Reservation.Status == ReviewStatus.REVIEWED)
                 {
                     reviewedReservations.Add(ownerReview);
                 }

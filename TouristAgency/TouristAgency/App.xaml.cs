@@ -32,7 +32,7 @@ namespace TouristAgency
         public GuideService GuideService { get; }
 
         //public CheckpointService CheckpointService { get; set; } = new CheckpointService();
-        public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
+        //public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
         public LocationViewModel LocationViewModel { get; set; } = new LocationViewModel();
         //public GuideService GuideService { get; set; } = new GuideService();
         //public PhotoService PhotoService { get; set; } = new PhotoService();
@@ -51,7 +51,7 @@ namespace TouristAgency
             OwnerService = new();
             OwnerReviewService = new();
             PostponementRequestService = new();
-            TouristService = new TouristService();
+            TouristService = new();
             TourTouristService = new();
             VoucherService = new();
             TourService = new();
@@ -68,12 +68,12 @@ namespace TouristAgency
             AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());
             OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());
             OwnerService.LoadLocationsToOwners(LocationViewModel.GetAll());
-            GuestReviewService.LoadGuestsToGuestReviews(GuestViewModel.GetAll());
+            GuestReviewService.LoadGuestsToGuestReviews(GuestService.GetAll());
             CheckpointService.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
             TourService.LoadLocationsToTours(LocationViewModel.GetAll());
             TourService.LoadPhotosToTours(PhotoService.GetAll());
             ReservationService.LoadAccommodationsToReservations(AccommodationService.GetAll());
-            ReservationService.LoadGuestsToReservations(GuestViewModel.GetAll());
+            ReservationService.LoadGuestsToReservations(GuestService.GetAll());
             TourCheckpointService.LoadCheckpoints(CheckpointService.GetAll());
             GuideService.LoadToursToGuide(TourService.GetAll());
             TourService.LoadTouristsToTours(TourTouristService.GetAll(), TouristViewModel.GetAll());

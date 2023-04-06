@@ -174,7 +174,7 @@ namespace TouristAgency.ViewModel
                 DateTime today = DateTime.UtcNow.Date;
                 double dateDif = (today - SelectedReservation.End).TotalDays;
 
-                if (SelectedReservation.Status == GuestReviewStatus.UNREVIEWED && dateDif < 5.0)
+                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDif < 5.0)
                 {
                     return true;
                 }
@@ -184,7 +184,7 @@ namespace TouristAgency.ViewModel
                     {
                         MessageBox.Show("Guest review time window expired");
                     }
-                    else if (SelectedReservation.Status == GuestReviewStatus.REVIEWED)
+                    else if (SelectedReservation.Status == ReviewStatus.REVIEWED)
                     {
                         MessageBox.Show("Guest has already been reviewed");
                     }

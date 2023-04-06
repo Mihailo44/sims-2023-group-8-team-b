@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Display
 {
@@ -19,9 +21,10 @@ namespace TouristAgency.View.Display
     /// </summary>
     public partial class PostponementRequestDisplay : Window
     {
-        public PostponementRequestDisplay()
+        public PostponementRequestDisplay(Guest loggedInGuest)
         {
             InitializeComponent();
+            DataContext = new PostponementRequestDisplayViewModel(loggedInGuest, this);
         }
     }
 }

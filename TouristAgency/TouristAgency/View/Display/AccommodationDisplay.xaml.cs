@@ -40,11 +40,13 @@ namespace TouristAgency.View.Display
         private App _app;
         public event PropertyChangedEventHandler PropertyChanged;*/
 
+        private Guest _loggedInGuest;
+
         public AccommodationDisplay(Guest guest)
         {
             InitializeComponent();
             DataContext = new AccommodationDisplayViewModel(guest, this);
-
+            _loggedInGuest = guest;
             /*_app = (App)Application.Current;
 
             Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationService.GetAll());
@@ -66,7 +68,7 @@ namespace TouristAgency.View.Display
 
         private void PostponementRequest_Click(object sender, RoutedEventArgs e)
         {
-            PostponementRequestDisplay x = new PostponementRequestDisplay();
+            PostponementRequestDisplay x = new PostponementRequestDisplay(_loggedInGuest);
             x.Show();
         }
 

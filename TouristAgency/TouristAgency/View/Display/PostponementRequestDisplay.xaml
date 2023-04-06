@@ -43,15 +43,20 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="All reservations:" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Height="36" Width="154" Margin="10,0,0,0" VerticalAlignment="Center"/>
-            <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,10,0" VerticalAlignment="Top" Height="167">
+            <ListView Grid.Row="1" ItemsSource="{Binding Path=Reservations}" Margin="0,10,10,0" VerticalAlignment="Top" Height="167" SelectedItem="{Binding Path =SelectedReservation}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
+                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
+                        <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
+                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}"></GridViewColumn>
+                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
 
             <Button Grid.Column="1" Content="Cancel reservation" Height="30" HorizontalAlignment="Center" Margin="0,147,20,0" Grid.Row="1" VerticalAlignment="Top" Width="101"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Notifications" Command="{Binding Path=NotificationCmd}"/>
         </Grid>
 
         <GroupBox Header="Request for moving reservation" FontSize="20" FontWeight="SemiBold" Margin="218,289,58,253">
@@ -70,18 +75,24 @@
 
                 <Label Content="I want to move for:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center"></Label>
                 <Label Grid.Column="1" Content="from:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
-                <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=Start}"/>
                 <Label Grid.Column="3" Content="from:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
-                <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <Button Grid.Column="5" Height="30" Width="101" Content="Send a request" FontSize="13" FontWeight="Normal" HorizontalAlignment="Right"></Button>
+                <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=End}"/>
+                <Button Grid.Column="5" Height="30" Width="101" Content="Send a request" FontSize="13" FontWeight="Normal" HorizontalAlignment="Right" Command="{Binding Path = CreateCmd}"></Button>
             </Grid>
         </GroupBox>
 
         <Label Content="Requests:" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="218,406,0,0" VerticalAlignment="Top"/>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="218,447,58,5">
+        <ListView ItemsSource="{Binding Path=Requests}" Margin="218,447,58,5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Name}"></GridViewColumn>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Location.City}"></GridViewColumn>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Location.Country}"></GridViewColumn>
+                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}"></GridViewColumn>
+                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}"></GridViewColumn>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path = Status}"></GridViewColumn>
+                    <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Path = Comment}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
