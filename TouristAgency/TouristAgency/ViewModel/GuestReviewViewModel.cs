@@ -18,8 +18,6 @@ namespace TouristAgency.ViewModel
         private readonly GuestReviewService _guestReview;
         private readonly ReservationService _reservationService;
 
-        private Guest _guest;
-        private int _guestId;
         private DateTime _reviewDate;
         private int _cleanliness;
         private int _ruleAbiding;
@@ -31,7 +29,6 @@ namespace TouristAgency.ViewModel
         private App app = (App)App.Current;
 
         public GuestReview NewGuestReview { get; set; }
-        public Reservation Selected { get; }
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
 
@@ -45,30 +42,11 @@ namespace TouristAgency.ViewModel
             _guestReview = app.GuestReviewService;
             _reservationService = app.ReservationService;
             _window = window;
-            Selected = reservation;
             NewGuestReview = new();
-            NewGuestReview.Guest = Selected.Guest;
-            NewGuestReview.GuestId = Selected.GuestId;
+            NewGuestReview.Reservation = reservation;
+            NewGuestReview.ReservationId = reservation.Id;
             CreateCmd = new DelegateCommand(param => CreateGuestReviewExecute(),param => CanCreateGuestReviewExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param=> CanCloseWindowExecute());
-        }
-
-        public Guest Guest
-        {
-            get => _guest;
-            set
-            {
-                if (value != _guest)
-                {
-                    _guest = value;
-                }
-            }
-        }
-
-        public int GuestId
-        {
-            get => _guestId;
-            set => _guestId = value;
         }
 
         public DateTime ReviewDate
@@ -164,7 +142,7 @@ namespace TouristAgency.ViewModel
 
         public bool CanCreateGuestReviewExecute()
         {
-            if (Selected.Status == ReviewStatus.UNREVIEWED)
+            if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
             {
                 return true;
             }
@@ -178,11 +156,11 @@ namespace TouristAgency.ViewModel
         {
             try
             {
-                if (Selected.Status == ReviewStatus.UNREVIEWED)
+                if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
                 {
-                    Create(NewGuestReview);
-                    Selected.Status = ReviewStatus.REVIEWED;
-                    _reservationService.Update(Selected, Selected.Id);
+                    _guestReview.Create(NewGuestReview);
+                    NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
+                    _reservationService.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
                     MessageBox.Show("Guest review created successfully");
                 }
                 else
@@ -211,26 +189,6 @@ namespace TouristAgency.ViewModel
         }
 
         //-------------------------------------------------------------------------------------------------
-
-        public List<GuestReview> GetAll()
-        {
-            return _guestReview.GetAll();
-        }
-
-        public void Create(GuestReview newGuestReview)
-        {
-            _guestReview.Create(newGuestReview);
-        }
-
-        public void Update(GuestReview updatedGuestReview, int id)
-        {
-            _guestReview.Update(updatedGuestReview, id);
-        }
-
-        public void Delete(GuestReview guestReview)
-        {
-            _guestReview.Delete(guestReview.Id);
-        }
 
         public void Subsribe(IObserver observer)
         {

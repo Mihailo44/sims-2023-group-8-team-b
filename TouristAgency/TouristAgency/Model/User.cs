@@ -4,10 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class User
+    public class User : ISerializable
     {
         protected int _ID;
         protected string _username;
@@ -170,6 +171,25 @@ namespace TouristAgency.Model
                     _phone = value;
                 }
             }
+        }
+
+        public virtual void FromCSV(string[] values)
+        {
+            ID = int.Parse(values[0]);
+            Username = values[1];
+            Password = values[2];
+        }
+
+        public virtual string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                ID.ToString(),
+                Username,
+                Password
+            };
+
+            return csvValues;
         }
     }
 }

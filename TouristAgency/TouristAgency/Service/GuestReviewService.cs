@@ -72,14 +72,14 @@ namespace TouristAgency.Service
             return _guestReviews;
         }
 
-        public void LoadGuestsToGuestReviews(List<Guest> guests)
+        public void LoadReservationsToGuestReviews(List<Reservation> reservations)
         {
             foreach(GuestReview guestReview in _guestReviews)
             {
-               Guest guest = guests.Find(g => g.ID == guestReview.GuestId);
-                if(guest != null)
+                Reservation reservation = reservations.Find(r => r.Id == guestReview.ReservationId);
+                if(reservation != null)
                 {
-                    guestReview.Guest = guest;
+                    guestReview.Reservation = reservation;
                 }
             }
         }

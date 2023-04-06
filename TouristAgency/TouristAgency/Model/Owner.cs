@@ -7,7 +7,7 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Model
 {
-    public class Owner : User,ISerializable
+    public class Owner : User
     {
         private bool _superOwner;
         private double _average;
@@ -60,33 +60,27 @@ namespace TouristAgency.Model
             }
         }
         
-        public void FromCSV(string[] values)
+        public override void FromCSV(string[] values)
         {
-            ID = int.Parse(values[0]);
-            FirstName = values[1];
-            LastName = values[2];
-            DateOfBirth = DateOnly.Parse(values[3]);
-            FullLocationID = int.Parse(values[4]);
-            Phone = values[5];
-            Email = values[6];
-            Username = values[7];
-            Password = values[8];
+            base.FromCSV(values);
+            FirstName = values[values.Length - 6]; 
+            LastName = values[values.Length - 5];
+            DateOfBirth = DateOnly.Parse(values[values.Length - 4]);
+            FullLocationID = int.Parse(values[values.Length - 3]);
+            Phone = values[values.Length - 2];
+            Email = values[values.Length - 1];
         }
 
-        public string[] ToCSV()
+        public override string[] ToCSV()
         {
-            string[] csvValues =
-            {
-                ID.ToString(),
-                FirstName,
-                LastName,
-                DateOfBirth.ToString(),
-                FullLocationID.ToString(),
-                Phone,
-                Email,
-                Username,
-                Password
-            };
+            string[] csvValues = base.ToCSV();
+
+            csvValues.Append(FirstName);
+            csvValues.Append(LastName);
+            csvValues.Append(DateOfBirth.ToString());
+            csvValues.Append(FullLocationID.ToString());
+            csvValues.Append(Phone);
+            csvValues.Append(Email);
 
             return csvValues;
         }

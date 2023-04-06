@@ -1,2 +1,2 @@
-0|Mihailo|Djajic|5/17/2001|2|0616587411|a@gmail.com|Miki|toki
-1|Ognjen|Milojevic|2/1/2001|3|0618751203|b@gmail.com|Ogi|gio
+0|Miki|toki|Mihailo|Djajic|5/17/2001|2|0616587411|a@gmail.com
+1|Ogi|gio|Ognjen|Milojevic|2/1/2001|3|0618751203|b@gmail.com

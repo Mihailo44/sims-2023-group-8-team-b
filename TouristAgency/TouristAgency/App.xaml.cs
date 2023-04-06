@@ -68,7 +68,7 @@ namespace TouristAgency
             AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());
             OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());
             OwnerService.LoadLocationsToOwners(LocationViewModel.GetAll());
-            GuestReviewService.LoadGuestsToGuestReviews(GuestService.GetAll());
+            GuestReviewService.LoadReservationsToGuestReviews(ReservationService.GetAll());
             CheckpointService.LoadLocationsToCheckpoints(LocationViewModel.GetAll());
             TourService.LoadLocationsToTours(LocationViewModel.GetAll());
             TourService.LoadPhotosToTours(PhotoService.GetAll());
