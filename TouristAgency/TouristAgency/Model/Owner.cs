@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-    public class Owner : User,ISerializable
+    public class Owner : User, ISerializable
     {
         private bool _superOwner;
         private double _average;
         private List<Accommodation> _accommodations;
-        
-        public Owner(): base()
+
+        public Owner() : base()
         {
             _accommodations = new List<Accommodation>();
         }
 
-        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Location location,string phone,UserType userType) : 
-            base(username,password,firstName,lastName,dateOfBirth,email,location,phone,userType)
+        public Owner(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Location location, string phone, UserType userType) :
+            base(username, password, firstName, lastName, dateOfBirth, email, location, phone, userType)
         {
-            _accommodations = new List<Accommodation>();   
+            _accommodations = new List<Accommodation>();
         }
 
         public bool SuperOwner
@@ -42,7 +39,7 @@ namespace TouristAgency.Model
             get => _average;
             set
             {
-                if(value != _average)
+                if (value != _average)
                 {
                     _average = value;
                 }
@@ -60,7 +57,7 @@ namespace TouristAgency.Model
                 }
             }
         }
-        
+
         new public void FromCSV(string[] values)
         {
             ID = int.Parse(values[0]);
