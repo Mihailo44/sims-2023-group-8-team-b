@@ -1,0 +1,33 @@
+﻿<Window x:Class="TouristAgency.View.Home.GuestHome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Home"
+        mc:Ignorable="d"
+        Title="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
+
+        <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25">
+            <Button Height="100">Profile picture</Button>
+            <Label HorizontalAlignment="Center">Username: hana123</Label>
+            <Button Height="25" Width="100">Logout</Button>
+            <Separator Width="100" Height="20" Background="Transparent"></Separator>
+            <Button Height="70" Content="Help"/>
+            <Label FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center">
+                <TextBlock TextDecorations="Underline">Menu</TextBlock>
+            </Label>
+            <Separator Width="100" Height="44" Background="Transparent"></Separator>
+            <Button Content="Display and reservation" Height="40" Click="AccommodationDisplay_Click"/>
+            <Button Content="Review and recommendation" Height="40" Click="OwnerReviewCreation_Click"/>
+            <Button Content="Review display" Height="40"/>
+            <Button Content="Move and cancel reservation" Height="40" Click="PostponementRequestDisplay_Click"/>
+            <Button Content="Anywhere, anytime" Height="40"/>
+            <Button Content="Super-guest" Height="40"/>
+            <Button Content="Forum" Height="40"/>
+            <Button Content="Reservations report" Height="40"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

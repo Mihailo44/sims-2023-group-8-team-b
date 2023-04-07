@@ -100,7 +100,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case "TouristAgency.Model.Guest":
                         {
-                            AccommodationDisplay x = new AccommodationDisplay(User);
+                            GuestHome x = new GuestHome(User);
                             x.Show();
                             Username = "";
                             Password = "";
