@@ -5,11 +5,7 @@ using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-<<<<<<< HEAD
     public class Owner : User, ISerializable
-=======
-    public class Owner : User,ISerializable
->>>>>>> 3fe0639840e790d86b210891ae1a4c601f2e57f9
     {
         private bool _superOwner;
         private double _average;
@@ -20,13 +16,8 @@ namespace TouristAgency.Model
             _accommodations = new List<Accommodation>();
         }
 
-<<<<<<< HEAD
         public Owner(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Location location, string phone, UserType userType) :
             base(username, password, firstName, lastName, dateOfBirth, email, location, phone, userType)
-=======
-        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Location location,string phone,UserType userType) : 
-            base(username,password,firstName,lastName,dateOfBirth,email,location,phone,userType)
->>>>>>> 3fe0639840e790d86b210891ae1a4c601f2e57f9
         {
             _accommodations = new List<Accommodation>();
         }
