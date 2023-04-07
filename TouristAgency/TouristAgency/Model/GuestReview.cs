@@ -35,7 +35,7 @@ namespace TouristAgency.Model
         public GuestReview(Reservation reservation, int cleanliness, int ruleAbiding,int communication,int overallImpression,int noiseLevel,string comment="")
         {
             _reservation = reservation;
-            _reservationId = _reservationId;
+            _reservationId = reservation.Id;
             _reviewDate = DateTime.Now;
             _cleanliness = cleanliness;
             _ruleAbiding = ruleAbiding;

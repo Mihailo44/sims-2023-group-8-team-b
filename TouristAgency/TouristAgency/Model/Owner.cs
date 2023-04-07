@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-    public class Owner : User
+    public class Owner : User, ISerializable
     {
         private bool _superOwner;
         private double _average;
         private List<Accommodation> _accommodations;
-        
-        public Owner(): base()
+
+        public Owner() : base()
         {
             _accommodations = new List<Accommodation>();
         }
 
-        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Location location,string phone) : 
-            base(username,password,firstName,lastName,dateOfBirth,email,location,phone)
+        public Owner(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Location location, string phone, UserType userType) :
+            base(username, password, firstName, lastName, dateOfBirth, email, location, phone, userType)
         {
-            _accommodations = new List<Accommodation>();   
+            _accommodations = new List<Accommodation>();
         }
 
         public bool SuperOwner
@@ -41,7 +39,7 @@ namespace TouristAgency.Model
             get => _average;
             set
             {
-                if(value != _average)
+                if (value != _average)
                 {
                     _average = value;
                 }
@@ -59,28 +57,31 @@ namespace TouristAgency.Model
                 }
             }
         }
-        
-        public override void FromCSV(string[] values)
+
+        new public void FromCSV(string[] values)
         {
-            base.FromCSV(values);
-            FirstName = values[values.Length - 6]; 
-            LastName = values[values.Length - 5];
-            DateOfBirth = DateOnly.Parse(values[values.Length - 4]);
-            FullLocationID = int.Parse(values[values.Length - 3]);
-            Phone = values[values.Length - 2];
-            Email = values[values.Length - 1];
+            ID = int.Parse(values[0]);
+            FirstName = values[1];
+            LastName = values[2];
+            DateOfBirth = DateOnly.Parse(values[3]);
+            FullLocationID = int.Parse(values[4]);
+            Phone = values[5];
+            Email = values[6];
         }
 
-        public override string[] ToCSV()
-        {
-            string[] csvValues = base.ToCSV();
 
-            csvValues.Append(FirstName);
-            csvValues.Append(LastName);
-            csvValues.Append(DateOfBirth.ToString());
-            csvValues.Append(FullLocationID.ToString());
-            csvValues.Append(Phone);
-            csvValues.Append(Email);
+        new public string[] ToCSV()
+        {
+            string[] csvValues =
+            {
+                ID.ToString(),
+                FirstName,
+                LastName,
+                DateOfBirth.ToString(),
+                FullLocationID.ToString(),
+                Phone.ToString(),
+                Email.ToString()
+            };
 
             return csvValues;
         }

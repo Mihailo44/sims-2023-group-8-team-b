@@ -53,7 +53,7 @@ namespace TouristAgency.Model
             _appliedTours = new List<Tour>();
         }
 
-        public string[] ToCSV()
+        new public string[] ToCSV()
         {
             string[] csvValues =
             {
@@ -70,7 +70,7 @@ namespace TouristAgency.Model
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        new public void FromCSV(string[] values)
         {
             _ID = Convert.ToInt32(values[0]);
             _username = values[1];
