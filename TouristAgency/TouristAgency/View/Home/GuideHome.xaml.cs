@@ -54,5 +54,11 @@ namespace TouristAgency.View.Home
             TourStatisticsDisplay tourStatistics = new TourStatisticsDisplay(_loggedInGuide);
             tourStatistics.Show();
         }
+
+        private void GuideProfileDisplayButton_Click(object sender, RoutedEventArgs e)
+        {
+            GuideProfileDisplay profileDisplay = new GuideProfileDisplay(_loggedInGuide);
+            profileDisplay.Show();
+        }
     }
 }

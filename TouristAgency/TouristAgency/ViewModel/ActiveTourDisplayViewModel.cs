@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -35,7 +31,7 @@ namespace TouristAgency.ViewModel
             _app = (App)Application.Current;
 
             _loggedInGuide = guide;
-            AvailableTours =new ObservableCollection<Tour>(_app.TourService.GetTodayTours(_loggedInGuide.ID));
+            AvailableTours = new ObservableCollection<Tour>(_app.TourService.GetTodayTours(_loggedInGuide.ID));
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
             CheckAndSelectStartedTour();
@@ -141,7 +137,7 @@ namespace TouristAgency.ViewModel
             List<Tourist> touristsToDelete = new List<Tourist>();
             foreach (Tourist tourist in ArrivedTourists)
             {
-                if(tourist.IsSelected)
+                if (tourist.IsSelected)
                     touristsToDelete.Add(tourist);
             }
 
@@ -172,7 +168,7 @@ namespace TouristAgency.ViewModel
 
         public bool CanBeginTourCmdExecute()
         {
-            return true;
+            return !CheckAndSelectStartedTour();
         }
 
         public void BeginTourCmdExecute()
@@ -239,7 +235,7 @@ namespace TouristAgency.ViewModel
             return true;
         }
 
-        private void CheckAndSelectStartedTour()
+        private bool CheckAndSelectStartedTour()
         {
             foreach (Tour tour in AvailableTours)
             {
@@ -251,8 +247,10 @@ namespace TouristAgency.ViewModel
                     //FinishButton.IsEnabled = true;
                     RegisteredTourists = new ObservableCollection<Tourist>(_app.TourService.GetTouristsFromTour(_selectedTour.ID));
                     AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointService.FindByID(_selectedTour.ID));
+                    return true;
                 }
             }
+            return false;
         }
     }
 }

@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="CancelTourDisplay" Height="750" Width="410" WindowStartupLocation="CenterScreen">
+        Title="CancelTourDisplay" Height="745" Width="410" WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -19,16 +19,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="24px"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="110" Width="307" RadiusY="10" RadiusX="10" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="2" Stroke="Black"/>
@@ -58,9 +59,37 @@
         <ProgressBar Grid.Row="9" Grid.Column="3" HorizontalAlignment="Left" Height="20px" Width="100px" VerticalAlignment="Center"/>
 
         <Label Grid.Row="10" Grid.Column="0" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center">Best tour</Label>
-        <ComboBox Grid.Row="10" Grid.Column="1" Height="27" Width="111" ></ComboBox>
+
+        <ComboBox Grid.Row="10" Grid.Column="1" Height="27" Width="111" ItemsSource="{Binding Years}" SelectedValue="{Binding SelectedYear}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GetBestTourCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        
         <Label Grid.Row="10" Grid.Column="2" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center">by tourist count</Label>
 
-        <ListView Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"></ListView>
+        <ListView Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=Tours}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Photo">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="30" Width="30" Source="{Binding Path=Photos[0].Link}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                    <GridViewColumn Header="Start date and time" DisplayMemberBinding="{Binding StartDateTime}"/>
+                    <GridViewColumn Header="Tourists" DisplayMemberBinding="{Binding CurrentAttendants}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button FontSize="13" Height="42" Width="81" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Command="{Binding CloseCmd}">Go back</Button>
     </Grid>
 </Window>

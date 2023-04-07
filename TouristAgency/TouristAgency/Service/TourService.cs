@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Model.Enums;
@@ -96,7 +93,7 @@ namespace TouristAgency.Service
         public void ChangeTourStatus(int id, STATUS status)
         {
             Tour selectedTour = FindById(id);
-            selectedTour.Status = status; 
+            selectedTour.Status = status;
             Update(selectedTour, selectedTour.ID);
         }
 
@@ -117,7 +114,7 @@ namespace TouristAgency.Service
         {
             int[] result = new int[3];
             // 0 young, 1 adult, 2 old
-            foreach(Tourist tourist in tour.RegisteredTourists)
+            foreach (Tourist tourist in tour.RegisteredTourists)
             {
                 int ageCategory = tourist.GetAgeCategory();
                 if (ageCategory == 0)
@@ -256,11 +253,47 @@ namespace TouristAgency.Service
 
         public List<Tour> GetCancellabeTours()
         {
-            return _tours.Where(t => (DateTime.Today.Date - t.StartDateTime.Date).Days <= - 2).ToList();
+            return _tours.Where(t => (DateTime.Today.Date - t.StartDateTime.Date).Days <= -2).ToList();
         }
         public ObservableCollection<Tour> GetValidTours()
         {
             return new ObservableCollection<Tour>(GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status != STATUS.ENDED));
+        }
+
+        public List<String> GetYearsForStatistics()
+        {
+            List<String> years = new List<string>
+            {
+                "All-time"
+            };
+            foreach (Tour tour in _tours)
+            {
+                String tourStartYear = tour.StartDateTime.Year.ToString();
+                if (!years.Contains(tourStartYear))
+                {
+                    years.Add(tourStartYear);
+                }
+            }
+            years.Sort();
+            years.Reverse();
+            return years;
+        }
+
+        public Tour GetBestTourByYear(String year)
+        {
+            Tour bestTour;
+            if(year == "All-time")
+            {
+                int maxTurists = _tours.Max(t => t.CurrentAttendants);
+                bestTour = _tours.First(t => t.CurrentAttendants == maxTurists);
+            }
+            else
+            {
+                List<Tour> toursInYear = _tours.FindAll(t => t.StartDateTime.Year.ToString() == year);
+                int maxTurists = toursInYear.Max(t => t.CurrentAttendants);
+                bestTour = toursInYear.First(t => t.CurrentAttendants == maxTurists);
+            }
+            return bestTour;
         }
 
         public void Subscribe(IObserver observer)
