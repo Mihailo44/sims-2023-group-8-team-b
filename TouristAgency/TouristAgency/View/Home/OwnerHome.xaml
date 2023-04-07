@@ -20,15 +20,22 @@
 
             <TabControl x:Name="tbCtrl" Background="Aquamarine">
                 <TabItem Header="Accommodations" Width="145" Height="30" FontSize="15">
-                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Accommodations,UpdateSourceTrigger=PropertyChanged}"
+                    <TabControl>
+                        <TabItem Header="Your Accommodations" Width="500">
+                            <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Accommodations,UpdateSourceTrigger=PropertyChanged}"
                               SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedAccommodation}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
-                            <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
-                            <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
+                                    <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
+                                    <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
+                                    <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Locations Suggestions" Width="500">
+                            <DataGrid Height="550"></DataGrid>
+                        </TabItem>
+                    </TabControl>
                 </TabItem>
                 <TabItem Header="Reservations" Width="145" Height="30" FontSize="15">
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
@@ -70,6 +77,12 @@
                             <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
                             <DataGridTextColumn Width="3*" Header="Comment" FontSize="15" Binding="{Binding Comment}"/>
                         </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Forums" Width="180" Height="30" FontSize="15">
+                    <DataGrid Height="550" FontSize="15" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False">
+                        <DataGridTextColumn></DataGridTextColumn>
+                        <DataGridTextColumn></DataGridTextColumn>
                     </DataGrid>
                 </TabItem>
             </TabControl>
