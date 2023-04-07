@@ -46,6 +46,7 @@ namespace TouristAgency
 
         public App()
         {
+            UserService = new();
             LocationService = new();
             ReservationService = new();
             AccommodationService = new();
@@ -63,7 +64,6 @@ namespace TouristAgency
             GuideService = new();
             PhotoService = new();
             GuestService = new();
-            UserService = new();
 
             //TODO Preci na servise
             AccommodationService.LoadLocationsToAccommodations(LocationService.GetAll());

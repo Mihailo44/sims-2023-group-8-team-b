@@ -8,7 +8,7 @@ using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-    public class Owner : User
+    public class Owner : User,ISerializable
     {
         private bool _superOwner;
         private double _average;
@@ -61,18 +61,19 @@ namespace TouristAgency.Model
             }
         }
         
-        public new void FromCSV(string[] values)
+        new public void FromCSV(string[] values)
         {
-            ID = int.Parse(values[values.Length - 7]);
-            FirstName = values[values.Length - 6];
-            LastName = values[values.Length - 5];
-            DateOfBirth = DateOnly.Parse(values[values.Length - 4]);
-            FullLocationID = int.Parse(values[values.Length - 3]);
-            Phone = values[values.Length - 2];
-            Email = values[values.Length - 1];
+            ID = int.Parse(values[0]);
+            FirstName = values[1];
+            LastName = values[2];
+            DateOfBirth = DateOnly.Parse(values[3]);
+            FullLocationID = int.Parse(values[4]);
+            Phone = values[5];
+            Email = values[6];
         }
 
-        public new string[] ToCSV()
+
+        new public string[] ToCSV()
         {
             string[] csvValues =
             {
