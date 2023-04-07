@@ -26,8 +26,8 @@ namespace TouristAgency.View.Home
         public GuideHome(Guide guide)
         {
             InitializeComponent();
-            DataContext = this;
             _loggedInGuide = guide;
+            DataContext = this;
         }
 
         private void TourButton_Click(object sender, RoutedEventArgs e)

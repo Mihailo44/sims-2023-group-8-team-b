@@ -14,6 +14,7 @@ namespace TouristAgency.Model
 
         public Tourist()
         {
+            UserType = Enums.UserType.TOURIST;
             _appliedTours = new List<Tour>();
             _wonVouchers = new List<Voucher>();
         }
@@ -50,6 +51,7 @@ namespace TouristAgency.Model
 
         public Tourist(User user) : base(user)
         {
+            UserType = Enums.UserType.TOURIST;
             _appliedTours = new List<Tour>();
         }
 
@@ -58,8 +60,6 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 _ID.ToString(),
-                _username,
-                _password,
                 _firstName,
                 _lastName,
                 _dateOfBirth.ToString(),
@@ -73,14 +73,12 @@ namespace TouristAgency.Model
         new public void FromCSV(string[] values)
         {
             _ID = Convert.ToInt32(values[0]);
-            _username = values[1];
-            _password = values[2];
-            _firstName = values[3];
-            _lastName = values[4];
-            _dateOfBirth = DateOnly.Parse(values[5]);
-            _email = values[6];
-            _phone = values[7];
-            _fullLocationID = Convert.ToInt32(8);
+            _firstName = values[1];
+            _lastName = values[2];
+            _dateOfBirth = DateOnly.Parse(values[3]);
+            _email = values[4];
+            _phone = values[5];
+            _fullLocationID = Convert.ToInt32(6);
         }
 
         public int GetAgeCategory()

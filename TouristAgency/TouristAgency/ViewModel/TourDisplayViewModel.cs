@@ -42,15 +42,6 @@ namespace TouristAgency.ViewModel
             Languages = new ObservableCollection<string>(_app.TourService.GetAllLanguages());
             _loggedInTourist = tourist;
 
-            foreach (var ttc in _app.TourTouristCheckpointService.GetPendingInvitations(tourist.ID))
-            {
-                MessageBoxResult result = MessageBox.Show("Are you at " + _app.CheckpointService.FindById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                {
-                    _app.TourTouristCheckpointService.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
-                }
-            }
-
             //TODO
             //CountryComboBox.SelectedIndex = 0;
             //CityComboBox.SelectedIndex = 0;
@@ -271,12 +262,12 @@ namespace TouristAgency.ViewModel
                         ChooseVoucherDisplay display = new ChooseVoucherDisplay(_loggedInTourist, selectedTour.ID);
                         display.Show();
                     }
-                    else
-                    {
-                        MessageBox.Show("Successfully made a reservation.", "Success");
-                    }
                 }
-                
+                else
+                {
+                    MessageBox.Show("Successfully made a reservation.", "Success");
+                }
+
                 _app.TourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
                 _app.TourTouristService.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);

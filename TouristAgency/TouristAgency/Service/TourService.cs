@@ -296,6 +296,11 @@ namespace TouristAgency.Service
             return bestTour;
         }
 
+        public List<Tour> GetFinishedTours(Tourist tourist)
+        {
+            return GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.ENDED);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

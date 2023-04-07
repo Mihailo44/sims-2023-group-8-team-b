@@ -80,7 +80,7 @@ namespace TouristAgency.Service
         {
             foreach (TourTourist tourTourist in tourTourists)
             {
-                Tourist selectedTourist = FindById(tourTourist.TourID);
+                Tourist selectedTourist = FindById(tourTourist.TouristID);
                 foreach (Tour tour in tours)
                 {
                     if (tour.ID == tourTourist.TourID)

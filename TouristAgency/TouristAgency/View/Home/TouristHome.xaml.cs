@@ -22,13 +22,24 @@ namespace TouristAgency.View.Home
     /// </summary>
     public partial class TouristHome : Window
     {
-        private Tourist _loggedInTourist; 
+        private Tourist _loggedInTourist;
+        private App _app;
 
         public TouristHome(Tourist tourist)
         {
             InitializeComponent();
             DataContext = this;
             _loggedInTourist = tourist;
+            _app = (App)Application.Current;
+
+            foreach (var ttc in _app.TourTouristCheckpointService.GetPendingInvitations(tourist.ID))
+            {
+                MessageBoxResult result = MessageBox.Show("Are you at " + _app.CheckpointService.FindById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _app.TourTouristCheckpointService.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
+                }
+            }
         }
 
         private void TourDisplay_Click(object sender, RoutedEventArgs e)
@@ -45,7 +56,7 @@ namespace TouristAgency.View.Home
 
         private void TourGuideReview_Click(object sender, RoutedEventArgs e)
         {
-            TourGuideReviewCreation creation = new TourGuideReviewCreation(_loggedInTourist);
+            GuideReviewCreation creation = new GuideReviewCreation(_loggedInTourist);
             creation.Show();
         }
 

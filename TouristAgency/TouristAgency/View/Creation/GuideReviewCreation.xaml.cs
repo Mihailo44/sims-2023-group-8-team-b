@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Creation
 {
     /// <summary>
     /// Interaction logic for TourGuideReviewCreation.xaml
     /// </summary>
-    public partial class TourGuideReviewCreation : Window
+    public partial class GuideReviewCreation : Window
     {
-        public TourGuideReviewCreation(Tourist tourist)
+        public GuideReviewCreation(Tourist tourist)
         {
             InitializeComponent();
+            DataContext = new GuideReviewCreationViewModel(tourist, this);
         }
     }
 }

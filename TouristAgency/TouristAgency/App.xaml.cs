@@ -31,6 +31,7 @@ namespace TouristAgency
 
 
         public GuideService GuideService { get; }
+        public GuideReviewService GuideReviewService { get; }
 
         //public CheckpointService CheckpointService { get; set; } = new CheckpointService();
         //public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
@@ -46,6 +47,8 @@ namespace TouristAgency
 
         public App()
         {
+            GuideService = new();
+            TourTouristService = new();
             UserService = new();
             LocationService = new();
             ReservationService = new();
@@ -55,13 +58,14 @@ namespace TouristAgency
             OwnerReviewService = new();
             PostponementRequestService = new();
             TouristService = new();
-            TourTouristService = new();
+            GuideReviewService = new();
+            
             VoucherService = new();
             TourService = new();
             TourCheckpointService = new();
             TourTouristCheckpointService = new();
             CheckpointService = new();
-            GuideService = new();
+            
             PhotoService = new();
             GuestService = new();
 
