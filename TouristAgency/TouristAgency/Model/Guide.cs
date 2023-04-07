@@ -35,7 +35,7 @@ namespace TouristAgency.Model
         ;
     }
 
-    public string[] ToCSV()
+    public new string[] ToCSV()
     {
         string[] csvValues =
         {
@@ -52,7 +52,7 @@ namespace TouristAgency.Model
         return csvValues;
     }
 
-    public void FromCSV(string[] values)
+    public new void FromCSV(string[] values)
     {
         _ID = Convert.ToInt32(values[0]);
         _username = values[1];

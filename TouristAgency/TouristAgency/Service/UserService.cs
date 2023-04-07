@@ -4,51 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Model;
+using TouristAgency.Storage;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Service
 {
     public class UserService
     {
-        public object User { get; set; }
+        private readonly UserStorage _userStorage;
+        private readonly List<User> _users;
 
-        private OwnerService _ownerService;
-        private GuestService _guestService;
-        private TouristService _touristService;
-        private GuideService _guideService;
-        private readonly App app = (App)App.Current;
+        public User User { get; set; }
 
         public UserService()
         {
-            _ownerService = app.OwnerService;
-            _touristService = app.TouristService;
-            _guideService = app.GuideService;
-            _guestService = new();
-            //guest servis fali
+            _userStorage = new UserStorage();
+            _users = _userStorage.Load();
         }
 
-        public object GetUser(string Username,string Password)
+        public User CheckCredentials(string username,string password)
         {
-            User = _ownerService.GetAll().Find(o => o.Username == Username.Trim() && o.Password == Password.Trim());
-            if (User != null)
+            User user = _users.Find(u => u.Username == username.Trim() && u.Password == password.Trim());
+            if(user != null)
             {
-                return User as Owner;
+                return user;
             }
-            User = _guestService.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
-            if (User != null)
-            {
-                return User as Guest;
-            }
-            User = _touristService.GetAll().Find(t => t.Username == Username.Trim() && t.Password == Password.Trim());
-            if (User != null)
-            {
-                return User as Tourist;
-            }
-            User = _guideService.GetAll().Find(g => g.Username == Username.Trim() && g.Password == Password.Trim());
-            if (User != null)
-            {
-                return User as Guide;
-            }
-
             return null;
         }
     }

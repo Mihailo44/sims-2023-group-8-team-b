@@ -11,16 +11,21 @@ using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 using TouristAgency.View.Home;
 using TouristAgency.Model;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase,ICloseable
     {
-        private readonly UserService _userService;
+        private OwnerService _ownerService;
+        private GuestService _guestService;
+        private TouristService _touristService;
+        private GuideService _guideService;
+        private UserService _userService;
+        private readonly App app = (App)App.Current;
         private Window _window;
         private string _username;
         private string _password;
-        private App app = (App)App.Current;
 
         public dynamic User { get; set; }
         public DelegateCommand CloseCmd { get; }
@@ -33,7 +38,12 @@ namespace TouristAgency.ViewModel
 
         public MainWindowViewModel(Window window)
         {
+            _ownerService = app.OwnerService;
+            _touristService = app.TouristService;
+            _guideService = app.GuideService;
+            _guestService = new();
             _userService = app.UserService;
+
             _window = window;
             Username = "User";
             Password = "Pass";
@@ -82,47 +92,53 @@ namespace TouristAgency.ViewModel
             return true;
         }
 
+        public void ClearTxtBoxes()
+        {
+            Username = "";
+            Password = "";
+        }
+
         public void LoginExecute()
         {
-            User = _userService.GetUser(Username, Password);
+            User = _userService.CheckCredentials(Username, Password);
 
             if (User != null)
             {
-                switch (User.GetType().ToString())
+                switch (User.UserType)
                 {
-                    case "TouristAgency.Model.Owner":
+                    case UserType.OWNER:
                         {
+                            User = _ownerService.FindById(User.ID);
                             OwnerHome x = new OwnerHome(User);
                             x.Show();
-                            Username = "";
-                            Password = "";
+                            ClearTxtBoxes();
                         }
                         break;
-                    case "TouristAgency.Model.Guest":
+                    case UserType.GUEST:
                         {
                             GuestHome x = new GuestHome(User);
+                            User = _guestService.FindById(User.ID);
                             x.Show();
-                            Username = "";
-                            Password = "";
+                            ClearTxtBoxes();
                         }
                         break;
-                    case "TouristAgency.Model.Tourist":
+                    case UserType.TOURIST:
                         {
+                            User = _touristService.FindById(User.ID);
                             TouristHome x = new TouristHome(User);
                             x.Show();
-                            Username = "";
-                            Password = "";
+                            ClearTxtBoxes();
                         }
                         break;
-                    case "TouristAgency.Model.Guide":
+                    case UserType.GUIDE:
                         {
+                            User = _guideService.FindById(User.ID);
                             GuideHome x = new GuideHome(User);
                             x.Show();
-                            Username = "";
-                            Password = "";
+                            ClearTxtBoxes();
                         }
                         break;
-                    default: MessageBox.Show("Failure"); break;
+                    default: MessageBox.Show("User not found"); break;
                 }
             }
             else
