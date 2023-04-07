@@ -138,7 +138,7 @@ namespace TouristAgency.ViewModel
                             ClearTxtBoxes();
                         }
                         break;
-                    default: MessageBox.Show("User not found"); break;
+                    default: MessageBox.Show("User type doesn't exist"); break;
                 }
             }
             else
