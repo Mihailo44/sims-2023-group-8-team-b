@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
@@ -18,8 +19,8 @@ namespace TouristAgency.Model
             _accommodations = new List<Accommodation>();
         }
 
-        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Location location,string phone) : 
-            base(username,password,firstName,lastName,dateOfBirth,email,location,phone)
+        public Owner(string username,string password,string firstName,string lastName,DateOnly dateOfBirth,string email,Location location,string phone,UserType userType) : 
+            base(username,password,firstName,lastName,dateOfBirth,email,location,phone,userType)
         {
             _accommodations = new List<Accommodation>();   
         }
@@ -60,10 +61,10 @@ namespace TouristAgency.Model
             }
         }
         
-        public override void FromCSV(string[] values)
+        public new void FromCSV(string[] values)
         {
-            base.FromCSV(values);
-            FirstName = values[values.Length - 6]; 
+            ID = int.Parse(values[values.Length - 7]);
+            FirstName = values[values.Length - 6];
             LastName = values[values.Length - 5];
             DateOfBirth = DateOnly.Parse(values[values.Length - 4]);
             FullLocationID = int.Parse(values[values.Length - 3]);
@@ -71,16 +72,18 @@ namespace TouristAgency.Model
             Email = values[values.Length - 1];
         }
 
-        public override string[] ToCSV()
+        public new string[] ToCSV()
         {
-            string[] csvValues = base.ToCSV();
-
-            csvValues.Append(FirstName);
-            csvValues.Append(LastName);
-            csvValues.Append(DateOfBirth.ToString());
-            csvValues.Append(FullLocationID.ToString());
-            csvValues.Append(Phone);
-            csvValues.Append(Email);
+            string[] csvValues =
+            {
+                ID.ToString(),
+                FirstName,
+                LastName,
+                DateOfBirth.ToString(),
+                FullLocationID.ToString(),
+                Phone.ToString(),
+                Email.ToString()
+            };
 
             return csvValues;
         }

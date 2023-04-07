@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
@@ -20,6 +21,7 @@ namespace TouristAgency.Model
         protected Location _fullLocation;
         protected int _fullLocationID;
         protected string _phone;
+        private UserType _userType;
 
         public User()
         {
@@ -28,7 +30,7 @@ namespace TouristAgency.Model
             _fullLocation = new Location();
         }
 
-        public User(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Location location, string phone)
+        public User(string username, string password, string firstName, string lastName, DateOnly dateOfBirth, string email, Location location, string phone,UserType userType)
         {
             _username = username;
             _password = password;
@@ -38,6 +40,7 @@ namespace TouristAgency.Model
             _email = email;
             _fullLocation = new Location(location);
             _phone = phone;
+            _userType = userType;
         }
 
         public User(User originalUser)
@@ -173,20 +176,34 @@ namespace TouristAgency.Model
             }
         }
 
-        public virtual void FromCSV(string[] values)
+        public UserType UserType
+        {
+            get { return _userType; }
+            set
+            {
+                if(value != _userType)
+                {
+                    _userType = value;
+                }
+            }
+        }
+
+        public void FromCSV(string[] values)
         {
             ID = int.Parse(values[0]);
             Username = values[1];
             Password = values[2];
+            UserType = Enum.Parse<UserType>(values[3]);
         }
 
-        public virtual string[] ToCSV()
+        public string[] ToCSV()
         {
             string[] csvValues =
             {
                 ID.ToString(),
                 Username,
-                Password
+                Password,
+                UserType.ToString()
             };
 
             return csvValues;
