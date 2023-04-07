@@ -116,8 +116,8 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.GUEST:
                         {
-                            GuestHome x = new GuestHome(User);
                             User = _guestService.FindById(User.ID);
+                            GuestHome x = new GuestHome(User);
                             x.Show();
                             ClearTxtBoxes();
                         }
