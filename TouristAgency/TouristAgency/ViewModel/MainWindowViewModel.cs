@@ -13,6 +13,7 @@ using TouristAgency.View.Home;
 using TouristAgency.Model;
 using TouristAgency.Model.Enums;
 
+
 namespace TouristAgency.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase,ICloseable
@@ -49,6 +50,7 @@ namespace TouristAgency.ViewModel
             Password = "Pass";
             LoginCmd = new DelegateCommand(param => LoginExecute(),param => CanLoginExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
+            
         }
         
         public string Username
@@ -146,5 +148,6 @@ namespace TouristAgency.ViewModel
                 MessageBox.Show("User is not registered");
             }
         }
+
     }
 }
