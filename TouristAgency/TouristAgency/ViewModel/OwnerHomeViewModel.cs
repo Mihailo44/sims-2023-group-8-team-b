@@ -12,7 +12,7 @@ using TouristAgency.View.Dialogue;
 
 namespace TouristAgency.ViewModel
 {
-    public class OwnerHomeViewModel : ViewModelBase, IObserver
+    public class OwnerHomeViewModel : ViewModelBase, IObserver,ICloseable
     {
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
@@ -42,11 +42,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand NewReviewCmd { get; }
         public DelegateCommand PostponeCmd { get; }
         public DelegateCommand PostponeCommentCmd { get; }
-
-        public OwnerHomeViewModel()
-        {
-
-        }
+        public DelegateCommand CloseCmd { get; }
 
         public OwnerHomeViewModel(Window window, Owner owner)
         {
@@ -87,6 +83,7 @@ namespace TouristAgency.ViewModel
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
             PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
             //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
         }
 
         private void LoadAccommodations(int ownerId = 0)
@@ -277,6 +274,16 @@ namespace TouristAgency.ViewModel
 
             MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
             return result;
+        }
+
+        public bool CanCloseWindowExecute()
+        {
+            return true;
+        }
+
+        public void CloseWindowExecute()
+        {
+            _window.Close();
         }
     }
 }
