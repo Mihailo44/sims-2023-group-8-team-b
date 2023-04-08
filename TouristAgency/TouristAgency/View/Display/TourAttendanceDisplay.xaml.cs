@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Display
 {
     /// <summary>
     /// Interaction logic for TourAttendance.xaml
     /// </summary>
-    public partial class TourAttendance : Window
+    public partial class TourAttendanceDisplay : Window
     {
-        public TourAttendance(Tourist tourist)
+        public TourAttendanceDisplay(Tourist tourist)
         {
             InitializeComponent();
+            DataContext = new TourAttendanceDisplayViewModel(tourist, this);
         }
     }
 }

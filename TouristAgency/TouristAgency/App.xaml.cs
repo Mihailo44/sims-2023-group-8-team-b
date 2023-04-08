@@ -90,7 +90,7 @@ namespace TouristAgency
             OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
             PostponementRequestService.LoadReservationsToPostponementRequests(ReservationService.GetAll());
             TouristService.LoadVouchersToTourist(VoucherService.GetAll());
-            Console.WriteLine("test");
+            GuideReviewService.LoadPhotosToReviews(PhotoService.GetAll());
         }
     }
 }

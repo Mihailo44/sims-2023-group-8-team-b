@@ -92,6 +92,20 @@ namespace TouristAgency.Service
             return tourCheckpoints;
         }
 
+        public Checkpoint GetLatestCheckpoint(Tour tour)
+        {
+            List<TourCheckpoint> tourCheckpoints = _tourCheckpoint.FindAll(tc => tc.TourID == tour.ID);
+            Checkpoint latestCheckpoint = new Checkpoint();
+            foreach(TourCheckpoint tourCheckpoint in tourCheckpoints)
+            {
+                if(tourCheckpoint.IsVisited == true)
+                {
+                    latestCheckpoint = tourCheckpoint.Checkpoint;
+                }
+            }
+            return latestCheckpoint;
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
