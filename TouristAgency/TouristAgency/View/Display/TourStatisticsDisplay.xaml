@@ -26,7 +26,7 @@
         
         <!-- TODO NAVIGATION BUTTON -->
 
-        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="250" Width="333" ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}">
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="250" Width="333" ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}" x:Name="_lw">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
@@ -42,6 +42,13 @@
                     <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
                     <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
                     <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                    <GridViewColumn Header="Reviews">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.GetReviewsCmd, ElementName=_lw}">Reviews</Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

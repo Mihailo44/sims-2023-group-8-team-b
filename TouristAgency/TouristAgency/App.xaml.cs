@@ -82,6 +82,8 @@ namespace TouristAgency
             ReservationService.LoadGuestsToReservations(GuestService.GetAll());
             TourCheckpointService.LoadCheckpoints(CheckpointService.GetAll());
             GuideService.LoadToursToGuide(TourService.GetAll());
+            GuideReviewService.LoadTouristsToReviews(TouristService.GetAll());
+            GuideReviewService.LoadToursToGuideReviews(TourService.GetAll());
             TourService.LoadTouristsToTours(TourTouristService.GetAll(), TouristService.GetAll());
             TouristService.LoadToursToTourist(TourTouristService.GetAll(), TourService.GetAll());
             TourService.LoadCheckpointsToTours(TourCheckpointService.GetAll(), CheckpointService.GetAll());

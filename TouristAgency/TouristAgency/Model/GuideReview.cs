@@ -12,6 +12,8 @@ namespace TouristAgency.Model
         private int _id;
         private Tour _tour;
         private int _tourID;
+        private Tourist _tourist;
+        private int _touristID;
         private DateTime _reviewDate;
         private int _quality;
         private int _tourOrganization;
@@ -26,6 +28,7 @@ namespace TouristAgency.Model
         {
             _id = -1;
             _tourID = 1;
+            _touristID = -1;
             _reviewDate = DateTime.Now;
             _quality = 1;
             _tourOrganization = 1;
@@ -41,6 +44,7 @@ namespace TouristAgency.Model
             _id = id;
             _tour = tour;
             _tourID = tourID;
+            _touristID = -1;
             _reviewDate = reviewDate;
             _quality = quality;
             _tourOrganization = tourOrganization;
@@ -84,6 +88,30 @@ namespace TouristAgency.Model
                 if (value != _tourID)
                 {
                     _tourID = value;
+                }
+            }
+        }
+
+        public Tourist Tourist
+        {
+            get => _tourist;
+            set
+            {
+                if(value != _tourist)
+                {
+                    _tourist = value;
+                }
+            }
+        }
+
+        public int TouristID
+        {
+            get => _touristID;
+            set
+            {
+                if(value != _touristID)
+                {
+                    _touristID = value;
                 }
             }
         }
@@ -194,14 +222,15 @@ namespace TouristAgency.Model
         {
             ID = int.Parse(values[0]);
             TourID = int.Parse(values[1]);
-            ReviewDate = DateTime.Parse(values[2]);
-            Quality = int.Parse(values[3]);
-            TourOrganization = int.Parse(values[4]);
-            Attractions = int.Parse(values[5]);
-            Knowledge = int.Parse(values[6]);
-            Language = int.Parse(values[7]);
-            SocialInteraction = int.Parse(values[8]);
-            Comment = values[9];
+            TouristID = int.Parse(values[2]);
+            ReviewDate = DateTime.Parse(values[3]);
+            Quality = int.Parse(values[4]);
+            TourOrganization = int.Parse(values[5]);
+            Attractions = int.Parse(values[6]);
+            Knowledge = int.Parse(values[7]);
+            Language = int.Parse(values[8]);
+            SocialInteraction = int.Parse(values[9]);
+            Comment = values[10];
         }
 
         public string[] ToCSV()
@@ -210,6 +239,7 @@ namespace TouristAgency.Model
             {
                 ID.ToString(),
                 TourID.ToString(),
+                TouristID.ToString(),
                 ReviewDate.ToString(),
                 Quality.ToString(),
                 TourOrganization.ToString(),

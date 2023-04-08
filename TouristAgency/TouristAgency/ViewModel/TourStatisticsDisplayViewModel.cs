@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
+using TouristAgency.View.Display;
 
 namespace TouristAgency.ViewModel
 {
@@ -15,7 +16,7 @@ namespace TouristAgency.ViewModel
     {
         private ObservableCollection<Tour> _tours;
         private Tour _selectedTour;
-        private Guide _guide;
+        private Guide _loggedInGuide;
         private App _app;
         private ChartValues<int> _young;
         private ChartValues<int> _adult;
@@ -23,11 +24,12 @@ namespace TouristAgency.ViewModel
         private ChartValues<int> _withVoucher;
         private ChartValues<int> _withoutVoucher;
 
-        public DelegateCommand GetStatisticsCmd{ get; }
+        public DelegateCommand GetStatisticsCmd { get; }
+        public DelegateCommand GetReviewsCmd { get; }
 
         public TourStatisticsDisplayViewModel(Guide guide, Window window)
         {
-            _guide = guide;
+            _loggedInGuide = guide;
             _tours = new ObservableCollection<Tour>();
             _app = (App)App.Current;
             Tours = new ObservableCollection<Tour>(_app.TourService.GetAll());
@@ -37,6 +39,7 @@ namespace TouristAgency.ViewModel
             WithoutVoucher = new ChartValues<int>();
             WithVoucher = new ChartValues<int>();
             GetStatisticsCmd = new DelegateCommand(param => GetStatisticsExecute(), param => CanGetStatisticsExecute());
+            GetReviewsCmd = new DelegateCommand(param => GetReviewsExecute(), param => CanGetReviewsExecute());
         }
 
         public ObservableCollection<Tour> Tours
@@ -166,5 +169,18 @@ namespace TouristAgency.ViewModel
             Old.Clear();
         }
 
+        public bool CanGetReviewsExecute()
+        {
+            return true;
+        }
+
+        public void GetReviewsExecute()
+        {
+            if(SelectedTour != null && _loggedInGuide != null)
+            {
+                TourReviewDisplay reviewDisplay = new TourReviewDisplay(_loggedInGuide, SelectedTour);
+                reviewDisplay.ShowDialog();
+            }
+        }
     }
 }

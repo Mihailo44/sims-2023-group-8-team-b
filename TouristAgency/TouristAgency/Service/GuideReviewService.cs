@@ -86,20 +86,19 @@ namespace TouristAgency.Service
             return _guideReviews.FindAll(g => g.Tour.AssignedGuideID == id);
         }
 
-        public List<GuideReview> GetEndedToursByGuideId(int id)
+        public List<GuideReview> GetReviewsForGuideTourID(int guideID, int tourID)
         {
-            List<GuideReview> endedTours = new List<GuideReview>();
+            List<GuideReview> reviews= new List<GuideReview>();
 
             foreach (var guideReview in _guideReviews)
             {
-                int guideID = guideReview.Tour.AssignedGuideID;
 
-                if (guideID == id && guideReview.Tour.Status == STATUS.ENDED)
+                if (guideReview.Tour.AssignedGuideID == guideID &&  guideReview.TourID == tourID)
                 {
-                    endedTours.Add(guideReview);
+                    reviews.Add(guideReview);
                 }
             }
-            return endedTours;
+            return reviews;
         }
 
         public void LoadToursToGuideReviews(List<Tour> tours)
@@ -108,6 +107,20 @@ namespace TouristAgency.Service
             {
                 Tour tour = tours.Find(t => t.ID == guideReview.TourID);
                 guideReview.Tour = tour;
+            }
+        }
+
+        public void LoadTouristsToReviews(List<Tourist> tourists)
+        {
+            foreach (GuideReview guideReview in _guideReviews)
+            {
+                foreach(Tourist tourist in tourists)
+                {
+                    if(guideReview.TouristID == tourist.ID)
+                    {
+                        guideReview.Tourist = tourist;
+                    }
+                }
             }
         }
 
