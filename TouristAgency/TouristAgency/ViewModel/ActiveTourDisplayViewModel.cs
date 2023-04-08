@@ -177,10 +177,10 @@ namespace TouristAgency.ViewModel
             //AvailableToursListView.IsEnabled = false;
             //FinishButton.IsEnabled = true;
             _selectedTour = SelectedTour;
-            RegisteredTourists = new ObservableCollection<Tourist>(_app.TourService.GetTouristsFromTour(_selectedTour.ID));
+            //RegisteredTourists = new ObservableCollection<Tourist>(_app.TourService.GetTouristsFromTour(_selectedTour.ID));
+            RegisteredTourists = new ObservableCollection<Tourist>(_app.TourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
             _app.TourService.ChangeTourStatus(_selectedTour.ID, STATUS.IN_PROGRESS);
             AvailableCheckpoints = _app.TourCheckpointService.GetTourCheckpointsByTourID(_selectedTour.ID, _app.CheckpointService.GetAll());
-
         }
 
         public bool CanCreateCmdExecute()
@@ -245,7 +245,7 @@ namespace TouristAgency.ViewModel
                     //AvailableToursListView.IsEnabled = false;
                     //BeginTourButton.IsEnabled = false;
                     //FinishButton.IsEnabled = true;
-                    RegisteredTourists = new ObservableCollection<Tourist>(_app.TourService.GetTouristsFromTour(_selectedTour.ID));
+                    RegisteredTourists = new ObservableCollection<Tourist>(_app.TourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
                     AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointService.FindByID(_selectedTour.ID));
                     return true;
                 }

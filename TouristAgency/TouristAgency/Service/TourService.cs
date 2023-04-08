@@ -301,6 +301,11 @@ namespace TouristAgency.Service
             return GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.ENDED);
         }
 
+        public List<Tour> GetActiveTours(Tourist tourist)
+        {
+            return GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.IN_PROGRESS);
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

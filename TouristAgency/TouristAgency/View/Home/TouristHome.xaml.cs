@@ -34,7 +34,7 @@ namespace TouristAgency.View.Home
 
             foreach (var ttc in _app.TourTouristCheckpointService.GetPendingInvitations(tourist.ID))
             {
-                MessageBoxResult result = MessageBox.Show("Are you at " + _app.CheckpointService.FindById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _app.CheckpointService.FindById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     _app.TourTouristCheckpointService.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
@@ -50,7 +50,7 @@ namespace TouristAgency.View.Home
 
         private void TourAttendance_Click(object sender, RoutedEventArgs e)
         {
-            TourAttendance attendance = new TourAttendance(_loggedInTourist);
+            TourAttendanceDisplay attendance = new TourAttendanceDisplay(_loggedInTourist);
             attendance.Show();
         }
 

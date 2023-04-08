@@ -124,6 +124,20 @@ namespace TouristAgency.Service
             }
         }
 
+        public void LoadPhotosToReviews(List<Photo> photos)
+        {
+            foreach (GuideReview review in _guideReviews)
+            {
+                foreach (Photo photo in photos)
+                {
+                    if (photo.ExternalID == review.ID && photo.Type == 'G')
+                    {
+                        review.Photos.Add(new Photo(photo));
+                    }
+                }
+            }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

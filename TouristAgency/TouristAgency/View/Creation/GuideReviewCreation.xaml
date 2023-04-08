@@ -80,7 +80,12 @@
                 <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416"></TextBox>
 
                 <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="2" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Height="80" Width="416"></TextBox>
+                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Height="80" Width="416" Text="{Binding PhotoLinks}">
+                    <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+                    <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+                    <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
+                    <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
+                </TextBox>
 
                 <Button Content="Send review" Grid.Row="6" Grid.Column="2" Width="228" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0"></Button>
             </Grid>

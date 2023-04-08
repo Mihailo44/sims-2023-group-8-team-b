@@ -1,8 +1,9 @@
-﻿<Window x:Class="TouristAgency.View.Display.TourAttendance"
+﻿<Window x:Class="TouristAgency.View.Display.TourAttendanceDisplay"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Title="TourAttendance" Height="600" Width="1100">
@@ -18,7 +19,12 @@
         </Grid.RowDefinitions>
 
         <Label Content="Applied tours:" Grid.Row="0" Grid.Column="0" FontSize="32" FontWeight="Bold"></Label>
-        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="330" FontSize="28" FontWeight="Bold">
+        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="330" SelectedItem="{Binding SelectedTour}" ItemsSource="{Binding Tours}" FontSize="28" FontWeight="Bold">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ShowCheckpointInfoCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Photo">
@@ -54,10 +60,10 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="Status: Active" Grid.Row="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Checkpoint: Trg republike, Belgrade, Serbia" Grid.Row="1" FontSize="28" FontWeight="Bold"></Label>
+                <Label Content="{Binding ActiveCheckpoint}" Grid.Row="1" FontSize="28" FontWeight="Bold"></Label>
             </Grid>
         </GroupBox>
 
-        <Button Content="Join the tour" Grid.Row="2" Grid.Column="1" Width="212" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="28" FontWeight="Bold" Margin="0,0,0,40"></Button>
+        <Button Content="Join the tour" Grid.Row="2" Grid.Column="1" Command="{Binding JoinCmd}" Width="212" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="28" FontWeight="Bold" Margin="0,0,0,40"></Button>
     </Grid>
 </Window>

@@ -55,6 +55,12 @@ namespace TouristAgency.ViewModel
             set;
         }
 
+        public string PhotoLinks
+        {
+            get;
+            set;
+        }
+
         public bool CanCreateExecute()
         {
             return true;
@@ -62,8 +68,29 @@ namespace TouristAgency.ViewModel
 
         public void CreateExecute()
         {
+            AddPhotos();
+            NewGuideReview.TouristID = _loggedInTourist.ID;
+            NewGuideReview.Tourist = _loggedInTourist;
+            NewGuideReview.TourID = SelectedTour.ID;
+            NewGuideReview.Tour = SelectedTour;
             _app.GuideReviewService.Create(NewGuideReview);
             MessageBox.Show("Successfully send a review.", "Success");
+        }
+
+        public void AddPhotos()
+        {
+            int guideReviewID = _app.GuideReviewService.GenerateId() - 1;
+            if (PhotoLinks != null)
+            {
+                PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+                string[] photoLinks = PhotoLinks.Split("|");
+                foreach (string photoLink in photoLinks)
+                {
+                    Photo photo = new Photo(photoLink, 'G', guideReviewID);
+                    NewGuideReview.Photos.Add(photo);
+                    _app.PhotoService.Create(photo);
+                }
+            }
         }
     }
 }
