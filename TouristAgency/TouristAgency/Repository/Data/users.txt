@@ -20,3 +20,4 @@
 19|aleks|aleks85|TOURIST
 20|laki|l123|TOURIST
 21|paki|sifra|GUIDE
+22|Ogi|gio|OWNER

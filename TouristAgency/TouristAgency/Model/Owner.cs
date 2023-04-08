@@ -67,6 +67,7 @@ namespace TouristAgency.Model
             FullLocationID = int.Parse(values[4]);
             Phone = values[5];
             Email = values[6];
+            SuperOwner = bool.Parse(values[7]);
         }
 
 
@@ -80,7 +81,8 @@ namespace TouristAgency.Model
                 DateOfBirth.ToString(),
                 FullLocationID.ToString(),
                 Phone.ToString(),
-                Email.ToString()
+                Email.ToString(),
+                SuperOwner.ToString()
             };
 
             return csvValues;

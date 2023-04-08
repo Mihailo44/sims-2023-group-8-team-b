@@ -154,6 +154,8 @@ namespace TouristAgency.ViewModel
                 Status = "SUPER OWNER";
             else
                 Status = "";
+
+            _ownerService.Update(LoggedUser, LoggedUser.ID);
         }
 
         public bool CanOpenAccommodationCreationExecute()

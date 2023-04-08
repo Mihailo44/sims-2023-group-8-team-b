@@ -59,6 +59,7 @@ namespace TouristAgency.Service
             currentOwner.Password = updatedOwner.Password;
             currentOwner.Username = updatedOwner.Username;
             currentOwner.Accommodations = updatedOwner.Accommodations;
+            currentOwner.SuperOwner = updatedOwner.SuperOwner;
 
             _storage.Save(_owners);
             NotifyObservers();
