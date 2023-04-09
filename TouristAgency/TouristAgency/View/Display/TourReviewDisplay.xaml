@@ -24,10 +24,10 @@
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Content="{Binding SelectedTour.Name}"></Label>
 
         <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="410">
-            <Image Height="92" Width="92" Source="{Binding SelectedTour.Photos[0].Link}"></Image>
+            <Image Height="92" Width="92" Source="{Binding SelectedTour.Photos[0].Link}" VerticalAlignment="Center"></Image>
 
 
-            <StackPanel>
+            <StackPanel VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
                     <Label FontSize="15">Time of tour:</Label>
                     <Label FontSize="15" Content="{Binding StartEndTime}"></Label>
@@ -47,52 +47,63 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="344">
-                        <DockPanel HorizontalAlignment="Center">
-                            <Image Width="75" Height="75" HorizontalAlignment="Left"></Image>
-                            <StackPanel HorizontalAlignment="Center">
+                        <DockPanel HorizontalAlignment="Center" Width="344">
+                            <Image Width="75" Height="75" VerticalAlignment="Center">
+                                <Image.Source>
+                                    <BitmapImage UriSource="../../Repository/Image/user-solid.png"/>
+                                </Image.Source>
+                            </Image>
+
+                            <StackPanel VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="{Binding Tourist.FirstName}"></Label>
                                     <Label Content="{Binding Tourist.LastName}"></Label>
                                 </StackPanel>
                                 <Label>TBA Arrived at:</Label>
                             </StackPanel>
-                            <Button HorizontalAlignment="Right">Report</Button>
+
+                            <Button Width="85" Height="27" VerticalAlignment="Center">Report</Button>
                         </DockPanel>
 
                         <DockPanel HorizontalAlignment="Center">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label>Category1: </Label>
-                                    <Image Height="16" Width="80"></Image>
+                                    <Label Content="{Binding Quality}"></Label>
                                 </StackPanel>
                                 
                                 <StackPanel Orientation="Horizontal">
                                     <Label>Category2:</Label>
-                                    <Image Height="16" Width="80"></Image>
+                                    <Label Content="{Binding TourOrganization}"></Label>
                                 </StackPanel>
-                                
+
                                 <StackPanel Orientation="Horizontal">
                                     <Label>Category3:</Label>
-                                    <Image Height="16" Width="80"></Image>
+                                    <Label Content="{Binding Attractions}"></Label>
                                 </StackPanel>
-                                
+
                                 <StackPanel Orientation="Horizontal">
                                     <Label>Category4:</Label>
-                                    <Image Height="16" Width="80"></Image>
+                                    <Label Content="{Binding Knowledge}"></Label>
                                 </StackPanel>
                                 
                                 <StackPanel Orientation="Horizontal">
                                     <Label>Category5:</Label>
-                                    <Image Height="16" Width="80"></Image>
+                                    <Label Content="{Binding Language}"></Label>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Category6:</Label>
+                                    <Label Content="{Binding SocialInteraction}"></Label>
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel HorizontalAlignment="Center">
                                 <Label>Attached photos:</Label>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image></Image>
-                                    <Image></Image>
-                                    <Image></Image>
+                                    <Image Source="{Binding Photos[0].Link}" Width="30" Height="30"></Image>
+                                    <Image Source="{Binding Photos[1].Link}" Width="30" Height="30"></Image>
+                                    <Image Source="{Binding Photos[2].Link}" Width="30" Height="30"></Image>
                                 </StackPanel>
                             </StackPanel>
                         </DockPanel>

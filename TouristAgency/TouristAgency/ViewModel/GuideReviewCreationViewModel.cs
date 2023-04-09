@@ -25,7 +25,7 @@ namespace TouristAgency.ViewModel
             _app = (App)Application.Current;
 
             _loggedInTourist = tourist;
-            FinishedTours =  new ObservableCollection<Tour>(_app.TourService.GetFinishedTours(tourist));
+            FinishedTours =  new ObservableCollection<Tour>(_app.TourService.GetFinishedToursByTourist(tourist));
             NewGuideReview = new GuideReview();
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
         }

@@ -36,6 +36,49 @@ namespace TouristAgency.Service
             return _tours.Find(t => t.ID == id);
         }
 
+        public List<Tour> GetAll()
+        {
+            return _tours;
+        }
+
+        public List<Tour> GetTodayTours(int guideID)
+        {
+            List<Tour> todayTours = new List<Tour>();
+            foreach (Tour tour in _tours)
+            {
+                if (tour.StartDateTime.Date == DateTime.Now.Date && tour.AssignedGuideID == guideID && tour.Status != STATUS.ENDED)
+                {
+                    todayTours.Add(tour);
+                }
+            }
+            return todayTours;
+        }
+
+        public List<Tour> GetCancellabeTours()
+        {
+            return _tours.Where(t => (DateTime.Today.Date - t.StartDateTime.Date).Days <= -2).ToList();
+        }
+
+        public List<Tour> GetValidTours()
+        {
+            return GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status == STATUS.NOT_STARTED).ToList();
+        }
+
+        public List<Tour> GetFinishedToursByTourist(Tourist tourist)
+        {
+            return GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.ENDED);
+        }
+
+        public List<Tour> GetFinishedToursByGuide(Guide guide)
+        {
+            return _tours.FindAll(t => t.AssignedGuideID == guide.ID && t.Status == STATUS.ENDED);
+        }
+
+        public List<Tour> GetActiveTours(Tourist tourist)
+        {
+            return GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.IN_PROGRESS);
+        }
+
         public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration, int maxCapacity)
         {
             List<Tour> filteredTours = new List<Tour>();
@@ -105,9 +148,88 @@ namespace TouristAgency.Service
             NotifyObservers();
         }
 
-        public List<Tour> GetAll()
+        public List<String> GetYearsForStatistics()
         {
-            return _tours;
+            List<String> years = new List<string>
+            {
+                "All-time"
+            };
+            foreach (Tour tour in _tours)
+            {
+                String tourStartYear = tour.StartDateTime.Year.ToString();
+                if (!years.Contains(tourStartYear))
+                {
+                    years.Add(tourStartYear);
+                }
+            }
+            years.Sort();
+            years.Reverse();
+            return years;
+        }
+
+        public List<string> GetAllCountries()
+        {
+            List<string> countries = new List<string>();
+            countries.Add("");
+
+            foreach (Tour tour in _tours)
+            {
+                if (!countries.Contains(tour.ShortLocation.Country) && tour.ShortLocation.Country != "")
+                {
+                    countries.Add(tour.ShortLocation.Country);
+                }
+            }
+
+            return countries;
+        }
+
+        public List<string> GetAllCities()
+        {
+            List<string> cities = new List<string>();
+            cities.Add("");
+
+            foreach (Tour tour in _tours)
+            {
+                if (!cities.Contains(tour.ShortLocation.City) && tour.ShortLocation.City != "")
+                {
+                    cities.Add(tour.ShortLocation.City);
+                }
+            }
+
+            return cities;
+        }
+
+        public List<string> GetAllLanguages()
+        {
+            List<string> languages = new List<string>();
+            languages.Add("");
+
+            foreach (Tour tour in _tours)
+            {
+                if (!languages.Contains(tour.Language) && tour.Language != "")
+                {
+                    languages.Add(tour.Language);
+                }
+            }
+
+            return languages;
+        }
+
+        public Tour GetBestTourByYear(String year)
+        {
+            Tour bestTour;
+            if (year == "All-time")
+            {
+                int maxTurists = _tours.Max(t => t.CurrentAttendants);
+                bestTour = _tours.First(t => t.CurrentAttendants == maxTurists);
+            }
+            else
+            {
+                List<Tour> toursInYear = _tours.FindAll(t => t.StartDateTime.Year.ToString() == year);
+                int maxTurists = toursInYear.Max(t => t.CurrentAttendants);
+                bestTour = toursInYear.First(t => t.CurrentAttendants == maxTurists);
+            }
+            return bestTour;
         }
 
         public int[] GetTourAgeStatistics(Tour tour)
@@ -188,122 +310,6 @@ namespace TouristAgency.Service
                     }
                 }
             }
-        }
-
-        public List<Tour> GetTodayTours(int guideID)
-        {
-            List<Tour> todayTours = new List<Tour>();
-            foreach (Tour tour in _tours)
-            {
-                if (tour.StartDateTime.Date == DateTime.Now.Date && tour.AssignedGuideID == guideID && tour.Status != STATUS.ENDED)
-                {
-                    todayTours.Add(tour);
-                }
-            }
-            return todayTours;
-        }
-
-        public List<string> GetAllCountries()
-        {
-            List<string> countries = new List<string>();
-            countries.Add("");
-
-            foreach (Tour tour in _tours)
-            {
-                if (!countries.Contains(tour.ShortLocation.Country) && tour.ShortLocation.Country != "")
-                {
-                    countries.Add(tour.ShortLocation.Country);
-                }
-            }
-
-            return countries;
-        }
-
-        public List<string> GetAllCities()
-        {
-            List<string> cities = new List<string>();
-            cities.Add("");
-
-            foreach (Tour tour in _tours)
-            {
-                if (!cities.Contains(tour.ShortLocation.City) && tour.ShortLocation.City != "")
-                {
-                    cities.Add(tour.ShortLocation.City);
-                }
-            }
-
-            return cities;
-        }
-
-        public List<string> GetAllLanguages()
-        {
-            List<string> languages = new List<string>();
-            languages.Add("");
-
-            foreach (Tour tour in _tours)
-            {
-                if (!languages.Contains(tour.Language) && tour.Language != "")
-                {
-                    languages.Add(tour.Language);
-                }
-            }
-
-            return languages;
-        }
-
-        public List<Tour> GetCancellabeTours()
-        {
-            return _tours.Where(t => (DateTime.Today.Date - t.StartDateTime.Date).Days <= -2).ToList();
-        }
-        public ObservableCollection<Tour> GetValidTours()
-        {
-            return new ObservableCollection<Tour>(GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status != STATUS.ENDED));
-        }
-
-        public List<String> GetYearsForStatistics()
-        {
-            List<String> years = new List<string>
-            {
-                "All-time"
-            };
-            foreach (Tour tour in _tours)
-            {
-                String tourStartYear = tour.StartDateTime.Year.ToString();
-                if (!years.Contains(tourStartYear))
-                {
-                    years.Add(tourStartYear);
-                }
-            }
-            years.Sort();
-            years.Reverse();
-            return years;
-        }
-
-        public Tour GetBestTourByYear(String year)
-        {
-            Tour bestTour;
-            if(year == "All-time")
-            {
-                int maxTurists = _tours.Max(t => t.CurrentAttendants);
-                bestTour = _tours.First(t => t.CurrentAttendants == maxTurists);
-            }
-            else
-            {
-                List<Tour> toursInYear = _tours.FindAll(t => t.StartDateTime.Year.ToString() == year);
-                int maxTurists = toursInYear.Max(t => t.CurrentAttendants);
-                bestTour = toursInYear.First(t => t.CurrentAttendants == maxTurists);
-            }
-            return bestTour;
-        }
-
-        public List<Tour> GetFinishedTours(Tourist tourist)
-        {
-            return GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.ENDED);
-        }
-
-        public List<Tour> GetActiveTours(Tourist tourist)
-        {
-            return GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.IN_PROGRESS);
         }
 
         public void Subscribe(IObserver observer)

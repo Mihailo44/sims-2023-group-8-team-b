@@ -28,7 +28,7 @@ namespace TouristAgency.ViewModel
             _selectedTour = tour;
             _window = window;
             GuideReviews = new ObservableCollection<GuideReview>(_app.GuideReviewService.GetReviewsForGuideTourID(guide.ID, tour.ID));
-            StartEndTime = tour.StartDateTime.Hour + "-" + (tour.StartDateTime.Hour + tour.Duration).ToString();
+            StartEndTime = tour.StartDateTime.Hour + tour.StartDateTime.ToString("tt") + " - " + (tour.StartDateTime.Hour + tour.Duration).ToString() + tour.StartDateTime.ToString("tt");
             Capacity = tour.CurrentAttendants + "/" + tour.MaxAttendants;
         }
 

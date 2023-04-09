@@ -16,3 +16,6 @@
 14|G|-1|slika1
 15|G|-1|slika2
 16|G|-1|slika3
+17|G|0|slika8
+18|G|1|https://play-lh.googleusercontent.com/V_P-I-UENK93ahkQgOWel8X8yFxjhOOfMAZjxXrqp311Gm_RBtlDXHLQhwFZN8n4aIQ
+19|G|2|https://play-lh.googleusercontent.com/V_P-I-UENK93ahkQgOWel8X8yFxjhOOfMAZjxXrqp311Gm_RBtlDXHLQhwFZN8n4aIQ

@@ -32,7 +32,7 @@ namespace TouristAgency.ViewModel
             _loggedInGuide = guide;
             _tours = new ObservableCollection<Tour>();
             _app = (App)App.Current;
-            Tours = new ObservableCollection<Tour>(_app.TourService.GetAll());
+            Tours = new ObservableCollection<Tour>(_app.TourService.GetFinishedToursByGuide(guide));
             Young = new ChartValues<int>();
             Adult = new ChartValues<int>();
             Old = new ChartValues<int>();
@@ -159,7 +159,7 @@ namespace TouristAgency.ViewModel
             WithVoucher.Clear();
             WithoutVoucher.Clear();
             WithVoucher.Add(_app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
-            WithoutVoucher.Add(SelectedTour.CurrentAttendants - _app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
+            WithoutVoucher.Add(SelectedTour.RegisteredTourists.Count - _app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
         }
 
         public void ClearAgeStatistics()

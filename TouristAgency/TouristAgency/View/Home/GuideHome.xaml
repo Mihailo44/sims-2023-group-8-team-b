@@ -8,11 +8,12 @@
         Title="GuideHome" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="TourCreation" Click="TourButton_Click" Width="200" Height="40"/>
-            <Button Content="ActiveTourDisplay" Click="ActiveTourDisplayButton_Click" Width="200" Height="40"/>
-            <Button Content="CancelTourDisplay" Click="CancelTourDisplayButton_Click" Width="200" Height="40"/>
-            <Button Content="TourStatisticsDisplay" Click="TourStatisticsDisplayButton_Click" Width="200" Height="40"/>
-            <Button Content="GuideProfileDisplay" Click="GuideProfileDisplayButton_Click" Width="200" Height="40"/>
+            <Button Content="TourCreation" Command="{Binding CreateTourCmd}" Width="200" Height="40"/>
+            <Button Content="ActiveTourDisplay" Command="{Binding ActiveTourCmd}" Width="200" Height="40"/>
+            <Button Content="CancelTourDisplay" Command="{Binding CancelTourCmd}" Width="200" Height="40"/>
+            <Button Content="TourStatisticsDisplay" Command="{Binding TourStatisticsCmd}" Width="200" Height="40"/>
+            <Button Content="GuideProfileDisplay" Command="{Binding GuideProfileCmd}" Width="200" Height="40"/>
+            <Button Content="Log out" Command="{Binding CloseCmd}" Width="200" Height="40"/>
         </StackPanel>
     </Grid>
 </Window>
