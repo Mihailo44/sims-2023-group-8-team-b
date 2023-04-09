@@ -13,6 +13,7 @@ using TouristAgency.View.Home;
 using TouristAgency.Model;
 using TouristAgency.Model.Enums;
 
+
 namespace TouristAgency.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase,ICloseable
@@ -49,6 +50,7 @@ namespace TouristAgency.ViewModel
             Password = "Pass";
             LoginCmd = new DelegateCommand(param => LoginExecute(),param => CanLoginExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
+            
         }
         
         public string Username
@@ -125,6 +127,8 @@ namespace TouristAgency.ViewModel
                     case UserType.TOURIST:
                         {
                             User = _touristService.FindById(User.ID);
+                            User.Username = Username;
+                            User.Password = Password;
                             TouristHome x = new TouristHome(User);
                             x.Show();
                             ClearTxtBoxes();
@@ -138,7 +142,7 @@ namespace TouristAgency.ViewModel
                             ClearTxtBoxes();
                         }
                         break;
-                    default: MessageBox.Show("User not found"); break;
+                    default: MessageBox.Show("User type doesn't exist"); break;
                 }
             }
             else
@@ -146,5 +150,6 @@ namespace TouristAgency.ViewModel
                 MessageBox.Show("User is not registered");
             }
         }
+
     }
 }

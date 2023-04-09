@@ -33,7 +33,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Content="Log in" Width="90" Height="40" Margin="0,10,10,0" Command="{Binding LoginCmd}"/>
+        <Button x:Name="btn" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Content="Log in" Width="90" Height="40" Margin="0,10,10,0" Command="{Binding LoginCmd}"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="200" Height="25" FontSize="15" TextAlignment="Center" Text="{Binding Path=Username,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>

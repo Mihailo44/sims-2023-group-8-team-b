@@ -4,17 +4,3 @@
 26|Marija|Marjanovic|6/12/2001|maki@gmail.com|064259412|7
 27|Maja|Misic|9/12/2005|maja@gmail.com|064123854|7
 28|Luka|Lukic|6/8/2001|kalu@gmail.com|065984125|7
-29|Djordje|Djordjevic|6/14/2003|djole@gmail.com|064851479|7
-30|Petar|Peric|1/2/2001|pero@gmail.com|065412589|7
-31|Ivana|Ivanovic|6/24/2002|ica@gmail.com|065951456|7
-32|Anja|Simic|9/22/2001|anja@gmail.com|065954215|7
-33|Gordana|Perovic|4/25/2000|goca@gmail.com|065123584|7
-34|Milica|Milicic|3/17/2001|comi@gmail.com|064125102|7
-35|Ognjen|Ognjenovic|2/1/2001|ougisha@gmail.com|064125854|7
-36|Milenko|Milenkovic|5/26/1999|mile@gmail.com|065895854|7
-37|Bojan|Bojanic|6/15/1998|bole@gmail.com|064851225|7
-38|Zoran|Kosic|4/18/1987|zoki@gmail.com|065884775|7
-39|Nikola|Nikolic|9/14/1997|niske@gmail.com|064665441|7
-40|Dajana|Kostic|5/5/2005|daca@gmail.com|065996142|7
-41|Sandra|Petrovic|3/25/1996|sandra@gmail.com|065447125|7
-42|Aleksandra|Andric|8/13/1984|aleks@gmail.com|064125774|7

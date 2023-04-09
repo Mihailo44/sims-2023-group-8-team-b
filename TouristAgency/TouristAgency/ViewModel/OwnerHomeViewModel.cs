@@ -146,9 +146,11 @@ namespace TouristAgency.ViewModel
 
         public void SetUserStatus()
         {
-            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID));
+            double average;
+            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID),out average);
+            LoggedUser.Average = average;
             if (LoggedUser.SuperOwner)
-                Status = "SUPER OWNER";
+                Status = $"SUPER OWNER ({LoggedUser.Average})";
             else
                 Status = "";
 

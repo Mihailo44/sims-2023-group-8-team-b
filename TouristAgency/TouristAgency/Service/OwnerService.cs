@@ -80,7 +80,7 @@ namespace TouristAgency.Service
             return _owners;
         }
 
-        public bool IsSuperOwner(List<OwnerReview> ownerReviews)
+        public bool IsSuperOwner(List<OwnerReview> ownerReviews,out double average)
         {
             if(ownerReviews.Count() >= 5) //stavi na 50
             {
@@ -92,13 +92,14 @@ namespace TouristAgency.Service
                 }
 
                 ownerScore = CalculateOwnerScore(sum,ownerReviews.Count());
+                average = ownerScore;
 
                 if(ownerScore > 4.5)
                 {
                     return true;
                 }
             }
-
+            average = 0;
             return false;
         }
 
