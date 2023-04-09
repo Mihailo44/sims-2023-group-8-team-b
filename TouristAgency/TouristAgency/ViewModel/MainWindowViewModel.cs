@@ -127,6 +127,8 @@ namespace TouristAgency.ViewModel
                     case UserType.TOURIST:
                         {
                             User = _touristService.FindById(User.ID);
+                            User.Username = Username;
+                            User.Password = Password;
                             TouristHome x = new TouristHome(User);
                             x.Show();
                             ClearTxtBoxes();

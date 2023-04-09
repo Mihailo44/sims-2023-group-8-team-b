@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="TourAttendance" Height="600" Width="1100">
+        Title="TourAttendance" Height="600" Width="1100" WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Center" Height="580">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -18,7 +18,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Content="Applied tours:" Grid.Row="0" Grid.Column="0" FontSize="32" FontWeight="Bold"></Label>
+        <Label Content="Select and join the one of applied tours:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="32" FontWeight="Bold"></Label>
         <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="330" SelectedItem="{Binding SelectedTour}" ItemsSource="{Binding Tours}" FontSize="28" FontWeight="Bold">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
@@ -34,19 +34,17 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Name" Width="250" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Name" Width="270" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date and time" Width="200" DisplayMemberBinding="{Binding StartDateTime}"/>
-                    <GridViewColumn Header="Duration (hours)" DisplayMemberBinding="{Binding Duration}"/>
-                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
-                    <GridViewColumn Header="Remaining" DisplayMemberBinding="{Binding RemainingCapacity}"/>
+                    <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
+                    <GridViewColumn Header="Start date and time" Width="310" DisplayMemberBinding="{Binding StartDateTime}"/>
+                    <GridViewColumn Header="Duration (h)" DisplayMemberBinding="{Binding Duration}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="700" Height="155" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="700" Height="155" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Honeydew">
             <GroupBox.Header>
                 <Label Content="Tour info" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
