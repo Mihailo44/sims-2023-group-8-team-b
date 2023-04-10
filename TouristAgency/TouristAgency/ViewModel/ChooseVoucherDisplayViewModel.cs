@@ -6,19 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
 
 namespace TouristAgency.ViewModel
 {
-    public class ChooseVoucherDisplayViewModel : ViewModelBase
+    public class ChooseVoucherDisplayViewModel : ViewModelBase, ICloseable
     { 
         private ObservableCollection<Voucher> _vouchers;
         private Voucher _voucher;
         private Tourist _tourist;
         private int _tourID;
+        private Window _window;
         private App _app;
 
         public DelegateCommand UseVoucherCmd { get; }
+        public DelegateCommand CloseCmd { get; }
 
         public ChooseVoucherDisplayViewModel(Tourist tourist, int tourID, Window window)
         {
@@ -28,6 +31,7 @@ namespace TouristAgency.ViewModel
 
             Vouchers = new ObservableCollection<Voucher>(_app.TouristService.GetValidVouchers(tourist));
             UseVoucherCmd = new DelegateCommand(param => UseVoucherExecute(), param => CanUseVoucherExecute());
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
         public ObservableCollection<Voucher> Vouchers
@@ -63,14 +67,24 @@ namespace TouristAgency.ViewModel
 
         public void UseVoucherExecute()
         {
-            MessageBoxResult result = MessageBox.Show("Would you like to use the selected voucher for tour?", "Question", MessageBoxButton.YesNo);
+            MessageBoxResult result = MessageBox.Show("Would you like to use the selected voucher for tour?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes) 
             {
                 Voucher voucher = SelectedVoucher;
                 _app.VoucherService.UseVoucher(voucher, _tourID);
                 Vouchers.Remove(voucher);
-                MessageBox.Show("Successfully made a reservation.", "Success");
+                MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
+        {
+            _window.Close();
         }
     }
 }
