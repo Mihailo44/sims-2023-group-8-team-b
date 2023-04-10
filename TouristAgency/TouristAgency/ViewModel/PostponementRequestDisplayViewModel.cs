@@ -146,6 +146,7 @@ namespace TouristAgency.ViewModel
                 result = _app.ReservationService.CancelReservation(SelectedReservation);
                 if (result == true)
                 {
+                    Reservations.Remove(SelectedReservation);
                     MessageBox.Show("Your reservation was successfully canceled");
                 }
                 else
