@@ -136,53 +136,29 @@ namespace TouristAgency.Service
         {
             foreach (Reservation reservation in _reservations)
             {
+                if (reservation.AccommodationId == accommodationID && reservation.IsCanceled == true)
+                {
+                    return false;
+                }
                 if (reservation.AccommodationId == accommodationID && end.Date >= reservation.Start.Date &&
                     end.Date <= reservation.End.Date)
                 {
-                    if (reservation.Reserved == true)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
                 else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
                          end.Date <= reservation.End.Date)
                 {
-                    if (reservation.Reserved == true)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
                 else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
                          start.Date <= reservation.End.Date)
                 {
-                    if (reservation.Reserved == true)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
                 else if (reservation.AccommodationId == accommodationID && start.Date <= reservation.Start.Date &&
                          end.Date >= reservation.End.Date)
                 {
-                    if (reservation.Reserved == true)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
             }
 
@@ -191,25 +167,15 @@ namespace TouristAgency.Service
 
         public Reservation Create(Reservation newReservation)
         {
-            Reservation existingReservation = _reservations.FirstOrDefault(r => r.AccommodationId == newReservation.AccommodationId && r.Start == newReservation.Start && r.End == newReservation.End);
-            if (existingReservation == null)
-            {
-                newReservation.Id = GenerateId();
-                newReservation.Reserved = true;
-                _reservations.Add(newReservation);
-                _storage.Save(_reservations);
-                NotifyObservers();
 
-                return newReservation;
-            }
-            else
-            {
-                newReservation.Reserved = true;
-                Update(newReservation, existingReservation.Id);
-                newReservation.Id = existingReservation.Id;
-                return newReservation;
-            }
-            
+            newReservation.Id = GenerateId();
+            newReservation.IsCanceled = false;
+            _reservations.Add(newReservation);
+            _storage.Save(_reservations);
+            NotifyObservers();
+
+            return newReservation;
+
         }
 
         public Reservation Update(Reservation updatedReservation, int id)
@@ -228,7 +194,7 @@ namespace TouristAgency.Service
             currentReservation.Status = updatedReservation.Status;
             currentReservation.OStatus = updatedReservation.OStatus;
 
-            currentReservation.Reserved = updatedReservation.Reserved;
+            currentReservation.IsCanceled = updatedReservation.IsCanceled;
 
             _storage.Save(_reservations);
             NotifyObservers();
@@ -290,7 +256,7 @@ namespace TouristAgency.Service
 
         public List<Reservation> GetByGuestId(int id)
         {
-            return _reservations.FindAll(r => r.GuestId == id && r.Start >= DateTime.Now);
+            return _reservations.FindAll(r => r.GuestId == id && r.Start >= DateTime.Now && r.IsCanceled == false);
         }
 
         public string ReviewNotification(int ownerId, out int changes)
@@ -323,11 +289,12 @@ namespace TouristAgency.Service
 
         public bool CancelReservation(Reservation reservation)
         {
-            DateTime limit = reservation.Start.AddDays(-1);
+            int numOfDays = Math.Min(-1, -reservation.Accommodation.AllowedNumOfDaysForCancelation);
+            DateTime limit = reservation.Start.AddDays(numOfDays);
 
             if (DateTime.Now <= limit)
             {
-                reservation.Reserved = false;
+                reservation.IsCanceled = true;
                 Update(reservation, reservation.Id);
                 return true;
             }

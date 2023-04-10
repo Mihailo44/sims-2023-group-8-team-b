@@ -17,14 +17,14 @@ namespace TouristAgency.Model
         private int _accommodationId;
         private DateTime _start;
         private DateTime _end;
-        private bool _reserved;
+        private bool _isCanceled;
         private ReviewStatus _status;
         private ReviewStatus _ostatus;
 
         public Reservation()
         {
             _id = -1;
-            _reserved = false;
+            _isCanceled = false;
             _status = ReviewStatus.UNREVIEWED;
             _ostatus = ReviewStatus.UNREVIEWED;
         }
@@ -37,7 +37,7 @@ namespace TouristAgency.Model
             _accommodationId = accommodation.Id;
             _start = start;
             _end = end;
-            _reserved = false;
+            _isCanceled = false;
             _status = ReviewStatus.UNREVIEWED;
             _ostatus = ReviewStatus.UNREVIEWED;
         }
@@ -120,14 +120,14 @@ namespace TouristAgency.Model
             }
         }
 
-        public bool Reserved
+        public bool IsCanceled
         {
-            get => _reserved;
+            get => _isCanceled;
             set
             {
-                if (_reserved != value)
+                if (_isCanceled != value)
                 {
-                    _reserved = value;
+                    _isCanceled = value;
                 }
             }
         }
@@ -165,7 +165,7 @@ namespace TouristAgency.Model
             End = DateTime.Parse(values[4]);
             Status = Enum.Parse<ReviewStatus>(values[5]);
             OStatus = Enum.Parse<ReviewStatus>(values[6]);
-            Reserved = Boolean.Parse(values[7]);
+            IsCanceled = Boolean.Parse(values[7]);
         }
 
         public string[] ToCSV()
@@ -179,7 +179,7 @@ namespace TouristAgency.Model
                 End.ToString(),
                 Status.ToString(),
                 OStatus.ToString(),
-                Reserved.ToString(),
+                IsCanceled.ToString(),
             };
 
             return csvValues;
