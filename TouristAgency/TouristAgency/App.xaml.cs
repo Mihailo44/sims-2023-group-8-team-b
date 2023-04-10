@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using TouristAgency.Service;
+using TouristAgency.Storage;
 using TouristAgency.ViewModel;
 
 namespace TouristAgency
@@ -61,7 +62,7 @@ namespace TouristAgency
             GuideReviewService = new();
             
             VoucherService = new();
-            TourService = new();
+            TourService = new(new TourFileStorage());
             TourCheckpointService = new();
             TourTouristCheckpointService = new();
             CheckpointService = new();

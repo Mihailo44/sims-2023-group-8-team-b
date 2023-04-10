@@ -66,7 +66,7 @@ namespace TouristAgency.Model
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
             _assignedGuide = new Guide();
-            //slike?
+            _photos = new List<Photo>();
         }
 
 
