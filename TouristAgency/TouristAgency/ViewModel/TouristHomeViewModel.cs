@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +23,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand TourDisplayCmd { get; }
         public DelegateCommand TourGuideReviewCmd { get; }
         public DelegateCommand TourAttendanceCmd { get; }
+        public DelegateCommand NotificationCmd { get; }
         public DelegateCommand CloseCmd { get; }
 
         public TouristHomeViewModel(Tourist tourist, Window window)
@@ -41,10 +42,11 @@ namespace TouristAgency.ViewModel
                 }
             }
 
-            TourDisplayCmd = new DelegateCommand(param => OpenTourDisplayCmdExecute(), param => CanOpenTourDisplayCmdExecute());
-            TourGuideReviewCmd = new DelegateCommand(param => OpenTourGuideReviewCmdExecute(), param => CanOpenTourGuideReviewCmdExecute());
-            TourAttendanceCmd = new DelegateCommand(param => OpenTourAttendanceCmdExecute(), param => CanOpenTourAttendanceCmdExecute());
-            CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
+            TourDisplayCmd = new DelegateCommand(param => TourDisplayExecute(), param => CanTourDisplayExecute());
+            TourGuideReviewCmd = new DelegateCommand(param => TourGuideReviewExecute(), param => CanTourGuideReviewExecute());
+            TourAttendanceCmd = new DelegateCommand(param => TourAttendanceExecute(), param => CanTourAttendanceExecute());
+            NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
         public string Username
@@ -60,45 +62,56 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public bool CanOpenTourDisplayCmdExecute()
+        public bool CanTourDisplayExecute()
         {
             return true;
         }
 
-        public void OpenTourDisplayCmdExecute()
+        public void TourDisplayExecute()
         {
             TourDisplay display = new TourDisplay(_loggedInTourist);
             display.Show();
         }
 
-        public bool CanOpenTourGuideReviewCmdExecute()
+        public bool CanTourGuideReviewExecute()
         {
             return true;
         }
 
-        public void OpenTourGuideReviewCmdExecute()
+        public void TourGuideReviewExecute()
         {
             GuideReviewCreation creation = new GuideReviewCreation(_loggedInTourist);
             creation.Show();
         }
 
-        public bool CanOpenTourAttendanceCmdExecute()
+        public bool CanTourAttendanceExecute()
         {
             return true;
         }
 
-        public void OpenTourAttendanceCmdExecute()
+        public void TourAttendanceExecute()
         {
             TourAttendanceDisplay attendance = new TourAttendanceDisplay(_loggedInTourist);
             attendance.Show();
         }
 
-        public bool CanCloseCmdExecute()
+        public bool CanNotificationExecute()
         {
             return true;
         }
 
-        public void CloseCmdExecute()
+        public void NotificationExecute()
+        {
+            NotificationDisplay display = new NotificationDisplay(_loggedInTourist);
+            display.Show();
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
         {
             _window.Close();
         }

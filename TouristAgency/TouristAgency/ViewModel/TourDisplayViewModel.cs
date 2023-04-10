@@ -230,7 +230,7 @@ namespace TouristAgency.ViewModel
 
             if (selectedTour.MaxAttendants == selectedTour.CurrentAttendants)
             {
-                MessageBoxResult result = MessageBox.Show("The tour does not have any places left. Would you like to see an alternative?", "Alert", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show("The tour does not have any places left. Would you like to see an alternative?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -247,7 +247,7 @@ namespace TouristAgency.ViewModel
 
             if (availableReservations < 0)
             {
-                MessageBox.Show("The selected tour does not have enough capacity. Try to reduce number of reservation or pick another tour.", "Alert");
+                MessageBox.Show("The selected tour does not have enough capacity. Try to reduce number of reservation or pick another tour.", "Alert", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -255,7 +255,7 @@ namespace TouristAgency.ViewModel
             {
                 if (_app.TouristService.HasActiveVoucher(_loggedInTourist))
                 {
-                    MessageBoxResult result = MessageBox.Show("Do you want to use one voucher for this reservation?", "Question", MessageBoxButton.YesNo);
+                    MessageBoxResult result = MessageBox.Show("Do you want to use one voucher for this reservation?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -265,7 +265,7 @@ namespace TouristAgency.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Successfully made a reservation.", "Success");
+                    MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 _app.TourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
@@ -274,7 +274,7 @@ namespace TouristAgency.ViewModel
             }
             else
             {
-                MessageBox.Show("Number of reservation can not be a null!", "Alert");
+                MessageBox.Show("Number of reservation can not be a null!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

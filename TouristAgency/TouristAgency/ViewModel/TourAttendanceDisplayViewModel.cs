@@ -91,7 +91,7 @@ namespace TouristAgency.ViewModel
                 TourTourist tourTourist = _app.TourTouristService.FindByTouristID(_loggedInTourist.ID);
                 tourTourist.Arrived = true;
                 _app.TourTouristService.Update(tourTourist);
-                MessageBox.Show("Successfully joined the tour.", "Success");
+                MessageBox.Show("Successfully joined the tour.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

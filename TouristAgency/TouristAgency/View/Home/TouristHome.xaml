@@ -18,7 +18,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column="0" Height="45" Width="335" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold">
+        <Menu Grid.Row="0" Grid.Column="0" Height="auto" Width="335" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold">
             <MenuItem Header="_Tour">
                 <MenuItem Header="Attendance on the tour" Command="{Binding TourAttendanceCmd}"/>
                 <Separator />
@@ -42,10 +42,16 @@
             </MenuItem>
         </Menu>
 
+        <Image Height="190" Width="150" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image.Source>
+                <BitmapImage UriSource="../../Repository/Image/userTourist.png"/>
+            </Image.Source>
+        </Image>
+
         <Label Content="{Binding Username}" Grid.Row="2" Height="70" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="40" FontWeight="Bold"></Label>
         <Label Content="Where would you like to go today?" Grid.Row="3" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28"></Label>
         <Button Content="Logout" Grid.Row="4" Width="150" Height="45" Command="{Binding CloseCmd}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" Background="Honeydew" Margin="0,25,0,0"></Button>
 
-        <Button Content="Notifications" Grid.Row="0" Width="200" Height="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" Background="Honeydew"></Button>
+        <Button Content="Notifications" Grid.Row="0" Command="{Binding NotificationCmd}" Width="200" Height="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="28" FontWeight="Bold" Background="Honeydew"></Button>
     </Grid>
 </Window>

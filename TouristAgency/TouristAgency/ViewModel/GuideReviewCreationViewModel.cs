@@ -74,7 +74,7 @@ namespace TouristAgency.ViewModel
             NewGuideReview.TourID = SelectedTour.ID;
             NewGuideReview.Tour = SelectedTour;
             _app.GuideReviewService.Create(NewGuideReview);
-            MessageBox.Show("Successfully send a review.", "Success");
+            MessageBox.Show("Successfully send a review.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void AddPhotos()
