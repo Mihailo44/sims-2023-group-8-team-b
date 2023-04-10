@@ -234,7 +234,9 @@ namespace TouristAgency.ViewModel
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Tours = new ObservableCollection<Tour>(_app.TourService.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople));
+                    List<Tour> alternatives = _app.TourService.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople);
+                    alternatives = alternatives.FindAll(t => t.StartDateTime >= DateTime.Now);
+                    Tours = new ObservableCollection<Tour>(alternatives);
                     List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
                     Tours.Remove(selectedTour);
                     foreach (Tour tour in emptyTours)

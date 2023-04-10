@@ -67,7 +67,7 @@
                 <Label Content="Tour's attractions:" Grid.Row="2" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
                 <Label Content="Guide's knowledge:" Grid.Row="3" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
                 <Label Content="Guide's language:" Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Social interactoin:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
+                <Label Content="Social interaction:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
 
                 <Slider Grid.Row="0" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.Quality}" Maximum="5" Minimum="1" FontSize="28"/>
                 <Slider Grid.Row="1" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.TourOrganization}" Maximum="5" Minimum="1" FontSize="28"></Slider>

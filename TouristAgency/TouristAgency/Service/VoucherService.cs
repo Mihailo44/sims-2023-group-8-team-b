@@ -24,6 +24,8 @@ namespace TouristAgency.Service
 
         public int GenerateId()
         {
+            if (_vouchers.Count == 0)
+                return 0;
             return _vouchers.Max(v => v.ID) + 1;
         }
 

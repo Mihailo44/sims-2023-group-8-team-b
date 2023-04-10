@@ -22,6 +22,7 @@ namespace TouristAgency.Model
         private int _language;
         private int _socialInteraction;
         private string _comment;
+        public bool _isInvalid;
         private List<Photo> _photos;
 
         public GuideReview()
@@ -37,6 +38,7 @@ namespace TouristAgency.Model
             _language = 1;
             _socialInteraction = 1;
             _photos = new List<Photo>();
+            _isInvalid = false;
         }
 
         public GuideReview(int id, Tour tour, int tourID, DateTime reviewDate, int quality, int tourOrganization, int attractions, int knowledge, int language, int socialInteraction, string comment, List<Photo> photos)
@@ -54,6 +56,7 @@ namespace TouristAgency.Model
             _socialInteraction = socialInteraction;
             _comment = comment;
             _photos = photos;
+            _isInvalid = false;
         }
 
         public int ID
@@ -208,6 +211,18 @@ namespace TouristAgency.Model
                 if (value != _comment)
                 {
                     _comment = value;
+                }
+            }
+        }
+
+        public bool IsInvalid
+        {
+            get => _isInvalid;
+            set
+            {
+                if(value != _isInvalid)
+                {
+                    _isInvalid = value;
                 }
             }
         }

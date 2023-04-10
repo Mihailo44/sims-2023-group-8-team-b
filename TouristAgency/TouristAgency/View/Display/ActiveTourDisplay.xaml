@@ -10,7 +10,7 @@
         Title="ActiveTourDisplay" Height="750" Width="410" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
-            <ListView x:Name="AvailableToursListView" Height="300px"  ItemsSource="{Binding Path=AvailableTours}" Foreground="Black" SelectionMode="Single" SelectedItem="{Binding SelectedTour}">
+            <ListView x:Name="AvailableToursListView" Height="300px"  ItemsSource="{Binding Path=AvailableTours}" IsEnabled="{Binding Path=ListViewEnabled, Mode=TwoWay}" Foreground="Black" SelectionMode="Single" SelectedItem="{Binding SelectedTour}">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">

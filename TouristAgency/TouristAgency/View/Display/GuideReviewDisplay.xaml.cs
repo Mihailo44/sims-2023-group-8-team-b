@@ -19,12 +19,12 @@ namespace TouristAgency.View.Display
     /// <summary>
     /// Interaction logic for TourReviewDisplay.xaml
     /// </summary>
-    public partial class TourReviewDisplay : Window
+    public partial class GuideReviewDisplay : Window
     {
-        public TourReviewDisplay(Guide guide, Tour tour)
+        public GuideReviewDisplay(Guide guide, Tour tour)
         {
             InitializeComponent();
-            DataContext = new TourReviewDisplayViewModel(guide, tour, this);
+            DataContext = new GuideReviewDisplayViewModel(guide, tour, this);
         }
     }
 }

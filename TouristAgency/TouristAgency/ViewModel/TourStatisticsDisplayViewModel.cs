@@ -178,7 +178,7 @@ namespace TouristAgency.ViewModel
         {
             if(SelectedTour != null && _loggedInGuide != null)
             {
-                TourReviewDisplay reviewDisplay = new TourReviewDisplay(_loggedInGuide, SelectedTour);
+                GuideReviewDisplay reviewDisplay = new GuideReviewDisplay(_loggedInGuide, SelectedTour);
                 reviewDisplay.ShowDialog();
             }
         }

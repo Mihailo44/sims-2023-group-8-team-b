@@ -18,6 +18,7 @@ namespace TouristAgency.ViewModel
         private ObservableCollection<TourCheckpoint> _availableCheckpoints;
         private ObservableCollection<Tourist> _registeredTourists;
         private ObservableCollection<Tourist> _arrivedTourists;
+        private bool _listViewEnabled;
 
         public DelegateCommand CloseCmd { get; }
         public DelegateCommand CreateCmd { get; }
@@ -36,7 +37,14 @@ namespace TouristAgency.ViewModel
             AvailableTours = new ObservableCollection<Tour>(_app.TourService.GetTodayTours(_loggedInGuide.ID));
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
-            CheckAndSelectStartedTour();
+            if(CheckAndSelectStartedTour())
+            {
+                ListViewEnabled = false;
+            }
+            else
+            {
+                ListViewEnabled = true;
+            }
             AddTouristToCheckpointCmd =
                 new DelegateCommand(param => AddTouristToCheckpoint(), param => CanAddTouristToCheckpoint());
             RemoveTouristFromCheckpointCmd = new DelegateCommand(param => RemoveTouristFromCheckpoint(),
@@ -45,6 +53,7 @@ namespace TouristAgency.ViewModel
                 param => CanLoadTouristsToCheckpoint());
             BeginTourCmd = new DelegateCommand(param => BeginTourCmdExecute(), param => CanBeginTourCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+
         }
 
         public ObservableCollection<Tour> AvailableTours
@@ -108,6 +117,19 @@ namespace TouristAgency.ViewModel
         {
             get;
             set;
+        }
+
+        public bool ListViewEnabled
+        {
+            get => _listViewEnabled;
+            set
+            {
+                if(value != _listViewEnabled)
+                {
+                    _listViewEnabled = value;
+                    OnPropertyChanged("ListViewEnabled");
+                }
+            }
         }
 
         public bool CanAddTouristToCheckpoint()
@@ -177,7 +199,7 @@ namespace TouristAgency.ViewModel
 
         public bool CanBeginTourCmdExecute()
         {
-            return !CheckAndSelectStartedTour();
+            return true;
         }
 
         public void BeginTourCmdExecute()
@@ -186,6 +208,7 @@ namespace TouristAgency.ViewModel
             RegisteredTourists = new ObservableCollection<Tourist>(_app.TourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
             _app.TourService.ChangeTourStatus(_selectedTour.ID, STATUS.IN_PROGRESS);
             AvailableCheckpoints = _app.TourCheckpointService.GetTourCheckpointsByTourID(_selectedTour.ID, _app.CheckpointService.GetAll());
+            ListViewEnabled = false;
         }
 
         public bool CanCreateCmdExecute()
@@ -220,6 +243,7 @@ namespace TouristAgency.ViewModel
                 AvailableCheckpoints.Clear();
                 ArrivedTourists.Clear();
                 RegisteredTourists.Clear();
+                ListViewEnabled = true;
                 MessageBox.Show("Tour ended!", "Notification");
             }
         }
@@ -244,8 +268,10 @@ namespace TouristAgency.ViewModel
                 if (tour.Status == STATUS.IN_PROGRESS)
                 {
                     _selectedTour = tour;
+                    SelectedTour = tour;
                     RegisteredTourists = new ObservableCollection<Tourist>(_app.TourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
                     AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointService.FindByID(_selectedTour.ID));
+                    ListViewEnabled = false;
                     return true;
                 }
             }

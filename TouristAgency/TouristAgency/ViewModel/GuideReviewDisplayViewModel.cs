@@ -11,7 +11,7 @@ using TouristAgency.Model;
 
 namespace TouristAgency.ViewModel
 {
-    public class TourReviewDisplayViewModel : ViewModelBase, ICloseable
+    public class GuideReviewDisplayViewModel : ViewModelBase, ICloseable
     {
 
         private App _app;
@@ -21,7 +21,7 @@ namespace TouristAgency.ViewModel
         private Window _window;
         public DelegateCommand CloseCmd { get; }
         
-        public TourReviewDisplayViewModel(Guide guide, Tour tour, Window window)
+        public GuideReviewDisplayViewModel(Guide guide, Tour tour, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuide = guide;

@@ -58,7 +58,7 @@ namespace TouristAgency.Service
             currentGuideReview.Language = updatedGuideReview.Language;
             currentGuideReview.SocialInteraction = updatedGuideReview.SocialInteraction;
             currentGuideReview.Comment = updatedGuideReview.Comment;
-
+            currentGuideReview.IsInvalid = updatedGuideReview.IsInvalid;
             _storage.Save(_guideReviews);
             NotifyObservers();
 
@@ -99,6 +99,12 @@ namespace TouristAgency.Service
                 }
             }
             return reviews;
+        }
+
+        public void MarkAsInvalid(GuideReview guideReview)
+        {
+            guideReview.IsInvalid = true;
+            Update(guideReview, guideReview.ID);
         }
 
         public void LoadToursToGuideReviews(List<Tour> tours)

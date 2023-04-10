@@ -88,7 +88,7 @@ namespace TouristAgency.ViewModel
         {
             if (SelectedTour != null) 
             {
-                TourTourist tourTourist = _app.TourTouristService.FindByTouristID(_loggedInTourist.ID);
+                TourTourist tourTourist = _app.TourTouristService.FindByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
                 tourTourist.Arrived = true;
                 _app.TourTouristService.Update(tourTourist);
                 MessageBox.Show("Successfully joined the tour.", "Success");
