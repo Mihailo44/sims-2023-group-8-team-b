@@ -1,6 +1,6 @@
 23|Stefan|Stefanovic|2/14/2001|stefke@gmail.com|064256369|7
 24|Valentina|Vasic|6/4/2002|vanja@gmail.com|064125789|7
 25|Marko|Markovic|8/14/2001|mare@gmail.com|065123756|7
-26|Marija|Marjanovic|6/12/2001|maki@gmail.com|064259412|7
+26|Bojan|Bojanic|6/12/2001|bole@gmail.com|064259412|7
 27|Maja|Misic|9/12/2005|maja@gmail.com|064123854|7
 28|Luka|Lukic|6/8/2001|kalu@gmail.com|065984125|7

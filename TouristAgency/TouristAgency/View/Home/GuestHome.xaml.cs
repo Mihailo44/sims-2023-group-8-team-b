@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using TouristAgency.Model;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Home
 {
@@ -22,15 +23,15 @@ namespace TouristAgency.View.Home
     /// </summary>
     public partial class GuestHome : Window
     {
-        private Guest _loggedInGuest;
+        //private Guest _loggedInGuest;
         public GuestHome(Guest guest)
         {
             InitializeComponent();
-            DataContext = this;
-            _loggedInGuest = guest;
+            DataContext = new GuestHomeViewModel(guest, this);
+            //_loggedInGuest = guest;
         }
 
-        private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
+        /*private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
         {
             AccommodationDisplay display = new AccommodationDisplay(_loggedInGuest);
             display.Show();
@@ -46,6 +47,6 @@ namespace TouristAgency.View.Home
         {
             OwnerReviewCreation display = new OwnerReviewCreation(_loggedInGuest);
             display.Show();
-        }
+        }*/
     }
 }

@@ -66,11 +66,6 @@ namespace TouristAgency.View.Display
             NameComboBox.SelectedIndex = 0;*/
         }
 
-        private void PostponementRequest_Click(object sender, RoutedEventArgs e)
-        {
-            PostponementRequestDisplay x = new PostponementRequestDisplay(_loggedInGuest);
-            x.Show();
-        }
 
 
         /*public ObservableCollection<Accommodation> Accommodations
