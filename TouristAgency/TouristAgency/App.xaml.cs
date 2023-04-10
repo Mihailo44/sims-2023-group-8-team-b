@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows;
+using TouristAgency.Base;
+using TouristAgency.Interfaces;
+using TouristAgency.Model;
 using TouristAgency.Service;
 using TouristAgency.Storage;
 using TouristAgency.ViewModel;
@@ -48,8 +51,8 @@ namespace TouristAgency
 
         public App()
         {
-            GuideService = new();
-            TourTouristService = new();
+            GuideService = new(InjectorService.CreateInstance<IStorage<Guide>>());
+            TourTouristService = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
             UserService = new();
             LocationService = new();
             ReservationService = new();
@@ -62,12 +65,12 @@ namespace TouristAgency
             GuideReviewService = new();
             
             VoucherService = new();
-            TourService = new(new TourFileStorage());
-            TourCheckpointService = new();
-            TourTouristCheckpointService = new();
-            CheckpointService = new();
+            TourService = new(InjectorService.CreateInstance<IStorage<Tour>>());
+            TourCheckpointService = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
+            TourTouristCheckpointService = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
+            CheckpointService = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
             
-            PhotoService = new();
+            PhotoService = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestService = new();
 
             //TODO Preci na servise

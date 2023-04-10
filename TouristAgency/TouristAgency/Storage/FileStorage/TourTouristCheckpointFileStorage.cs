@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    public class TourTouristCheckpointStorage
+    public class TourTouristCheckpointFileStorage : IStorage<TourTouristCheckpoint>
     {
         private Serializer<TourTouristCheckpoint> _serializer;
         private readonly string _file = "tourtouristcheckpoint.txt";
 
-        public TourTouristCheckpointStorage()
+        public TourTouristCheckpointFileStorage()
         {
             _serializer = new Serializer<TourTouristCheckpoint>();
         }

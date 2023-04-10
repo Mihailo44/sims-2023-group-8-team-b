@@ -6,19 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class TourCheckpointService : ISubject
     {
-        private readonly TourCheckpointStorage _storage;
+        private readonly IStorage<TourCheckpoint> _storage;
         private readonly List<TourCheckpoint> _tourCheckpoint;
         private List<IObserver> _observers;
 
-        public TourCheckpointService()
+        public TourCheckpointService(IStorage<TourCheckpoint> storage)
         {
-            _storage = new TourCheckpointStorage();
+            _storage = storage;
             _tourCheckpoint = _storage.Load();
             _observers = new List<IObserver>();
         }

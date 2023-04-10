@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Model.Enums;
-using TouristAgency.Storage;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class TourTouristCheckpointService : ISubject
     {
-        private readonly TourTouristCheckpointStorage _storage;
+        private readonly IStorage<TourTouristCheckpoint> _storage;
         private readonly List<TourTouristCheckpoint> _tourtouristcheckpoint;
         private List<IObserver> _observers;
 
-        public TourTouristCheckpointService()
+        public TourTouristCheckpointService(IStorage<TourTouristCheckpoint> storage)
         {
-            _storage = new TourTouristCheckpointStorage();
+            _storage = storage;
             _tourtouristcheckpoint = _storage.Load();
             _observers = new List<IObserver>();
         }

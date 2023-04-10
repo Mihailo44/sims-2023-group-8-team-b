@@ -5,19 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class GuideService : ICrud<Guide>, ISubject
     {
-        private readonly GuideStorage _storage;
+        private readonly IStorage<Guide> _storage;
         private readonly List<Guide> _guides;
         private List<IObserver> _observers;
 
-        public GuideService()
+        public GuideService(IStorage<Guide> storage)
         {
-            _storage = new GuideStorage();
+            _storage = storage;
             _guides = _storage.Load();
             _observers = new List<IObserver>();
         }

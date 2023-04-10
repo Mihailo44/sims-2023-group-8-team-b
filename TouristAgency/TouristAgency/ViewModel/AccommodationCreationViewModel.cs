@@ -39,7 +39,7 @@ namespace TouristAgency.ViewModel
         public AccommodationCreationViewModel(Owner owner, Window window)
         {
             _accommodation = app.AccommodationService;
-            _photoService = new PhotoService();
+            _photoService = app.PhotoService;
             _locationService = new LocationService();
             LoggedUser = owner;
             _window = window;

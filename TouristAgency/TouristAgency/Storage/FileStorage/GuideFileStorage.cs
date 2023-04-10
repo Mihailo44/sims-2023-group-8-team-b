@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    public class GuideStorage
+    public class GuideFileStorage : IStorage<Guide>
     {
         private Serializer<Guide> _serializer;
         private readonly string _file = "guides.txt";
 
-        public GuideStorage()
+        public GuideFileStorage()
         {
             _serializer = new Serializer<Guide>();
         }

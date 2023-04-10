@@ -22,7 +22,7 @@ namespace TouristAgency.Model
         private int _language;
         private int _socialInteraction;
         private string _comment;
-        public bool _isInvalid;
+        private bool _isInvalid;
         private List<Photo> _photos;
 
         public GuideReview()
@@ -246,6 +246,7 @@ namespace TouristAgency.Model
             Language = int.Parse(values[8]);
             SocialInteraction = int.Parse(values[9]);
             Comment = values[10];
+            IsInvalid = Boolean.Parse(values[11]);
         }
 
         public string[] ToCSV()
@@ -262,7 +263,8 @@ namespace TouristAgency.Model
                 Knowledge.ToString(),
                 Language.ToString(),
                 SocialInteraction.ToString(),
-                Comment
+                Comment,
+                IsInvalid.ToString()
             };
 
             return csvValues;

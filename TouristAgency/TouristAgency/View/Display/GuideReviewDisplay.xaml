@@ -42,7 +42,7 @@
 
         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" HorizontalAlignment="Center">Reviews from tourists:</Label>
 
-        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding GuideReviews}">
+        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding GuideReviews}" SelectedItem="{Binding SelectedReview}" x:Name="_lw">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -62,7 +62,7 @@
                                 <Label>TBA Arrived at:</Label>
                             </StackPanel>
 
-                            <Button Width="85" Height="27" VerticalAlignment="Center">Report</Button>
+                            <Button Width="85" Height="27" VerticalAlignment="Center" Command="{Binding DataContext.MarkAsInvalidCmd, ElementName=_lw}">Report</Button>
                         </DockPanel>
 
                         <DockPanel HorizontalAlignment="Center">
@@ -112,12 +112,14 @@
                             <Label>Overall:</Label>
                             <Image></Image>
                         </DockPanel>
+
+                        <Label Content="{Binding IsInvalid}"></Label>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
 
         </ListView>
 
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="136" FontSize="13">Finish reading</Button>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="136" FontSize="13" Command="{Binding CloseCmd}">Finish reading</Button>
     </Grid>
 </Window>

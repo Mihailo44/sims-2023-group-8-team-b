@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    public class PhotoStorage
+    public class PhotoFileStorage : IStorage<Photo>
     {
         private Serializer<Photo> _serializer;
         private readonly string _file = "photos.txt";
 
-        public PhotoStorage()
+        public PhotoFileStorage()
         {
             _serializer = new Serializer<Photo>();
         }

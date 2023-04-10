@@ -11,13 +11,13 @@ namespace TouristAgency.Service
 {
     public class TourTouristService : ISubject
     {
-        private readonly TourTouristStorage _storage;
+        private readonly IStorage<TourTourist> _storage;
         private readonly List<TourTourist> _tourtourist;
         private List<IObserver> _observers;
 
-        public TourTouristService()
+        public TourTouristService(IStorage<TourTourist> storage)
         {
-            _storage = new TourTouristStorage();
+            _storage = storage;
             _tourtourist = _storage.Load();
             _observers = new List<IObserver>();
         }

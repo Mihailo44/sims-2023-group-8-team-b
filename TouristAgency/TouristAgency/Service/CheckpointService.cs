@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
+using TouristAgency.Storage.FileStorage;
 using TouristAgency.View.Home;
 
 namespace TouristAgency.Service
 {
     public class CheckpointService : ICrud<Checkpoint>, ISubject
     {
-        private readonly CheckpointStorage _storage;
+        private readonly IStorage<Checkpoint> _storage;
         private readonly List<Checkpoint> _checkpoints;
         private List<IObserver> _observers;
 
-        public CheckpointService()
+        public CheckpointService(IStorage<Checkpoint> storage)
         {
-            _storage = new CheckpointStorage();
+            _storage = storage;
             _checkpoints = _storage.Load(); ;
             _observers = new List<IObserver>();
         }
