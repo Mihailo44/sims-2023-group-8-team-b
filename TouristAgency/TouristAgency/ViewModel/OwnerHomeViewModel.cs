@@ -150,7 +150,7 @@ namespace TouristAgency.ViewModel
             LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID),out average);
             LoggedUser.Average = average;
             if (LoggedUser.SuperOwner)
-                Status = $"SUPER OWNER ({LoggedUser.Average})";
+                Status = $"SUPER OWNER ({LoggedUser.Average:F2})";
             else
                 Status = "";
 
@@ -181,7 +181,7 @@ namespace TouristAgency.ViewModel
                 }
                 else
                 {
-                    if (dateDif > 5.0)
+                    if (Math.Abs(dateDif) > 5.0)
                     {
                         MessageBox.Show("Guest review time window expired");
                     }
