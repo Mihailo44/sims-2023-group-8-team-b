@@ -31,7 +31,9 @@ namespace TouristAgency.Base
             { typeof(IStorage<GuideReview>), new GuideReviewFileStorage()},
             { typeof(IStorage<Location>), new LocationFileStorage()},
             { typeof(IStorage<Tourist>), new TouristFileStorage()},
-            { typeof(IStorage<Voucher>), new VoucherFileStorage()}
+            { typeof(IStorage<Voucher>), new VoucherFileStorage()},
+            { typeof(IStorage<Guest>), new GuestFileStorage()},
+            { typeof(IStorage<OwnerReview>), new OwnerReviewFileStorage()}
         };
 
         public static T CreateInstance<T>()

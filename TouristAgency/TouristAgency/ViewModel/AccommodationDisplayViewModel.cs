@@ -57,11 +57,6 @@ namespace TouristAgency.ViewModel
 
             _loggedInGuest = guest;
 
-            //TODO
-            /*CountryComboBox.SelectedIndex = 0;
-            CityComboBox.SelectedIndex = 0;
-            TypeComboBox.SelectedIndex = 0;
-            NameComboBox.SelectedIndex = 0;*/
 
             SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
             ShowAllCmd = new DelegateCommand(param => ShowAllCmdExecute(), param => CanShowAllCmdExecute());
@@ -301,25 +296,9 @@ namespace TouristAgency.ViewModel
             Accommodation selectedAccommodation = SelectedAccommodation;
 
             if (selectedAccommodation != null && selectedAccommodation.MinNumOfDays <= NumOfDays)
-            {   //!
-
+            {
                 Reservations = _app.ReservationService.GeneratePotentionalReservations(Start, NumOfDays, numOfReservations,
                     selectedAccommodation, _loggedInGuest);
-
-
-                /*DateTime startInterval = Start;
-                DateTime endInterval = Start.AddDays(NumOfDays - 1);
-
-                for (int i = 0; i < numOfReservations; i++)
-                {
-                    if (_app.ReservationViewModel.IsReserved(selectedAccommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) ==
-                        false)
-                    {
-                        Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
-                    }
-                    
-                }*/
-                //!
 
                 if (Reservations.Count == 0)
                 {
@@ -327,44 +306,17 @@ namespace TouristAgency.ViewModel
                         MessageBox.Show(
                             "There are no available dates in this date range. Would you like some alternatives?", "Question", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
-                    {   //!!!
-                        /* DateTime startFirstInterval = Start.AddMonths(1);
-                         DateTime startSecondInterval = Start.AddMonths(-1);
-                         DateTime endFirstInterval = startFirstInterval.AddDays(NumOfDays - 1);
-                         DateTime endSecondInterval = startSecondInterval.AddDays(NumOfDays - 1);
-
-                         for (int i = 0; i < numOfReservations; i++)
-                         {
-                             if (_app.ReservationViewModel.IsReserved(selectedAccommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
-                                 false)
-                             {
-                                 Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
-                             }
-                         }
-
-                         for (int i = 0; i < numOfReservations; i++)
-                         {
-                             if (_app.ReservationViewModel.IsReserved(selectedAccommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
-                                 false)
-                             {
-                                 Reservations.Add(new Reservation(_loggedInGuest, selectedAccommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
-                             }
-
-                         }*/
+                    {   
                         Reservations = _app.ReservationService.GenerateAlternativeReservations(Start, NumOfDays,
-                            numOfReservations,
-                            selectedAccommodation, _loggedInGuest);
-                        //!!!
+                        numOfReservations,
+                        selectedAccommodation, _loggedInGuest);
                     }
                 }
-
             }
             else
             {
                 MessageBox.Show("Please select a hotel or change the number of reservations");
             }
-
-
         }
 
         public bool CanCreateCmdExecute()
@@ -373,9 +325,8 @@ namespace TouristAgency.ViewModel
         }
         private void CreateCmdExecute()
         {
-            Reservation newReservation = SelectedReservation; // (Reservation)ReservationsListView.SelectedItem;
+            Reservation newReservation = SelectedReservation;
             Accommodation selectedAccommodation = SelectedAccommodation;
-
 
             if (selectedAccommodation.MaxGuestNum >= NumOfPeople && selectedAccommodation.MinNumOfDays <= NumOfDays && newReservation != null)
             {
@@ -398,7 +349,5 @@ namespace TouristAgency.ViewModel
             NumOfPeople = 0;
             Reservations.Clear();
         }
-
-
     }
 }

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
 
 namespace TouristAgency.Storage
 {
-    public class OwnerReviewStorage
+    public class OwnerReviewFileStorage : IStorage<OwnerReview>
     {
         private Serializer<OwnerReview> _serializer;
         private readonly string _file = "ownerreviews.txt";
 
-        public OwnerReviewStorage()
+        public OwnerReviewFileStorage()
         {
             _serializer = new Serializer<OwnerReview>();
         }

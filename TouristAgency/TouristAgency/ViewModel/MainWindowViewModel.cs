@@ -42,7 +42,7 @@ namespace TouristAgency.ViewModel
             _ownerService = app.OwnerService;
             _touristService = app.TouristService;
             _guideService = app.GuideService;
-            _guestService = new();
+            _guestService = app.GuestService;
             _userService = app.UserService;
 
             _window = window;

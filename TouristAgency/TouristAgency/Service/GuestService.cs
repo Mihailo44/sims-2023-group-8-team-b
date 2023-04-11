@@ -11,13 +11,13 @@ namespace TouristAgency.Service
 {
     public class GuestService : ICrud<Guest>, ISubject
     {
-        private readonly GuestStorage _storage;
+        private readonly IStorage<Guest> _storage;
         private readonly List<Guest> _guests;
         private List<IObserver> _observers;
 
-        public GuestService()
+        public GuestService(IStorage<Guest> storage)
         {
-            _storage = new GuestStorage();
+            _storage = storage;
             _guests = _storage.Load();
             _observers = new List<IObserver>();
         }

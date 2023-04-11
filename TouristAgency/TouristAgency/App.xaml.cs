@@ -47,7 +47,7 @@ namespace TouristAgency
             AccommodationService = new(InjectorService.CreateInstance<IStorage<Accommodation>>());
             GuestReviewService = new(InjectorService.CreateInstance<IStorage<GuestReview>>());
             OwnerService = new(InjectorService.CreateInstance<IStorage<Owner>>());
-            OwnerReviewService = new();
+            OwnerReviewService = new(InjectorService.CreateInstance<IStorage<OwnerReview>>());
             PostponementRequestService = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
             TouristService = new(InjectorService.CreateInstance<IStorage<Tourist>>());
             GuideReviewService = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
@@ -59,7 +59,7 @@ namespace TouristAgency
             CheckpointService = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
             
             PhotoService = new(InjectorService.CreateInstance<IStorage<Photo>>());
-            GuestService = new();
+            GuestService = new(InjectorService.CreateInstance<IStorage<Guest>>());
 
             AccommodationService.LoadLocationsToAccommodations(LocationService.GetAll());
             AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());

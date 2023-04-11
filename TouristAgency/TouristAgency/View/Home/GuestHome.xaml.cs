@@ -23,30 +23,10 @@ namespace TouristAgency.View.Home
     /// </summary>
     public partial class GuestHome : Window
     {
-        //private Guest _loggedInGuest;
         public GuestHome(Guest guest)
         {
             InitializeComponent();
             DataContext = new GuestHomeViewModel(guest, this);
-            //_loggedInGuest = guest;
         }
-
-        /*private void AccommodationDisplay_Click(object sender, RoutedEventArgs e)
-        {
-            AccommodationDisplay display = new AccommodationDisplay(_loggedInGuest);
-            display.Show();
-        }
-
-        private void PostponementRequestDisplay_Click(object sender, RoutedEventArgs e)
-        {
-            PostponementRequestDisplay display = new PostponementRequestDisplay(_loggedInGuest);
-            display.Show();
-        }
-
-        private void OwnerReviewCreation_Click(object sender, RoutedEventArgs e)
-        {
-            OwnerReviewCreation display = new OwnerReviewCreation(_loggedInGuest);
-            display.Show();
-        }*/
     }
 }
