@@ -223,7 +223,7 @@ namespace TouristAgency.ViewModel
             {
                 Reservation reservation = _reservationService.FindById(SelectedRequest.Reservation.Id);
                 PostponementRequest request = _postponementRequestService.FindById(SelectedRequest.Id);
-                bool accommodationAvailability = _reservationService.IsReserved(reservation.Id, SelectedRequest.Start, SelectedRequest.End);
+                bool accommodationAvailability = _reservationService.IsReserved(reservation.AccommodationId, SelectedRequest.Start, SelectedRequest.End);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -235,7 +235,7 @@ namespace TouristAgency.ViewModel
 
                         request.Status = PostponementRequestStatus.APPROVED;
                         _postponementRequestService.Update(request, request.Id);
-                        OpenPostponeCommentExecute(request);
+                        MessageBox.Show("Reservation has been postponed");
                     }
                     else
                     {

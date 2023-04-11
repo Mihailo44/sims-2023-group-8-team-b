@@ -39,7 +39,10 @@ namespace TouristAgency.ViewModel
 
         public void SubmitCommentExecute()
         {
-            _postponementRequest.Comment = Comment.Trim();
+            if (Comment != null)
+            {
+                _postponementRequest.Comment = Comment.Trim();
+            }
             _postponementRequestService.Update(_postponementRequest, _postponementRequest.Id);
             MessageBox.Show("Comment successfully submited");
             _window.Close();
