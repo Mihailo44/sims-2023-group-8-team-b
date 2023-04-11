@@ -40,7 +40,7 @@ namespace TouristAgency.ViewModel
         {
             _accommodation = app.AccommodationService;
             _photoService = app.PhotoService;
-            _locationService = new LocationService();
+            _locationService = app.LocationService;
             LoggedUser = owner;
             _window = window;
             NewAccommodation = new();

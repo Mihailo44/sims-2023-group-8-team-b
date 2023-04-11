@@ -11,13 +11,13 @@ namespace TouristAgency.Service
 {
     public class OwnerService : ICrud<Owner>, ISubject
     {
-        private readonly OwnerStorage _storage;
+        private readonly IStorage<Owner> _storage;
         private readonly List<Owner> _owners;
         private List<IObserver> _observers;
 
-        public OwnerService()
+        public OwnerService(IStorage<Owner> storage)
         {
-            _storage = new OwnerStorage();
+            _storage = storage;
             _owners = _storage.Load();
             _observers = new List<IObserver>();
         }

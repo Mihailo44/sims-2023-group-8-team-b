@@ -53,14 +53,14 @@ namespace TouristAgency
         {
             GuideService = new(InjectorService.CreateInstance<IStorage<Guide>>());
             TourTouristService = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
-            UserService = new();
+            UserService = new(InjectorService.CreateInstance<IStorage<User>>());
             LocationService = new();
-            ReservationService = new();
-            AccommodationService = new();
-            GuestReviewService = new();
-            OwnerService = new();
+            ReservationService = new(InjectorService.CreateInstance<IStorage<Reservation>>());
+            AccommodationService = new(InjectorService.CreateInstance<IStorage<Accommodation>>());
+            GuestReviewService = new(InjectorService.CreateInstance<IStorage<GuestReview>>());
+            OwnerService = new(InjectorService.CreateInstance<IStorage<Owner>>());
             OwnerReviewService = new();
-            PostponementRequestService = new();
+            PostponementRequestService = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
             TouristService = new();
             GuideReviewService = new();
             

@@ -22,6 +22,12 @@ namespace TouristAgency.Base
             { typeof(IStorage<TourCheckpoint>), new TourCheckpointFileStorage() },
             { typeof(IStorage<TourTourist>), new TourTouristFileStorage() },
             { typeof(IStorage<TourTouristCheckpoint>), new TourTouristCheckpointFileStorage() },
+            { typeof(IStorage<Accommodation>), new AccommodationFileStorage()},
+            { typeof(IStorage<Owner>), new OwnerFileStorage()},
+            { typeof(IStorage<Reservation>), new ReservationFileStorage()},
+            { typeof(IStorage<User>), new UserFileStorage()},
+            { typeof(IStorage<GuestReview>), new GuestReviewFileStorage()},
+            { typeof(IStorage<PostponementRequest>), new PostponementRequestFileStorage()}
         };
 
         public static T CreateInstance<T>()

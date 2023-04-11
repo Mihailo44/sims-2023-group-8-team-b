@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
+using TouristAgency.Interfaces;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    public class UserStorage
+    public class UserFileStorage : IStorage<User>
     {
         private Serializer<User> _serializer;
         private readonly string _file = "users.txt";
 
-        public UserStorage()
+        public UserFileStorage()
         {
             _serializer = new Serializer<User>();
         }

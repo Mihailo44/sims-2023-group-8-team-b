@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
 using TouristAgency.Model.Enums;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class PostponementRequestService : ICrud<PostponementRequest>, ISubject
     {
-        private readonly PostponementRequestStorage _storage;
+        private readonly IStorage<PostponementRequest> _storage;
         private readonly List<PostponementRequest> _requests;
         private List<IObserver> _observers;
 
-        public PostponementRequestService()
+        public PostponementRequestService(IStorage<PostponementRequest> storage)
         {
-            _storage = new PostponementRequestStorage();
+            _storage = storage;
             _requests = _storage.Load();
             _observers = new List<IObserver>();
         }
