@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using TouristAgency.Model;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Home
 {
@@ -26,21 +27,7 @@ namespace TouristAgency.View.Home
         public GuideHome(Guide guide)
         {
             InitializeComponent();
-            DataContext = this;
-            _loggedInGuide = guide;
-        }
-
-        private void TourButton_Click(object sender, RoutedEventArgs e)
-        {
-            TourCreation creation = new TourCreation(_loggedInGuide);
-            creation.Show();
-        }
-
-
-        private void ActiveTourDisplayButton_Click(object sender, RoutedEventArgs e)
-        {
-            ActiveTourDisplay y = new ActiveTourDisplay(_loggedInGuide);
-            y.Show();
+            DataContext = new GuideHomeViewModel(guide, this);
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿<Window x:Class="TouristAgency.View.Dialogue.PostponementRequestCommentDialogue"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Dialogue"
+        mc:Ignorable="d"
+        Title="Postponement Request Comment" Height="400" Width="600" FontSize="19" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Margin="50,10,0,0" Content="Leave a comment: (Optional)" FontSize="18"/>
+        <TextBox Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"  Height="200" Width="500" Margin="0,15,0,0" FontSize="23" Text="{Binding Comment}">
+            <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+            <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+        </TextBox>
+        <Button Grid.Row="3" Grid.Column="0" Margin="40,0,0,0" Width="120" Height="60" Content="SUBMIT" FontSize="20" Command="{Binding SubmitCommentCmd}"/>
+        <Button Grid.Row="3" Grid.Column="1" Margin="0,0,40,0" Width="120" Height="60" Content="CANCEL" FontSize="20" Command="{Binding CloseCmd}"/>
+    </Grid>
+</Window>

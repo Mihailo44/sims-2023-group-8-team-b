@@ -8,11 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Repository\Image\user-solid.png" />
+    <None Remove="Repository\Image\userTourist.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Repository\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Repository\Image\user-solid.png" />
+    <Resource Include="Repository\Image\userTourist.png" />
   </ItemGroup>
 
 </Project>

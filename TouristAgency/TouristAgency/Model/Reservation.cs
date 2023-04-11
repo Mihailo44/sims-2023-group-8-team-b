@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-    public enum REVIEW_STATUS { REVIEWED,UNREVIEWED,EXPIRED}
-
     public class Reservation : ISerializable
     {
         private int _id;
@@ -19,16 +17,16 @@ namespace TouristAgency.Model
         private int _accommodationId;
         private DateTime _start;
         private DateTime _end;
-        private bool _canceled;
-        private bool _postponed;
-        private REVIEW_STATUS _status;
+        private bool _isCanceled;
+        private ReviewStatus _status;
+        private ReviewStatus _ostatus;
 
         public Reservation()
         {
             _id = -1;
-            _canceled = false;
-            _postponed = false;
-            _status = REVIEW_STATUS.UNREVIEWED;
+            _isCanceled = false;
+            _status = ReviewStatus.UNREVIEWED;
+            _ostatus = ReviewStatus.UNREVIEWED;
         }
 
         public Reservation(Guest guest, Accommodation accommodation, DateTime start, DateTime end)
@@ -39,9 +37,9 @@ namespace TouristAgency.Model
             _accommodationId = accommodation.Id;
             _start = start;
             _end = end;
-            _canceled = false;
-            _postponed = false;
-            _status = REVIEW_STATUS.UNREVIEWED;
+            _isCanceled = false;
+            _status = ReviewStatus.UNREVIEWED;
+            _ostatus = ReviewStatus.UNREVIEWED;
         }
         
         public int Id
@@ -80,16 +78,10 @@ namespace TouristAgency.Model
             }
         }
 
-        public Accommodation Accommodation
+       public Accommodation Accommodation 
         {
             get => _accommodation;
-            set
-            {
-                if (_accommodation != value)
-                {
-                    _accommodation = value;
-                }
-            }
+            set => _accommodation = value;
         }
 
         public int AccommodationId
@@ -128,31 +120,19 @@ namespace TouristAgency.Model
             }
         }
 
-        public bool Canceled
+        public bool IsCanceled
         {
-            get => _canceled;
+            get => _isCanceled;
             set
             {
-                if (_canceled != value)
+                if (_isCanceled != value)
                 {
-                    _canceled = value;
-                }
-            }
-        }
-        
-        public bool Postponed
-        {
-            get => _postponed; 
-            set
-            {
-                if (_postponed != value)
-                {
-                    _postponed = value;
+                    _isCanceled = value;
                 }
             }
         }
 
-        public REVIEW_STATUS Status
+        public ReviewStatus Status
         {
             get => _status;
             set
@@ -164,6 +144,18 @@ namespace TouristAgency.Model
             }
         }
 
+        public ReviewStatus OStatus
+        {
+            get => _ostatus;
+            set
+            {
+                if(_ostatus != value)
+                {
+                    _ostatus = value;
+                }
+            }
+        }
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
@@ -171,7 +163,9 @@ namespace TouristAgency.Model
             AccommodationId = int.Parse(values[2]);
             Start = DateTime.Parse(values[3]);
             End = DateTime.Parse(values[4]);
-            Status = Enum.Parse<REVIEW_STATUS>(values[5]);
+            Status = Enum.Parse<ReviewStatus>(values[5]);
+            OStatus = Enum.Parse<ReviewStatus>(values[6]);
+            IsCanceled = Boolean.Parse(values[7]);
         }
 
         public string[] ToCSV()
@@ -183,7 +177,9 @@ namespace TouristAgency.Model
                 AccommodationId.ToString(),
                 Start.ToString(),
                 End.ToString(),
-                Status.ToString()
+                Status.ToString(),
+                OStatus.ToString(),
+                IsCanceled.ToString(),
             };
 
             return csvValues;

@@ -3,43 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
         Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" 
-        ResizeMode="CanMinimize"
-        KeyDown="Window_KeyDown">
+        ResizeMode="CanMinimize">
     <Grid>
         <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
-            <StackPanel Orientation="Horizontal" Height="35" Width="1000" Background="Blue">
-                <Menu Height="35" Width="1004" Background="BlanchedAlmond">
-                    <MenuItem Header="_File" Width="50" Height="35" Padding="10,0,0,0" FontSize="15">
-                        <MenuItem InputGestureText="Ctrl+N" Header="New" FontSize="15">
-                            <MenuItem Header="Accommodation" Click="MenuNewAccommodation_Click" FontSize="15"/>
-                        </MenuItem>
-                        <MenuItem Header="Open" FontSize="15">
-                            <MenuItem Header="Accommodations" FontSize="15"/>
-                        </MenuItem>
-                        <MenuItem x:Name="MenuItemExit" InputGestureText="Ctrl+C" Header="Close"/>
-                    </MenuItem>
-                    <MenuItem Header="_Edit" Width="50" Height="35" Padding="10,0,0,0" FontSize="15">
-                        <MenuItem Header="Edit" FontSize="15">
-                            <MenuItem Header="Reservation" FontSize="15"/>
-                        </MenuItem>
-                        <MenuItem Header="Delete" FontSize="15"/>
-                        <MenuItem x:Name="MenuBitanItem" Header="N.I.P." InputGestureText="Ctrl+Q" Visibility="Collapsed" Click="MenuBitanItem_Click"/>
-                    </MenuItem>
-                </Menu>
-            </StackPanel>
+            <DockPanel Height="35" Width="1010" Background="PaleVioletRed">
+                <Label Width="150" Height="35" HorizontalAlignment="Center" Content="{Binding Status}" FontSize="15"/>
+                <Button Height="30" Width="90" Margin="0,0,5,0" HorizontalAlignment="Right" Content="Log out" FontSize="15" Command="{Binding CloseCmd}"/>
+            </DockPanel>
             <ToolBar Width="1000" Height="40" Margin="0,0,0,35">
-                <Button Width="70" Height="35" Content="Create" Margin="10,0,0,0" Click="ToolBarCreate_Click" FontSize="15"/>
-                <Button Width="70" Height="35" Content="Edit"  Margin="10,0,0,0" FontSize="15"/>
-                <Button Width="70" Height="35" Content="Delete"  Margin="10,0,0,0" FontSize="15"/>
+                <Button Width="70" Height="35" Content="Create" Margin="10,0,0,0" FontSize="15" Command="{Binding NewAccommodationCmd}"/>
             </ToolBar>
 
             <TabControl x:Name="tbCtrl" Background="Aquamarine">
                 <TabItem Header="Accommodations" Width="145" Height="30" FontSize="15">
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Accommodations,UpdateSourceTrigger=PropertyChanged}"
-                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
+                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedAccommodation}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
                             <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
@@ -50,13 +32,43 @@
                 </TabItem>
                 <TabItem Header="Reservations" Width="145" Height="30" FontSize="15">
                     <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
-                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation,UpdateSourceTrigger=PropertyChanged}"  MouseDoubleClick="DataGridReservations_MouseDoubleClick">
+                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Accommodation.Name}"/>
                             <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Guest.FirstName}"/>
                             <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Guest.LastName}"/>
                             <DataGridTextColumn Width="*" Header="Start" FontSize="15" Binding="{Binding Start}"/>
                             <DataGridTextColumn Width="*" Header="End" FontSize="15" Binding="{Binding End}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Postponement Requests" Width="180" Height="30" FontSize="15">
+                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding PostponementRequests}" SelectedItem="{Binding SelectedRequest}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
+                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
+                            <DataGridTextColumn Width="*" Header="(New)Start Date" FontSize="15" Binding="{Binding Start}"/>
+                            <DataGridTextColumn Width="*" Header="(New)End Date" FontSize="15" Binding="{Binding End}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Reviews" Width="180" Height="30" FontSize="15">
+                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Reservation.Guest.FirstName}"/>
+                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
+                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
+                            <DataGridTextColumn Width="3*" Header="Comment" FontSize="15" Binding="{Binding Comment}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using TouristAgency.Model;
-using TouristAgency.Controller;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Creation
 {
@@ -22,29 +22,11 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class GuestReviewCreation : Window
     {
-        private readonly GuestReviewController _guestReviewController;
-
-        public GuestReview NewGuestReview { get; set; }
-
-        public Reservation Selected { get; set; }
-
-        public ReservationController _controller { get; set; }
-
         public GuestReviewCreation(Reservation SelectedReservation)
         {
             InitializeComponent();
-            DataContext = this;
-            var app = (App)Application.Current;
-
+            DataContext = new GuestReviewViewModel(SelectedReservation,this);
             FillComboBoxes();
-
-            _guestReviewController = new GuestReviewController();
-
-            Selected = SelectedReservation;
-            _controller = app.ReservationController;
-            NewGuestReview = new();
-            NewGuestReview.Guest = Selected.Guest;
-            NewGuestReview.GuestId = Selected.GuestId;
         }
 
         private void FillComboBoxes()
@@ -57,37 +39,6 @@ namespace TouristAgency.View.Creation
                 cbOver.Items.Add(i.ToString());
                 cbNoise.Items.Add(i.ToString());
             }
-        }
-
-        private void ButtonRegister_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (Selected.Status == REVIEW_STATUS.UNREVIEWED)
-                {
-                    _guestReviewController.Create(NewGuestReview);
-                    Selected.Status = REVIEW_STATUS.REVIEWED;
-                    _controller.Update(Selected, Selected.Id);
-                    MessageBox.Show("Guest review created successfully");
-                }
-                else
-                {
-                    MessageBox.Show("This guest has already been reviewed");
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                this.Close();
-            }
-        }
-
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

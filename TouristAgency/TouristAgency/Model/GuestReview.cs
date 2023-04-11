@@ -10,8 +10,8 @@ namespace TouristAgency.Model
     public class GuestReview : ISerializable
     {
         private int _id;
-        private Guest _guest;
-        private int _guestId;
+        private Reservation _reservation;
+        private int _reservationId;
         private DateTime _reviewDate;
         private int _cleanliness;
         private int _ruleAbiding;
@@ -32,10 +32,10 @@ namespace TouristAgency.Model
             _reviewDate = DateTime.Now;
         }
 
-        public GuestReview(Guest guest, int cleanliness, int ruleAbiding,int communication,int overallImpression,int noiseLevel,string comment="")
+        public GuestReview(Reservation reservation, int cleanliness, int ruleAbiding,int communication,int overallImpression,int noiseLevel,string comment="")
         {
-            _guest = guest;
-            _guestId = guest.ID;
+            _reservation = reservation;
+            _reservationId = reservation.Id;
             _reviewDate = DateTime.Now;
             _cleanliness = cleanliness;
             _ruleAbiding = ruleAbiding;
@@ -57,22 +57,28 @@ namespace TouristAgency.Model
             }
         }
 
-        public Guest Guest
+        public Reservation Reservation
         {
-            get => _guest;
+            get => _reservation;
             set
             {
-                if(value != _guest)
+                if(_reservation != value)
                 {
-                    _guest = value;
+                    _reservation = value;
                 }
             }
         }
 
-        public int GuestId
+        public int ReservationId
         {
-            get => _guestId;
-            set => _guestId = value;
+            get => _reservationId;
+            set
+            {
+                if(_reservationId != value)
+                {
+                    _reservationId = value;
+                }
+            }
         }
 
         public DateTime ReviewDate
@@ -162,7 +168,7 @@ namespace TouristAgency.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            GuestId = int.Parse(values[1]);
+            ReservationId = int.Parse(values[1]);
             ReviewDate = DateTime.Parse(values[2]);
             Cleanliness = int.Parse(values[3]);
             RuleAbiding = int.Parse(values[4]);
@@ -177,8 +183,8 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                GuestId.ToString(),
-                ReviewDate.ToShortDateString(), // mozda treba drugacije
+                ReservationId.ToString(),
+                ReviewDate.ToShortDateString(),
                 Cleanliness.ToString(),
                 RuleAbiding.ToString(),
                 Communication.ToString(),

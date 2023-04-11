@@ -1,0 +1,60 @@
+﻿<Window x:Class="TouristAgency.View.Display.CancelTourDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Display"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="CancelTourDisplay" Height="750" Width="410" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px"></RowDefinition>
+            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition Height="490"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- TODO NAVIGATION BUTTON -->
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="91" Width="284" FontSize="18" TextWrapping="Wrap" TextAlignment="Center">
+            <TextBlock.Inlines>
+                Select the tours you wish to cancel. 
+                Please note that tours
+                <Run FontWeight="Bold">cannot</Run> 
+                be canceled
+                <Run FontWeight="Bold">48 hours before starting</Run>
+                said tour.
+            </TextBlock.Inlines>
+        </TextBlock>
+
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding AvailableTours}" Height="450" Width="333" SelectionMode="Multiple">
+
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Grid.Row="3" Grid.Column="0" Height="57" Width="138" FontSize="20" Command = "{Binding CancelTourCmd}">Cancel tours</Button>
+        <Button Grid.Row="3" Grid.Column="1" Height="57" Width="138" FontSize="20">Go back</Button>
+    </Grid>
+</Window>

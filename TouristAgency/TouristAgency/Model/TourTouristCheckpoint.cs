@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-    public enum  INVITATION_STATUS {PENDING, ACCEPTED}
+
 
     public class TourTouristCheckpoint : ISerializable
     {

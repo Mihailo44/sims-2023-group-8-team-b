@@ -4,12 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
+        
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="ActiveTourDisplay" Height="750" Width="410" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
-            <ListView x:Name="AvailableToursListView" Height="300px"  ItemsSource="{Binding Path=AvailableTours}" Foreground="Black" SelectionMode="Single" SelectionChanged="AvailableToursListView_SelectionChanged">
-                    <ListView.ItemContainerStyle>
+            <ListView x:Name="AvailableToursListView" Height="300px"  ItemsSource="{Binding Path=AvailableTours}" IsEnabled="{Binding Path=ListViewEnabled, Mode=TwoWay}" Foreground="Black" SelectionMode="Single" SelectedItem="{Binding SelectedTour}">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding LoadTouristsToCheckpointCmd}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         </Style>
@@ -24,11 +33,17 @@
                                 <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
                             </GridView>
                         </ListView.View>
-                    </ListView>
+            </ListView>
 
-                <Button x:Name="BeginTourButton" Margin="0,10,0,0" Content="Begin tour!" Width="100px" Height="40" Click="BeginTourButton_OnClick"></Button>
+                <Button x:Name="BeginTourButton" Margin="0,10,0,0" Content="Begin tour!" Width="100px" Height="40" Command="{Binding BeginTourCmd}"></Button>
 
-            <ListView x:Name="AvailableCheckpointsListView" ItemsSource="{Binding Path=AvailableCheckpoints}" Foreground="Black" SelectionChanged="AvailableCheckpointsListView_SelectionChanged" Height="180" Margin="0,10,0,10">
+            <ListView x:Name="AvailableCheckpointsListView" ItemsSource="{Binding Path=AvailableCheckpoints}" Foreground="Black" SelectedItem="{Binding SelectedTourCheckpoint}" Height="180" Margin="0,10,0,10">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding LoadTouristsToCheckpointCmd}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -42,6 +57,12 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center" Height="100">
                 <ListView x:Name="RegisteredTouristsListView" ItemsSource="{Binding Path=RegisteredTourists}" Foreground="Black" SelectionMode="Multiple">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}"/>
@@ -52,11 +73,16 @@
                 </ListView>
 
                 <StackPanel VerticalAlignment="Center">
-                    <Button x:Name="RightButton" Content="Right" Click="RightButton_OnClick "></Button>
-                    <Button x:Name="LeftButton" Content="Left" Click="LeftButton_OnClick"></Button>
+                    <Button x:Name="RightButton" Content="Right" Command="{Binding AddTouristToCheckpointCmd}"></Button>
+                    <Button x:Name="LeftButton" Content="Left" Command="{Binding RemoveTouristFromCheckpointCmd}"></Button>
                 </StackPanel>
 
                 <ListView x:Name="ArrivedTouristListView" ItemsSource="{Binding Path=ArrivedTourists}" Foreground="Black" SelectionMode="Multiple">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Username" DisplayMemberBinding="{Binding Username}"/>
@@ -67,7 +93,7 @@
                 </ListView>
             </StackPanel>
 
-            <Button x:Name="FinishButton" Content="Finish" Click="FinishButton_OnClick" Margin="0,10,0,0" Width="100px" Height="40"></Button>
+            <Button x:Name="FinishButton" Content="Finish" Command="{Binding CreateCmd}" Margin="0,10,0,0" Width="100px" Height="40"></Button>
         </StackPanel>
     </Grid>
 </Window>

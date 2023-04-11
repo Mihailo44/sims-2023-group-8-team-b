@@ -63,6 +63,8 @@ namespace TouristAgency.Model
             }
         }
 
+        public bool IsSelected { get; set; }
+
         public Checkpoint()
         {
             _ID = -1;

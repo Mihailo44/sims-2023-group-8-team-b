@@ -1,0 +1,81 @@
+﻿<Window x:Class="TouristAgency.View.Display.TourStatisticsDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.View.Display"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        Title="CancelTourDisplay" Height="750" Width="410" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="290"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">Select a tour to view its statistics</Label>
+        
+        <!-- TODO NAVIGATION BUTTON -->
+
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="250" Width="333" ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}" x:Name="_lw">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GetStatisticsCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                    <GridViewColumn Header="Reviews">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.GetReviewsCmd, ElementName=_lw}">Reviews</Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="3" Grid.Column="0">
+            <Label FontSize="18" HorizontalAlignment="Center">Age statistics:</Label>
+            <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries Title="Less than 18" Values="{Binding Young}"/>
+                    <lvc:PieSeries Title="Between 18 and 50" Values="{Binding Adult}"/>
+                    <lvc:PieSeries Title="More than 50" Values="{Binding Old}"/>
+                    <!--<lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" LabelPoint="{Binding PointLabel}"/> -->
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <Label FontSize="18" HorizontalAlignment="Center">Voucher statistics:</Label>
+            <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries Title="With voucher" Values="{Binding WithVoucher}"/>
+                    <lvc:PieSeries Title="Without voucher" Values="{Binding WithoutVoucher}"/>
+                    <!--<lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" LabelPoint="{Binding PointLabel}"/> -->
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+        </StackPanel>
+
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Height="57" Width="138" FontSize="20" HorizontalAlignment="Center" Margin="0,45,0,0">Go back</Button>
+    </Grid>
+</Window>

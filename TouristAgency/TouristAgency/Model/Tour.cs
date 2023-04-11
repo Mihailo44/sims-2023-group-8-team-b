@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Model.Enums;
 
 namespace TouristAgency.Model
 {
-    public enum STATUS {NOT_STARTED, IN_PROGRESS, ENDED}
+
     public class Tour : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int _ID;
@@ -65,7 +66,7 @@ namespace TouristAgency.Model
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
             _assignedGuide = new Guide();
-            //slike?
+            _photos = new List<Photo>();
         }
 
 
@@ -297,6 +298,12 @@ namespace TouristAgency.Model
                     _photos = value;
                 }
             }
+        }
+
+        public bool IsSelected
+        {
+            get;
+            set;
         }
 
         public string Error => null;

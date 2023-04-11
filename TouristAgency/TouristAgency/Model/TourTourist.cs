@@ -11,6 +11,7 @@ namespace TouristAgency.Model
     {
         private int _tourID;
         private int _touristID;
+        private bool _arrived;
 
         public int TourID
         {
@@ -36,8 +37,21 @@ namespace TouristAgency.Model
             }
         }
 
+        public bool Arrived
+        {
+            get => _arrived;
+            set
+            {
+                if (value != _arrived)
+                {
+                    _arrived = value;
+                }
+            }
+        }
+
         public TourTourist()
         {
+
         }
 
         public TourTourist(int tourID, int touristID)
@@ -52,7 +66,8 @@ namespace TouristAgency.Model
             string[] csvValues =
             {
                 _tourID.ToString(),
-                _touristID.ToString()
+                _touristID.ToString(),
+                _arrived.ToString()
             };
             return csvValues;
         }
@@ -61,6 +76,7 @@ namespace TouristAgency.Model
         {
             _tourID = Convert.ToInt32(values[0]);
             _touristID = Convert.ToInt32(values[1]);
+            _arrived = Convert.ToBoolean(values[2]);
         }
     }
 }
