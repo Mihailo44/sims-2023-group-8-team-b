@@ -1,2 +1,4 @@
 0|18|True
 1|18|True
+7|20|True
+7|18|False

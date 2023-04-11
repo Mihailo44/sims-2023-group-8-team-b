@@ -28,6 +28,7 @@ namespace TouristAgency.ViewModel
             _app = (App)Application.Current;
             _tourist = tourist;
             _tourID = tourID;
+            _window = window;
 
             Vouchers = new ObservableCollection<Voucher>(_app.TouristService.GetValidVouchers(tourist));
             UseVoucherCmd = new DelegateCommand(param => UseVoucherExecute(), param => CanUseVoucherExecute());

@@ -8,10 +8,11 @@ using System.Windows.Input;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.ViewModel
 {
-    public class TourAttendanceDisplayViewModel : ViewModelBase
+    public class TourAttendanceDisplayViewModel : ViewModelBase, IObserver
     {
         private ObservableCollection<Tour> _tours;
         private Tourist _loggedInTourist;
@@ -93,6 +94,17 @@ namespace TouristAgency.ViewModel
                 _app.TourTouristService.Update(tourTourist);
                 MessageBox.Show("Successfully joined the tour.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        public void Update()
+        {
+            var tours = _app.TourService.GetActiveTours(_loggedInTourist);
+            Tours.Clear();
+            foreach(Tour tour in tours)
+            {
+                Tours.Add(tour);
+            }
+            ShowCheckpointInfoExecute();
         }
     }
 }

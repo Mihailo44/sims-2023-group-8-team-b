@@ -8,7 +8,7 @@ using TouristAgency.Model.Enums;
 
 namespace TouristAgency.ViewModel
 {
-    public class ActiveTourDisplayViewModel : ViewModelBase, ICloseable, ICreate
+    public class ActiveTourDisplayViewModel : ViewModelBase, ICreate, IObserver
     {
         private App _app;
         private Window _window;
@@ -20,9 +20,7 @@ namespace TouristAgency.ViewModel
         private ObservableCollection<Tourist> _arrivedTourists;
         private bool _listViewEnabled;
 
-        public DelegateCommand CloseCmd { get; }
         public DelegateCommand CreateCmd { get; }
-
         public DelegateCommand AddTouristToCheckpointCmd { get; }
         public DelegateCommand RemoveTouristFromCheckpointCmd { get; }
         public DelegateCommand LoadTouristsToCheckpointCmd { get; }
@@ -37,6 +35,8 @@ namespace TouristAgency.ViewModel
             AvailableTours = new ObservableCollection<Tour>(_app.TourService.GetTodayTours(_loggedInGuide.ID));
             _arrivedTourists = new ObservableCollection<Tourist>();
             _registeredTourists = new ObservableCollection<Tourist>();
+            _app.TourTouristService.Subscribe(this);
+
             if(CheckAndSelectStartedTour())
             {
                 ListViewEnabled = false;
@@ -45,6 +45,7 @@ namespace TouristAgency.ViewModel
             {
                 ListViewEnabled = true;
             }
+
             AddTouristToCheckpointCmd =
                 new DelegateCommand(param => AddTouristToCheckpoint(), param => CanAddTouristToCheckpoint());
             RemoveTouristFromCheckpointCmd = new DelegateCommand(param => RemoveTouristFromCheckpoint(),
@@ -276,6 +277,11 @@ namespace TouristAgency.ViewModel
                 }
             }
             return false;
+        }
+
+        public void Update()
+        {
+            CheckAndSelectStartedTour();
         }
     }
 }

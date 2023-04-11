@@ -52,9 +52,9 @@ namespace TouristAgency.Service
             currentGuide.Password = newGuide.Password;
             currentGuide.FirstName = newGuide.FirstName;
             currentGuide.LastName = newGuide.LastName;
-            currentGuide.DateOfBirth = newGuide.DateOfBirth; //! Duboka kopija?
+            currentGuide.DateOfBirth = newGuide.DateOfBirth;
             currentGuide.Email = newGuide.Email;
-            currentGuide.FullLocation = newGuide.FullLocation; //! -||-?
+            currentGuide.FullLocation = newGuide.FullLocation;
             currentGuide.Phone = newGuide.Phone;
             return currentGuide;
         }

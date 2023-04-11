@@ -71,20 +71,6 @@ namespace TouristAgency.Service
             return _photos;
         }
 
-        /*public void LoadToursToPhotos(List<Tour> tours)
-        {
-            foreach (Tour tour in tours)
-            {
-                foreach (Photo photo in _photos)
-                {
-                    if (photo.ExternalID == tour.ID)
-                    {
-                        tour.Photos.Add(new Photo(photo));
-                    }
-                }
-            }
-        }*/
-
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);
