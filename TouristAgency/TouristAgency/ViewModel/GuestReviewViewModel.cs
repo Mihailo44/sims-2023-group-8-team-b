@@ -188,8 +188,6 @@ namespace TouristAgency.ViewModel
             _window.Close();
         }
 
-        //-------------------------------------------------------------------------------------------------
-
         public void Subsribe(IObserver observer)
         {
             _guestReview.Subscribe(observer);
