@@ -42,11 +42,6 @@ namespace TouristAgency.ViewModel
             Languages = new ObservableCollection<string>(_app.TourService.GetAllLanguages());
             _loggedInTourist = tourist;
 
-            //TODO
-            //CountryComboBox.SelectedIndex = 0;
-            //CityComboBox.SelectedIndex = 0;
-            //LanguageComboBox.SelectedIndex = 0;
-
             FilterCmd = new DelegateCommand(param => FilterCmdExecute(), param => CanFilterCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
             ClearCmd = new DelegateCommand(param => ClearCmdExecute(), param => CanClearCmdExecute());
@@ -263,6 +258,10 @@ namespace TouristAgency.ViewModel
                     {
                         ChooseVoucherDisplay display = new ChooseVoucherDisplay(_loggedInTourist, selectedTour.ID);
                         display.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 else

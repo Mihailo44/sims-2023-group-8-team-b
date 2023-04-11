@@ -5,19 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class LocationService : ICrud<Location>, ISubject
     {
-        private readonly LocationStorage _storage;
+        private readonly IStorage<Location> _storage;
         private readonly List<Location> _locations;
         private List<IObserver> _observers;
 
-        public LocationService()
+        public LocationService(IStorage<Location> storage)
         {
-            _storage = new LocationStorage();
+            _storage = storage;
             _locations = _storage.Load();
             _observers = new List<IObserver>();
         }
@@ -56,7 +56,6 @@ namespace TouristAgency.Service
             if (currentLocation == null)
                 return null;
 
-            //currentLocation.City = newLocation.City;
             _storage.Save(_locations);
             NotifyObservers();
 
@@ -76,7 +75,7 @@ namespace TouristAgency.Service
             return _locations;
         }
 
-        public Location FindByCountryAndCity(string country, string city) // proveri da li radi kako treba
+        public Location FindByCountryAndCity(string country, string city)
         {
             Location location = _locations.Find(l => l.Country.ToLower() == country.ToLower() && l.City.ToLower() == city.ToLower());
             if (location == null)

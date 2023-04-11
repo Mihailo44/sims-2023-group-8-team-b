@@ -37,34 +37,22 @@ namespace TouristAgency
         public GuideService GuideService { get; }
         public GuideReviewService GuideReviewService { get; }
 
-        //public CheckpointService CheckpointService { get; set; } = new CheckpointService();
-        //public GuestViewModel GuestViewModel { get; set; } = new GuestViewModel();
-        //public LocationService LocationService { get; set; } = new LocationService();
-        //public GuideService GuideService { get; set; } = new GuideService();
-        //public PhotoService PhotoService { get; set; } = new PhotoService();
-        //public TourCheckpointService TourCheckpointService { get; set; } = new TourCheckpointService();
-        //public TourService TourService { get; set; } = new TourService();
-        //public TouristService TouristService { get; set; } = new TouristService();
-        //public TourTouristCheckpointService TourTouristCheckpointService { get; set; } = new TourTouristCheckpointService();
-        //public TourTouristService TourTouristService { get; set; } = new TourTouristService();
-        //public VoucherService VoucherService { get; set; } = new VoucherService();
-
         public App()
         {
             GuideService = new(InjectorService.CreateInstance<IStorage<Guide>>());
             TourTouristService = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
             UserService = new(InjectorService.CreateInstance<IStorage<User>>());
-            LocationService = new();
+            LocationService = new(InjectorService.CreateInstance<IStorage<Location>>());
             ReservationService = new(InjectorService.CreateInstance<IStorage<Reservation>>());
             AccommodationService = new(InjectorService.CreateInstance<IStorage<Accommodation>>());
             GuestReviewService = new(InjectorService.CreateInstance<IStorage<GuestReview>>());
             OwnerService = new(InjectorService.CreateInstance<IStorage<Owner>>());
             OwnerReviewService = new();
             PostponementRequestService = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
-            TouristService = new();
-            GuideReviewService = new();
+            TouristService = new(InjectorService.CreateInstance<IStorage<Tourist>>());
+            GuideReviewService = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
             
-            VoucherService = new();
+            VoucherService = new(InjectorService.CreateInstance<IStorage<Voucher>>());
             TourService = new(InjectorService.CreateInstance<IStorage<Tour>>());
             TourCheckpointService = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
             TourTouristCheckpointService = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
@@ -73,7 +61,6 @@ namespace TouristAgency
             PhotoService = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestService = new();
 
-            //TODO Preci na servise
             AccommodationService.LoadLocationsToAccommodations(LocationService.GetAll());
             AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());
             AccommodationService.LoadOwnersToAccommodations(OwnerService.GetAll());

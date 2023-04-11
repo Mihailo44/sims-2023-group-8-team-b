@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    internal class LocationStorage
+    internal class LocationFileStorage : IStorage<Location>
     {
         private Serializer<Location> _serializer;
         private readonly string _file = "locations.txt";
 
-        public LocationStorage()
+        public LocationFileStorage()
         {
             _serializer = new Serializer<Location>();
         }
@@ -25,7 +26,7 @@ namespace TouristAgency.Storage
 
         public void Save(List<Location> locations)
         {
-            _serializer.ToCSV(_file,locations);
+            _serializer.ToCSV(_file, locations);
         }
     }
 }

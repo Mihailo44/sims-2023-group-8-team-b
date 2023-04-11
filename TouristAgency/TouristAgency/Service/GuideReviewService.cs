@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model.Enums;
 using TouristAgency.Model;
-using TouristAgency.Storage;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class GuideReviewService : ICrud<GuideReview>, ISubject
     {
-        private readonly GuideReviewStorage _storage;
+        private readonly IStorage<GuideReview> _storage;
         private readonly List<GuideReview> _guideReviews;
         private readonly List<IObserver> _observers;
 
-        public GuideReviewService()
+        public GuideReviewService(IStorage<GuideReview> storage)
         {
-            _storage = new GuideReviewStorage();
+            _storage = storage;
             _guideReviews = _storage.Load();
             _observers = new List<IObserver>();
         }
@@ -58,7 +58,7 @@ namespace TouristAgency.Service
             currentGuideReview.Language = updatedGuideReview.Language;
             currentGuideReview.SocialInteraction = updatedGuideReview.SocialInteraction;
             currentGuideReview.Comment = updatedGuideReview.Comment;
-            currentGuideReview.IsInvalid = updatedGuideReview.IsInvalid;
+
             _storage.Save(_guideReviews);
             NotifyObservers();
 
@@ -99,12 +99,6 @@ namespace TouristAgency.Service
                 }
             }
             return reviews;
-        }
-
-        public void MarkAsInvalid(GuideReview guideReview)
-        {
-            guideReview.IsInvalid = true;
-            Update(guideReview, guideReview.ID);
         }
 
         public void LoadToursToGuideReviews(List<Tour> tours)

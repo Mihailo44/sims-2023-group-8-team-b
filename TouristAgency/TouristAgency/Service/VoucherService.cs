@@ -5,27 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class VoucherService : ICrud<Voucher>, ISubject
     {
-        private readonly VoucherStorage _storage;
+        private readonly IStorage<Voucher> _storage;
         private readonly List<Voucher> _vouchers;
         private List<IObserver> _observers;
 
-        public VoucherService() 
+        public VoucherService(IStorage<Voucher> storage) 
         {
-            _storage = new VoucherStorage();
+            _storage = storage;
             _vouchers = _storage.Load();
             _observers = new List<IObserver>();
         }
 
         public int GenerateId()
         {
-            if (_vouchers.Count == 0)
-                return 0;
             return _vouchers.Max(v => v.ID) + 1;
         }
 
