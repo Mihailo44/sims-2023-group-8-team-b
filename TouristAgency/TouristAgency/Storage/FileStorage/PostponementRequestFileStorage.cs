@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Model;
 using TouristAgency.Serialization;
+using TouristAgency.Interfaces;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    public class PostponementRequestStorage
+    public class PostponementRequestFileStorage : IStorage<PostponementRequest>
     {
         private Serializer<PostponementRequest> _serializer;
         private readonly string _file = "postponementrequests.txt";
 
-        public PostponementRequestStorage()
+        public PostponementRequestFileStorage()
         {
             _serializer = new Serializer<PostponementRequest>();
         }

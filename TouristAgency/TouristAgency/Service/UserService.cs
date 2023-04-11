@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Model;
-using TouristAgency.Storage;
 using TouristAgency.Model.Enums;
+using TouristAgency.Storage.FileStorage;
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.Service
 {
     public class UserService
     {
-        private readonly UserStorage _userStorage;
+        private readonly IStorage<User> _userStorage;
         private readonly List<User> _users;
 
         public User User { get; set; }
 
-        public UserService()
+        public UserService(IStorage<User> storage)
         {
-            _userStorage = new UserStorage();
+            _userStorage = storage;
             _users = _userStorage.Load();
         }
 

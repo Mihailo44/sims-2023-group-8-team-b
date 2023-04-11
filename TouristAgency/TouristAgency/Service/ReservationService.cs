@@ -7,20 +7,20 @@ using System.Linq;
 using System.Windows;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Storage;
 using TouristAgency.Model.Enums;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class ReservationService : ICrud<Reservation>, ISubject
     {
-        private readonly ReservationStorage _storage;
+        private readonly IStorage<Reservation> _storage;
         private readonly List<Reservation> _reservations;
         private List<IObserver> _observers;
 
-        public ReservationService()
+        public ReservationService(IStorage<Reservation> storage)
         {
-            _storage = new ReservationStorage();
+            _storage = storage;
             _reservations = _storage.Load();
             _observers = new List<IObserver>();
         }

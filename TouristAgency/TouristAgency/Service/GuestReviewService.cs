@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Storage;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
     public class GuestReviewService : ICrud<GuestReview>, ISubject
     {
-        private readonly GuestReviewStorage _storage;
+        private readonly IStorage<GuestReview> _storage;
         private readonly List<GuestReview> _guestReviews;
         public List<IObserver> _observers;
 
-        public GuestReviewService()
+        public GuestReviewService(IStorage<GuestReview> storage)
         {
-            _storage = new GuestReviewStorage();
+            _storage = storage;
             _guestReviews = _storage.Load();
             _observers = new List<IObserver>();
         }

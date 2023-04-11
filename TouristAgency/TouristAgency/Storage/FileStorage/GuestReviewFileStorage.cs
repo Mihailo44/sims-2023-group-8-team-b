@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Serialization;
 using TouristAgency.Model;
+using TouristAgency.Interfaces;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    public class GuestReviewStorage
+    public class GuestReviewFileStorage : IStorage<GuestReview>
     {
         private Serializer<GuestReview> _serializer;
         private readonly string _file = "guestreviews.txt";
 
-        public GuestReviewStorage()
+        public GuestReviewFileStorage()
         {
             _serializer = new Serializer<GuestReview>();
         }

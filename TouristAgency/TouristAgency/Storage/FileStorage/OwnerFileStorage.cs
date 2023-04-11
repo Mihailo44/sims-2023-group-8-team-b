@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Serialization;
 using TouristAgency.Model;
+using TouristAgency.Interfaces;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
-    public class OwnerStorage
+    public class OwnerFileStorage : IStorage<Owner>
     {
         private Serializer<Owner> _serializer;
         private readonly string _file = "owners.txt";
 
-        public OwnerStorage()
+        public OwnerFileStorage()
         {
             _serializer = new Serializer<Owner>();
         }
@@ -25,7 +26,7 @@ namespace TouristAgency.Storage
 
         public void Save(List<Owner> owners)
         {
-            _serializer.ToCSV(_file,owners);
+            _serializer.ToCSV(_file, owners);
         }
     }
 }
