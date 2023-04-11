@@ -235,7 +235,7 @@ namespace TouristAgency.ViewModel
 
                         request.Status = PostponementRequestStatus.APPROVED;
                         _postponementRequestService.Update(request, request.Id);
-                        OpenPostponeCommentExecute(request); // ovo ce trebati drugacije
+                        OpenPostponeCommentExecute(request);
                     }
                     else
                     {
