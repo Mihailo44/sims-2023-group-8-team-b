@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
             <DockPanel Height="35" Width="1010" Background="PaleVioletRed">
-                <Label Width="140" Height="35" HorizontalAlignment="Center" Content="{Binding Status}" FontSize="15"/>
+                <Label Width="150" Height="35" HorizontalAlignment="Center" Content="{Binding Status}" FontSize="15"/>
                 <Button Height="30" Width="90" Margin="0,0,5,0" HorizontalAlignment="Right" Content="Log out" FontSize="15" Command="{Binding CloseCmd}"/>
             </DockPanel>
             <ToolBar Width="1000" Height="40" Margin="0,0,0,35">

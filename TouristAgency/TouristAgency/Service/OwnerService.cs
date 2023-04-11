@@ -88,13 +88,13 @@ namespace TouristAgency.Service
                 double ownerScore = 0;
                 foreach (OwnerReview ownerReview in ownerReviews)
                 {
-                    sum += ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi;
+                    sum += ((ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi)/5);
                 }
 
                 ownerScore = CalculateOwnerScore(sum,ownerReviews.Count());
                 average = ownerScore;
 
-                if(ownerScore > 4.5)
+                if(average > 4.5) // smanji tipa na 2 da bi bilo vece da vidi da radi
                 {
                     return true;
                 }
