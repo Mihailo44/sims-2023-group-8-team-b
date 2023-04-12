@@ -23,7 +23,7 @@ namespace TouristAgency.Base
         public void ViewLocation(string view)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            Stream stream = assembly.GetManifestResourceStream($"TouristAgency.Model.Enums.Util.{view}");
+            Stream stream = assembly.GetManifestResourceStream($"TouristAgency.Model.Enums.{view}");
             SoundPlayer player = new SoundPlayer(stream);
             player.Play();
         }

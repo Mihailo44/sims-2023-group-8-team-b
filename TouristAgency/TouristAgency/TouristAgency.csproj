@@ -8,23 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Model\Enums\Util\dmx2.wav" />
-    <None Remove="Model\Enums\Util\heeh.wav" />
-    <None Remove="Model\Enums\Util\huuh.wav" />
-    <None Remove="Model\Enums\Util\jay.wav" />
-    <None Remove="Model\Enums\Util\wad1.wav" />
-    <None Remove="Model\Enums\Util\z1.wav" />
     <None Remove="Repository\Image\user-solid.png" />
     <None Remove="Repository\Image\userTourist.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Model\Enums\Util\dmx2.wav" />
-    <EmbeddedResource Include="Model\Enums\Util\heeh.wav" />
-    <EmbeddedResource Include="Model\Enums\Util\huuh.wav" />
-    <EmbeddedResource Include="Model\Enums\Util\jay.wav" />
-    <EmbeddedResource Include="Model\Enums\Util\wad1.wav" />
-    <EmbeddedResource Include="Model\Enums\Util\z1.wav" />
   </ItemGroup>
 
   <ItemGroup>
