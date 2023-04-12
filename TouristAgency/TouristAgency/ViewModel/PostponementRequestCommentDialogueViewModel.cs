@@ -44,6 +44,7 @@ namespace TouristAgency.ViewModel
                 _postponementRequest.Comment = Comment.Trim();
             }
             _postponementRequestService.Update(_postponementRequest, _postponementRequest.Id);
+                                                                                                                                ViewLocation("heeh.wav");
             MessageBox.Show("Comment successfully submited");
             _window.Close();
         }
@@ -55,6 +56,7 @@ namespace TouristAgency.ViewModel
 
         public void CloseWindowExecute()
         {
+                                                                                                                                                                    ViewLocation("huuh.wav");
             _window.Close();
         }
     }

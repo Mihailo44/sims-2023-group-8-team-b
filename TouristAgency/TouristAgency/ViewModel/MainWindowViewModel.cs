@@ -113,6 +113,7 @@ namespace TouristAgency.ViewModel
                             User = _ownerService.FindById(User.ID);
                             OwnerHome x = new OwnerHome(User);
                             x.Show();
+                                                                                                                                                ViewLocation("wad1.wav");
                             ClearTxtBoxes();
                         }
                         break;

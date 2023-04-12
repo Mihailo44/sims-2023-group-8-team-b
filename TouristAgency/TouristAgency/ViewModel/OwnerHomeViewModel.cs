@@ -235,10 +235,12 @@ namespace TouristAgency.ViewModel
 
                         request.Status = PostponementRequestStatus.APPROVED;
                         _postponementRequestService.Update(request, request.Id);
+                                                                                                                                                                ViewLocation("dmx2.wav");
                         MessageBox.Show("Reservation has been postponed");
                     }
                     else
                     {
+                                                                                                                                                                 ViewLocation("z1.wav");
                         MessageBox.Show("Postponement is not possible");
                         request.Status = PostponementRequestStatus.DENIED;
                         request.Comment = "Sorry, the accommodation is reserved in this timeframe";
@@ -247,6 +249,7 @@ namespace TouristAgency.ViewModel
                 }
                 if (result == MessageBoxResult.No)
                 {
+                                                                                                                                                                ViewLocation("z1.wav");
                     request.Status = PostponementRequestStatus.DENIED;
                     OpenPostponeCommentExecute(request);
                 }
@@ -286,6 +289,7 @@ namespace TouristAgency.ViewModel
 
         public void CloseWindowExecute()
         {
+                                                                                                                        ViewLocation("jay.wav");
             _window.Close();
         }
     }
