@@ -10,7 +10,7 @@ namespace TouristAgency.View.Creation
     /// <summary>
     /// Interaction logic for AccommodationCreation.xaml
     /// </summary>
-    public partial class AccommodationCreation : Window
+    public partial class AccommodationCreationForm : Window
     {
         /*public string Error => null;
         public string this[string columnName]
@@ -42,7 +42,7 @@ namespace TouristAgency.View.Creation
             }
         } */
 
-        public AccommodationCreation(Owner owner)
+        public AccommodationCreationForm(Owner owner)
         {
             InitializeComponent();
             DataContext = new AccommodationCreationViewModel(owner,this);

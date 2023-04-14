@@ -9,73 +9,13 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Service
 {
-    public class AccommodationService : ICrud<Accommodation>, ISubject
+    public class AccommodationService
     {
-        private readonly IStorage<Accommodation> _storage;
         private readonly List<Accommodation> _accommodations;
-        private List<IObserver> _observers;
 
-        public AccommodationService(IStorage<Accommodation> storage)
+        public AccommodationService(List<Accommodation> accommodations)
         {
-            _storage = storage;
-            _accommodations = _storage.Load();
-            _observers = new List<IObserver>();
-        }
-
-        public int GenerateId()
-        {
-            if (_accommodations.Count == 0)
-                return 0;
-            else
-                return _accommodations.Max(a => a.Id) + 1;
-        }
-
-        public Accommodation FindById(int id)
-        {
-            return _accommodations.Find(a => a.Id == id);
-        }
-
-        public Accommodation Create(Accommodation newAccommodation)
-        {
-            newAccommodation.Id = GenerateId();
-            _accommodations.Add(newAccommodation);
-            _storage.Save(_accommodations);
-            NotifyObservers();
-
-            return newAccommodation;
-        }
-
-        public Accommodation Update(Accommodation updatedAccommodation, int id)
-        {
-            Accommodation currentAccommodation = FindById(id);
-            if (currentAccommodation == null)
-                return null;
-
-            currentAccommodation.OwnerId = updatedAccommodation.OwnerId;
-            currentAccommodation.Owner = updatedAccommodation.Owner;
-            currentAccommodation.Name = updatedAccommodation.Name;
-            currentAccommodation.MaxGuestNum = updatedAccommodation.MaxGuestNum;
-            currentAccommodation.MinNumOfDays = updatedAccommodation.MinNumOfDays;
-            currentAccommodation.AllowedNumOfDaysForCancelation = updatedAccommodation.AllowedNumOfDaysForCancelation;
-
-            _storage.Save(_accommodations);
-            NotifyObservers();
-
-            return currentAccommodation;
-
-        }
-
-        public void Delete(int id)
-        {
-            Accommodation accommodation = FindById(id);
-            _accommodations.Remove(accommodation);
-            _storage.Save(_accommodations);
-            NotifyObservers();
-        }
-
-        public List<Accommodation> GetAll()
-        {
-            return _accommodations;
+            _accommodations = accommodations;
         }
 
         public List<string> GetNames()
@@ -193,24 +133,6 @@ namespace TouristAgency.Service
         {
 
             return _accommodations.Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).ToList();
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update();
-            }
         }
 
     }

@@ -8,6 +8,11 @@
         mc:Ignorable="d"
         Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" 
         ResizeMode="CanMinimize">
+    
+    <Window.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ImportantCmd}"/>
+    </Window.InputBindings>
+    
     <Grid>
         <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
             <DockPanel Height="35" Width="1010" Background="PaleVioletRed">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -12,7 +13,7 @@ using TouristAgency.View.Dialogue;
 
 namespace TouristAgency.ViewModel
 {
-    public class OwnerHomeViewModel : ViewModelBase, IObserver,ICloseable
+    public class OwnerHomeViewModel : ViewModelBase, IObserver, ICloseable
     {
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
@@ -43,6 +44,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand PostponeCmd { get; }
         public DelegateCommand PostponeCommentCmd { get; }
         public DelegateCommand CloseCmd { get; }
+        public DelegateCommand ImportantCmd { get; }
 
         public OwnerHomeViewModel(Window window, Owner owner)
         {
@@ -80,13 +82,14 @@ namespace TouristAgency.ViewModel
             ReviewNotification();
 
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
-            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
+            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
             PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
             //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
-            CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
+            ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
         }
 
-        private void LoadAccommodations(int ownerId = 0)
+        private void LoadAccommodations(int ownerId)
         {
             Accommodations.Clear();
             List<Accommodation> accommodations = _accommodationService.GetByOwnerId(ownerId);
@@ -96,7 +99,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        private void LoadReservations(int ownerId = 0)
+        private void LoadReservations(int ownerId)
         {
             Reservations.Clear();
             List<Reservation> reservations = _reservationService.GetByOwnerId(ownerId);
@@ -106,7 +109,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void LoadPostponementRequests(int ownerId = 0)
+        public void LoadPostponementRequests(int ownerId)
         {
             PostponementRequests.Clear();
             List<PostponementRequest> postponementRequests = _postponementRequestService.GetByOwnerId(ownerId);
@@ -116,7 +119,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void LoadOwnerReviews(int ownerId = 0)
+        public void LoadOwnerReviews(int ownerId)
         {
             OwnerReviews.Clear();
             List<OwnerReview> ownerReviews = _ownerReviewService.GetReviewedReservationsByOwnerId(ownerId);
@@ -147,7 +150,7 @@ namespace TouristAgency.ViewModel
         public void SetUserStatus()
         {
             double average;
-            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID),out average);
+            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID), out average);
             LoggedUser.Average = average;
             if (LoggedUser.SuperOwner)
                 Status = $"SUPER OWNER ({LoggedUser.Average:F2})";
@@ -164,11 +167,11 @@ namespace TouristAgency.ViewModel
 
         public void OpenAccommodationCreationExecute()
         {
-            AccommodationCreation x = new AccommodationCreation(LoggedUser);
+            AccommodationCreationForm x = new AccommodationCreationForm(LoggedUser);
             x.Show();
         }
 
-        public bool CanOpenGuestReviewCreation()
+        public bool CanOpenGuestReviewCreationForm()
         {
             if (SelectedReservation != null)
             {
@@ -199,11 +202,11 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void OpenGuestReviewCreation()
+        public void OpenGuestReviewCreationForm()
         {
             if (SelectedReservation != null)
             {
-                GuestReviewCreation x = new GuestReviewCreation(SelectedReservation);
+                GuestReviewCreationForm x = new GuestReviewCreationForm(SelectedReservation);
                 x.Show();
             }
         }
@@ -287,6 +290,23 @@ namespace TouristAgency.ViewModel
         public void CloseWindowExecute()
         {
             _window.Close();
+        }
+
+        public bool CanImportantCmdExecute()
+        {
+            return true;
+        }
+
+        public void ImportantCmdExecute()
+        {
+            //string paris = "https://youtu.be/gG_dA32oH44?t=22";
+            string blood = "https://youtu.be/0-Tm65i96TY?t=15";
+            ProcessStartInfo ps = new ProcessStartInfo
+            {
+                FileName = blood,
+                UseShellExecute = true
+            };
+            Process.Start(ps);
         }
     }
 }
