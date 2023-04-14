@@ -5,7 +5,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Service;
 using TouristAgency.Storage;
-using TouristAgency.ViewModel;
+using TouristAgency.Repository;
 
 namespace TouristAgency
 {
@@ -15,8 +15,8 @@ namespace TouristAgency
     public partial class App : Application
     {
         public ReservationService ReservationService { get; }
-        public AccommodationService AccommodationService { get; }
-        public GuestReviewService GuestReviewService { get; }   
+        //public AccommodationService AccommodationService { get; }
+        //public GuestReviewService GuestReviewService { get; }   
         public OwnerService OwnerService { get; }
         public UserService UserService { get; }
         public OwnerReviewService OwnerReviewService { get; }
@@ -37,6 +37,9 @@ namespace TouristAgency
         public GuideService GuideService { get; }
         public GuideReviewService GuideReviewService { get; }
 
+        public AccommodationRepository AccommodationRepository { get; }
+        public GuestReviewRepository GuestReviewRepository { get; }
+
         public App()
         {
             GuideService = new(InjectorService.CreateInstance<IStorage<Guide>>());
@@ -44,8 +47,8 @@ namespace TouristAgency
             UserService = new(InjectorService.CreateInstance<IStorage<User>>());
             LocationService = new(InjectorService.CreateInstance<IStorage<Location>>());
             ReservationService = new(InjectorService.CreateInstance<IStorage<Reservation>>());
-            AccommodationService = new(InjectorService.CreateInstance<IStorage<Accommodation>>());
-            GuestReviewService = new(InjectorService.CreateInstance<IStorage<GuestReview>>());
+            AccommodationRepository = new(InjectorService.CreateInstance<IStorage<Accommodation>>());
+            GuestReviewRepository = new(InjectorService.CreateInstance<IStorage<GuestReview>>());
             OwnerService = new(InjectorService.CreateInstance<IStorage<Owner>>());
             OwnerReviewService = new(InjectorService.CreateInstance<IStorage<OwnerReview>>());
             PostponementRequestService = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
@@ -61,17 +64,17 @@ namespace TouristAgency
             PhotoService = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestService = new(InjectorService.CreateInstance<IStorage<Guest>>());
 
-            AccommodationService.LoadLocationsToAccommodations(LocationService.GetAll());
-            AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());
-            AccommodationService.LoadOwnersToAccommodations(OwnerService.GetAll());
-            OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());
+            AccommodationRepository.LoadLocationsToAccommodations(LocationService.GetAll());
+            AccommodationRepository.LoadPhotosToAccommodations(PhotoService.GetAll());
+            AccommodationRepository.LoadOwnersToAccommodations(OwnerService.GetAll());
+            OwnerService.LoadAccommodationsToOwners(AccommodationRepository.GetAll());
             OwnerService.LoadLocationsToOwners(LocationService.GetAll());
-            GuestReviewService.LoadReservationsToGuestReviews(ReservationService.GetAll());
+            GuestReviewRepository.LoadReservationsToGuestReviews(ReservationService.GetAll());
             CheckpointService.LoadLocationsToCheckpoints(LocationService.GetAll());
             TourService.LoadLocationsToTours(LocationService.GetAll());
             TourService.LoadPhotosToTours(PhotoService.GetAll());
             OwnerReviewService.LoadPhotosToReviews(PhotoService.GetAll());
-            ReservationService.LoadAccommodationsToReservations(AccommodationService.GetAll());
+            ReservationService.LoadAccommodationsToReservations(AccommodationRepository.GetAll());
             ReservationService.LoadGuestsToReservations(GuestService.GetAll());
             TourCheckpointService.LoadCheckpoints(CheckpointService.GetAll());
             GuideService.LoadToursToGuide(TourService.GetAll());

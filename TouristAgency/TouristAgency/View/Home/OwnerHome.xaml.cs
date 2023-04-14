@@ -21,20 +21,8 @@ namespace TouristAgency.View.Home
     {
         public OwnerHome(Owner owner)
         {
-            DataContext = new OwnerHomeViewModel(this,owner);
             InitializeComponent();
+            DataContext = new OwnerHomeViewModel(this,owner);
         }
-
-        /*private void MenuBitanItem_Click(object sender, RoutedEventArgs e)
-        {
-            string paris = "https://youtu.be/gG_dA32oH44?t=22";
-            string blood = "https://youtu.be/0-Tm65i96TY?t=15";
-            ProcessStartInfo ps = new ProcessStartInfo
-            {
-                FileName = blood,
-                UseShellExecute = true
-            };
-            Process.Start(ps);
-        } */
     }
 }

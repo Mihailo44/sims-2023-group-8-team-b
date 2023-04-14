@@ -33,12 +33,12 @@ namespace TouristAgency.ViewModel
 
         public AccommodationCreationViewModel()
         {
-            _accommodation = app.AccommodationService;
+            _accommodation = new();
         }
 
         public AccommodationCreationViewModel(Owner owner, Window window)
         {
-            _accommodation = app.AccommodationService;
+            _accommodation = new();
             _photoService = app.PhotoService;
             _locationService = app.LocationService;
             LoggedUser = owner;
@@ -183,7 +183,7 @@ namespace TouristAgency.ViewModel
             PrepareAccommodationForCreation();
             try
             {
-                _accommodation.Create(NewAccommodation);
+                _accommodation.AccommodationRepository.Create(NewAccommodation);
                 AddPhotos();
                 MessageBox.Show("Accommodation created successfully");
             }
@@ -212,11 +212,6 @@ namespace TouristAgency.ViewModel
         public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
         {
             return _accommodation.Search(country, city, name, type, maxGuest, minDays);
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _accommodation.Subscribe(observer);
         }
     }
 }

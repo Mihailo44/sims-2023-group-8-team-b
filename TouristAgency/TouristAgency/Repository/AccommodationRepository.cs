@@ -18,6 +18,7 @@ namespace TouristAgency.Repository
         {
             _storage = storage;
             _accommodations = _storage.Load();
+            _observers = new List<IObserver>();
         }
 
         public int GenerateId()
@@ -71,6 +72,48 @@ namespace TouristAgency.Repository
         public List<Accommodation> GetAll()
         {
             return _accommodations;
+        }
+
+        public void LoadLocationsToAccommodations(List<Location> locations)
+        {
+            foreach (Location location in locations)
+            {
+                foreach (Accommodation accommodation in _accommodations)
+                {
+                    if (accommodation.LocationId == location.Id)
+                    {
+                        accommodation.Location = new Location(location);
+                    }
+                }
+            }
+        }
+
+        public void LoadPhotosToAccommodations(List<Photo> photos)
+        {
+            foreach (Photo photo in photos)
+            {
+                foreach (Accommodation accommodation in _accommodations)
+                {
+                    if (accommodation.Id == photo.ExternalID && photo.Type == 'A')
+                    {
+                        accommodation.Photos.Add(new Photo(photo));
+                    }
+                }
+            }
+        }
+
+        public void LoadOwnersToAccommodations(List<Owner> owners)
+        {
+            foreach (Owner owner in owners)
+            {
+                foreach (Accommodation accommodation in _accommodations)
+                {
+                    if (accommodation.OwnerId == owner.ID)
+                    {
+                        accommodation.Owner = owner;
+                    }
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

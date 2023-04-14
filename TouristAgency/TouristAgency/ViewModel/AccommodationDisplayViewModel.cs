@@ -42,12 +42,12 @@ namespace TouristAgency.ViewModel
 
             _app = (App)Application.Current;
 
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationService.GetAll());
+            //Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationService.GetAll());
             Reservations = new ObservableCollection<Reservation>();
-            Countries = new ObservableCollection<string>(_app.AccommodationService.GetCountries());
-            Cities = new ObservableCollection<string>(_app.AccommodationService.GetCities());
-            Names = new ObservableCollection<string>(_app.AccommodationService.GetNames());
-            Types = new ObservableCollection<string>(_app.AccommodationService.GetTypes());
+            //Countries = new ObservableCollection<string>(_app.AccommodationService.GetCountries());
+            //Cities = new ObservableCollection<string>(_app.AccommodationService.GetCities());
+            //Names = new ObservableCollection<string>(_app.AccommodationService.GetNames());
+            //Types = new ObservableCollection<string>(_app.AccommodationService.GetTypes());
             Start = DateTime.Today;
             End = DateTime.Today;
             SelectedCity = "";
@@ -271,8 +271,8 @@ namespace TouristAgency.ViewModel
             string type = SelectedType;
 
 
-            Accommodations = new ObservableCollection<Accommodation>(
-                _app.AccommodationService.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
+           // Accommodations = new ObservableCollection<Accommodation>(
+             //   _app.AccommodationService.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
         }
 
         public bool CanShowAllCmdExecute()
@@ -281,7 +281,7 @@ namespace TouristAgency.ViewModel
         }
         private void ShowAllCmdExecute()
         {
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationService.GetAll());
+            //Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationService.GetAll());
         }
 
         public bool CanSearchDateCmdExecute()

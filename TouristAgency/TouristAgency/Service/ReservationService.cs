@@ -253,15 +253,27 @@ namespace TouristAgency.Service
                     notification += $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {dateDiff} days left\n";
                     changes++;
                 }
-                else
+            }
+
+            return notification;
+
+        }
+
+        public void ExpiredReservationsCheck(int ownerId)
+        {
+            DateTime today = DateTime.UtcNow.Date;
+            double dateDiff;
+
+            foreach (var reservation in GetUnreviewed(ownerId))
+            {
+                dateDiff = (today - reservation.End).TotalDays;
+
+                if (dateDiff > 5.0)
                 {
                     reservation.Status = ReviewStatus.EXPIRED;
                     Update(reservation, reservation.Id);
                 }
             }
-
-            return notification;
-
         }
 
         public bool CancelReservation(Reservation reservation)

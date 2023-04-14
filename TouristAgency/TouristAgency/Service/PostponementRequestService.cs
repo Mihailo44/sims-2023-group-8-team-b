@@ -76,7 +76,7 @@ namespace TouristAgency.Service
 
         public List<PostponementRequest> GetByOwnerId(int ownerId)
         {
-            return _requests.FindAll(r => r.Reservation.Accommodation.OwnerId == ownerId && r.Status == PostponementRequestStatus.PENDING); // treba dodati ?? operator
+            return _requests.FindAll(r => r.Reservation.Accommodation.OwnerId == ownerId && r.Status == PostponementRequestStatus.PENDING);
         }
 
         public List<PostponementRequest> GetByGuestId(int guestId)

@@ -22,3 +22,4 @@
 20|G|3|slika1.jpg
 21|G|3|slika2.jpg
 22|O|1|slika1.jpg
+23|A|7|link21

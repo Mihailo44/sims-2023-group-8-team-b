@@ -24,9 +24,9 @@ namespace TouristAgency.View.Creation
     {
         public GuestReviewCreationForm(Reservation SelectedReservation)
         {
+            InitializeComponent();
             DataContext = new GuestReviewViewModel(SelectedReservation,this);
             FillComboBoxes();
-            InitializeComponent();
         }
 
         private void FillComboBoxes()

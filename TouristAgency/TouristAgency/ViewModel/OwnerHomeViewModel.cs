@@ -70,8 +70,8 @@ namespace TouristAgency.ViewModel
             _reservationService = app.ReservationService;
             _reservationService.Subscribe(this);
 
-            _accommodationService = app.AccommodationService;
-            _accommodationService.Subscribe(this);
+            _accommodationService = new();
+            _accommodationService.AccommodationRepository.Subscribe(this);
 
             _ownerReviewService = app.OwnerReviewService;
             _ownerReviewService.Subscribe(this);
@@ -95,6 +95,7 @@ namespace TouristAgency.ViewModel
             OwnerReviews = new ObservableCollection<OwnerReview>();
             LoadOwnerReviews(LoggedUser.ID);
 
+            _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
             ReviewNotification();
 
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
@@ -193,17 +194,21 @@ namespace TouristAgency.ViewModel
             if (SelectedReservation != null)
             {
                 DateTime today = DateTime.UtcNow.Date;
-                double dateDif = (today - SelectedReservation.End).TotalDays;
+                double dateDiff = (today - SelectedReservation.End).TotalDays;
 
-                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDif < 5.0)
+                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDiff < 5.0)
                 {
                     return true;
                 }
                 else
                 {
-                    if (Math.Abs(dateDif) > 5.0)
+                    if (dateDiff > 5.0)
                     {
                         MessageBox.Show("Guest review time window expired");
+                    }
+                    else if(dateDiff < 0.0)
+                    {
+                        MessageBox.Show("Reservation is in progress");
                     }
                     else if (SelectedReservation.Status == ReviewStatus.REVIEWED)
                     {
