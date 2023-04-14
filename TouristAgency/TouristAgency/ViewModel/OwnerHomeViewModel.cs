@@ -54,8 +54,8 @@ namespace TouristAgency.ViewModel
             _reservationService = app.ReservationService;
             _reservationService.Subscribe(this);
 
-            _accommodationService = app.AccommodationService;
-            _accommodationService.Subscribe(this);
+            _accommodationService = new();
+            _accommodationService.AccommodationRepository.Subscribe(this);
 
             _ownerReviewService = app.OwnerReviewService;
             _ownerReviewService.Subscribe(this);

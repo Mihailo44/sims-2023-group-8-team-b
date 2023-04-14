@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Model;
-using TouristAgency.Storage;
-using TouristAgency.Interfaces;
+using TouristAgency.Repository;
 
 namespace TouristAgency.Service
 {
     public class AccommodationService
     {
         private readonly List<Accommodation> _accommodations;
+        private readonly App app = (App)App.Current;
 
-        public AccommodationService(List<Accommodation> accommodations)
+        public AccommodationRepository AccommodationRepository { get; }
+
+        public AccommodationService()
         {
-            _accommodations = accommodations;
+            AccommodationRepository = app.AccommodationRepository;
+            _accommodations = AccommodationRepository.GetAll();
         }
 
         public List<string> GetNames()
@@ -82,49 +85,7 @@ namespace TouristAgency.Service
             return types;
         }
 
-        public void LoadLocationsToAccommodations(List<Location> locations)
-        {
-            foreach (Location location in locations)
-            {
-                foreach (Accommodation accommodation in _accommodations)
-                {
-                    if (accommodation.LocationId == location.Id)
-                    {
-                        accommodation.Location = new Location(location);
-                    }
-                }
-            }
-        }
-
-        public void LoadPhotosToAccommodations(List<Photo> photos)
-        {
-            foreach (Photo photo in photos)
-            {
-                foreach (Accommodation accommodation in _accommodations)
-                {
-                    if (accommodation.Id == photo.ExternalID && photo.Type == 'A')
-                    {
-                        accommodation.Photos.Add(new Photo(photo));
-                    }
-                }
-            }
-        }
-
-        public void LoadOwnersToAccommodations(List<Owner> owners)
-        {
-            foreach (Owner owner in owners)
-            {
-                foreach (Accommodation accommodation in _accommodations)
-                {
-                    if (accommodation.OwnerId == owner.ID)
-                    {
-                        accommodation.Owner = owner;
-                    }
-                }
-            }
-        }
-
-        public List<Accommodation> GetByOwnerId(int id = 0)
+        public List<Accommodation> GetByOwnerId(int id)
         {
             return _accommodations.FindAll(a => a.OwnerId == id);
         }
@@ -134,6 +95,5 @@ namespace TouristAgency.Service
 
             return _accommodations.Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).ToList();
         }
-
     }
 }
