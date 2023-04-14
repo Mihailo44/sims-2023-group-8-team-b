@@ -18,15 +18,15 @@ using TouristAgency.ViewModel;
 namespace TouristAgency.View.Creation
 {
     /// <summary>
-    /// Interaction logic for GuestReviewCreation.xaml
+    /// Interaction logic for GuestReviewCreationForm.xaml
     /// </summary>
-    public partial class GuestReviewCreation : Window
+    public partial class GuestReviewCreationForm : Window
     {
-        public GuestReviewCreation(Reservation SelectedReservation)
+        public GuestReviewCreationForm(Reservation SelectedReservation)
         {
-            InitializeComponent();
             DataContext = new GuestReviewViewModel(SelectedReservation,this);
             FillComboBoxes();
+            InitializeComponent();
         }
 
         private void FillComboBoxes()

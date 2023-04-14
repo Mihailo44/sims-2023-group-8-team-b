@@ -8,7 +8,11 @@
         mc:Ignorable="d"
         Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" 
         ResizeMode="CanMinimize">
-
+    
+    <Window.InputBindings>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ImportantCmd}"/>
+    </Window.InputBindings>
+    
     <Grid>
 
         <Grid Height="70" Width="970" VerticalAlignment="Bottom" Margin="0,0,0,35" Panel.ZIndex="1000" Visibility="Visible">

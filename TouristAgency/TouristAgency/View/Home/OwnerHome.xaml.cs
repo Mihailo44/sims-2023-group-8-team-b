@@ -21,8 +21,8 @@ namespace TouristAgency.View.Home
     {
         public OwnerHome(Owner owner)
         {
-            InitializeComponent();
             DataContext = new OwnerHomeViewModel(this,owner);
+            InitializeComponent();
         }
 
         /*private void MenuBitanItem_Click(object sender, RoutedEventArgs e)

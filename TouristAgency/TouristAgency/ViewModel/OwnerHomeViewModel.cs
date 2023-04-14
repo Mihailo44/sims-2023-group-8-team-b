@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows;
 using TouristAgency.Base;
@@ -59,6 +60,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand PostponeCommentCmd { get; }
         public DelegateCommand CloseCmd { get; }
         public DelegateCommand ShowDataGridCmd { get; }
+        public DelegateCommand ImportantCmd { get; }
 
         public OwnerHomeViewModel(Window window, Owner owner)
         {
@@ -96,14 +98,15 @@ namespace TouristAgency.ViewModel
             ReviewNotification();
 
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
-            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
+            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
             PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
             //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
             ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute,CanShowDataGridExecute);
+            ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
         }
 
-        private void LoadAccommodations(int ownerId = 0)
+        private void LoadAccommodations(int ownerId)
         {
             Accommodations.Clear();
             List<Accommodation> accommodations = _accommodationService.GetByOwnerId(ownerId);
@@ -181,11 +184,11 @@ namespace TouristAgency.ViewModel
 
         public void OpenAccommodationCreationExecute()
         {
-            AccommodationCreation x = new AccommodationCreation(LoggedUser);
+            AccommodationCreationForm x = new AccommodationCreationForm(LoggedUser);
             x.Show();
         }
 
-        public bool CanOpenGuestReviewCreation()
+        public bool CanOpenGuestReviewCreationForm()
         {
             if (SelectedReservation != null)
             {
@@ -216,11 +219,11 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void OpenGuestReviewCreation()
+        public void OpenGuestReviewCreationForm()
         {
             if (SelectedReservation != null)
             {
-                GuestReviewCreation x = new GuestReviewCreation(SelectedReservation);
+                GuestReviewCreationForm x = new GuestReviewCreationForm(SelectedReservation);
                 x.Show();
             }
         }
@@ -332,6 +335,23 @@ namespace TouristAgency.ViewModel
 
                 OnPropertyChanged($"DataGridVisibility");
             }
+        }
+
+        public bool CanImportantCmdExecute()
+        {
+            return true;
+        }
+
+        public void ImportantCmdExecute()
+        {
+            //string paris = "https://youtu.be/gG_dA32oH44?t=22";
+            string blood = "https://youtu.be/0-Tm65i96TY?t=15";
+            ProcessStartInfo ps = new ProcessStartInfo
+            {
+                FileName = blood,
+                UseShellExecute = true
+            };
+            Process.Start(ps);
         }
     }
 }
