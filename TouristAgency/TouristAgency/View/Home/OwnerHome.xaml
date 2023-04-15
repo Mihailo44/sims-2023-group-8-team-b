@@ -37,38 +37,16 @@
             </WrapPanel>
 
             <WrapPanel Height="auto" Width="auto" Margin="0,0,0,20" Background="Azure">
-                <Button Margin="35,0,0,0" Style="{StaticResource NavButton}" Content="Reservations"/>
-                <Button Style="{StaticResource NavButton}" Content="Accommodations"/>
-                <Button Width="190" Style="{StaticResource NavButton}" Content="Postponement Requests" />
-                <Button Style="{StaticResource NavButton}"/>
-                <Button Style="{StaticResource NavButton}"/>
+                <Button Margin="35,0,0,0" Style="{StaticResource NavButton}" Content="Reservations" Command="{Binding ShowDataGridCmd}" CommandParameter="0"/>
+                <Button Style="{StaticResource NavButton}" Content="Accommodations" Command="{Binding ShowDataGridCmd}" CommandParameter="1"/>
+                <Button Width="190" Style="{StaticResource NavButton}" Content="Postponement Requests" Command="{Binding ShowDataGridCmd}" CommandParameter="2"/>
+                <Button Style="{StaticResource NavButton}" Content="Reviews" Command="{Binding ShowDataGridCmd}" CommandParameter="3"/>
+                <Button Style="{StaticResource NavButton}" Content="Forums"/>
             </WrapPanel>
-            
+
             <StackPanel>
-                <DataGrid 
-                Visibility="Collapsed"
-                      Height="550" 
-                      FontSize="15" ItemsSource="{Binding Accommodations}"
-                      SelectionMode="Single" 
-                      SelectionUnit="FullRow" 
-                      AutoGenerateColumns="False" 
-                      IsReadOnly="True" 
-                      SelectedItem="{Binding SelectedAccommodation}">
-
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding NewAccommodationCmd}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
-                        <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
-                        <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <DataGrid Visibility="Collapsed" 
+                <DataGrid
+                      Visibility="{Binding DataGridVisibility[0]}"
                       Height="550" 
                       FontSize="15" 
                       ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
@@ -91,15 +69,39 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <DataGrid Visibility="Visible" 
-                              Height="550" 
-                              FontSize="15" 
-                              ItemsSource="{Binding PostponementRequests}" 
-                              SelectedItem="{Binding SelectedRequest}" 
-                              SelectionMode="Single" 
-                              SelectionUnit="FullRow" 
-                              AutoGenerateColumns="False" 
-                              IsReadOnly="True">
+                <DataGrid
+                      Visibility="{Binding DataGridVisibility[1]}"
+                      Height="550" 
+                      FontSize="15" ItemsSource="{Binding Accommodations}"
+                      SelectionMode="Single" 
+                      SelectionUnit="FullRow" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      SelectedItem="{Binding SelectedAccommodation}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding NewAccommodationCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
+                        <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid
+                            Visibility="{Binding DataGridVisibility[2]}"
+                            Height="550" 
+                            FontSize="15" 
+                            ItemsSource="{Binding PostponementRequests}" 
+                            SelectedItem="{Binding SelectedRequest}" 
+                            SelectionMode="Single" 
+                            SelectionUnit="FullRow" 
+                            AutoGenerateColumns="False" 
+                            IsReadOnly="True">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
@@ -113,7 +115,8 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <DataGrid Visibility="Collapsed" 
+                <DataGrid
+                      Visibility="{Binding DataGridVisibility[3]}" 
                       Height="550" 
                       FontSize="15" 
                       ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -12,13 +13,27 @@ using TouristAgency.View.Dialogue;
 
 namespace TouristAgency.ViewModel
 {
-    public class OwnerHomeViewModel : ViewModelBase, IObserver,ICloseable
+    public class OwnerHomeViewModel : ViewModelBase, IObserver, ICloseable
     {
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
         private OwnerReviewService _ownerReviewService;
         private OwnerService _ownerService;
         private PostponementRequestService _postponementRequestService;
+
+        private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
+        {
+            {0, "Visible"},
+            {1, "Collapsed"},
+            {2, "Collapsed"},
+            {3, "Collapsed"}
+        };
+
+        public Dictionary<int, string> DataGridVisibility
+        {
+            get { return _dataGridVisibility; }
+            set { _dataGridVisibility = value; OnPropertyChanged(nameof(DataGridVisibility)); }
+        }
 
         public string Status { get; set; }
 
@@ -43,6 +58,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand PostponeCmd { get; }
         public DelegateCommand PostponeCommentCmd { get; }
         public DelegateCommand CloseCmd { get; }
+        public DelegateCommand ShowDataGridCmd { get; }
 
         public OwnerHomeViewModel(Window window, Owner owner)
         {
@@ -83,7 +99,8 @@ namespace TouristAgency.ViewModel
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
             PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
             //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
-            CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
+            ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute,CanShowDataGridExecute);
         }
 
         private void LoadAccommodations(int ownerId = 0)
@@ -96,7 +113,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        private void LoadReservations(int ownerId = 0)
+        private void LoadReservations(int ownerId)
         {
             Reservations.Clear();
             List<Reservation> reservations = _reservationService.GetByOwnerId(ownerId);
@@ -106,7 +123,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void LoadPostponementRequests(int ownerId = 0)
+        public void LoadPostponementRequests(int ownerId)
         {
             PostponementRequests.Clear();
             List<PostponementRequest> postponementRequests = _postponementRequestService.GetByOwnerId(ownerId);
@@ -116,7 +133,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void LoadOwnerReviews(int ownerId = 0)
+        public void LoadOwnerReviews(int ownerId)
         {
             OwnerReviews.Clear();
             List<OwnerReview> ownerReviews = _ownerReviewService.GetReviewedReservationsByOwnerId(ownerId);
@@ -147,7 +164,7 @@ namespace TouristAgency.ViewModel
         public void SetUserStatus()
         {
             double average;
-            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID),out average);
+            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID), out average);
             LoggedUser.Average = average;
             if (LoggedUser.SuperOwner)
                 Status = $"SUPER OWNER ({LoggedUser.Average:F2})";
@@ -287,6 +304,34 @@ namespace TouristAgency.ViewModel
         public void CloseWindowExecute()
         {
             _window.Close();
+        }
+
+        public bool CanShowDataGridExecute(object parameter)
+        {
+            if (parameter == null || !int.TryParse(parameter.ToString(), out int index))
+            {
+                return false;
+            }
+
+            return index >= 0 && index <=5;
+        }
+
+        public void ShowDataGridExecute(object parameter)
+        {
+            int index = int.Parse(parameter.ToString());
+            for (int i = 0; i < 5; i++)
+            {
+                if(i == index)
+                {
+                    DataGridVisibility[i] = "Visible";
+                }
+                else
+                {
+                    DataGridVisibility[i] = "Collapsed";
+                }
+
+                OnPropertyChanged($"DataGridVisibility");
+            }
         }
     }
 }
