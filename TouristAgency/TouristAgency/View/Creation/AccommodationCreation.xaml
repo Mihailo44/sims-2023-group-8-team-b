@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
-        Title="AccommodationCreation" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="Accommodation Creation Form" Height="738" Width="924" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
 
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -48,7 +48,7 @@
         <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" FontSize="17" HorizontalAlignment="Center"/>
         <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="17" HorizontalAlignment="Center"/>
         <Label Grid.Row="8" Grid.Column="0" Content="Photos URL" FontSize="17" HorizontalAlignment="Center"/>
-        <Button Grid.Row="12" Grid.Column="0" Grid.RowSpan="2" Content="REGISTER" Width="180" Height="80" FontSize="23" Command="{Binding CreateCmd}"/>
+        <Button Grid.Row="12" Grid.Column="0" Grid.RowSpan="2" Content="REGISTER" Width="160" Height="60" FontSize="23" Command="{Binding CreateCmd}"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
@@ -67,6 +67,6 @@
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="180" Height="80" FontSize="23" Command="{Binding CloseCmd}"/>
+        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="160" Height="60" FontSize="23" Command="{Binding CloseCmd}"/>
     </Grid>
 </Window>

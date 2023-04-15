@@ -8,84 +8,127 @@
         mc:Ignorable="d"
         Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" 
         ResizeMode="CanMinimize">
-    <Grid>
-        <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
-            <DockPanel Height="35" Width="1010" Background="PaleVioletRed">
-                <Label Width="150" Height="35" HorizontalAlignment="Center" Content="{Binding Status}" FontSize="15"/>
-                <Button Height="30" Width="90" Margin="0,0,5,0" HorizontalAlignment="Right" Content="Log out" FontSize="15" Command="{Binding CloseCmd}"/>
-            </DockPanel>
-            <ToolBar Width="1000" Height="40" Margin="0,0,0,35">
-                <Button Width="70" Height="35" Content="Create" Margin="10,0,0,0" FontSize="15" Command="{Binding NewAccommodationCmd}"/>
-            </ToolBar>
 
-            <TabControl x:Name="tbCtrl" Background="Aquamarine">
-                <TabItem Header="Accommodations" Width="145" Height="30" FontSize="15">
-                    <TabControl>
-                        <TabItem Header="Your Accommodations" Width="500">
-                            <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Accommodations,UpdateSourceTrigger=PropertyChanged}"
-                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedAccommodation}">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
-                                    <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
-                                    <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
-                                    <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </TabItem>
-                        <TabItem Header="Locations Suggestions" Width="500">
-                            <DataGrid Height="550"></DataGrid>
-                        </TabItem>
-                    </TabControl>
-                </TabItem>
-                <TabItem Header="Reservations" Width="145" Height="30" FontSize="15">
-                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
-                              SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedReservation}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Accommodation.Name}"/>
-                            <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Guest.FirstName}"/>
-                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Guest.LastName}"/>
-                            <DataGridTextColumn Width="*" Header="Start" FontSize="15" Binding="{Binding Start}"/>
-                            <DataGridTextColumn Width="*" Header="End" FontSize="15" Binding="{Binding End}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-                <TabItem Header="Postponement Requests" Width="180" Height="30" FontSize="15">
-                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding PostponementRequests}" SelectedItem="{Binding SelectedRequest}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
-                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
-                            <DataGridTextColumn Width="*" Header="(New)Start Date" FontSize="15" Binding="{Binding Start}"/>
-                            <DataGridTextColumn Width="*" Header="(New)End Date" FontSize="15" Binding="{Binding End}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-                <TabItem Header="Reviews" Width="180" Height="30" FontSize="15">
-                    <DataGrid Height="550" FontSize="15" ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Reservation.Guest.FirstName}"/>
-                            <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
-                            <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
-                            <DataGridTextColumn Width="3*" Header="Comment" FontSize="15" Binding="{Binding Comment}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-                <TabItem Header="Forums" Width="180" Height="30" FontSize="15">
-                    <DataGrid Height="550" FontSize="15" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False">
-                        <DataGridTextColumn></DataGridTextColumn>
-                        <DataGridTextColumn></DataGridTextColumn>
-                    </DataGrid>
-                </TabItem>
-            </TabControl>
+    <Grid>
+
+        <Grid Height="70" Width="970" VerticalAlignment="Bottom" Margin="0,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
+            <Grid.Background>
+                <SolidColorBrush Color="Transparent"/>
+            </Grid.Background>
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="New" Style="{StaticResource CircleBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Help" Style="{StaticResource CircleBtnStyle}"/>
+        </Grid>
+        
+        <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
+            <WrapPanel Height="65" Width="1010" Background="PaleVioletRed">
+                <Grid Height="70" Width="1010">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<Label Width="150" Height="35" HorizontalAlignment="Center" Content="{Binding Status}" FontSize="15"/> -->
+                    <Button Grid.Column="1" Content="Log out" Style="{StaticResource CircleBtnStyle}" Command="{Binding CloseCmd}"/>
+                    <Button Grid.Column="2" Content="Acc" Style="{StaticResource CircleBtnStyle}"/>
+                </Grid>
+            </WrapPanel>
+
+            <WrapPanel Height="auto" Width="auto" Margin="0,0,0,20" Background="Azure">
+                <Button Margin="35,0,0,0" Style="{StaticResource NavButton}" Content="Reservations"/>
+                <Button Style="{StaticResource NavButton}" Content="Accommodations"/>
+                <Button Width="190" Style="{StaticResource NavButton}" Content="Postponement Requests" />
+                <Button Style="{StaticResource NavButton}"/>
+                <Button Style="{StaticResource NavButton}"/>
+            </WrapPanel>
+            
+            <StackPanel>
+                <DataGrid 
+                Visibility="Collapsed"
+                      Height="550" 
+                      FontSize="15" ItemsSource="{Binding Accommodations}"
+                      SelectionMode="Single" 
+                      SelectionUnit="FullRow" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      SelectedItem="{Binding SelectedAccommodation}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding NewAccommodationCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
+                        <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid Visibility="Collapsed" 
+                      Height="550" 
+                      FontSize="15" 
+                      ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single" 
+                      SelectionUnit="FullRow" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      SelectedItem="{Binding SelectedReservation}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Accommodation.Name}"/>
+                        <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Guest.FirstName}"/>
+                        <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Guest.LastName}"/>
+                        <DataGridTextColumn Width="*" Header="Start" FontSize="15" Binding="{Binding Start}"/>
+                        <DataGridTextColumn Width="*" Header="End" FontSize="15" Binding="{Binding End}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid Visibility="Visible" 
+                              Height="550" 
+                              FontSize="15" 
+                              ItemsSource="{Binding PostponementRequests}" 
+                              SelectedItem="{Binding SelectedRequest}" 
+                              SelectionMode="Single" 
+                              SelectionUnit="FullRow" 
+                              AutoGenerateColumns="False" 
+                              IsReadOnly="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
+                        <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
+                        <DataGridTextColumn Width="*" Header="(New)Start Date" FontSize="15" Binding="{Binding Start}"/>
+                        <DataGridTextColumn Width="*" Header="(New)End Date" FontSize="15" Binding="{Binding End}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid Visibility="Collapsed" 
+                      Height="550" 
+                      FontSize="15" 
+                      ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" 
+                      SelectionMode="Single" 
+                      SelectionUnit="FullRow" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Reservation.Guest.FirstName}"/>
+                        <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
+                        <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
+                        <DataGridTextColumn Width="3*" Header="Comment" FontSize="15" Binding="{Binding Comment}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

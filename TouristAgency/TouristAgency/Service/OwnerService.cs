@@ -94,7 +94,7 @@ namespace TouristAgency.Service
                 ownerScore = CalculateOwnerScore(sum,ownerReviews.Count());
                 average = ownerScore;
 
-                if(average > 4.5) // smanji tipa na 2 da bi bilo vece da vidi da radi
+                if(average > 2.5) // smanji tipa na 2 da bi bilo vece da vidi da radi
                 {
                     return true;
                 }
