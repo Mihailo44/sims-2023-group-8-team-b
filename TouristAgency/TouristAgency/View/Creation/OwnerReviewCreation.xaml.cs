@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Creation
 {
@@ -20,9 +21,10 @@ namespace TouristAgency.View.Creation
     /// </summary>
     public partial class OwnerReviewCreation : Window
     {
-        public OwnerReviewCreation(Guest loggedInGuest)
+        public OwnerReviewCreation(Guest guest)
         {
             InitializeComponent();
+            DataContext = new OwnerReviewCreationViewModel(guest, this);
         }
     }
 }

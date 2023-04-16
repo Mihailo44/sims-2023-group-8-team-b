@@ -170,6 +170,20 @@ namespace TouristAgency.Service
             }
         }
 
+        public void LoadOwnersToAccommodations(List<Owner> owners)
+        {
+            foreach (Owner owner in owners)
+            {
+                foreach (Accommodation accommodation in _accommodations)
+                {
+                    if (accommodation.OwnerId == owner.ID)
+                    {
+                        accommodation.Owner = owner;
+                    }
+                }
+            }
+        }
+
         public List<Accommodation> GetByOwnerId(int id = 0)
         {
             return _accommodations.FindAll(a => a.OwnerId == id);

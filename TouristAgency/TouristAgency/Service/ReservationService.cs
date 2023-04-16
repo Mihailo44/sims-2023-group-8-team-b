@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -183,6 +184,7 @@ namespace TouristAgency.Service
                 currentReservation.End = updatedReservation.End;
             }
             currentReservation.Status = updatedReservation.Status;
+            currentReservation.OStatus = updatedReservation.OStatus;
 
             _storage.Save(_reservations);
             NotifyObservers();
@@ -230,6 +232,11 @@ namespace TouristAgency.Service
         public List<Reservation> GetUnreviewed(int ownerId)
         {
             return _reservations.Where(r => r.Accommodation.OwnerId == ownerId && r.Status == ReviewStatus.UNREVIEWED).ToList();
+        }
+
+        public List<Reservation> GetUnreviewedByGuestId(int guestId)
+        {
+            return _reservations.Where(r => r.GuestId == guestId && r.End <= DateTime.Now && r.End.AddDays(5) >= DateTime.Now && r.OStatus == ReviewStatus.UNREVIEWED).ToList();
         }
 
         public List<Reservation> GetByOwnerId(int id)

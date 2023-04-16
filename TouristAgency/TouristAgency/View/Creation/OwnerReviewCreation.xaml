@@ -33,7 +33,7 @@
         <Rectangle HorizontalAlignment="Left" Height="46" Margin="200,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="990"/>
         <Label Content="Owner and accommodation review, recommendation for renovation" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
 
-        <GroupBox Header="1. Owner and accommodation review (1-5)" FontSize="20" FontWeight="SemiBold" Margin="233,76,43,329">
+        <GroupBox Header="1. Owner and accommodation review (1-5)" FontSize="20" FontWeight="SemiBold" Margin="233,277,43,128">
             <Grid Height="220">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="47*"></RowDefinition>
@@ -56,20 +56,36 @@
                 <Label Grid.Row="2" Content="Location:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70"/>
                 <Label Grid.Row="3" Content="Comfort:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68"/>
                 <Label Grid.Row="4" Content="Wi-fi:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="45"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,43,0,0" Grid.RowSpan="2"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,3,0,0"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="4" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,4,0,0"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Value="{Binding Path=NewOwnerReview.Cleanliness}"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,43,0,0" Grid.RowSpan="2" Value ="{Binding Path = NewOwnerReview.OwnerCorrectness}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Value ="{Binding Path = NewOwnerReview.Location}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,3,0,0" Value ="{Binding Path = NewOwnerReview.Comfort}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="4" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,4,0,0" Value ="{Binding Path = NewOwnerReview.Wifi}"/>
 
                 <Label Grid.Column="2" Content="Additional comment:" FontSize="15" FontWeight="Normal" Height="46" VerticalAlignment="Center" Width="170" HorizontalAlignment="Left" Margin="134,0,0,0"/>
-                <TextBox Grid.Column="2" Margin="134,43,0,3" Grid.RowSpan="2" HorizontalAlignment="Left" Width="440"/>
+                <TextBox Grid.Column="2" Margin="134,43,0,3" Grid.RowSpan="2" HorizontalAlignment="Left" Width="440" Text ="{Binding Path = NewOwnerReview.Comment}"/>
                 <Label Grid.Row="2" Grid.Column="2" Content="Photo (put URL):" FontSize="15" FontWeight="Normal" Height="46" Width="170" HorizontalAlignment="Left" Margin="134,0,0,0" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="3" Grid.Column="2" Margin="134,3,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" Width="440"/>
+                <TextBox Grid.Row="3" Grid.Column="2" Margin="134,3,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" Width="440" Text="{Binding Path = PhotoLinks}">
+                    <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+                    <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+                    <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
+                    <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
+                </TextBox>
 
-                <Button Grid.Row="4" Grid.Column="5" Margin="0,14,0,0" Width="80" Height="30" VerticalAlignment="Top" Content="Submit" FontWeight="Normal" FontSize="15" HorizontalAlignment="Center"/>
+                <Button Grid.Row="4" Grid.Column="5" Margin="0,14,0,0" Width="80" Height="30" VerticalAlignment="Top" Content="Submit" FontWeight="Normal" FontSize="15" HorizontalAlignment="Center" Command="{Binding Path=CreateCmd}"/>
             </Grid>
         </GroupBox>
+        <ListView ItemsSource="{Binding Path = UnreviewedReservations}" Margin="233,85,43,412" SelectedItem="{Binding Path= SelectedReservation}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Owner name" DisplayMemberBinding="{Binding Path = Accommodation.Owner.FirstName}"></GridViewColumn>
+                    <GridViewColumn Header="Owner last name" DisplayMemberBinding="{Binding Path = Accommodation.Owner.LastName}"></GridViewColumn>
+                    <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>

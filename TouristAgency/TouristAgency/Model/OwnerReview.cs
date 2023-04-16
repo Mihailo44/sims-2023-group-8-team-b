@@ -127,7 +127,7 @@ namespace TouristAgency.Model
             {
                 if (value != _location)
                 {
-                    _cleanliness = value;
+                    _location = value;
                 }
             }
         }

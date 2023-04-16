@@ -106,6 +106,20 @@ namespace TouristAgency.Service
             }
         }
 
+        public void LoadPhotosToReviews(List<Photo> photos)
+        {
+            foreach (OwnerReview review in _ownerReviews)
+            {
+                foreach (Photo photo in photos)
+                {
+                    if (photo.ExternalID == review.Id && photo.Type == 'O')
+                    {
+                        review.Photos.Add(new Photo(photo));
+                    }
+                }
+            }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

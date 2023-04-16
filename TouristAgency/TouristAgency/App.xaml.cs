@@ -72,12 +72,14 @@ namespace TouristAgency
             //TODO Preci na servise
             AccommodationService.LoadLocationsToAccommodations(LocationService.GetAll());
             AccommodationService.LoadPhotosToAccommodations(PhotoService.GetAll());
+            AccommodationService.LoadOwnersToAccommodations(OwnerService.GetAll());
             OwnerService.LoadAccommodationsToOwners(AccommodationService.GetAll());
             OwnerService.LoadLocationsToOwners(LocationService.GetAll());
             GuestReviewService.LoadReservationsToGuestReviews(ReservationService.GetAll());
             CheckpointService.LoadLocationsToCheckpoints(LocationService.GetAll());
             TourService.LoadLocationsToTours(LocationService.GetAll());
             TourService.LoadPhotosToTours(PhotoService.GetAll());
+            OwnerReviewService.LoadPhotosToReviews(PhotoService.GetAll());
             ReservationService.LoadAccommodationsToReservations(AccommodationService.GetAll());
             ReservationService.LoadGuestsToReservations(GuestService.GetAll());
             TourCheckpointService.LoadCheckpoints(CheckpointService.GetAll());
