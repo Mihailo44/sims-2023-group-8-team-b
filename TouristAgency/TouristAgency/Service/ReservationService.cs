@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Storage;
@@ -138,22 +139,50 @@ namespace TouristAgency.Service
                 if (reservation.AccommodationId == accommodationID && end.Date >= reservation.Start.Date &&
                     end.Date <= reservation.End.Date)
                 {
-                    return true;
+                    if (reservation.Reserved == true)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
                          end.Date <= reservation.End.Date)
                 {
-                    return true;
+                    if (reservation.Reserved == true)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
                          start.Date <= reservation.End.Date)
                 {
-                    return true;
+                    if (reservation.Reserved == true)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else if (reservation.AccommodationId == accommodationID && start.Date <= reservation.Start.Date &&
                          end.Date >= reservation.End.Date)
                 {
-                    return true;
+                    if (reservation.Reserved == true)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -162,12 +191,25 @@ namespace TouristAgency.Service
 
         public Reservation Create(Reservation newReservation)
         {
-            newReservation.Id = GenerateId();
-            _reservations.Add(newReservation);
-            _storage.Save(_reservations);
-            NotifyObservers();
+            Reservation existingReservation = _reservations.FirstOrDefault(r => r.AccommodationId == newReservation.AccommodationId && r.Start == newReservation.Start && r.End == newReservation.End);
+            if (existingReservation == null)
+            {
+                newReservation.Id = GenerateId();
+                newReservation.Reserved = true;
+                _reservations.Add(newReservation);
+                _storage.Save(_reservations);
+                NotifyObservers();
 
-            return newReservation;
+                return newReservation;
+            }
+            else
+            {
+                newReservation.Reserved = true;
+                Update(newReservation, existingReservation.Id);
+                newReservation.Id = existingReservation.Id;
+                return newReservation;
+            }
+            
         }
 
         public Reservation Update(Reservation updatedReservation, int id)
@@ -185,6 +227,8 @@ namespace TouristAgency.Service
             }
             currentReservation.Status = updatedReservation.Status;
             currentReservation.OStatus = updatedReservation.OStatus;
+
+            currentReservation.Reserved = updatedReservation.Reserved;
 
             _storage.Save(_reservations);
             NotifyObservers();
@@ -275,6 +319,20 @@ namespace TouristAgency.Service
 
             return notification;
 
+        }
+
+        public bool CancelReservation(Reservation reservation)
+        {
+            DateTime limit = reservation.Start.AddDays(-1);
+
+            if (DateTime.Now <= limit)
+            {
+                reservation.Reserved = false;
+                Update(reservation, reservation.Id);
+                return true;
+            }
+
+            return false;
         }
 
         public void Subscribe(IObserver observer)

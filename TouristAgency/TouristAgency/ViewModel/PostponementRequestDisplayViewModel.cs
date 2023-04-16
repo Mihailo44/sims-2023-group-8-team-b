@@ -22,6 +22,7 @@ namespace TouristAgency.ViewModel
         private App _app;
 
         public DelegateCommand CreateCmd { get; }
+        public DelegateCommand CancelCmd { get; }
         public DelegateCommand NotificationCmd { get; }
 
         public PostponementRequestDisplayViewModel(Guest guest, Window window)
@@ -37,6 +38,7 @@ namespace TouristAgency.ViewModel
 
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
             NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
+            CancelCmd = new DelegateCommand(param => CancelExecute(), param => CanCancelExecute());
         }
 
         public ObservableCollection<Reservation> Reservations
@@ -129,6 +131,29 @@ namespace TouristAgency.ViewModel
         void NotificationExecute()
         {
             MessageBox.Show(_app.PostponementRequestService.ShowNotifications(_loggedInGuest.ID));
+        }
+
+        bool CanCancelExecute()
+        {
+            return true;
+        }
+
+        void CancelExecute()
+        {
+            if (SelectedReservation != null)
+            {
+                bool result;
+                result = _app.ReservationService.CancelReservation(SelectedReservation);
+                if (result == true)
+                {
+                    MessageBox.Show("Your reservation was successfully canceled");
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Reservation couldn't be canceled. You can only cancel 24 hours before the start of the reservation");
+                }
+            }
         }
 
     }

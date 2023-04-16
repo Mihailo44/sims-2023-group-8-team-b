@@ -55,7 +55,7 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Column="1" Content="Cancel reservation" Height="30" HorizontalAlignment="Center" Margin="0,147,20,0" Grid.Row="1" VerticalAlignment="Top" Width="101"/>
+            <Button Grid.Column="1" Content="Cancel reservation" Height="30" HorizontalAlignment="Center" Margin="0,147,20,0" Grid.Row="1" VerticalAlignment="Top" Width="101" Command="{Binding Path = CancelCmd}"/>
             <Button Grid.Row="0" Grid.Column="1" Content="Notifications" Command="{Binding Path=NotificationCmd}"/>
         </Grid>
 
