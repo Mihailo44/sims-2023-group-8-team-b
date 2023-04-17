@@ -64,7 +64,7 @@ namespace TouristAgency
 
         public App()
         {
-            GuideService = new(InjectorService.CreateInstance<IStorage<Guide>>());
+            GuideService = new (InjectorService.CreateInstance<IStorage<Guide>>());
             TourTouristService = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
             UserService = new(InjectorService.CreateInstance<IStorage<User>>());
             LocationService = new(InjectorService.CreateInstance<IStorage<Location>>());

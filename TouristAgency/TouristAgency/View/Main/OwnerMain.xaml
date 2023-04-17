@@ -12,7 +12,7 @@
         Title="OwnerMain" Height="768" Width="1024" 
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        x:Name="OwnerStart">
+        Name="OwnerStart">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AccommodationCreationViewModel}">

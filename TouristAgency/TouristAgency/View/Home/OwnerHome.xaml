@@ -29,6 +29,13 @@
                 HorizontalAlignment="Right" 
                 Panel.ZIndex="1000"
                 Background="Transparent">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeave">
+                    <i:InvokeCommandAction Command="{Binding ShowAccCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <WrapPanel Width="270" Height="170" Orientation="Vertical" Background="AliceBlue">
                 <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="17"/>
                 <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding Status}" FontSize="17"/>

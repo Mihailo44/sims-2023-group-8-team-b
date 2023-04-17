@@ -12,6 +12,7 @@ using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Dialogue;
+using TouristAgency.View.Main;
 
 namespace TouristAgency.ViewModel
 {
@@ -63,7 +64,7 @@ namespace TouristAgency.ViewModel
         public Owner LoggedUser { get; set; }
         public ViewModelBase CurrentVM { get; set; }
 
-        private readonly Window _window;
+        private Window _window;
         private App app = (App)App.Current;
 
         public DelegateCommand NewAccommodationCmd { get; }
@@ -78,7 +79,6 @@ namespace TouristAgency.ViewModel
         public OwnerHomeViewModel()
         {
             LoggedUser = app.LoggedUser;
-            _window = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.Name == "OwnerStart");
 
             _reservationService = app.ReservationService;
             _reservationService.Subscribe(this);
@@ -200,8 +200,6 @@ namespace TouristAgency.ViewModel
 
         public void OpenAccommodationCreationExecute()
         {
-            //ovde bi trebalo da promeni CurrentVM na AccommodationCreationForm
-            CurrentVM = new AccommodationCreationViewModel();
             app.CurrentVM = new AccommodationCreationViewModel();
         }
 
@@ -327,6 +325,7 @@ namespace TouristAgency.ViewModel
 
         public void CloseWindowExecute()
         {
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
             _window.Close();
         }
 
@@ -354,7 +353,7 @@ namespace TouristAgency.ViewModel
                     DataGridVisibility[i] = "Collapsed";
                 }
 
-                OnPropertyChanged($"DataGridVisibility");
+                OnPropertyChanged("DataGridVisibility");
             }
         }
 

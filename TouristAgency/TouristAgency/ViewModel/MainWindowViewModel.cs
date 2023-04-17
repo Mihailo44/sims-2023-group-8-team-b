@@ -51,7 +51,6 @@ namespace TouristAgency.ViewModel
             Password = "Pass";
             LoginCmd = new DelegateCommand(param => LoginExecute(),param => CanLoginExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
-            
         }
         
         public string Username
@@ -62,7 +61,7 @@ namespace TouristAgency.ViewModel
                 if (_username != value)
                 {
                     _username = value;
-                    //OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -75,7 +74,7 @@ namespace TouristAgency.ViewModel
                 if (_password != value)
                 {
                     _password = value;
-                    //OnPropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
