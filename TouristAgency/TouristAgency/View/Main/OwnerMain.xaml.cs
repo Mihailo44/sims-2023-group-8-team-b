@@ -10,19 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.Model;
+using TouristAgency.ViewModel;
 
-namespace TouristAgency.View.Home
+namespace TouristAgency.View.Main
 {
     /// <summary>
-    /// Interaction logic for OwnerHome.xaml
+    /// Interaction logic for OwnerMain.xaml
     /// </summary>
-    public partial class OwnerHome : UserControl
+    public partial class OwnerMain : Window
     {
-        public OwnerHome()
+        public OwnerMain()
         {
             InitializeComponent();
+            DataContext = new OwnerMainViewModel();
         }
     }
 }

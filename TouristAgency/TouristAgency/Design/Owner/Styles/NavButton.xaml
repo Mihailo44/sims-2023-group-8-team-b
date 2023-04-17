@@ -4,7 +4,7 @@
     <Style x:Key="NavButton" TargetType="Button">
         <Setter Property="Width" Value="150"/>
         <Setter Property="Height" Value="45"/>
-        <Setter Property="Margin" Value="25,0,0,0"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
         <Setter Property="Foreground" Value="#FFF6B2B2"/>
         <Setter Property="FontSize" Value="17"/>
         <Setter Property="Template">

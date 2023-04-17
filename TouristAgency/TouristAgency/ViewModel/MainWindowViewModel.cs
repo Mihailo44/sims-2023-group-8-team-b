@@ -10,6 +10,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 using TouristAgency.View.Home;
+using TouristAgency.View.Main;
 using TouristAgency.Model;
 using TouristAgency.Model.Enums;
 
@@ -61,7 +62,7 @@ namespace TouristAgency.ViewModel
                 if (_username != value)
                 {
                     _username = value;
-                    OnPropertyChanged();
+                    //OnPropertyChanged();
                 }
             }
         }
@@ -74,7 +75,7 @@ namespace TouristAgency.ViewModel
                 if (_password != value)
                 {
                     _password = value;
-                    OnPropertyChanged();
+                    //OnPropertyChanged();
                 }
             }
         }
@@ -111,7 +112,9 @@ namespace TouristAgency.ViewModel
                     case UserType.OWNER:
                         {
                             User = _ownerService.FindById(User.ID);
-                            OwnerHome x = new OwnerHome(User);
+                            app.LoggedUser = User;
+                            app.CurrentVM = new OwnerHomeViewModel();
+                            OwnerMain x = new OwnerMain();
                             x.Show();
                             ClearTxtBoxes();
                         }

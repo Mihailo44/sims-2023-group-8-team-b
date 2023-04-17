@@ -25,12 +25,7 @@ namespace TouristAgency.View.Creation
         public AccommodationCreationForm()
         {
             InitializeComponent();
-        }
-
-        public AccommodationCreationForm(Owner owner)
-        {
-            InitializeComponent();
-            DataContext = new AccommodationCreationViewModel(owner);
+            DataContext = new AccommodationCreationViewModel();
         }
     }
 }

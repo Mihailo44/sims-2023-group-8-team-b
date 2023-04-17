@@ -23,7 +23,6 @@ namespace TouristAgency.ViewModel
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
         private string _photoLinks;
-        private readonly Window _window;
         private App app = (App)App.Current;
 
         public Accommodation NewAccommodation { get; set; }
@@ -35,15 +34,9 @@ namespace TouristAgency.ViewModel
         public AccommodationCreationViewModel()
         {
             _accommodation = new();
-        }
-
-        public AccommodationCreationViewModel(Owner owner)
-        {
-            _accommodation = new();
             _photoService = app.PhotoService;
             _locationService = app.LocationService;
-            LoggedUser = owner;
-            //_window = window;
+            LoggedUser = app.LoggedUser;
             NewAccommodation = new();
             NewLocation = new();
             CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
@@ -224,7 +217,7 @@ namespace TouristAgency.ViewModel
             }
             finally
             {
-                _window.Close();
+                app.CurrentVM = new OwnerHomeViewModel();
             }
         }
 
@@ -235,7 +228,7 @@ namespace TouristAgency.ViewModel
 
         public void CloseWindowExecute()
         {
-            _window.Close();
+            app.CurrentVM = new OwnerHomeViewModel();
         }
     }
 }

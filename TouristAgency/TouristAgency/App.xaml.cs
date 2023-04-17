@@ -3,9 +3,8 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Service;
-using TouristAgency.Storage;
 using TouristAgency.Repository;
+using TouristAgency.Service;
 
 namespace TouristAgency
 {
@@ -40,6 +39,29 @@ namespace TouristAgency
         public AccommodationRepository AccommodationRepository { get; }
         public GuestReviewRepository GuestReviewRepository { get; }
 
+        public event Action CurrentVMChanged;
+
+        private ViewModelBase _currentVm;
+        public ViewModelBase CurrentVM
+        {
+            get => _currentVm;
+            set
+            {
+                _currentVm = value;
+                OnCurrentVMChanged();
+            }
+        }
+
+        private void OnCurrentVMChanged()
+        {
+            if (CurrentVMChanged != null)
+            {
+                CurrentVMChanged.Invoke();
+            }
+        }
+
+        public dynamic LoggedUser { get; set; }
+
         public App()
         {
             GuideService = new(InjectorService.CreateInstance<IStorage<Guide>>());
@@ -54,13 +76,13 @@ namespace TouristAgency
             PostponementRequestService = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
             TouristService = new(InjectorService.CreateInstance<IStorage<Tourist>>());
             GuideReviewService = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
-            
+
             VoucherService = new(InjectorService.CreateInstance<IStorage<Voucher>>());
             TourService = new(InjectorService.CreateInstance<IStorage<Tour>>());
             TourCheckpointService = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
             TourTouristCheckpointService = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
             CheckpointService = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
-            
+
             PhotoService = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestService = new(InjectorService.CreateInstance<IStorage<Guest>>());
 

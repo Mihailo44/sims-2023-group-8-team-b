@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows;
+using System.Linq;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -60,6 +61,7 @@ namespace TouristAgency.ViewModel
         public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
 
         public Owner LoggedUser { get; set; }
+        public ViewModelBase CurrentVM { get; set; }
 
         private readonly Window _window;
         private App app = (App)App.Current;
@@ -73,10 +75,10 @@ namespace TouristAgency.ViewModel
         public DelegateCommand ImportantCmd { get; }
         public DelegateCommand ShowAccCmd { get; }
 
-        public OwnerHomeViewModel(Window window, Owner owner)
+        public OwnerHomeViewModel()
         {
-            _window = window;
-            LoggedUser = owner;
+            LoggedUser = app.LoggedUser;
+            _window = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.Name == "OwnerStart");
 
             _reservationService = app.ReservationService;
             _reservationService.Subscribe(this);
@@ -115,9 +117,9 @@ namespace TouristAgency.ViewModel
             PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
             //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
-            ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute,CanShowDataGridExecute);
+            ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute, CanShowDataGridExecute);
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
-            ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(),param => CanShowAccountCmdExecute());
+            ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
         }
 
         private void LoadAccommodations(int ownerId)
@@ -198,7 +200,9 @@ namespace TouristAgency.ViewModel
 
         public void OpenAccommodationCreationExecute()
         {
-            AccommodationCreationForm x = new AccommodationCreationForm(LoggedUser);
+            //ovde bi trebalo da promeni CurrentVM na AccommodationCreationForm
+            CurrentVM = new AccommodationCreationViewModel();
+            app.CurrentVM = new AccommodationCreationViewModel();
         }
 
         public bool CanOpenGuestReviewCreationForm()
