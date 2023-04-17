@@ -10,7 +10,6 @@ namespace TouristAgency.Service
 {
     public class AccommodationService
     {
-        private readonly List<Accommodation> _accommodations;
         private readonly App app = (App)App.Current;
 
         public AccommodationRepository AccommodationRepository { get; }
@@ -18,13 +17,14 @@ namespace TouristAgency.Service
         public AccommodationService()
         {
             AccommodationRepository = app.AccommodationRepository;
-            _accommodations = AccommodationRepository.GetAll();
         }
 
         public List<string> GetNames()
         {
             List<string> names = new List<string>();
             names.Add(string.Empty);
+
+            List<Accommodation> _accommodations = AccommodationRepository.GetAll();
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -42,6 +42,8 @@ namespace TouristAgency.Service
             List<string> citites = new List<string>();
             citites.Add(string.Empty);
 
+            List<Accommodation> _accommodations = AccommodationRepository.GetAll();
+
             foreach (Accommodation accommodation in _accommodations)
             {
                 if (!citites.Contains(accommodation.Location.City) && accommodation.Location.City != "")
@@ -57,6 +59,8 @@ namespace TouristAgency.Service
         {
             List<string> countries = new List<string>();
             countries.Add(string.Empty);
+
+            List<Accommodation> _accommodations = AccommodationRepository.GetAll();
 
             foreach (Accommodation accommodation in _accommodations)
             {
@@ -74,6 +78,8 @@ namespace TouristAgency.Service
             List<string> types = new List<string>();
             types.Add(string.Empty);
 
+            List<Accommodation> _accommodations = AccommodationRepository.GetAll();
+
             foreach (Accommodation accommodation in _accommodations)
             {
                 if (!types.Contains(accommodation.Type.ToString()) && accommodation.Type.ToString() != "")
@@ -87,13 +93,13 @@ namespace TouristAgency.Service
 
         public List<Accommodation> GetByOwnerId(int id)
         {
-            return _accommodations.FindAll(a => a.OwnerId == id);
+            return AccommodationRepository.GetAll().FindAll(a => a.OwnerId == id);
         }
 
         public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
         {
 
-            return _accommodations.Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).ToList();
+            return AccommodationRepository.GetAll().Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).ToList();
         }
     }
 }

@@ -8,7 +8,7 @@ using TouristAgency.Model;
 
 namespace TouristAgency.Repository
 {
-    public class GuestReviewRepository : ICrud<GuestReview>
+    public class GuestReviewRepository : ICrud<GuestReview>,ISubject
     {
         private readonly IStorage<GuestReview> _storage;
         private readonly List<GuestReview> _guestReviews;
