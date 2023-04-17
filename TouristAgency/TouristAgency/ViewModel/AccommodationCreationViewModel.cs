@@ -6,10 +6,11 @@ using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Service;
 using TouristAgency.Model.Enums;
+using System.ComponentModel;
 
 namespace TouristAgency.ViewModel
 {
-    public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate
+    public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate, IDataErrorInfo
     {
         private readonly AccommodationService _accommodation;
         private readonly PhotoService _photoService;
@@ -36,13 +37,13 @@ namespace TouristAgency.ViewModel
             _accommodation = new();
         }
 
-        public AccommodationCreationViewModel(Owner owner, Window window)
+        public AccommodationCreationViewModel(Owner owner)
         {
             _accommodation = new();
             _photoService = app.PhotoService;
             _locationService = app.LocationService;
             LoggedUser = owner;
-            _window = window;
+            //_window = window;
             NewAccommodation = new();
             NewLocation = new();
             CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
@@ -153,6 +154,36 @@ namespace TouristAgency.ViewModel
             }
         }
 
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "PhotoLinks")
+                {
+                    if (string.IsNullOrEmpty(PhotoLinks))
+                        return "Required field";
+                }
+                return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "PhotoLinks" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
         public void AddPhotos()
         {
             PhotoLinks = PhotoLinks.Replace("\r\n", "|");
@@ -205,13 +236,6 @@ namespace TouristAgency.ViewModel
         public void CloseWindowExecute()
         {
             _window.Close();
-        }
-
-        //----------------------------------------------------------------------------------------------
-
-        public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
-        {
-            return _accommodation.Search(country, city, name, type, maxGuest, minDays);
         }
     }
 }

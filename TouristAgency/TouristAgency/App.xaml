@@ -6,9 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/CircleButton.xaml"/>
-                <ResourceDictionary Source="Styles/TabItem.xaml"/>
-                <ResourceDictionary Source="Styles/NavButton.xaml"/>
+                <ResourceDictionary Source="Design/Owner/Styles/CircleButton.xaml"/>
+                <ResourceDictionary Source="Design/Owner/Styles/NavButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

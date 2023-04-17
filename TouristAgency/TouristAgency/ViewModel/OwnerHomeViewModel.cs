@@ -21,7 +21,7 @@ namespace TouristAgency.ViewModel
         private OwnerReviewService _ownerReviewService;
         private OwnerService _ownerService;
         private PostponementRequestService _postponementRequestService;
-
+        private string _accountContainerVisibility;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
             {0, "Visible"},
@@ -29,6 +29,16 @@ namespace TouristAgency.ViewModel
             {2, "Collapsed"},
             {3, "Collapsed"}
         };
+
+        public string AccountContainerVisibility
+        {
+            get => _accountContainerVisibility;
+            set
+            {
+                _accountContainerVisibility = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Dictionary<int, string> DataGridVisibility
         {
@@ -61,6 +71,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand CloseCmd { get; }
         public DelegateCommand ShowDataGridCmd { get; }
         public DelegateCommand ImportantCmd { get; }
+        public DelegateCommand ShowAccCmd { get; }
 
         public OwnerHomeViewModel(Window window, Owner owner)
         {
@@ -82,6 +93,7 @@ namespace TouristAgency.ViewModel
             _ownerService = app.OwnerService;
 
             SetUserStatus();
+            AccountContainerVisibility = "Collapsed";
 
             Accommodations = new ObservableCollection<Accommodation>();
             LoadAccommodations(LoggedUser.ID);
@@ -105,6 +117,7 @@ namespace TouristAgency.ViewModel
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
             ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute,CanShowDataGridExecute);
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
+            ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(),param => CanShowAccountCmdExecute());
         }
 
         private void LoadAccommodations(int ownerId)
@@ -186,7 +199,6 @@ namespace TouristAgency.ViewModel
         public void OpenAccommodationCreationExecute()
         {
             AccommodationCreationForm x = new AccommodationCreationForm(LoggedUser);
-            x.Show();
         }
 
         public bool CanOpenGuestReviewCreationForm()
@@ -357,6 +369,23 @@ namespace TouristAgency.ViewModel
                 UseShellExecute = true
             };
             Process.Start(ps);
+        }
+
+        public bool CanShowAccountCmdExecute()
+        {
+            return true;
+        }
+
+        public void ShowAccountCmdExecute()
+        {
+            if(AccountContainerVisibility == "Visible")
+            {
+                AccountContainerVisibility = "Collapsed";
+            }
+            else
+            {
+                AccountContainerVisibility = "Visible";
+            }
         }
     }
 }

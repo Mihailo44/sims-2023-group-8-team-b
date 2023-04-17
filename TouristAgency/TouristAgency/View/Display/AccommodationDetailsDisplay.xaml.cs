@@ -12,25 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TouristAgency.Model;
-using TouristAgency.ViewModel;
 
-namespace TouristAgency.View.Creation
+namespace TouristAgency.View.Display
 {
     /// <summary>
-    /// Interaction logic for AccommodationCreationForm.xaml
+    /// Interaction logic for AccommodationDetailsDisplay.xaml
     /// </summary>
-    public partial class AccommodationCreationForm : UserControl
+    public partial class AccommodationDetailsDisplay : UserControl
     {
-        public AccommodationCreationForm()
+        public AccommodationDetailsDisplay()
         {
             InitializeComponent();
-        }
-
-        public AccommodationCreationForm(Owner owner)
-        {
-            InitializeComponent();
-            DataContext = new AccommodationCreationViewModel(owner);
         }
     }
 }

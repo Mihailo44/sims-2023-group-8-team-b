@@ -8,13 +8,12 @@
         mc:Ignorable="d"
         Title="OwnerHome" Height="768" Width="1024" WindowStartupLocation="CenterScreen" 
         ResizeMode="CanMinimize">
-    
+
     <Window.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ImportantCmd}"/>
     </Window.InputBindings>
-    
-    <Grid>
 
+    <Grid>
         <Grid Height="70" Width="970" VerticalAlignment="Bottom" Margin="0,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
@@ -22,7 +21,22 @@
             <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="New" Style="{StaticResource CircleBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
             <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Help" Style="{StaticResource CircleBtnStyle}"/>
         </Grid>
-        
+
+        <Canvas Visibility="{Binding AccountContainerVisibility}"
+                Width="270" 
+                Height="170" 
+                Margin="0,70,10,0"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right" 
+                Panel.ZIndex="1000"
+                Background="Transparent">
+            <WrapPanel Width="270" Height="170" Orientation="Vertical" Background="AliceBlue">
+                <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="17"/>
+                <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding Status}" FontSize="17"/>
+                <Button Width="120" Height="40" Margin="0,25,0,0" Content="Log out" Command="{Binding CloseCmd}"/>
+            </WrapPanel>
+        </Canvas>
+
         <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
             <WrapPanel Height="65" Width="1010" Background="PaleVioletRed">
                 <Grid Height="70" Width="1010">
@@ -34,9 +48,9 @@
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
-                    <!--<Label Width="150" Height="35" HorizontalAlignment="Center" Content="{Binding Status}" FontSize="15"/> -->
-                    <Button Grid.Column="1" Content="Log out" Style="{StaticResource CircleBtnStyle}" Command="{Binding CloseCmd}"/>
-                    <Button Grid.Column="2" Content="Acc" Style="{StaticResource CircleBtnStyle}"/>
+    
+                    <Button Grid.Column="1" Content="Notify" Style="{StaticResource CircleBtnStyle}"/>
+                    <Button Grid.Column="2" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
                 </Grid>
             </WrapPanel>
 
@@ -49,56 +63,53 @@
             </WrapPanel>
 
             <StackPanel>
-                <DataGrid
+                <ListView
                       Visibility="{Binding DataGridVisibility[0]}"
-                      Height="550" 
-                      FontSize="15" 
+                      Height="550"
+                      Width="1000"
+                      FontSize="19" 
                       ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
-                      SelectionMode="Single" 
-                      SelectionUnit="FullRow" 
-                      AutoGenerateColumns="False" 
-                      IsReadOnly="True" 
+                      SelectionMode="Single"  
                       SelectedItem="{Binding SelectedReservation}">
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Accommodation.Name}"/>
-                        <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Guest.FirstName}"/>
-                        <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Guest.LastName}"/>
-                        <DataGridTextColumn Width="*" Header="Start" FontSize="15" Binding="{Binding Start}"/>
-                        <DataGridTextColumn Width="*" Header="End" FontSize="15" Binding="{Binding End}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="250" Header="Accommodation" DisplayMemberBinding="{Binding Accommodation.Name}"/>
+                            <GridViewColumn Width="125" Header="First Name" DisplayMemberBinding="{Binding Guest.FirstName}"/>
+                            <GridViewColumn Width="125" Header="Last Name" DisplayMemberBinding="{Binding Guest.LastName}"/>
+                            <GridViewColumn Width="250" Header="Start" DisplayMemberBinding="{Binding Start}"/>
+                            <GridViewColumn Width="250" Header="End" DisplayMemberBinding="{Binding End}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-                <DataGrid
+                <ListView
                       Visibility="{Binding DataGridVisibility[1]}"
                       Height="550" 
-                      FontSize="15" ItemsSource="{Binding Accommodations}"
-                      SelectionMode="Single" 
-                      SelectionUnit="FullRow" 
-                      AutoGenerateColumns="False" 
-                      IsReadOnly="True" 
+                      Width="1000"
+                      FontSize="19" 
+                      ItemsSource="{Binding Accommodations}"
+                      SelectionMode="Single"
                       SelectedItem="{Binding SelectedAccommodation}">
-
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding NewAccommodationCmd}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Width="*" Header="City" Binding="{Binding Location.City}"/>
-                        <DataGridTextColumn Width="2*" Header="Type" Binding="{Binding Type}"/>
-                        <DataGridTextColumn Width="2*" Header="Max Number of Guests" Binding="{Binding MaxGuestNum}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="250" Header="City" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="250" Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                            <GridViewColumn Width="250" Header="Max Number of Guests" DisplayMemberBinding="{Binding MaxGuestNum}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
                 <DataGrid
                             Visibility="{Binding DataGridVisibility[2]}"
-                            Height="550" 
+                            Height="550"
+                            Width="1000"
                             FontSize="15" 
                             ItemsSource="{Binding PostponementRequests}" 
                             SelectedItem="{Binding SelectedRequest}" 
@@ -122,7 +133,8 @@
                 <DataGrid
                       Visibility="{Binding DataGridVisibility[3]}" 
                       Height="550" 
-                      FontSize="15" 
+                      Width="1000"
+                      FontSize="15"
                       ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" 
                       SelectionMode="Single" 
                       SelectionUnit="FullRow" 
