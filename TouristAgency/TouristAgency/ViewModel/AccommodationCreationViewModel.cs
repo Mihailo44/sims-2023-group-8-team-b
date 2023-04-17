@@ -179,13 +179,16 @@ namespace TouristAgency.ViewModel
 
         public void AddPhotos()
         {
-            PhotoLinks = PhotoLinks.Replace("\r\n", "|");
-            string[] photoLinks = PhotoLinks.Split("|");
-            foreach (string photoLink in photoLinks)
+            if (PhotoLinks != null)
             {
-                Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
-                NewAccommodation.Photos.Add(photo);
-                _photoService.Create(photo);
+                PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+                string[] photoLinks = PhotoLinks.Split("|");
+                foreach (string photoLink in photoLinks)
+                {
+                    Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
+                    NewAccommodation.Photos.Add(photo);
+                    _photoService.Create(photo);
+                }
             }
         }
 

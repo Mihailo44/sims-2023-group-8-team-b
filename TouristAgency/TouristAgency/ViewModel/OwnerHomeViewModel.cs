@@ -79,7 +79,7 @@ namespace TouristAgency.ViewModel
         public OwnerHomeViewModel()
         {
             LoggedUser = app.LoggedUser;
-
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
             _reservationService = app.ReservationService;
             _reservationService.Subscribe(this);
 
@@ -325,7 +325,6 @@ namespace TouristAgency.ViewModel
 
         public void CloseWindowExecute()
         {
-            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
             _window.Close();
         }
 

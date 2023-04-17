@@ -5,4 +5,3 @@
 4|0|Hilton Luxor Resort|11|HOTEL|200|4|7
 5|0|Anantara Palazzo Naiadi|12|HOTEL|80|5|10
 6|0|PMF|0|HUT|40|10|1
-7|0|sloj69|14|APARTMENT|10|10|11

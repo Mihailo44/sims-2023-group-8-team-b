@@ -112,7 +112,6 @@ namespace TouristAgency.ViewModel
                         {
                             User = _ownerService.FindById(User.ID);
                             app.LoggedUser = User;
-                            app.CurrentVM = new OwnerHomeViewModel();
                             OwnerMain x = new OwnerMain();
                             x.Show();
                             ClearTxtBoxes();

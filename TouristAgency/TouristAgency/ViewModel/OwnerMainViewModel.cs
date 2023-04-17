@@ -16,6 +16,7 @@ namespace TouristAgency.ViewModel
 
         public OwnerMainViewModel()
         {
+            app.CurrentVM = new OwnerHomeViewModel();
             app.CurrentVMChanged += OnCurrentVMChanged;
         }
 
