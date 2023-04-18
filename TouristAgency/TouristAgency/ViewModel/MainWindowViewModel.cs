@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using TouristAgency.Base;
-using TouristAgency.Service;
 using TouristAgency.Interfaces;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
+using TouristAgency.Model.Enums;
+using TouristAgency.Service;
 using TouristAgency.View.Home;
 using TouristAgency.View.Main;
-using TouristAgency.Model;
-using TouristAgency.Model.Enums;
 
 
 namespace TouristAgency.ViewModel
 {
-    public class MainWindowViewModel : ViewModelBase,ICloseable
+    public class MainWindowViewModel : ViewModelBase, ICloseable
     {
         private OwnerService _ownerService;
         private GuestService _guestService;
@@ -47,12 +39,11 @@ namespace TouristAgency.ViewModel
             _userService = app.UserService;
 
             _window = window;
-            Username = "User";
-            Password = "Pass";
-            LoginCmd = new DelegateCommand(param => LoginExecute(),param => CanLoginExecute());
-            CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
+ 
+            LoginCmd = new DelegateCommand(param => LoginExecute(), param => CanLoginExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }
-        
+
         public string Username
         {
             get => _username;

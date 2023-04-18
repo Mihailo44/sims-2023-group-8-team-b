@@ -1,7 +1,7 @@
-0|0|The Stanley Hotel|8|HOTEL|100|4|7
-1|0|Plaza Hotel|9|HOTEL|200|5|7
-2|0|The Ritz|10|HOTEL|100|4|4
-3|0|Shangri-La Hotel|10|HOTEL|90|5|4
-4|0|Hilton Luxor Resort|11|HOTEL|200|4|7
-5|0|Anantara Palazzo Naiadi|12|HOTEL|80|5|10
-6|0|PMF|0|HUT|40|10|1
+0卐0卐The Stanley Hotel卐8卐HOTEL卐100卐4卐7
+1卐0卐Plaza Hotel卐9卐HOTEL卐200卐5卐7
+2卐0卐The Ritz卐10卐HOTEL卐100卐4卐4
+3卐0卐Shangri-La Hotel卐10卐HOTEL卐90卐5卐4
+4卐0卐Hilton Luxor Resort卐11卐HOTEL卐200卐4卐7
+5卐0卐Anantara Palazzo Naiadi卐12卐HOTEL卐80卐5卐10
+6卐0卐PMF卐0卐HUT卐40卐10卐1
