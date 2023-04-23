@@ -12,7 +12,6 @@ namespace TouristAgency.Service
 {
     public class TourService
     {
-
         private readonly App _app;
         private TourRepository TourRepository { get; set; }
 
@@ -60,20 +59,25 @@ namespace TouristAgency.Service
             return TourRepository.GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.IN_PROGRESS);
         }
 
-        public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration, int maxCapacity)
+        public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration,
+            int maxCapacity)
         {
             List<Tour> filteredTours = new List<Tour>();
             if (minDuration > 0 && maxDuration == 0)
             {
-                return TourRepository.GetAll().Where(t => t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) && t.Language.Contains(language) && t.Duration >= minDuration && t.MaxAttendants >= maxCapacity).ToList();
+                return TourRepository.GetAll().Where(t =>
+                        t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) &&
+                        t.Language.Contains(language) && t.Duration >= minDuration && t.MaxAttendants >= maxCapacity)
+                    .ToList();
             }
             else
             {
-                return TourRepository.GetAll().Where(t => t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) && t.Language.Contains(language) && t.Duration >= minDuration && t.Duration <= maxDuration && t.MaxAttendants >= maxCapacity).ToList();
+                return TourRepository.GetAll().Where(t =>
+                    t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) &&
+                    t.Language.Contains(language) && t.Duration >= minDuration && t.Duration <= maxDuration &&
+                    t.MaxAttendants >= maxCapacity).ToList();
             }
         }
-
-        
 
         public void RegisterTourist(int tourID, Tourist tourist, int numberOfReservations)
         {

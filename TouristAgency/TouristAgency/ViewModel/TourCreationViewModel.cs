@@ -139,7 +139,8 @@ namespace TouristAgency.ViewModel
 
         public void PrepareLocation()
         {
-            int locationID = _app.LocationService.FindLocationId(NewLocation);
+            //TODO REPOSITORY
+            /*int locationID = _app.LocationService.FindLocationId(NewLocation);
             NewLocation.Id = locationID;
 
             if (locationID == -1)
@@ -148,7 +149,7 @@ namespace TouristAgency.ViewModel
             }
 
             _newTour.ShortLocation = NewLocation;
-            _newTour.ShortLocationID = NewLocation.Id;
+            _newTour.ShortLocationID = NewLocation.Id;*/
         }
 
         public void AddPhotos()

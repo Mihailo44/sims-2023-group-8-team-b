@@ -161,8 +161,9 @@ namespace TouristAgency.ViewModel
         {
             WithVoucher.Clear();
             WithoutVoucher.Clear();
-            WithVoucher.Add(_app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
-            WithoutVoucher.Add(SelectedTour.RegisteredTourists.Count - _app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
+            //TODO REPOSITORY
+            //WithVoucher.Add(_app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
+            //WithoutVoucher.Add(SelectedTour.RegisteredTourists.Count - _app.VoucherService.GetVouchersFromTours(SelectedTour.ID));
         }
 
         public void ClearAgeStatistics()

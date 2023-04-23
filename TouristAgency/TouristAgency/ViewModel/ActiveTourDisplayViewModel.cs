@@ -192,7 +192,8 @@ namespace TouristAgency.ViewModel
 
         public void LoadTouristsToCheckpoint()
         {
-            if (SelectedTour != null && AvailableCheckpoints != null)
+            //TODO REPOSITORY
+            /*if (SelectedTour != null && AvailableCheckpoints != null)
             {
                 ArrivedTourists.Clear();
                 TourCheckpoint selectedTourCheckpoint = SelectedTourCheckpoint;
@@ -206,7 +207,7 @@ namespace TouristAgency.ViewModel
                 {
                     _app.TourCheckpointRepository.Update(tc);
                 }
-            }
+            }*/
         }
 
         public bool CanBeginTourCmdExecute()
@@ -217,7 +218,8 @@ namespace TouristAgency.ViewModel
         public void BeginTourCmdExecute()
         {
             _selectedTour = SelectedTour;
-            RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
+            //TODO REPOSITORY
+            //RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
             _tourService.ChangeTourStatus(_selectedTour.ID, STATUS.IN_PROGRESS);
             AvailableCheckpoints = _tourCheckpointService.GetTourCheckpointsByTourID(_selectedTour.ID, _app.CheckpointService.GetAll());
             ListViewEnabled = false;
@@ -281,7 +283,8 @@ namespace TouristAgency.ViewModel
                 {
                     _selectedTour = tour;
                     SelectedTour = tour;
-                    RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
+                    //TODO REPOSITORY
+                    //RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _app.TouristService.GetAll()));
                     AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_app.TourCheckpointRepository.GetByID(_selectedTour.ID));
                     ListViewEnabled = false;
                     return true;

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 using TouristAgency.View.Display;
 
 namespace TouristAgency.ViewModel
@@ -24,6 +25,7 @@ namespace TouristAgency.ViewModel
         private int _numberOfPeople;
         private int _numberOfReservation;
         private Tourist _loggedInTourist;
+        private TouristService _touristService;
         private App _app;
 
         public DelegateCommand CloseCmd { get; }
@@ -253,7 +255,7 @@ namespace TouristAgency.ViewModel
 
             if (NumberOfReservation != 0)
             {
-                if (_app.TouristService.HasActiveVoucher(_loggedInTourist))
+                if (_touristService.HasActiveVoucher(_loggedInTourist))
                 {
                     MessageBoxResult result = MessageBox.Show("Do you want to use one voucher for this reservation?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
 

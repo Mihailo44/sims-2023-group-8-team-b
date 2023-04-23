@@ -61,7 +61,8 @@ namespace TouristAgency.ViewModel
                         DateTime oneYear = DateTime.Now.AddYears(1);
                         Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Compensation voucher", false, oneYear);
                         //int touristId, int tourID, string name, bool isUsed, DateTime expirationDate
-                        _app.VoucherService.Create(newVoucher);
+                        //TODO REPOSITORY
+                        //_app.VoucherService.Create(newVoucher);
                         tourist.WonVouchers.Add(newVoucher);
                     }
                 }

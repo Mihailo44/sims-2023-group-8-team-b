@@ -8,6 +8,7 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -16,6 +17,8 @@ namespace TouristAgency.ViewModel
         private ObservableCollection<Voucher> _vouchers;
         private Voucher _voucher;
         private Tourist _tourist;
+        private TouristService _touristService;
+        private VoucherService _voucherService;
         private int _tourID;
         private Window _window;
         private App _app;
@@ -27,10 +30,11 @@ namespace TouristAgency.ViewModel
         {
             _app = (App)Application.Current;
             _tourist = tourist;
+            _touristService = new TouristService();
             _tourID = tourID;
             _window = window;
 
-            Vouchers = new ObservableCollection<Voucher>(_app.TouristService.GetValidVouchers(tourist));
+            Vouchers = new ObservableCollection<Voucher>(_touristService.GetValidVouchers(tourist));
             UseVoucherCmd = new DelegateCommand(param => UseVoucherExecute(), param => CanUseVoucherExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
@@ -72,7 +76,7 @@ namespace TouristAgency.ViewModel
             if (result == MessageBoxResult.Yes) 
             {
                 Voucher voucher = SelectedVoucher;
-                _app.VoucherService.UseVoucher(voucher, _tourID);
+                _voucherService.UseVoucher(voucher, _tourID);
                 Vouchers.Remove(voucher);
                 MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }

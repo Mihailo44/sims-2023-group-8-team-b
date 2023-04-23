@@ -13,7 +13,7 @@ namespace TouristAgency.ViewModel
     {
         private OwnerService _ownerService;
         private GuestService _guestService;
-        private TouristService _touristService;
+        private TouristRepository _touristRepository;
         private GuideRepository _guideRepository;
         private UserService _userService;
         private readonly App app = (App)App.Current;
@@ -33,7 +33,7 @@ namespace TouristAgency.ViewModel
         public MainWindowViewModel(Window window)
         {
             _ownerService = app.OwnerService;
-            _touristService = app.TouristService;
+            _touristRepository = app.TouristRepository;
             _guideRepository = app.GuideRepository;
             _guestService = app.GuestService;
             _userService = app.UserService;
@@ -118,7 +118,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.TOURIST:
                         {
-                            User = _touristService.FindById(User.ID);
+                            User = _touristRepository.GetById(User.ID);
                             User.Username = Username;
                             User.Password = Password;
                             TouristHome x = new TouristHome(User);

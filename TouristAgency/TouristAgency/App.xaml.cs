@@ -20,8 +20,8 @@ namespace TouristAgency
         public UserService UserService { get; }
         public OwnerReviewService OwnerReviewService { get; }
         public PostponementRequestService PostponementRequestService { get; }
-        public TouristService TouristService { get; }
-        public VoucherService VoucherService { get; }
+        public TouristRepository TouristRepository { get; }
+        public VoucherRepository VoucherRepository { get; }
         public TourRepository TourRepository { get; }
         public TourTouristRepository TourTouristRepository { get; }
         public TourCheckpointRepository TourCheckpointRepository { get; }
@@ -29,11 +29,11 @@ namespace TouristAgency
         public CheckpointService CheckpointService { get; }
         public PhotoRepository PhotoRepository { get; }
         public GuestService GuestService { get; }
-        public LocationService LocationService { get; }
+        public LocationRepository LocationRepository { get; }
 
 
         public GuideRepository GuideRepository { get; }
-        public GuideReviewService GuideReviewService { get; }
+        public GuideReviewRepository GuideReviewRepository { get; }
 
         public AccommodationRepository AccommodationRepository { get; }
         public GuestReviewRepository GuestReviewRepository { get; }
@@ -66,17 +66,17 @@ namespace TouristAgency
             GuideRepository = new (InjectorService.CreateInstance<IStorage<Guide>>());
             TourTouristRepository = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
             UserService = new(InjectorService.CreateInstance<IStorage<User>>());
-            LocationService = new(InjectorService.CreateInstance<IStorage<Location>>());
+            LocationRepository = new(InjectorService.CreateInstance<IStorage<Location>>());
             ReservationService = new(InjectorService.CreateInstance<IStorage<Reservation>>());
             AccommodationRepository = new(InjectorService.CreateInstance<IStorage<Accommodation>>());
             GuestReviewRepository = new(InjectorService.CreateInstance<IStorage<GuestReview>>());
             OwnerService = new(InjectorService.CreateInstance<IStorage<Owner>>());
             OwnerReviewService = new(InjectorService.CreateInstance<IStorage<OwnerReview>>());
             PostponementRequestService = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
-            TouristService = new(InjectorService.CreateInstance<IStorage<Tourist>>());
-            GuideReviewService = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
+            TouristRepository = new(InjectorService.CreateInstance<IStorage<Tourist>>());
+            GuideReviewRepository = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
 
-            VoucherService = new(InjectorService.CreateInstance<IStorage<Voucher>>());
+            VoucherRepository = new(InjectorService.CreateInstance<IStorage<Voucher>>());
             TourRepository = new(InjectorService.CreateInstance<IStorage<Tour>>());
             TourCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
             TourTouristCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
@@ -85,29 +85,29 @@ namespace TouristAgency
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestService = new(InjectorService.CreateInstance<IStorage<Guest>>());
 
-            AccommodationRepository.LoadLocationsToAccommodations(LocationService.GetAll());
+            AccommodationRepository.LoadLocationsToAccommodations(LocationRepository.GetAll());
             AccommodationRepository.LoadPhotosToAccommodations(PhotoRepository.GetAll());
             AccommodationRepository.LoadOwnersToAccommodations(OwnerService.GetAll());
             OwnerService.LoadAccommodationsToOwners(AccommodationRepository.GetAll());
-            OwnerService.LoadLocationsToOwners(LocationService.GetAll());
+            OwnerService.LoadLocationsToOwners(LocationRepository.GetAll());
             GuestReviewRepository.LoadReservationsToGuestReviews(ReservationService.GetAll());
-            CheckpointService.LoadLocationsToCheckpoints(LocationService.GetAll());
-            TourRepository.LoadLocationsToTours(LocationService.GetAll());
+            CheckpointService.LoadLocationsToCheckpoints(LocationRepository.GetAll());
+            TourRepository.LoadLocationsToTours(LocationRepository.GetAll());
             TourRepository.LoadPhotosToTours(PhotoRepository.GetAll());
             OwnerReviewService.LoadPhotosToReviews(PhotoRepository.GetAll());
             ReservationService.LoadAccommodationsToReservations(AccommodationRepository.GetAll());
             ReservationService.LoadGuestsToReservations(GuestService.GetAll());
             TourCheckpointRepository.LoadCheckpoints(CheckpointService.GetAll());
             GuideRepository.LoadToursToGuide(TourRepository.GetAll());
-            GuideReviewService.LoadTouristsToReviews(TouristService.GetAll());
-            GuideReviewService.LoadToursToGuideReviews(TourRepository.GetAll());
-            TourRepository.LoadTouristsToTours(TourTouristRepository.GetAll(), TouristService.GetAll());
-            TouristService.LoadToursToTourist(TourTouristRepository.GetAll(), TourRepository.GetAll());
+            GuideReviewRepository.LoadTouristsToReviews(TouristRepository.GetAll());
+            GuideReviewRepository.LoadToursToGuideReviews(TourRepository.GetAll());
+            TourRepository.LoadTouristsToTours(TourTouristRepository.GetAll(), TouristRepository.GetAll());
+            TouristRepository.LoadToursToTourist(TourTouristRepository.GetAll(), TourRepository.GetAll());
             TourRepository.LoadCheckpointsToTours(TourCheckpointRepository.GetAll(), CheckpointService.GetAll());
             OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
             PostponementRequestService.LoadReservationsToPostponementRequests(ReservationService.GetAll());
-            TouristService.LoadVouchersToTourist(VoucherService.GetAll());
-            GuideReviewService.LoadPhotosToReviews(PhotoRepository.GetAll());
+            TouristRepository.LoadVouchersToTourist(VoucherRepository.GetAll());
+            GuideReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
         }
     }
 }

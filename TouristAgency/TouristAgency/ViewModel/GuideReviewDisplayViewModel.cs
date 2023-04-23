@@ -29,12 +29,13 @@ namespace TouristAgency.ViewModel
             _loggedInGuide = guide;
             _selectedTour = tour;
             _window = window;
-            GuideReviews = new ObservableCollection<GuideReview>(_app.GuideReviewService.GetReviewsForGuideTourID(guide.ID, tour.ID));
+            //TODO REPOSITORY
+            //GuideReviews = new ObservableCollection<GuideReview>(_app.GuideReviewService.GetReviewsForGuideTourID(guide.ID, tour.ID));
             StartEndTime = tour.StartDateTime.Hour + tour.StartDateTime.ToString("tt") + " - " + (tour.StartDateTime.AddHours(tour.Duration)).Hour.ToString() + tour.StartDateTime.ToString("tt");
             Capacity = tour.CurrentAttendants + "/" + tour.MaxAttendants;
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             MarkAsInvalidCmd = new DelegateCommand(param => MarkAsInvalidExecute(), param => CanMarkAsInvalidExecute());
-            _app.GuideReviewService.Subscribe(this);
+            //_app.GuideReviewService.Subscribe(this);
         }
 
         public ObservableCollection<GuideReview> GuideReviews
@@ -108,18 +109,20 @@ namespace TouristAgency.ViewModel
             if(SelectedReview != null)
             {
                 SelectedReview.IsInvalid = true;
-                _app.GuideReviewService.Update(SelectedReview, SelectedReview.ID);
+                //TODO REPOSITORY
+                //_app.GuideReviewService.Update(SelectedReview, SelectedReview.ID);
             }
         }
 
         public void Update()
         {
             GuideReviews.Clear();
-            ObservableCollection<GuideReview> temp = new ObservableCollection<GuideReview>(_app.GuideReviewService.GetReviewsForGuideTourID(_loggedInGuide.ID, _selectedTour.ID));
+            //TODO REPOSITORY
+            /*ObservableCollection<GuideReview> temp = new ObservableCollection<GuideReview>(_app.GuideReviewService.GetReviewsForGuideTourID(_loggedInGuide.ID, _selectedTour.ID));
             foreach(var GuideReview in temp)
             {
                 GuideReviews.Add(GuideReview);
-            }
+            }*/
         }
     }
 }

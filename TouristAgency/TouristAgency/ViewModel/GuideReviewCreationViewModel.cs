@@ -19,6 +19,7 @@ namespace TouristAgency.ViewModel
         private Tourist _loggedInTourist;
         private ObservableCollection<Tour> _finishedTours;
         private TourService _tourService;
+        private GuideReviewService _guideReviewService;
         public DelegateCommand CreateCmd { get; }
 
         public GuideReviewCreationViewModel(Tourist tourist, Window window)
@@ -75,13 +76,13 @@ namespace TouristAgency.ViewModel
             NewGuideReview.Tourist = _loggedInTourist;
             NewGuideReview.TourID = SelectedTour.ID;
             NewGuideReview.Tour = SelectedTour;
-            _app.GuideReviewService.Create(NewGuideReview);
+            _app.GuideReviewRepository.Create(NewGuideReview);
             MessageBox.Show("Successfully send a review.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void AddPhotos()
         {
-            int guideReviewID = _app.GuideReviewService.GenerateId() - 1;
+            int guideReviewID = _app.GuideReviewRepository.GenerateId() - 1;
             if (PhotoLinks != null)
             {
                 PhotoLinks = PhotoLinks.Replace("\r\n", "|");

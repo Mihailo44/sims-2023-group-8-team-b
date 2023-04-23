@@ -14,8 +14,8 @@ namespace TouristAgency.ViewModel
     public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate, IDataErrorInfo
     {
         private readonly AccommodationService _accommodation;
-        private readonly PhotoRepository _PhotoRepository;
-        private readonly LocationService _locationService;
+        private readonly PhotoRepository _photoRepository;
+        private LocationService _locationService;
         private Owner _owner;
         private int _ownerId;
         private string _name;
@@ -35,8 +35,8 @@ namespace TouristAgency.ViewModel
         public AccommodationCreationViewModel()
         {
             _accommodation = new();
-            _PhotoRepository = app.PhotoRepository;
-            _locationService = app.LocationService;
+            _photoRepository = app.PhotoRepository;
+            _locationService = new LocationService();
             LoggedUser = app.LoggedUser;
             NewAccommodation = new();
             NewLocation = new();
@@ -188,7 +188,7 @@ namespace TouristAgency.ViewModel
                 {
                     Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
                     NewAccommodation.Photos.Add(photo);
-                    _PhotoRepository.Create(photo);
+                    _photoRepository.Create(photo);
                 }
             }
         }
