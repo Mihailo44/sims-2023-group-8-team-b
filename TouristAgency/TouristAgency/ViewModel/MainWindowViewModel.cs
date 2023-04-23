@@ -5,7 +5,7 @@ using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Home;
 using TouristAgency.View.Main;
-
+using TouristAgency.Repository;
 
 namespace TouristAgency.ViewModel
 {
@@ -14,7 +14,7 @@ namespace TouristAgency.ViewModel
         private OwnerService _ownerService;
         private GuestService _guestService;
         private TouristService _touristService;
-        private GuideService _guideService;
+        private GuideRepository _guideRepository;
         private UserService _userService;
         private readonly App app = (App)App.Current;
         private Window _window;
@@ -34,7 +34,7 @@ namespace TouristAgency.ViewModel
         {
             _ownerService = app.OwnerService;
             _touristService = app.TouristService;
-            _guideService = app.GuideService;
+            _guideRepository = app.GuideRepository;
             _guestService = app.GuestService;
             _userService = app.UserService;
 
@@ -128,7 +128,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.GUIDE:
                         {
-                            User = _guideService.FindById(User.ID);
+                            User = _guideRepository.GetById(User.ID);
                             GuideHome x = new GuideHome(User);
                             x.Show();
                             ClearTxtBoxes();

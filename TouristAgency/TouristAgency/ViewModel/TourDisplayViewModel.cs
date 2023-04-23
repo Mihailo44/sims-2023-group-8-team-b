@@ -35,11 +35,11 @@ namespace TouristAgency.ViewModel
         public TourDisplayViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
-
-            Tours = new ObservableCollection<Tour>(_app.TourService.GetValidTours());
-            Countries = new ObservableCollection<string>(_app.TourService.GetAllCountries());
-            Cities = new ObservableCollection<string>(_app.TourService.GetAllCities());
-            Languages = new ObservableCollection<string>(_app.TourService.GetAllLanguages());
+            //TODO REPOSITORY
+            //Tours = new ObservableCollection<Tour>(_app.TourService.GetValidTours());
+            //Countries = new ObservableCollection<string>(_app.TourService.GetAllCountries());
+            //Cities = new ObservableCollection<string>(_app.TourService.GetAllCities());
+            //Languages = new ObservableCollection<string>(_app.TourService.GetAllLanguages());
             _loggedInTourist = tourist;
 
             FilterCmd = new DelegateCommand(param => FilterCmdExecute(), param => CanFilterCmdExecute());
@@ -187,7 +187,8 @@ namespace TouristAgency.ViewModel
             string city = SelectedCity;
             string language = SelectedLanguage;
 
-            Tours = new ObservableCollection<Tour>(_app.TourService.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
+            //TODO REPOSITORY
+            //Tours = new ObservableCollection<Tour>(_app.TourService.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
 
             if (MinDuration == 0 && MaxDuration == 0)
             {
@@ -202,7 +203,8 @@ namespace TouristAgency.ViewModel
 
         private void ClearCmdExecute()
         {
-            Tours = new ObservableCollection<Tour>(_app.TourService.GetValidTours());
+            //TODO REPOSITORY
+            //Tours = new ObservableCollection<Tour>(_app.TourService.GetValidTours());
             MinDuration = 0;
             MaxDuration = 0;
         }
@@ -229,7 +231,8 @@ namespace TouristAgency.ViewModel
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    List<Tour> alternatives = _app.TourService.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople);
+                    //TODO REPOSITORY
+                    /*List<Tour> alternatives = _app.TourService.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople);
                     alternatives = alternatives.FindAll(t => t.StartDateTime >= DateTime.Now);
                     Tours = new ObservableCollection<Tour>(alternatives);
                     List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
@@ -238,7 +241,7 @@ namespace TouristAgency.ViewModel
                     {
                         Tours.Remove(tour);
                     }
-                    return;
+                    return;*/
                 }
             }
 
@@ -269,8 +272,9 @@ namespace TouristAgency.ViewModel
                     MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                _app.TourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
-                _app.TourTouristService.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
+                //TODO REPOSITORY
+                //_app.TourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
+                //_app.TourTouristService.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);
             }
             else

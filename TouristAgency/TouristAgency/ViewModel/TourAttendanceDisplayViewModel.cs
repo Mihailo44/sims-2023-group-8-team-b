@@ -26,7 +26,8 @@ namespace TouristAgency.ViewModel
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
-            Tours = new ObservableCollection<Tour>(_app.TourService.GetActiveTours(tourist));
+            //TODO REPOSITORY
+            //Tours = new ObservableCollection<Tour>(_app.TourService.GetActiveTours(tourist));
             ShowCheckpointInfoCmd = new DelegateCommand(param => ShowCheckpointInfoExecute(), param => CanShowCheckpointInfoExecute());
             JoinCmd = new DelegateCommand(param => JoinExecute(), param => CanJoinExecute());
         }
@@ -72,11 +73,12 @@ namespace TouristAgency.ViewModel
         {
             if(SelectedTour != null) 
             {
-                Checkpoint checkpoint = _app.TourCheckpointService.GetLatestCheckpoint(SelectedTour);
+                //TODO REPOSITORY
+                /*Checkpoint checkpoint = _app.TourCheckpointService.GetLatestCheckpoint(SelectedTour);
                 string name = checkpoint.AttractionName;
                 string city = checkpoint.Location.City;
                 string country = checkpoint.Location.Country;
-                ActiveCheckpoint = "Checkpoint: " + name + ", " + city + ", " + country;
+                ActiveCheckpoint = "Checkpoint: " + name + ", " + city + ", " + country;*/
             }
         }
 
@@ -89,22 +91,25 @@ namespace TouristAgency.ViewModel
         {
             if (SelectedTour != null) 
             {
-                TourTourist tourTourist = _app.TourTouristService.FindByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
+                //TODO REPOSITORY
+                /*TourTourist tourTourist = _app.TourTouristService.FindByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
                 tourTourist.Arrived = true;
                 _app.TourTouristService.Update(tourTourist);
                 MessageBox.Show("Successfully joined the tour.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                */
             }
         }
 
         public void Update()
         {
-            var tours = _app.TourService.GetActiveTours(_loggedInTourist);
+            //TODO REPOSITORY
+            /*var tours = _app.TourService.GetActiveTours(_loggedInTourist);
             Tours.Clear();
             foreach(Tour tour in tours)
             {
                 Tours.Add(tour);
             }
-            ShowCheckpointInfoExecute();
+            ShowCheckpointInfoExecute();*/
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -17,15 +18,16 @@ namespace TouristAgency.ViewModel
         private App _app;
         private Tourist _loggedInTourist;
         private ObservableCollection<Tour> _finishedTours;
-
+        private TourService _tourService;
         public DelegateCommand CreateCmd { get; }
 
         public GuideReviewCreationViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
+            _tourService = new TourService();
 
             _loggedInTourist = tourist;
-            FinishedTours =  new ObservableCollection<Tour>(_app.TourService.GetFinishedToursByTourist(tourist));
+            FinishedTours =  new ObservableCollection<Tour>(_tourService.GetFinishedToursByTourist(tourist));
             NewGuideReview = new GuideReview();
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
         }
@@ -88,7 +90,7 @@ namespace TouristAgency.ViewModel
                 {
                     Photo photo = new Photo(photoLink, 'G', guideReviewID);
                     NewGuideReview.Photos.Add(photo);
-                    _app.PhotoService.Create(photo);
+                    _app.PhotoRepository.Create(photo);
                 }
             }
         }

@@ -5,65 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Repository;
 using TouristAgency.Storage;
 
 namespace TouristAgency.Service
 {
-    public class TourTouristService : ISubject
+    public class TourTouristService
     {
-        private readonly IStorage<TourTourist> _storage;
-        private readonly List<TourTourist> _tourtourist;
-        private List<IObserver> _observers;
 
-        public TourTouristService(IStorage<TourTourist> storage)
+        private readonly App _app;
+        private TourTouristRepository TourTouristRepository { get; set; }
+        public TourTouristService()
         {
-            _storage = storage;
-            _tourtourist = _storage.Load();
-            _observers = new List<IObserver>();
+            _app = (App)App.Current;
+            TourTouristRepository = _app.TourTouristRepository;
         }
 
-        public TourTourist FindByTouristID(int ID)
+        public TourTourist GetByTouristID(int ID)
         {
-            return _tourtourist.First(tt => tt.TouristID == ID);
-        }
-
-        public TourTourist FindByTourAndTouristID(int tourID, int touristID)
-        {
-            return _tourtourist.First(tt => tt.TourID == tourID && tt.TouristID == touristID);
-        }
-
-        public void Create(TourTourist tourTourist)
-        {
-            _tourtourist.Add(tourTourist);
-            _storage.Save(_tourtourist);
-            NotifyObservers();
-        }
-
-        public void Update(TourTourist tourTourist)
-        {
-            TourTourist newTourTourist = FindByTourAndTouristID(tourTourist.TourID, tourTourist.TouristID);
-            newTourTourist.Arrived = tourTourist.Arrived;
-            _storage.Save(_tourtourist);
-            NotifyObservers();
-        }
-
-        public void Delete(int touristID)
-        {
-            TourTourist deletedTourTourist = _tourtourist.Find(t => t.TouristID == touristID);
-            _tourtourist.Remove(deletedTourTourist);
-            _storage.Save(_tourtourist);
-            NotifyObservers();
-        }
-
-        public List<TourTourist> GetAll()
-        {
-            return _tourtourist;
+            return TourTouristRepository.GetAll().First(tt => tt.TouristID == ID);
         }
 
         public List<Tourist> GetArrivedTourist(int tourID, List<Tourist> tourists)
         {
             List<Tourist> arrivedTourists = new List<Tourist>();
-            foreach(TourTourist tourTourist in _tourtourist)
+            foreach(TourTourist tourTourist in TourTouristRepository.GetAll())
             {
                 foreach(Tourist tourist in tourists) 
                 {
@@ -75,24 +41,6 @@ namespace TouristAgency.Service
             }
 
             return arrivedTourists;
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (IObserver observer in _observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

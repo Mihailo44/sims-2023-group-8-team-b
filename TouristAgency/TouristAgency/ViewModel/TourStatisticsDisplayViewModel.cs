@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
+using TouristAgency.Service;
 using TouristAgency.View.Display;
 
 namespace TouristAgency.ViewModel
@@ -18,6 +19,7 @@ namespace TouristAgency.ViewModel
         private Tour _selectedTour;
         private Guide _loggedInGuide;
         private App _app;
+        private TourService _tourService;
         private ChartValues<int> _young;
         private ChartValues<int> _adult;
         private ChartValues<int> _old;
@@ -32,7 +34,8 @@ namespace TouristAgency.ViewModel
             _loggedInGuide = guide;
             _tours = new ObservableCollection<Tour>();
             _app = (App)App.Current;
-            Tours = new ObservableCollection<Tour>(_app.TourService.GetFinishedToursByGuide(guide));
+            _tourService = new TourService();
+            Tours = new ObservableCollection<Tour>(_tourService.GetFinishedToursByGuide(guide));
             Young = new ChartValues<int>();
             Adult = new ChartValues<int>();
             Old = new ChartValues<int>();
@@ -147,7 +150,7 @@ namespace TouristAgency.ViewModel
 
         public void GetTourAgeStatistics()
         {
-            int[] results = _app.TourService.GetTourAgeStatistics(SelectedTour);
+            int[] results = _tourService.GetTourAgeStatistics(SelectedTour);
             ClearAgeStatistics();
             Young.Add(results[0]);
             Adult.Add(results[1]);

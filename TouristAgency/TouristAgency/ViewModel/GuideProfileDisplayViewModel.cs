@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -19,7 +20,7 @@ namespace TouristAgency.ViewModel
         private ObservableCollection<Tour> _availableTours;
         private ObservableCollection<String> _years;
         private Window _window;
-
+        private TourService _tourService;
         public DelegateCommand GetBestTourCmd { get; }
         public DelegateCommand CloseCmd { get; }
         public GuideProfileDisplayViewModel(Guide guide, Window window)
@@ -27,7 +28,8 @@ namespace TouristAgency.ViewModel
             _app = (App)Application.Current;
             _loggedInGuide = guide;
             _window = window;
-            Years = new ObservableCollection<string>(_app.TourService.GetYearsForStatistics());
+            _tourService = new TourService();
+            Years = new ObservableCollection<string>(_tourService.GetYearsForStatistics());
             GetBestTourCmd = new DelegateCommand(param => GetBestTourExecute(), param => CanGetBestTourExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             Tours = new ObservableCollection<Tour>();
@@ -74,7 +76,7 @@ namespace TouristAgency.ViewModel
             if(SelectedYear != null)
             { 
                 Tours.Clear();
-                Tours.Add(_app.TourService.GetBestTourByYear(SelectedYear));
+                Tours.Add(_tourService.GetBestTourByYear(SelectedYear));
             }
         }
 

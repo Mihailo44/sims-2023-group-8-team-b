@@ -112,7 +112,7 @@ namespace TouristAgency.ViewModel
                 {
                     Photo photo = new Photo(photoLink, 'O', ownerReviewID);
                     NewOwnerReview.Photos.Add(photo);
-                    _app.PhotoService.Create(photo);
+                    _app.PhotoRepository.Create(photo);
                 }
             }
         }

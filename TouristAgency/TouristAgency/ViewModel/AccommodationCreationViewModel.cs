@@ -7,13 +7,14 @@ using TouristAgency.Model;
 using TouristAgency.Service;
 using TouristAgency.Model.Enums;
 using System.ComponentModel;
+using TouristAgency.Repository;
 
 namespace TouristAgency.ViewModel
 {
     public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate, IDataErrorInfo
     {
         private readonly AccommodationService _accommodation;
-        private readonly PhotoService _photoService;
+        private readonly PhotoRepository _PhotoRepository;
         private readonly LocationService _locationService;
         private Owner _owner;
         private int _ownerId;
@@ -34,7 +35,7 @@ namespace TouristAgency.ViewModel
         public AccommodationCreationViewModel()
         {
             _accommodation = new();
-            _photoService = app.PhotoService;
+            _PhotoRepository = app.PhotoRepository;
             _locationService = app.LocationService;
             LoggedUser = app.LoggedUser;
             NewAccommodation = new();
@@ -187,7 +188,7 @@ namespace TouristAgency.ViewModel
                 {
                     Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
                     NewAccommodation.Photos.Add(photo);
-                    _photoService.Create(photo);
+                    _PhotoRepository.Create(photo);
                 }
             }
         }

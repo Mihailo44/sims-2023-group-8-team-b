@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -15,14 +16,15 @@ namespace TouristAgency.ViewModel
         private App _app;
         private Guide _guide;
         private ObservableCollection<Tour> _availableTours;
-
+        private TourService _tourService;
         public DelegateCommand CancelTourCmd { get; }
 
         public CancelTourDisplayViewModel(Guide guide, Window window)
         {
             _app = (App)Application.Current;
             _guide = guide;
-            AvailableTours = new ObservableCollection<Tour>(_app.TourService.GetCancellabeTours());
+            _tourService = new TourService();
+            AvailableTours = new ObservableCollection<Tour>(_tourService.GetCancellabeTours());
             CancelTourCmd = new DelegateCommand(param => CancelToursExecute(), param => CanCancelToursExecute());
         }
 
@@ -53,7 +55,7 @@ namespace TouristAgency.ViewModel
                 if(tour.IsSelected)
                 {
                     tourToBeDeleted.Add(tour);
-                    _app.TourService.ChangeTourStatus(tour.ID, Model.Enums.STATUS.CANCELLED);
+                    _tourService.ChangeTourStatus(tour.ID, Model.Enums.STATUS.CANCELLED);
                     foreach(Tourist tourist in tour.RegisteredTourists)
                     {
                         DateTime oneYear = DateTime.Now.AddYears(1);
