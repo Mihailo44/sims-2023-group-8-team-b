@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Model.Enums;
-using TouristAgency.Storage.FileStorage;
+
 
 namespace TouristAgency.Service
 {

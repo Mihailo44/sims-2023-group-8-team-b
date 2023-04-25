@@ -27,16 +27,16 @@ namespace TouristAgency.ViewModel
 
         public MainWindowViewModel()
         {
-            _userService = app.UserService;
+            _userService = new();
         }
 
         public MainWindowViewModel(Window window)
         {
-            _ownerService = app.OwnerService;
+            _ownerService = new();
             _touristRepository = app.TouristRepository;
             _guideRepository = app.GuideRepository;
             _guestService = app.GuestService;
-            _userService = app.UserService;
+            _userService = new();
 
             _window = window;
  
@@ -93,7 +93,7 @@ namespace TouristAgency.ViewModel
 
         public void LoginExecute()
         {
-            User = _userService.CheckCredentials(Username, Password);
+            User = _userService.UserRepository.CheckCredentials(Username, Password);
 
             if (User != null)
             {
@@ -101,7 +101,7 @@ namespace TouristAgency.ViewModel
                 {
                     case UserType.OWNER:
                         {
-                            User = _ownerService.FindById(User.ID);
+                            User = _ownerService.OwnerRepository.GetById(User.ID);
                             app.LoggedUser = User;
                             OwnerMain x = new OwnerMain();
                             x.Show();

@@ -24,8 +24,9 @@ namespace TouristAgency.Repository
         {
             _tourtourist.Add(tourTourist);
             _storage.Save(_tourtourist);
-            return tourTourist;
             NotifyObservers();
+
+            return tourTourist;
         }
         public TourTourist GetByTourAndTouristID(int tourID, int touristID)
         {

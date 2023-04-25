@@ -67,51 +67,70 @@ namespace TouristAgency.ViewModel
         private Window _window;
         private App app = (App)App.Current;
 
-        public DelegateCommand NewAccommodationCmd { get; }
-        public DelegateCommand NewReviewCmd { get; }
-        public DelegateCommand PostponeCmd { get; }
-        public DelegateCommand PostponeCommentCmd { get; }
-        public DelegateCommand CloseCmd { get; }
-        public DelegateCommand ShowDataGridCmd { get; }
-        public DelegateCommand ImportantCmd { get; }
-        public DelegateCommand ShowAccCmd { get; }
+        public DelegateCommand NewAccommodationCmd { get; set; }
+        public DelegateCommand NewReviewCmd { get; set; }
+        public DelegateCommand PostponeCmd { get; set; }
+        public DelegateCommand PostponeCommentCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand ShowDataGridCmd { get; set; }
+        public DelegateCommand ImportantCmd { get; set; }
+        public DelegateCommand ShowAccCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
             LoggedUser = app.LoggedUser;
             _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
-            _reservationService = app.ReservationService;
-            _reservationService.Subscribe(this);
 
-            _accommodationService = new();
-            _accommodationService.AccommodationRepository.Subscribe(this);
-
-            _ownerReviewService = app.OwnerReviewService;
-            _ownerReviewService.Subscribe(this);
-
-            _postponementRequestService = app.PostponementRequestService;
-            _postponementRequestService.Subscribe(this);
-
-            _ownerService = app.OwnerService;
+            InstantiateServices();
+            SubscribeObservers();
 
             SetUserStatus();
             AccountContainerVisibility = "Collapsed";
 
-            Accommodations = new ObservableCollection<Accommodation>();
-            LoadAccommodations(LoggedUser.ID);
-
-            Reservations = new ObservableCollection<Reservation>();
-            LoadReservations(LoggedUser.ID);
-
-            PostponementRequests = new ObservableCollection<PostponementRequest>();
-            LoadPostponementRequests(LoggedUser.ID);
-
-            OwnerReviews = new ObservableCollection<OwnerReview>();
-            LoadOwnerReviews(LoggedUser.ID);
+            InstantiateCollections();
+            FillCollections();
 
             _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
             ReviewNotification();
 
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _reservationService = app.ReservationService;
+            _accommodationService = new();
+            _ownerReviewService = app.OwnerReviewService;
+            _postponementRequestService = new();
+            _ownerService = new();
+        }
+
+        private void SubscribeObservers()
+        {
+            _reservationService.Subscribe(this);
+            _accommodationService.AccommodationRepository.Subscribe(this);
+            _ownerReviewService.Subscribe(this);
+            _postponementRequestService.PostponementRequestRepository.Subscribe(this);
+        }
+
+        private void InstantiateCollections()
+        {
+            Accommodations = new ObservableCollection<Accommodation>();
+            Reservations = new ObservableCollection<Reservation>();
+            PostponementRequests = new ObservableCollection<PostponementRequest>();
+            OwnerReviews = new ObservableCollection<OwnerReview>();
+        }
+
+        private void FillCollections()
+        {
+            LoadAccommodations(LoggedUser.ID);
+            LoadReservations(LoggedUser.ID);
+            LoadPostponementRequests(LoggedUser.ID);
+            LoadOwnerReviews(LoggedUser.ID);
+        }
+
+        private void InstantiateCommands()
+        {
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
             PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
@@ -121,6 +140,7 @@ namespace TouristAgency.ViewModel
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
             ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
         }
+
 
         private void LoadAccommodations(int ownerId)
         {
@@ -190,7 +210,7 @@ namespace TouristAgency.ViewModel
             else
                 Status = "";
 
-            _ownerService.Update(LoggedUser, LoggedUser.ID);
+           _ownerService.OwnerRepository.Update(LoggedUser, LoggedUser.ID);
         }
 
         public bool CanOpenAccommodationCreationExecute()
@@ -261,7 +281,7 @@ namespace TouristAgency.ViewModel
             if (SelectedRequest != null)
             {
                 Reservation reservation = _reservationService.FindById(SelectedRequest.Reservation.Id);
-                PostponementRequest request = _postponementRequestService.FindById(SelectedRequest.Id);
+                PostponementRequest request = _postponementRequestService.PostponementRequestRepository.GetById(SelectedRequest.Id);
                 bool accommodationAvailability = _reservationService.IsReserved(reservation.AccommodationId, SelectedRequest.Start, SelectedRequest.End);
 
                 if (result == MessageBoxResult.Yes)
@@ -273,7 +293,7 @@ namespace TouristAgency.ViewModel
                         _reservationService.Update(reservation, reservation.Id);
 
                         request.Status = PostponementRequestStatus.APPROVED;
-                        _postponementRequestService.Update(request, request.Id);
+                        _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
                         MessageBox.Show("Reservation has been postponed");
                     }
                     else
@@ -281,7 +301,7 @@ namespace TouristAgency.ViewModel
                         MessageBox.Show("Postponement is not possible");
                         request.Status = PostponementRequestStatus.DENIED;
                         request.Comment = "Sorry, the accommodation is reserved in this timeframe";
-                        _postponementRequestService.Update(request, request.Id);
+                        _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
                     }
                 }
                 if (result == MessageBoxResult.No)
