@@ -14,24 +14,24 @@ namespace TouristAgency.Service
     public class GuideReviewService
     {
         private readonly App _app;
-        private GuideReviewRepository _guideReviewRepository;
+        public GuideReviewRepository GuideReviewRepository { get; }
 
         public GuideReviewService()
         {
             _app = (App)App.Current;
-            _guideReviewRepository = _app.GuideReviewRepository;
+            GuideReviewRepository = _app.GuideReviewRepository;
         }
 
         public List<GuideReview> GetByGuideId(int id)
         {
-            return _guideReviewRepository.GetAll().FindAll(g => g.Tour.AssignedGuideID == id);
+            return GuideReviewRepository.GetAll().FindAll(g => g.Tour.AssignedGuideID == id);
         }
 
         public List<GuideReview> GetReviewsForGuideTourID(int guideID, int tourID)
         {
             List<GuideReview> reviews= new List<GuideReview>();
 
-            foreach (var guideReview in _guideReviewRepository.GetAll())
+            foreach (var guideReview in GuideReviewRepository.GetAll())
             {
 
                 if (guideReview.Tour.AssignedGuideID == guideID &&  guideReview.TourID == tourID)

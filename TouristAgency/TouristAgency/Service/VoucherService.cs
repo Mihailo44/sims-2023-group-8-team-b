@@ -13,17 +13,18 @@ namespace TouristAgency.Service
     public class VoucherService
     {
         private readonly App _app;
-        private VoucherRepository _voucherRepository;
-        public VoucherService(IStorage<Voucher> storage) 
+        public VoucherRepository VoucherRepository { get; }
+
+        public VoucherService() 
         {
             _app = (App)App.Current;
-            _voucherRepository = _app.VoucherRepository;
+            VoucherRepository = _app.VoucherRepository;
         }
 
         public int GetVouchersFromTours(int tourID)
         {
             int i = 0;
-            foreach(Voucher voucher in _voucherRepository.GetAll())
+            foreach(Voucher voucher in VoucherRepository.GetAll())
             {
                 if(voucher.TourID == tourID)
                 {
@@ -38,7 +39,7 @@ namespace TouristAgency.Service
         {
             voucher.TourID = tourID;
             voucher.IsUsed = true;
-            _voucherRepository.Update(voucher, voucher.ID);
+            VoucherRepository.Update(voucher, voucher.ID);
         }
     }
 }

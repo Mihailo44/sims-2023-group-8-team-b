@@ -31,6 +31,7 @@ namespace TouristAgency.ViewModel
             _app = (App)Application.Current;
             _tourist = tourist;
             _touristService = new TouristService();
+            _voucherService = new VoucherService();
             _tourID = tourID;
             _window = window;
 

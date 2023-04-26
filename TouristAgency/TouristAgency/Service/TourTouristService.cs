@@ -14,7 +14,7 @@ namespace TouristAgency.Service
     {
 
         private readonly App _app;
-        private TourTouristRepository TourTouristRepository { get; set; }
+        public TourTouristRepository TourTouristRepository { get; set; }
         public TourTouristService()
         {
             _app = (App)App.Current;

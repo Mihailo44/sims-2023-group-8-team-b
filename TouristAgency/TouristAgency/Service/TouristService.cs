@@ -13,12 +13,12 @@ namespace TouristAgency.Service
     public class TouristService
     {
         private readonly App _app;
-        private TouristRepository _touristRepository;
+        public TouristRepository TouristRepository { get; }
 
         public TouristService()
         {
             _app = (App)App.Current;
-            _touristRepository = _app.TouristRepository;
+            TouristRepository = _app.TouristRepository;
         }
 
         public List<Voucher> GetValidVouchers(Tourist tourist)
