@@ -13,7 +13,7 @@ namespace TouristAgency.Service
     public class LocationService
     {
         private readonly App _app;
-        public LocationRepository LocationRepository;
+        public LocationRepository LocationRepository { get; }
 
         public LocationService()
         {

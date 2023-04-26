@@ -13,8 +13,8 @@ namespace TouristAgency.ViewModel
 {
     public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate, IDataErrorInfo
     {
-        private readonly AccommodationService _accommodation;
-        private readonly PhotoRepository _photoRepository;
+        private AccommodationService _accommodation;
+        private PhotoRepository _photoRepository;
         private LocationService _locationService;
         private Owner _owner;
         private int _ownerId;
@@ -29,17 +29,27 @@ namespace TouristAgency.ViewModel
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
         public Owner LoggedUser { get; }
-        public DelegateCommand CreateCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand CreateCmd { get; set;}
+        public DelegateCommand CloseCmd { get; set; }
 
         public AccommodationCreationViewModel()
         {
-            _accommodation = new();
-            _photoRepository = app.PhotoRepository;
-            _locationService = new LocationService();
             LoggedUser = app.LoggedUser;
+            InstantiateServices();
             NewAccommodation = new();
             NewLocation = new();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _accommodation = new();
+            _photoRepository = app.PhotoRepository;
+            _locationService = new();
+        }
+
+        private void InstantiateCommands()
+        {
             CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }

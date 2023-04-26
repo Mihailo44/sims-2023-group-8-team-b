@@ -9,6 +9,7 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -16,6 +17,10 @@ namespace TouristAgency.ViewModel
     {
         private ObservableCollection<Tour> _tours;
         private Tourist _loggedInTourist;
+        private TourService _tourService;
+        private TouristService _touristService;
+        private TourCheckpointService _tourCheckpointService;
+        private TourTouristService _tourTouristService;
         private string _activeCheckpoint;
         private App _app;
 
@@ -26,8 +31,11 @@ namespace TouristAgency.ViewModel
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
-            //TODO REPOSITORY
-            //Tours = new ObservableCollection<Tour>(_app.TourService.GetActiveTours(tourist));
+            _tourService = new TourService();
+            _touristService = new TouristService();
+            _tourTouristService = new TourTouristService();
+            _tourCheckpointService = new TourCheckpointService();
+            Tours = new ObservableCollection<Tour>(_tourService.GetActiveTours(tourist));
             ShowCheckpointInfoCmd = new DelegateCommand(param => ShowCheckpointInfoExecute(), param => CanShowCheckpointInfoExecute());
             JoinCmd = new DelegateCommand(param => JoinExecute(), param => CanJoinExecute());
         }
@@ -71,14 +79,13 @@ namespace TouristAgency.ViewModel
 
         public void ShowCheckpointInfoExecute() 
         {
-            if(SelectedTour != null) 
+            if(SelectedTour != null)
             {
-                //TODO REPOSITORY
-                /*Checkpoint checkpoint = _app.TourCheckpointService.GetLatestCheckpoint(SelectedTour);
+                Checkpoint checkpoint = _tourCheckpointService.GetLatestCheckpoint(SelectedTour);
                 string name = checkpoint.AttractionName;
                 string city = checkpoint.Location.City;
                 string country = checkpoint.Location.Country;
-                ActiveCheckpoint = "Checkpoint: " + name + ", " + city + ", " + country;*/
+                ActiveCheckpoint = "Checkpoint: " + name + ", " + city + ", " + country;
             }
         }
 
@@ -91,25 +98,23 @@ namespace TouristAgency.ViewModel
         {
             if (SelectedTour != null) 
             {
-                //TODO REPOSITORY
-                /*TourTourist tourTourist = _app.TourTouristService.FindByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
+                TourTourist tourTourist = _tourTouristService.TourTouristRepository.GetByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
                 tourTourist.Arrived = true;
-                _app.TourTouristService.Update(tourTourist);
+                _app.TourTouristRepository.Update(tourTourist);
                 MessageBox.Show("Successfully joined the tour.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                */
+                
             }
         }
 
         public void Update()
         {
-            //TODO REPOSITORY
-            /*var tours = _app.TourService.GetActiveTours(_loggedInTourist);
+            List<Tour> tours = _tourService.GetActiveTours(_loggedInTourist);
             Tours.Clear();
             foreach(Tour tour in tours)
             {
                 Tours.Add(tour);
             }
-            ShowCheckpointInfoExecute();*/
+            ShowCheckpointInfoExecute();
         }
     }
 }

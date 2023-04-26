@@ -26,6 +26,7 @@ namespace TouristAgency.ViewModel
         {
             _app = (App)Application.Current;
             _tourService = new TourService();
+            _guideReviewService = new GuideReviewService();
 
             _loggedInTourist = tourist;
             FinishedTours =  new ObservableCollection<Tour>(_tourService.GetFinishedToursByTourist(tourist));

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -21,6 +22,7 @@ namespace TouristAgency.ViewModel
         private Guest _loggedInGuest;
         private App _app;
 
+        public PostponementRequestService PostponementRequestService { get; }
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CancelCmd { get; }
         public DelegateCommand NotificationCmd { get; }
@@ -33,8 +35,9 @@ namespace TouristAgency.ViewModel
             Start = DateTime.Now;
             End = DateTime.Now;
 
+            PostponementRequestService = new();
             Reservations = new ObservableCollection<Reservation>(_app.ReservationService.GetByGuestId(_loggedInGuest.ID));
-            Requests = new ObservableCollection<PostponementRequest>(_app.PostponementRequestService.GetByGuestId(_loggedInGuest.ID));
+            Requests = new ObservableCollection<PostponementRequest>(PostponementRequestService.GetByGuestId(_loggedInGuest.ID));
 
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
             NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
@@ -112,7 +115,7 @@ namespace TouristAgency.ViewModel
                 if (SelectedReservation != null)
                 {
                     PostponementRequest request = new PostponementRequest(SelectedReservation, Start, End);
-                    _app.PostponementRequestService.Create(request);
+                    PostponementRequestService.PostponementRequestRepository.Create(request);
                     Requests.Add(request);
                 }
             }
@@ -130,7 +133,7 @@ namespace TouristAgency.ViewModel
 
         void NotificationExecute()
         {
-            MessageBox.Show(_app.PostponementRequestService.ShowNotifications(_loggedInGuest.ID));
+            MessageBox.Show(PostponementRequestService.ShowNotifications(_loggedInGuest.ID));
         }
 
         bool CanCancelExecute()

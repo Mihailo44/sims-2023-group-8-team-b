@@ -14,7 +14,7 @@ namespace TouristAgency.Service
     public class GuideReviewService
     {
         private readonly App _app;
-        public GuideReviewRepository GuideReviewRepository;
+        public GuideReviewRepository GuideReviewRepository { get; }
 
         public GuideReviewService()
         {

@@ -13,7 +13,8 @@ namespace TouristAgency.Service
     public class VoucherService
     {
         private readonly App _app;
-        public VoucherRepository VoucherRepository;
+        public VoucherRepository VoucherRepository { get; }
+
         public VoucherService() 
         {
             _app = (App)App.Current;

@@ -26,6 +26,8 @@ namespace TouristAgency.ViewModel
         private int _numberOfReservation;
         private Tourist _loggedInTourist;
         private TouristService _touristService;
+        private TourService _tourService;
+        private TourTouristService _tourTouristService;
         private App _app;
 
         public DelegateCommand CloseCmd { get; }
@@ -37,11 +39,15 @@ namespace TouristAgency.ViewModel
         public TourDisplayViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
-            //TODO REPOSITORY
-            //Tours = new ObservableCollection<Tour>(_app.TourService.GetValidTours());
-            //Countries = new ObservableCollection<string>(_app.TourService.GetAllCountries());
-            //Cities = new ObservableCollection<string>(_app.TourService.GetAllCities());
-            //Languages = new ObservableCollection<string>(_app.TourService.GetAllLanguages());
+
+            _touristService = new TouristService();
+            _tourTouristService = new TourTouristService();
+            _tourService = new TourService();
+
+            Tours = new ObservableCollection<Tour>(_tourService.GetValidTours());
+            Countries = new ObservableCollection<string>(_tourService.GetAllCountries());
+            Cities = new ObservableCollection<string>(_tourService.GetAllCities());
+            Languages = new ObservableCollection<string>(_tourService.GetAllLanguages());
             _loggedInTourist = tourist;
 
             FilterCmd = new DelegateCommand(param => FilterCmdExecute(), param => CanFilterCmdExecute());
@@ -189,8 +195,7 @@ namespace TouristAgency.ViewModel
             string city = SelectedCity;
             string language = SelectedLanguage;
 
-            //TODO REPOSITORY
-            //Tours = new ObservableCollection<Tour>(_app.TourService.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
+            Tours = new ObservableCollection<Tour>(_tourService.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
 
             if (MinDuration == 0 && MaxDuration == 0)
             {
@@ -205,8 +210,7 @@ namespace TouristAgency.ViewModel
 
         private void ClearCmdExecute()
         {
-            //TODO REPOSITORY
-            //Tours = new ObservableCollection<Tour>(_app.TourService.GetValidTours());
+            Tours = new ObservableCollection<Tour>(_tourService.GetValidTours());
             MinDuration = 0;
             MaxDuration = 0;
         }
@@ -233,8 +237,7 @@ namespace TouristAgency.ViewModel
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    //TODO REPOSITORY
-                    /*List<Tour> alternatives = _app.TourService.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople);
+                    List<Tour> alternatives = _tourService.Search(selectedTour.ShortLocation.Country, selectedTour.ShortLocation.City, "", MinDuration, 999, NumberOfPeople);
                     alternatives = alternatives.FindAll(t => t.StartDateTime >= DateTime.Now);
                     Tours = new ObservableCollection<Tour>(alternatives);
                     List<Tour> emptyTours = new List<Tour>(Tours.Where(t => t.MaxAttendants == t.CurrentAttendants).ToList());
@@ -243,7 +246,7 @@ namespace TouristAgency.ViewModel
                     {
                         Tours.Remove(tour);
                     }
-                    return;*/
+                    return;
                 }
             }
 
@@ -274,9 +277,8 @@ namespace TouristAgency.ViewModel
                     MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                //TODO REPOSITORY
-                //_app.TourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
-                //_app.TourTouristService.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
+                _tourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
+                _tourTouristService.TourTouristRepository.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);
             }
             else

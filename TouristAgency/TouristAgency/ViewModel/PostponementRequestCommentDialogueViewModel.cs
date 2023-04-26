@@ -25,7 +25,7 @@ namespace TouristAgency.ViewModel
 
         public PostponementRequestCommentDialogueViewModel(PostponementRequest postponementRequest,Window window)
         {
-            _postponementRequestService = app.PostponementRequestService;
+            _postponementRequestService = new();
             _postponementRequest = postponementRequest;
             _window = window;
             SubmitCommentCmd = new DelegateCommand(param => SubmitCommentExecute(), param => CanSubmitCommentExecute());
@@ -43,7 +43,7 @@ namespace TouristAgency.ViewModel
             {
                 _postponementRequest.Comment = Comment.Trim();
             }
-            _postponementRequestService.Update(_postponementRequest, _postponementRequest.Id);
+            _postponementRequestService.PostponementRequestRepository.Update(_postponementRequest, _postponementRequest.Id);
             MessageBox.Show("Comment successfully submited");
             _window.Close();
         }

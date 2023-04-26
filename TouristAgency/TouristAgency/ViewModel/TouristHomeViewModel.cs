@@ -16,6 +16,7 @@ namespace TouristAgency.ViewModel
     public class TouristHomeViewModel : ViewModelBase, ICloseable
     {
         private Tourist _loggedInTourist;
+        private TourTouristCheckpointService _ttcService;
         private string _username;
         private App _app;
         private Window _window;
@@ -32,15 +33,16 @@ namespace TouristAgency.ViewModel
             _loggedInTourist = tourist;
             _window = window;
             Username = "Welcome, " + _loggedInTourist.Username + "...";
-            //TODO REPOSITORY
-            /*foreach (var ttc in _app.TourTouristCheckpointService.GetPendingInvitations(tourist.ID))
+            _ttcService = new TourTouristCheckpointService();
+
+            foreach (var ttc in _ttcService.GetPendingInvitations(tourist.ID))
             {
                 MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _app.CheckpointService.FindById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
-                    _app.TourTouristCheckpointService.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
+                    _ttcService.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
                 }
-            }*/
+            }
 
             TourDisplayCmd = new DelegateCommand(param => TourDisplayExecute(), param => CanTourDisplayExecute());
             TourGuideReviewCmd = new DelegateCommand(param => TourGuideReviewExecute(), param => CanTourGuideReviewExecute());
