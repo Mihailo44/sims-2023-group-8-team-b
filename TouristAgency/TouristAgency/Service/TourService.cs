@@ -13,7 +13,7 @@ namespace TouristAgency.Service
     public class TourService
     {
         private readonly App _app;
-        private TourRepository TourRepository { get; set; }
+        public TourRepository TourRepository { get; set; }
 
         public TourService()
         {

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -12,35 +9,61 @@ using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
-    public class TourCreationViewModel : ViewModelBase, ICloseable, ICreate
+    public class TourCreationViewModel : ViewModelBase, ICreate
     {
         private App _app;
         private Guide _loggedInGuide;
+
         private ObservableCollection<Checkpoint> _availableCheckpoints;
         private ObservableCollection<Checkpoint> _selectedCheckpoints;
         private List<DateTime> _multipleDateTimes;
+
         private int _datecount;
         private Tour _newTour;
         private Location _newLocation;
         private string _photoLinks;
+
         private TourService _tourService;
+        private LocationService _locationService;
+        private CheckpointService _checkpointService;
+        private TourCheckpointService _tourCheckpointService;
+        public DelegateCommand AddCheckpointCmd { get; set; }
+        public DelegateCommand RemoveCheckpointCmd { get; set; }
+        public DelegateCommand AddMultipleDatesCmd { get; set; }
+        public DelegateCommand RemoveMultipleDatesCmd { get; set; }
+        public DelegateCommand LoadCheckpointsIntoListViewCmd { get; set; }
+        public DelegateCommand CreateCmd { get; set; }
 
         public TourCreationViewModel(Guide guide, Window window)
         {
             _app = (App)Application.Current;
-
+            _loggedInGuide = guide;
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+        private void InstantiateServices()
+        {
+            _tourService = new TourService();
+            _locationService = new LocationService();
+            _checkpointService = new CheckpointService();
+            _tourCheckpointService = new TourCheckpointService();
+        }
+        
+        private void InstantiateCollections()
+        {
             NewTour = new Tour();
             NewLocation = new Location();
-            _tourService = new TourService();
-            _availableCheckpoints = new ObservableCollection<Checkpoint>();
-            _selectedCheckpoints = new ObservableCollection<Checkpoint>();
+            AvailableCheckpoints = new ObservableCollection<Checkpoint>();
+            SelectedCheckpoints = new ObservableCollection<Checkpoint>();
             _multipleDateTimes = new List<DateTime>();
             _datecount = _multipleDateTimes.Count;
-            _loggedInGuide = guide;
-            _newTour.AssignedGuideID = guide.ID;
-            _newTour.AssignedGuide = guide;
+        }
+
+        private void InstantiateCommands()
+        {
             AddCheckpointCmd =
-                new DelegateCommand(param => AddCheckpointsExecute(), param => CanAddCheckpointsExecute());
+                    new DelegateCommand(param => AddCheckpointsExecute(), param => CanAddCheckpointsExecute());
             RemoveCheckpointCmd = new DelegateCommand(param => RemoveCheckpointsExecute(),
                 param => CanRemoveCheckpointsExecute());
             AddMultipleDatesCmd =
@@ -51,14 +74,6 @@ namespace TouristAgency.ViewModel
                 param => CanLoadCheckpointsIntoListView());
             CreateCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
         }
-
-        public DelegateCommand AddCheckpointCmd { get; }
-        public DelegateCommand RemoveCheckpointCmd { get; }
-        public DelegateCommand AddMultipleDatesCmd { get; }
-        public DelegateCommand RemoveMultipleDatesCmd { get; }
-        public DelegateCommand LoadCheckpointsIntoListViewCmd { get; }
-        public DelegateCommand CloseCmd { get; }
-        public DelegateCommand CreateCmd { get; }
 
         public Tour NewTour
         {
@@ -117,12 +132,6 @@ namespace TouristAgency.ViewModel
             set => _photoLinks = value;
         }
 
-        public void LoadCheckpoints()
-        {
-            AvailableCheckpoints =
-                new ObservableCollection<Checkpoint>(_app.CheckpointService.FindSuitableByLocation(NewLocation));
-        }
-
         public bool CanLoadCheckpointsIntoListView()
         {
             return true;
@@ -133,28 +142,28 @@ namespace TouristAgency.ViewModel
             SelectedCheckpoints = new ObservableCollection<Checkpoint>();
             if (NewLocation.Country != "" && NewLocation.City != "")
             {
-                LoadCheckpoints();
+                AvailableCheckpoints =
+               new ObservableCollection<Checkpoint>(_checkpointService.FindSuitableByLocation(NewLocation));
             }
         }
 
         public void PrepareLocation()
         {
-            //TODO REPOSITORY
-            /*int locationID = _app.LocationService.FindLocationId(NewLocation);
+            int locationID = _locationService.FindLocationId(NewLocation);
             NewLocation.Id = locationID;
 
             if (locationID == -1)
             {
-                _app.LocationService.Create(NewLocation);
+                _locationService.LocationRepository.Create(NewLocation);
             }
 
             _newTour.ShortLocation = NewLocation;
-            _newTour.ShortLocationID = NewLocation.Id;*/
+            _newTour.ShortLocationID = NewLocation.Id;
         }
 
         public void AddPhotos()
         {
-            int tourID = _app.TourRepository.GenerateId() - 1;
+            int tourID = _tourService.TourRepository.GenerateId() - 1;
             if (PhotoLinks != null)
             {
                 PhotoLinks = PhotoLinks.Replace("\r\n", "|");
@@ -170,7 +179,7 @@ namespace TouristAgency.ViewModel
 
         public void LoadToursToCheckpoints()
         {
-            int tourID = _app.TourRepository.GenerateId() - 1;
+            int tourID = _tourService.TourRepository.GenerateId() - 1;
             int i = 0;
             bool firstVisit = true;
             foreach (Checkpoint checkpoint in SelectedCheckpoints)
@@ -180,8 +189,8 @@ namespace TouristAgency.ViewModel
                     firstVisit = false;
                 }
 
-                _newTour.Checkpoints.Add(checkpoint);
-                _app.TourCheckpointRepository.Create(new TourCheckpoint(tourID, checkpoint.ID, firstVisit));
+                NewTour.Checkpoints.Add(checkpoint);
+                _tourCheckpointService.TourCheckpointRepository.Create(new TourCheckpoint(tourID, checkpoint.ID, firstVisit));
                 i++;
             }
         }
@@ -203,9 +212,11 @@ namespace TouristAgency.ViewModel
             foreach (DateTime dateTime in _multipleDateTimes)
             {
                 PrepareLocation();
-                _newTour.StartDateTime = dateTime;
-                _newTour.RemainingCapacity = _newTour.MaxAttendants;
-                _app.TourRepository.Create(new Tour(_newTour));
+                NewTour.AssignedGuideID = _loggedInGuide.ID;
+                NewTour.AssignedGuide = _loggedInGuide;
+                NewTour.StartDateTime = dateTime;
+                NewTour.RemainingCapacity = NewTour.MaxAttendants;
+                _tourService.TourRepository.Create(new Tour(_newTour));
                 AddPhotos();
                 LoadToursToCheckpoints();
             }

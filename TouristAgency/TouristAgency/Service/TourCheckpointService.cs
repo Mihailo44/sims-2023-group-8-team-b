@@ -15,8 +15,7 @@ namespace TouristAgency.Service
     {
 
         private readonly App _app;
-        private TourCheckpointRepository TourCheckpointRepository { get; set; }
-
+        public TourCheckpointRepository TourCheckpointRepository { get; set; }
         public TourCheckpointService()
         {
             _app = (App)App.Current;

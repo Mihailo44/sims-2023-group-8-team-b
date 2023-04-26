@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -21,15 +16,30 @@ namespace TouristAgency.ViewModel
         private ObservableCollection<String> _years;
         private Window _window;
         private TourService _tourService;
-        public DelegateCommand GetBestTourCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand GetBestTourCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
         public GuideProfileDisplayViewModel(Guide guide, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuide = guide;
             _window = window;
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
             _tourService = new TourService();
+        }
+
+        private void InstantiateCollections()
+        {
             Years = new ObservableCollection<string>(_tourService.GetYearsForStatistics());
+        }
+
+        private void InstantiateCommands()
+        {
             GetBestTourCmd = new DelegateCommand(param => GetBestTourExecute(), param => CanGetBestTourExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             Tours = new ObservableCollection<Tour>();

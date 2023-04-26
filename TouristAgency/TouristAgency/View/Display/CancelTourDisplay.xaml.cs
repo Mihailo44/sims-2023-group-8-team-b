@@ -24,7 +24,7 @@ namespace TouristAgency.View.Display
         public CancelTourDisplay(Guide guide)
         {
             InitializeComponent();
-            DataContext = new CancelTourDisplayViewModel(guide, this);
+            DataContext = new CancelTourDisplayViewModel(guide);
         }
     }
 }

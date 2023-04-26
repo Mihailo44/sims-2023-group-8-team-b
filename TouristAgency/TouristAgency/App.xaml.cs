@@ -26,7 +26,7 @@ namespace TouristAgency
         public TourTouristRepository TourTouristRepository { get; }
         public TourCheckpointRepository TourCheckpointRepository { get; }
         public TourTouristCheckpointRepository TourTouristCheckpointRepository { get; }
-        public CheckpointService CheckpointService { get; }
+        public CheckpointRepository CheckpointRepository { get; }
         public PhotoRepository PhotoRepository { get; }
         public GuestService GuestService { get; }
         public LocationRepository LocationRepository { get; }
@@ -80,7 +80,7 @@ namespace TouristAgency
             TourRepository = new(InjectorService.CreateInstance<IStorage<Tour>>());
             TourCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
             TourTouristCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
-            CheckpointService = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
+            CheckpointRepository = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
 
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestService = new(InjectorService.CreateInstance<IStorage<Guest>>());
@@ -91,19 +91,19 @@ namespace TouristAgency
             OwnerService.LoadAccommodationsToOwners(AccommodationRepository.GetAll());
             OwnerService.LoadLocationsToOwners(LocationRepository.GetAll());
             GuestReviewRepository.LoadReservationsToGuestReviews(ReservationService.GetAll());
-            CheckpointService.LoadLocationsToCheckpoints(LocationRepository.GetAll());
+            CheckpointRepository.LoadLocationsToCheckpoints(LocationRepository.GetAll());
             TourRepository.LoadLocationsToTours(LocationRepository.GetAll());
             TourRepository.LoadPhotosToTours(PhotoRepository.GetAll());
             OwnerReviewService.LoadPhotosToReviews(PhotoRepository.GetAll());
             ReservationService.LoadAccommodationsToReservations(AccommodationRepository.GetAll());
             ReservationService.LoadGuestsToReservations(GuestService.GetAll());
-            TourCheckpointRepository.LoadCheckpoints(CheckpointService.GetAll());
+            TourCheckpointRepository.LoadCheckpoints(CheckpointRepository.GetAll());
             GuideRepository.LoadToursToGuide(TourRepository.GetAll());
             GuideReviewRepository.LoadTouristsToReviews(TouristRepository.GetAll());
             GuideReviewRepository.LoadToursToGuideReviews(TourRepository.GetAll());
             TourRepository.LoadTouristsToTours(TourTouristRepository.GetAll(), TouristRepository.GetAll());
             TouristRepository.LoadToursToTourist(TourTouristRepository.GetAll(), TourRepository.GetAll());
-            TourRepository.LoadCheckpointsToTours(TourCheckpointRepository.GetAll(), CheckpointService.GetAll());
+            TourRepository.LoadCheckpointsToTours(TourCheckpointRepository.GetAll(), CheckpointRepository.GetAll());
             OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
             PostponementRequestService.LoadReservationsToPostponementRequests(ReservationService.GetAll());
             TouristRepository.LoadVouchersToTourist(VoucherRepository.GetAll());

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
@@ -15,16 +12,34 @@ namespace TouristAgency.ViewModel
     {
         private App _app;
         private Guide _guide;
-        private ObservableCollection<Tour> _availableTours;
-        private TourService _tourService;
-        public DelegateCommand CancelTourCmd { get; }
 
-        public CancelTourDisplayViewModel(Guide guide, Window window)
+        private ObservableCollection<Tour> _availableTours;
+
+        private TourService _tourService;
+        private VoucherService _voucherService;
+        public DelegateCommand CancelTourCmd { get; set; }
+
+        public CancelTourDisplayViewModel(Guide guide)
         {
             _app = (App)Application.Current;
             _guide = guide;
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
             _tourService = new TourService();
+        }
+
+        private void InstantiateCollections()
+        {
             AvailableTours = new ObservableCollection<Tour>(_tourService.GetCancellabeTours());
+        }
+
+        private void InstantiateCommands()
+        {
             CancelTourCmd = new DelegateCommand(param => CancelToursExecute(), param => CanCancelToursExecute());
         }
 
@@ -60,9 +75,7 @@ namespace TouristAgency.ViewModel
                     {
                         DateTime oneYear = DateTime.Now.AddYears(1);
                         Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Compensation voucher", false, oneYear);
-                        //int touristId, int tourID, string name, bool isUsed, DateTime expirationDate
-                        //TODO REPOSITORY
-                        //_app.VoucherService.Create(newVoucher);
+                        _voucherService.VoucherRepository.Create(newVoucher);
                         tourist.WonVouchers.Add(newVoucher);
                     }
                 }
