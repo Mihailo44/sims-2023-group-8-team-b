@@ -26,8 +26,7 @@ namespace TouristAgency.View.Home
         public GuideHome(Guide guide)
         {
             InitializeComponent();
-            _loggedInGuide = guide;
-            DataContext = new GuideHomeViewModel(_loggedInGuide, this);
+            DataContext = new GuideHomeViewModel(guide, this);
         }
     }
 }

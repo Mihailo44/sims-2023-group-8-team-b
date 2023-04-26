@@ -17,6 +17,7 @@ namespace TouristAgency.ViewModel
     {
         private Tourist _loggedInTourist;
         private TourTouristCheckpointService _ttcService;
+        private CheckpointService _checkpointService;
         private string _username;
         private App _app;
         private Window _window;
@@ -34,10 +35,11 @@ namespace TouristAgency.ViewModel
             _window = window;
             Username = "Welcome, " + _loggedInTourist.Username + "...";
             _ttcService = new TourTouristCheckpointService();
+            _checkpointService = new CheckpointService();
 
             foreach (var ttc in _ttcService.GetPendingInvitations(tourist.ID))
             {
-                MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _app.CheckpointService.FindById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _checkpointService.CheckpointRepository.GetById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     _ttcService.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);

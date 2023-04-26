@@ -22,7 +22,7 @@ namespace TouristAgency.Service
             CheckpointRepository = _app.CheckpointRepository;
         }
 
-        public List<Checkpoint> FindSuitableByLocation(Location location)
+        public List<Checkpoint> GetSuitableByLocation(Location location)
         {
             List<Checkpoint> checkpoints = new List<Checkpoint>();
             foreach (Checkpoint checkpoint in CheckpointRepository.GetAll())

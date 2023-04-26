@@ -143,7 +143,7 @@ namespace TouristAgency.ViewModel
             if (NewLocation.Country != "" && NewLocation.City != "")
             {
                 AvailableCheckpoints =
-               new ObservableCollection<Checkpoint>(_checkpointService.FindSuitableByLocation(NewLocation));
+               new ObservableCollection<Checkpoint>(_checkpointService.GetSuitableByLocation(NewLocation));
             }
         }
 
