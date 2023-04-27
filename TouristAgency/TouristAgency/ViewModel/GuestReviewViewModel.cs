@@ -40,7 +40,7 @@ namespace TouristAgency.ViewModel
         public GuestReviewViewModel(Reservation reservation,Window window)
         {
             _guestReview = new();
-            _reservationService = app.ReservationService;
+            _reservationService = new ReservationService();
             _window = window;
             NewGuestReview = new();
             NewGuestReview.Reservation = reservation;
@@ -160,7 +160,7 @@ namespace TouristAgency.ViewModel
                 {
                     _guestReview.GuestReviewRepository.Create(NewGuestReview);
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
-                    _reservationService.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
+                    _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
                     MessageBox.Show("Guest review created successfully");
                 }
                 else

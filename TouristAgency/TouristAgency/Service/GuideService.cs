@@ -14,7 +14,7 @@ namespace TouristAgency.Service
     {
         //TODO Logic for guide later...
         private readonly App _app;
-        private GuideRepository GuideRepository { get; set; }
+        public GuideRepository GuideRepository { get; set; }
         public GuideService()
         {
             _app = (App)App.Current;
