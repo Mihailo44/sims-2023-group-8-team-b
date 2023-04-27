@@ -16,17 +16,30 @@ namespace TouristAgency.ViewModel
 {
     public class NotificationDisplayViewModel : ViewModelBase
     {
-        private ObservableCollection<Voucher> _vouchers;
-        private Tourist _tourist;
-        private TouristService _touristService;
         private App _app;
+        private Tourist _loggedInTourist;
+
+        private ObservableCollection<Voucher> _vouchers;
+        
+        private TouristService _touristService;
+        
 
         public NotificationDisplayViewModel(Tourist tourist, Window window) 
         {
             _app = (App)Application.Current;
-            _tourist = tourist;
+            _loggedInTourist = tourist;
+            InstantiateServices();
+            InstantiateCollections();
+        }
+
+        private void InstantiateServices()
+        {
             _touristService = new TouristService();
-            Vouchers = new ObservableCollection<Voucher>(_touristService.GetValidVouchers(tourist));
+        }
+
+        private void InstantiateCollections()
+        {
+            Vouchers = new ObservableCollection<Voucher>(_touristService.GetValidVouchers(_loggedInTourist));
         }
 
         public ObservableCollection<Voucher> Vouchers

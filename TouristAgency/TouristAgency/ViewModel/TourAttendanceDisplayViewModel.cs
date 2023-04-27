@@ -15,27 +15,45 @@ namespace TouristAgency.ViewModel
 {
     public class TourAttendanceDisplayViewModel : ViewModelBase, IObserver
     {
-        private ObservableCollection<Tour> _tours;
+        private App _app;
         private Tourist _loggedInTourist;
+
+        private ObservableCollection<Tour> _tours;
+
+        private string _activeCheckpoint;
+
         private TourService _tourService;
         private TouristService _touristService;
         private TourCheckpointService _tourCheckpointService;
         private TourTouristService _tourTouristService;
-        private string _activeCheckpoint;
-        private App _app;
 
-        public DelegateCommand ShowCheckpointInfoCmd { get; }
-        public DelegateCommand JoinCmd { get; }
+        public DelegateCommand ShowCheckpointInfoCmd { get; set; }
+        public DelegateCommand JoinCmd { get; set; }
 
         public TourAttendanceDisplayViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
             _tourService = new TourService();
             _touristService = new TouristService();
             _tourTouristService = new TourTouristService();
             _tourCheckpointService = new TourCheckpointService();
-            Tours = new ObservableCollection<Tour>(_tourService.GetActiveTours(tourist));
+        }
+
+        private void InstantiateCollections()
+        {
+            Tours = new ObservableCollection<Tour>(_tourService.GetActiveTours(_loggedInTourist));
+        }
+
+        private void InstantiateCommands()
+        {
             ShowCheckpointInfoCmd = new DelegateCommand(param => ShowCheckpointInfoExecute(), param => CanShowCheckpointInfoExecute());
             JoinCmd = new DelegateCommand(param => JoinExecute(), param => CanJoinExecute());
         }
@@ -100,7 +118,7 @@ namespace TouristAgency.ViewModel
             {
                 TourTourist tourTourist = _tourTouristService.TourTouristRepository.GetByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
                 tourTourist.Arrived = true;
-                _app.TourTouristRepository.Update(tourTourist);
+                _tourTouristService.TourTouristRepository.Update(tourTourist);
                 MessageBox.Show("Successfully joined the tour.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 
             }

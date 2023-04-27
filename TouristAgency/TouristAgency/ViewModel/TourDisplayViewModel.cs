@@ -16,40 +16,57 @@ namespace TouristAgency.ViewModel
 {
     public class TourDisplayViewModel : ViewModelBase, ICloseable, ICreate
     {
+        private App _app;
+
         private ObservableCollection<Tour> _tours;
         private ObservableCollection<string> _countires;
         private ObservableCollection<string> _cities;
         private ObservableCollection<string> _languages;
+
         private int _minDuration;
         private int _maxDuration;
         private int _numberOfPeople;
         private int _numberOfReservation;
+
         private Tourist _loggedInTourist;
         private TouristService _touristService;
         private TourService _tourService;
         private TourTouristService _tourTouristService;
-        private App _app;
+        
 
-        public DelegateCommand CloseCmd { get; }
-        public DelegateCommand FilterCmd { get; }
-        public DelegateCommand CreateCmd { get; }
-        public DelegateCommand ClearCmd { get; }
-        public DelegateCommand CancelCmd { get; }
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand FilterCmd { get; set; }
+        public DelegateCommand CreateCmd { get; set; }
+        public DelegateCommand ClearCmd { get; set; }
+        public DelegateCommand CancelCmd { get; set; }
 
         public TourDisplayViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
+            _loggedInTourist = tourist;
 
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
             _touristService = new TouristService();
             _tourTouristService = new TourTouristService();
             _tourService = new TourService();
+        }
 
+        private void InstantiateCollections()
+        {
             Tours = new ObservableCollection<Tour>(_tourService.GetValidTours());
             Countries = new ObservableCollection<string>(_tourService.GetAllCountries());
             Cities = new ObservableCollection<string>(_tourService.GetAllCities());
             Languages = new ObservableCollection<string>(_tourService.GetAllLanguages());
-            _loggedInTourist = tourist;
+        }
 
+        private void InstantiateCommands()
+        {
             FilterCmd = new DelegateCommand(param => FilterCmdExecute(), param => CanFilterCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
             ClearCmd = new DelegateCommand(param => ClearCmdExecute(), param => CanClearCmdExecute());
