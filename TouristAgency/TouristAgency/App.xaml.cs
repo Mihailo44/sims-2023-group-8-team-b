@@ -13,12 +13,12 @@ namespace TouristAgency
     /// </summary>
     public partial class App : Application
     {
-        public ReservationService ReservationService { get; }
+        public ReservationRepository ReservationRepository { get; }
         //public AccommodationService AccommodationService { get; }
         //public GuestReviewService GuestReviewService { get; }   
         public OwnerService OwnerService { get; }
         public UserRepository UserRepository { get; }
-        public OwnerReviewService OwnerReviewService { get; }
+        public OwnerReviewRepository OwnerReviewRepository { get; }
         public PostponementRequestRepository PostponementRequestRepository { get; }
         public TouristRepository TouristRepository { get; }
         public VoucherRepository VoucherRepository { get; }
@@ -28,7 +28,7 @@ namespace TouristAgency
         public TourTouristCheckpointRepository TourTouristCheckpointRepository { get; }
         public CheckpointRepository CheckpointRepository { get; }
         public PhotoRepository PhotoRepository { get; }
-        public GuestService GuestService { get; }
+        public GuestRepository GuestRepository { get; }
         public LocationRepository LocationRepository { get; }
 
 
@@ -68,11 +68,11 @@ namespace TouristAgency
             TourTouristRepository = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
             UserRepository = new(InjectorService.CreateInstance<IStorage<User>>());
             LocationRepository = new(InjectorService.CreateInstance<IStorage<Location>>());
-            ReservationService = new(InjectorService.CreateInstance<IStorage<Reservation>>());
+            ReservationRepository = new(InjectorService.CreateInstance<IStorage<Reservation>>());
             AccommodationRepository = new(InjectorService.CreateInstance<IStorage<Accommodation>>());
             GuestReviewRepository = new(InjectorService.CreateInstance<IStorage<GuestReview>>());
             OwnerRepository = new(InjectorService.CreateInstance<IStorage<Owner>>());
-            OwnerReviewService = new(InjectorService.CreateInstance<IStorage<OwnerReview>>());
+            OwnerReviewRepository = new(InjectorService.CreateInstance<IStorage<OwnerReview>>());
             PostponementRequestRepository = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
             TouristRepository = new(InjectorService.CreateInstance<IStorage<Tourist>>());
             GuideReviewRepository = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
@@ -84,20 +84,20 @@ namespace TouristAgency
             CheckpointRepository = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
 
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
-            GuestService = new(InjectorService.CreateInstance<IStorage<Guest>>());
+            GuestRepository = new(InjectorService.CreateInstance<IStorage<Guest>>());
 
             AccommodationRepository.LoadLocationsToAccommodations(LocationRepository.GetAll());
             AccommodationRepository.LoadPhotosToAccommodations(PhotoRepository.GetAll());
             AccommodationRepository.LoadOwnersToAccommodations(OwnerRepository.GetAll());
             OwnerRepository.LoadAccommodationsToOwners(AccommodationRepository.GetAll());
             OwnerRepository.LoadLocationsToOwners(LocationRepository.GetAll());
-            GuestReviewRepository.LoadReservationsToGuestReviews(ReservationService.GetAll());
+            GuestReviewRepository.LoadReservationsToGuestReviews(ReservationRepository.GetAll());
             CheckpointRepository.LoadLocationsToCheckpoints(LocationRepository.GetAll());
             TourRepository.LoadLocationsToTours(LocationRepository.GetAll());
             TourRepository.LoadPhotosToTours(PhotoRepository.GetAll());
-            OwnerReviewService.LoadPhotosToReviews(PhotoRepository.GetAll());
-            ReservationService.LoadAccommodationsToReservations(AccommodationRepository.GetAll());
-            ReservationService.LoadGuestsToReservations(GuestService.GetAll());
+            OwnerReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
+            ReservationRepository.LoadAccommodationsToReservations(AccommodationRepository.GetAll());
+            ReservationRepository.LoadGuestsToReservations(GuestRepository.GetAll());
             TourCheckpointRepository.LoadCheckpoints(CheckpointRepository.GetAll());
             GuideRepository.LoadToursToGuide(TourRepository.GetAll());
             GuideReviewRepository.LoadTouristsToReviews(TouristRepository.GetAll());
@@ -105,8 +105,8 @@ namespace TouristAgency
             TourRepository.LoadTouristsToTours(TourTouristRepository.GetAll(), TouristRepository.GetAll());
             TouristRepository.LoadToursToTourist(TourTouristRepository.GetAll(), TourRepository.GetAll());
             TourRepository.LoadCheckpointsToTours(TourCheckpointRepository.GetAll(), CheckpointRepository.GetAll());
-            OwnerReviewService.LoadReservationsToOwnerReviews(ReservationService.GetAll());
-            PostponementRequestRepository.LoadReservationsToPostponementRequests(ReservationService.GetAll());
+            OwnerReviewRepository.LoadReservationsToOwnerReviews(ReservationRepository.GetAll());
+            PostponementRequestRepository.LoadReservationsToPostponementRequests(ReservationRepository.GetAll());
             TouristRepository.LoadVouchersToTourist(VoucherRepository.GetAll());
             GuideReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
         }

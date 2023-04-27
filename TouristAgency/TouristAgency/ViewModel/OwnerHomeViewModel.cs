@@ -98,18 +98,18 @@ namespace TouristAgency.ViewModel
 
         private void InstantiateServices()
         {
-            _reservationService = app.ReservationService;
+            _reservationService = new ReservationService();
             _accommodationService = new();
-            _ownerReviewService = app.OwnerReviewService;
+            _ownerReviewService = new OwnerReviewService();
             _postponementRequestService = new();
             _ownerService = new();
         }
 
         private void SubscribeObservers()
         {
-            _reservationService.Subscribe(this);
+            _reservationService.ReservationRepository.Subscribe(this);
             _accommodationService.AccommodationRepository.Subscribe(this);
-            _ownerReviewService.Subscribe(this);
+            _ownerReviewService.OwnerReviewRepository.Subscribe(this);
             _postponementRequestService.PostponementRequestRepository.Subscribe(this);
         }
 
@@ -280,7 +280,7 @@ namespace TouristAgency.ViewModel
             MessageBoxResult result = ApprovePostponementRequest();
             if (SelectedRequest != null)
             {
-                Reservation reservation = _reservationService.FindById(SelectedRequest.Reservation.Id);
+                Reservation reservation = _reservationService.ReservationRepository.GetById(SelectedRequest.Reservation.Id);
                 PostponementRequest request = _postponementRequestService.PostponementRequestRepository.GetById(SelectedRequest.Id);
                 bool accommodationAvailability = _reservationService.IsReserved(reservation.AccommodationId, SelectedRequest.Start, SelectedRequest.End);
 
@@ -290,7 +290,7 @@ namespace TouristAgency.ViewModel
                     {
                         reservation.Start = SelectedRequest.Start;
                         reservation.End = SelectedRequest.End;
-                        _reservationService.Update(reservation, reservation.Id);
+                        _reservationService.ReservationRepository.Update(reservation, reservation.Id);
 
                         request.Status = PostponementRequestStatus.APPROVED;
                         _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);

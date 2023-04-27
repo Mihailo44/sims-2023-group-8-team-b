@@ -13,8 +13,8 @@ namespace TouristAgency.ViewModel
     {
         private OwnerService _ownerService;
         private GuestService _guestService;
-        private TouristRepository _touristRepository;
-        private GuideRepository _guideRepository;
+        private TouristService _touristService;
+        private GuideService _guideService;
         private UserService _userService;
         private readonly App app = (App)App.Current;
         private Window _window;
@@ -33,9 +33,9 @@ namespace TouristAgency.ViewModel
         public MainWindowViewModel(Window window)
         {
             _ownerService = new();
-            _touristRepository = app.TouristRepository;
-            _guideRepository = app.GuideRepository;
-            _guestService = app.GuestService;
+            _touristService = new();
+            _guideService = new();
+            _guestService = new();
             _userService = new();
 
             _window = window;
@@ -110,7 +110,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.GUEST:
                         {
-                            User = _guestService.FindById(User.ID);
+                            User = _guestService.GuestRepository.GetById(User.ID);
                             GuestHome x = new GuestHome(User);
                             x.Show();
                             ClearTxtBoxes();
@@ -118,7 +118,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.TOURIST:
                         {
-                            User = _touristRepository.GetById(User.ID);
+                            User = _touristService.TouristRepository.GetById(User.ID);
                             User.Username = Username;
                             User.Password = Password;
                             TouristHome x = new TouristHome(User);
@@ -128,7 +128,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.GUIDE:
                         {
-                            User = _guideRepository.GetById(User.ID);
+                            User = _guideService.GuideRepository.GetById(User.ID);
                             GuideHome x = new GuideHome(User);
                             x.Show();
                             ClearTxtBoxes();
