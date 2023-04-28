@@ -55,7 +55,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0">
             <Label FontSize="18" HorizontalAlignment="Center">Age statistics:</Label>
-            <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
+            <lvc:PieChart Hoverable="True" Height="156" Width="156">
                 <lvc:PieChart.Series>
                     <lvc:PieSeries Title="Less than 18" Values="{Binding Young}"/>
                     <lvc:PieSeries Title="Between 18 and 50" Values="{Binding Adult}"/>
@@ -67,9 +67,9 @@
 
         <StackPanel Grid.Row="3" Grid.Column="1">
             <Label FontSize="18" HorizontalAlignment="Center">Voucher statistics:</Label>
-            <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="156" Width="156">
+            <lvc:PieChart Hoverable="True" Height="156" Width="156">
                 <lvc:PieChart.Series>
-                    <lvc:PieSeries Title="With voucher" Values="{Binding WithVoucher}"/>
+                    <lvc:PieSeries Title="With voucher" Values="{Binding WithVoucher.Values}"/>
                     <lvc:PieSeries Title="Without voucher" Values="{Binding WithoutVoucher}"/>
                     <!--<lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" LabelPoint="{Binding PointLabel}"/> -->
                 </lvc:PieChart.Series>

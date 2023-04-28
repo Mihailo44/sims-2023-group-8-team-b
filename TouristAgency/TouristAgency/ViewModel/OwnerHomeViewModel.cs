@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.ComponentModel;
 using System.Windows;
+using System.Linq;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -9,16 +12,41 @@ using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Dialogue;
+using TouristAgency.View.Main;
 
 namespace TouristAgency.ViewModel
 {
-    public class OwnerHomeViewModel : ViewModelBase, IObserver,ICloseable
+    public class OwnerHomeViewModel : ViewModelBase, IObserver, ICloseable
     {
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
         private OwnerReviewService _ownerReviewService;
         private OwnerService _ownerService;
         private PostponementRequestService _postponementRequestService;
+        private string _accountContainerVisibility;
+        private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
+        {
+            {0, "Visible"},
+            {1, "Collapsed"},
+            {2, "Collapsed"},
+            {3, "Collapsed"}
+        };
+
+        public string AccountContainerVisibility
+        {
+            get => _accountContainerVisibility;
+            set
+            {
+                _accountContainerVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Dictionary<int, string> DataGridVisibility
+        {
+            get { return _dataGridVisibility; }
+            set { _dataGridVisibility = value; OnPropertyChanged(nameof(DataGridVisibility)); }
+        }
 
         public string Status { get; set; }
 
@@ -34,59 +62,87 @@ namespace TouristAgency.ViewModel
         public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
 
         public Owner LoggedUser { get; set; }
+        public ViewModelBase CurrentVM { get; set; }
 
-        private readonly Window _window;
+        private Window _window;
         private App app = (App)App.Current;
 
-        public DelegateCommand NewAccommodationCmd { get; }
-        public DelegateCommand NewReviewCmd { get; }
-        public DelegateCommand PostponeCmd { get; }
-        public DelegateCommand PostponeCommentCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand NewAccommodationCmd { get; set; }
+        public DelegateCommand NewReviewCmd { get; set; }
+        public DelegateCommand PostponeCmd { get; set; }
+        public DelegateCommand PostponeCommentCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand ShowDataGridCmd { get; set; }
+        public DelegateCommand ImportantCmd { get; set; }
+        public DelegateCommand ShowAccCmd { get; set; }
 
-        public OwnerHomeViewModel(Window window, Owner owner)
+        public OwnerHomeViewModel()
         {
-            _window = window;
-            LoggedUser = owner;
+            LoggedUser = app.LoggedUser;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
 
-            _reservationService = app.ReservationService;
-            _reservationService.Subscribe(this);
-
-            _accommodationService = app.AccommodationService;
-            _accommodationService.Subscribe(this);
-
-            _ownerReviewService = app.OwnerReviewService;
-            _ownerReviewService.Subscribe(this);
-
-            _postponementRequestService = app.PostponementRequestService;
-            _postponementRequestService.Subscribe(this);
-
-            _ownerService = app.OwnerService;
+            InstantiateServices();
+            SubscribeObservers();
 
             SetUserStatus();
+            AccountContainerVisibility = "Collapsed";
 
-            Accommodations = new ObservableCollection<Accommodation>();
-            LoadAccommodations(LoggedUser.ID);
+            InstantiateCollections();
+            FillCollections();
 
-            Reservations = new ObservableCollection<Reservation>();
-            LoadReservations(LoggedUser.ID);
-
-            PostponementRequests = new ObservableCollection<PostponementRequest>();
-            LoadPostponementRequests(LoggedUser.ID);
-
-            OwnerReviews = new ObservableCollection<OwnerReview>();
-            LoadOwnerReviews(LoggedUser.ID);
-
+            _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
             ReviewNotification();
 
-            NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
-            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreation(), param => CanOpenGuestReviewCreation());
-            PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
-            //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
-            CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
+            InstantiateCommands();
         }
 
-        private void LoadAccommodations(int ownerId = 0)
+        private void InstantiateServices()
+        {
+            _reservationService = new ReservationService();
+            _accommodationService = new();
+            _ownerReviewService = new OwnerReviewService();
+            _postponementRequestService = new();
+            _ownerService = new();
+        }
+
+        private void SubscribeObservers()
+        {
+            _reservationService.ReservationRepository.Subscribe(this);
+            _accommodationService.AccommodationRepository.Subscribe(this);
+            _ownerReviewService.OwnerReviewRepository.Subscribe(this);
+            _postponementRequestService.PostponementRequestRepository.Subscribe(this);
+        }
+
+        private void InstantiateCollections()
+        {
+            Accommodations = new ObservableCollection<Accommodation>();
+            Reservations = new ObservableCollection<Reservation>();
+            PostponementRequests = new ObservableCollection<PostponementRequest>();
+            OwnerReviews = new ObservableCollection<OwnerReview>();
+        }
+
+        private void FillCollections()
+        {
+            LoadAccommodations(LoggedUser.ID);
+            LoadReservations(LoggedUser.ID);
+            LoadPostponementRequests(LoggedUser.ID);
+            LoadOwnerReviews(LoggedUser.ID);
+        }
+
+        private void InstantiateCommands()
+        {
+            NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
+            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
+            PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
+            //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
+            ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute, CanShowDataGridExecute);
+            ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
+            ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
+        }
+
+
+        private void LoadAccommodations(int ownerId)
         {
             Accommodations.Clear();
             List<Accommodation> accommodations = _accommodationService.GetByOwnerId(ownerId);
@@ -96,7 +152,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        private void LoadReservations(int ownerId = 0)
+        private void LoadReservations(int ownerId)
         {
             Reservations.Clear();
             List<Reservation> reservations = _reservationService.GetByOwnerId(ownerId);
@@ -106,7 +162,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void LoadPostponementRequests(int ownerId = 0)
+        public void LoadPostponementRequests(int ownerId)
         {
             PostponementRequests.Clear();
             List<PostponementRequest> postponementRequests = _postponementRequestService.GetByOwnerId(ownerId);
@@ -116,7 +172,7 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void LoadOwnerReviews(int ownerId = 0)
+        public void LoadOwnerReviews(int ownerId)
         {
             OwnerReviews.Clear();
             List<OwnerReview> ownerReviews = _ownerReviewService.GetReviewedReservationsByOwnerId(ownerId);
@@ -147,14 +203,14 @@ namespace TouristAgency.ViewModel
         public void SetUserStatus()
         {
             double average;
-            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID),out average);
+            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID), out average);
             LoggedUser.Average = average;
             if (LoggedUser.SuperOwner)
                 Status = $"SUPER OWNER ({LoggedUser.Average:F2})";
             else
                 Status = "";
 
-            _ownerService.Update(LoggedUser, LoggedUser.ID);
+           _ownerService.OwnerRepository.Update(LoggedUser, LoggedUser.ID);
         }
 
         public bool CanOpenAccommodationCreationExecute()
@@ -164,26 +220,29 @@ namespace TouristAgency.ViewModel
 
         public void OpenAccommodationCreationExecute()
         {
-            AccommodationCreation x = new AccommodationCreation(LoggedUser);
-            x.Show();
+            app.CurrentVM = new AccommodationCreationViewModel();
         }
 
-        public bool CanOpenGuestReviewCreation()
+        public bool CanOpenGuestReviewCreationForm()
         {
             if (SelectedReservation != null)
             {
                 DateTime today = DateTime.UtcNow.Date;
-                double dateDif = (today - SelectedReservation.End).TotalDays;
+                double dateDiff = (today - SelectedReservation.End).TotalDays;
 
-                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDif < 5.0)
+                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDiff < 5.0)
                 {
                     return true;
                 }
                 else
                 {
-                    if (Math.Abs(dateDif) > 5.0)
+                    if (dateDiff > 5.0)
                     {
                         MessageBox.Show("Guest review time window expired");
+                    }
+                    else if(dateDiff < 0.0)
+                    {
+                        MessageBox.Show("Reservation is in progress");
                     }
                     else if (SelectedReservation.Status == ReviewStatus.REVIEWED)
                     {
@@ -199,11 +258,11 @@ namespace TouristAgency.ViewModel
             }
         }
 
-        public void OpenGuestReviewCreation()
+        public void OpenGuestReviewCreationForm()
         {
             if (SelectedReservation != null)
             {
-                GuestReviewCreation x = new GuestReviewCreation(SelectedReservation);
+                GuestReviewCreationForm x = new GuestReviewCreationForm(SelectedReservation);
                 x.Show();
             }
         }
@@ -221,8 +280,8 @@ namespace TouristAgency.ViewModel
             MessageBoxResult result = ApprovePostponementRequest();
             if (SelectedRequest != null)
             {
-                Reservation reservation = _reservationService.FindById(SelectedRequest.Reservation.Id);
-                PostponementRequest request = _postponementRequestService.FindById(SelectedRequest.Id);
+                Reservation reservation = _reservationService.ReservationRepository.GetById(SelectedRequest.Reservation.Id);
+                PostponementRequest request = _postponementRequestService.PostponementRequestRepository.GetById(SelectedRequest.Id);
                 bool accommodationAvailability = _reservationService.IsReserved(reservation.AccommodationId, SelectedRequest.Start, SelectedRequest.End);
 
                 if (result == MessageBoxResult.Yes)
@@ -231,10 +290,10 @@ namespace TouristAgency.ViewModel
                     {
                         reservation.Start = SelectedRequest.Start;
                         reservation.End = SelectedRequest.End;
-                        _reservationService.Update(reservation, reservation.Id);
+                        _reservationService.ReservationRepository.Update(reservation, reservation.Id);
 
                         request.Status = PostponementRequestStatus.APPROVED;
-                        _postponementRequestService.Update(request, request.Id);
+                        _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
                         MessageBox.Show("Reservation has been postponed");
                     }
                     else
@@ -242,7 +301,7 @@ namespace TouristAgency.ViewModel
                         MessageBox.Show("Postponement is not possible");
                         request.Status = PostponementRequestStatus.DENIED;
                         request.Comment = "Sorry, the accommodation is reserved in this timeframe";
-                        _postponementRequestService.Update(request, request.Id);
+                        _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
                     }
                 }
                 if (result == MessageBoxResult.No)
@@ -287,6 +346,68 @@ namespace TouristAgency.ViewModel
         public void CloseWindowExecute()
         {
             _window.Close();
+        }
+
+        public bool CanShowDataGridExecute(object parameter)
+        {
+            if (parameter == null || !int.TryParse(parameter.ToString(), out int index))
+            {
+                return false;
+            }
+
+            return index >= 0 && index <=5;
+        }
+
+        public void ShowDataGridExecute(object parameter)
+        {
+            int index = int.Parse(parameter.ToString());
+            for (int i = 0; i < 5; i++)
+            {
+                if(i == index)
+                {
+                    DataGridVisibility[i] = "Visible";
+                }
+                else
+                {
+                    DataGridVisibility[i] = "Collapsed";
+                }
+
+                OnPropertyChanged("DataGridVisibility");
+            }
+        }
+
+        public bool CanImportantCmdExecute()
+        {
+            return true;
+        }
+
+        public void ImportantCmdExecute()
+        {
+            //string paris = "https://youtu.be/gG_dA32oH44?t=22";
+            string blood = "https://youtu.be/0-Tm65i96TY?t=15";
+            ProcessStartInfo ps = new ProcessStartInfo
+            {
+                FileName = blood,
+                UseShellExecute = true
+            };
+            Process.Start(ps);
+        }
+
+        public bool CanShowAccountCmdExecute()
+        {
+            return true;
+        }
+
+        public void ShowAccountCmdExecute()
+        {
+            if(AccountContainerVisibility == "Visible")
+            {
+                AccountContainerVisibility = "Collapsed";
+            }
+            else
+            {
+                AccountContainerVisibility = "Visible";
+            }
         }
     }
 }

@@ -9,27 +9,51 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Model.Enums;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
     public class OwnerReviewCreationViewModel : ViewModelBase, ICreate
     {
-        private readonly Window _window;
         private App _app;
         private Guest _loggedInGuest;
+        private readonly Window _window;
+
         private ObservableCollection<Reservation> _unreviewedReservations;
+
         private OwnerReview _newOwnerReview;
+
+        private ReservationService _reservationService;
+        private OwnerReviewService _ownerReviewService;
         
-        public DelegateCommand CreateCmd { get; }
+        public DelegateCommand CreateCmd { get; set; }
 
         public OwnerReviewCreationViewModel(Guest guest, Window window)
         {
-            _window = window;
             _app = (App)App.Current;
             _loggedInGuest = guest;
-            UnreviewedReservations = new ObservableCollection<Reservation>(_app.ReservationService.GetUnreviewedByGuestId(guest.ID));
+            _window = window;
+
+            InstantiateServices();
+           InstantiateCollections();
+           InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _reservationService = new ReservationService();
+            _ownerReviewService = new OwnerReviewService();
+        }
+
+        private void InstantiateCollections()
+        {
             NewOwnerReview = new OwnerReview();
 
+            UnreviewedReservations = new ObservableCollection<Reservation>(_reservationService.GetUnreviewedByGuestId(_loggedInGuest.ID));
+        }
+
+        private void InstantiateCommands()
+        {
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
         }
 
@@ -87,10 +111,10 @@ namespace TouristAgency.ViewModel
                     NewOwnerReview.Reservation = SelectedReservation;
                     NewOwnerReview.Reservation.OStatus = ReviewStatus.REVIEWED;
 
-                    _app.ReservationService.Update(NewOwnerReview.Reservation, NewOwnerReview.ReservationId);
+                    _reservationService.ReservationRepository.Update(NewOwnerReview.Reservation, NewOwnerReview.ReservationId);
 
                     AddPhotos();
-                    _app.OwnerReviewService.Create(NewOwnerReview);
+                    _ownerReviewService.OwnerReviewRepository.Create(NewOwnerReview);
                     UnreviewedReservations.Remove(SelectedReservation);
                     MessageBox.Show("Owner review is submitted successfully");
                 }
@@ -103,7 +127,7 @@ namespace TouristAgency.ViewModel
 
         public void AddPhotos()
         {
-            int ownerReviewID = _app.OwnerReviewService.GenerateId() - 1;
+            int ownerReviewID = _ownerReviewService.OwnerReviewRepository.GenerateId() - 1;
             if (PhotoLinks != null)
             {
                 PhotoLinks = PhotoLinks.Replace("\r\n", "|");
@@ -112,7 +136,7 @@ namespace TouristAgency.ViewModel
                 {
                     Photo photo = new Photo(photoLink, 'O', ownerReviewID);
                     NewOwnerReview.Photos.Add(photo);
-                    _app.PhotoService.Create(photo);
+                    _app.PhotoRepository.Create(photo);
                 }
             }
         }

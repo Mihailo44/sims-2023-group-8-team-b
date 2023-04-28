@@ -9,7 +9,7 @@ using TouristAgency.Service;
 using TouristAgency.Base;
 using TouristAgency.Model.Enums;
 using System.Windows;
-using System.Windows.Input;
+
 
 namespace TouristAgency.ViewModel
 {
@@ -34,13 +34,13 @@ namespace TouristAgency.ViewModel
 
         public GuestReviewViewModel()
         {
-            _guestReview = app.GuestReviewService;
+            _guestReview = new();
         }
 
         public GuestReviewViewModel(Reservation reservation,Window window)
         {
-            _guestReview = app.GuestReviewService;
-            _reservationService = app.ReservationService;
+            _guestReview = new();
+            _reservationService = new ReservationService();
             _window = window;
             NewGuestReview = new();
             NewGuestReview.Reservation = reservation;
@@ -158,9 +158,9 @@ namespace TouristAgency.ViewModel
             {
                 if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
                 {
-                    _guestReview.Create(NewGuestReview);
+                    _guestReview.GuestReviewRepository.Create(NewGuestReview);
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
-                    _reservationService.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
+                    _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
                     MessageBox.Show("Guest review created successfully");
                 }
                 else
@@ -190,7 +190,7 @@ namespace TouristAgency.ViewModel
 
         public void Subsribe(IObserver observer)
         {
-            _guestReview.Subscribe(observer);
+            _guestReview.GuestReviewRepository.Subscribe(observer);
         }
     }
 }

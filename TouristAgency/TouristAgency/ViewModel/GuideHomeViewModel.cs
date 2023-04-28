@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
@@ -18,19 +13,23 @@ namespace TouristAgency.ViewModel
         private Window _window;
         private Guide _loggedInGuide;
 
-        public DelegateCommand CloseCmd { get; }
-        public DelegateCommand CreateTourCmd { get; }
-        public DelegateCommand ActiveTourCmd { get; }
-        public DelegateCommand CancelTourCmd { get; }
-        public DelegateCommand TourStatisticsCmd { get; }
-        public DelegateCommand GuideProfileCmd { get; }
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand CreateTourCmd { get; set; }
+        public DelegateCommand ActiveTourCmd { get; set; }
+        public DelegateCommand CancelTourCmd { get; set; }
+        public DelegateCommand TourStatisticsCmd { get; set; }
+        public DelegateCommand GuideProfileCmd { get; set; }
 
         public GuideHomeViewModel(Guide guide, Window window)
         {
-            _app = (App)App.Current;
+            _app = (App)Application.Current;
             _loggedInGuide = guide;
             _window = window;
+            InstantiateCommands();
+        }
 
+        private void InstantiateCommands()
+        {
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             CreateTourCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
             ActiveTourCmd = new DelegateCommand(param => ActiveTourExecute(), param => CanActiveTourExecute());

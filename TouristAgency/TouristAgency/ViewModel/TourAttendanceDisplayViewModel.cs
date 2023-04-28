@@ -9,24 +9,51 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
     public class TourAttendanceDisplayViewModel : ViewModelBase, IObserver
     {
-        private ObservableCollection<Tour> _tours;
-        private Tourist _loggedInTourist;
-        private string _activeCheckpoint;
         private App _app;
+        private Tourist _loggedInTourist;
 
-        public DelegateCommand ShowCheckpointInfoCmd { get; }
-        public DelegateCommand JoinCmd { get; }
+        private ObservableCollection<Tour> _tours;
+
+        private string _activeCheckpoint;
+
+        private TourService _tourService;
+        private TouristService _touristService;
+        private TourCheckpointService _tourCheckpointService;
+        private TourTouristService _tourTouristService;
+
+        public DelegateCommand ShowCheckpointInfoCmd { get; set; }
+        public DelegateCommand JoinCmd { get; set; }
 
         public TourAttendanceDisplayViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
-            Tours = new ObservableCollection<Tour>(_app.TourService.GetActiveTours(tourist));
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _tourService = new TourService();
+            _touristService = new TouristService();
+            _tourTouristService = new TourTouristService();
+            _tourCheckpointService = new TourCheckpointService();
+        }
+
+        private void InstantiateCollections()
+        {
+            Tours = new ObservableCollection<Tour>(_tourService.GetActiveTours(_loggedInTourist));
+        }
+
+        private void InstantiateCommands()
+        {
             ShowCheckpointInfoCmd = new DelegateCommand(param => ShowCheckpointInfoExecute(), param => CanShowCheckpointInfoExecute());
             JoinCmd = new DelegateCommand(param => JoinExecute(), param => CanJoinExecute());
         }
@@ -70,9 +97,9 @@ namespace TouristAgency.ViewModel
 
         public void ShowCheckpointInfoExecute() 
         {
-            if(SelectedTour != null) 
+            if(SelectedTour != null)
             {
-                Checkpoint checkpoint = _app.TourCheckpointService.GetLatestCheckpoint(SelectedTour);
+                Checkpoint checkpoint = _tourCheckpointService.GetLatestCheckpoint(SelectedTour);
                 string name = checkpoint.AttractionName;
                 string city = checkpoint.Location.City;
                 string country = checkpoint.Location.Country;
@@ -89,16 +116,17 @@ namespace TouristAgency.ViewModel
         {
             if (SelectedTour != null) 
             {
-                TourTourist tourTourist = _app.TourTouristService.FindByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
+                TourTourist tourTourist = _tourTouristService.TourTouristRepository.GetByTourAndTouristID(SelectedTour.ID, _loggedInTourist.ID);
                 tourTourist.Arrived = true;
-                _app.TourTouristService.Update(tourTourist);
+                _tourTouristService.TourTouristRepository.Update(tourTourist);
                 MessageBox.Show("Successfully joined the tour.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
             }
         }
 
         public void Update()
         {
-            var tours = _app.TourService.GetActiveTours(_loggedInTourist);
+            List<Tour> tours = _tourService.GetActiveTours(_loggedInTourist);
             Tours.Clear();
             foreach(Tour tour in tours)
             {

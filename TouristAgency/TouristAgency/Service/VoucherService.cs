@@ -5,81 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Repository;
 using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
-    public class VoucherService : ICrud<Voucher>, ISubject
+    public class VoucherService
     {
-        private readonly IStorage<Voucher> _storage;
-        private readonly List<Voucher> _vouchers;
-        private List<IObserver> _observers;
+        private readonly App _app;
+        public VoucherRepository VoucherRepository { get; }
 
-        public VoucherService(IStorage<Voucher> storage) 
+        public VoucherService() 
         {
-            _storage = storage;
-            _vouchers = _storage.Load();
-            _observers = new List<IObserver>();
-        }
-
-        public int GenerateId()
-        {
-            return _vouchers.Max(v => v.ID) + 1;
-        }
-
-        public Voucher FindById(int id)
-        {
-            return _vouchers.Find(v => v.ID == id);
-        }
-
-        public Voucher Create(Voucher newVoucher)
-        {
-            newVoucher.ID = GenerateId();
-            _vouchers.Add(newVoucher);
-            _storage.Save(_vouchers);
-            NotifyObservers();
-
-            return newVoucher;
-        }
-
-        public Voucher Update(Voucher newVoucher, int id)
-        {
-            Voucher currentVoucher = FindById(id);
-
-            if (currentVoucher == null)
-            {
-                return null;
-            }
-
-            currentVoucher.TouristID = currentVoucher.TouristID;
-            currentVoucher.TourID = newVoucher.TourID;
-            currentVoucher.Name = newVoucher.Name;
-            currentVoucher.IsUsed = currentVoucher.IsUsed;
-            currentVoucher.ExpirationDate = currentVoucher.ExpirationDate;
-
-            _storage.Save(_vouchers);
-            NotifyObservers();
-
-            return currentVoucher;
-        }
-
-        public void Delete(int id)
-        {
-            Voucher deletedVoucher = FindById(id);
-            _vouchers.Remove(deletedVoucher);
-            _storage.Save(_vouchers);
-            NotifyObservers();
-        }
-
-        public List<Voucher> GetAll()
-        {
-            return _vouchers;
+            _app = (App)App.Current;
+            VoucherRepository = _app.VoucherRepository;
         }
 
         public int GetVouchersFromTours(int tourID)
         {
             int i = 0;
-            foreach(Voucher voucher in _vouchers)
+            foreach(Voucher voucher in VoucherRepository.GetAll())
             {
                 if(voucher.TourID == tourID)
                 {
@@ -94,25 +39,7 @@ namespace TouristAgency.Service
         {
             voucher.TourID = tourID;
             voucher.IsUsed = true;
-            Update(voucher, voucher.ID);
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (IObserver observer in _observers)
-            {
-                observer.Update();
-            }
+            VoucherRepository.Update(voucher, voucher.ID);
         }
     }
 }

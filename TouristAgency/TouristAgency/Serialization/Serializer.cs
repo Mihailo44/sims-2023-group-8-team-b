@@ -12,9 +12,10 @@ namespace TouristAgency.Serialization
     {
         private static char DELIMITER = '|';
         //TODO Napraviti metodu koja generise ovo, da ne bude dugacko
-        private static string path =  Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/Repository/Data/";
+        private static string path =  Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/Resources/Data/";
         public void ToCSV(string fileName, List<T> objects)
         {
+                                                                                                                                                                   if(fileName == "accommodations.txt") DELIMITER = '卐';
             fileName = path + fileName;
             StreamWriter streamWriter = new StreamWriter(fileName);
 
@@ -28,6 +29,7 @@ namespace TouristAgency.Serialization
 
         public List<T> FromCSV(string fileName)
         {
+                                                                                                                                                                    if(fileName == "accommodations.txt") DELIMITER = '卐';
             List<T> objects = new List<T>();
             fileName = path + fileName;
             if (!File.Exists(fileName))
@@ -46,7 +48,6 @@ namespace TouristAgency.Serialization
                 T obj = new T();
                 obj.FromCSV(csvValues);
                 objects.Add(obj);
-
             }
 
             return objects;

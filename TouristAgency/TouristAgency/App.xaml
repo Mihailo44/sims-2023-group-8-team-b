@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:TouristAgency"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Design/Owner/Styles/CircleButton.xaml"/>
+                <ResourceDictionary Source="Design/Owner/Styles/NavButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

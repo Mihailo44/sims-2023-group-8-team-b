@@ -8,7 +8,7 @@ namespace TouristAgency.Interfaces
 {
     public interface ICrud<T>
     {
-        //T FindById(int id); TODO Rename u getbyid
+        //T GetById(int id);
         T Create(T obj);
         T Update(T obj,int id);
         void Delete(int id);
