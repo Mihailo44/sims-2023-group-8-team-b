@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Model.Enums;
 using TouristAgency.Repository;
 
 namespace TouristAgency.Service

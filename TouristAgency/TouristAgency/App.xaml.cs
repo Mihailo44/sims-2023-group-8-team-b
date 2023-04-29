@@ -4,7 +4,12 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Repository;
+using TouristAgency.Review;
 using TouristAgency.Service;
+using TouristAgency.Tours;
+using TouristAgency.Users;
+using TouristAgency.Util;
+using TouristAgency.Vouchers;
 
 namespace TouristAgency
 {

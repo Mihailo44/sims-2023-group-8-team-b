@@ -5,9 +5,8 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Service;
-using TouristAgency.Model.Enums;
 using System.ComponentModel;
-using TouristAgency.Repository;
+using TouristAgency.Util;
 
 namespace TouristAgency.ViewModel
 {

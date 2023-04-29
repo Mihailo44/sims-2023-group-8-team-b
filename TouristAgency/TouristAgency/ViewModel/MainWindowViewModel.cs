@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Home;
 using TouristAgency.View.Main;
 using TouristAgency.Repository;
+using TouristAgency.Users;
 
 namespace TouristAgency.ViewModel
 {

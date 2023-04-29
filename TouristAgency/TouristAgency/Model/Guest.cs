@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Users;
 
 namespace TouristAgency.Model
 {

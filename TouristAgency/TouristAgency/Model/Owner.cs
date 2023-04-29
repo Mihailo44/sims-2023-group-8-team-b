@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model.Enums;
+using TouristAgency.Users;
+using TouristAgency.Util;
 
 namespace TouristAgency.Model
 {

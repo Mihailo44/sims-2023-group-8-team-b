@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Storage;
-using TouristAgency.Model.Enums;
 using TouristAgency.Repository;
+using TouristAgency.Base;
 
 namespace TouristAgency.Service
 {

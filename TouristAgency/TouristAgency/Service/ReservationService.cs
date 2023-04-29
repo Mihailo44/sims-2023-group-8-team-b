@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Model.Enums;
 using TouristAgency.Repository;
 
 

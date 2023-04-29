@@ -8,8 +8,8 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Model.Enums;
 using TouristAgency.Service;
+using TouristAgency.Util;
 
 namespace TouristAgency.ViewModel
 {

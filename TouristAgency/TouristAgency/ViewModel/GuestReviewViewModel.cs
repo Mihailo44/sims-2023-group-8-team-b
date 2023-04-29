@@ -7,7 +7,6 @@ using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Service;
 using TouristAgency.Base;
-using TouristAgency.Model.Enums;
 using System.Windows;
 
 

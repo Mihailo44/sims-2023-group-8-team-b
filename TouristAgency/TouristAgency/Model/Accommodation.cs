@@ -4,7 +4,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using TouristAgency.Interfaces;
-using TouristAgency.Model.Enums;
+using TouristAgency.Util;
+using TouristAgency.Base;
 
 namespace TouristAgency.Model
 {
