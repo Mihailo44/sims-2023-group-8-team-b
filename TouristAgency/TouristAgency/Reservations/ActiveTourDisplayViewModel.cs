@@ -227,7 +227,7 @@ namespace TouristAgency.Reservations
         {
             _selectedTour = SelectedTour;
             RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _touristService.TouristRepository.GetAll()));
-            _tourService.ChangeTourStatus(_selectedTour.ID, STATUS.IN_PROGRESS);
+            _tourService.ChangeTourStatus(_selectedTour.ID, TourStatus.IN_PROGRESS);
             AvailableCheckpoints = _tourCheckpointService.GetTourCheckpointsByTourID(_selectedTour.ID, _checkpointService.CheckpointRepository.GetAll());
             ListViewEnabled = false;
         }
@@ -258,7 +258,7 @@ namespace TouristAgency.Reservations
                 {
                     _tourCheckpointService.TourCheckpointRepository.Update(tourCheckpoint);
                 }
-                _tourService.ChangeTourStatus(_selectedTour.ID, STATUS.ENDED);
+                _tourService.ChangeTourStatus(_selectedTour.ID, TourStatus.ENDED);
 
                 AvailableTours.Remove(_selectedTour);
 
@@ -287,7 +287,7 @@ namespace TouristAgency.Reservations
         {
             foreach (Tour tour in AvailableTours)
             {
-                if (tour.Status == STATUS.IN_PROGRESS)
+                if (tour.Status == TourStatus.IN_PROGRESS)
                 {
                     _selectedTour = tour;
                     SelectedTour = tour;

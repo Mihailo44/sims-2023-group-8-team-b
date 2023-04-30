@@ -70,7 +70,7 @@ namespace TouristAgency.Tours
                 if (tour.IsSelected)
                 {
                     tourToBeDeleted.Add(tour);
-                    _tourService.ChangeTourStatus(tour.ID, STATUS.CANCELLED);
+                    _tourService.ChangeTourStatus(tour.ID, TourStatus.CANCELLED);
                     foreach (Tourist tourist in tour.RegisteredTourists)
                     {
                         DateTime oneYear = DateTime.Now.AddYears(1);

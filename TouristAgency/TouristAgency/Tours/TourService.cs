@@ -22,7 +22,7 @@ namespace TouristAgency.Tours
             List<Tour> todayTours = new List<Tour>();
             foreach (Tour tour in TourRepository.GetAll())
             {
-                if (tour.StartDateTime.Date == DateTime.Now.Date && tour.AssignedGuideID == guideID && tour.Status != STATUS.ENDED)
+                if (tour.StartDateTime.Date == DateTime.Now.Date && tour.AssignedGuideID == guideID && tour.Status != TourStatus.ENDED)
                 {
                     todayTours.Add(tour);
                 }
@@ -37,22 +37,22 @@ namespace TouristAgency.Tours
 
         public List<Tour> GetValidTours()
         {
-            return TourRepository.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status == STATUS.NOT_STARTED).ToList();
+            return TourRepository.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status == TourStatus.NOT_STARTED).ToList();
         }
 
         public List<Tour> GetFinishedToursByTourist(Tourist tourist)
         {
-            return TourRepository.GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.ENDED);
+            return TourRepository.GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == TourStatus.ENDED);
         }
 
         public List<Tour> GetFinishedToursByGuide(Guide guide)
         {
-            return TourRepository.GetAll().FindAll(t => t.AssignedGuideID == guide.ID && t.Status == STATUS.ENDED);
+            return TourRepository.GetAll().FindAll(t => t.AssignedGuideID == guide.ID && t.Status == TourStatus.ENDED);
         }
 
         public List<Tour> GetActiveTours(Tourist tourist)
         {
-            return TourRepository.GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == STATUS.IN_PROGRESS);
+            return TourRepository.GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == TourStatus.IN_PROGRESS);
         }
 
         public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration,
@@ -86,7 +86,7 @@ namespace TouristAgency.Tours
             _app.TourRepository.Update(tour, tourID);
         }
 
-        public void ChangeTourStatus(int id, STATUS status)
+        public void ChangeTourStatus(int id, TourStatus status)
         {
             Tour selectedTour = _app.TourRepository.GetById(id);
             selectedTour.Status = status;

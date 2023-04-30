@@ -6,6 +6,7 @@ using TouristAgency.Model;
 using TouristAgency.Repository;
 using TouristAgency.Review;
 using TouristAgency.Service;
+using TouristAgency.TourRequests;
 using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.Util;
@@ -35,6 +36,7 @@ namespace TouristAgency
         public PhotoRepository PhotoRepository { get; }
         public GuestRepository GuestRepository { get; }
         public LocationRepository LocationRepository { get; }
+        public TourRequestRepository TourRequestRepository { get; }
 
 
         public GuideRepository GuideRepository { get; }
