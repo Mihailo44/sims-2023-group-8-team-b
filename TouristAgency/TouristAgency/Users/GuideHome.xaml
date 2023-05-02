@@ -1,19 +1,138 @@
-﻿<Window x:Class="TouristAgency.View.Home.GuideHome"
+﻿<UserControl x:Class="TouristAgency.Users.GuideHome"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
-        Title="GuideHome" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Height="600" Width="370">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="TourCreation" Command="{Binding CreateTourCmd}" Width="200" Height="40"/>
-            <Button Content="ActiveTourDisplay" Command="{Binding ActiveTourCmd}" Width="200" Height="40"/>
-            <Button Content="CancelTourDisplay" Command="{Binding CancelTourCmd}" Width="200" Height="40"/>
-            <Button Content="TourStatisticsDisplay" Command="{Binding TourStatisticsCmd}" Width="200" Height="40"/>
-            <Button Content="GuideProfileDisplay" Command="{Binding GuideProfileCmd}" Width="200" Height="40"/>
-            <Button Content="Log out" Command="{Binding CloseCmd}" Width="200" Height="40"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="230"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button  Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8,16,0,0" Command="{Binding ShowMenuCmd}">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Image>
+                        <Image.Source>
+                            <BitmapImage UriSource="../Resources/Image/bars-solid.png"/>
+                        </Image.Source>
+                    </Image>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" FontSize="40" VerticalAlignment="Top" Padding="0" Margin="7,0,0,0">TouristAgency</Label>
+
+        <Image Grid.Column="2" Grid.Row="0" Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,13,7,0">
+            <Image.Source>
+                <BitmapImage UriSource="../Resources/Image/bell-exclamation.png"/>
+            </Image.Source>
+        </Image>
+
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" FontSize="24" Padding="0" VerticalAlignment="Top" Margin="17,0,0,0">Welcome, today's agenda:</Label>
+
+        <ListView Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Height="192" Width="333" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+        </ListView>
+
+
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Width="233" Height="100">
+            <StackPanel>
+                <Button Width="64" Height="64" VerticalAlignment="Top" Margin="7,13,7,0" Command="{Binding GuideProfileCmd}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Image >
+                                <Image.Source>
+                                    <BitmapImage UriSource="../Resources/Image/person-solid.png"/>
+                                </Image.Source>
+                            </Image>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Label HorizontalAlignment="Center">Manage profile</Label>
+            </StackPanel>
+
+            <StackPanel Margin="51,0,0,0">
+                <Image Width="64" Height="64" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="8,13,7,0">
+                    <Image.Source>
+                        <BitmapImage UriSource="../Resources/Image/file-pdf-solid.png"/>
+                    </Image.Source>
+                </Image>
+                <Label HorizontalAlignment="Center">Manage reports</Label>
+            </StackPanel>
         </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Width="233" Height="100">
+            <StackPanel>
+                <Image Width="64" Height="64" VerticalAlignment="Top" Margin="7,13,7,0">
+                    <Image.Source>
+                        <BitmapImage UriSource="../Resources/Image/question-solid.png"/>
+                    </Image.Source>
+                </Image>
+                <Label HorizontalAlignment="Center">Tutorials</Label>
+            </StackPanel>
+
+            <StackPanel Margin="75,0,0,0">
+                <Image Width="64" Height="64" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="7,13,7,0">
+                    <Image.Source>
+                        <BitmapImage UriSource="../Resources/Image/right-to-bracket-solid.png"/>
+                    </Image.Source>
+                </Image>
+                <Label HorizontalAlignment="Center">Logout</Label>
+            </StackPanel>
+        </StackPanel>
+
+        <Border BorderBrush="Black" BorderThickness="3" Background="White" Height="584" Panel.ZIndex="10000" Grid.ColumnSpan="3" Margin="-5,0,164,-54" Grid.RowSpan="5" Visibility="{Binding MenuVisibility}">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeave">
+                    <i:InvokeCommandAction Command="{Binding HideMenuCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <StackPanel HorizontalAlignment="Center">
+                <StackPanel Margin="0,10,0,0">
+                    <Label FontSize="24">Tours</Label>
+                    <Rectangle Fill="Black" Height="3" Width="200"/>
+                    <Label FontSize="16">- Create tours</Label>
+                    <Label FontSize="16">- Cancel existing tours</Label>
+                    <Label FontSize="16">- Custom tour requests</Label>
+                </StackPanel>
+
+                <StackPanel Margin="0,10,0,0">
+                    <Label FontSize="24">Profile</Label>
+                    <Rectangle Fill="Black" Height="3" Width="200"/>
+                    <Label FontSize="16">- My profile</Label>
+                    <Label FontSize="16">- Super guide program</Label>
+                    <Label FontSize="16">- Leave us</Label>
+                </StackPanel>
+
+                <StackPanel Margin="0,10,0,0">
+                    <Label FontSize="24">Data and statistics</Label>
+                    <Rectangle Fill="Black" Height="3" Width="200"/>
+                    <Label FontSize="16">- Performance on tours</Label>
+                    <Label FontSize="16">- Tour requests statistics</Label>
+                    </StackPanel>
+
+                <StackPanel Margin="0,10,0,0">
+                    <Label FontSize="24">Video tutorials</Label>
+                    <Rectangle Fill="Black" Height="3" Width="200"/>
+                    <Label FontSize="16">- View all tutorials</Label>
+                    </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
-</Window>
+</UserControl>

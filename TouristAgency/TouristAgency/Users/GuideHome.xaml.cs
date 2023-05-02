@@ -1,17 +1,16 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
 
-namespace TouristAgency.View.Home
+namespace TouristAgency.Users
 {
     /// <summary>
     /// Interaction logic for GuideHome.xaml
     /// </summary>
-    public partial class GuideHome : Window
+    public partial class GuideHome
     {
-        public GuideHome(Guide guide)
+        public GuideHome()
         {
             InitializeComponent();
-            DataContext = new GuideHomeViewModel(guide, this);
         }
     }
 }

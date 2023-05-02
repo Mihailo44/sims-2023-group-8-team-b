@@ -16,11 +16,11 @@ namespace TouristAgency.Users
         private TourService _tourService;
         public DelegateCommand GetBestTourCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
-        public GuideProfileDisplayViewModel(Guide guide, Window window)
+        public GuideProfileDisplayViewModel()
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
-            _window = window;
+            _loggedInGuide = _app.LoggedUser;
+            //_window = window;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();

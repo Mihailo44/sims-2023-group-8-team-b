@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.View.Creation;
@@ -11,6 +12,7 @@ namespace TouristAgency.Users
         private App _app;
         private Window _window;
         private Guide _loggedInGuide;
+        private string _menuVisibility;
 
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand CreateTourCmd { get; set; }
@@ -18,12 +20,28 @@ namespace TouristAgency.Users
         public DelegateCommand CancelTourCmd { get; set; }
         public DelegateCommand TourStatisticsCmd { get; set; }
         public DelegateCommand GuideProfileCmd { get; set; }
+        public DelegateCommand ShowMenuCmd { get; set; }
+        public DelegateCommand HideMenuCmd { get; set; }
 
-        public GuideHomeViewModel(Guide guide, Window window)
+        public string MenuVisibility
+        {
+            get => _menuVisibility;
+            set
+            {
+                if(value != _menuVisibility)
+                {
+                    _menuVisibility = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public GuideHomeViewModel()
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
-            _window = window;
+            _loggedInGuide = _app.LoggedUser;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuideStart");
+            MenuVisibility = "Hidden";
             InstantiateCommands();
         }
 
@@ -35,6 +53,8 @@ namespace TouristAgency.Users
             CancelTourCmd = new DelegateCommand(param => CancelTourExecute(), param => CanCancelTourExecute());
             TourStatisticsCmd = new DelegateCommand(param => TourStatisticsExecute(), param => CanTourStatisticsExecute());
             GuideProfileCmd = new DelegateCommand(param => GuideProfileExecute(), param => CanGuideProfileExecute());
+            ShowMenuCmd = new DelegateCommand(param => ShowMenuExecute(), param => CanShowMenuExecute());
+            HideMenuCmd = new DelegateCommand(param => HideMenuExecute(), param => CanHideMenuExecute());
         }
 
         public bool CanCloseExecute()
@@ -98,8 +118,28 @@ namespace TouristAgency.Users
 
         public void GuideProfileExecute()
         {
-            GuideProfileDisplay profileDisplay = new GuideProfileDisplay(_loggedInGuide);
-            profileDisplay.Show();
+
+            _app.CurrentVM = new GuideProfileDisplayViewModel();
+        }
+
+        public bool CanShowMenuExecute()
+        {
+            return true;
+        }
+
+        public void ShowMenuExecute()
+        {
+            MenuVisibility = "Visible";
+        }
+
+        public bool CanHideMenuExecute()
+        {
+            return true;
+        }
+
+        public void HideMenuExecute()
+        {
+            MenuVisibility = "Hidden";
         }
     }
 }
