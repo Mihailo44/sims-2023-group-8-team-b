@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         mc:Ignorable="d"
-        Title="TourCreation" Height="750" Width="410" WindowStartupLocation="CenterScreen">
+        Title="TourCreation" Height="600" Width="370" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -33,11 +33,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"></RowDefinition>
                     <RowDefinition Height="35"></RowDefinition>
-                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="35"></RowDefinition>
                     <RowDefinition Height="35"></RowDefinition>
                 </Grid.RowDefinitions>
-
 
                 <Label VerticalAlignment="Center">Tour name:</Label>
                 <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Name, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
@@ -49,7 +48,7 @@
                 <TextBox x:Name="CityTextBox"  Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.City, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
 
                 <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center">Tour description:</Label>
-                <TextBox x:Name="DescriptionTextBox"  Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="73" Text="{Binding Path=NewTour.Description, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                <TextBox x:Name="DescriptionTextBox"  Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Height="33" Text="{Binding Path=NewTour.Description, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
@@ -127,8 +126,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"></RowDefinition>
                     <RowDefinition Height="35"></RowDefinition>
-                    <RowDefinition Height="85"></RowDefinition>
-                    <RowDefinition Height="85"></RowDefinition>
+                    <RowDefinition Height="45"></RowDefinition>
+                    <RowDefinition Height="74"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Label>Tour start date:</Label>
@@ -144,7 +143,7 @@
                 <xctk:IntegerUpDown Grid.Column="1" Grid.Row="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></xctk:IntegerUpDown>
 
                 <Label Grid.Column="0" Grid.Row="2">Pictures (URLs):</Label>
-                <TextBox Grid.Column="1" Grid.Row="2" Height="80" Text="{Binding PhotoLinks, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                <TextBox Grid.Column="1" Grid.Row="2" Height="40" Text="{Binding PhotoLinks, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>

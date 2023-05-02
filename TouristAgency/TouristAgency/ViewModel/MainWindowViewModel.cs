@@ -129,6 +129,7 @@ namespace TouristAgency.ViewModel
                     case UserType.GUIDE:
                         {
                             User = _guideService.GuideRepository.GetById(User.ID);
+                            app.LoggedUser = User;
                             GuideMain x = new GuideMain();
                             x.Show();
                             ClearTxtBoxes();

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="TouristAgency.Statistics.GuideTourRequestStatisticsDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:custom="clr-namespace:TouristAgency.Design.Guide.Controls"
+        xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:TouristAgency.Statistics"
+        mc:Ignorable="d"
+        Height="600" Width="370">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="235"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <custom:BurgerButton Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
+
+        <Label Content="Tour request statistics" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Width="204"></Label>
+        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="350" Height="220">
+            <GroupBox.Header>
+                <Label Content="Filters" FontSize="13"></Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="93"></ColumnDefinition>
+                    <ColumnDefinition Width="76"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Content="Country:" Grid.Row="0" Grid.Column="0" FontSize="13"/>
+                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="88" Height="27" FontSize="13"/>
+
+                <Label Content="City:" Grid.Row="0" Grid.Column="2" FontSize="13"/>
+                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="88" Height="27" FontSize="13"/>
+
+                <Label Content="Language:" Grid.Row="1" Grid.Column="0" FontSize="13"/>
+                <ComboBox x:Name="LanguageComboBox" Grid.Row="0" Grid.Column="3" Width="88" Height="27" FontSize="13"/>
+
+                <Label Content="Start year:" Grid.Row="2" Grid.Column="0"></Label>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+
+                <Label Content="End year:" Grid.Row="2" Grid.Column="2"></Label>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+
+                <Label Content="Start month:" Grid.Row="3" Grid.Column="0" FontSize="13"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+
+                <Label Content="End month:" Grid.Row="3" Grid.Column="2" FontSize="13"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Content="Filter" Width="65" Height="36" FontSize="13" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="17" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
+            The number of requests for this location is: *132*
+        </TextBlock>
+        <Button Content="Create tour by params" Grid.Row="2" Grid.Column="1" Width="150" Height="60" FontSize="13"></Button>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="17" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
+            The most requested location is *Rome, Italy*, with *1231* requests
+        </TextBlock>
+        <Button Content="Create this tour" Grid.Row="3" Grid.Column="1" Width="150" Height="60" FontSize="13"></Button>
+
+        <Button Content="Go back" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Width="140" Height="60" FontSize="13" Margin="0,0,0,0" VerticalAlignment="Top"></Button>
+    </Grid>
+</UserControl>

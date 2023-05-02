@@ -1,18 +1,18 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
 using TouristAgency.Statistics;
+using System.Windows.Controls;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.Statistics
 {
     /// <summary>
     /// Interaction logic for TourStatisticsDisplay.xaml
     /// </summary>
-    public partial class TourStatisticsDisplay : Window
+    public partial class TourStatisticsDisplay : UserControl
     {
-        public TourStatisticsDisplay(Guide guide)
+        public TourStatisticsDisplay()
         {
             InitializeComponent();
-            DataContext = new TourStatisticsDisplayViewModel(guide);
         }
     }
 }

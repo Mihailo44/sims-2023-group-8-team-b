@@ -7,10 +7,11 @@ using TouristAgency.View.Display;
 using TouristAgency.Users;
 using TouristAgency.Tours;
 using TouristAgency.Vouchers;
+using TouristAgency.Interfaces;
 
 namespace TouristAgency.Statistics
 {
-    public class TourStatisticsDisplayViewModel : ViewModelBase
+    public class TourStatisticsDisplayViewModel : BurgerMenuViewModelBase, ICloseable
     {
         private App _app;
         private Guide _loggedInGuide;
@@ -29,13 +30,18 @@ namespace TouristAgency.Statistics
 
         public DelegateCommand GetStatisticsCmd { get; set; }
         public DelegateCommand GetReviewsCmd { get; set; }
-        public TourStatisticsDisplayViewModel(Guide guide)
+
+        public DelegateCommand CloseCmd { get; set; }
+
+        public TourStatisticsDisplayViewModel()
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
+            _loggedInGuide = _app.LoggedUser;
+            MenuVisibility = "Hidden";
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateMenuCommands();
         }
 
         private void InstantiateServices()
@@ -62,6 +68,7 @@ namespace TouristAgency.Statistics
         {
             GetStatisticsCmd = new DelegateCommand(param => GetStatisticsExecute(), param => CanGetStatisticsExecute());
             GetReviewsCmd = new DelegateCommand(param => GetReviewsExecute(), param => CanGetReviewsExecute());
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
         public ObservableCollection<Tour> Tours
@@ -203,6 +210,16 @@ namespace TouristAgency.Statistics
                 GuideReviewDisplay reviewDisplay = new GuideReviewDisplay(_loggedInGuide, SelectedTour);
                 reviewDisplay.ShowDialog();
             }
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
+        {
+            _app.CurrentVM = new GuideHomeViewModel();
         }
     }
 }

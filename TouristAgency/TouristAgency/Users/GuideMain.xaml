@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:us="clr-namespace:TouristAgency.Users"
-            xmlns:creation="clr-namespace:TouristAgency.View.Creation"
-            xmlns:home="clr-namespace:TouristAgency.View.Home"
-            xmlns:main="clr-namespace:TouristAgency.View.Main"
-        xmlns:local="clr-namespace:TouristAgency.View.Main"
+        xmlns:to="clr-namespace:TouristAgency.Tours"
+        xmlns:st="clr-namespace:TouristAgency.Statistics"
+        xmlns:tr="clr-namespace:TouristAgency.TourRequests"
         mc:Ignorable="d"
         Title="GuideMain" Height="600" Width="390" WindowStartupLocation="CenterScreen" Name="GuideStart">
 
@@ -18,6 +17,22 @@
 
         <DataTemplate DataType="{x:Type us:GuideProfileDisplayViewModel}">
             <us:GuideProfileDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type to:CancelTourDisplayViewModel}">
+            <to:CancelTourDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type st:TourStatisticsDisplayViewModel}">
+            <st:TourStatisticsDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type tr:TourRequestDisplayViewModel}">
+            <tr:TourRequestDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type st:GuideTourRequestStatisticsDisplayViewModel}">
+            <st:GuideTourRequestStatisticsDisplay/>
         </DataTemplate>
     </Window.Resources>
 

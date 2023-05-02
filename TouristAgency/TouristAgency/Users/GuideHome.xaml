@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:custom = "clr-namespace:TouristAgency.Design.Guide.Controls" 
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
         Height="600" Width="370">
@@ -22,18 +23,8 @@
             <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Button  Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8,16,0,0" Command="{Binding ShowMenuCmd}">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Image>
-                        <Image.Source>
-                            <BitmapImage UriSource="../Resources/Image/bars-solid.png"/>
-                        </Image.Source>
-                    </Image>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-
+        <custom:BurgerButton Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
+        
         <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" FontSize="40" VerticalAlignment="Top" Padding="0" Margin="7,0,0,0">TouristAgency</Label>
 
         <Image Grid.Column="2" Grid.Row="0" Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,13,7,0">
@@ -95,44 +86,8 @@
             </StackPanel>
         </StackPanel>
 
-        <Border BorderBrush="Black" BorderThickness="3" Background="White" Height="584" Panel.ZIndex="10000" Grid.ColumnSpan="3" Margin="-5,0,164,-54" Grid.RowSpan="5" Visibility="{Binding MenuVisibility}">
-
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeave">
-                    <i:InvokeCommandAction Command="{Binding HideMenuCmd}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-            <StackPanel HorizontalAlignment="Center">
-                <StackPanel Margin="0,10,0,0">
-                    <Label FontSize="24">Tours</Label>
-                    <Rectangle Fill="Black" Height="3" Width="200"/>
-                    <Label FontSize="16">- Create tours</Label>
-                    <Label FontSize="16">- Cancel existing tours</Label>
-                    <Label FontSize="16">- Custom tour requests</Label>
-                </StackPanel>
-
-                <StackPanel Margin="0,10,0,0">
-                    <Label FontSize="24">Profile</Label>
-                    <Rectangle Fill="Black" Height="3" Width="200"/>
-                    <Label FontSize="16">- My profile</Label>
-                    <Label FontSize="16">- Super guide program</Label>
-                    <Label FontSize="16">- Leave us</Label>
-                </StackPanel>
-
-                <StackPanel Margin="0,10,0,0">
-                    <Label FontSize="24">Data and statistics</Label>
-                    <Rectangle Fill="Black" Height="3" Width="200"/>
-                    <Label FontSize="16">- Performance on tours</Label>
-                    <Label FontSize="16">- Tour requests statistics</Label>
-                    </StackPanel>
-
-                <StackPanel Margin="0,10,0,0">
-                    <Label FontSize="24">Video tutorials</Label>
-                    <Rectangle Fill="Black" Height="3" Width="200"/>
-                    <Label FontSize="16">- View all tutorials</Label>
-                    </StackPanel>
-            </StackPanel>
-        </Border>
+        <custom:BurgerMenu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="-5,0,164,-54">
+        </custom:BurgerMenu>
+        
     </Grid>
 </UserControl>

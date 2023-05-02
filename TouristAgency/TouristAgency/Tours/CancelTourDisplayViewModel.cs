@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
+using TouristAgency.Interfaces;
 using TouristAgency.Users;
 using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours
 {
-    public class CancelTourDisplayViewModel : ViewModelBase
+    public class CancelTourDisplayViewModel : BurgerMenuViewModelBase, ICloseable
     {
         private App _app;
         private Guide _guide;
@@ -17,12 +18,12 @@ namespace TouristAgency.Tours
 
         private TourService _tourService;
         private VoucherService _voucherService;
-        public DelegateCommand CancelTourCmd { get; set; }
-
-        public CancelTourDisplayViewModel(Guide guide)
+        public DelegateCommand CancelExistingTourCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
+        public CancelTourDisplayViewModel()
         {
             _app = (App)Application.Current;
-            _guide = guide;
+            _guide = _app.LoggedUser;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
@@ -31,6 +32,7 @@ namespace TouristAgency.Tours
         private void InstantiateServices()
         {
             _tourService = new TourService();
+            _voucherService = new VoucherService();
         }
 
         private void InstantiateCollections()
@@ -40,7 +42,8 @@ namespace TouristAgency.Tours
 
         private void InstantiateCommands()
         {
-            CancelTourCmd = new DelegateCommand(param => CancelToursExecute(), param => CanCancelToursExecute());
+            CancelExistingTourCmd = new DelegateCommand(param => CancelToursExecute(), param => CanCancelToursExecute());
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
         public ObservableCollection<Tour> AvailableTours
@@ -85,6 +88,15 @@ namespace TouristAgency.Tours
             {
                 AvailableTours.Remove(tour);
             }
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+        public void CloseExecute()
+        {
+            _app.CurrentVM = new GuideHomeViewModel();
         }
     }
 }
