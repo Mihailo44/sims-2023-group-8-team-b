@@ -26,7 +26,7 @@
             </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}"/>
-                <MenuItem Header="View and create tour requests"/>
+                <MenuItem Header="View and create tour requests" Command="{Binding TourRequestCmd}"/>
                 <MenuItem Header="View and create requests for complex tours"/>
                 <Separator />
                 <MenuItem Header="View statistics on tour requests"/>
@@ -44,7 +44,7 @@
 
         <Image Height="190" Width="150" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Image.Source>
-                <BitmapImage UriSource="../../Repository/Image/userTourist.png"/>
+                <BitmapImage UriSource="../Resources/Image/userTourist.png"/>
             </Image.Source>
         </Image>
 
