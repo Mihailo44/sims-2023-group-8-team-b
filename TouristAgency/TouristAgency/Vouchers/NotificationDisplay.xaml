@@ -8,18 +8,48 @@
         Title="NotificationDisplay" Height="720" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="450"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="55"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="280"></RowDefinition>
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center">
+            <TextBlock TextDecorations="Underline">New tours based on requests</TextBlock>
+        </Label>
+        <TextBlock Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Center" Width="200" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+            Click on the title or list to view the tour and make a reservation.
+        </TextBlock>
 
-        <Label Content="Vouchers won" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
-        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="500" Height="250" ItemsSource="{Binding Vouchers}" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Margin="25,0,0,0">
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Width="760" Height="250" FontSize="28" FontWeight="Bold">
+        </ListView>
+
+        <Border Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="2,2,2,2" CornerRadius="10" Margin="15,5,15,15">
+            <Border.BorderBrush>
+                <DrawingBrush Viewport="0,0,20,20" ViewportUnits="Absolute" TileMode="Tile">
+                    <DrawingBrush.Drawing>
+                        <DrawingGroup>
+                            <GeometryDrawing Brush="Black">
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <RectangleGeometry Rect="0,0,50,50" />
+                                        <RectangleGeometry Rect="50,50,50,50" />
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingGroup>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Border.BorderBrush>
+        </Border>
+        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold">
+            <TextBlock TextDecorations="Underline">Vouchers won</TextBlock>
+        </Label>
+        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="490" Height="250" ItemsSource="{Binding Vouchers}" FontSize="28" FontWeight="Bold">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -32,7 +62,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Center" Width="420" Height="225" FontSize="28" HorizontalAlignment="Right" Margin="0,0,25,0">
+        <TextBlock Grid.Row="3" Grid.Column="2" TextWrapping="Wrap" TextAlignment="Center" Width="420" Height="225" FontSize="28" HorizontalAlignment ="Left">
             A tourist can get a voucher if he goes on any 5 tours in a year, 
             or if the tour is canceled by the guide. Vouchers won in this way 
             last for 6 months and can be used for any tour.
