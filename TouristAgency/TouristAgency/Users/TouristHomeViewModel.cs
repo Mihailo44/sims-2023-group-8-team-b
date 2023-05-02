@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Statistics;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
 using TouristAgency.View.Creation;
@@ -24,6 +25,7 @@ namespace TouristAgency.Users
         public DelegateCommand TourAttendanceCmd { get; set; }
         public DelegateCommand NotificationCmd { get; set; }
         public DelegateCommand TourRequestCmd { get; set; }
+        public DelegateCommand TourRequestStatisticsCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
 
         public TouristHomeViewModel(Tourist tourist, Window window)
@@ -49,6 +51,7 @@ namespace TouristAgency.Users
             TourAttendanceCmd = new DelegateCommand(param => TourAttendanceExecute(), param => CanTourAttendanceExecute());
             NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
             TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => CanTourRequestExecute());
+            TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => CanTourRequestStatisticsExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
@@ -132,6 +135,17 @@ namespace TouristAgency.Users
         {
             TourRequestCreation creation = new TourRequestCreation(_loggedInTourist);
             creation.Show();
+        }
+
+        public bool CanTourRequestStatisticsExecute()
+        {
+            return true;
+        }
+
+        public void TourRequestStatisticsExecute()
+        {
+            TourRequestStatisticsDisplay display = new TourRequestStatisticsDisplay();
+            display.Show();
         }
 
         public bool CanCloseExecute()

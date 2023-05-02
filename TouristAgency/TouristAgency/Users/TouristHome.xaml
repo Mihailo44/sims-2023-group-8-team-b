@@ -29,7 +29,7 @@
                 <MenuItem Header="View and create tour requests" Command="{Binding TourRequestCmd}"/>
                 <MenuItem Header="View and create requests for complex tours"/>
                 <Separator />
-                <MenuItem Header="View statistics on tour requests"/>
+                <MenuItem Header="View statistics on tour requests" Command="{Binding TourRequestStatisticsCmd}"/>
             </MenuItem>
             <MenuItem Header="_Report">
                 <MenuItem Header="Generate voucher report"/>
