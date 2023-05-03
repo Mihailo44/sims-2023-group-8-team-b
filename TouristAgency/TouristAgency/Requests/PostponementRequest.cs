@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Reservations;
 
-namespace TouristAgency.Model
+namespace TouristAgency.Requests
 {
     public class PostponementRequest : ISerializable
     {
@@ -98,7 +99,7 @@ namespace TouristAgency.Model
             get => _reservationId;
             set
             {
-                if(_reservationId != value)
+                if (_reservationId != value)
                 {
                     _reservationId = value;
                 }
@@ -107,7 +108,7 @@ namespace TouristAgency.Model
 
         public string Comment
         {
-            get => _comment; 
+            get => _comment;
             set
             {
                 if (value != _comment)
@@ -122,7 +123,7 @@ namespace TouristAgency.Model
             get => _status;
             set
             {
-                if(value != _status)
+                if (value != _status)
                 {
                     _status = value;
                 }
@@ -137,7 +138,7 @@ namespace TouristAgency.Model
             End = DateTime.Parse(values[3]);
             Status = Enum.Parse<PostponementRequestStatus>(values[4]);
             Comment = values[5];
-            Seen = Boolean.Parse(values[6]);
+            Seen = bool.Parse(values[6]);
         }
 
         public string[] ToCSV()

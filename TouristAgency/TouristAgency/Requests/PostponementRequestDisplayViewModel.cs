@@ -8,10 +8,10 @@ using System.Windows;
 using System.Windows.Input;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
-using TouristAgency.Service;
+using TouristAgency.Reservations;
+using TouristAgency.Users;
 
-namespace TouristAgency.ViewModel
+namespace TouristAgency.Requests
 {
     public class PostponementRequestDisplayViewModel : ViewModelBase, ICreate
     {
@@ -23,13 +23,13 @@ namespace TouristAgency.ViewModel
 
         private DateTime _start;
         private DateTime _end;
-        
+
         private ReservationService _reservationService;
         private PostponementRequestService _postponementRequestService;
 
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand CancelCmd { get; set; }
-        public DelegateCommand NotificationCmd { get; set;}
+        public DelegateCommand NotificationCmd { get; set; }
 
         public PostponementRequestDisplayViewModel(Guest guest, Window window)
         {
@@ -129,7 +129,7 @@ namespace TouristAgency.ViewModel
         void CreateExecute()
         {
             DateTime today = DateTime.Now;
-            if ((Start >= today && End >=today) && (End >= Start))
+            if (Start >= today && End >= today && End >= Start)
             {
                 if (SelectedReservation != null)
                 {

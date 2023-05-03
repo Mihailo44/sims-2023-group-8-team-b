@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Model;
+using TouristAgency.Users;
 
-namespace TouristAgency.Model
+namespace TouristAgency.Reservations
 {
     public class Reservation : ISerializable
     {
@@ -41,13 +43,13 @@ namespace TouristAgency.Model
             _status = ReviewStatus.UNREVIEWED;
             _ostatus = ReviewStatus.UNREVIEWED;
         }
-        
+
         public int Id
         {
             get => _id;
             set
             {
-                if(_id != value)
+                if (_id != value)
                 {
                     _id = value;
                 }
@@ -59,7 +61,7 @@ namespace TouristAgency.Model
             get => _guest;
             set
             {
-                if(_guest != value)
+                if (_guest != value)
                 {
                     _guest = value;
                 }
@@ -71,14 +73,14 @@ namespace TouristAgency.Model
             get => _guestId;
             set
             {
-                if(_guestId != value)
+                if (_guestId != value)
                 {
                     _guestId = value;
                 }
             }
         }
 
-       public Accommodation Accommodation 
+        public Accommodation Accommodation
         {
             get => _accommodation;
             set => _accommodation = value;
@@ -89,7 +91,7 @@ namespace TouristAgency.Model
             get => _accommodationId;
             set
             {
-                if(_accommodationId != value)
+                if (_accommodationId != value)
                 {
                     _accommodationId = value;
                 }
@@ -101,7 +103,7 @@ namespace TouristAgency.Model
             get => _start;
             set
             {
-                if(_start != value)
+                if (_start != value)
                 {
                     _start = value;
                 }
@@ -137,7 +139,7 @@ namespace TouristAgency.Model
             get => _status;
             set
             {
-                if(_status != value)
+                if (_status != value)
                 {
                     _status = value;
                 }
@@ -149,7 +151,7 @@ namespace TouristAgency.Model
             get => _ostatus;
             set
             {
-                if(_ostatus != value)
+                if (_ostatus != value)
                 {
                     _ostatus = value;
                 }
@@ -165,7 +167,7 @@ namespace TouristAgency.Model
             End = DateTime.Parse(values[4]);
             Status = Enum.Parse<ReviewStatus>(values[5]);
             OStatus = Enum.Parse<ReviewStatus>(values[6]);
-            IsCanceled = Boolean.Parse(values[7]);
+            IsCanceled = bool.Parse(values[7]);
         }
 
         public string[] ToCSV()

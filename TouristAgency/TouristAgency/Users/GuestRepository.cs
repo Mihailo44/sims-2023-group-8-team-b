@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
 
-namespace TouristAgency.Repository
+namespace TouristAgency.Users
 {
     public class GuestRepository : ICrud<Guest>, ISubject
     {

@@ -7,23 +7,22 @@ using System.Linq;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Repository;
+using TouristAgency.Users;
 
-
-namespace TouristAgency.Service
+namespace TouristAgency.Reservations
 {
-    public class ReservationService 
+    public class ReservationService
     {
         private readonly App _app;
         public ReservationRepository ReservationRepository { get; }
 
         public ReservationService()
         {
-            _app = (App)App.Current;
+            _app = (App)System.Windows.Application.Current;
             ReservationRepository = _app.ReservationRepository;
         }
 
-        
+
 
         public ObservableCollection<Reservation> GeneratePotentionalReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
         {
@@ -207,6 +206,6 @@ namespace TouristAgency.Service
             return false;
         }
 
-        
+
     }
 }

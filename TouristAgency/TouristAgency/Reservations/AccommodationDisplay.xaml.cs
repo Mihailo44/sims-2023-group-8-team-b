@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,20 +13,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Model;
 using TouristAgency.ViewModel;
+using TouristAgency.View.Home;
+using TouristAgency.Users;
+using TouristAgency.Reservations;
 
 namespace TouristAgency.View.Display
 {
     /// <summary>
-    /// Interaction logic for PostponementRequestDisplay.xaml
+    /// Interaction logic for AccommodationDisplay.xaml
     /// </summary>
-    public partial class PostponementRequestDisplay : Window
+    public partial class AccommodationDisplay : Window
     {
-        public PostponementRequestDisplay(Guest loggedInGuest)
+        private Guest _loggedInGuest;
+
+        public AccommodationDisplay(Guest guest)
         {
             InitializeComponent();
-            DataContext = new PostponementRequestDisplayViewModel(loggedInGuest, this);
+            DataContext = new AccommodationDisplayViewModel(guest, this);
+            _loggedInGuest = guest;
         }
     }
 }

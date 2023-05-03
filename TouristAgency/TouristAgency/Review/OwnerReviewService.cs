@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Model;
 using TouristAgency.Interfaces;
 using TouristAgency.Storage;
-using TouristAgency.Repository;
 using TouristAgency.Base;
 
-namespace TouristAgency.Service
+namespace TouristAgency.Review
 {
-    public class OwnerReviewService 
+    public class OwnerReviewService
     {
         private readonly App _app;
         public OwnerReviewRepository OwnerReviewRepository { get; }
 
         public OwnerReviewService()
         {
-            _app = (App)App.Current;
+            _app = (App)System.Windows.Application.Current;
             OwnerReviewRepository = _app.OwnerReviewRepository;
         }
 
@@ -35,7 +33,7 @@ namespace TouristAgency.Service
             {
                 int ownerId = ownerReview.Reservation.Accommodation.OwnerId;
 
-                if (ownerId == id &&  ownerReview.Reservation.Status == ReviewStatus.REVIEWED)
+                if (ownerId == id && ownerReview.Reservation.Status == ReviewStatus.REVIEWED)
                 {
                     reviewedReservations.Add(ownerReview);
                 }
@@ -43,6 +41,6 @@ namespace TouristAgency.Service
             return reviewedReservations;
         }
 
-        
+
     }
 }

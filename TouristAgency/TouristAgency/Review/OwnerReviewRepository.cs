@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
+using TouristAgency.Reservations;
 using TouristAgency.Util;
 
-namespace TouristAgency.Repository
+namespace TouristAgency.Review
 {
     public class OwnerReviewRepository : ICrud<OwnerReview>, ISubject
     {

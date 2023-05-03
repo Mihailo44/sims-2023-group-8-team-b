@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
-using TouristAgency.Service;
-using TouristAgency.Model;
 using TouristAgency.Interfaces;
+using TouristAgency.Requests;
 
 namespace TouristAgency.ViewModel
 {

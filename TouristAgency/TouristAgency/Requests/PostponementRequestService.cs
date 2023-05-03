@@ -5,15 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
-using TouristAgency.Repository;
 
-namespace TouristAgency.Service
+namespace TouristAgency.Requests
 {
-    public class PostponementRequestService 
+    public class PostponementRequestService
     {
-        private readonly App app = (App)App.Current;
-        public PostponementRequestRepository PostponementRequestRepository { get;}
+        private readonly App app = (App)System.Windows.Application.Current;
+        public PostponementRequestRepository PostponementRequestRepository { get; }
 
         public PostponementRequestService()
         {
@@ -30,7 +28,7 @@ namespace TouristAgency.Service
             return PostponementRequestRepository.GetAll().FindAll(r => r.Reservation.GuestId == guestId);
         }
 
-        public String ShowNotifications(int id)
+        public string ShowNotifications(int id)
         {
             string result = "No new notifications";
             foreach (PostponementRequest request in PostponementRequestRepository.GetAll())
@@ -41,7 +39,7 @@ namespace TouristAgency.Service
                     result = "One of your requests has changed";
                     request.Seen = true;
                 }
-                
+
             }
             return result;
         }

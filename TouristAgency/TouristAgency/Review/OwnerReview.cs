@@ -5,11 +5,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
+using TouristAgency.Reservations;
 using TouristAgency.Util;
 
-namespace TouristAgency.Model
+namespace TouristAgency.Review
 {
-    public class OwnerReview : ISerializable 
+    public class OwnerReview : ISerializable
     {
         private int _id;
         private Reservation _reservation;
@@ -35,7 +36,7 @@ namespace TouristAgency.Model
             _photos = new List<Photo>();
         }
 
-        public OwnerReview(Reservation reservation,int cleanliness, int ownerCorrectness, int location, int comfort, int wifi, string comment = "")
+        public OwnerReview(Reservation reservation, int cleanliness, int ownerCorrectness, int location, int comfort, int wifi, string comment = "")
         {
             _reservation = reservation;
             _reservationId = reservation.Id;
@@ -60,13 +61,13 @@ namespace TouristAgency.Model
                 }
             }
         }
-        
+
         public Reservation Reservation
         {
             get => _reservation;
             set
             {
-                if(value != _reservation)
+                if (value != _reservation)
                 {
                     _reservation = value;
                 }
@@ -78,7 +79,7 @@ namespace TouristAgency.Model
             get => _reservationId;
             set
             {
-                if(value != _reservationId)
+                if (value != _reservationId)
                 {
                     _reservationId = value;
                 }
@@ -194,7 +195,7 @@ namespace TouristAgency.Model
             {
                 Id.ToString(),
                 ReservationId.ToString(),
-                ReviewDate.ToShortDateString(), 
+                ReviewDate.ToShortDateString(),
                 Cleanliness.ToString(),
                 OwnerCorrectness.ToString(),
                 Location.ToString(),
@@ -204,6 +205,6 @@ namespace TouristAgency.Model
             };
 
             return csvValues;
-        } 
+        }
     }
 }

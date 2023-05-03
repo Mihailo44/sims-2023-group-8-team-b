@@ -11,22 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Model;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
+using TouristAgency.Review;
+using TouristAgency.Users;
 using TouristAgency.ViewModel;
 
-namespace TouristAgency.View.Home
+namespace TouristAgency.View.Creation
 {
     /// <summary>
-    /// Interaction logic for GuestHome.xaml
+    /// Interaction logic for OwnerReviewCreation.xaml
     /// </summary>
-    public partial class GuestHome : Window
+    public partial class OwnerReviewCreation : Window
     {
-        public GuestHome(Guest guest)
+        public OwnerReviewCreation(Guest guest)
         {
             InitializeComponent();
-            DataContext = new GuestHomeViewModel(guest, this);
+            DataContext = new OwnerReviewCreationViewModel(guest, this);
         }
     }
 }

@@ -12,6 +12,9 @@ using TouristAgency.Service;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Dialogue;
 using TouristAgency.View.Main;
+using TouristAgency.Review;
+using TouristAgency.Requests;
+using TouristAgency.Reservations;
 
 namespace TouristAgency.ViewModel
 {

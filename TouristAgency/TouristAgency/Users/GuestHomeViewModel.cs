@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 
-namespace TouristAgency.ViewModel
+namespace TouristAgency.Users
 {
     public class GuestHomeViewModel : ViewModelBase, ICloseable
     {
@@ -22,7 +21,7 @@ namespace TouristAgency.ViewModel
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
-        public DelegateCommand CloseCmd { get; set;}
+        public DelegateCommand CloseCmd { get; set; }
 
         public GuestHomeViewModel(Guest guest, Window window)
         {

@@ -11,20 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Model;
+using TouristAgency.Requests;
+using TouristAgency.Users;
 using TouristAgency.ViewModel;
 
-namespace TouristAgency.View.Creation
+namespace TouristAgency.View.Display
 {
     /// <summary>
-    /// Interaction logic for OwnerReviewCreation.xaml
+    /// Interaction logic for PostponementRequestDisplay.xaml
     /// </summary>
-    public partial class OwnerReviewCreation : Window
+    public partial class PostponementRequestDisplay : Window
     {
-        public OwnerReviewCreation(Guest guest)
+        public PostponementRequestDisplay(Guest loggedInGuest)
         {
             InitializeComponent();
-            DataContext = new OwnerReviewCreationViewModel(guest, this);
+            DataContext = new PostponementRequestDisplayViewModel(loggedInGuest, this);
         }
     }
 }

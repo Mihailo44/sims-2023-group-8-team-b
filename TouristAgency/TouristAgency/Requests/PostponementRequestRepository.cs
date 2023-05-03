@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
+using TouristAgency.Reservations;
 
-namespace TouristAgency.Repository
+namespace TouristAgency.Requests
 {
     public class PostponementRequestRepository : ICrud<PostponementRequest>, ISubject
     {
@@ -14,7 +14,7 @@ namespace TouristAgency.Repository
         private readonly List<PostponementRequest> _requests;
         private List<IObserver> _observers;
 
-        public PostponementRequestRepository(IStorage<PostponementRequest> storage) 
+        public PostponementRequestRepository(IStorage<PostponementRequest> storage)
         {
             _storage = storage;
             _requests = _storage.Load();

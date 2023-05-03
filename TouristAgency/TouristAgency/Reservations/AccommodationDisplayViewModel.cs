@@ -10,8 +10,9 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Service;
+using TouristAgency.Users;
 
-namespace TouristAgency.ViewModel
+namespace TouristAgency.Reservations
 {
     public class AccommodationDisplayViewModel : ViewModelBase, ICloseable, ICreate
     {
@@ -290,8 +291,8 @@ namespace TouristAgency.ViewModel
             string type = SelectedType;
 
 
-           Accommodations = new ObservableCollection<Accommodation>(
-             _accommodationService.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
+            Accommodations = new ObservableCollection<Accommodation>(
+              _accommodationService.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
         }
 
         public bool CanShowAllCmdExecute()
@@ -311,7 +312,7 @@ namespace TouristAgency.ViewModel
         {
             Reservations.Clear();
 
-            int numOfReservations = ((End - Start).Days - NumOfDays + 2);
+            int numOfReservations = (End - Start).Days - NumOfDays + 2;
             Accommodation selectedAccommodation = SelectedAccommodation;
 
             if (selectedAccommodation != null && selectedAccommodation.MinNumOfDays <= NumOfDays)
@@ -325,7 +326,7 @@ namespace TouristAgency.ViewModel
                         MessageBox.Show(
                             "There are no available dates in this date range. Would you like some alternatives?", "Question", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
-                    {   
+                    {
                         Reservations = _reservationService.GenerateAlternativeReservations(Start, NumOfDays,
                         numOfReservations,
                         selectedAccommodation, _loggedInGuest);

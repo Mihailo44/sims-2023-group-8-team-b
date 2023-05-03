@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Users
 {
     public class GuestFileStorage : IStorage<Guest>
     {

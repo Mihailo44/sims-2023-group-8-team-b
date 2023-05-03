@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using TouristAgency.Model;
 using TouristAgency.ViewModel;
+using TouristAgency.Reservations;
 
 namespace TouristAgency.View.Creation
 {

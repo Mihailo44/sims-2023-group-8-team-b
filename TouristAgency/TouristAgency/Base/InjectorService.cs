@@ -13,6 +13,8 @@ using TouristAgency.Users;
 using TouristAgency.Util;
 using TouristAgency.Tours;
 using TouristAgency.Vouchers;
+using TouristAgency.Requests;
+using TouristAgency.Reservations;
 
 namespace TouristAgency.Base
 {

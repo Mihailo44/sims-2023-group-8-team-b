@@ -8,7 +8,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Service;
 using TouristAgency.Base;
 using System.Windows;
-
+using TouristAgency.Reservations;
 
 namespace TouristAgency.ViewModel
 {

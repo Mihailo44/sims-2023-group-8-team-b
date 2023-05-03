@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Model;
 using TouristAgency.Serialization;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Storage.FileStorage
+namespace TouristAgency.Requests
 {
     public class PostponementRequestFileStorage : IStorage<PostponementRequest>
     {

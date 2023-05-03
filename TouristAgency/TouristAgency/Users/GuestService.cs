@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Repository;
 using TouristAgency.Storage;
 
-namespace TouristAgency.Service
+namespace TouristAgency.Users
 {
-    public class GuestService 
+    public class GuestService
     {
         private readonly App _app;
         public GuestRepository GuestRepository { get; }
         public GuestService()
         {
-            _app = (App)App.Current;
+            _app = (App)System.Windows.Application.Current;
             GuestRepository = _app.GuestRepository;
         }
 

@@ -4,6 +4,8 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Repository;
+using TouristAgency.Requests;
+using TouristAgency.Reservations;
 using TouristAgency.Review;
 using TouristAgency.Service;
 using TouristAgency.Tours;

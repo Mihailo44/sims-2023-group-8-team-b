@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Users;
 
-namespace TouristAgency.Repository
+namespace TouristAgency.Reservations
 {
     public class ReservationRepository : ICrud<Reservation>, ISubject
     {

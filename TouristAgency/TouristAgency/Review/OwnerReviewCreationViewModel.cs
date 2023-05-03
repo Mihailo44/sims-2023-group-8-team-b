@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
-using TouristAgency.Service;
+using TouristAgency.Reservations;
+using TouristAgency.Users;
 using TouristAgency.Util;
 
-namespace TouristAgency.ViewModel
+namespace TouristAgency.Review
 {
     public class OwnerReviewCreationViewModel : ViewModelBase, ICreate
     {
@@ -25,18 +25,18 @@ namespace TouristAgency.ViewModel
 
         private ReservationService _reservationService;
         private OwnerReviewService _ownerReviewService;
-        
+
         public DelegateCommand CreateCmd { get; set; }
 
         public OwnerReviewCreationViewModel(Guest guest, Window window)
         {
-            _app = (App)App.Current;
+            _app = (App)Application.Current;
             _loggedInGuest = guest;
             _window = window;
 
             InstantiateServices();
-           InstantiateCollections();
-           InstantiateCommands();
+            InstantiateCollections();
+            InstantiateCommands();
         }
 
         private void InstantiateServices()

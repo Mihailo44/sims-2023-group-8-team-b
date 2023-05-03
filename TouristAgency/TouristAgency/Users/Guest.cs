@@ -4,9 +4,9 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Users;
+using TouristAgency.Reservations;
 
-namespace TouristAgency.Model
+namespace TouristAgency.Users
 {
     public class Guest : User, ISerializable
     {
