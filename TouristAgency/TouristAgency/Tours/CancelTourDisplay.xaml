@@ -17,10 +17,10 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27px"></RowDefinition>
+            <RowDefinition Height="27"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="330"></RowDefinition>
-            <RowDefinition Height="95"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <custom:BurgerButton VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
@@ -55,7 +55,9 @@
             </ListView.View>
         </ListView>
 
-        <Button Grid.Row="3" Grid.Column="0" Height="57" Width="138" FontSize="20" Command = "{Binding CancelExistingTourCmd}" VerticalAlignment="Center" HorizontalAlignment="Center">Cancel tours</Button>
-        <Button Grid.Row="3" Grid.Column="1" Height="57" Width="138" FontSize="20" VerticalAlignment="Center" Command="{Binding CloseCmd}" HorizontalAlignment="Center">Go back</Button>
+        <Button Grid.Row="3" Grid.Column="0" Height="57" Width="138" FontSize="20" Command = "{Binding CancelExistingTourCmd}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-40,0,0">Cancel tours</Button>
+        <Button Grid.Row="3" Grid.Column="1" Height="57" Width="138" FontSize="20" VerticalAlignment="Center" Command="{Binding CloseCmd}" HorizontalAlignment="Center" Margin="0,-40,0,0">Go back</Button>
+
+        <custom:BurgerMenu Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-5,0,0,0"></custom:BurgerMenu>
     </Grid>
 </UserControl>

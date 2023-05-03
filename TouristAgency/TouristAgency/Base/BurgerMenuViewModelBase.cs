@@ -80,8 +80,7 @@ namespace TouristAgency.Base
 
         public void CreateTourExecute()
         {
-            //TourCreation creation = new TourCreation(_loggedInGuide);
-            //creation.Show();
+            _app.CurrentVM = new TourCreationViewModel();
         }
 
         public bool CanActiveTourExecute()

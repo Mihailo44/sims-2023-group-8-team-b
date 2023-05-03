@@ -64,6 +64,9 @@
         <ListView Grid.Row="2" Grid.Column="0" Width="350">
         </ListView>
 
-        <Button Content="Go back" Grid.Row="3" Grid.Column="0" Height="37" Width="80" FontSize="13" VerticalAlignment="Top" Margin="0,20,0,0"></Button>
+        <Button Content="Go back" Grid.Row="3" Grid.Column="0" Height="37" Width="80" FontSize="13" VerticalAlignment="Top" Margin="0,20,0,0" Command="{Binding CloseCmd}"></Button>
+
+        <custom:BurgerMenu Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-4,0,0,0">
+        </custom:BurgerMenu>
     </Grid>
 </UserControl>

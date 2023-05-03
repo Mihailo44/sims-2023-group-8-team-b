@@ -24,6 +24,9 @@ namespace TouristAgency.Review
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
         }
 
         private void InstantiateServices()

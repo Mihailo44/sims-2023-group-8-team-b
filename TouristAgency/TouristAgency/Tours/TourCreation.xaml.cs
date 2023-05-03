@@ -1,18 +1,18 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
 using TouristAgency.Tours;
+using System.Windows.Controls;
 
-namespace TouristAgency.View.Creation
+namespace TouristAgency.Tours
 {
     /// <summary>
     /// Interaction logic for TourCreation.xaml
     /// </summary>
-    public partial class TourCreation : Window
+    public partial class TourCreation : UserControl
     {
-        public TourCreation(Guide guide)
+        public TourCreation()
         {
             InitializeComponent();
-            DataContext = new TourCreationViewModel(guide, this);
         }
     }
 }

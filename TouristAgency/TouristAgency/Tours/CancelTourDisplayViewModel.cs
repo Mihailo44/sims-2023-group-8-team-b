@@ -24,9 +24,11 @@ namespace TouristAgency.Tours
         {
             _app = (App)Application.Current;
             _guide = _app.LoggedUser;
+            MenuVisibility = "Hidden";
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateMenuCommands();
         }
 
         private void InstantiateServices()

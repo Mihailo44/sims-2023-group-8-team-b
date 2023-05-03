@@ -9,7 +9,7 @@ using TouristAgency.Util;
 
 namespace TouristAgency.Tours
 {
-    public class TourCreationViewModel : ViewModelBase, ICreate
+    public class TourCreationViewModel : BurgerMenuViewModelBase, ICreate, ICloseable
     {
         private App _app;
         private Guide _loggedInGuide;
@@ -33,14 +33,16 @@ namespace TouristAgency.Tours
         public DelegateCommand RemoveMultipleDatesCmd { get; set; }
         public DelegateCommand LoadCheckpointsIntoListViewCmd { get; set; }
         public DelegateCommand CreateCmd { get; set; }
-
-        public TourCreationViewModel(Guide guide, Window window)
+        public DelegateCommand CloseCmd { get; set; }
+        public TourCreationViewModel()
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
+            _loggedInGuide = _app.LoggedUser;
+            MenuVisibility = "Hidden";
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateMenuCommands();
         }
         private void InstantiateServices()
         {
@@ -73,6 +75,7 @@ namespace TouristAgency.Tours
             LoadCheckpointsIntoListViewCmd = new DelegateCommand(param => LoadCheckpointsIntoListView(),
                 param => CanLoadCheckpointsIntoListView());
             CreateCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
         public Tour NewTour
@@ -195,12 +198,12 @@ namespace TouristAgency.Tours
             }
         }
 
-        public bool CanCreateTourExecute()
+        public new bool CanCreateTourExecute()
         {
             return true;
         }
 
-        public void CreateTourExecute()
+        public new void CreateTourExecute()
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoRepository!
             if (SelectedCheckpoints.Count < 2)
@@ -282,6 +285,16 @@ namespace TouristAgency.Tours
         {
             _multipleDateTimes.Remove(NewTour.StartDateTime);
             DateCount = _multipleDateTimes.Count;
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
+        {
+            _app.CurrentVM = new GuideHomeViewModel();
         }
     }
 }

@@ -7,6 +7,7 @@
         xmlns:to="clr-namespace:TouristAgency.Tours"
         xmlns:st="clr-namespace:TouristAgency.Statistics"
         xmlns:tr="clr-namespace:TouristAgency.TourRequests"
+        xmlns:re="clr-namespace:TouristAgency.Reservations"
         mc:Ignorable="d"
         Title="GuideMain" Height="600" Width="390" WindowStartupLocation="CenterScreen" Name="GuideStart">
 
@@ -33,6 +34,14 @@
 
         <DataTemplate DataType="{x:Type st:GuideTourRequestStatisticsDisplayViewModel}">
             <st:GuideTourRequestStatisticsDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type to:TourCreationViewModel}">
+            <to:TourCreation/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type re:ActiveTourDisplayViewModel}">
+            <re:ActiveTourDisplay/>
         </DataTemplate>
     </Window.Resources>
 

@@ -11,6 +11,6 @@ namespace TouristAgency.Base
     public enum PostponementRequestStatus { PENDING, APPROVED, DENIED }
     public enum TourStatus { NOT_STARTED, IN_PROGRESS, ENDED, CANCELLED }
     public enum TourRequestStatus { PENDING, INVALID, ACCEPTED }
-    public enum INVITATION_STATUS { PENDING, ACCEPTED }
+    public enum InvitationStatus { PENDING, ACCEPTED }
     public enum UserType { OWNER, GUIDE, TOURIST, GUEST }
 }

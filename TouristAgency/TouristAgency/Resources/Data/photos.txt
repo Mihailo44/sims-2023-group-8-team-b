@@ -23,3 +23,5 @@
 21|G|3|slika2.jpg
 22|O|1|slika1.jpg
 23|A|7|link21
+24|T|9|https://upload.wikimedia.org/wikipedia/commons/c/c0/Petrovaradinska_tvr%C4%91ava_044.jpg
+25|T|10|https://upload.wikimedia.org/wikipedia/commons/c/c0/Petrovaradinska_tvr%C4%91ava_044.jpg
