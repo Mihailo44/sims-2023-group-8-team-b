@@ -14,9 +14,10 @@ namespace TouristAgency.Reservations
     public class TourDisplayViewModel : ViewModelBase, ICloseable, ICreate
     {
         private App _app;
+        private Tourist _loggedInTourist;
 
         private ObservableCollection<Tour> _tours;
-        private ObservableCollection<string> _countires;
+        private ObservableCollection<string> _countries;
         private ObservableCollection<string> _cities;
         private ObservableCollection<string> _languages;
 
@@ -25,7 +26,6 @@ namespace TouristAgency.Reservations
         private int _numberOfPeople;
         private int _numberOfReservation;
 
-        private Tourist _loggedInTourist;
         private TouristService _touristService;
         private TourService _tourService;
         private TourTouristService _tourTouristService;
@@ -85,12 +85,12 @@ namespace TouristAgency.Reservations
 
         public ObservableCollection<string> Countries
         {
-            get => _countires;
+            get => _countries;
             set
             {
-                if (value != _countires)
+                if (value != _countries)
                 {
-                    _countires = value;
+                    _countries = value;
                     OnPropertyChanged("Countries");
                 }
             }

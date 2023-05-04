@@ -24,7 +24,7 @@ namespace TouristAgency.TourRequests
         public TourRequestCreation(Tourist tourist)
         {
             InitializeComponent();
-            DataContext = new TourRequestViewModel(tourist);
+            DataContext = new TourRequestCreationViewModel(tourist);
         }
     }
 }

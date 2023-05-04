@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
-        Title="TouristHome" Height="600" Width="1000">
+        Title="TouristHome" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

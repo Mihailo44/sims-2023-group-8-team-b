@@ -35,47 +35,52 @@
                 <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Width="340" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Country:" FontSize="28" FontWeight="SemiBold"/>
-                        <ComboBox x:Name="CountryComboBox" Width="170" Height="40" ItemsSource="{Binding Path=Countries}" FontSize="28" FontWeight="SemiBold" SelectedItem="{Binding SelectedCountry}" Margin="21.5,0,0,0"/>
+                        <TextBox x:Name="CountryTextBox" Width="170" Height="40" Text="{Binding Path=Country}" FontSize="28" FontWeight="SemiBold" Margin="21.5,0,0,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="City:" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Width="66" />
-                        <ComboBox x:Name="CityComboBox" Width="170" Height="40" ItemsSource="{Binding Path=Cities}" FontSize="28" FontWeight="SemiBold" SelectedItem="{Binding SelectedCity}" Margin="75,0,0,0"/>
+                        <TextBox x:Name="CityTextBox" Width="170" Height="40" Text="{Binding Path=City}" FontSize="28" FontWeight="SemiBold" Margin="75,0,0,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Language:" FontSize="28" FontWeight="SemiBold"/>
-                        <ComboBox x:Name="LanguageComboBox" Width="170" Height="40" ItemsSource="{Binding Path=Languages}" FontSize="28" FontWeight="SemiBold" SelectedItem="{Binding SelectedLanguage}"/>
+                        <TextBox x:Name="LanguageComboBox" Width="170" Height="40" Text="{Binding Path=Language}" FontSize="28" FontWeight="SemiBold"/>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Width="325" Margin="0,6,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Num of people:" FontSize="28" FontWeight="SemiBold"/>
-                        <xctk:UIntegerUpDown x:Name="NumOfPeople" Width="90" Height="40" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"/>
+                        <xctk:UIntegerUpDown x:Name="NumOfPeople" Width="90" Height="40" Value="{Binding NumOfPeople}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Date range:" FontSize="28" FontWeight="SemiBold"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="from:" FontSize="28" FontWeight="SemiBold"></Label>
-                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220"></DatePicker>
+                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" SelectedDate="{Binding StartDate}" SelectedDateFormat="Short"></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="to:" FontSize="28" FontWeight="SemiBold"></Label>
-                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Margin="34,0,0,0"></DatePicker>
+                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" SelectedDate="{Binding EndDate}" SelectedDateFormat="Short" Margin="34,0,0,0"></DatePicker>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" Orientation="Vertical" Width="340" HorizontalAlignment="Right" Margin="0,6,0,0">
                     <Label Content="Description:" FontSize="28" FontWeight="SemiBold" Margin="4,0,0,0"/>
-                    <RichTextBox Height="120" Width="320"/>
+                    <TextBox Height="120" Width="320" Text="{Binding Description}" FontSize="28" FontWeight="SemiBold">
+                        <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+                        <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+                        <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
+                        <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
+                    </TextBox>
                 </StackPanel>
 
-                <Button Grid.Row="3" Grid.Column="3" Content="Send request" Width="200" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30"/>
+                <Button Grid.Row="3" Grid.Column="3" Content="Send request" Command="{Binding CreateCmd}" Width="200" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30"/>
             </Grid>
         </GroupBox>
 
-        <Label Content="Tour requested:" Grid.Row="1" FontSize="32" FontWeight="Bold" Margin="20,0,0,0"></Label>
-        <ListView Grid.Row="2" Width="1040" Height="315" FontSize="28" FontWeight="Bold" VerticalAlignment="Top">
+        <Label Content="Tour requests:" Grid.Row="1" FontSize="32" FontWeight="Bold" Margin="20,0,0,0"></Label>
+        <ListView Grid.Row="2" Width="1040" Height="315" ItemsSource="{Binding TourRequests}" FontSize="28" FontWeight="Bold" VerticalAlignment="Top">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -83,13 +88,13 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Status" Width="90"/>
-                    <GridViewColumn Header="Name" Width="270" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="City" Width="150" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding Status}"/>
                     <GridViewColumn Header="Country" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="City" Width="150" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date and time" Width="310" DisplayMemberBinding="{Binding StartDateTime}"/>
-                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                    <GridViewColumn Header="Start date" Width="210" DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="End date" Width="210" DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding MaxAttendance}"/>
                 </GridView>
             </ListView.View>
         </ListView>

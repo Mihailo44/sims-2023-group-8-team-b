@@ -1,13 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using TouristAgency.Base;
+using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
 namespace TouristAgency.TourRequests
 {
-    public class TourRequest : INotifyPropertyChanged
+    public class TourRequest : INotifyPropertyChanged, Interfaces.ISerializable
     {
         private int _ID;
+        private int _touristID;
         private TourRequestStatus _status;
         private Location _shortLocation;
         private int _shortLocationID;
@@ -55,6 +58,18 @@ namespace TouristAgency.TourRequests
                 if (value != _ID)
                 {
                     _ID = value;
+                }
+            }
+        }
+
+        public int TouristID
+        {
+            get => _touristID;
+            set
+            {
+                if (value != _touristID)
+                {
+                    _touristID = value;
                 }
             }
         }
@@ -160,8 +175,9 @@ namespace TouristAgency.TourRequests
             string[] csvValues =
             {
                 ID.ToString(),
+                TouristID.ToString(),
                 Status.ToString(),
-                ShortLocation.ToString(),
+                ShortLocationID.ToString(),
                 Description,
                 Language,
                 MaxAttendance.ToString(),
@@ -174,13 +190,14 @@ namespace TouristAgency.TourRequests
         public void FromCSV(string[] values)
         {
             ID = Convert.ToInt32(values[0]);
-            Status = Enum.Parse<TourRequestStatus>(values[1]);
-            ShortLocationID = Convert.ToInt32(values[2]);
-            Description = Convert.ToString(values[3]);
-            Language = values[4];
-            MaxAttendance = Convert.ToInt32(values[5]);
-            StartDate = Convert.ToDateTime(values[6]);
-            EndDate = Convert.ToDateTime(values[7]);
+            TouristID = Convert.ToInt32(values[1]);
+            Status = Enum.Parse<TourRequestStatus>(values[2]);
+            ShortLocationID = Convert.ToInt32(values[3]);
+            Description = Convert.ToString(values[4]);
+            Language = values[5];
+            MaxAttendance = Convert.ToInt32(values[6]);
+            StartDate = Convert.ToDateTime(values[7]);
+            EndDate = Convert.ToDateTime(values[8]);
         }
     }
 }

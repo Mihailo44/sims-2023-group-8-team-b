@@ -13,6 +13,7 @@ using TouristAgency.Users;
 using TouristAgency.Util;
 using TouristAgency.Tours;
 using TouristAgency.Vouchers;
+using TouristAgency.TourRequests;
 
 namespace TouristAgency.Base
 {
@@ -38,7 +39,8 @@ namespace TouristAgency.Base
             { typeof(IStorage<Tourist>), new TouristFileStorage()},
             { typeof(IStorage<Voucher>), new VoucherFileStorage()},
             { typeof(IStorage<Guest>), new GuestFileStorage()},
-            { typeof(IStorage<OwnerReview>), new OwnerReviewFileStorage()}
+            { typeof(IStorage<OwnerReview>), new OwnerReviewFileStorage()},
+            { typeof(IStorage<TourRequest>), new TourRequestFileStorage()}
         };
 
         public static T CreateInstance<T>()

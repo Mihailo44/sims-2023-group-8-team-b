@@ -13,7 +13,7 @@
             <ColumnDefinition Width="450"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="280"></RowDefinition>
             <RowDefinition Height="55"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -25,7 +25,7 @@
             Click on the title or list to view the tour and make a reservation.
         </TextBlock>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Width="760" Height="250" FontSize="28" FontWeight="Bold">
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Width="735" Height="250" FontSize="28" FontWeight="Bold">
         </ListView>
 
         <Border Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="2,2,2,2" CornerRadius="10" Margin="15,5,15,15">

@@ -6,9 +6,9 @@
         xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Tour" Height="800" Width="1200" WindowStartupLocation="CenterScreen">
+        Title="Tour" Height="750" Width="1200" WindowStartupLocation="CenterScreen">
 
-    <Grid HorizontalAlignment="Center" Height="770" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center" Height="720" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="220"></RowDefinition>
-            <RowDefinition Height="390"></RowDefinition>
+            <RowDefinition Height="340"></RowDefinition>
             <RowDefinition Height="130"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -59,7 +59,7 @@
             </Grid>
         </GroupBox>
 
-        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="1150" Height="350" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" Margin="0,20,0,0" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" Background="{x:Null}">
+        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="1150" Height="300" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" Margin="0,20,0,0" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" Background="{x:Null}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

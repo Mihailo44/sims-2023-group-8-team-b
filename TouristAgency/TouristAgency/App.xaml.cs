@@ -83,6 +83,7 @@ namespace TouristAgency
             PostponementRequestRepository = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
             TouristRepository = new(InjectorService.CreateInstance<IStorage<Tourist>>());
             GuideReviewRepository = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
+            TourRequestRepository = new(InjectorService.CreateInstance<IStorage<TourRequest>>());
 
             VoucherRepository = new(InjectorService.CreateInstance<IStorage<Voucher>>());
             TourRepository = new(InjectorService.CreateInstance<IStorage<Tour>>());
@@ -116,6 +117,7 @@ namespace TouristAgency
             PostponementRequestRepository.LoadReservationsToPostponementRequests(ReservationRepository.GetAll());
             TouristRepository.LoadVouchersToTourist(VoucherRepository.GetAll());
             GuideReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
+            TourRequestRepository.LoadLocationsToTourRequests(LocationRepository.GetAll());
         }
     }
 }
