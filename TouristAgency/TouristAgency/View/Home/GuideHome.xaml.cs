@@ -23,7 +23,6 @@ namespace TouristAgency.View.Home
     /// </summary>
     public partial class GuideHome : Window
     {
-        private Guide _loggedInGuide;
         public GuideHome(Guide guide)
         {
             InitializeComponent();

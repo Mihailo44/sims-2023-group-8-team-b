@@ -16,37 +16,57 @@ namespace TouristAgency.ViewModel
     public class TouristHomeViewModel : ViewModelBase, ICloseable
     {
         private Tourist _loggedInTourist;
-        private string _username;
         private App _app;
+        
+        private string _username;
         private Window _window;
 
-        public DelegateCommand TourDisplayCmd { get; }
-        public DelegateCommand TourGuideReviewCmd { get; }
-        public DelegateCommand TourAttendanceCmd { get; }
-        public DelegateCommand NotificationCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        private TourTouristCheckpointService _ttcService;
+        private CheckpointService _checkpointService;
+
+        public DelegateCommand TourDisplayCmd { get; set; }
+        public DelegateCommand TourGuideReviewCmd { get; set; }
+        public DelegateCommand TourAttendanceCmd { get; set; }
+        public DelegateCommand NotificationCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
 
         public TouristHomeViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
             _window = window;
-            Username = "Welcome, " + _loggedInTourist.Username + "...";
+            InstantiateServices();
+            InstantiateCommands();
+            NotifyUser();
+        }
 
-            foreach (var ttc in _app.TourTouristCheckpointService.GetPendingInvitations(tourist.ID))
-            {
-                MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _app.CheckpointService.FindById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                {
-                    _app.TourTouristCheckpointService.AcceptInvitation(tourist.ID, ttc.TourCheckpoint.CheckpointID);
-                }
-            }
+        private void InstantiateServices()
+        {
+            _ttcService = new TourTouristCheckpointService();
+            _checkpointService = new CheckpointService();
+        }
 
+        private void InstantiateCommands()
+        {
             TourDisplayCmd = new DelegateCommand(param => TourDisplayExecute(), param => CanTourDisplayExecute());
             TourGuideReviewCmd = new DelegateCommand(param => TourGuideReviewExecute(), param => CanTourGuideReviewExecute());
             TourAttendanceCmd = new DelegateCommand(param => TourAttendanceExecute(), param => CanTourAttendanceExecute());
             NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
+        }
+
+        private void NotifyUser()
+        {
+            Username = "Welcome, " + _loggedInTourist.Username + "...";
+
+            foreach (var ttc in _ttcService.GetPendingInvitations(_loggedInTourist.ID))
+            {
+                MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _checkpointService.CheckpointRepository.GetById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _ttcService.AcceptInvitation(_loggedInTourist.ID, ttc.TourCheckpoint.CheckpointID);
+                }
+            }
         }
 
         public string Username

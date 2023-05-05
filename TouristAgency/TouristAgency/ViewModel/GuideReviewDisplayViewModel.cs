@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -17,24 +12,44 @@ namespace TouristAgency.ViewModel
 
         private App _app;
         private Guide _loggedInGuide;
-        private Tour _selectedTour;
-        private ObservableCollection<GuideReview> _reviews;
-        private GuideReview _review;
         private Window _window;
-        public DelegateCommand CloseCmd { get; }
-        public DelegateCommand MarkAsInvalidCmd { get; }
+
+        private ObservableCollection<GuideReview> _reviews;
+        private Tour _selectedTour;
+        private GuideReview _review;
+
+        private GuideReviewService _guideReviewService;
+
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand MarkAsInvalidCmd { get; set; }
         public GuideReviewDisplayViewModel(Guide guide, Tour tour, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuide = guide;
             _selectedTour = tour;
             _window = window;
-            GuideReviews = new ObservableCollection<GuideReview>(_app.GuideReviewService.GetReviewsForGuideTourID(guide.ID, tour.ID));
-            StartEndTime = tour.StartDateTime.Hour + tour.StartDateTime.ToString("tt") + " - " + (tour.StartDateTime.AddHours(tour.Duration)).Hour.ToString() + tour.StartDateTime.ToString("tt");
-            Capacity = tour.CurrentAttendants + "/" + tour.MaxAttendants;
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+            _app.GuideReviewRepository.Subscribe(this);
+        }
+
+        private void InstantiateServices()
+        {
+            _guideReviewService = new GuideReviewService();
+        }
+
+        private void InstantiateCollections()
+        {
+            GuideReviews = new ObservableCollection<GuideReview>(_guideReviewService.GetReviewsForGuideTourID(_loggedInGuide.ID, SelectedTour.ID));
+            StartEndTime = SelectedTour.StartDateTime.Hour + SelectedTour.StartDateTime.ToString("tt") + " - " + (SelectedTour.StartDateTime.AddHours(SelectedTour.Duration)).Hour.ToString() + SelectedTour.StartDateTime.ToString("tt");
+            Capacity = SelectedTour.CurrentAttendants + "/" + SelectedTour.MaxAttendants;
+        }
+
+        private void InstantiateCommands()
+        {
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             MarkAsInvalidCmd = new DelegateCommand(param => MarkAsInvalidExecute(), param => CanMarkAsInvalidExecute());
-            _app.GuideReviewService.Subscribe(this);
         }
 
         public ObservableCollection<GuideReview> GuideReviews
@@ -108,14 +123,14 @@ namespace TouristAgency.ViewModel
             if(SelectedReview != null)
             {
                 SelectedReview.IsInvalid = true;
-                _app.GuideReviewService.Update(SelectedReview, SelectedReview.ID);
+                _guideReviewService.GuideReviewRepository.Update(SelectedReview, SelectedReview.ID);
             }
         }
 
         public void Update()
         {
             GuideReviews.Clear();
-            ObservableCollection<GuideReview> temp = new ObservableCollection<GuideReview>(_app.GuideReviewService.GetReviewsForGuideTourID(_loggedInGuide.ID, _selectedTour.ID));
+            ObservableCollection<GuideReview> temp = new ObservableCollection<GuideReview>(_guideReviewService.GetReviewsForGuideTourID(_loggedInGuide.ID, _selectedTour.ID));
             foreach(var GuideReview in temp)
             {
                 GuideReviews.Add(GuideReview);

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -16,17 +17,34 @@ namespace TouristAgency.ViewModel
     {
         private App _app;
         private Tourist _loggedInTourist;
+
         private ObservableCollection<Tour> _finishedTours;
 
-        public DelegateCommand CreateCmd { get; }
+        private TourService _tourService;
+        private GuideReviewService _guideReviewService;
+
+        public DelegateCommand CreateCmd { get; set; }
 
         public GuideReviewCreationViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
-
             _loggedInTourist = tourist;
-            FinishedTours =  new ObservableCollection<Tour>(_app.TourService.GetFinishedToursByTourist(tourist));
+        }
+
+        private void InstantiateServices()
+        {
+            _tourService = new TourService();
+            _guideReviewService = new GuideReviewService();
+        }
+
+        private void InstantiateCollections()
+        {
+            FinishedTours = new ObservableCollection<Tour>(_tourService.GetFinishedToursByTourist(_loggedInTourist));
             NewGuideReview = new GuideReview();
+        }
+
+        private void InstantiateCommands()
+        {
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
         }
 
@@ -73,13 +91,13 @@ namespace TouristAgency.ViewModel
             NewGuideReview.Tourist = _loggedInTourist;
             NewGuideReview.TourID = SelectedTour.ID;
             NewGuideReview.Tour = SelectedTour;
-            _app.GuideReviewService.Create(NewGuideReview);
+            _guideReviewService.GuideReviewRepository.Create(NewGuideReview);
             MessageBox.Show("Successfully send a review.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void AddPhotos()
         {
-            int guideReviewID = _app.GuideReviewService.GenerateId() - 1;
+            int guideReviewID = _guideReviewService.GuideReviewRepository.GenerateId() - 1;
             if (PhotoLinks != null)
             {
                 PhotoLinks = PhotoLinks.Replace("\r\n", "|");
@@ -88,7 +106,7 @@ namespace TouristAgency.ViewModel
                 {
                     Photo photo = new Photo(photoLink, 'G', guideReviewID);
                     NewGuideReview.Photos.Add(photo);
-                    _app.PhotoService.Create(photo);
+                    _app.PhotoRepository.Create(photo);
                 }
             }
         }

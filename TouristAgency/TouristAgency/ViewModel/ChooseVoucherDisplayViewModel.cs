@@ -8,29 +8,48 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
     public class ChooseVoucherDisplayViewModel : ViewModelBase, ICloseable
-    { 
-        private ObservableCollection<Voucher> _vouchers;
+    {
+        private App _app;
+        private Tourist _loggedInTourist;
         private Voucher _voucher;
-        private Tourist _tourist;
+
+        private ObservableCollection<Voucher> _vouchers;
+        
+        private TouristService _touristService;
+        private VoucherService _voucherService;
+
         private int _tourID;
         private Window _window;
-        private App _app;
-
-        public DelegateCommand UseVoucherCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        
+        public DelegateCommand UseVoucherCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
 
         public ChooseVoucherDisplayViewModel(Tourist tourist, int tourID, Window window)
         {
             _app = (App)Application.Current;
-            _tourist = tourist;
+            _loggedInTourist = tourist;
             _tourID = tourID;
             _window = window;
+        }
 
-            Vouchers = new ObservableCollection<Voucher>(_app.TouristService.GetValidVouchers(tourist));
+        private void InstantiateServices()
+        {
+            _touristService = new TouristService();
+            _voucherService = new VoucherService();
+        }
+
+        private void InstantiateCollections()
+        {
+            Vouchers = new ObservableCollection<Voucher>(_touristService.GetValidVouchers(_loggedInTourist));
+        }
+
+        private void InstantiateCommands()
+        {
             UseVoucherCmd = new DelegateCommand(param => UseVoucherExecute(), param => CanUseVoucherExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
@@ -72,7 +91,7 @@ namespace TouristAgency.ViewModel
             if (result == MessageBoxResult.Yes) 
             {
                 Voucher voucher = SelectedVoucher;
-                _app.VoucherService.UseVoucher(voucher, _tourID);
+                _voucherService.UseVoucher(voucher, _tourID);
                 Vouchers.Remove(voucher);
                 MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }

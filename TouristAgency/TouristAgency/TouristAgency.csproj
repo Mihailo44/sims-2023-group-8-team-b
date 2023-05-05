@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Repository\Image\user-solid.png" />
-    <None Remove="Repository\Image\userTourist.png" />
+    <None Remove="Resources\Image\user-solid.png" />
+    <None Remove="Resources\Image\userTourist.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,12 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Repository\Image\user-solid.png" />
-    <Resource Include="Repository\Image\userTourist.png" />
+    <Resource Include="Resources\Image\user-solid.png" />
+    <Resource Include="Resources\Image\userTourist.png" />
   </ItemGroup>
 
 </Project>

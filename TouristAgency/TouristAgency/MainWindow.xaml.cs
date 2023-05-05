@@ -41,13 +41,5 @@ namespace TouristAgency
             InitializeComponent();
             DataContext = new MainWindowViewModel(this);
         }
-
-       /* private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.IsKeyDown(Key.Enter))
-            {
-                ButtonLogin_Click(sender, e);
-            }
-        } */
     }
 }

@@ -9,22 +9,37 @@ using System.Windows.Input;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 using TouristAgency.ViewModel;
 
 namespace TouristAgency.ViewModel
 {
     public class NotificationDisplayViewModel : ViewModelBase
     {
-        private ObservableCollection<Voucher> _vouchers;
-        private Tourist _tourist;
         private App _app;
+        private Tourist _loggedInTourist;
+
+        private ObservableCollection<Voucher> _vouchers;
+        
+        private TouristService _touristService;
+        
 
         public NotificationDisplayViewModel(Tourist tourist, Window window) 
         {
             _app = (App)Application.Current;
-            _tourist = tourist;
+            _loggedInTourist = tourist;
+            InstantiateServices();
+            InstantiateCollections();
+        }
 
-            Vouchers = new ObservableCollection<Voucher>(_app.TouristService.GetValidVouchers(tourist));
+        private void InstantiateServices()
+        {
+            _touristService = new TouristService();
+        }
+
+        private void InstantiateCollections()
+        {
+            Vouchers = new ObservableCollection<Voucher>(_touristService.GetValidVouchers(_loggedInTourist));
         }
 
         public ObservableCollection<Voucher> Vouchers

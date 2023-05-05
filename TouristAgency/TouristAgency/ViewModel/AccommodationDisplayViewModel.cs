@@ -9,45 +9,58 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
     public class AccommodationDisplayViewModel : ViewModelBase, ICloseable, ICreate
     {
+        private App _app;
+        private Guest _loggedInGuest;
+
         private ObservableCollection<Accommodation> _accommodations;
         private ObservableCollection<Reservation> _reservations;
         private ObservableCollection<string> _countires;
         private ObservableCollection<string> _cities;
         private ObservableCollection<string> _types;
         private ObservableCollection<string> _names;
+
         private int _maxGuestNum;
         private int _minNumOfDays;
         private DateTime _start;
         private DateTime _end;
         private int _numOfDays;
         private int _numOfPeople;
-        private Guest _loggedInGuest;
-        private App _app;
 
-        public DelegateCommand CloseCmd { get; }
-        public DelegateCommand SearchCmd { get; }
-        public DelegateCommand ShowAllCmd { get; }
-        public DelegateCommand SearchDateCmd { get; }
-        public DelegateCommand CreateCmd { get; }
-        public DelegateCommand CancelReservationCmd { get; }
+        private ReservationService _reservationService;
+        private AccommodationService _accommodationService;
+
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand SearchCmd { get; set; }
+        public DelegateCommand ShowAllCmd { get; set; }
+        public DelegateCommand SearchDateCmd { get; set; }
+        public DelegateCommand CreateCmd { get; set; }
+        public DelegateCommand CancelReservationCmd { get; set; }
 
 
         public AccommodationDisplayViewModel(Guest guest, Window window)
         {
-
             _app = (App)Application.Current;
+            _loggedInGuest = guest;
 
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationService.GetAll());
-            Reservations = new ObservableCollection<Reservation>();
-            Countries = new ObservableCollection<string>(_app.AccommodationService.GetCountries());
-            Cities = new ObservableCollection<string>(_app.AccommodationService.GetCities());
-            Names = new ObservableCollection<string>(_app.AccommodationService.GetNames());
-            Types = new ObservableCollection<string>(_app.AccommodationService.GetTypes());
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _reservationService = new ReservationService();
+            _accommodationService = new AccommodationService();
+        }
+
+        private void InstantiateCollections()
+        {
             Start = DateTime.Today;
             End = DateTime.Today;
             SelectedCity = "";
@@ -55,16 +68,22 @@ namespace TouristAgency.ViewModel
             SelectedName = "";
             SelectedType = "";
 
-            _loggedInGuest = guest;
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.AccommodationRepository.GetAll());
+            Reservations = new ObservableCollection<Reservation>();
+            Countries = new ObservableCollection<string>(_accommodationService.GetCountries());
+            Cities = new ObservableCollection<string>(_accommodationService.GetCities());
+            Names = new ObservableCollection<string>(_accommodationService.GetNames());
+            Types = new ObservableCollection<string>(_accommodationService.GetTypes());
+        }
 
-
+        private void InstantiateCommands()
+        {
             SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
             ShowAllCmd = new DelegateCommand(param => ShowAllCmdExecute(), param => CanShowAllCmdExecute());
             SearchDateCmd = new DelegateCommand(param => SearchDateCmdExecute(), param => CanSearchDateCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
             CancelReservationCmd = new DelegateCommand(param => CancelReservationCmdExecute(), param => CanCancelReservationCmdExecute());
         }
-
         public ObservableCollection<Accommodation> Accommodations
         {
             get => _accommodations;
@@ -271,8 +290,8 @@ namespace TouristAgency.ViewModel
             string type = SelectedType;
 
 
-            Accommodations = new ObservableCollection<Accommodation>(
-                _app.AccommodationService.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
+           Accommodations = new ObservableCollection<Accommodation>(
+             _accommodationService.Search(country, city, name, type, MaxGuestNum, MinNumOfDays));
         }
 
         public bool CanShowAllCmdExecute()
@@ -281,7 +300,7 @@ namespace TouristAgency.ViewModel
         }
         private void ShowAllCmdExecute()
         {
-            Accommodations = new ObservableCollection<Accommodation>(_app.AccommodationService.GetAll());
+            Accommodations = new ObservableCollection<Accommodation>(_accommodationService.AccommodationRepository.GetAll());
         }
 
         public bool CanSearchDateCmdExecute()
@@ -297,7 +316,7 @@ namespace TouristAgency.ViewModel
 
             if (selectedAccommodation != null && selectedAccommodation.MinNumOfDays <= NumOfDays)
             {
-                Reservations = _app.ReservationService.GeneratePotentionalReservations(Start, NumOfDays, numOfReservations,
+                Reservations = _reservationService.GeneratePotentionalReservations(Start, NumOfDays, numOfReservations,
                     selectedAccommodation, _loggedInGuest);
 
                 if (Reservations.Count == 0)
@@ -307,7 +326,7 @@ namespace TouristAgency.ViewModel
                             "There are no available dates in this date range. Would you like some alternatives?", "Question", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {   
-                        Reservations = _app.ReservationService.GenerateAlternativeReservations(Start, NumOfDays,
+                        Reservations = _reservationService.GenerateAlternativeReservations(Start, NumOfDays,
                         numOfReservations,
                         selectedAccommodation, _loggedInGuest);
                     }
@@ -334,7 +353,7 @@ namespace TouristAgency.ViewModel
                 newReservation.AccommodationId = selectedAccommodation.Id;
                 newReservation.Guest = _loggedInGuest;
                 newReservation.GuestId = _loggedInGuest.ID;
-                _app.ReservationService.Create(newReservation);
+                _reservationService.ReservationRepository.Create(newReservation);
                 Reservations.Remove(newReservation);
                 MessageBox.Show("Successfully reserved");
             }

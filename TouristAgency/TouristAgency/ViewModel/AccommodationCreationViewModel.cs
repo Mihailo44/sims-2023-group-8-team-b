@@ -6,14 +6,16 @@ using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Service;
 using TouristAgency.Model.Enums;
+using System.ComponentModel;
+using TouristAgency.Repository;
 
 namespace TouristAgency.ViewModel
 {
-    public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate
+    public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate, IDataErrorInfo
     {
-        private readonly AccommodationService _accommodation;
-        private readonly PhotoService _photoService;
-        private readonly LocationService _locationService;
+        private AccommodationService _accommodation;
+        private PhotoRepository _photoRepository;
+        private LocationService _locationService;
         private Owner _owner;
         private int _ownerId;
         private string _name;
@@ -22,29 +24,32 @@ namespace TouristAgency.ViewModel
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
         private string _photoLinks;
-        private readonly Window _window;
         private App app = (App)App.Current;
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
         public Owner LoggedUser { get; }
-        public DelegateCommand CreateCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand CreateCmd { get; set;}
+        public DelegateCommand CloseCmd { get; set; }
 
         public AccommodationCreationViewModel()
         {
-            _accommodation = app.AccommodationService;
-        }
-
-        public AccommodationCreationViewModel(Owner owner, Window window)
-        {
-            _accommodation = app.AccommodationService;
-            _photoService = app.PhotoService;
-            _locationService = app.LocationService;
-            LoggedUser = owner;
-            _window = window;
+            LoggedUser = app.LoggedUser;
+            InstantiateServices();
             NewAccommodation = new();
             NewLocation = new();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _accommodation = new();
+            _photoRepository = app.PhotoRepository;
+            _locationService = new();
+        }
+
+        private void InstantiateCommands()
+        {
             CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }
@@ -153,15 +158,48 @@ namespace TouristAgency.ViewModel
             }
         }
 
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "PhotoLinks")
+                {
+                    if (string.IsNullOrEmpty(PhotoLinks))
+                        return "Required field";
+                }
+                return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "PhotoLinks" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
         public void AddPhotos()
         {
-            PhotoLinks = PhotoLinks.Replace("\r\n", "|");
-            string[] photoLinks = PhotoLinks.Split("|");
-            foreach (string photoLink in photoLinks)
+            if (PhotoLinks != null)
             {
-                Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
-                NewAccommodation.Photos.Add(photo);
-                _photoService.Create(photo);
+                PhotoLinks = PhotoLinks.Replace("\r\n", "|");
+                string[] photoLinks = PhotoLinks.Split("|");
+                foreach (string photoLink in photoLinks)
+                {
+                    Photo photo = new Photo(photoLink, 'A', NewAccommodation.Id);
+                    NewAccommodation.Photos.Add(photo);
+                    _photoRepository.Create(photo);
+                }
             }
         }
 
@@ -183,7 +221,7 @@ namespace TouristAgency.ViewModel
             PrepareAccommodationForCreation();
             try
             {
-                _accommodation.Create(NewAccommodation);
+                _accommodation.AccommodationRepository.Create(NewAccommodation);
                 AddPhotos();
                 MessageBox.Show("Accommodation created successfully");
             }
@@ -193,7 +231,7 @@ namespace TouristAgency.ViewModel
             }
             finally
             {
-                _window.Close();
+                app.CurrentVM = new OwnerHomeViewModel();
             }
         }
 
@@ -204,19 +242,7 @@ namespace TouristAgency.ViewModel
 
         public void CloseWindowExecute()
         {
-            _window.Close();
-        }
-
-        //----------------------------------------------------------------------------------------------
-
-        public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
-        {
-            return _accommodation.Search(country, city, name, type, maxGuest, minDays);
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _accommodation.Subscribe(observer);
+            app.CurrentVM = new OwnerHomeViewModel();
         }
     }
 }

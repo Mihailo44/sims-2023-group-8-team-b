@@ -15,14 +15,14 @@ namespace TouristAgency.ViewModel
 {
     public class GuestHomeViewModel : ViewModelBase, ICloseable
     {
-        private Guest _loggedInGuest;
         private App _app;
+        private Guest _loggedInGuest;
         private Window _window;
 
-        public DelegateCommand AccommodationDisplayCmd { get; }
-        public DelegateCommand PostponementRequestDisplayCmd { get; }
-        public DelegateCommand OwnerReviewCreationCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand AccommodationDisplayCmd { get; set; }
+        public DelegateCommand PostponementRequestDisplayCmd { get; set; }
+        public DelegateCommand OwnerReviewCreationCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set;}
 
         public GuestHomeViewModel(Guest guest, Window window)
         {
@@ -30,6 +30,11 @@ namespace TouristAgency.ViewModel
             _loggedInGuest = guest;
             _window = window;
 
+            InstantiateCommands();
+        }
+
+        private void InstantiateCommands()
+        {
             AccommodationDisplayCmd = new DelegateCommand(param => OpenAccommodationDisplayCmdExecute(),
                 param => CanOpenAccommodationDisplayCmdExecute());
             PostponementRequestDisplayCmd = new DelegateCommand(param => OpenPostponementRequestDisplayCmdExecute(),

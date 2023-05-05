@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Model;
+using TouristAgency.Service;
 
 namespace TouristAgency.ViewModel
 {
@@ -14,15 +12,34 @@ namespace TouristAgency.ViewModel
     {
         private App _app;
         private Guide _guide;
+
         private ObservableCollection<Tour> _availableTours;
 
-        public DelegateCommand CancelTourCmd { get; }
+        private TourService _tourService;
+        private VoucherService _voucherService;
+        public DelegateCommand CancelTourCmd { get; set; }
 
-        public CancelTourDisplayViewModel(Guide guide, Window window)
+        public CancelTourDisplayViewModel(Guide guide)
         {
             _app = (App)Application.Current;
             _guide = guide;
-            AvailableTours = new ObservableCollection<Tour>(_app.TourService.GetCancellabeTours());
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _tourService = new TourService();
+        }
+
+        private void InstantiateCollections()
+        {
+            AvailableTours = new ObservableCollection<Tour>(_tourService.GetCancellabeTours());
+        }
+
+        private void InstantiateCommands()
+        {
             CancelTourCmd = new DelegateCommand(param => CancelToursExecute(), param => CanCancelToursExecute());
         }
 
@@ -53,13 +70,12 @@ namespace TouristAgency.ViewModel
                 if(tour.IsSelected)
                 {
                     tourToBeDeleted.Add(tour);
-                    _app.TourService.ChangeTourStatus(tour.ID, Model.Enums.STATUS.CANCELLED);
+                    _tourService.ChangeTourStatus(tour.ID, Model.Enums.STATUS.CANCELLED);
                     foreach(Tourist tourist in tour.RegisteredTourists)
                     {
                         DateTime oneYear = DateTime.Now.AddYears(1);
                         Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Compensation voucher", false, oneYear);
-                        //int touristId, int tourID, string name, bool isUsed, DateTime expirationDate
-                        _app.VoucherService.Create(newVoucher);
+                        _voucherService.VoucherRepository.Create(newVoucher);
                         tourist.WonVouchers.Add(newVoucher);
                     }
                 }

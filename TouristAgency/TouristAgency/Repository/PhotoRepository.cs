@@ -7,15 +7,15 @@ using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Storage.FileStorage;
 
-namespace TouristAgency.Service
+namespace TouristAgency.Repository
 {
-    public class PhotoService : ICrud<Photo>, ISubject
+    public class PhotoRepository : ICrud<Photo>, ISubject
     {
         private readonly IStorage<Photo> _storage;
         private readonly List<Photo> _photos;
         private List<IObserver> _observers;
 
-        public PhotoService(IStorage<Photo> storage)
+        public PhotoRepository(IStorage<Photo> storage)
         {
             _storage = storage;
             _photos = _storage.Load();

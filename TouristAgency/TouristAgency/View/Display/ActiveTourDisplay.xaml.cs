@@ -27,7 +27,7 @@ namespace TouristAgency.View.Display
         public ActiveTourDisplay(Guide guide)
         {
             InitializeComponent();
-            DataContext = new ActiveTourDisplayViewModel(guide, this);
+            DataContext = new ActiveTourDisplayViewModel(guide);
 
         }
     }

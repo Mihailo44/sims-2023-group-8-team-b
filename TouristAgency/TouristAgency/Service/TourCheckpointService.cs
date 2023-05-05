@@ -6,79 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Repository;
 using TouristAgency.Storage.FileStorage;
 
 namespace TouristAgency.Service
 {
-    public class TourCheckpointService : ISubject
+    public class TourCheckpointService
     {
-        private readonly IStorage<TourCheckpoint> _storage;
-        private readonly List<TourCheckpoint> _tourCheckpoint;
-        private List<IObserver> _observers;
 
-        public TourCheckpointService(IStorage<TourCheckpoint> storage)
+        private readonly App _app;
+        public TourCheckpointRepository TourCheckpointRepository { get; set; }
+        public TourCheckpointService()
         {
-            _storage = storage;
-            _tourCheckpoint = _storage.Load();
-            _observers = new List<IObserver>();
-        }
-
-        public void Create(TourCheckpoint TourCheckpoint)
-        {
-            _tourCheckpoint.Add(TourCheckpoint);
-            _storage.Save(_tourCheckpoint);
-            NotifyObservers();
-        }
-
-        public void Update(TourCheckpoint TourCheckpoint)
-        {
-            foreach (TourCheckpoint tourCheckpoint in _tourCheckpoint)
-            {
-                if (tourCheckpoint.TourID == TourCheckpoint.TourID &&
-                    tourCheckpoint.CheckpointID == TourCheckpoint.CheckpointID)
-                {
-                    tourCheckpoint.IsVisited = TourCheckpoint.IsVisited;
-                }
-            }
-            _storage.Save(_tourCheckpoint);
-            NotifyObservers();
-        }
-
-        public void Delete(int tourID)
-        {
-            TourCheckpoint deletedTourCheckpoint = _tourCheckpoint.Find(t => t.TourID == tourID);
-            _tourCheckpoint.Remove(deletedTourCheckpoint);
-            _storage.Save(_tourCheckpoint);
-            NotifyObservers();
-        }
-
-        public List<TourCheckpoint> GetAll()
-        {
-            return _tourCheckpoint;
-        }
-
-        public List<TourCheckpoint> FindByID(int id)
-        {
-            return _tourCheckpoint.FindAll(tc => tc.TourID == id);
-        }
-
-        public void LoadCheckpoints(List<Checkpoint> checkpoints)
-        {
-            foreach (Checkpoint checkpoint in checkpoints)
-            {
-                foreach (TourCheckpoint tourCheckpoint in _tourCheckpoint)
-                {
-                    if (tourCheckpoint.CheckpointID == checkpoint.ID)
-                    {
-                        tourCheckpoint.Checkpoint = checkpoint;
-                    }
-                }
-            }
+            _app = (App)App.Current;
+            TourCheckpointRepository = _app.TourCheckpointRepository;
         }
 
         public ObservableCollection<TourCheckpoint> GetTourCheckpointsByTourID(int tourID, List<Checkpoint> checkpoints)
         {
-            ObservableCollection<TourCheckpoint> tourCheckpoints = new ObservableCollection<TourCheckpoint>(FindByID(tourID));
+            ObservableCollection<TourCheckpoint> tourCheckpoints = new ObservableCollection<TourCheckpoint>(TourCheckpointRepository.GetByID(tourID));
             foreach (TourCheckpoint tourCheckpoint in tourCheckpoints)
             {
                 foreach (Checkpoint checkpoint in checkpoints)
@@ -94,7 +40,7 @@ namespace TouristAgency.Service
 
         public Checkpoint GetLatestCheckpoint(Tour tour)
         {
-            List<TourCheckpoint> tourCheckpoints = _tourCheckpoint.FindAll(tc => tc.TourID == tour.ID);
+            List<TourCheckpoint> tourCheckpoints = TourCheckpointRepository.GetAll().FindAll(tc => tc.TourID == tour.ID);
             Checkpoint latestCheckpoint = new Checkpoint();
             foreach(TourCheckpoint tourCheckpoint in tourCheckpoints)
             {
@@ -104,24 +50,6 @@ namespace TouristAgency.Service
                 }
             }
             return latestCheckpoint;
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (IObserver observer in _observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

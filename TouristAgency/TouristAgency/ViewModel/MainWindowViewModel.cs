@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using TouristAgency.Base;
-using TouristAgency.Service;
 using TouristAgency.Interfaces;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
-using TouristAgency.View.Home;
-using TouristAgency.Model;
 using TouristAgency.Model.Enums;
-
+using TouristAgency.Service;
+using TouristAgency.View.Home;
+using TouristAgency.View.Main;
+using TouristAgency.Repository;
 
 namespace TouristAgency.ViewModel
 {
-    public class MainWindowViewModel : ViewModelBase,ICloseable
+    public class MainWindowViewModel : ViewModelBase, ICloseable
     {
         private OwnerService _ownerService;
         private GuestService _guestService;
@@ -34,25 +27,23 @@ namespace TouristAgency.ViewModel
 
         public MainWindowViewModel()
         {
-            _userService = app.UserService;
+            _userService = new();
         }
 
         public MainWindowViewModel(Window window)
         {
-            _ownerService = app.OwnerService;
-            _touristService = app.TouristService;
-            _guideService = app.GuideService;
-            _guestService = app.GuestService;
-            _userService = app.UserService;
+            _ownerService = new();
+            _touristService = new();
+            _guideService = new();
+            _guestService = new();
+            _userService = new();
 
             _window = window;
-            Username = "User";
-            Password = "Pass";
-            LoginCmd = new DelegateCommand(param => LoginExecute(),param => CanLoginExecute());
-            CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
-            
+ 
+            LoginCmd = new DelegateCommand(param => LoginExecute(), param => CanLoginExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }
-        
+
         public string Username
         {
             get => _username;
@@ -102,7 +93,7 @@ namespace TouristAgency.ViewModel
 
         public void LoginExecute()
         {
-            User = _userService.CheckCredentials(Username, Password);
+            User = _userService.UserRepository.CheckCredentials(Username, Password);
 
             if (User != null)
             {
@@ -110,15 +101,16 @@ namespace TouristAgency.ViewModel
                 {
                     case UserType.OWNER:
                         {
-                            User = _ownerService.FindById(User.ID);
-                            OwnerHome x = new OwnerHome(User);
+                            User = _ownerService.OwnerRepository.GetById(User.ID);
+                            app.LoggedUser = User;
+                            OwnerMain x = new OwnerMain();
                             x.Show();
                             ClearTxtBoxes();
                         }
                         break;
                     case UserType.GUEST:
                         {
-                            User = _guestService.FindById(User.ID);
+                            User = _guestService.GuestRepository.GetById(User.ID);
                             GuestHome x = new GuestHome(User);
                             x.Show();
                             ClearTxtBoxes();
@@ -126,7 +118,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.TOURIST:
                         {
-                            User = _touristService.FindById(User.ID);
+                            User = _touristService.TouristRepository.GetById(User.ID);
                             User.Username = Username;
                             User.Password = Password;
                             TouristHome x = new TouristHome(User);
@@ -136,7 +128,7 @@ namespace TouristAgency.ViewModel
                         break;
                     case UserType.GUIDE:
                         {
-                            User = _guideService.FindById(User.ID);
+                            User = _guideService.GuideRepository.GetById(User.ID);
                             GuideHome x = new GuideHome(User);
                             x.Show();
                             ClearTxtBoxes();
