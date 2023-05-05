@@ -180,6 +180,7 @@ namespace TouristAgency.TourRequests
             tourRequest.EndDate = EndDate;
             _tourRequestService.TourRequestRepository.Create(tourRequest);
             TourRequests.Add(tourRequest);
+            MessageBox.Show("You have successfully send request for tour.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
