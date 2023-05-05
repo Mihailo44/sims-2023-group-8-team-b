@@ -13,4 +13,5 @@ namespace TouristAgency.Base
     public enum TourRequestStatus { PENDING, INVALID, ACCEPTED }
     public enum InvitationStatus { PENDING, ACCEPTED }
     public enum UserType { OWNER, GUIDE, TOURIST, GUEST }
+    public enum TouristNotificationType { TOUR_REQUEST_ACCEPTED, SUGGESTED_TOUR, ATTENDANCE, MESSAGE}
 }

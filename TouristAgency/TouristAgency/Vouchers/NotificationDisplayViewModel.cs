@@ -11,8 +11,10 @@ namespace TouristAgency.Vouchers
         private Tourist _loggedInTourist;
 
         private ObservableCollection<Voucher> _vouchers;
+        private ObservableCollection<TouristNotification> _notifications;  
 
         private TouristService _touristService;
+        private TouristNotificationService _touristNotificationService;
 
 
         public NotificationDisplayViewModel(Tourist tourist, Window window)
@@ -26,11 +28,13 @@ namespace TouristAgency.Vouchers
         private void InstantiateServices()
         {
             _touristService = new TouristService();
+            _touristNotificationService = new TouristNotificationService();
         }
 
         private void InstantiateCollections()
         {
             Vouchers = new ObservableCollection<Voucher>(_touristService.GetValidVouchers(_loggedInTourist));
+            Notifications = new ObservableCollection<TouristNotification>(_touristNotificationService.GetByTouristID(_loggedInTourist.ID));
         }
 
         public ObservableCollection<Voucher> Vouchers
@@ -42,6 +46,19 @@ namespace TouristAgency.Vouchers
                 {
                     _vouchers = value;
                     OnPropertyChanged("Vouchers");
+                }
+            }
+        }
+
+        public ObservableCollection<TouristNotification> Notifications
+        {
+            get => _notifications;
+            set
+            {
+                if (value != _notifications)
+                {
+                    _notifications = value;
+                    OnPropertyChanged("Notifications");
                 }
             }
         }

@@ -40,7 +40,8 @@ namespace TouristAgency.Base
             { typeof(IStorage<Voucher>), new VoucherFileStorage()},
             { typeof(IStorage<Guest>), new GuestFileStorage()},
             { typeof(IStorage<OwnerReview>), new OwnerReviewFileStorage()},
-            { typeof(IStorage<TourRequest>), new TourRequestFileStorage()}
+            { typeof(IStorage<TourRequest>), new TourRequestFileStorage()},
+            { typeof(IStorage<TouristNotification>), new TouristNotificationFileStorage()}
         };
 
         public static T CreateInstance<T>()

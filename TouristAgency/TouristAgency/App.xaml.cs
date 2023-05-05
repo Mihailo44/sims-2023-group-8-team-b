@@ -37,6 +37,7 @@ namespace TouristAgency
         public GuestRepository GuestRepository { get; }
         public LocationRepository LocationRepository { get; }
         public TourRequestRepository TourRequestRepository { get; }
+        public TouristNotificationRepository TouristNotificationRepository { get; }
 
 
         public GuideRepository GuideRepository { get; }
@@ -90,6 +91,7 @@ namespace TouristAgency
             TourCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
             TourTouristCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
             CheckpointRepository = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
+            TouristNotificationRepository = new(InjectorService.CreateInstance<IStorage<TouristNotification>>());
 
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestRepository = new(InjectorService.CreateInstance<IStorage<Guest>>());

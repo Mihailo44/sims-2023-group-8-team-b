@@ -25,7 +25,12 @@
             Click on the title or list to view the tour and make a reservation.
         </TextBlock>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Width="735" Height="250" FontSize="28" FontWeight="Bold">
+        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="735" Height="250" FontSize="28" FontWeight="Bold">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Message}"></Label>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Border Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="2,2,2,2" CornerRadius="10" Margin="15,5,15,15">
