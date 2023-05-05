@@ -69,6 +69,11 @@ namespace TouristAgency.TourRequests
             return TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
         }
 
+        public List<TourRequest> GetPendingTourRequests()
+        {
+            return TourRequestRepository.GetAll().FindAll(t => t.Status == TourRequestStatus.PENDING);
+        }
+
         public void InvalidateOldTourRequests()
         {
             DateTime today = DateTime.Now;

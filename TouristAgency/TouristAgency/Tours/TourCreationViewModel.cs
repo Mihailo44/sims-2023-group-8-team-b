@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.TourRequests;
 using TouristAgency.Users;
 using TouristAgency.Util;
 
@@ -14,6 +15,7 @@ namespace TouristAgency.Tours
         private App _app;
         private Guide _loggedInGuide;
 
+        private TourRequest _tourRequest;
         private ObservableCollection<Checkpoint> _availableCheckpoints;
         private ObservableCollection<Checkpoint> _selectedCheckpoints;
         private List<DateTime> _multipleDateTimes;
@@ -43,7 +45,24 @@ namespace TouristAgency.Tours
             InstantiateCollections();
             InstantiateCommands();
             InstantiateMenuCommands();
+            AreControlsEnabled("True");
         }
+
+        public TourCreationViewModel(TourRequest tourRequest)
+        {
+            _app = (App)Application.Current;
+            _loggedInGuide = _app.LoggedUser;
+            _tourRequest = tourRequest;
+            MenuVisibility = "Hidden";
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+            InstantiateMenuCommands();
+            FillFromTourRequest(tourRequest);
+            LoadCheckpointsIntoListView();
+            AreControlsEnabled("False");
+        }
+
         private void InstantiateServices()
         {
             _tourService = new TourService();
@@ -76,6 +95,25 @@ namespace TouristAgency.Tours
                 param => CanLoadCheckpointsIntoListView());
             CreateCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
+        }
+
+        public void FillFromTourRequest(TourRequest tourRequest)
+        {
+            NewTour.Description = tourRequest.Description;
+            NewTour.ShortLocation = tourRequest.ShortLocation;
+            NewLocation = tourRequest.ShortLocation;
+            NewTour.ShortLocation.City = tourRequest.ShortLocation.City;
+            NewTour.Language = tourRequest.Language;
+            NewTour.MaxAttendants = tourRequest.MaxAttendance;
+        }
+
+        public void AreControlsEnabled(string state)
+        {
+            CountryEnabled = state;
+            CityEnabled = state;
+            LanguageEnabled = state;
+            CapacityEnabled = state;
+            DescriptionEnabled = state;
         }
 
         public Tour NewTour
@@ -134,6 +172,12 @@ namespace TouristAgency.Tours
             get => _photoLinks;
             set => _photoLinks = value;
         }
+
+        public string CountryEnabled { get; set; }
+        public string CityEnabled { get; set; }
+        public string DescriptionEnabled { get; set; }
+        public string LanguageEnabled { get; set; }
+        public string CapacityEnabled { get; set; }
 
         public bool CanLoadCheckpointsIntoListView()
         {
