@@ -308,6 +308,9 @@ namespace TouristAgency.Reservations
 
         private void CancelCmdExecute()
         {
+            MinDuration = 0;
+            MaxDuration = 0;
+            NumberOfPeople = 0;
             NumberOfReservation = 0;
         }
     }

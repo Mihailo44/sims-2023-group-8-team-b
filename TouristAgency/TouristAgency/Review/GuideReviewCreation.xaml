@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
+        xmlns:custom="clr-namespace:TouristAgency.Design.Tourist.Controls"
         mc:Ignorable="d"
         Title="TourGuideReviewCreation" Height="810" Width="1100" WindowStartupLocation="CenterScreen">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="790">
@@ -36,7 +37,7 @@
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
                     <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date and time" Width="310" DisplayMemberBinding="{Binding StartDateTime}"/>
+                    <GridViewColumn Header="Start date" Width="210" DisplayMemberBinding="{Binding StartDateTime, StringFormat={}{0:MM/dd/yyyy}}"/>
                     <GridViewColumn Header="Duration (h)" DisplayMemberBinding="{Binding Duration}"/>
                 </GridView>
             </ListView.View>
@@ -49,7 +50,11 @@
             <Grid Cursor="Arrow">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="270"></ColumnDefinition>
-                    <ColumnDefinition Width="320"></ColumnDefinition>
+                    <ColumnDefinition Width="62"></ColumnDefinition>
+                    <ColumnDefinition Width="62"></ColumnDefinition>
+                    <ColumnDefinition Width="62"></ColumnDefinition>
+                    <ColumnDefinition Width="62"></ColumnDefinition>
+                    <ColumnDefinition Width="62"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -69,25 +74,25 @@
                 <Label Content="Guide's language:" Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
                 <Label Content="Social interaction:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
 
-                <Slider Grid.Row="0" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.Quality}" Maximum="5" Minimum="1" FontSize="28"/>
-                <Slider Grid.Row="1" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.TourOrganization}" Maximum="5" Minimum="1" FontSize="28"></Slider>
-                <Slider Grid.Row="2" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.Attractions}" Maximum="5" Minimum="1" FontSize="28"></Slider>
-                <Slider Grid.Row="3" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.Knowledge}" Maximum="5" Minimum="1" FontSize="28"></Slider>
-                <Slider Grid.Row="4" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.Language}" Maximum="5" Minimum="1" FontSize="28"></Slider>
-                <Slider Grid.Row="5" Grid.Column="1" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left" Value="{Binding NewGuideReview.SocialInteraction}" Maximum="5" Minimum="1" FontSize="28"></Slider>
+                <custom:QualityReviewControl Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="5"></custom:QualityReviewControl>
+                <custom:OrganizationReviewControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5"></custom:OrganizationReviewControl>
+                <custom:AttractionsReviewControl Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5"></custom:AttractionsReviewControl>
+                <custom:LanguageReviewControl Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5"></custom:LanguageReviewControl>
+                <custom:SocialReviewControl Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5"></custom:SocialReviewControl>
 
-                <Label Content="Additional comment:" Grid.Row="0" Grid.Column="2" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416"></TextBox>
 
-                <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="2" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="2" Height="80" Width="416" Text="{Binding PhotoLinks}">
+                <Label Content="Additional comment:" Grid.Row="0" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
+                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416"></TextBox>
+
+                <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
+                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="80" Width="416" Text="{Binding PhotoLinks}">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
 
-                <Button Content="Send review" Grid.Row="6" Grid.Column="2" Width="228" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0"></Button>
+                <Button Content="Send review" Grid.Row="6" Grid.Column="6" Width="228" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0"></Button>
             </Grid>
         </GroupBox>
     </Grid>

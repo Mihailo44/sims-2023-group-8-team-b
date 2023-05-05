@@ -25,3 +25,4 @@
 23|A|7|link21
 24|T|9|https://upload.wikimedia.org/wikipedia/commons/c/c0/Petrovaradinska_tvr%C4%91ava_044.jpg
 25|T|10|https://upload.wikimedia.org/wikipedia/commons/c/c0/Petrovaradinska_tvr%C4%91ava_044.jpg
+26|G|4|some photos

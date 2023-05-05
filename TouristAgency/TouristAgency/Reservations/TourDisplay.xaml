@@ -94,7 +94,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="330"></ColumnDefinition>
                     <ColumnDefinition Width="100"></ColumnDefinition>
-                    <ColumnDefinition Width="400"></ColumnDefinition>
+                    <ColumnDefinition Width="465"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -103,7 +103,7 @@
                 <Label Grid.Column="0" Content="Number of reservations:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,10"/>
                 <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="1" Width="73" Height="39" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}" FontSize="28" FontWeight="Bold" Margin="0,0,0,8"/>
                 <Button Grid.Column="2" Content="Make a reservation" Width="270" Height="40" HorizontalAlignment="Right" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold"/>
-                <Button Grid.Column="3" Content="Cancel reservation" Width="270" Height="40" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" FontSize="28" FontWeight="Bold"/>
+                <Button Grid.Column="3" Content="Cancel" Width="200" Height="40" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" FontSize="28" FontWeight="Bold"/>
             </Grid>
         </GroupBox>
     </Grid>
