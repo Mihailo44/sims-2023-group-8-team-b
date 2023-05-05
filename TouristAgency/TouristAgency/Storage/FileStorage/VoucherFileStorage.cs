@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
 using TouristAgency.Serialization;
+using TouristAgency.Vouchers;
 
 namespace TouristAgency.Storage.FileStorage
 {

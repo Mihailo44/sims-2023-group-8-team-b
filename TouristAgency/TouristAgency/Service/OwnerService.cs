@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
 using TouristAgency.Repository;
+using TouristAgency.Review;
 
 namespace TouristAgency.Service
 {

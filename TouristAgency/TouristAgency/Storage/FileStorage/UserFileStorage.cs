@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TouristAgency.Model;
 using TouristAgency.Serialization;
 using TouristAgency.Interfaces;
+using TouristAgency.Users;
 
 namespace TouristAgency.Storage.FileStorage
 {

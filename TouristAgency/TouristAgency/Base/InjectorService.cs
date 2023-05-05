@@ -5,9 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
+using TouristAgency.Review;
 using TouristAgency.Service;
 using TouristAgency.Storage;
 using TouristAgency.Storage.FileStorage;
+using TouristAgency.Users;
+using TouristAgency.Util;
+using TouristAgency.Tours;
+using TouristAgency.Vouchers;
+using TouristAgency.Requests;
+using TouristAgency.Reservations;
 
 namespace TouristAgency.Base
 {

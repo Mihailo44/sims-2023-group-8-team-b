@@ -8,11 +8,13 @@ using System.Linq;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
-using TouristAgency.Model.Enums;
 using TouristAgency.Service;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Dialogue;
 using TouristAgency.View.Main;
+using TouristAgency.Review;
+using TouristAgency.Requests;
+using TouristAgency.Reservations;
 
 namespace TouristAgency.ViewModel
 {
