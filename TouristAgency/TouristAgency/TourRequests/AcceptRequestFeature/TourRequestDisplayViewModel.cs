@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
+using TouristAgency.CreationFeature;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
 using TouristAgency.Users;
+using TouristAgency.Users.HomeDisplayFeature;
 
-namespace TouristAgency.TourRequests
+namespace TouristAgency.TourRequests.AcceptRequestFeature
 {
     public class TourRequestDisplayViewModel : BurgerMenuViewModelBase, ICloseable
     {

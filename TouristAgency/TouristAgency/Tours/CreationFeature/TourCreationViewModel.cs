@@ -5,11 +5,13 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.TourRequests;
+using TouristAgency.Tours;
 using TouristAgency.Users;
+using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;
 using TouristAgency.Vouchers;
 
-namespace TouristAgency.Tours
+namespace TouristAgency.CreationFeature
 {
     public class TourCreationViewModel : BurgerMenuViewModelBase, ICreate, ICloseable
     {

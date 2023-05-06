@@ -3,7 +3,7 @@ using TouristAgency.Users;
 using TouristAgency.Statistics;
 using System.Windows.Controls;
 
-namespace TouristAgency.Statistics
+namespace TouristAgency.Tours.StatisticsFeature
 {
     /// <summary>
     /// Interaction logic for TourStatisticsDisplay.xaml

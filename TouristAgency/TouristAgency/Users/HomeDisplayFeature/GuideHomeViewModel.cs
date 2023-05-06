@@ -9,7 +9,7 @@ using TouristAgency.Util;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 
-namespace TouristAgency.Users
+namespace TouristAgency.Users.HomeDisplayFeature
 {
     public class GuideHomeViewModel :BurgerMenuViewModelBase, ICloseable
     {

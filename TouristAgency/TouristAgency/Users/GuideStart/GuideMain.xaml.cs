@@ -11,17 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Users;
 
-namespace TouristAgency.Statistics
+namespace TouristAgency.Users.GuideStart
 {
     /// <summary>
-    /// Interaction logic for GuideTourRequestStatisticsDisplay.xaml
+    /// Interaction logic for GuideMain.xaml
     /// </summary>
-    public partial class GuideTourRequestStatisticsDisplay : UserControl
+    public partial class GuideMain : Window
     {
-        public GuideTourRequestStatisticsDisplay()
+        public GuideMain()
         {
             InitializeComponent();
+            DataContext = new GuideMainViewModel();
         }
     }
 }

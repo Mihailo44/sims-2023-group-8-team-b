@@ -8,8 +8,10 @@ using TouristAgency.Users;
 using TouristAgency.Tours;
 using TouristAgency.Vouchers;
 using TouristAgency.Interfaces;
+using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Review.GuideReviewDisplayFeature;
 
-namespace TouristAgency.Statistics
+namespace TouristAgency.Tours.StatisticsFeature
 {
     public class TourStatisticsDisplayViewModel : BurgerMenuViewModelBase, ICloseable
     {

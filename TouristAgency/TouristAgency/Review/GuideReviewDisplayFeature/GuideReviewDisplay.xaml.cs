@@ -2,8 +2,9 @@
 using TouristAgency.Review;
 using TouristAgency.Users;
 using TouristAgency.Tours;
+using TouristAgency.Review.GuideReviewDisplayFeature;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.Review.GuideReviewDisplayFeature
 {
     /// <summary>
     /// Interaction logic for TourReviewDisplay.xaml

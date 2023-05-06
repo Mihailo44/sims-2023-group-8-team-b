@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TouristAgency.TourRequests
+namespace TouristAgency.TourRequests.StatisticsFeature
 {
     /// <summary>
-    /// Interaction logic for TourRequestDisplay.xaml
+    /// Interaction logic for GuideTourRequestStatisticsDisplay.xaml
     /// </summary>
-    public partial class TourRequestDisplay : UserControl
+    public partial class GuideTourRequestStatisticsDisplay : UserControl
     {
-        public TourRequestDisplay()
+        public GuideTourRequestStatisticsDisplay()
         {
             InitializeComponent();
         }

@@ -4,8 +4,9 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
+using TouristAgency.Users.HomeDisplayFeature;
 
-namespace TouristAgency.Users
+namespace TouristAgency.Users.ProfileDisplayFeature
 {
     public class GuideProfileDisplayViewModel : BurgerMenuViewModelBase, ICloseable
     {

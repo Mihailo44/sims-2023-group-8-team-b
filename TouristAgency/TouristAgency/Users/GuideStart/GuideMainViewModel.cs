@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Base;
+using TouristAgency.Users.HomeDisplayFeature;
 
-
-namespace TouristAgency.Users
+namespace TouristAgency.Users.GuideStart
 {
     public class GuideMainViewModel : ViewModelBase
     {

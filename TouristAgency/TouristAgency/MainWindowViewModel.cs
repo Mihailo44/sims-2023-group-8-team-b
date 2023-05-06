@@ -8,6 +8,7 @@ using TouristAgency.Users.Domain;
 using TouristAgency.Util;
 using TouristAgency.Users.OwnerStart;
 using TouristAgency.Accommodations.Domain;
+using TouristAgency.Users.GuideStart;
 
 namespace TouristAgency
 {

@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TouristAgency.CreationFeature;
 using TouristAgency.Statistics;
 using TouristAgency.TourRequests;
+using TouristAgency.TourRequests.AcceptRequestFeature;
+using TouristAgency.TourRequests.StatisticsFeature;
 using TouristAgency.Tours;
+using TouristAgency.Tours.CancelationFeature;
+using TouristAgency.Tours.StatisticsFeature;
 using TouristAgency.Users;
+using TouristAgency.Users.ProfileDisplayFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 

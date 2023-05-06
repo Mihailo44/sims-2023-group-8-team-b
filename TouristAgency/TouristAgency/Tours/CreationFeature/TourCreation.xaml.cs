@@ -3,14 +3,14 @@ using TouristAgency.Users;
 using TouristAgency.Tours;
 using System.Windows.Controls;
 
-namespace TouristAgency.Tours
+namespace TouristAgency.CreationFeature
 {
     /// <summary>
-    /// Interaction logic for CancelTourDisplay.xaml
+    /// Interaction logic for TourCreation.xaml
     /// </summary>
-    public partial class CancelTourDisplay : UserControl
+    public partial class TourCreation : UserControl
     {
-        public CancelTourDisplay()
+        public TourCreation()
         {
             InitializeComponent();
         }

@@ -5,7 +5,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Users;
 using TouristAgency.Tours;
 
-namespace TouristAgency.Review
+namespace TouristAgency.Review.GuideReviewDisplayFeature
 {
     public class GuideReviewDisplayViewModel : ViewModelBase, ICloseable, IObserver
     {

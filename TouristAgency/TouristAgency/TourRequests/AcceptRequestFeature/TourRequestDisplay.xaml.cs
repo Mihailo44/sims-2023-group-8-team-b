@@ -11,19 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Users;
 
-namespace TouristAgency.Users
+namespace TouristAgency.TourRequests.AcceptRequestFeature
 {
     /// <summary>
-    /// Interaction logic for GuideMain.xaml
+    /// Interaction logic for TourRequestDisplay.xaml
     /// </summary>
-    public partial class GuideMain : Window
+    public partial class TourRequestDisplay : UserControl
     {
-        public GuideMain()
+        public TourRequestDisplay()
         {
             InitializeComponent();
-            DataContext = new GuideMainViewModel();
         }
     }
 }

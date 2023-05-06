@@ -5,6 +5,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
 using TouristAgency.Users;
+using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;
 
 namespace TouristAgency.Reservations
