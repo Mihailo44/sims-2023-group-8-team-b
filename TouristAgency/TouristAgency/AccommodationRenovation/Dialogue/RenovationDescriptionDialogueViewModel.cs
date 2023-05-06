@@ -8,11 +8,11 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
 {
     public class RenovationDescriptionDialogueViewModel : ViewModelBase, ICloseable, ICreate
     {
-        private string _description;
         private readonly Window _window;
         private Renovation _renovation;
         private RenovationService _renovationService;
         private AccommodationService _accommodationService;
+        public string Description { get; set; }
 
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
@@ -27,18 +27,6 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(),param => CanCreateCmdExecute());
         }
 
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                if (_description != value)
-                {
-                    _description = value;
-                }
-            }
-        }
-
         public Renovation Renovation
         {
             get => _renovation;
@@ -47,6 +35,7 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
                 if (_renovation != value)
                 {
                     _renovation = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -63,18 +52,20 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
 
         public bool CanCreateCmdExecute()
         {
-            if (Description != null)
-                return true;
-            else
-                return false;
+            return true;
         }
 
         public void CreateCmdExecute()
         {
-            Renovation.Description = Description;
-            _renovationService.RenovationRepository.Update(Renovation, Renovation.Id);
+            if (string.IsNullOrEmpty(Description))
+                Description = "";
+
+            Renovation.Description = Description.Trim();
+            _renovationService.RenovationRepository.Create(Renovation);
             Renovation.Accommodation.CurrentlyRenovating = true;
             _accommodationService.AccommodationRepository.Update(Renovation.Accommodation, Renovation.AccommodationId);
+            MessageBox.Show("Renovation has been scheduled");
+            _window.Close();
         }
     }
 }

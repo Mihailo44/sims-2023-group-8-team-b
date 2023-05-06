@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Reservations.Domain;
 
@@ -23,14 +24,34 @@ namespace TouristAgency.AccommodationRenovation.Domain
             DateTime endInterval = start.AddDays(estimatedDuration);
 
             int i = 0;
-            while((reservationService.IsReserved(accommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) == false) && (startInterval < end))
+            while(!(reservationService.IsReserved(accommodation.Id, startInterval, endInterval)) && (startInterval.AddDays(estimatedDuration) < end))
             {
-                renovations.Add(new Renovation(accommodation, startInterval.AddDays(i), endInterval.AddDays(i), estimatedDuration));
-                startInterval = startInterval.AddDays(i);
+                renovations.Add(new Renovation(accommodation, startInterval, endInterval, estimatedDuration));
+                startInterval = startInterval.AddDays(1);
+                endInterval = startInterval.AddDays(estimatedDuration);
                 i++;
             }
 
             return renovations;
+        }
+
+        public void SetRenovationStatus(List<Accommodation> ownersAccommodations,AccommodationService accommodationService)
+        {
+            DateTime today = DateTime.Today;
+
+            foreach(var accommodation in ownersAccommodations)
+            {
+                List<Renovation> renovations = RenovationRepository.GetAll().Where(r => r.AccommodationId == accommodation.Id).OrderByDescending(r => r.End).ToList();
+                if (renovations != null && renovations.Count > 0)
+                {
+                    Renovation latestRenovation = (Renovation)renovations[0];
+                    if ((today - latestRenovation.End).TotalDays > 365)
+                    {
+                        accommodation.RecentlyRenovated = false;
+                        accommodationService.AccommodationRepository.Update(accommodation, accommodation.Id);
+                    }
+                }
+            }       
         }
     }
 }

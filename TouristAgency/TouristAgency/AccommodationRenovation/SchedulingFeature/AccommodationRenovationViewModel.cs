@@ -105,7 +105,6 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
 
         public void CreateCmdExecute()
         {
-            _renovationService.RenovationRepository.Create(SelectedRenovation);
             RenovationDescriptionDialogue x = new(SelectedRenovation);
             x.Show();
         }

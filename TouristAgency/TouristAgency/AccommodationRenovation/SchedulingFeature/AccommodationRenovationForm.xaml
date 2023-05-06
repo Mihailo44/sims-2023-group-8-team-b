@@ -21,15 +21,15 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
-            <Label Margin="0,25,0,0" HorizontalAlignment="Center" Content="Pick a Start Date:"/>
-            <DatePicker Width="150" Margin="0,5,0,0" SelectedDate="{Binding StartDate}"/>
-            <Label Margin="0,20,0,0" HorizontalAlignment="Center" Content="Pick an End Date:"/>
-            <DatePicker Width="150" Margin="0,5,0,0" SelectedDate="{Binding EndDate}"/>
-            <Label Margin="0,20,0,0" HorizontalAlignment="Center" Content="Estimated Duration"/>
+            <Label Margin="0,25,0,0" HorizontalAlignment="Center" FontSize="21" Content="Pick a Start Date:"/>
+            <DatePicker Width="150" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding StartDate}"/>
+            <Label Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="21" Content="Pick an End Date:"/>
+            <DatePicker Width="150" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding EndDate}"/>
+            <Label Margin="0,20,0,0" HorizontalAlignment="Center" FontSize="21" Content="Estimated Duration"/>
             <TextBox Width="70" Height="25" TextAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration}"/>
         </StackPanel>
 
-        <Label Grid.Column="1" Grid.ColumnSpan="3" Height="25" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Avaliable Dates"/>
+        <Label Grid.Column="1" Grid.ColumnSpan="3" Height="35" Margin="0,20,20,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="21" Content="Avaliable Dates"/>
         <ListView Grid.Column="1" Grid.ColumnSpan="3" Margin="0,50,20,0" 
                   ItemsSource="{Binding PossibleRenovationDates}"
                   SelectedItem="{Binding SelectedRenovation}"

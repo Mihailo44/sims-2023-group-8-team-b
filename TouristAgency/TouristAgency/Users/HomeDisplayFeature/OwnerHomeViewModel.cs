@@ -16,6 +16,7 @@ using TouristAgency.Util;
 using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.CreationFeature;
 using TouristAgency.Accommodations.Details;
+using TouristAgency.AccommodationRenovation.Domain;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -26,6 +27,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private OwnerReviewService _ownerReviewService;
         private OwnerService _ownerService;
         private PostponementRequestService _postponementRequestService;
+        private RenovationService _renovationService;
         private string _accountContainerVisibility;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
@@ -95,7 +97,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             FillCollections();
 
             _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
-
+            _renovationService.SetRenovationStatus(_accommodationService.GetByOwnerId(LoggedUser.ID), _accommodationService);
             InstantiateCommands();
         }
 
@@ -106,6 +108,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _ownerReviewService = new();
             _postponementRequestService = new();
             _ownerService = new();
+            _renovationService = new();
         }
 
         private void SubscribeObservers()
