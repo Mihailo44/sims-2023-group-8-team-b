@@ -54,6 +54,8 @@ namespace TouristAgency.TourRequests
                 return null;
             }
             currentTourRequest.Status = newTourRequest.Status;
+            currentTourRequest.TouristID = newTourRequest.TouristID;
+            currentTourRequest.GuideID = newTourRequest.GuideID;
             currentTourRequest.ShortLocation = newTourRequest.ShortLocation;
             currentTourRequest.Description = newTourRequest.Description;
             currentTourRequest.Language = newTourRequest.Language;

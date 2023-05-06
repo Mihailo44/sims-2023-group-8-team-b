@@ -7,6 +7,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.TourRequests;
 using TouristAgency.Users;
 using TouristAgency.Util;
+using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours
 {
@@ -15,13 +16,13 @@ namespace TouristAgency.Tours
         private App _app;
         private Guide _loggedInGuide;
 
-        private TourRequest _tourRequest;
         private ObservableCollection<Checkpoint> _availableCheckpoints;
         private ObservableCollection<Checkpoint> _selectedCheckpoints;
         private List<DateTime> _multipleDateTimes;
 
         private int _datecount;
         private Tour _newTour;
+        private TourRequest _tourRequest;
         private Location _newLocation;
         private string _photoLinks;
 
@@ -29,6 +30,8 @@ namespace TouristAgency.Tours
         private LocationService _locationService;
         private CheckpointService _checkpointService;
         private TourCheckpointService _tourCheckpointService;
+        private TourRequestService _tourRequestService;
+        private TouristNotificationService _touristNotificationService;
         public DelegateCommand AddCheckpointCmd { get; set; }
         public DelegateCommand RemoveCheckpointCmd { get; set; }
         public DelegateCommand AddMultipleDatesCmd { get; set; }
@@ -41,6 +44,7 @@ namespace TouristAgency.Tours
             _app = (App)Application.Current;
             _loggedInGuide = _app.LoggedUser;
             MenuVisibility = "Hidden";
+            _tourRequest = null;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
@@ -69,6 +73,8 @@ namespace TouristAgency.Tours
             _locationService = new LocationService();
             _checkpointService = new CheckpointService();
             _tourCheckpointService = new TourCheckpointService();
+            _tourRequestService = new TourRequestService();
+            _touristNotificationService = new TouristNotificationService();
         }
 
         private void InstantiateCollections()
@@ -224,6 +230,23 @@ namespace TouristAgency.Tours
             }
         }
 
+        public bool HandleTourRequest(DateTime startDate)
+        {
+            if(_tourRequest != null) 
+            {
+                if(startDate < _tourRequest.StartDate || startDate > _tourRequest.EndDate)
+                {
+                    return false;
+                }
+                _tourRequest.Status = TourRequestStatus.ACCEPTED;
+                _tourRequest.GuideID = _loggedInGuide.ID;
+                _tourRequestService.TourRequestRepository.Update(_tourRequest, _tourRequest.ID);
+                TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Promeniti poruku ovde");
+                notification = _touristNotificationService.TouristNotificationRepository.Create(notification);
+            }
+            return true;
+        }
+
         public void LoadToursToCheckpoints()
         {
             int tourID = _tourService.TourRepository.GenerateId() - 1;
@@ -263,12 +286,18 @@ namespace TouristAgency.Tours
                 NewTour.AssignedGuide = _loggedInGuide;
                 NewTour.StartDateTime = dateTime;
                 NewTour.RemainingCapacity = NewTour.MaxAttendants;
-                _tourService.TourRepository.Create(new Tour(_newTour));
-                AddPhotos();
-                LoadToursToCheckpoints();
+                if (HandleTourRequest(dateTime))
+                {
+                    AddPhotos();
+                    LoadToursToCheckpoints();
+                    _tourService.TourRepository.Create(new Tour(_newTour));
+                    MessageBox.Show("Successfully created tour!", "Success");
+                }
+                else
+                {
+                    MessageBox.Show("The dates must be in range of tour request (" + _tourRequest.StartDate.ToShortDateString() + " - " + _tourRequest.EndDate.ToShortDateString() + ")");
+                }
             }
-
-            MessageBox.Show("Successfully created tour!", "Success");
         }
 
         public bool CanAddCheckpointsExecute()

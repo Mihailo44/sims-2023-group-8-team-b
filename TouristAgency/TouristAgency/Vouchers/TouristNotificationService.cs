@@ -15,7 +15,9 @@ namespace TouristAgency.Vouchers
 
         public List<TouristNotification> GetByTouristID(int TouristID)
         {
-            return TouristNotificationRepository.GetAll().FindAll(t => t.TouristID == TouristID);
+            List<TouristNotification> notifications = TouristNotificationRepository.GetAll().FindAll(t => t.TouristID == TouristID);
+            notifications.Reverse();
+            return notifications;
         }
     }
 }

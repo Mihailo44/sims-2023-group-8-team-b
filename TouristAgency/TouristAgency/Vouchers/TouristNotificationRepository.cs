@@ -47,6 +47,7 @@ namespace TouristAgency.Vouchers
             }
 
             currentNotification.ID = newNotification.ID;
+            currentNotification.TouristID = newNotification.TouristID;
             currentNotification.Type = newNotification.Type;
             currentNotification.Message = newNotification.Message;
 

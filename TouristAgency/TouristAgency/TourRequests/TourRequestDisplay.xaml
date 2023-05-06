@@ -42,24 +42,25 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="Country:" Grid.Row="0" Grid.Column="0" FontSize="13"/>
-                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="90" Height="27" FontSize="13"/>
+                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="90" Height="27" FontSize="13" ItemsSource="{Binding Countries}" SelectedItem="{Binding Country}"/>
 
                 <Label Content="City:" Grid.Row="1" Grid.Column="0" FontSize="13"/>
-                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="90" Height="27" FontSize="13"/>
+                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="90" Height="27" FontSize="13" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
 
                 <Label Content="Language:" Grid.Row="0" Grid.Column="2" FontSize="13"/>
-                <ComboBox x:Name="LanguageComboBox" Grid.Row="0" Grid.Column="3" Width="90" Height="27" FontSize="13"/>
+                <ComboBox x:Name="LanguageComboBox" Grid.Row="0" Grid.Column="3" Width="90" Height="27" FontSize="13" ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}"/>
 
                 <Label Content="Start:" Grid.Row="2" Grid.Column="0"></Label>
-                <DatePicker Width="90" Height="30" Grid.Row="2" Grid.Column="1"></DatePicker>
+                <DatePicker Width="90" Height="30" Grid.Row="2" Grid.Column="1" SelectedDate="{Binding StartDate}"></DatePicker>
 
                 <Label Content="End:" Grid.Row="2" Grid.Column="2"></Label>
-                <DatePicker Width="90" Height="30" Grid.Row="2" Grid.Column="3"></DatePicker>
+                <DatePicker Width="90" Height="30" Grid.Row="2" Grid.Column="3" SelectedDate="{Binding EndDate}"></DatePicker>
 
                 <Label Content="Max capacity:" Grid.Row="1" Grid.Column="2" FontSize="13"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" Margin="2,0,0,0" Value="{Binding MaxAttendants}"/>
 
-                <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Content="Apply filter" Width="124" Height="27" FontSize="13" VerticalAlignment="Center"/>
+                <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply filter" Command="{Binding FilterCmd}" Width="124" Height="27" FontSize="13" VerticalAlignment="Center"/>
+                <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Clear filter" Command="{Binding ClearFilterCmd}" Width="124" Height="27" FontSize="13" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
         
@@ -110,7 +111,7 @@
 
                             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                                 <Label>Max capacity:</Label>
-                                <Label Content="{Binding MaxAttendants}"/>
+                                <Label Content="{Binding MaxAttendance}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">

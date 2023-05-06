@@ -74,6 +74,17 @@ namespace TouristAgency.TourRequests
             return TourRequestRepository.GetAll().FindAll(t => t.Status == TourRequestStatus.PENDING);
         }
 
+
+        public List<TourRequest> Search(string country, string city, string language, int maxAttendants,
+           DateTime startDate, DateTime endDate)
+        {
+            List<TourRequest> filteredRequests = new List<TourRequest>();
+            return TourRequestRepository.GetAll().FindAll(t =>
+                    t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) &&
+                    t.Language.Contains(language) && t.MaxAttendance < maxAttendants
+                    && t.StartDate >= startDate && t.EndDate <= endDate && t.Status == TourRequestStatus.PENDING);
+        }
+
         public void InvalidateOldTourRequests()
         {
             DateTime today = DateTime.Now;

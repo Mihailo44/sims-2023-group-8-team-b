@@ -11,6 +11,7 @@ namespace TouristAgency.TourRequests
     {
         private int _ID;
         private int _touristID;
+        private int _guideID;
         private TourRequestStatus _status;
         private Location _shortLocation;
         private int _shortLocationID;
@@ -32,6 +33,8 @@ namespace TouristAgency.TourRequests
         public TourRequest()
         {
             _ID = -1;
+            _touristID = -1;
+            _guideID = -1;
             _status = TourRequestStatus.PENDING;
             _shortLocation = new Location();
             _startDate = DateTime.Now;
@@ -70,6 +73,18 @@ namespace TouristAgency.TourRequests
                 if (value != _touristID)
                 {
                     _touristID = value;
+                }
+            }
+        }
+
+        public int GuideID
+        {
+            get => _guideID;
+            set
+            {
+                if (value != _guideID)
+                {
+                    _guideID = value;
                 }
             }
         }
@@ -176,6 +191,7 @@ namespace TouristAgency.TourRequests
             {
                 ID.ToString(),
                 TouristID.ToString(),
+                GuideID.ToString(),
                 Status.ToString(),
                 ShortLocationID.ToString(),
                 Description,
@@ -191,13 +207,14 @@ namespace TouristAgency.TourRequests
         {
             ID = Convert.ToInt32(values[0]);
             TouristID = Convert.ToInt32(values[1]);
-            Status = Enum.Parse<TourRequestStatus>(values[2]);
-            ShortLocationID = Convert.ToInt32(values[3]);
-            Description = Convert.ToString(values[4]);
-            Language = values[5];
-            MaxAttendance = Convert.ToInt32(values[6]);
-            StartDate = Convert.ToDateTime(values[7]);
-            EndDate = Convert.ToDateTime(values[8]);
+            GuideID = Convert.ToInt32(values[2]);
+            Status = Enum.Parse<TourRequestStatus>(values[3]);
+            ShortLocationID = Convert.ToInt32(values[4]);
+            Description = Convert.ToString(values[5]);
+            Language = values[6];
+            MaxAttendance = Convert.ToInt32(values[7]);
+            StartDate = Convert.ToDateTime(values[8]);
+            EndDate = Convert.ToDateTime(values[9]);
         }
     }
 }

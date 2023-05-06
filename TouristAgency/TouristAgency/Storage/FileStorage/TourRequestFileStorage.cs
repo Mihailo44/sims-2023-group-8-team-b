@@ -8,7 +8,7 @@ namespace TouristAgency.Storage.FileStorage
     public class TourRequestFileStorage : IStorage<TourRequest>
     {
         private Serializer<TourRequest> _serializer;
-        private readonly string _file = "tourRequests.txt";
+        private readonly string _file = "tourrequests.txt";
 
         public TourRequestFileStorage()
         {

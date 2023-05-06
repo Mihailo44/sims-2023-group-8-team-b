@@ -17,7 +17,15 @@ namespace TouristAgency.Vouchers
         public TouristNotification()
         {
             _Id = -1;
+            _touristID = -1;
             _type = TouristNotificationType.MESSAGE;
+        }
+
+        public TouristNotification(int touristID, TouristNotificationType type, string message)
+        {
+            TouristID = touristID;
+            Type = type;
+            Message = message;
         }
 
         public int ID

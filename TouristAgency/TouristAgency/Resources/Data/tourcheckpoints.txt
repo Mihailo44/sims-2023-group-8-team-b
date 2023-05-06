@@ -31,3 +31,9 @@
 10|2|True
 10|0|False
 10|1|False
+10|0|True
+10|1|False
+10|2|False
+10|0|True
+10|1|False
+10|2|False
