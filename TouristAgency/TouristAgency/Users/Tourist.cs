@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
 using TouristAgency.Users.Domain;
+using TouristAgency.Util;
 using TouristAgency.Vouchers;
 
 namespace TouristAgency.Users
@@ -14,7 +15,7 @@ namespace TouristAgency.Users
 
         public Tourist()
         {
-            UserType = Base.UserType.TOURIST;
+            UserType = UserType.TOURIST;
             _appliedTours = new List<Tour>();
             _wonVouchers = new List<Voucher>();
         }
@@ -51,7 +52,7 @@ namespace TouristAgency.Users
 
         public Tourist(User user) : base(user)
         {
-            UserType = Base.UserType.TOURIST;
+            UserType = UserType.TOURIST;
             _appliedTours = new List<Tour>();
         }
 

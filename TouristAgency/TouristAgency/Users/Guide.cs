@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
 using TouristAgency.Users.Domain;
+using TouristAgency.Util;
 
 namespace TouristAgency.Users
 {
@@ -25,13 +26,13 @@ namespace TouristAgency.Users
 
         public Guide()
         {
-            UserType = Base.UserType.GUIDE;
+            UserType = UserType.GUIDE;
             _assignedTours = new List<Tour>();
         }
 
         public Guide(User user) : base(user)
         {
-            UserType = Base.UserType.GUIDE;
+            UserType = UserType.GUIDE;
             _assignedTours = new List<Tour>();
         }
 

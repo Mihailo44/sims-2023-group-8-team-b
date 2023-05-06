@@ -2,11 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using TouristAgency.Model;
 using TouristAgency.View.Display;
 using TouristAgency.View.Home;
-using TouristAgency.ViewModel;
-using TouristAgency.Service;
 
 namespace TouristAgency
 {

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Requests;
 using TouristAgency.Users;
-using TouristAgency.ViewModel;
 
 namespace TouristAgency.View.Display
 {

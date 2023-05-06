@@ -10,22 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TouristAgency.Users;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
 
-namespace TouristAgency.View.Home
+
+namespace TouristAgency.Accommodations.CreationFeature
 {
     /// <summary>
-    /// Interaction logic for GuestHome.xaml
+    /// Interaction logic for AccommodationCreationForm.xaml
     /// </summary>
-    public partial class GuestHome : Window
+    public partial class AccommodationCreationForm : UserControl
     {
-        public GuestHome(Guest guest)
+        public AccommodationCreationForm()
         {
             InitializeComponent();
-            DataContext = new GuestHomeViewModel(guest, this);
+            DataContext = new AccommodationCreationViewModel();
         }
     }
 }

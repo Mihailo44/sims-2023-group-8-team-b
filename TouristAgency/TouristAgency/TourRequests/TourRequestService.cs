@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TouristAgency.Base;
 using TouristAgency.Tours;
+using TouristAgency.Util;
 
 namespace TouristAgency.TourRequests
 {

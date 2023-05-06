@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TouristAgency.Base;
-using TouristAgency.Model;
-using TouristAgency.ViewModel;
+﻿using TouristAgency.Base;
+using TouristAgency.Users.HomeDisplayFeature;
 
 namespace TouristAgency.Users.OwnerStart
 {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Util;
 
 namespace TouristAgency.Requests.Domain
 {

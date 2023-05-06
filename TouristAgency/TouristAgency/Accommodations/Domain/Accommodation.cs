@@ -5,8 +5,6 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
-using TouristAgency.Base;
-using TouristAgency.Users.Domain;
 
 namespace TouristAgency.Accommodations.Domain
 {

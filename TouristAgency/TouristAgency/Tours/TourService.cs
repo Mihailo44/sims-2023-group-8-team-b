@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TouristAgency.Base;
 using TouristAgency.Users;
+using TouristAgency.Util;
 
 namespace TouristAgency.Tours
 {

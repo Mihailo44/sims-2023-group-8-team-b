@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,21 +13,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.View.Home;
 using TouristAgency.Users;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
+using TouristAgency.Reservations;
 
-namespace TouristAgency.View.Home
+namespace TouristAgency.View.Display
 {
     /// <summary>
-    /// Interaction logic for GuestHome.xaml
+    /// Interaction logic for AccommodationDisplay.xaml
     /// </summary>
-    public partial class GuestHome : Window
+    public partial class AccommodationDisplay : Window
     {
-        public GuestHome(Guest guest)
+        private Guest _loggedInGuest;
+
+        public AccommodationDisplay(Guest guest)
         {
             InitializeComponent();
-            DataContext = new GuestHomeViewModel(guest, this);
+            DataContext = new AccommodationDisplayViewModel(guest, this);
+            _loggedInGuest = guest;
         }
     }
 }

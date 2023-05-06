@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
-using TouristAgency.Users.Domain;
 
 namespace TouristAgency.Accommodations.Domain
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Util;
 
 namespace TouristAgency.Vouchers
 {

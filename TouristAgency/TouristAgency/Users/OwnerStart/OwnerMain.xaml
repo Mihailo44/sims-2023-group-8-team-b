@@ -1,13 +1,11 @@
-﻿<Window x:Class="TouristAgency.View.Main.OwnerMain"
+﻿<Window x:Class="TouristAgency.Users.OwnerStart.OwnerMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TouristAgency.View.Main"
-        xmlns:vm="clr-namespace:TouristAgency.ViewModel"
-                    xmlns:creation="clr-namespace:TouristAgency.View.Creation"
-                    xmlns:home="clr-namespace:TouristAgency.View.Home"
-                    xmlns:main="clr-namespace:TouristAgency.View.Main"
+        xmlns:local="clr-namespace:TouristAgency.Users.OwnerStart"
+        xmlns:vm="clr-namespace:TouristAgency.Accommodations.CreationFeature"
+        xmlns:home="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
         mc:Ignorable="d"
         Title="OwnerMain" Height="768" Width="1024" 
         WindowStartupLocation="CenterScreen"
@@ -16,13 +14,13 @@
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AccommodationCreationViewModel}">
-            <creation:AccommodationCreationForm/>
+        <vm:AccommodationCreationForm/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:OwnerHomeViewModel}">
+        <DataTemplate DataType="{x:Type home:OwnerHomeViewModel}">
             <home:OwnerHome/>
         </DataTemplate>
     </Window.Resources>
-    
+
     <ContentControl Content="{Binding CurrentVM,UpdateSourceTrigger=PropertyChanged}"/>
 
 </Window>

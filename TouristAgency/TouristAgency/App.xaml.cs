@@ -3,12 +3,10 @@ using System.Windows;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
-using TouristAgency.Repository;
 using TouristAgency.Requests.Domain;
 using TouristAgency.Reservations.Domain;
 using TouristAgency.Review;
-using TouristAgency.Service;
+using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
 using TouristAgency.Users;
@@ -23,9 +21,7 @@ namespace TouristAgency
     /// </summary>
     public partial class App : Application
     {
-        public ReservationRepository ReservationRepository { get; }
-        //public AccommodationService AccommodationService { get; }
-        //public GuestReviewService GuestReviewService { get; }   
+        public ReservationRepository ReservationRepository { get; } 
         public OwnerService OwnerService { get; }
         public UserRepository UserRepository { get; }
         public OwnerReviewRepository OwnerReviewRepository { get; }
@@ -42,14 +38,12 @@ namespace TouristAgency
         public LocationRepository LocationRepository { get; }
         public TourRequestRepository TourRequestRepository { get; }
         public TouristNotificationRepository TouristNotificationRepository { get; }
-
-
         public GuideRepository GuideRepository { get; }
         public GuideReviewRepository GuideReviewRepository { get; }
-
         public AccommodationRepository AccommodationRepository { get; }
         public GuestReviewRepository GuestReviewRepository { get; }
         public OwnerRepository OwnerRepository { get; }
+
 
         public event Action CurrentVMChanged;
 
@@ -89,14 +83,12 @@ namespace TouristAgency
             TouristRepository = new(InjectorService.CreateInstance<IStorage<Tourist>>());
             GuideReviewRepository = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
             TourRequestRepository = new(InjectorService.CreateInstance<IStorage<TourRequest>>());
-
             VoucherRepository = new(InjectorService.CreateInstance<IStorage<Voucher>>());
             TourRepository = new(InjectorService.CreateInstance<IStorage<Tour>>());
             TourCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
             TourTouristCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
             CheckpointRepository = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
             TouristNotificationRepository = new(InjectorService.CreateInstance<IStorage<TouristNotification>>());
-
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestRepository = new(InjectorService.CreateInstance<IStorage<Guest>>());
 

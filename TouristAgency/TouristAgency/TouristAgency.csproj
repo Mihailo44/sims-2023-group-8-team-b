@@ -53,4 +53,8 @@
     <Resource Include="Resources\Image\userTourist.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AccommodationReservations\StatisticsFeature\" />
+  </ItemGroup>
+
 </Project>

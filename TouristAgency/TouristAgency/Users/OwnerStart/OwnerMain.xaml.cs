@@ -11,11 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Model;
-using TouristAgency.Users.OwnerStart;
-using TouristAgency.ViewModel;
 
-namespace TouristAgency.View.Main
+
+namespace TouristAgency.Users.OwnerStart
 {
     /// <summary>
     /// Interaction logic for OwnerMain.xaml

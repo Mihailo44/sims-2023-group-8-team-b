@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Reservations.Domain;
+using TouristAgency.Util;
 
 namespace TouristAgency.Requests.Domain
 {
