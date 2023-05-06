@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.TourRequests;
 using TouristAgency.Users;
 using TouristAgency.Util;
+using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours
 {
-    public class TourCreationViewModel : ViewModelBase, ICreate
+    public class TourCreationViewModel : BurgerMenuViewModelBase, ICreate, ICloseable
     {
         private App _app;
         private Guide _loggedInGuide;
@@ -20,6 +22,7 @@ namespace TouristAgency.Tours
 
         private int _datecount;
         private Tour _newTour;
+        private TourRequest _tourRequest;
         private Location _newLocation;
         private string _photoLinks;
 
@@ -27,27 +30,51 @@ namespace TouristAgency.Tours
         private LocationService _locationService;
         private CheckpointService _checkpointService;
         private TourCheckpointService _tourCheckpointService;
+        private TourRequestService _tourRequestService;
+        private TouristNotificationService _touristNotificationService;
         public DelegateCommand AddCheckpointCmd { get; set; }
         public DelegateCommand RemoveCheckpointCmd { get; set; }
         public DelegateCommand AddMultipleDatesCmd { get; set; }
         public DelegateCommand RemoveMultipleDatesCmd { get; set; }
         public DelegateCommand LoadCheckpointsIntoListViewCmd { get; set; }
         public DelegateCommand CreateCmd { get; set; }
-
-        public TourCreationViewModel(Guide guide, Window window)
+        public DelegateCommand CloseCmd { get; set; }
+        public TourCreationViewModel()
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
+            _loggedInGuide = _app.LoggedUser;
+            MenuVisibility = "Hidden";
+            _tourRequest = null;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateMenuCommands();
+            AreControlsEnabled("True");
         }
+
+        public TourCreationViewModel(TourRequest tourRequest)
+        {
+            _app = (App)Application.Current;
+            _loggedInGuide = _app.LoggedUser;
+            _tourRequest = tourRequest;
+            MenuVisibility = "Hidden";
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+            InstantiateMenuCommands();
+            FillFromTourRequest(tourRequest);
+            LoadCheckpointsIntoListView();
+            AreControlsEnabled("False");
+        }
+
         private void InstantiateServices()
         {
             _tourService = new TourService();
             _locationService = new LocationService();
             _checkpointService = new CheckpointService();
             _tourCheckpointService = new TourCheckpointService();
+            _tourRequestService = new TourRequestService();
+            _touristNotificationService = new TouristNotificationService();
         }
 
         private void InstantiateCollections()
@@ -73,6 +100,26 @@ namespace TouristAgency.Tours
             LoadCheckpointsIntoListViewCmd = new DelegateCommand(param => LoadCheckpointsIntoListView(),
                 param => CanLoadCheckpointsIntoListView());
             CreateCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
+        }
+
+        public void FillFromTourRequest(TourRequest tourRequest)
+        {
+            NewTour.Description = tourRequest.Description;
+            NewTour.ShortLocation = tourRequest.ShortLocation;
+            NewLocation = tourRequest.ShortLocation;
+            NewTour.ShortLocation.City = tourRequest.ShortLocation.City;
+            NewTour.Language = tourRequest.Language;
+            NewTour.MaxAttendants = tourRequest.MaxAttendance;
+        }
+
+        public void AreControlsEnabled(string state)
+        {
+            CountryEnabled = state;
+            CityEnabled = state;
+            LanguageEnabled = state;
+            CapacityEnabled = state;
+            DescriptionEnabled = state;
         }
 
         public Tour NewTour
@@ -132,6 +179,12 @@ namespace TouristAgency.Tours
             set => _photoLinks = value;
         }
 
+        public string CountryEnabled { get; set; }
+        public string CityEnabled { get; set; }
+        public string DescriptionEnabled { get; set; }
+        public string LanguageEnabled { get; set; }
+        public string CapacityEnabled { get; set; }
+
         public bool CanLoadCheckpointsIntoListView()
         {
             return true;
@@ -177,6 +230,23 @@ namespace TouristAgency.Tours
             }
         }
 
+        public bool HandleTourRequest(DateTime startDate)
+        {
+            if(_tourRequest != null) 
+            {
+                if(startDate < _tourRequest.StartDate || startDate > _tourRequest.EndDate)
+                {
+                    return false;
+                }
+                _tourRequest.Status = TourRequestStatus.ACCEPTED;
+                _tourRequest.GuideID = _loggedInGuide.ID;
+                _tourRequestService.TourRequestRepository.Update(_tourRequest, _tourRequest.ID);
+                TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Promeniti poruku ovde");
+                notification = _touristNotificationService.TouristNotificationRepository.Create(notification);
+            }
+            return true;
+        }
+
         public void LoadToursToCheckpoints()
         {
             int tourID = _tourService.TourRepository.GenerateId() - 1;
@@ -195,12 +265,12 @@ namespace TouristAgency.Tours
             }
         }
 
-        public bool CanCreateTourExecute()
+        public new bool CanCreateTourExecute()
         {
             return true;
         }
 
-        public void CreateTourExecute()
+        public new void CreateTourExecute()
         {
             //TODO Implementirati proveru da li postoji vec slika u PhotoRepository!
             if (SelectedCheckpoints.Count < 2)
@@ -216,12 +286,18 @@ namespace TouristAgency.Tours
                 NewTour.AssignedGuide = _loggedInGuide;
                 NewTour.StartDateTime = dateTime;
                 NewTour.RemainingCapacity = NewTour.MaxAttendants;
-                _tourService.TourRepository.Create(new Tour(_newTour));
-                AddPhotos();
-                LoadToursToCheckpoints();
+                if (HandleTourRequest(dateTime))
+                {
+                    AddPhotos();
+                    LoadToursToCheckpoints();
+                    _tourService.TourRepository.Create(new Tour(_newTour));
+                    MessageBox.Show("Successfully created tour!", "Success");
+                }
+                else
+                {
+                    MessageBox.Show("The dates must be in range of tour request (" + _tourRequest.StartDate.ToShortDateString() + " - " + _tourRequest.EndDate.ToShortDateString() + ")");
+                }
             }
-
-            MessageBox.Show("Successfully created tour!", "Success");
         }
 
         public bool CanAddCheckpointsExecute()
@@ -282,6 +358,16 @@ namespace TouristAgency.Tours
         {
             _multipleDateTimes.Remove(NewTour.StartDateTime);
             DateCount = _multipleDateTimes.Count;
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
+        {
+            _app.CurrentVM = new GuideHomeViewModel();
         }
     }
 }

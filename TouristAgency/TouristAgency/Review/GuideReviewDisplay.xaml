@@ -50,7 +50,7 @@
                         <DockPanel HorizontalAlignment="Center" Width="344">
                             <Image Width="75" Height="75" VerticalAlignment="Center">
                                 <Image.Source>
-                                    <BitmapImage UriSource="../../Repository/Image/user-solid.png"/>
+                                    <BitmapImage UriSource="../Resources/Image/user-solid.png"/>
                                 </Image.Source>
                             </Image>
 

@@ -8,7 +8,7 @@ using TouristAgency.Users;
 
 namespace TouristAgency.Reservations
 {
-    public class ActiveTourDisplayViewModel : ViewModelBase, ICreate, IObserver
+    public class ActiveTourDisplayViewModel : BurgerMenuViewModelBase, ICreate, IObserver
     {
         private App _app;
         private Guide _loggedInGuide;
@@ -31,21 +31,20 @@ namespace TouristAgency.Reservations
         public DelegateCommand AddTouristToCheckpointCmd { get; set; }
         public DelegateCommand RemoveTouristFromCheckpointCmd { get; set; }
         public DelegateCommand LoadTouristsToCheckpointCmd { get; set; }
-        public DelegateCommand BeginTourCmd { get; set; }
+        //public DelegateCommand BeginTourCmd { get; set; }
 
-        public ActiveTourDisplayViewModel(Guide guide)
+        public ActiveTourDisplayViewModel(Guide guide, Tour tour)
         {
             _app = (App)Application.Current;
             _loggedInGuide = guide;
+            MenuVisibility = "Hidden";
+            SelectedTour = tour;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateMenuCommands();
+            StartTour(tour);
             _app.TourTouristRepository.Subscribe(this);
-
-            if (CheckAndSelectStartedTour())
-                ListViewEnabled = false;
-            else
-                ListViewEnabled = true;
         }
 
         private void InstantiateServices()
@@ -60,7 +59,7 @@ namespace TouristAgency.Reservations
 
         private void InstantiateCollections()
         {
-            AvailableTours = new ObservableCollection<Tour>(_tourService.GetTodayTours(_loggedInGuide.ID));
+            //AvailableTours = new ObservableCollection<Tour>(_tourService.GetTodayTours(_loggedInGuide.ID));
             ArrivedTourists = new ObservableCollection<Tourist>();
             RegisteredTourists = new ObservableCollection<Tourist>();
         }
@@ -73,8 +72,17 @@ namespace TouristAgency.Reservations
                 param => CanRemoveTouristFromCheckpoint());
             LoadTouristsToCheckpointCmd = new DelegateCommand(param => LoadTouristsToCheckpoint(),
                 param => CanLoadTouristsToCheckpoint());
-            BeginTourCmd = new DelegateCommand(param => BeginTourCmdExecute(), param => CanBeginTourCmdExecute());
+           // BeginTourCmd = new DelegateCommand(param => BeginTourCmdExecute(), param => CanBeginTourCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+        }
+
+        public void StartTour(Tour tour)
+        {
+            _selectedTour = tour;
+            SelectedTour = tour;
+            RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(tour.ID, _touristService.TouristRepository.GetAll()));
+            _tourService.ChangeTourStatus(tour.ID, TourStatus.IN_PROGRESS);
+            AvailableCheckpoints = _tourCheckpointService.GetTourCheckpointsByTourID(tour.ID, _checkpointService.CheckpointRepository.GetAll());
         }
 
         public ObservableCollection<Tour> AvailableTours
@@ -130,8 +138,15 @@ namespace TouristAgency.Reservations
         }
         public Tour SelectedTour
         {
-            get;
-            set;
+            get => _selectedTour;
+            set
+            {
+                if(value != _selectedTour)
+                {
+                    _selectedTour = value;
+                    OnPropertyChanged("SelectedTour");
+                }
+            }
         }
 
         public TourCheckpoint SelectedTourCheckpoint
@@ -218,7 +233,7 @@ namespace TouristAgency.Reservations
             }
         }
 
-        public bool CanBeginTourCmdExecute()
+        /*public bool CanBeginTourCmdExecute()
         {
             return true;
         }
@@ -227,10 +242,10 @@ namespace TouristAgency.Reservations
         {
             _selectedTour = SelectedTour;
             RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _touristService.TouristRepository.GetAll()));
-            _tourService.ChangeTourStatus(_selectedTour.ID, STATUS.IN_PROGRESS);
+            _tourService.ChangeTourStatus(_selectedTour.ID, TourStatus.IN_PROGRESS);
             AvailableCheckpoints = _tourCheckpointService.GetTourCheckpointsByTourID(_selectedTour.ID, _checkpointService.CheckpointRepository.GetAll());
             ListViewEnabled = false;
-        }
+        }*/
 
         public bool CanCreateCmdExecute()
         {
@@ -258,15 +273,16 @@ namespace TouristAgency.Reservations
                 {
                     _tourCheckpointService.TourCheckpointRepository.Update(tourCheckpoint);
                 }
-                _tourService.ChangeTourStatus(_selectedTour.ID, STATUS.ENDED);
+                _tourService.ChangeTourStatus(_selectedTour.ID, TourStatus.ENDED);
 
-                AvailableTours.Remove(_selectedTour);
+                //AvailableTours.Remove(_selectedTour);
 
                 AvailableCheckpoints.Clear();
                 ArrivedTourists.Clear();
                 RegisteredTourists.Clear();
-                ListViewEnabled = true;
+                //ListViewEnabled = true;
                 MessageBox.Show("Tour ended!", "Notification");
+                _app.CurrentVM = new GuideHomeViewModel();
             }
         }
 
@@ -283,11 +299,11 @@ namespace TouristAgency.Reservations
             return true;
         }
 
-        private bool CheckAndSelectStartedTour()
+        /*private bool CheckAndSelectStartedTour()
         {
             foreach (Tour tour in AvailableTours)
             {
-                if (tour.Status == STATUS.IN_PROGRESS)
+                if (tour.Status == TourStatus.IN_PROGRESS)
                 {
                     _selectedTour = tour;
                     SelectedTour = tour;
@@ -298,11 +314,11 @@ namespace TouristAgency.Reservations
                 }
             }
             return false;
-        }
+        }*/
 
         public void Update()
         {
-            CheckAndSelectStartedTour();
+            //CheckAndSelectStartedTour();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -6,24 +7,25 @@ using TouristAgency.Tours;
 
 namespace TouristAgency.Users
 {
-    public class GuideProfileDisplayViewModel : ViewModelBase, ICloseable
+    public class GuideProfileDisplayViewModel : BurgerMenuViewModelBase, ICloseable
     {
         private App _app;
         private Guide _loggedInGuide;
         private ObservableCollection<Tour> _availableTours;
         private ObservableCollection<string> _years;
-        private Window _window;
         private TourService _tourService;
         public DelegateCommand GetBestTourCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
-        public GuideProfileDisplayViewModel(Guide guide, Window window)
+        public GuideProfileDisplayViewModel()
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
-            _window = window;
+            _loggedInGuide = _app.LoggedUser;
+            MenuVisibility = "Hidden";
+            //_window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuideStart"); ;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateMenuCommands();
         }
 
         private void InstantiateServices()
@@ -95,7 +97,7 @@ namespace TouristAgency.Users
 
         public void CloseExecute()
         {
-            _window.Close();
+            _app.CurrentVM = new GuideHomeViewModel();
         }
     }
 }

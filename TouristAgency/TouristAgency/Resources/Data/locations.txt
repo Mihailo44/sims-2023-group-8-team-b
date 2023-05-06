@@ -12,4 +12,6 @@
 11|||Cairo|Egypt
 12|||Rome|Italy
 13|||Kinsasa|Kongo
-14|||Novi Sad|Srbija
+14|||Loznica|Serbia
+15|||Barcelona|Spain
+16|||Berlin|Germany

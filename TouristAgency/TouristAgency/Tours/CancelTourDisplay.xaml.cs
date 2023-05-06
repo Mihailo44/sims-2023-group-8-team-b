@@ -1,18 +1,18 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
 using TouristAgency.Tours;
+using System.Windows.Controls;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.Tours
 {
     /// <summary>
     /// Interaction logic for CancelTourDisplay.xaml
     /// </summary>
-    public partial class CancelTourDisplay : Window
+    public partial class CancelTourDisplay : UserControl
     {
-        public CancelTourDisplay(Guide guide)
+        public CancelTourDisplay()
         {
             InitializeComponent();
-            DataContext = new CancelTourDisplayViewModel(guide);
         }
     }
 }

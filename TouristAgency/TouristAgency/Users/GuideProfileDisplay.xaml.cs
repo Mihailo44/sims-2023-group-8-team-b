@@ -1,17 +1,18 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using TouristAgency.Base;
 using TouristAgency.Users;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.Users
 {
     /// <summary>
     /// Interaction logic for GuideProfileDisplay.xaml
     /// </summary>
-    public partial class GuideProfileDisplay : Window
+    public partial class GuideProfileDisplay : UserControl
     {
-        public GuideProfileDisplay(Guide guide)
+        public GuideProfileDisplay()
         {
             InitializeComponent();
-            DataContext = new GuideProfileDisplayViewModel(guide, this);
         }
     }
 }

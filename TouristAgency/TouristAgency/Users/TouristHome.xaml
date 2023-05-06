@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
-        Title="TouristHome" Height="600" Width="1000">
+        Title="TouristHome" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -26,10 +26,10 @@
             </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}"/>
-                <MenuItem Header="View and create tour requests"/>
+                <MenuItem Header="View and create tour requests" Command="{Binding TourRequestCmd}"/>
                 <MenuItem Header="View and create requests for complex tours"/>
                 <Separator />
-                <MenuItem Header="View statistics on tour requests"/>
+                <MenuItem Header="View statistics on tour requests" Command="{Binding TourRequestStatisticsCmd}"/>
             </MenuItem>
             <MenuItem Header="_Report">
                 <MenuItem Header="Generate voucher report"/>
@@ -44,7 +44,7 @@
 
         <Image Height="190" Width="150" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Image.Source>
-                <BitmapImage UriSource="../../Repository/Image/userTourist.png"/>
+                <BitmapImage UriSource="../Resources/Image/userTourist.png"/>
             </Image.Source>
         </Image>
 

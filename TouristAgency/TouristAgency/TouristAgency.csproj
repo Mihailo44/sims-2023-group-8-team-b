@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Image\arrow-down-solid.png" />
+    <None Remove="Resources\Image\arrow-left-solid.png" />
+    <None Remove="Resources\Image\arrow-right-solid.png" />
+    <None Remove="Resources\Image\arrow-up-solid.png" />
+    <None Remove="Resources\Image\bars-solid.png" />
+    <None Remove="Resources\Image\bell-exclamation.png" />
+    <None Remove="Resources\Image\file-pdf-solid.png" />
+    <None Remove="Resources\Image\person-solid.png" />
+    <None Remove="Resources\Image\question-solid.png" />
+    <None Remove="Resources\Image\right-to-bracket-solid.png" />
     <None Remove="Resources\Image\user-solid.png" />
     <None Remove="Resources\Image\userTourist.png" />
   </ItemGroup>
@@ -19,6 +29,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\arrow-down-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\arrow-left-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\arrow-right-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\arrow-up-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\bars-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\bell-exclamation.png" />
+    <Resource Include="Resources\Image\file-pdf-solid.png" />
+    <Resource Include="Resources\Image\person-solid.png" />
+    <Resource Include="Resources\Image\question-solid.png" />
+    <Resource Include="Resources\Image\right-to-bracket-solid.png" />
     <Resource Include="Resources\Image\user-solid.png" />
     <Resource Include="Resources\Image\userTourist.png" />
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace TouristAgency.Tours
     {
         private int _ID;
         private string _name;
-        private STATUS _status;
+        private TourStatus _status;
         private string _description;
         private Location _shortLocation;
         private int _shortLocationID; //TODO PROVERA DA LI POSTOJI
@@ -40,7 +40,7 @@ namespace TouristAgency.Tours
         public Tour()
         {
             _ID = -1;
-            _status = STATUS.NOT_STARTED;
+            _status = TourStatus.NOT_STARTED;
             _startDateTime = DateTime.Today;
             _checkpoints = new List<Checkpoint>();
             _registeredTourists = new List<Tourist>();
@@ -52,7 +52,7 @@ namespace TouristAgency.Tours
         public Tour(int id, string name, string description, Location location, string language, int maxAttendants, int duration, DateTime startDateTime)
         {
             _ID = id;
-            _status = STATUS.NOT_STARTED;
+            _status = TourStatus.NOT_STARTED;
             _name = name;
             _description = description;
             _shortLocation = location;
@@ -66,7 +66,6 @@ namespace TouristAgency.Tours
             _assignedGuide = new Guide();
             _photos = new List<Photo>();
         }
-
 
         public Tour(Tour newTour)
         {
@@ -101,7 +100,7 @@ namespace TouristAgency.Tours
             }
         }
 
-        public STATUS Status
+        public TourStatus Status
         {
             get => _status;
             set
@@ -391,7 +390,7 @@ namespace TouristAgency.Tours
         {
             ID = Convert.ToInt32(values[0]);
             Name = values[1];
-            Status = Enum.Parse<STATUS>(values[2]);
+            Status = Enum.Parse<TourStatus>(values[2]);
             Description = values[3];
             Language = values[4];
             MaxAttendants = Convert.ToInt32(values[5]);

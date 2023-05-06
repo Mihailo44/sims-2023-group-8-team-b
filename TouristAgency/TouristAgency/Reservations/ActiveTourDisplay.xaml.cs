@@ -1,20 +1,19 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
 using TouristAgency.Reservations;
+using System.Windows.Controls;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.Reservations
 {
     /// <summary>
     /// Interaction logic for ActiveTourDisplay.xaml
     /// </summary>
-    public partial class ActiveTourDisplay : Window
+    public partial class ActiveTourDisplay : UserControl
     {
 
-        public ActiveTourDisplay(Guide guide)
+        public ActiveTourDisplay()
         {
             InitializeComponent();
-            DataContext = new ActiveTourDisplayViewModel(guide);
-
         }
     }
 }

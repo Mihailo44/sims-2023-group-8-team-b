@@ -8,7 +8,7 @@ namespace TouristAgency.Tours
     {
         private TourCheckpoint _tourCheckpoint;
         private int _touristID;
-        private INVITATION_STATUS _invitationStatus;
+        private InvitationStatus _invitationStatus;
 
         public TourTouristCheckpoint()
         {
@@ -16,7 +16,7 @@ namespace TouristAgency.Tours
             _tourCheckpoint.TourID = -1;
             _tourCheckpoint.CheckpointID = -1;
             _touristID = -1;
-            _invitationStatus = INVITATION_STATUS.PENDING;
+            _invitationStatus = InvitationStatus.PENDING;
         }
 
         public TourTouristCheckpoint(int tourID, int touristID, int checkpointID)
@@ -25,7 +25,7 @@ namespace TouristAgency.Tours
             _tourCheckpoint.TourID = tourID;
             _tourCheckpoint.CheckpointID = checkpointID;
             _touristID = touristID;
-            _invitationStatus = INVITATION_STATUS.PENDING;
+            _invitationStatus = InvitationStatus.PENDING;
         }
 
         public TourCheckpoint TourCheckpoint
@@ -46,7 +46,7 @@ namespace TouristAgency.Tours
             }
         }
 
-        public INVITATION_STATUS InvitationStatus
+        public InvitationStatus InvitationStatus
         {
             get => _invitationStatus;
             set => _invitationStatus = value;
@@ -71,7 +71,7 @@ namespace TouristAgency.Tours
             _tourCheckpoint.TourID = int.Parse(values[0]);
             _touristID = int.Parse(values[1]);
             _tourCheckpoint.CheckpointID = int.Parse(values[2]);
-            _invitationStatus = Enum.Parse<INVITATION_STATUS>(values[3]);
+            _invitationStatus = Enum.Parse<InvitationStatus>(values[3]);
         }
     }
 }

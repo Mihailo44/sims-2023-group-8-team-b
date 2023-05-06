@@ -19,6 +19,7 @@ using TouristAgency.Reservations.Domain;
 using TouristAgency.Requests.Domain;
 using TouristAgency.Users.Domain;
 using TouristAgency.Accommodations.Domain;
+using TouristAgency.TourRequests;
 
 namespace TouristAgency.Base
 {
@@ -44,7 +45,9 @@ namespace TouristAgency.Base
             { typeof(IStorage<Tourist>), new TouristFileStorage()},
             { typeof(IStorage<Voucher>), new VoucherFileStorage()},
             { typeof(IStorage<Guest>), new GuestFileStorage()},
-            { typeof(IStorage<OwnerReview>), new OwnerReviewFileStorage()}
+            { typeof(IStorage<OwnerReview>), new OwnerReviewFileStorage()},
+            { typeof(IStorage<TourRequest>), new TourRequestFileStorage()},
+            { typeof(IStorage<TouristNotification>), new TouristNotificationFileStorage()}
         };
 
         public static T CreateInstance<T>()

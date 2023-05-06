@@ -43,7 +43,7 @@ namespace TouristAgency.Tours
 
         public List<TourTouristCheckpoint> GetPendingInvitations(int touristID)
         {
-            return TourTouristCheckpointRepository.GetAll().Where(t => t.TouristID == touristID && t.InvitationStatus == INVITATION_STATUS.PENDING).ToList();
+            return TourTouristCheckpointRepository.GetAll().Where(t => t.TouristID == touristID && t.InvitationStatus == InvitationStatus.PENDING).ToList();
         }
 
         public void AcceptInvitation(int touristID, int checkpointID)
@@ -51,7 +51,7 @@ namespace TouristAgency.Tours
             TourTouristCheckpoint tourTouristCheckpoint = TourTouristCheckpointRepository.GetAll().Find(t =>
                 t.TouristID == touristID && t.TourCheckpoint.CheckpointID == checkpointID);
 
-            tourTouristCheckpoint.InvitationStatus = INVITATION_STATUS.ACCEPTED;
+            tourTouristCheckpoint.InvitationStatus = InvitationStatus.ACCEPTED;
             TourTouristCheckpointRepository.Update(tourTouristCheckpoint, touristID, tourTouristCheckpoint.TourCheckpoint.TourID);
         }
 

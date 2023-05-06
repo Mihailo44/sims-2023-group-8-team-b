@@ -1,40 +1,79 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Reservations;
+using TouristAgency.Tours;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 
 namespace TouristAgency.Users
 {
-    public class GuideHomeViewModel : ViewModelBase, ICloseable
+    public class GuideHomeViewModel :BurgerMenuViewModelBase, ICloseable
     {
         private App _app;
         private Window _window;
         private Guide _loggedInGuide;
 
-        public DelegateCommand CloseCmd { get; set; }
-        public DelegateCommand CreateTourCmd { get; set; }
-        public DelegateCommand ActiveTourCmd { get; set; }
-        public DelegateCommand CancelTourCmd { get; set; }
-        public DelegateCommand TourStatisticsCmd { get; set; }
-        public DelegateCommand GuideProfileCmd { get; set; }
+        private ObservableCollection<Tour> _availableTours;
+        private Tour _selectedTour;
 
-        public GuideHomeViewModel(Guide guide, Window window)
+        private TourService _tourService;
+
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand StartTourCmd { get; set; }
+        public GuideHomeViewModel()
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
-            _window = window;
+            _loggedInGuide = _app.LoggedUser;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuideStart");
+            MenuVisibility = "Hidden";
+            InstantiateServices();
             InstantiateCommands();
+            InstantiateCollections();
+            InstantiateMenuCommands();
+        }
+
+        private void InstantiateServices()
+        {
+            _tourService = new TourService();
+        }
+
+        private void InstantiateCollections()
+        {
+            AvailableTours = new ObservableCollection<Tour>(_tourService.GetTodayTours(_loggedInGuide.ID));
         }
 
         private void InstantiateCommands()
         {
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
-            CreateTourCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
-            ActiveTourCmd = new DelegateCommand(param => ActiveTourExecute(), param => CanActiveTourExecute());
-            CancelTourCmd = new DelegateCommand(param => CancelTourExecute(), param => CanCancelTourExecute());
-            TourStatisticsCmd = new DelegateCommand(param => TourStatisticsExecute(), param => CanTourStatisticsExecute());
-            GuideProfileCmd = new DelegateCommand(param => GuideProfileExecute(), param => CanGuideProfileExecute());
+            StartTourCmd = new DelegateCommand(StartTourExecute, CanStartTourExecute);
+        }
+        public ObservableCollection<Tour> AvailableTours
+        {
+            get => _availableTours;
+            set
+            {
+                if (value != _availableTours)
+                {
+                    _availableTours = value;
+                    OnPropertyChanged("ActiveTours");
+                }
+            }
+        }
+
+        public Tour SelectedTour
+        {
+            get => _selectedTour;
+            set
+            {
+                if(value != _selectedTour)
+                {
+                    _selectedTour = value;
+                    OnPropertyChanged("SelectedTour");
+                }
+            }
         }
 
         public bool CanCloseExecute()
@@ -47,59 +86,37 @@ namespace TouristAgency.Users
             _window.Close();
         }
 
-        public bool CanCreateTourExecute()
+        public bool CanStartTourExecute(object parameter)
         {
             return true;
         }
 
-        public void CreateTourExecute()
+        public void StartTourExecute(object parameter)
         {
-            TourCreation creation = new TourCreation(_loggedInGuide);
-            creation.Show();
+            if(CheckStartedTourExistance() && (int)parameter != SelectedTour.ID)
+            {
+                MessageBox.Show("Tour: " + SelectedTour.Name + " has been already started. Please finish it before starting other tours.");
+            }
+            else if(SelectedTour != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to start this tour?", "Alert", MessageBoxButton.YesNo);
+                if(result == MessageBoxResult.Yes)
+                    _app.CurrentVM = new ActiveTourDisplayViewModel(_loggedInGuide, SelectedTour);
+            }
         }
 
-        public bool CanActiveTourExecute()
+        private bool CheckStartedTourExistance()
         {
-            return true;
+            foreach (Tour tour in AvailableTours)
+            {
+                if (tour.Status == TourStatus.IN_PROGRESS)
+                {
+                    SelectedTour = tour;
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public void ActiveTourExecute()
-        {
-            ActiveTourDisplay activeTour = new ActiveTourDisplay(_loggedInGuide);
-            activeTour.Show();
-        }
-
-        public bool CanCancelTourExecute()
-        {
-            return true;
-        }
-
-        public void CancelTourExecute()
-        {
-            CancelTourDisplay cancelTour = new CancelTourDisplay(_loggedInGuide);
-            cancelTour.Show();
-        }
-
-        public bool CanTourStatisticsExecute()
-        {
-            return true;
-        }
-
-        public void TourStatisticsExecute()
-        {
-            TourStatisticsDisplay tourStatistics = new TourStatisticsDisplay(_loggedInGuide);
-            tourStatistics.Show();
-        }
-
-        public bool CanGuideProfileExecute()
-        {
-            return true;
-        }
-
-        public void GuideProfileExecute()
-        {
-            GuideProfileDisplay profileDisplay = new GuideProfileDisplay(_loggedInGuide);
-            profileDisplay.Show();
-        }
     }
 }

@@ -8,6 +8,8 @@ using TouristAgency.Repository;
 using TouristAgency.Requests.Domain;
 using TouristAgency.Reservations.Domain;
 using TouristAgency.Review;
+using TouristAgency.Service;
+using TouristAgency.TourRequests;
 using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.Users.Domain;
@@ -38,6 +40,8 @@ namespace TouristAgency
         public PhotoRepository PhotoRepository { get; }
         public GuestRepository GuestRepository { get; }
         public LocationRepository LocationRepository { get; }
+        public TourRequestRepository TourRequestRepository { get; }
+        public TouristNotificationRepository TouristNotificationRepository { get; }
 
 
         public GuideRepository GuideRepository { get; }
@@ -84,12 +88,14 @@ namespace TouristAgency
             PostponementRequestRepository = new(InjectorService.CreateInstance<IStorage<PostponementRequest>>());
             TouristRepository = new(InjectorService.CreateInstance<IStorage<Tourist>>());
             GuideReviewRepository = new(InjectorService.CreateInstance<IStorage<GuideReview>>());
+            TourRequestRepository = new(InjectorService.CreateInstance<IStorage<TourRequest>>());
 
             VoucherRepository = new(InjectorService.CreateInstance<IStorage<Voucher>>());
             TourRepository = new(InjectorService.CreateInstance<IStorage<Tour>>());
             TourCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourCheckpoint>>());
             TourTouristCheckpointRepository = new(InjectorService.CreateInstance<IStorage<TourTouristCheckpoint>>());
             CheckpointRepository = new(InjectorService.CreateInstance<IStorage<Checkpoint>>());
+            TouristNotificationRepository = new(InjectorService.CreateInstance<IStorage<TouristNotification>>());
 
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestRepository = new(InjectorService.CreateInstance<IStorage<Guest>>());
@@ -117,6 +123,7 @@ namespace TouristAgency
             PostponementRequestRepository.LoadReservationsToPostponementRequests(ReservationRepository.GetAll());
             TouristRepository.LoadVouchersToTourist(VoucherRepository.GetAll());
             GuideReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
+            TourRequestRepository.LoadLocationsToTourRequests(LocationRepository.GetAll());
         }
     }
 }
