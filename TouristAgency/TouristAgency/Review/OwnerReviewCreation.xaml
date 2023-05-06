@@ -33,7 +33,7 @@
         <Rectangle HorizontalAlignment="Left" Height="46" Margin="200,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="990"/>
         <Label Content="Owner and accommodation review, recommendation for renovation" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
 
-        <GroupBox Header="1. Owner and accommodation review (1-5)" FontSize="20" FontWeight="SemiBold" Margin="233,277,43,128">
+        <GroupBox Header="1. Owner and accommodation review (1-5)" FontSize="20" FontWeight="SemiBold" Margin="205,176,26,230">
             <Grid Height="220">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="47*"></RowDefinition>
@@ -75,14 +75,14 @@
                 <Button Grid.Row="4" Grid.Column="5" Margin="0,14,0,0" Width="80" Height="30" VerticalAlignment="Top" Content="Submit" FontWeight="Normal" FontSize="15" HorizontalAlignment="Center" Command="{Binding Path=CreateCmd}"/>
             </Grid>
         </GroupBox>
-        <ListView ItemsSource="{Binding Path = UnreviewedReservations}" Margin="233,85,43,412" SelectedItem="{Binding Path= SelectedReservation}">
+        <ListView ItemsSource="{Binding Path = UnreviewedReservations}" Margin="205,53,26,513" SelectedItem="{Binding Path= SelectedReservation}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Owner name" DisplayMemberBinding="{Binding Path = Accommodation.Owner.FirstName}"></GridViewColumn>
-                    <GridViewColumn Header="Owner last name" DisplayMemberBinding="{Binding Path = Accommodation.Owner.LastName}"></GridViewColumn>
-                    <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
-                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
+                    <GridViewColumn Header="Owner name" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Owner.FirstName}"></GridViewColumn>
+                    <GridViewColumn Header="Owner last name" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Owner.LastName}"></GridViewColumn>
+                    <GridViewColumn Header="Accommodation" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
+                    <GridViewColumn Header="City" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
+                    <GridViewColumn Header="Country" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
