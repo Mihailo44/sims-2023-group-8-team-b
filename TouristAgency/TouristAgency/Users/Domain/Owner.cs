@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Users;
 using TouristAgency.Util;
 
-namespace TouristAgency.Model
+namespace TouristAgency.Users.Domain
 {
     public class Owner : User, ISerializable
     {

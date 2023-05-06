@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Service;
 using TouristAgency.View.Home;
 using TouristAgency.View.Main;
-using TouristAgency.Repository;
 using TouristAgency.Users;
+using TouristAgency.Reservations.Domain;
+using TouristAgency.Users.Domain;
 
 namespace TouristAgency.ViewModel
 {
@@ -16,6 +16,7 @@ namespace TouristAgency.ViewModel
         private TouristService _touristService;
         private GuideService _guideService;
         private UserService _userService;
+        private ReservationService _reservationService;
         private readonly App app = (App)App.Current;
         private Window _window;
         private string _username;
@@ -37,6 +38,7 @@ namespace TouristAgency.ViewModel
             _guideService = new();
             _guestService = new();
             _userService = new();
+            _reservationService = new();
 
             _window = window;
  
@@ -91,6 +93,16 @@ namespace TouristAgency.ViewModel
             Password = "";
         }
 
+        private void ReviewNotification()
+        {
+            int changes;
+            string notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
+            if (changes > 0)
+            {
+                MessageBox.Show(notification);
+            }
+        }
+
         public void LoginExecute()
         {
             User = _userService.UserRepository.CheckCredentials(Username, Password);
@@ -104,6 +116,7 @@ namespace TouristAgency.ViewModel
                             User = _ownerService.OwnerRepository.GetById(User.ID);
                             app.LoggedUser = User;
                             OwnerMain x = new OwnerMain();
+                            ReviewNotification();
                             x.Show();
                             ClearTxtBoxes();
                         }

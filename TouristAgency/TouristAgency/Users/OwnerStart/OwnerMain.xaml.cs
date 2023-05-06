@@ -11,20 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Requests;
+using TouristAgency.Model;
+using TouristAgency.Users.OwnerStart;
 using TouristAgency.ViewModel;
 
-namespace TouristAgency.View.Dialogue
+namespace TouristAgency.View.Main
 {
     /// <summary>
-    /// Interaction logic for PostponementRequestCommentDialogue.xaml
+    /// Interaction logic for OwnerMain.xaml
     /// </summary>
-    public partial class PostponementRequestCommentDialogue : Window
+    public partial class OwnerMain : Window
     {
-        public PostponementRequestCommentDialogue(PostponementRequest postponementRequest)
+        public OwnerMain()
         {
             InitializeComponent();
-            DataContext = new PostponementRequestCommentDialogueViewModel(postponementRequest,this);
+            DataContext = new OwnerMainViewModel();
         }
     }
 }

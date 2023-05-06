@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations;
+using TouristAgency.Reservations.Domain;
 using TouristAgency.Util;
 
 namespace TouristAgency.Review

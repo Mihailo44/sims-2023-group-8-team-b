@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations;
+using TouristAgency.Reservations.Domain;
 
-namespace TouristAgency.Requests
+namespace TouristAgency.Requests.Domain
 {
     public class PostponementRequest : ISerializable
     {

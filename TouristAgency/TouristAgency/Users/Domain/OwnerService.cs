@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Repository;
 using TouristAgency.Review;
 
-namespace TouristAgency.Service
+namespace TouristAgency.Users.Domain
 {
     public class OwnerService
     {
-        private readonly App app = (App)App.Current;
+        private readonly App app = (App)System.Windows.Application.Current;
         public OwnerRepository OwnerRepository { get; }
 
         public OwnerService()
@@ -19,21 +18,21 @@ namespace TouristAgency.Service
             OwnerRepository = app.OwnerRepository;
         }
 
-        public bool IsSuperOwner(List<OwnerReview> ownerReviews,out double average)
+        public bool IsSuperOwner(List<OwnerReview> ownerReviews, out double average)
         {
-            if(ownerReviews.Count() >= 5) //stavi na 50
+            if (ownerReviews.Count() >= 5) //stavi na 50
             {
                 double sum = 0;
                 double ownerScore = 0;
                 foreach (OwnerReview ownerReview in ownerReviews)
                 {
-                    sum += ((ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi)/5);
+                    sum += (ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi) / 5;
                 }
 
-                ownerScore = CalculateOwnerScore(sum,ownerReviews.Count());
+                ownerScore = CalculateOwnerScore(sum, ownerReviews.Count());
                 average = ownerScore;
 
-                if(average > 2.5) // smanji tipa na 2 da bi bilo vece da vidi da radi
+                if (average > 2.5) // smanji tipa na 2 da bi bilo vece da vidi da radi
                 {
                     return true;
                 }
@@ -42,7 +41,7 @@ namespace TouristAgency.Service
             return false;
         }
 
-        public double CalculateOwnerScore(double gradeSum,double numOfReviews)
+        public double CalculateOwnerScore(double gradeSum, double numOfReviews)
         {
             return gradeSum / numOfReviews;
         }

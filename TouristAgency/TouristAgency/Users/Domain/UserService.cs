@@ -1,4 +1,4 @@
-﻿namespace TouristAgency.Users
+﻿namespace TouristAgency.Users.Domain
 {
     public class UserService
     {

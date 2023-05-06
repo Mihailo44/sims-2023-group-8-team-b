@@ -6,10 +6,11 @@ using System.Diagnostics;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 using TouristAgency.Base;
+using TouristAgency.Users.Domain;
 
-namespace TouristAgency.Model
+namespace TouristAgency.Accommodations.Domain
 {
-    public class Accommodation : ISerializable,INotifyPropertyChanged,IDataErrorInfo
+    public class Accommodation : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int _id;
         private Owner _owner;
@@ -225,13 +226,13 @@ namespace TouristAgency.Model
             }
         }
 
-        private readonly string[] _validatedProperties = {"Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
+        private readonly string[] _validatedProperties = { "Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
 
         public bool IsValid
         {
             get
             {
-                foreach(var property in _validatedProperties)
+                foreach (var property in _validatedProperties)
                 {
                     if (this[property] != null)
                         return false;

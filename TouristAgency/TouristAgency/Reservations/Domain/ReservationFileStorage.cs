@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Serialization;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Reservations
+namespace TouristAgency.Reservations.Domain
 {
     public class ReservationFileStorage : IStorage<Reservation>
     {

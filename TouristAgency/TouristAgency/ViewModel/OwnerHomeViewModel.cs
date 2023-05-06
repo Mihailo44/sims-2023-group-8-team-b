@@ -7,14 +7,15 @@ using System.Windows;
 using System.Linq;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
-using TouristAgency.Service;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Dialogue;
 using TouristAgency.View.Main;
 using TouristAgency.Review;
-using TouristAgency.Requests;
-using TouristAgency.Reservations;
+using TouristAgency.Reservations.Domain;
+using TouristAgency.Requests.Domain;
+using TouristAgency.Accommodations.Domain;
+using TouristAgency.Users.Domain;
+using TouristAgency.Accommodations.Creation;
 
 namespace TouristAgency.ViewModel
 {
@@ -93,7 +94,6 @@ namespace TouristAgency.ViewModel
             FillCollections();
 
             _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
-            ReviewNotification();
 
             InstantiateCommands();
         }
@@ -181,16 +181,6 @@ namespace TouristAgency.ViewModel
             foreach (var ownerReview in ownerReviews)
             {
                 OwnerReviews.Add(ownerReview);
-            }
-        }
-
-        private void ReviewNotification()
-        {
-            int changes;
-            string notification = _reservationService.ReviewNotification(LoggedUser.ID, out changes);
-            if (changes > 0)
-            {
-                MessageBox.Show(notification);
             }
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Requests
+namespace TouristAgency.Requests.Domain
 {
     public class PostponementRequestService
     {

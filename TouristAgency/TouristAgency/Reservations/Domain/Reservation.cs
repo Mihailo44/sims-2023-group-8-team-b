@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
 using TouristAgency.Users;
 
-namespace TouristAgency.Reservations
+namespace TouristAgency.Reservations.Domain
 {
     public class Reservation : ISerializable
     {

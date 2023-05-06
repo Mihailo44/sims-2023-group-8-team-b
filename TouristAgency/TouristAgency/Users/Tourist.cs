@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
+using TouristAgency.Users.Domain;
 using TouristAgency.Vouchers;
 
 namespace TouristAgency.Users

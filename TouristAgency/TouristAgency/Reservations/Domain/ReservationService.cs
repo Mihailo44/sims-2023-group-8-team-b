@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
-using TouristAgency.Interfaces;
-using TouristAgency.Model;
 using TouristAgency.Users;
 
-namespace TouristAgency.Reservations
+namespace TouristAgency.Reservations.Domain
 {
     public class ReservationService
     {

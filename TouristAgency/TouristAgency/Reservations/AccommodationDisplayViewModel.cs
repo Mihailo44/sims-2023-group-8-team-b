@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
-using TouristAgency.Service;
+using TouristAgency.Reservations.Domain;
 using TouristAgency.Users;
 
 namespace TouristAgency.Reservations

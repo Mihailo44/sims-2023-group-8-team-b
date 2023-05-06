@@ -8,7 +8,8 @@ using System.Windows;
 using System.Windows.Input;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations;
+using TouristAgency.Requests.Domain;
+using TouristAgency.Reservations.Domain;
 using TouristAgency.Users;
 
 namespace TouristAgency.Requests

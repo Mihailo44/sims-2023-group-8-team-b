@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Model;
-using TouristAgency.Repository;
 
-namespace TouristAgency.Service
+namespace TouristAgency.Accommodations.Domain
 {
     public class AccommodationService
     {
-        private readonly App app = (App)App.Current;
+        private readonly App app = (App)System.Windows.Application.Current;
 
         public AccommodationRepository AccommodationRepository { get; }
 

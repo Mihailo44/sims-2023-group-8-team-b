@@ -4,7 +4,8 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations;
+using TouristAgency.Reservations.Domain;
+using TouristAgency.Users.Domain;
 
 namespace TouristAgency.Users
 {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations;
+using TouristAgency.Reservations.Domain;
 using TouristAgency.Users;
 using TouristAgency.Util;
 

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using TouristAgency.ViewModel;
-using TouristAgency.Reservations;
+using TouristAgency.Reservations.Domain;
 
 namespace TouristAgency.View.Creation
 {

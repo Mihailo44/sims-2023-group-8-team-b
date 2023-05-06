@@ -7,7 +7,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Serialization;
 using TouristAgency.Tours;
 
-namespace TouristAgency.Storage
+namespace TouristAgency.Storage.FileStorage
 {
     public class TourTouristFileStorage : IStorage<TourTourist>
     {

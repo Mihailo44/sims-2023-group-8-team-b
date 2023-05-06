@@ -15,6 +15,10 @@ using TouristAgency.Tours;
 using TouristAgency.Vouchers;
 using TouristAgency.Requests;
 using TouristAgency.Reservations;
+using TouristAgency.Reservations.Domain;
+using TouristAgency.Requests.Domain;
+using TouristAgency.Users.Domain;
+using TouristAgency.Accommodations.Domain;
 
 namespace TouristAgency.Base
 {

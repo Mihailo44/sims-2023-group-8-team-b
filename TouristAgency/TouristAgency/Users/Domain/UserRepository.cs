@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Users
+namespace TouristAgency.Users.Domain
 {
     public class UserRepository
     {

@@ -3,12 +3,13 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Model;
-using TouristAgency.Service;
 using System.ComponentModel;
 using TouristAgency.Util;
+using TouristAgency.ViewModel;
+using TouristAgency.Accommodations.Domain;
+using TouristAgency.Users.Domain;
 
-namespace TouristAgency.ViewModel
+namespace TouristAgency.Accommodations.Creation
 {
     public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate, IDataErrorInfo
     {
@@ -23,12 +24,12 @@ namespace TouristAgency.ViewModel
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
         private string _photoLinks;
-        private App app = (App)App.Current;
+        private App app = (App)Application.Current;
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
         public Owner LoggedUser { get; }
-        public DelegateCommand CreateCmd { get; set;}
+        public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
 
         public AccommodationCreationViewModel()
@@ -224,7 +225,7 @@ namespace TouristAgency.ViewModel
                 AddPhotos();
                 MessageBox.Show("Accommodation created successfully");
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

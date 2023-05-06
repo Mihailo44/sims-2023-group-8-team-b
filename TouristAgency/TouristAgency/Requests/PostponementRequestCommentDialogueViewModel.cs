@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Requests;
+using TouristAgency.Requests.Domain;
 
-namespace TouristAgency.ViewModel
+namespace TouristAgency.Requests
 {
-    public class PostponementRequestCommentDialogueViewModel : ViewModelBase,ICloseable
+    public class PostponementRequestCommentDialogueViewModel : ViewModelBase, ICloseable
     {
         private PostponementRequestService _postponementRequestService;
         private PostponementRequest _postponementRequest;
-        private readonly App app = (App)App.Current;
+        private readonly App app = (App)Application.Current;
         private readonly Window _window;
-     
+
         public string Comment { get; set; }
 
         public DelegateCommand SubmitCommentCmd { get; }
         public DelegateCommand CloseCmd { get; }
 
-        public PostponementRequestCommentDialogueViewModel(PostponementRequest postponementRequest,Window window)
+        public PostponementRequestCommentDialogueViewModel(PostponementRequest postponementRequest, Window window)
         {
             _postponementRequestService = new();
             _postponementRequest = postponementRequest;
             _window = window;
             SubmitCommentCmd = new DelegateCommand(param => SubmitCommentExecute(), param => CanSubmitCommentExecute());
-            CloseCmd = new DelegateCommand(param => CloseWindowExecute(),param => CanCloseWindowExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }
 
         public bool CanSubmitCommentExecute()

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Storage;
 using TouristAgency.Util;
 
-namespace TouristAgency.Repository
+namespace TouristAgency.Users.Domain
 {
     public class OwnerRepository : ICrud<Owner>, ISubject
     {

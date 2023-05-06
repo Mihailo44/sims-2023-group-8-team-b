@@ -3,7 +3,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
-namespace TouristAgency.Users
+namespace TouristAgency.Users.Domain
 {
     public class User : ISerializable
     {

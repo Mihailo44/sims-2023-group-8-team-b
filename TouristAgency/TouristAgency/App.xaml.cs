@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Windows;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Model;
 using TouristAgency.Repository;
-using TouristAgency.Requests;
-using TouristAgency.Reservations;
+using TouristAgency.Requests.Domain;
+using TouristAgency.Reservations.Domain;
 using TouristAgency.Review;
-using TouristAgency.Service;
 using TouristAgency.Tours;
 using TouristAgency.Users;
+using TouristAgency.Users.Domain;
 using TouristAgency.Util;
 using TouristAgency.Vouchers;
 
