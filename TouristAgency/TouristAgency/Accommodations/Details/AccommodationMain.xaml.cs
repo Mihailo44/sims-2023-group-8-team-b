@@ -10,19 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.Accommodations.Domain;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.Accommodations.Details
 {
     /// <summary>
-    /// Interaction logic for AccommodationMainDisplay.xaml
+    /// Interaction logic for AccommodationMain.xaml
     /// </summary>
-    public partial class AccommodationMainDisplay : UserControl
+    public partial class AccommodationMain : Window
     {
-        public AccommodationMainDisplay()
+        public AccommodationMain(Accommodation accommodation)
         {
             InitializeComponent();
+            DataContext = new AccommodationMainViewModel(accommodation);
         }
     }
 }

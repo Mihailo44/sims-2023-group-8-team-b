@@ -10,19 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.AccommodationRenovation.Domain;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.AccommodationRenovation.Dialogue
 {
     /// <summary>
-    /// Interaction logic for AccommodationMainDisplay.xaml
+    /// Interaction logic for RenovationDescriptionDialogue.xaml
     /// </summary>
-    public partial class AccommodationMainDisplay : UserControl
+    public partial class RenovationDescriptionDialogue : Window
     {
-        public AccommodationMainDisplay()
+        public RenovationDescriptionDialogue(Renovation renovation)
         {
             InitializeComponent();
+            DataContext = new RenovationDescriptionDialogueViewModel(renovation,this);
         }
     }
 }

@@ -12,15 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.Accommodations.Domain;
 
-namespace TouristAgency.View.Display
+namespace TouristAgency.AccommodationRenovation.SchedulingFeature
 {
     /// <summary>
-    /// Interaction logic for AccommodationMainDisplay.xaml
+    /// Interaction logic for AccommodationRenovationForm.xaml
     /// </summary>
-    public partial class AccommodationMainDisplay : UserControl
+    public partial class AccommodationRenovationForm : UserControl
     {
-        public AccommodationMainDisplay()
+        public AccommodationRenovationForm()
         {
             InitializeComponent();
         }

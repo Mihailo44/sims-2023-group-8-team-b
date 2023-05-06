@@ -17,11 +17,9 @@ namespace TouristAgency.Reservations.Domain
 
         public ReservationService()
         {
-            _app = (App)System.Windows.Application.Current;
+            _app = (App)App.Current;
             ReservationRepository = _app.ReservationRepository;
         }
-
-
 
         public ObservableCollection<Reservation> GeneratePotentionalReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
         {

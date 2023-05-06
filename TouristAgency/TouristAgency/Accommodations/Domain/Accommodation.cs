@@ -22,6 +22,7 @@ namespace TouristAgency.Accommodations.Domain
         private int _allowedNumOfDaysForCancelation;
         private List<Photo> _photos;
         private bool _recentlyRenovated;
+        private bool _currentlyRenovating;
 
         public Accommodation()
         {
@@ -43,6 +44,7 @@ namespace TouristAgency.Accommodations.Domain
             _minNumOfDays = minNumOfDays;
             _allowedNumOfDaysForCancelation = allowedNumOfDaysForCancelation;
             _recentlyRenovated = false;
+            _currentlyRenovating = false;
         }
 
         public int Id
@@ -182,6 +184,18 @@ namespace TouristAgency.Accommodations.Domain
                 if (value != _recentlyRenovated)
                 {
                     _recentlyRenovated = value;
+                }
+            }
+        }
+
+        public bool CurrentlyRenovating
+        {
+            get => _currentlyRenovating;
+            set
+            {
+                if(value != _currentlyRenovating)
+                {
+                    _currentlyRenovating = value;
                 }
             }
         }

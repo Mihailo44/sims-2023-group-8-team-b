@@ -15,6 +15,7 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Util;
 using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.CreationFeature;
+using TouristAgency.Accommodations.Details;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -77,6 +78,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand ShowDataGridCmd { get; set; }
         public DelegateCommand ImportantCmd { get; set; }
         public DelegateCommand ShowAccCmd { get; set; }
+        public DelegateCommand ShowAccommodationMain { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -99,9 +101,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void InstantiateServices()
         {
-            _reservationService = new ReservationService();
+            _reservationService = new();
             _accommodationService = new();
-            _ownerReviewService = new OwnerReviewService();
+            _ownerReviewService = new();
             _postponementRequestService = new();
             _ownerService = new();
         }
@@ -140,6 +142,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute, CanShowDataGridExecute);
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
             ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
+            ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param=> CanShowAccommodationMainExecute());
         }
 
 
@@ -399,6 +402,17 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {
                 AccountContainerVisibility = "Visible";
             }
+        }
+
+        public bool CanShowAccommodationMainExecute()
+        {
+            return SelectedAccommodation != null;
+        }
+
+        public void ShowAccommodationMainExecute()
+        {
+            AccommodationMain x = new(SelectedAccommodation);
+            x.Show();
         }
     }
 }

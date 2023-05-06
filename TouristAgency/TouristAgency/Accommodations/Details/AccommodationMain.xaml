@@ -1,0 +1,33 @@
+﻿<Window x:Class="TouristAgency.Accommodations.Details.AccommodationMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TouristAgency.AccommodationRenovation.SchedulingFeature"
+        mc:Ignorable="d"
+        Title="AccommodationMain" Height="550" Width="850" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:AccommodationRenovationViewModel}">
+            <vm:AccommodationRenovationForm/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Height="50" Width="auto" Margin="0,10,0,0" Background="Azure">
+            <Button Margin="25,0,0,0" Style="{StaticResource NavButton}" Content="Statistics" Command="{Binding NavCmd}" CommandParameter="0"/>
+            <Button Style="{StaticResource NavButton}" Width="200" Content="Renovation Scheduling" Command="{Binding NavCmd}" CommandParameter="1"/>
+            <Button Width="160" Style="{StaticResource NavButton}" Content="Renovation History" Command="{Binding NavCmd}" CommandParameter="2"/>
+        </WrapPanel>
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+
+    </Grid>
+</Window>

@@ -53,12 +53,13 @@ namespace TouristAgency.Accommodations.Domain
             currentAccommodation.MaxGuestNum = updatedAccommodation.MaxGuestNum;
             currentAccommodation.MinNumOfDays = updatedAccommodation.MinNumOfDays;
             currentAccommodation.AllowedNumOfDaysForCancelation = updatedAccommodation.AllowedNumOfDaysForCancelation;
+            currentAccommodation.RecentlyRenovated = updatedAccommodation.RecentlyRenovated;
+            currentAccommodation.CurrentlyRenovating = updatedAccommodation.CurrentlyRenovating;
 
             _storage.Save(_accommodations);
             NotifyObservers();
 
             return currentAccommodation;
-
         }
 
         public void Delete(int id)

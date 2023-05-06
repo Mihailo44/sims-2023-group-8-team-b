@@ -26,7 +26,7 @@ namespace TouristAgency.Util
             return _photos.Max(p => p.ID) + 1;
         }
 
-        public Photo FindById(int id)
+        public Photo GetById(int id)
         {
             return _photos.Find(t => t.ID == id);
         }
@@ -42,7 +42,7 @@ namespace TouristAgency.Util
 
         public Photo Update(Photo newPhoto, int id)
         {
-            Photo currentPhoto = FindById(id);
+            Photo currentPhoto = GetById(id);
             if (currentPhoto == null)
             {
                 return null;
@@ -55,7 +55,7 @@ namespace TouristAgency.Util
 
         public void Delete(int id)
         {
-            Photo deletedPhoto = FindById(id);
+            Photo deletedPhoto = GetById(id);
             _photos.Remove(deletedPhoto);
             _storage.Save(_photos);
             NotifyObservers();

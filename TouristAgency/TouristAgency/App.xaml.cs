@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using TouristAgency.AccommodationRenovation.Domain;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -43,6 +44,7 @@ namespace TouristAgency
         public AccommodationRepository AccommodationRepository { get; }
         public GuestReviewRepository GuestReviewRepository { get; }
         public OwnerRepository OwnerRepository { get; }
+        public RenovationRepository RenovationRepository { get; }
 
 
         public event Action CurrentVMChanged;
@@ -91,6 +93,7 @@ namespace TouristAgency
             TouristNotificationRepository = new(InjectorService.CreateInstance<IStorage<TouristNotification>>());
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestRepository = new(InjectorService.CreateInstance<IStorage<Guest>>());
+            RenovationRepository = new(InjectorService.CreateInstance<IStorage<Renovation>>());
 
             AccommodationRepository.LoadLocationsToAccommodations(LocationRepository.GetAll());
             AccommodationRepository.LoadPhotosToAccommodations(PhotoRepository.GetAll());
@@ -116,6 +119,7 @@ namespace TouristAgency
             TouristRepository.LoadVouchersToTourist(VoucherRepository.GetAll());
             GuideReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
             TourRequestRepository.LoadLocationsToTourRequests(LocationRepository.GetAll());
+            RenovationRepository.LoadAccommodationsToRenovations(AccommodationRepository.GetAll());
         }
     }
 }

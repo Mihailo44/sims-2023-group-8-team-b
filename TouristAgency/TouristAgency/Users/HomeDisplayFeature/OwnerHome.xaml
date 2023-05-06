@@ -102,6 +102,13 @@
                       ItemsSource="{Binding Accommodations}"
                       SelectionMode="Single"
                       SelectedItem="{Binding SelectedAccommodation}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding ShowAccommodationMain}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}"/>
