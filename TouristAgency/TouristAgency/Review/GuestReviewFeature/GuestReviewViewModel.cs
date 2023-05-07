@@ -9,12 +9,13 @@ using System.Windows;
 using TouristAgency.Reservations.Domain;
 using TouristAgency.Util;
 using TouristAgency.Review.Domain;
+using TouristAgency.Users.HomeDisplayFeature;
 
 namespace TouristAgency.Review.GuestReviewFeature
 {
     public class GuestReviewViewModel : ViewModelBase, ICreate, ICloseable
     {
-        private readonly GuestReviewService _guestReview;
+        private readonly GuestReviewService _guestReviewService;
         private readonly ReservationService _reservationService;
 
         private DateTime _reviewDate;
@@ -24,24 +25,25 @@ namespace TouristAgency.Review.GuestReviewFeature
         private int _overallImpression;
         private int _noiseLevel;
         private string _comment;
-        private readonly Window _window;
         private App app = (App)Application.Current;
 
+        public List<string> ComboNumbers { get; set; }
         public GuestReview NewGuestReview { get; set; }
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
 
         public GuestReviewViewModel()
         {
-            _guestReview = new();
+            _guestReviewService = new();
         }
 
-        public GuestReviewViewModel(Reservation reservation, Window window)
+        public GuestReviewViewModel(Reservation reservation)
         {
-            _guestReview = new();
-            _reservationService = new ReservationService();
-            _window = window;
+            _guestReviewService = new();
+            _reservationService = new();
             NewGuestReview = new();
+            ComboNumbers = new();
+            FillCombos();
             NewGuestReview.Reservation = reservation;
             NewGuestReview.ReservationId = reservation.Id;
             CreateCmd = new DelegateCommand(param => CreateGuestReviewExecute(), param => CanCreateGuestReviewExecute());
@@ -139,6 +141,14 @@ namespace TouristAgency.Review.GuestReviewFeature
             }
         }
 
+        public void FillCombos()
+        {
+            for(int i=1; i <= 5; i++)
+            {
+                ComboNumbers.Add(i.ToString());
+            }
+        }
+
         public bool CanCreateGuestReviewExecute()
         {
             if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
@@ -157,8 +167,8 @@ namespace TouristAgency.Review.GuestReviewFeature
             {
                 if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
                 {
-                    _guestReview.GuestReviewRepository.Create(NewGuestReview);
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
+                    _guestReviewService.GuestReviewRepository.Create(NewGuestReview);
                     _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
                     MessageBox.Show("Guest review created successfully");
                 }
@@ -173,7 +183,7 @@ namespace TouristAgency.Review.GuestReviewFeature
             }
             finally
             {
-                _window.Close();
+                app.CurrentVM = new OwnerHomeViewModel();
             }
         }
 
@@ -184,12 +194,7 @@ namespace TouristAgency.Review.GuestReviewFeature
 
         public void CloseWindowExecute()
         {
-            _window.Close();
-        }
-
-        public void Subsribe(IObserver observer)
-        {
-            _guestReview.GuestReviewRepository.Subscribe(observer);
+            app.CurrentVM = new OwnerHomeViewModel();
         }
     }
 }

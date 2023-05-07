@@ -27,6 +27,7 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
         public Renovation SelectedRenovation { get; set; }
         public ObservableCollection<Renovation> PossibleRenovationDates { get; set; }
         public DelegateCommand CreateCmd { get; }
+        public DelegateCommand SearchCmd { get; }
 
         public AccommodationRenovationViewModel(Accommodation accommodation)
         {
@@ -36,9 +37,11 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
             _reservationService = new();
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
+            EstimatedDuration = "";
             PossibleRenovationDates = new();
           
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+            SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
         }
 
         public void FillCollection()
@@ -86,7 +89,6 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
                 if(_estimatedDuration != value)
                 {
                     _estimatedDuration = value;
-                    FillCollection(); //mozda ne valja
                     OnPropertyChanged();
                 }
             }
@@ -107,6 +109,16 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
         {
             RenovationDescriptionDialogue x = new(SelectedRenovation);
             x.Show();
+        }
+
+        public bool CanSearchCmdExecute()
+        {
+            return true;
+        }
+
+        public void SearchCmdExecute()
+        {
+            FillCollection();
         }
     }
 }

@@ -10,35 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.ComponentModel;
-using TouristAgency.Reservations.Domain;
-using TouristAgency.Review.GuestReviewFeature;
 
-namespace TouristAgency.View.Creation
+namespace TouristAgency.Review.GuestReviewFeature
 {
     /// <summary>
     /// Interaction logic for GuestReviewCreationForm.xaml
     /// </summary>
-    public partial class GuestReviewCreationForm : Window
+    public partial class GuestReviewCreationForm : UserControl
     {
-        public GuestReviewCreationForm(Reservation SelectedReservation)
+        public GuestReviewCreationForm()
         {
             InitializeComponent();
-            DataContext = new GuestReviewViewModel(SelectedReservation,this);
-            FillComboBoxes();
-        }
-
-        private void FillComboBoxes()
-        {
-            for (int i = 1; i <= 5; i++)
-            {
-                cbClean.Items.Add(i.ToString());
-                cbRules.Items.Add(i.ToString());
-                cbComm.Items.Add(i.ToString());
-                cbOver.Items.Add(i.ToString());
-                cbNoise.Items.Add(i.ToString());
-            }
         }
     }
 }

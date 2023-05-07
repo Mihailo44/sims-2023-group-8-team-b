@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TouristAgency.AccommodationRenovation.SchedulingFeature"
         mc:Ignorable="d"
-        Title="AccommodationMain" Height="550" Width="850" 
+        Title="AccommodationMain" Height="600" Width="900" 
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize">
 

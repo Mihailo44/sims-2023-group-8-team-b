@@ -23,6 +23,7 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
             _accommodationService = new();
             _window = window;
             Renovation = _renovation;
+            Description = "";
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(),param => CanCreateCmdExecute());
         }
@@ -52,13 +53,16 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
 
         public bool CanCreateCmdExecute()
         {
-            return true;
+            //if (string.IsNullOrEmpty(Description))
+             //   return false;
+           // else
+                return true;
         }
 
         public void CreateCmdExecute()
         {
-            if (string.IsNullOrEmpty(Description))
-                Description = "";
+           // if (string.IsNullOrEmpty(Description))
+                //Description = "";
 
             Renovation.Description = Description.Trim();
             _renovationService.RenovationRepository.Create(Renovation);

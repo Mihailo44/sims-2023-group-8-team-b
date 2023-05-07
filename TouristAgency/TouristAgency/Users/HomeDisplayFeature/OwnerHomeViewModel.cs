@@ -17,6 +17,7 @@ using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.CreationFeature;
 using TouristAgency.Accommodations.Details;
 using TouristAgency.AccommodationRenovation.Domain;
+using TouristAgency.Review.GuestReviewFeature;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -49,8 +50,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public Dictionary<int, string> DataGridVisibility
         {
-            get { return _dataGridVisibility; }
-            set { _dataGridVisibility = value; OnPropertyChanged(nameof(DataGridVisibility)); }
+            get => _dataGridVisibility;
+            set 
+            { 
+                _dataGridVisibility = value; 
+                OnPropertyChanged(nameof(DataGridVisibility)); 
+            }
         }
 
         public string Status { get; set; }
@@ -67,7 +72,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
 
         public Owner LoggedUser { get; set; }
-        public ViewModelBase CurrentVM { get; set; }
 
         private Window _window;
         private App app = (App)App.Current;
@@ -259,8 +263,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             if (SelectedReservation != null)
             {
-                GuestReviewCreationForm x = new GuestReviewCreationForm(SelectedReservation);
-                x.Show();
+                app.CurrentVM = new GuestReviewViewModel(SelectedReservation);
             }
         }
 

@@ -1,13 +1,13 @@
-﻿<Window x:Class="TouristAgency.View.Creation.GuestReviewCreationForm"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TouristAgency.View.Creation"
-        mc:Ignorable="d"
-        Title="GuestReviewCreationForm" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
-
-    <Window.Resources>
+﻿<UserControl x:Class="TouristAgency.Review.GuestReviewFeature.GuestReviewCreationForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TouristAgency.Review.GuestReviewFeature"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024" Background="White">
+    
+    <UserControl.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <Grid>
                 <AdornedElementPlaceholder/>
@@ -15,7 +15,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Margin="0,0,7,0"/>
             </Grid>
         </ControlTemplate>
-    </Window.Resources>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -44,25 +44,19 @@
         <Label Grid.Row="3" Grid.Column="0" Content="Communication" FontSize="17" HorizontalAlignment="Center" />
         <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="17" HorizontalAlignment="Center"/>
         <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="17" HorizontalAlignment="Center"/>
-       <!-- <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" FontSize="17" HorizontalAlignment="Center"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="17" HorizontalAlignment="Center"/>-->
-        <Label Grid.Row="8" Grid.Column="0" Content="Comment" FontSize="17" HorizontalAlignment="Center"/> 
+        <Label Grid.Row="8" Grid.Column="0" Content="Comment" FontSize="17" HorizontalAlignment="Center"/>
         <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Content="CREATE" Width="140" Height="60" FontSize="23" Command="{Binding CreateCmd}"/>
 
-        <ComboBox x:Name="cbClean" Grid.Row="1" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.Cleanliness,UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox x:Name="cbRules" Grid.Row="2" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.RuleAbiding,UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox x:Name="cbComm" Grid.Row="3" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.Communication, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox x:Name="cbOver" Grid.Row="4" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.OverallImpression, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox x:Name="cbNoise" Grid.Row="5" Grid.Column="1" Width="200" Height="30" FontSize="17" Text="{Binding Path=NewGuestReview.NoiseLevel,UpdateSourceTrigger=PropertyChanged}"/>
-        <!--<TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <TextBox Grid.Row="7" Grid.Column="1" Width="250" Height="30" FontSize="17" Text="{Binding Path=NewAccommodation.AllowedNumOfDaysForCancelation,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
-                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/> -->
+        <ComboBox Grid.Row="1" Grid.Column="1" Width="200" Height="30" FontSize="17" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.Cleanliness,UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Width="200" Height="30" FontSize="17" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.RuleAbiding,UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" Width="200" Height="30" FontSize="17" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.Communication, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="4" Grid.Column="1" Width="200" Height="30" FontSize="17" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.OverallImpression, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="5" Grid.Column="1" Width="200" Height="30" FontSize="17" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.NoiseLevel,UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,15,0" FontSize="20" Text="{Binding Path=NewGuestReview.Comment,UpdateSourceTrigger=PropertyChanged}">
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
-        </TextBox> 
+        </TextBox>
         <Button Grid.Row="11" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="140" Height="60" FontSize="23" Command="{Binding CloseCmd}"/>
 
     </Grid>
-</Window>
+</UserControl>

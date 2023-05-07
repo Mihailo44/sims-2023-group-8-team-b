@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.Users.OwnerStart"
         xmlns:vm="clr-namespace:TouristAgency.Accommodations.CreationFeature"
         xmlns:home="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
+        xmlns:rev="clr-namespace:TouristAgency.Review.GuestReviewFeature"
         mc:Ignorable="d"
         Title="OwnerMain" Height="768" Width="1024" 
         WindowStartupLocation="CenterScreen"
@@ -18,6 +19,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type home:OwnerHomeViewModel}">
             <home:OwnerHome/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type rev:GuestReviewViewModel}">
+            <rev:GuestReviewCreationForm/>
         </DataTemplate>
     </Window.Resources>
 

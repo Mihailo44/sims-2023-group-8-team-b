@@ -44,7 +44,14 @@ namespace TouristAgency.AccommodationRenovation.Domain
                 List<Renovation> renovations = RenovationRepository.GetAll().Where(r => r.AccommodationId == accommodation.Id).OrderByDescending(r => r.End).ToList();
                 if (renovations != null && renovations.Count > 0)
                 {
-                    Renovation latestRenovation = (Renovation)renovations[0];
+                    Renovation latestRenovation = renovations[0];
+
+                    if(today > latestRenovation.End)
+                    {
+                        accommodation.RecentlyRenovated = true;
+                        accommodationService.AccommodationRepository.Update(accommodation, accommodation.Id);
+                    }
+
                     if ((today - latestRenovation.End).TotalDays > 365)
                     {
                         accommodation.RecentlyRenovated = false;
