@@ -26,24 +26,39 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
         public Accommodation SelectedAccommodation { get; }
         public Renovation SelectedRenovation { get; set; }
         public ObservableCollection<Renovation> PossibleRenovationDates { get; set; }
-        public DelegateCommand CreateCmd { get; }
-        public DelegateCommand SearchCmd { get; }
+        public DelegateCommand CreateCmd { get; set; }
+        public DelegateCommand SearchCmd { get; set; }
 
         public AccommodationRenovationViewModel(Accommodation accommodation)
         {
             SelectedAccommodation = accommodation;
             SelectedRenovation = new();
-            _renovationService = new();
-            _reservationService = new();
-           
-            CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
-            SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
-            EndDate = DateTime.Today.AddDays(1);
-            StartDate = DateTime.Today;
+            InstantiateServices();
+            InstantiateCommands();
             PossibleRenovationDates = new();
+            SetDefaultElementValues();
         }
 
-        public void FillCollection()
+        private void InstantiateServices()
+        {
+            _renovationService = new();
+            _reservationService = new();
+        }
+
+        private void InstantiateCommands()
+        {
+            CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+            SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
+        }
+
+        private void SetDefaultElementValues()
+        {
+            EndDate = DateTime.Today.AddDays(1);
+            StartDate = DateTime.Today;
+            EstimatedDuration = "2";
+        }
+
+        private void FillCollection()
         {
             PossibleRenovationDates.Clear();
             List<Renovation> renovationSuggestions = new List<Renovation>();

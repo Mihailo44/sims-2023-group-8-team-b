@@ -69,10 +69,10 @@ namespace TouristAgency.AccommodationRenovation.RenovationHistoryFeature
                     _renovationService.RenovationRepository.Update(SelectedRenovation, SelectedRenovation.Id);
                     MessageBox.Show("Renovation has been canceled");
                 }
-                else
-                {
-                    MessageBox.Show($"Renovation is in {dateDiff:F0} days, hence it can't be canceled");
-                }
+               // else
+                //{
+                //    MessageBox.Show($"Renovation is in {dateDiff:F0} days, hence it can't be canceled");
+                //}
             }
         }
 

@@ -78,6 +78,15 @@ namespace TouristAgency.AccommodationRenovation.Domain
                         accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
                     }
                 }
+                if(today == renovation.Start)
+                {
+                    Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
+                    if (renovatedAccommodation != null)
+                    {
+                        renovatedAccommodation.CurrentlyRenovating = true;
+                        accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
+                    }
+                }
             }
         }
 

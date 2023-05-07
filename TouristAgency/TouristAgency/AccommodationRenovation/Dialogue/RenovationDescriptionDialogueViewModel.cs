@@ -73,8 +73,6 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
         {
             Renovation.Description = Description.Trim();
             _renovationService.RenovationRepository.Create(Renovation);
-            Renovation.Accommodation.CurrentlyRenovating = true;
-            _accommodationService.AccommodationRepository.Update(Renovation.Accommodation, Renovation.AccommodationId);
             MessageBox.Show("Renovation has been scheduled");
             _window.Close();
         }

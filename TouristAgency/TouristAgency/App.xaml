@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Design/Owner/Styles/CircleButton.xaml"/>
                 <ResourceDictionary Source="Design/Owner/Styles/NavButton.xaml"/>
+                <ResourceDictionary Source="Design/Owner/Styles/BasicBtn.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

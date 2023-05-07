@@ -330,7 +330,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             string sCaption;
 
             sMessageBoxText = $"Do you want to approve postponement request?\nStart Date:\t{SelectedRequest.Start}\nEnd Date:\t\t{SelectedRequest.End}";
-            sCaption = "Postponement Request Dialog";
+            sCaption = "Postponement Request Dialogue";
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
             MessageBoxImage icnMessageBox = MessageBoxImage.Question;

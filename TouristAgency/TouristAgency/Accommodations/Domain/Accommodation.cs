@@ -263,6 +263,8 @@ namespace TouristAgency.Accommodations.Domain
             MaxGuestNum = int.Parse(values[5]);
             MinNumOfDays = int.Parse(values[6]);
             AllowedNumOfDaysForCancelation = int.Parse(values[7]);
+            RecentlyRenovated = bool.Parse(values[8]);
+            CurrentlyRenovating = bool.Parse(values[9]);
         }
 
         public string[] ToCSV()
@@ -276,7 +278,9 @@ namespace TouristAgency.Accommodations.Domain
                 Type.ToString(),
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),
-                AllowedNumOfDaysForCancelation.ToString()
+                AllowedNumOfDaysForCancelation.ToString(),
+                RecentlyRenovated.ToString(),
+                CurrentlyRenovating.ToString()
             };
             return csvValues;
         }

@@ -39,13 +39,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Cleanliness" FontSize="22" HorizontalAlignment="Center"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Rule abiding" FontSize="22" HorizontalAlignment="Center"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Communication" FontSize="22" HorizontalAlignment="Center" />
-        <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="22" HorizontalAlignment="Center"/>
-        <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="22" HorizontalAlignment="Center"/>
-        <Label Grid.Row="7" Grid.Column="0" Content="Comment" FontSize="22" HorizontalAlignment="Center"/>
-        <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Content="CREATE" Width="140" Height="60" FontSize="25" Command="{Binding CreateCmd}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Cleanliness" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Rule abiding" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Communication" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center" />
+        <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Comment" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center"/>
+        <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Content="CREATE" Command="{Binding CreateCmd}" Width="140" Height="60"/>
 
         <ComboBox Grid.Row="1" Grid.Column="1" Width="200" Height="35" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.Cleanliness,UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Grid.Row="2" Grid.Column="1" Width="200" Height="35" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.RuleAbiding,UpdateSourceTrigger=PropertyChanged}"/>
@@ -57,6 +57,6 @@
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="11" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Width="140" Height="60" FontSize="25" Command="{Binding CloseCmd}"/>
+        <Button Grid.Row="11" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
     </Grid>
 </UserControl>

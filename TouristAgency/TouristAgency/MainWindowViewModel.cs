@@ -102,7 +102,7 @@ namespace TouristAgency
             string notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
             if (changes > 0)
             {
-                MessageBox.Show(notification);
+                MessageBox.Show(notification, "Unreviewed Guests", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

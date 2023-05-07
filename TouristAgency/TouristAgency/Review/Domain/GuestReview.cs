@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
@@ -8,7 +10,7 @@ using TouristAgency.Reservations.Domain;
 
 namespace TouristAgency.Review.Domain
 {
-    public class GuestReview : ISerializable
+    public class GuestReview : ISerializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int _id;
         private Reservation _reservation;
@@ -150,6 +152,7 @@ namespace TouristAgency.Review.Domain
                 if (value != _noiseLevel)
                 {
                     _noiseLevel = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -162,7 +165,46 @@ namespace TouristAgency.Review.Domain
                 if (value != _comment)
                 {
                     _comment = value;
+                    OnPropertyChanged();
                 }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Comment")
+                {
+                    if (string.IsNullOrEmpty(Comment))
+                        return "Required field";
+                }
+
+                return null;
+
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "Comment" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
             }
         }
 

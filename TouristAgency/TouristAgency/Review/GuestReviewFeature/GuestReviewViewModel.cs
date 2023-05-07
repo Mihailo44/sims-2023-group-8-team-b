@@ -151,7 +151,7 @@ namespace TouristAgency.Review.GuestReviewFeature
 
         public bool CanCreateGuestReviewExecute()
         {
-            if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
+            if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED && NewGuestReview.IsValid)
             {
                 return true;
             }
