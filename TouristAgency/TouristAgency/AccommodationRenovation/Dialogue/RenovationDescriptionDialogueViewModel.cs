@@ -8,11 +8,11 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
 {
     public class RenovationDescriptionDialogueViewModel : ViewModelBase, ICloseable, ICreate
     {
+        private string _description;
         private readonly Window _window;
         private Renovation _renovation;
         private RenovationService _renovationService;
         private AccommodationService _accommodationService;
-        public string Description { get; set; }
 
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
@@ -23,9 +23,22 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
             _accommodationService = new();
             _window = window;
             Renovation = renovation;
-            Description = "";
+
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+        }
+
+        public string Description 
+        { 
+            get => _description;
+            set
+            {
+                if(_description != value)
+                {
+                    _description = value;
+                    CreateCmd.OnCanExecuteChanged();
+                }
+            } 
         }
 
         public Renovation Renovation
@@ -53,7 +66,7 @@ namespace TouristAgency.AccommodationRenovation.Dialogue
 
         public bool CanCreateCmdExecute()
         {
-            return true;
+            return !string.IsNullOrEmpty(Description);
         }
 
         public void CreateCmdExecute()

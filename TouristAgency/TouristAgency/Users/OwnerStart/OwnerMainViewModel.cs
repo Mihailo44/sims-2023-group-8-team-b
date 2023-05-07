@@ -5,9 +5,11 @@ namespace TouristAgency.Users.OwnerStart
 {
     public class OwnerMainViewModel : ViewModelBase
     {
-        private App app = (App)System.Windows.Application.Current;
-
-        public ViewModelBase CurrentVM => app.CurrentVM;
+        public App app = (App)System.Windows.Application.Current;
+        public ViewModelBase CurrentVM 
+        {
+            get => app.CurrentVM;
+        }
 
         public OwnerMainViewModel()
         {

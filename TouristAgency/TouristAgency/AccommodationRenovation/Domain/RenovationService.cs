@@ -35,22 +35,23 @@ namespace TouristAgency.AccommodationRenovation.Domain
             return renovations;
         }
 
-        public void SetRenovationStatus(List<Accommodation> ownersAccommodations,AccommodationService accommodationService)
+        public void SetRenovationStatus(AccommodationService accommodationService)
         {
             DateTime today = DateTime.Today;
+            List<Accommodation> ownersAccommodations = accommodationService.GetByOwnerId(_app.LoggedUser.ID);
 
-            foreach(var accommodation in ownersAccommodations)
+            foreach (var accommodation in ownersAccommodations)
             {
                 List<Renovation> renovations = RenovationRepository.GetAll().Where(r => r.AccommodationId == accommodation.Id).OrderByDescending(r => r.End).ToList();
                 if (renovations != null && renovations.Count > 0)
                 {
                     Renovation latestRenovation = renovations[0];
 
-                    if(today > latestRenovation.End)
+                   /* if((today > latestRenovation.End) && ((today - latestRenovation.End).TotalDays < 365))
                     {
                         accommodation.RecentlyRenovated = true;
                         accommodationService.AccommodationRepository.Update(accommodation, accommodation.Id);
-                    }
+                    } */
 
                     if ((today - latestRenovation.End).TotalDays > 365)
                     {
@@ -59,6 +60,25 @@ namespace TouristAgency.AccommodationRenovation.Domain
                     }
                 }
             }       
+        }
+
+        public void SetRenovationProgress(AccommodationService accommodationService)
+        {
+            DateTime today = DateTime.Today;
+
+            foreach(Renovation renovation in GetRenovationsByOwnerId(_app.LoggedUser.ID))
+            {
+                if(today > renovation.End)
+                {
+                   Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
+                    if ((renovatedAccommodation != null) && (renovatedAccommodation.CurrentlyRenovating == true))
+                    {
+                        renovatedAccommodation.CurrentlyRenovating = false;
+                        renovatedAccommodation.RecentlyRenovated = true;
+                        accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
+                    }
+                }
+            }
         }
 
         public List<Renovation> GetRenovationsByOwnerId(int ownerId) // da li da ucitavam i otkazane

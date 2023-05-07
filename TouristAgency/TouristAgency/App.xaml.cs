@@ -46,19 +46,18 @@ namespace TouristAgency
         public OwnerRepository OwnerRepository { get; }
         public RenovationRepository RenovationRepository { get; }
 
-
         public event Action CurrentVMChanged;
 
         private ViewModelBase _currentVm;
         public ViewModelBase CurrentVM
-        {
-            get => _currentVm;
-            set
-            {
-                _currentVm = value;
-                OnCurrentVMChanged();
-            }
-        }
+         {
+             get => _currentVm;
+             set
+             {
+                 _currentVm = value;
+                 OnCurrentVMChanged();
+             }
+         }
 
         private void OnCurrentVMChanged()
         {

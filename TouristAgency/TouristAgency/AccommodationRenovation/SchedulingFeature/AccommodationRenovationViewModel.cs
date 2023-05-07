@@ -35,13 +35,12 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
             SelectedRenovation = new();
             _renovationService = new();
             _reservationService = new();
-            StartDate = DateTime.Today;
-            EndDate = DateTime.Today;
-            EstimatedDuration = "";
-            PossibleRenovationDates = new();
-          
+           
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
             SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
+            EndDate = DateTime.Today.AddDays(1);
+            StartDate = DateTime.Today;
+            PossibleRenovationDates = new();
         }
 
         public void FillCollection()
@@ -60,10 +59,10 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
             get => _start;
             set
             {
-                if(_start != value)
+                if(_start != value && _start < EndDate)
                 {
                     _start = value;
-                    OnPropertyChanged();
+                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -76,7 +75,7 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
                 if(_end != value)
                 {
                     _end = value;
-                    OnPropertyChanged();
+                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -89,20 +88,14 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
                 if(_estimatedDuration != value)
                 {
                     _estimatedDuration = value;
-                    OnPropertyChanged();
+                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
 
         public bool CanCreateCmdExecute()
         {
-            if (SelectedRenovation != null)
-                return true;
-            else
-            {
-                MessageBox.Show("Selektujte opseg datuma");
-                return false;
-            }
+            return SelectedRenovation != null;
         }
 
         public void CreateCmdExecute()
@@ -113,7 +106,7 @@ namespace TouristAgency.AccommodationRenovation.SchedulingFeature
 
         public bool CanSearchCmdExecute()
         {
-            return true;
+            return !string.IsNullOrEmpty(EstimatedDuration) && StartDate < EndDate;
         }
 
         public void SearchCmdExecute()

@@ -21,7 +21,7 @@ namespace TouristAgency.Accommodations.CreationFeature
         private int _minNumOfDays;
         private int _allowedNumOfDaysForCancelation;
         private string _photoLinks;
-        private App app = (App)Application.Current;
+        private App _app = (App)Application.Current;
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
@@ -31,7 +31,7 @@ namespace TouristAgency.Accommodations.CreationFeature
 
         public AccommodationCreationViewModel()
         {
-            LoggedUser = app.LoggedUser;
+            LoggedUser = _app.LoggedUser;
             InstantiateServices();
             NewAccommodation = new();
             NewLocation = new();
@@ -41,7 +41,7 @@ namespace TouristAgency.Accommodations.CreationFeature
         private void InstantiateServices()
         {
             _accommodation = new();
-            _photoRepository = app.PhotoRepository;
+            _photoRepository = _app.PhotoRepository;
             _locationService = new();
         }
 
@@ -150,7 +150,7 @@ namespace TouristAgency.Accommodations.CreationFeature
                 if (_photoLinks != value)
                 {
                     _photoLinks = value;
-                    OnPropertyChanged();
+                    CreateCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -210,7 +210,7 @@ namespace TouristAgency.Accommodations.CreationFeature
 
         public bool CanCreateAccommodationExecute()
         {
-            return true;
+            return !string.IsNullOrEmpty(PhotoLinks);
         }
 
         public void CreateAccommodationExecute()
@@ -228,7 +228,7 @@ namespace TouristAgency.Accommodations.CreationFeature
             }
             finally
             {
-                app.CurrentVM = new OwnerHomeViewModel();
+                _app.CurrentVM = new OwnerHomeViewModel();
             }
         }
 
@@ -239,7 +239,7 @@ namespace TouristAgency.Accommodations.CreationFeature
 
         public void CloseWindowExecute()
         {
-            app.CurrentVM = new OwnerHomeViewModel();
+            _app.CurrentVM = new OwnerHomeViewModel();
         }
     }
 }

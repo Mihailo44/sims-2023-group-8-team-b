@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:TouristAgency.AccommodationRenovation.RenovationHistoryFeature"
              mc:Ignorable="d" 
-             d:DesignHeight="530" d:DesignWidth="900" Background="White">
+             d:DesignHeight="580" d:DesignWidth="900" Background="White">
     <Grid>
 
         <ListView Height="auto" Width="850" Margin="0,20,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"

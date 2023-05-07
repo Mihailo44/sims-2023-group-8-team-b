@@ -6,9 +6,9 @@
         xmlns:vm="clr-namespace:TouristAgency.AccommodationRenovation.SchedulingFeature"
         xmlns:his="clr-namespace:TouristAgency.AccommodationRenovation.RenovationHistoryFeature"
         mc:Ignorable="d"
-        Title="AccommodationMain" Height="600" Width="900" 
+        Title="Accommodation Details" Height="650" Width="900" 
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResize">
+        ResizeMode="CanMinimize">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AccommodationRenovationViewModel}">

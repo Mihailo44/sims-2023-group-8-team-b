@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TouristAgency.AccommodationRenovation.SchedulingFeature"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="530" d:DesignWidth="900" 
+             d:DesignHeight="580" d:DesignWidth="900" 
              Background="White">
 
     <Grid>
@@ -22,11 +22,11 @@
 
         <StackPanel Width="820" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <StackPanel Margin="20,10,0,0">
-                <Label Height="45" HorizontalAlignment="Center" FontSize="21" Content="Pick a Start Date:"/>
+                <Label Height="45" HorizontalAlignment="Center" FontSize="21" Content="Pick a Start Date"/>
                 <DatePicker Width="150" Height="35" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Margin="20,10,0,0">
-                <Label Height="45" HorizontalAlignment="Center" FontSize="21" Content="Pick an End Date:"/>
+                <Label Height="45" HorizontalAlignment="Center" FontSize="21" Content="Pick an End Date"/>
                 <DatePicker Width="150" Height="35" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Margin="20,10,0,0">
@@ -37,7 +37,7 @@
         </StackPanel>
 
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="21" Content="Avaliable Dates"/>
-        <ListView Height="325" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+        <ListView Height="375" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding PossibleRenovationDates}"
                   SelectedItem="{Binding SelectedRenovation}"

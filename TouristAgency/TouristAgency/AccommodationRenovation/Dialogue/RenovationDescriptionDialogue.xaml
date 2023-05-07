@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Margin="15,5,0,0" Content="Renovation Description:"/>
-        <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="560" FontSize="21" Text="{Binding Description,Mode=TwoWay}">
+        <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="560" FontSize="21" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged}">
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>

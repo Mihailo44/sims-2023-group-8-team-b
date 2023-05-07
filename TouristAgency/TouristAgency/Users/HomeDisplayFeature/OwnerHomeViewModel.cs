@@ -101,7 +101,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
             FillCollections();
 
             _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
-            _renovationService.SetRenovationStatus(_accommodationService.GetByOwnerId(LoggedUser.ID), _accommodationService);
+            _renovationService.SetRenovationProgress(_accommodationService);
+            _renovationService.SetRenovationStatus(_accommodationService);
             InstantiateCommands();
         }
 

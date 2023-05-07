@@ -48,10 +48,7 @@ namespace TouristAgency.AccommodationRenovation.RenovationHistoryFeature
 
         public bool CanCancelRenovationCmdExecute()
         {
-            if (SelectedRenovation != null)
-                return true;
-            else
-                return false;
+            return SelectedRenovation != null;
         }
 
         public void CancelRenovationCmdExecute()
