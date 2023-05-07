@@ -86,6 +86,29 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <GroupBox Header="2. Recommendation for renovation" FontSize="20" FontWeight="SemiBold" Margin="205,454,557,13" RenderTransformOrigin="0.5,0.5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Enter your recommendation here:" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Center" Width="319" Grid.ColumnSpan="2"/>
+                <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="395" Height="59"/>
+                <Label Content="Level of urgency for renovation (1-5):" Grid.Row="1" FontSize="15" FontWeight="Normal" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Margin="-2,77,0,0" Grid.RowSpan="3"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="56,80,0,0" Grid.RowSpan="2"/>
+                <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Submit" FontWeight="Normal" FontSize="15" Width="80" Height="25"></Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Meaning of levels" FontSize="20" FontWeight="SemiBold" Margin="668,454,26,13">
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" FontSize="15" FontWeight="Normal" Width="472"><Run Text="Level 1 - it would be nice to renovate some small things, but everything works as it should even without it.           "/><Run Text="   "/><LineBreak/><Run Text="Level 2 - minor complaints about the accommodation which if removed would make it perfect.              "/><LineBreak/><Run Text="Level 3 - a few things that bothered me should be renovated.              Level 4 - there are a lot of bad stuff and renovation is really necessary.              "/><LineBreak/><Run Text="Level 5 - the accommodation is in a very bad condition and is not worth renting at all, unless it is renovated."/></TextBlock>
+        </GroupBox>
 
     </Grid>
 </Window>

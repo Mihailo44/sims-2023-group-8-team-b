@@ -130,7 +130,7 @@
                 <ComboBox x:Name="NameComboBox" Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Path=Names}" SelectedItem="{Binding SelectedName}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <Label Content="City:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.591,0.579"/>
                 <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}" SelectedItem="{Binding SelectedCity}"/>
-                <Label Content="Country:" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" RenderTransformOrigin="0.516,0.601" Grid.ColumnSpan="2" Margin="139,0,0,31"/>
+                <Label Content="Country:" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" RenderTransformOrigin="0.516,0.601" Margin="0,0,0,10"/>
                 <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}" SelectedItem="{Binding SelectedCountry}"/>
                 <Label Content="Type:" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <ComboBox x:Name="TypeComboBox" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Types}" SelectedItem="{Binding SelectedType}"/>
