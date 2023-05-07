@@ -4,8 +4,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations.Domain;
 using TouristAgency.Util;
 
 namespace TouristAgency.Review.Domain

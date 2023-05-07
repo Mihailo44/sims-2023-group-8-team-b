@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Requests.Domain;
-using TouristAgency.Reservations.Domain;
 using TouristAgency.Users;
 
 namespace TouristAgency.Requests

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations.Domain;
 
 namespace TouristAgency.Review.Domain
 {

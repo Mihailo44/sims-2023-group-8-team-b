@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations.Domain;
+
 
 namespace TouristAgency.Review.Domain
 {

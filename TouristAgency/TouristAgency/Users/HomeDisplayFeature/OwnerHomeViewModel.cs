@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.ComponentModel;
 using System.Windows;
 using System.Linq;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.View.Creation;
 using TouristAgency.View.Dialogue;
-using TouristAgency.Reservations.Domain;
 using TouristAgency.Requests.Domain;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Util;
 using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.CreationFeature;
-using TouristAgency.Accommodations.Details;
-using TouristAgency.AccommodationRenovation.Domain;
 using TouristAgency.Review.GuestReviewFeature;
+using TouristAgency.Accommodations.NavigationWindow;
+using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {

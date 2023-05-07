@@ -54,7 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AccommodationReservations\StatisticsFeature\" />
+    <Folder Include="Accommodations\StatisticsFeature\" />
   </ItemGroup>
 
 </Project>

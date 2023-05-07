@@ -3,12 +3,12 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.View.Home;
 using TouristAgency.Users;
-using TouristAgency.Reservations.Domain;
 using TouristAgency.Users.Domain;
 using TouristAgency.Util;
-using TouristAgency.Users.OwnerStart;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Users.GuideStart;
+using TouristAgency.Users.OwnerNavigationWindow;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
 namespace TouristAgency
 {

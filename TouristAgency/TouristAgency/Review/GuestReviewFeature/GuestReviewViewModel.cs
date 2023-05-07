@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Base;
 using System.Windows;
-using TouristAgency.Reservations.Domain;
 using TouristAgency.Util;
 using TouristAgency.Review.Domain;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
 namespace TouristAgency.Review.GuestReviewFeature
 {

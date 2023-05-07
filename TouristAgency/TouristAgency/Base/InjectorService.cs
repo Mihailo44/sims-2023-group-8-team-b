@@ -5,21 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Review;
-using TouristAgency.Storage;
 using TouristAgency.Storage.FileStorage;
 using TouristAgency.Users;
 using TouristAgency.Util;
 using TouristAgency.Tours;
 using TouristAgency.Vouchers;
-using TouristAgency.Requests;
-using TouristAgency.Reservations;
-using TouristAgency.Reservations.Domain;
 using TouristAgency.Requests.Domain;
 using TouristAgency.Users.Domain;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Review.Domain;
-using TouristAgency.AccommodationRenovation.Domain;
+using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
 namespace TouristAgency.Base
 {

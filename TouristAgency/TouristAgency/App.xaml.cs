@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
-using TouristAgency.AccommodationRenovation.Domain;
 using TouristAgency.Accommodations.Domain;
+using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Requests.Domain;
-using TouristAgency.Reservations.Domain;
 using TouristAgency.Review;
 using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
