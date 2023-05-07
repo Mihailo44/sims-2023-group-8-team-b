@@ -16,6 +16,7 @@
     <None Remove="Resources\Image\bell-exclamation.png" />
     <None Remove="Resources\Image\file-pdf-solid.png" />
     <None Remove="Resources\Image\person-solid.png" />
+    <None Remove="Resources\Image\profile-user.png" />
     <None Remove="Resources\Image\question-solid.png" />
     <None Remove="Resources\Image\right-to-bracket-solid.png" />
     <None Remove="Resources\Image\user-solid.png" />
@@ -47,6 +48,7 @@
     <Resource Include="Resources\Image\bell-exclamation.png" />
     <Resource Include="Resources\Image\file-pdf-solid.png" />
     <Resource Include="Resources\Image\person-solid.png" />
+    <Resource Include="Resources\Image\profile-user.png" />
     <Resource Include="Resources\Image\question-solid.png" />
     <Resource Include="Resources\Image\right-to-bracket-solid.png" />
     <Resource Include="Resources\Image\user-solid.png" />
