@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TouristAgency.AccommodationRenovation.SchedulingFeature"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="900" 
+             d:DesignHeight="530" d:DesignWidth="900" 
              Background="White">
 
     <Grid>

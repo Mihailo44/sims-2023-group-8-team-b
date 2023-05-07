@@ -26,6 +26,7 @@ namespace TouristAgency.AccommodationRenovation.Domain
 
         public Renovation(Accommodation accommodation, DateTime start, DateTime end,int estimatedDuration)
         {
+            _id= -1;
             _accommodation = accommodation;
             _accommodationId = accommodation.Id;
             _start = start;

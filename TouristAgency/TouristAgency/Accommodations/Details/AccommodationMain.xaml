@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TouristAgency.AccommodationRenovation.SchedulingFeature"
+        xmlns:his="clr-namespace:TouristAgency.AccommodationRenovation.RenovationHistoryFeature"
         mc:Ignorable="d"
         Title="AccommodationMain" Height="600" Width="900" 
         WindowStartupLocation="CenterScreen"
@@ -12,6 +13,9 @@
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AccommodationRenovationViewModel}">
             <vm:AccommodationRenovationForm/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type his:RenovationHistoryViewModel}">
+            <his:RenovationHistoryForm/>
         </DataTemplate>
     </Window.Resources>
     

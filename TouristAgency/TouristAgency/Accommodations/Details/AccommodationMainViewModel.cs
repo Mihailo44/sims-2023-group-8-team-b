@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.AccommodationRenovation.RenovationHistoryFeature;
 using TouristAgency.AccommodationRenovation.SchedulingFeature;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Base;
@@ -12,7 +13,8 @@ namespace TouristAgency.Accommodations.Details
     public class AccommodationMainViewModel : ViewModelBase
     {
         private ViewModelBase _currentViewModel;
-        private AccommodationRenovationViewModel accommodationRenovationViewModel;
+        private AccommodationRenovationViewModel _accommodationRenovationViewModel;
+        private RenovationHistoryViewModel _renovationHistoryViewModel;
 
         public ViewModelBase CurrentViewModel 
         { 
@@ -30,7 +32,8 @@ namespace TouristAgency.Accommodations.Details
 
         public AccommodationMainViewModel(Accommodation accommodation)
         {
-            accommodationRenovationViewModel = new(accommodation);
+            _accommodationRenovationViewModel = new(accommodation);
+            _renovationHistoryViewModel = new();
             CurrentViewModel = new AccommodationRenovationViewModel(accommodation);
             NavCmd = new DelegateCommand(NavCmdExecute,CanNavCmdExecute);
         }
@@ -51,7 +54,10 @@ namespace TouristAgency.Accommodations.Details
             switch (index)
             {
                 case 1:
-                    CurrentViewModel = accommodationRenovationViewModel;
+                    CurrentViewModel = _accommodationRenovationViewModel;
+                    break;
+                case 2:
+                    CurrentViewModel = _renovationHistoryViewModel;
                     break;
             }
         }

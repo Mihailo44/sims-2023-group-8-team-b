@@ -60,5 +60,13 @@ namespace TouristAgency.AccommodationRenovation.Domain
                 }
             }       
         }
+
+        public List<Renovation> GetRenovationsByOwnerId(int ownerId) // da li da ucitavam i otkazane
+        {
+            List<Renovation> renovations = new();
+
+            renovations = RenovationRepository.GetAll().FindAll(r => r.Accommodation.OwnerId == ownerId);
+            return renovations;
+        }
     }
 }
