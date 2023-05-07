@@ -135,6 +135,7 @@ namespace TouristAgency
                     case UserType.TOURIST:
                         {
                             User = _touristService.TouristRepository.GetById(User.ID);
+                            app.LoggedUser = User;
                             User.Username = Username;
                             User.Password = Password;
                             TouristHome x = new TouristHome(User);

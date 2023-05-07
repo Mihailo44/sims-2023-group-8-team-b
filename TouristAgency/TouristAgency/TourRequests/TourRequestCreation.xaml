@@ -57,11 +57,11 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="from:" FontSize="28" FontWeight="SemiBold"></Label>
-                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" SelectedDate="{Binding StartDate}" SelectedDateFormat="Short"></DatePicker>
+                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDate="{Binding StartDate}" SelectedDateFormat="Short"></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="to:" FontSize="28" FontWeight="SemiBold"></Label>
-                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" SelectedDate="{Binding EndDate}" SelectedDateFormat="Short" Margin="34,0,0,0"></DatePicker>
+                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDate="{Binding EndDate}" SelectedDateFormat="Short" Margin="34,0,0,0"></DatePicker>
                     </StackPanel>
                 </StackPanel>
 
@@ -75,7 +75,12 @@
                     </TextBox>
                 </StackPanel>
 
-                <Button Grid.Row="3" Grid.Column="3" Content="Send request" Command="{Binding CreateCmd}" Width="200" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30"/>
+                <Button Grid.Row="3" Grid.Column="3" Command="{Binding CreateCmd}" Width="250" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Resources/Image/send.png" Margin="0,0,10,0"/>
+                        <TextBlock> Send request</TextBlock>
+                    </StackPanel>
+                </Button>
             </Grid>
         </GroupBox>
 
