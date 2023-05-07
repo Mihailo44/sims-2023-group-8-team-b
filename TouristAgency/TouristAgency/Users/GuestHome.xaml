@@ -24,10 +24,13 @@
             <Button Content="Review display" Height="40"/>
             <Button Content="Move and cancel reservation" Height="40" Command="{Binding Path=PostponementRequestDisplayCmd}"/>
             <Button Content="Anywhere, anytime" Height="40"/>
-            <Button Content="Super-guest" Height="40"/>
+            <Button Content="Super-guest" Height="40" Command="{Binding Path=SuperGuestDisplayCmd}"/>
             <Button Content="Forum" Height="40"/>
             <Button Content="Reservations report" Height="40"/>
         </StackPanel>
+
+        <Label Content="Welcome!!!" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="600,160,0,0" VerticalAlignment="Top" Width="300"/>
+        <Label Content="Book your vacation and enjoy!" FontWeight="Bold" FontSize="15"  HorizontalAlignment="Left" Margin="572,215,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
