@@ -43,7 +43,7 @@ namespace TouristAgency.Users
             OwnerReviewCreationCmd = new DelegateCommand(param => OpenOwnerReviewCreationCmdExecute(),
                 param => CanOpenOwnerReviewCreationCmdExecute());
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
-            SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
+            //SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
         }
 
         public bool CanOpenAccommodationDisplayCmdExecute()
@@ -84,11 +84,11 @@ namespace TouristAgency.Users
             return true;
         }
 
-        public void OpenSuperGuestDisplayCmdExecute()
+        /*public void OpenSuperGuestDisplayCmdExecute()
         {
             SuperGuestDisplay display = new SuperGuestDisplay(_loggedInGuest);
             display.Show();
-        }
+        }*/
 
         public bool CanCloseCmdExecute()
         {
