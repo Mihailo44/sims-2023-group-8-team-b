@@ -6,7 +6,7 @@ using TouristAgency.Users;
 using TouristAgency.Users.Domain;
 using TouristAgency.Util;
 using TouristAgency.Accommodations.Domain;
-using TouristAgency.Users.GuideStart;
+using TouristAgency.Users.GuideNavigationWindow;
 using TouristAgency.Users.OwnerNavigationWindow;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
@@ -138,6 +138,7 @@ namespace TouristAgency
                     case UserType.TOURIST:
                         {
                             User = _touristService.TouristRepository.GetById(User.ID);
+                            app.LoggedUser = User;
                             User.Username = Username;
                             User.Password = Password;
                             TouristHome x = new TouristHome(User);

@@ -5,6 +5,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Reservations;
 using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature;
 using TouristAgency.Util;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;

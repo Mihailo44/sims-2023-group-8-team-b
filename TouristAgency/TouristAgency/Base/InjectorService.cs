@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
-using TouristAgency.Review;
 using TouristAgency.Storage.FileStorage;
 using TouristAgency.Users;
 using TouristAgency.Util;
@@ -17,6 +16,7 @@ using TouristAgency.TourRequests;
 using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Tours.BeginTourFeature.Domain;
 
 namespace TouristAgency.Base
 {
