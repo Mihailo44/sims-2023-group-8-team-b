@@ -119,6 +119,7 @@ namespace TouristAgency
             GuideReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
             TourRequestRepository.LoadLocationsToTourRequests(LocationRepository.GetAll());
             RenovationRepository.LoadAccommodationsToRenovations(AccommodationRepository.GetAll());
+            TouristRepository.LoadUsersToTourists(UserRepository.GetAll());
         }
     }
 }

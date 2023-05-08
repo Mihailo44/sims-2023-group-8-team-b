@@ -16,6 +16,11 @@ namespace TouristAgency.Users.Domain
             _users = _userStorage.Load();
         }
 
+        public List<User> GetAll()
+        {
+            return _users;
+        }
+
         public User CheckCredentials(string username, string password)
         {
             User user = _users.Find(u => u.Username == username.Trim() && u.Password == password.Trim());

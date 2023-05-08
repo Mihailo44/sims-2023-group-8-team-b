@@ -80,7 +80,7 @@
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Image Height="24" Width="24">
                                 <Image.Source>
-                                    <BitmapImage UriSource="../Resources/Image/arrow-down-solid.png"/>
+                                    <BitmapImage UriSource="../../Resources/Image/arrow-down-solid.png"/>
                                 </Image.Source>
                             </Image>
                         </ControlTemplate>
@@ -91,7 +91,7 @@
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Image Height="24" Width="24">
                                 <Image.Source>
-                                    <BitmapImage UriSource="../Resources/Image/arrow-up-solid.png"/>
+                                    <BitmapImage UriSource="../../Resources/Image/arrow-up-solid.png"/>
                                 </Image.Source>
                             </Image>
                         </ControlTemplate>
