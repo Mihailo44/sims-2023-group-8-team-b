@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Linq;
+using TouristAgency.Base;
 using TouristAgency.Tours;
 using TouristAgency.Util;
 
@@ -74,7 +77,7 @@ namespace TouristAgency.TourRequests
             return TourRequestRepository.GetAll().FindAll(t => t.Status == TourRequestStatus.PENDING);
         }
 
-
+        //Country, City, Language, MaxAttendants, StartDate, EndDate
         public List<TourRequest> Search(string country, string city, string language, int maxAttendants,
            DateTime startDate, DateTime endDate)
         {
@@ -83,6 +86,48 @@ namespace TouristAgency.TourRequests
                     t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) &&
                     t.Language.Contains(language) && t.MaxAttendance < maxAttendants
                     && t.StartDate >= startDate && t.EndDate <= endDate && t.Status == TourRequestStatus.PENDING);
+        }
+
+        public List<TourRequest> Search(string country, string city, string language,
+   DateTime startDate, DateTime endDate)
+        {
+            List<TourRequest> filteredRequests = new List<TourRequest>();
+            return TourRequestRepository.GetAll().FindAll(t =>
+                    t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) &&
+                    t.Language.Contains(language) && t.StartDate >= startDate 
+                    && t.EndDate <= endDate);
+        }
+
+        public int GetRequestNum(string country, string city, string language, DateTime startDate,
+            DateTime endDate)
+        {
+            List<TourRequest> filteredRequests = Search(country, city, language, startDate, endDate);
+            var group = filteredRequests.GroupBy(t => t.ShortLocationID);
+            int max = 0;
+            foreach(var element in group)
+            {
+                if(element.Count() > max)
+                {
+                    max = element.Count();
+                }
+            }
+            return max;
+        }
+
+        public (TourRequest, int) GetMostRequested()
+        {
+            var group = TourRequestRepository.GetAll().GroupBy(t => t.ShortLocationID);
+            int max = 0;
+            TourRequest tourRequest = new TourRequest();
+            foreach (var element in group)
+            {
+                if (element.Count() > max)
+                {
+                    max = element.Count();
+                    tourRequest = element.ToList()[0];
+                }
+            }
+            return (tourRequest, max);
         }
 
         public void InvalidateOldTourRequests()

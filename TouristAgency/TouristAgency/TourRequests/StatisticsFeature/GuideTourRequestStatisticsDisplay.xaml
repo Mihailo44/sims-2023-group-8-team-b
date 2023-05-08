@@ -44,38 +44,52 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="Country:" Grid.Row="0" Grid.Column="0" FontSize="13"/>
-                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="88" Height="27" FontSize="13"/>
+                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="1" Width="88" Height="27" ItemsSource="{Binding Countries}" SelectedItem="{Binding Country}"/>
 
                 <Label Content="City:" Grid.Row="0" Grid.Column="2" FontSize="13"/>
-                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="88" Height="27" FontSize="13"/>
+                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" Width="88" Height="27" ItemsSource="{Binding Languages}" SelectedItem="{Binding Language}"/>
 
                 <Label Content="Language:" Grid.Row="1" Grid.Column="0" FontSize="13"/>
-                <ComboBox x:Name="LanguageComboBox" Grid.Row="0" Grid.Column="3" Width="88" Height="27" FontSize="13"/>
+                <ComboBox x:Name="LanguageComboBox" Grid.Row="0" Grid.Column="3" Width="88" Height="27" ItemsSource="{Binding Cities}" SelectedItem="{Binding City}"/>
 
                 <Label Content="Start year:" Grid.Row="2" Grid.Column="0"></Label>
-                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Height="27" HorizontalAlignment="Left" Width="60" Margin="2,0,0,0" Value="{Binding StartYear}"/>
 
                 <Label Content="End year:" Grid.Row="2" Grid.Column="2"></Label>
-                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" Margin="2,0,0,0"  Value="{Binding EndYear}"/>
 
                 <Label Content="Start month:" Grid.Row="3" Grid.Column="0" FontSize="13"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Height="27" HorizontalAlignment="Left" Width="60" Margin="2,0,0,0" Value="{Binding StartMonth}"/>
 
                 <Label Content="End month:" Grid.Row="3" Grid.Column="2" FontSize="13"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" FontSize="28" Margin="2,0,0,0"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" Margin="2,0,0,0"  Value="{Binding EndMonth}"/>
 
-                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Content="Filter" Width="65" Height="36" FontSize="13" VerticalAlignment="Center"/>
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Filter" Width="65" Height="36" VerticalAlignment="Center" Command="{Binding FilterCmd}"/>
+                <Button Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Content="Clear" Width="65" Height="36" VerticalAlignment="Center" Command="{Binding ClearCmd}"/>
             </Grid>
         </GroupBox>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="17" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
-            The number of requests for this location is: *132*
-        </TextBlock>
+        <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label  FontSize="16">The number of requests</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label  FontSize="16">for this location is:</Label>
+                <Label  FontSize="16" FontWeight="Bold" Content="{Binding RequestNum}"/>
+            </StackPanel>
+        </StackPanel>
         <Button Content="Create tour by params" Grid.Row="2" Grid.Column="1" Width="150" Height="60" FontSize="13"></Button>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="17" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center">
-            The most requested location is *Rome, Italy*, with *1231* requests
-        </TextBlock>
+        <StackPanel Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label FontSize="16">The most requested</Label>
+            <Label FontSize="16">location is:</Label>
+            <StackPanel Orientation="Horizontal">
+                <!--*Rome, Italy*-->
+                <Label FontSize="16" FontWeight="Bold" Content="{Binding MostRequestedLocation}"/>
+                <Label FontSize="16" Margin="-5, 0, -5, 0">with</Label>
+                <!--*123*-->
+                <Label FontSize="16" FontWeight="Bold" Content="{Binding MostRequestedNum}"/>
+            </StackPanel>
+            <Label FontSize="16">requests</Label>
+        </StackPanel>
         <Button Content="Create this tour" Grid.Row="3" Grid.Column="1" Width="150" Height="60" FontSize="13"></Button>
 
         <Button Content="Go back" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Width="140" Height="60" FontSize="13" Margin="0,0,0,0" VerticalAlignment="Top" Command="{Binding CloseCmd}"></Button>
