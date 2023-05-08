@@ -31,6 +31,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _notificationContainerVisibility;
         private string _notifications;
         private string _btnNewVisibility;
+        private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
             {0, "Visible"},
@@ -75,6 +76,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
             set
             {
                 _btnNewVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                _isChecked = value;
                 OnPropertyChanged();
             }
         }

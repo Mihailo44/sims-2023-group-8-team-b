@@ -46,7 +46,7 @@
                 <WrapPanel Width="270" Height="170" Orientation="Vertical" Background="Transparent">
                     <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="22" FontWeight="SemiBold"/>
                     <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding Status}" FontSize="18" FontWeight="ExtraBlack"/>
-                    <Button Width="210" Height="40" Margin="15,25,0,0" Content="Log out" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
+                    <Button Width="210" Height="45" Margin="15,25,0,0" Content="Log out" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
                 </WrapPanel>
             </Grid>
         </Canvas>
@@ -131,8 +131,15 @@
                             <GridViewColumn Width="250" Header="Accommodation" DisplayMemberBinding="{Binding Accommodation.Name}"/>
                             <GridViewColumn Width="125" Header="First Name" DisplayMemberBinding="{Binding Guest.FirstName}"/>
                             <GridViewColumn Width="125" Header="Last Name" DisplayMemberBinding="{Binding Guest.LastName}"/>
-                            <GridViewColumn Width="250" Header="Start" DisplayMemberBinding="{Binding Start}"/>
-                            <GridViewColumn Width="250" Header="End" DisplayMemberBinding="{Binding End}"/>
+                            <GridViewColumn Width="225" Header="Start" DisplayMemberBinding="{Binding Start}"/>
+                            <GridViewColumn Width="225" Header="End" DisplayMemberBinding="{Binding End}"/>
+                            <GridViewColumn Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsEnabled="False"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
