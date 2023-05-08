@@ -18,6 +18,8 @@ namespace TouristAgency.Users
         private App _app;
         private Guest _loggedInGuest;
         private Window _window;
+        private string _username;
+        private string _welcomeUsername;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
@@ -32,6 +34,8 @@ namespace TouristAgency.Users
             _window = window;
 
             InstantiateCommands();
+            ShowUser();
+            WelcomeUser();
         }
 
         private void InstantiateCommands()
@@ -46,6 +50,41 @@ namespace TouristAgency.Users
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
         }
 
+        private void ShowUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+        }
+
+        private void WelcomeUser()
+        {
+            WelcomeUsername = "Welcome " + _loggedInGuest.Username + "!!!";
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
+                }
+            }
+        }
+
+        public string WelcomeUsername
+        {
+            get => _welcomeUsername;
+            set
+            {
+                if (value != _welcomeUsername)
+                {
+                    _welcomeUsername = value;
+                    OnPropertyChanged("WelcomeUsername");
+                }
+            }
+        }
         public bool CanOpenAccommodationDisplayCmdExecute()
         {
             return true;

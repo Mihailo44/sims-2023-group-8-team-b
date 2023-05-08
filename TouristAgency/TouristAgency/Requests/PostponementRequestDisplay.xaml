@@ -13,8 +13,8 @@
 
         <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB">
             <Image Source="../Resources/Image/user-guest.png" Height="88" Margin="0,10,0,0"></Image>
-            <Label HorizontalAlignment="Center" Content="{Binding Username}"></Label>
-            <Button Height="25" Width="100" Background="Transparent" FontWeight="SemiBold" BorderBrush="Transparent">
+            <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
@@ -27,18 +27,19 @@
                     <TextBlock>Help</TextBlock>
                 </StackPanel>
             </Button>
+            <Separator Width="100" Height="44" Background="Transparent"></Separator>
             <Label FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center">
                 <TextBlock TextDecorations="Underline">Menu</TextBlock>
             </Label>
-            <Separator Width="100" Height="44" Background="Transparent"></Separator>
-            <Button Content="Display and reservation" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Review and recommendation" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Review display" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Move and cancel reservation" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Anywhere, anytime" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Super-guest" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Forum" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Reservations report" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            
+            <Button Content="Display and reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
         </StackPanel>
 
 
@@ -68,7 +69,7 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Column="2" Content="Cancel reservation" Background="#F4F1BB" BorderBrush="Transparent" FontWeight="SemiBold" Height="30" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" Command="{Binding Path = CancelCmd}"/>
+            <Button Grid.Column="2" Content="Cancel reservation" Background="#F4F1BB" BorderBrush="Transparent" FontSize="14" FontWeight="SemiBold" Height="30" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" Command="{Binding Path = CancelCmd}"/>
             <StackPanel  Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"  VerticalAlignment="Top">
                 <Image Width="70" Cursor="Hand">
                     <Image.Source>
@@ -104,7 +105,7 @@
                 <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=Start}"/>
                 <Label Grid.Column="3" Content="from:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
                 <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=End}"/>
-                <Button Grid.Column="5" Height="30" Width="126" Content="Send a request" Background="#F4F1BB" BorderBrush="Transparent" FontSize="13" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" Margin="26,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Button Grid.Column="5" Height="30" Width="126" Content="Send a request" Background="#F4F1BB" BorderBrush="Transparent" FontSize="14" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" Margin="26,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
 
