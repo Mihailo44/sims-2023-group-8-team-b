@@ -22,6 +22,7 @@
     <None Remove="Resources\Image\profile-user.png" />
     <None Remove="Resources\Image\question-solid.png" />
     <None Remove="Resources\Image\right-to-bracket-solid.png" />
+    <None Remove="Resources\Image\super-guest.png" />
     <None Remove="Resources\Image\user-check-guest.png" />
     <None Remove="Resources\Image\user-guest.png" />
     <None Remove="Resources\Image\user-solid.png" />
@@ -59,6 +60,7 @@
     <Resource Include="Resources\Image\profile-user.png" />
     <Resource Include="Resources\Image\question-solid.png" />
     <Resource Include="Resources\Image\right-to-bracket-solid.png" />
+    <Resource Include="Resources\Image\super-guest.png" />
     <Resource Include="Resources\Image\user-check-guest.png" />
     <Resource Include="Resources\Image\user-solid.png" />
     <Resource Include="Resources\Image\user-guest.png" />
