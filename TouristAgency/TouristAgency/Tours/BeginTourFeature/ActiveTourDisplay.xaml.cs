@@ -3,7 +3,7 @@ using TouristAgency.Users;
 using TouristAgency.Reservations;
 using System.Windows.Controls;
 
-namespace TouristAgency.Reservations
+namespace TouristAgency.Tours.BeginTourFeature
 {
     /// <summary>
     /// Interaction logic for ActiveTourDisplay.xaml

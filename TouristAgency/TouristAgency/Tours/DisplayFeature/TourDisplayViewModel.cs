@@ -9,7 +9,7 @@ using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.View.Display;
 
-namespace TouristAgency.Reservations
+namespace TouristAgency.Tours.DisplayFeature
 {
     public class TourDisplayViewModel : ViewModelBase, ICloseable, ICreate
     {

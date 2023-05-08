@@ -6,7 +6,7 @@ using TouristAgency.Users;
 using TouristAgency.Users.Domain;
 using TouristAgency.Util;
 using TouristAgency.Accommodations.Domain;
-using TouristAgency.Users.GuideStart;
+using TouristAgency.Users.GuideNavigationWindow;
 using TouristAgency.Users.OwnerNavigationWindow;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 

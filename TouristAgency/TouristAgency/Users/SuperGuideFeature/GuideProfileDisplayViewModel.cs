@@ -6,7 +6,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Tours;
 using TouristAgency.Users.HomeDisplayFeature;
 
-namespace TouristAgency.Users.ProfileDisplayFeature
+namespace TouristAgency.Users.SuperGuideFeature
 {
     public class GuideProfileDisplayViewModel : BurgerMenuViewModelBase, ICloseable
     {

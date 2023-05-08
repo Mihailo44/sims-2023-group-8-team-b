@@ -4,6 +4,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Users;
 using TouristAgency.Tours;
+using TouristAgency.Review.Domain;
 
 namespace TouristAgency.Review.GuideReviewDisplayFeature
 {

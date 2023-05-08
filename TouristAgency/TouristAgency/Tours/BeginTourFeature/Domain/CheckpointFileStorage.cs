@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Serialization;
-using TouristAgency.Tours;
 
-namespace TouristAgency.Storage.FileStorage
+namespace TouristAgency.Tours.BeginTourFeature.Domain
 {
     public class CheckpointFileStorage : IStorage<Checkpoint>
     {

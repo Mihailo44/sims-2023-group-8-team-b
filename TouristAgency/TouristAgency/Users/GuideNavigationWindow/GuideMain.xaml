@@ -1,10 +1,10 @@
-﻿<Window x:Class="TouristAgency.Users.GuideStart.GuideMain"
+﻿<Window x:Class="TouristAgency.Users.GuideNavigationWindow.GuideMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:us="clr-namespace:TouristAgency.Users"
-        xmlns:profiledisplay="clr-namespace:TouristAgency.Users.ProfileDisplayFeature"
+        xmlns:profiledisplay="clr-namespace:TouristAgency.Users.SuperGuideFeature"
         xmlns:homedisplay="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
         xmlns:to="clr-namespace:TouristAgency.Tours"
         xmlns:creation="clr-namespace:TouristAgency.CreationFeature"
@@ -13,7 +13,7 @@
         xmlns:tourreqst="clr-namespace:TouristAgency.TourRequests.StatisticsFeature"
         xmlns:tr="clr-namespace:TouristAgency.TourRequests"
         xmlns:acceptreq="clr-namespace:TouristAgency.TourRequests.AcceptRequestFeature"
-        xmlns:re="clr-namespace:TouristAgency.Reservations"
+        xmlns:begin="clr-namespace:TouristAgency.Tours.BeginTourFeature"
         mc:Ignorable="d"
         Title="GuideMain" Height="600" Width="390" WindowStartupLocation="CenterScreen" Name="GuideStart">
 
@@ -46,8 +46,8 @@
             <creation:TourCreation/>
         </DataTemplate>
         
-        <DataTemplate DataType="{x:Type re:ActiveTourDisplayViewModel}">
-            <re:ActiveTourDisplay/>
+        <DataTemplate DataType="{x:Type begin:ActiveTourDisplayViewModel}">
+            <begin:ActiveTourDisplay/>
         </DataTemplate>
     </Window.Resources>
 

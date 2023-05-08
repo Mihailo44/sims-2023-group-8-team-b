@@ -2,7 +2,7 @@
 using TouristAgency.Interfaces;
 using TouristAgency.Users;
 
-namespace TouristAgency.Tours
+namespace TouristAgency.Tours.BeginTourFeature.Domain
 {
     public class TourCheckpoint : ISerializable
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace TouristAgency.Tours
+namespace TouristAgency.Tours.BeginTourFeature.Domain
 {
     public class TourCheckpointService
     {

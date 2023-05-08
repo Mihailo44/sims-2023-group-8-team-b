@@ -6,7 +6,7 @@ using TouristAgency.Users;
 using TouristAgency.Util;
 using TouristAgency.Tours;
 
-namespace TouristAgency.Review
+namespace TouristAgency.Review.Domain
 {
     public class GuideReviewRepository : ICrud<GuideReview>, ISubject
     {

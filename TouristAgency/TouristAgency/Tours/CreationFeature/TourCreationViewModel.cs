@@ -6,6 +6,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;

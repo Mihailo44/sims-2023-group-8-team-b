@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Base;
 using TouristAgency.Users.HomeDisplayFeature;
 
-namespace TouristAgency.Users.GuideStart
+namespace TouristAgency.Users.GuideNavigationWindow
 {
     public class GuideMainViewModel : ViewModelBase
     {

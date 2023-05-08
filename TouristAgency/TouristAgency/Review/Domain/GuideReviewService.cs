@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TouristAgency.Review
+namespace TouristAgency.Review.Domain
 {
     public class GuideReviewService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using TouristAgency.Users;
 using TouristAgency.Util;
 
-namespace TouristAgency.Tours
+namespace TouristAgency.Tours.BeginTourFeature.Domain
 {
     public class TourTouristCheckpointService
     {

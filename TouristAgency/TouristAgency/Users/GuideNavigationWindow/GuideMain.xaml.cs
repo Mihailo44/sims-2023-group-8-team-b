@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Users;
 
-namespace TouristAgency.Users.GuideStart
+namespace TouristAgency.Users.GuideNavigationWindow
 {
     /// <summary>
     /// Interaction logic for GuideMain.xaml

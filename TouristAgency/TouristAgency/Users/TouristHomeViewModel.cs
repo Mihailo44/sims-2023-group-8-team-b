@@ -3,7 +3,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Statistics;
 using TouristAgency.TourRequests;
-using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 

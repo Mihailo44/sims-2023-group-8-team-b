@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Review.Domain;
 using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.Util;

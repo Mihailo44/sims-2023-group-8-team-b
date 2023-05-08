@@ -3,12 +3,12 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;
 
-namespace TouristAgency.Reservations
+namespace TouristAgency.Tours.BeginTourFeature
 {
     public class ActiveTourDisplayViewModel : BurgerMenuViewModelBase, ICreate, IObserver
     {
@@ -74,7 +74,7 @@ namespace TouristAgency.Reservations
                 param => CanRemoveTouristFromCheckpoint());
             LoadTouristsToCheckpointCmd = new DelegateCommand(param => LoadTouristsToCheckpoint(),
                 param => CanLoadTouristsToCheckpoint());
-           // BeginTourCmd = new DelegateCommand(param => BeginTourCmdExecute(), param => CanBeginTourCmdExecute());
+            // BeginTourCmd = new DelegateCommand(param => BeginTourCmdExecute(), param => CanBeginTourCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
         }
 
@@ -143,7 +143,7 @@ namespace TouristAgency.Reservations
             get => _selectedTour;
             set
             {
-                if(value != _selectedTour)
+                if (value != _selectedTour)
                 {
                     _selectedTour = value;
                     OnPropertyChanged("SelectedTour");
