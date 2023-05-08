@@ -12,7 +12,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         private readonly Window _window;
         private Renovation _renovation;
         private RenovationService _renovationService;
-        private AccommodationService _accommodationService;
 
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
@@ -20,7 +19,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         public RenovationDescriptionDialogueViewModel(Renovation renovation, Window window)
         {
             _renovationService = new();
-            _accommodationService = new();
             _window = window;
             Renovation = renovation;
 

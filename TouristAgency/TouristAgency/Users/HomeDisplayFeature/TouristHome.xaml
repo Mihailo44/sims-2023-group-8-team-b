@@ -23,61 +23,61 @@
             <MenuItem Header="_Tour">
                 <MenuItem Header="Attendance on the tour" Command="{Binding TourAttendanceCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/attendance.png"/>
+                        <Image Source="../../Resources/Image/attendance.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="Tour and guide review" Command="{Binding TourGuideReviewCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/review.png"/>
+                        <Image Source="../../Resources/Image/review.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/tours.png"/>
+                        <Image Source="../../Resources/Image/tours.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="View and create tour requests" Command="{Binding TourRequestCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/create.png"/>
+                        <Image Source="../../Resources/Image/create.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="View and create requests for complex tours">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/create1.png"/>
+                        <Image Source="../../Resources/Image/create1.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="View statistics on tour requests" Command="{Binding TourRequestStatisticsCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/statistics.png"/>
+                        <Image Source="../../Resources/Image/statistics.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Report">
                 <MenuItem Header="Generate voucher report">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/report.png"/>
+                        <Image Source="../../Resources/Image/report.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem Header="Where can I find my vouchers?" Command="{Binding HelpForVoucherCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/voucher.png"/>
+                        <Image Source="../../Resources/Image/voucher.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Which shortcuts I can use?">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/shortcut.png"/>
+                        <Image Source="../../Resources/Image/shortcut.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="Exit, Alt+F4">
                     <MenuItem.Icon>
-                        <Image Source="../Resources/Image/exit.png"/>
+                        <Image Source="../../Resources/Image/exit.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -86,7 +86,7 @@
         <StackPanel Grid.Row="0" Grid.RowSpan="5" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,70,0,0">
             <Image Height="210" Width="210">
                 <Image.Source>
-                    <BitmapImage UriSource="../Resources/Image/userTourist.png"/>
+                    <BitmapImage UriSource="../../Resources/Image/userTourist.png"/>
                 </Image.Source>
             </Image>
 
@@ -94,7 +94,7 @@
             <Label Content="Where would you like to go today?" FontSize="28"></Label>
             <Button Grid.Row="4" Width="170" Height="45" Command="{Binding CloseCmd}" FontSize="28" FontWeight="Bold" Background="Honeydew" Margin="0,25,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../Resources/Image/logout.png" Margin="0,0,10,0"/>
+                    <Image Source="../../Resources/Image/logout.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
                 </StackPanel>
             </Button>
@@ -103,7 +103,7 @@
         <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
             <Image Width="100" Height="100" >
                 <Image.Source>
-                    <BitmapImage UriSource="../Resources/Image/notification-bell.png"/>
+                    <BitmapImage UriSource="../../Resources/Image/notification-bell.png"/>
                 </Image.Source>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">

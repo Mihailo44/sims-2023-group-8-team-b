@@ -19,12 +19,12 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
          
-        <Label Grid.Row="0" Grid.Column="0" Margin="50,10,0,0" Content="Leave a comment: (Optional)" FontSize="18"/>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,10,0,0" Content="Leave a comment: (Optional)" FontSize="22" FontWeight="SemiBold"/>
         <TextBox Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"  Height="200" Width="500" Margin="0,15,0,0" FontSize="23" Text="{Binding Comment}">
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="3" Grid.Column="0" Margin="40,0,0,0" Width="140" Height="60" Content="SUBMIT" FontSize="20" Command="{Binding SubmitCommentCmd}"/>
-        <Button Grid.Row="3" Grid.Column="1" Margin="0,0,40,0" Width="140" Height="60" Content="CANCEL" FontSize="20" Command="{Binding CloseCmd}"/>
+        <Button Grid.Row="3" Grid.Column="0" Margin="40,0,0,0" Content="SUBMIT" Command="{Binding SubmitCommentCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="3" Grid.Column="1" Margin="0,0,40,0" Width="140" Height="60" Content="CANCEL" FontSize="20" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
     </Grid>
 </Window>

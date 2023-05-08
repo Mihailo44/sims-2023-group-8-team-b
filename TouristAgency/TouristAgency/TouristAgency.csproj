@@ -91,8 +91,4 @@
     <Resource Include="Resources\Image\voucher.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Accommodations\StatisticsFeature\" />
-  </ItemGroup>
-
 </Project>

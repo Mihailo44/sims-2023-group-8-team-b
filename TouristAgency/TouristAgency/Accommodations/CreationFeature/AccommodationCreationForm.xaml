@@ -55,7 +55,7 @@
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <TextBox Grid.Row="3" Grid.Column="1" Width="250" Height="32" FontSize="22" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
-        <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="250" Height="32" FontSize="22" Text="{Binding Path=NewAccommodation.Type, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Name="cbType" Grid.Row="4" Grid.Column="1" Width="250" Height="32" FontSize="22" ItemsSource="{Binding TypeComboValues}" Text="{Binding Path=NewAccommodation.Type, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Row="5" Grid.Column="1" Width="250" Height="32" FontSize="22" Text="{Binding Path=NewAccommodation.MaxGuestNum,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
         <TextBox Grid.Row="6" Grid.Column="1" Width="250" Height="32" FontSize="22" Text="{Binding Path=NewAccommodation.MinNumOfDays,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"

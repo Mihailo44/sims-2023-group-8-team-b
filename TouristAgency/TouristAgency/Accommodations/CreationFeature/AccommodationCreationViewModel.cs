@@ -5,6 +5,7 @@ using System.ComponentModel;
 using TouristAgency.Util;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Users.HomeDisplayFeature;
+using System.Collections.Generic;
 
 namespace TouristAgency.Accommodations.CreationFeature
 {
@@ -23,6 +24,8 @@ namespace TouristAgency.Accommodations.CreationFeature
         private string _photoLinks;
         private App _app = (App)Application.Current;
 
+        public List<string> TypeComboValues { get; set; } = new();
+ 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
         public Owner LoggedUser { get; }
@@ -36,6 +39,7 @@ namespace TouristAgency.Accommodations.CreationFeature
             NewAccommodation = new();
             NewLocation = new();
             InstantiateCommands();
+            FillCombo();
         }
 
         private void InstantiateServices()
@@ -49,6 +53,13 @@ namespace TouristAgency.Accommodations.CreationFeature
         {
             CreateCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
+        }
+
+        private void FillCombo()
+        {
+            TypeComboValues.Add(TYPE.APARTMENT.ToString());
+            TypeComboValues.Add(TYPE.HOTEL.ToString());
+            TypeComboValues.Add(TYPE.HUT.ToString());
         }
 
         public Owner Owner

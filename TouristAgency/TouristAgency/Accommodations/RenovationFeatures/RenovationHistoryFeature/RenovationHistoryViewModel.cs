@@ -15,7 +15,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
     public class RenovationHistoryViewModel : ViewModelBase,IObserver
     {
         private RenovationService _renovationService;
-        private App app;
+        private readonly App _app;
         public Renovation SelectedRenovation { get; set; }
         public Accommodation SelectedAccommodation { get; } = new();
         public ObservableCollection<Renovation> Renovations { get; set; }
@@ -24,7 +24,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
 
         public RenovationHistoryViewModel(Accommodation accommodation)
         {
-            app = (App)App.Current;
+            _app = (App)App.Current;
             _renovationService = new();
             _renovationService.RenovationRepository.Subscribe(this);
             SelectedRenovation = new();
@@ -68,8 +68,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
                 }
                 else if(dateDiff > 5)
                 {
-                    //SelectedRenovation.IsCanceled = true;
-                    //_renovationService.RenovationRepository.Update(SelectedRenovation, SelectedRenovation.Id);
                     _renovationService.CancelRenovation(SelectedRenovation);
                     MessageBox.Show("Renovation has been canceled");
                 }

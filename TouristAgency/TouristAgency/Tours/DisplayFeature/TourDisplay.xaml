@@ -56,14 +56,14 @@
                 <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
                     <Button Width="210" Height="40" Command="{Binding FilterCmd}" FontSize="28" FontWeight="Bold">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../Resources/Image/applyFilter.png" Margin="0,0,10,0"/>
+                            <Image Source="../../Resources/Image/applyFilter.png" Margin="0,0,10,0"/>
                             <TextBlock>Apply filter</TextBlock>
                         </StackPanel>
                     </Button>
                     <Label></Label>
                     <Button Width="210" Height="40" Command="{Binding ClearCmd}" FontSize="28" FontWeight="Bold">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../Resources/Image/clearFilter.png" Margin="0,0,10,0"/>
+                            <Image Source="../../Resources/Image/clearFilter.png" Margin="0,0,10,0"/>
                             <TextBlock>Clear filter</TextBlock>
                         </StackPanel>
                     </Button>
@@ -118,7 +118,7 @@
                     <Label></Label>
                     <Button Grid.Column="3" Width="170" Height="40" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" FontSize="28" FontWeight="Bold">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../Resources/Image/cancel.png" Margin="0,0,10,0"/>
+                            <Image Source="../../Resources/Image/cancel.png" Margin="0,0,10,0"/>
                             <TextBlock>Cancel</TextBlock>
                         </StackPanel>
                     </Button>
