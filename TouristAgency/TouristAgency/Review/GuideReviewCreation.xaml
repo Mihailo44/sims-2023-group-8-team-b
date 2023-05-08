@@ -77,9 +77,9 @@
                 <custom:QualityReviewControl Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="5"></custom:QualityReviewControl>
                 <custom:OrganizationReviewControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5"></custom:OrganizationReviewControl>
                 <custom:AttractionsReviewControl Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5"></custom:AttractionsReviewControl>
-                <custom:LanguageReviewControl Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5"></custom:LanguageReviewControl>
-                <custom:SocialReviewControl Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5"></custom:SocialReviewControl>
-
+                <custom:KnowledgeReviewControl Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5"></custom:KnowledgeReviewControl>
+                <custom:LanguageReviewControl Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5"></custom:LanguageReviewControl>
+                <custom:SocialReviewControl Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="5"></custom:SocialReviewControl>
 
                 <Label Content="Additional comment:" Grid.Row="0" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
                 <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416"></TextBox>
@@ -92,7 +92,12 @@
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
 
-                <Button Content="Send review" Grid.Row="6" Grid.Column="6" Width="228" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0"></Button>
+                <Button Grid.Row="6" Grid.Column="6" Width="240" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Resources/Image/send.png" Margin="0,0,10,0"/>
+                        <TextBlock>Send review</TextBlock>
+                    </StackPanel>
+                </Button>
             </Grid>
         </GroupBox>
     </Grid>
