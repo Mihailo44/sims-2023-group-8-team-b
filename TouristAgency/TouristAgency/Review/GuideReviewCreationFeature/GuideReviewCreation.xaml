@@ -94,7 +94,7 @@
 
                 <Button Grid.Row="6" Grid.Column="6" Width="240" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../Resources/Image/send.png" Margin="0,0,10,0"/>
+                        <Image Source="../../Resources/Image/send.png" Margin="0,0,10,0"/>
                         <TextBlock>Send review</TextBlock>
                     </StackPanel>
                 </Button>

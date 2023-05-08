@@ -64,7 +64,7 @@
 
         <Button Grid.Row="2" Grid.Column="1" Command="{Binding JoinCmd}" Width="240" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="28" FontWeight="Bold" Margin="0,0,0,40">
             <StackPanel Orientation="Horizontal">
-                <Image Source="../Resources/Image/join.png" Margin="0,0,10,0"/>
+                <Image Source="../../Resources/Image/join.png" Margin="0,0,10,0"/>
                 <TextBlock>Join the tour</TextBlock>
             </StackPanel>
         </Button>
