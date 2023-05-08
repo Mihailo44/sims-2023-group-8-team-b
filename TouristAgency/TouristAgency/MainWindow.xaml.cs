@@ -12,27 +12,6 @@ namespace TouristAgency
     /// </summary>
     public partial class MainWindow : Window
     {        
-       /* public string Error => null;
-
-        public string this[string columnName]
-        {
-            get
-            {
-                if (columnName == "Username")
-                {
-                    if (string.IsNullOrEmpty(Username))
-                        return "Required field";
-                }
-                else if (columnName == "Password")
-                {
-                    if (string.IsNullOrEmpty(Password))
-                        return "Required field";
-                }
-
-                return null;
-            }
-        } */
-
         public MainWindow()
         {
             InitializeComponent();

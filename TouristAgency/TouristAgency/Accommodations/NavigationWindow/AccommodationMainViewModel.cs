@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeature;
 using TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFeature;
+using TouristAgency.Accommodations.StatisticsFeature;
 using TouristAgency.Base;
 
 namespace TouristAgency.Accommodations.NavigationWindow
@@ -15,6 +16,7 @@ namespace TouristAgency.Accommodations.NavigationWindow
         private ViewModelBase _currentViewModel;
         private AccommodationRenovationViewModel _accommodationRenovationViewModel;
         private RenovationHistoryViewModel _renovationHistoryViewModel;
+        private AccommodationStatisticsViewModel _accommodationStatisticsViewModel;
 
         public ViewModelBase CurrentViewModel
         {
@@ -34,6 +36,7 @@ namespace TouristAgency.Accommodations.NavigationWindow
         {
             _accommodationRenovationViewModel = new(accommodation);
             _renovationHistoryViewModel = new(accommodation);
+            _accommodationStatisticsViewModel = new();
             CurrentViewModel = new AccommodationRenovationViewModel(accommodation);
             NavCmd = new DelegateCommand(NavCmdExecute, CanNavCmdExecute);
         }
@@ -53,6 +56,9 @@ namespace TouristAgency.Accommodations.NavigationWindow
             int index = int.Parse(parameter.ToString());
             switch (index)
             {
+                case 0:
+                    CurrentViewModel = _accommodationStatisticsViewModel;
+                    break;
                 case 1:
                     CurrentViewModel = _accommodationRenovationViewModel;
                     break;

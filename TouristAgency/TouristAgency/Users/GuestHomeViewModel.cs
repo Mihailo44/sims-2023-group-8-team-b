@@ -5,7 +5,6 @@ using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TouristAgency.AccommodationReservations;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.View.Creation;

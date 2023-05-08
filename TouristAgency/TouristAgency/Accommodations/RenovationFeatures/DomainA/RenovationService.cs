@@ -35,7 +35,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             return renovations;
         }
 
-        public void SetRenovationStatus(AccommodationService accommodationService)
+        public void CheckAccommodationRenovationStatus(AccommodationService accommodationService)
         {
             DateTime today = DateTime.Today;
             List<Accommodation> ownersAccommodations = accommodationService.GetByOwnerId(_app.LoggedUser.ID);
@@ -46,12 +46,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                 if (renovations != null && renovations.Count > 0)
                 {
                     Renovation latestRenovation = renovations[0];
-
-                   /* if((today > latestRenovation.End) && ((today - latestRenovation.End).TotalDays < 365))
-                    {
-                        accommodation.RecentlyRenovated = true;
-                        accommodationService.AccommodationRepository.Update(accommodation, accommodation.Id);
-                    } */
 
                     if ((today - latestRenovation.End).TotalDays > 365)
                     {
@@ -76,26 +70,28 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             {
                 if (renovation.IsCanceled)
                 {
-                    
+                    continue;
                 }
-
-                if(today > renovation.End)
+                else
                 {
-                   Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
-                    if ((renovatedAccommodation != null) && (renovatedAccommodation.CurrentlyRenovating == true))
+                    if (today > renovation.End)
                     {
-                        renovatedAccommodation.CurrentlyRenovating = false;
-                        renovatedAccommodation.RecentlyRenovated = true;
-                        accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
+                        Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
+                        if ((renovatedAccommodation != null) && (renovatedAccommodation.CurrentlyRenovating == true))
+                        {
+                            renovatedAccommodation.CurrentlyRenovating = false;
+                            renovatedAccommodation.RecentlyRenovated = true;
+                            accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
+                        }
                     }
-                }
-                if(today == renovation.Start)
-                {
-                    Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
-                    if (renovatedAccommodation != null)
+                    if (today == renovation.Start)
                     {
-                        renovatedAccommodation.CurrentlyRenovating = true;
-                        accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
+                        Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
+                        if (renovatedAccommodation != null)
+                        {
+                            renovatedAccommodation.CurrentlyRenovating = true;
+                            accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
+                        }
                     }
                 }
             }

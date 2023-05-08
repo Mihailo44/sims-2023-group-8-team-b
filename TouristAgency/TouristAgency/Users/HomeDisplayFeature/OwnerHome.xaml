@@ -17,34 +17,70 @@
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>
-            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="New" Style="{StaticResource CircleBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
+            <Button Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="New" Style="{StaticResource CircleBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
             <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Help" Style="{StaticResource CircleBtnStyle}"/>
         </Grid>
 
         <Canvas Visibility="{Binding AccountContainerVisibility}"
                 Width="270" 
                 Height="170" 
-                Margin="0,70,10,0"
-                VerticalAlignment="Top" 
+                Margin="0,70,10,0" 
+                VerticalAlignment="Top"
                 HorizontalAlignment="Right" 
-                Panel.ZIndex="1000"
-                Background="Transparent">
+                Background="Transparent"
+                Panel.ZIndex="1000">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeave">
+                        <i:InvokeCommandAction Command="{Binding ShowAccCmd}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            
+            <Grid Background="Transparent">
+                <Border Margin="0,0,4,4" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15" Opacity="0.4"/>
+                    </Border.Effect>
+                </Border>
+
+                <WrapPanel Width="270" Height="170" Orientation="Vertical" Background="Transparent">
+                    <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="22" FontWeight="SemiBold"/>
+                    <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding Status}" FontSize="18" FontWeight="ExtraBlack"/>
+                    <Button Width="210" Height="40" Margin="15,25,0,0" Content="Log out" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
+                </WrapPanel>
+            </Grid>
+        </Canvas>
+
+        <Canvas Visibility="{Binding NotificationContainerVisibility}"
+                Width="320" 
+                Height="170" 
+                Margin="0,70,30,0" 
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right" 
+                Background="Transparent"
+                Panel.ZIndex="1000">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeave">
-                    <i:InvokeCommandAction Command="{Binding ShowAccCmd}" />
+                    <i:InvokeCommandAction Command="{Binding ShowNotificationsCmd}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <WrapPanel Width="270" Height="170" Orientation="Vertical" Background="AliceBlue">
-                <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="17"/>
-                <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding Status}" FontSize="17"/>
-                <Button Width="120" Height="40" Margin="0,25,0,0" Content="Log out" Command="{Binding CloseCmd}"/>
-            </WrapPanel>
+            <Grid Background="Transparent">
+                <Border Margin="0,0,4,4" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="15" Opacity="0.4"/>
+                    </Border.Effect>
+                </Border>
+                <StackPanel Width="270" Height="170" Background="Transparent">
+                    <TextBlock FontSize="20" Text="{Binding Notifications}"/>
+                </StackPanel>
+            </Grid>
         </Canvas>
 
-        <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="LightSalmon">
-            <WrapPanel Height="65" Width="1010" Background="PaleVioletRed">
+
+        <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="AntiqueWhite">
+            <WrapPanel Height="65" Width="1010" Background="#FFCBEAFF">
                 <Grid Height="70" Width="1010">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -54,16 +90,16 @@
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
-
-                    <Button Grid.Column="1" Content="Notify" Style="{StaticResource CircleBtnStyle}"/>
+                    <Label Height="auto" Margin="15,0,0,0" FontSize="36" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
+                    <Button Grid.Column="1" Content="Notify" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}"/>
                     <Button Grid.Column="2" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
                 </Grid>
             </WrapPanel>
 
             <WrapPanel Height="auto" Width="auto" Margin="0,0,0,20" Background="Azure">
-                <Button Margin="35,0,0,0" Style="{StaticResource NavButton}" Content="Reservations" Command="{Binding ShowDataGridCmd}" CommandParameter="0"/>
-                <Button Style="{StaticResource NavButton}" Content="Accommodations" Command="{Binding ShowDataGridCmd}" CommandParameter="1"/>
-                <Button Width="190" Style="{StaticResource NavButton}" Content="Postponement Requests" Command="{Binding ShowDataGridCmd}" CommandParameter="2"/>
+                <Button Margin="20,0,0,0" Style="{StaticResource NavButton}" Content="Reservations" Command="{Binding ShowDataGridCmd}" CommandParameter="0"/>
+                <Button Width="170" Style="{StaticResource NavButton}" Content="Accommodations" Command="{Binding ShowDataGridCmd}" CommandParameter="1"/>
+                <Button Width="225" Style="{StaticResource NavButton}" Content="Postponement Requests" Command="{Binding ShowDataGridCmd}" CommandParameter="2"/>
                 <Button Style="{StaticResource NavButton}" Content="Reviews" Command="{Binding ShowDataGridCmd}" CommandParameter="3"/>
                 <Button Style="{StaticResource NavButton}" Content="Forums"/>
             </WrapPanel>
@@ -76,7 +112,14 @@
                       FontSize="19" 
                       ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
                       SelectionMode="Single"  
-                      SelectedItem="{Binding SelectedReservation}">
+                      SelectedItem="{Binding SelectedReservation}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
@@ -94,14 +137,20 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView
-                      Visibility="{Binding DataGridVisibility[1]}"
+                <ListView   Visibility="{Binding DataGridVisibility[1]}"
                       Height="550" 
                       Width="1000"
                       FontSize="19" 
                       ItemsSource="{Binding Accommodations}"
                       SelectionMode="Single"
-                      SelectedItem="{Binding SelectedAccommodation}">
+                      SelectedItem="{Binding SelectedAccommodation}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
@@ -119,14 +168,21 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView
-                            Visibility="{Binding DataGridVisibility[2]}"
-                            Height="550"
-                            Width="1000"
-                            FontSize="19" 
-                            ItemsSource="{Binding PostponementRequests}" 
-                            SelectedItem="{Binding SelectedRequest}" 
-                            SelectionMode="Single" >
+                <ListView   Visibility="{Binding DataGridVisibility[2]}"
+                           Height="550"
+                           Width="1000"
+                           FontSize="19" 
+                           ItemsSource="{Binding PostponementRequests}" 
+                           SelectedItem="{Binding SelectedRequest}" 
+                           SelectionMode="Single"
+                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
@@ -142,23 +198,30 @@
                     </ListView.View>
                 </ListView>
 
-                <DataGrid
+                <ListView
                       Visibility="{Binding DataGridVisibility[3]}" 
                       Height="550" 
                       Width="1000"
-                      FontSize="15"
+                      FontSize="19"
                       ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" 
-                      SelectionMode="Single" 
-                      SelectionUnit="FullRow" 
-                      AutoGenerateColumns="False" 
-                      IsReadOnly="True">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="First Name" FontSize="15" Binding="{Binding Reservation.Guest.FirstName}"/>
-                        <DataGridTextColumn Width="*" Header="Last Name" FontSize="15" Binding="{Binding Reservation.Guest.LastName}"/>
-                        <DataGridTextColumn Width="*" Header="Accommodation" FontSize="15" Binding="{Binding Reservation.Accommodation.Name}"/>
-                        <DataGridTextColumn Width="3*" Header="Comment" FontSize="15" Binding="{Binding Comment}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                      SelectionMode="Single"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="180" Header="First Name"  DisplayMemberBinding="{Binding Reservation.Guest.FirstName}"/>
+                            <GridViewColumn Width="180" Header="Last Name"  DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
+                            <GridViewColumn Width="200" Header="Accommodation"  DisplayMemberBinding="{Binding Reservation.Accommodation.Name}"/>
+                            <GridViewColumn Width="440" Header="Comment"  DisplayMemberBinding="{Binding Comment}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </StackPanel>
         </StackPanel>
     </Grid>

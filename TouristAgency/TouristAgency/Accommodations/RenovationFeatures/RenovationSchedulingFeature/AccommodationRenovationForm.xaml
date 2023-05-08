@@ -36,7 +36,7 @@
         </StackPanel>
 
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Avaliable Dates"/>
-        <ListView Height="375" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+        <ListView Height="370" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding PossibleRenovationDates}"
                   SelectedItem="{Binding SelectedRenovation}"
