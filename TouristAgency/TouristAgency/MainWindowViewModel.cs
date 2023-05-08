@@ -127,6 +127,8 @@ namespace TouristAgency
                     case UserType.GUEST:
                         {
                             User = _guestService.GuestRepository.GetById(User.ID);
+                            User.Username = Username;
+                            User.Password = Password;
                             GuestHome x = new GuestHome(User);
                             x.Show();
                             ClearTxtBoxes();
