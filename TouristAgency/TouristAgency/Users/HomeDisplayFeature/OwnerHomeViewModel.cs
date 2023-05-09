@@ -29,7 +29,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private RenovationService _renovationService;
         private string _accountContainerVisibility;
         private string _notificationContainerVisibility;
-        private string _notifications;
+        private List<string> _notifications;
         private string _btnNewVisibility;
         private string _btnClearNotificationVisibility;
         private bool _isChecked;
@@ -38,7 +38,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {0, "Visible"},
             {1, "Collapsed"},
             {2, "Collapsed"},
-            {3, "Collapsed"}
+            {3, "Collapsed"},
+            {4,"Collapsed" }
         };
 
         public string AccountContainerVisibility
@@ -61,7 +62,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
-        public string Notifications
+        public List<string> Notifications
         {
             get => _notifications;
             set
@@ -153,6 +154,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             SubscribeObservers();
 
             SetUserStatus();
+            Notifications = new();
             ReviewNotification();
             AccountContainerVisibility = "Collapsed";
             NotificationContainerVisibility = "Collapsed";
@@ -283,7 +285,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private void ReviewNotification()
         {
             int changes;
-            string notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
+            List<string> notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
             if (changes > 0)
             {
                 Notifications = notification;
@@ -316,15 +318,15 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 {
                     if (dateDiff > 5.0)
                     {
-                        MessageBox.Show("Guest review time window expired");
+                        MessageBox.Show("Guest review time window expired", "Guest Review Dialogue",MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else if(dateDiff < 0.0)
                     {
-                        MessageBox.Show("Reservation is in progress");
+                        MessageBox.Show("Selected reservation is in progress", "Guest Review Dialogue",MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else if (SelectedReservation.Status == ReviewStatus.REVIEWED)
                     {
-                        MessageBox.Show("Guest has already been reviewed");
+                        MessageBox.Show("Selected guest has already been reviewed", "Guest Review Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
                     }
 
                     return false;
@@ -432,7 +434,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 return false;
             }
 
-            return index >= 0 && index <=5;
+            return index >= 0 && index <=4;
         }
 
         public void ShowDataGridExecute(object parameter)
@@ -444,7 +446,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             else
                 BtnNewVisibility = "Collapsed";
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i <= 4; i++)
             {
                 if(i == index)
                 {
@@ -504,7 +506,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             if (NotificationContainerVisibility == "Visible")
             {
                 NotificationContainerVisibility = "Collapsed";
-                if (string.IsNullOrWhiteSpace(Notifications))
+                if (Notifications.Count == 0)
                 {
                     BtnClearNotificationVisibility = "Collapsed";
                 }
@@ -513,7 +515,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {
                 NotificationContainerVisibility = "Visible";
                 AccountContainerVisibility = "Collapsed";
-                if (!string.IsNullOrWhiteSpace(Notifications))
+                if (Notifications.Count > 0)
                     BtnClearNotificationVisibility = "Visible";
                 else
                     BtnClearNotificationVisibility = "Collapsed";
@@ -522,12 +524,13 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public bool CanClearNotificationsCmdExecute()
         {
-            return !string.IsNullOrWhiteSpace(Notifications) ;
+            return true ;
         }
 
         public void ClearNotificationsCmdExecute()
         {
-            Notifications = "";
+            Notifications.Clear();
+            NotificationContainerVisibility = "Collapsed";
         }
 
         public bool CanShowAccommodationMainExecute()

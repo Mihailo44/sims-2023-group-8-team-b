@@ -143,16 +143,21 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             return ReservationRepository.GetAll().FindAll(r => r.Accommodation.OwnerId == id);
         }
 
+        public List<Reservation> GetByAccommodationId(int id)
+        {
+            return ReservationRepository.GetAll().FindAll(r => r.AccommodationId ==id);
+        }
+
         public List<Reservation> GetByGuestId(int id)
         {
             return ReservationRepository.GetAll().FindAll(r => r.GuestId == id && r.Start >= DateTime.Now && r.IsCanceled == false);
         }
 
-        public string ReviewNotification(int ownerId, out int changes)
+        public List<string> ReviewNotification(int ownerId, out int changes)
         {
             DateTime today = DateTime.UtcNow.Date;
 
-            string notification = "Unreviewed guests:\n";
+            List<string> notification = new List<string>();
             double dateDiff;
             changes = 0;
 
@@ -162,7 +167,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
                 if (today > reservation.End && dateDiff < 5.0)
                 {
-                    notification += $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {dateDiff} days left\n";
+                    notification.Add($"{reservation.Guest.FirstName} {reservation.Guest.LastName} {dateDiff} days left");
                     changes++;
                 }
             }
@@ -202,7 +207,5 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
             return false;
         }
-
-
     }
 }

@@ -13,7 +13,7 @@
                   ItemsSource="{Binding Renovations}"
                   SelectedItem="{Binding SelectedRenovation}"
                   SelectionMode="Single"
-                  FontSize="19"
+                  FontSize="21"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
             <ListView.ItemContainerStyle>
