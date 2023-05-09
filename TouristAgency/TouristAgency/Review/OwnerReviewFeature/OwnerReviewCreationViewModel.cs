@@ -23,6 +23,7 @@ namespace TouristAgency.Review.OwnerReviewFeature
         private ObservableCollection<Reservation> _unreviewedReservations;
 
         private OwnerReview _newOwnerReview;
+        private string _username;
 
         private ReservationService _reservationService;
         private OwnerReviewService _ownerReviewService;
@@ -38,6 +39,7 @@ namespace TouristAgency.Review.OwnerReviewFeature
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            DisplayUser();
         }
 
         private void InstantiateServices()
@@ -56,6 +58,12 @@ namespace TouristAgency.Review.OwnerReviewFeature
         private void InstantiateCommands()
         {
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
+        }
+
+        private void DisplayUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+
         }
 
         public ObservableCollection<Reservation> UnreviewedReservations
@@ -80,6 +88,19 @@ namespace TouristAgency.Review.OwnerReviewFeature
                 {
                     _newOwnerReview = value;
                     OnPropertyChanged("NewOwnerReview");
+                }
+            }
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
                 }
             }
         }

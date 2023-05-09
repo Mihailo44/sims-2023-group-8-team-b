@@ -85,7 +85,7 @@
                 <Button Grid.Row="4" Grid.Column="5" Margin="0,14,0,0" Width="80" Height="30" VerticalAlignment="Top" Content="Submit" FontWeight="SemiBold" FontSize="15"  Background="#F4F1BB" HorizontalAlignment="Center" Command="{Binding Path=CreateCmd}"/>
             </Grid>
         </GroupBox>
-        <ListView ItemsSource="{Binding Path = UnreviewedReservations}" Margin="205,53,26,513" SelectedItem="{Binding Path= SelectedReservation}">
+        <ListView ItemsSource="{Binding Path = UnreviewedReservations}" FontSize="13" Margin="205,53,26,513" SelectedItem="{Binding Path= SelectedReservation}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Owner name" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Owner.FirstName}"></GridViewColumn>

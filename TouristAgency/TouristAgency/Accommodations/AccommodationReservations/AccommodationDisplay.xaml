@@ -103,8 +103,8 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Content="Number of people:" FontSize="15" Grid.ColumnSpan="2" Margin="0,22,60,10"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="45" Height="25" HorizontalAlignment="Center" Value="{Binding Path = NumOfPeople}" Margin="49,23,0,22" VerticalAlignment="Center"/>
+                <Label Grid.Column="0" Content="Number of people:" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="45" Height="25" HorizontalAlignment="Right" Value="{Binding Path = NumOfPeople}" VerticalAlignment="Center"/>
                 <Button x:Name="MakeReservationButton" FontSize="14" FontWeight="SemiBold"  Background="#F4F1BB" Grid.Row="1" Grid.ColumnSpan="2" Content="Make a reservation" Width="125" Height="28" HorizontalAlignment="Center" Command="{Binding CreateCmd}"/>
             </Grid>
         </GroupBox>

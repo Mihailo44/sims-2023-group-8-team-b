@@ -31,7 +31,7 @@
             <Label FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center">
                 <TextBlock TextDecorations="Underline">Menu</TextBlock>
             </Label>
-            
+
             <Button Content="Display and reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
             <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
             <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
@@ -57,7 +57,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="All reservations:" Foreground="Black" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Height="36" Width="154" Margin="10,0,0,0" VerticalAlignment="Center"/>
-            <ListView Grid.Row="1" FontSize="19.25" Foreground="Black" ItemsSource="{Binding Path=Reservations}" Margin="0,10,10,0" VerticalAlignment="Top" Height="167" SelectedItem="{Binding Path =SelectedReservation}" Grid.ColumnSpan="2">
+            <ListView Grid.Row="1" FontSize="15" Foreground="Black" ItemsSource="{Binding Path=Reservations}" Margin="0,10,10,0" VerticalAlignment="Top" Height="167" SelectedItem="{Binding Path =SelectedReservation}" Grid.ColumnSpan="2">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
@@ -69,7 +69,7 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Column="2" Content="Cancel reservation" Background="#F4F1BB" BorderBrush="Transparent" FontSize="14" FontWeight="SemiBold" Height="30" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" Command="{Binding Path = CancelCmd}"/>
+            <Button Grid.Column="2" Content="Cancel reservation" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Height="30" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" Command="{Binding Path = CancelCmd}"/>
             <StackPanel  Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"  VerticalAlignment="Top">
                 <Image Width="70" Cursor="Hand">
                     <Image.Source>
@@ -83,7 +83,7 @@
                 </Image>
                 <Label Content="Notifications" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
             </StackPanel>
-            
+
         </Grid>
 
         <GroupBox Header="Request for moving reservation" Foreground="Black"  FontSize="20" FontWeight="SemiBold" Margin="218,289,58,278">
@@ -101,16 +101,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Content="I want to move for:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center"></Label>
-                <Label Grid.Column="1" Content="from:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                <Label Grid.Column="1" Content="from:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                 <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=Start}"/>
-                <Label Grid.Column="3" Content="from:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
-                <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=End}"/>
-                <Button Grid.Column="5" Height="30" Width="126" Content="Send a request" Background="#F4F1BB" BorderBrush="Transparent" FontSize="14" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" Margin="26,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Grid.Column="3" Content="to:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=End}"/>
+                <Button Grid.Column="5" Height="30" Width="126" Content="Send a request" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
 
         <Label Content="Requests:" Foreground="Black" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="218,406,0,0" VerticalAlignment="Top"/>
-        <ListView ItemsSource="{Binding Path=Requests}" Margin="218,447,58,5" FontSize="19.25" Foreground="Black">
+        <ListView ItemsSource="{Binding Path=Requests}" Margin="218,447,58,5" FontSize="15" Foreground="Black">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Name}"></GridViewColumn>
