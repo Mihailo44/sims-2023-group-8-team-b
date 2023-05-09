@@ -2,6 +2,7 @@
 using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
+using TouristAgency.Users.Domain;
 using TouristAgency.Vouchers;
 
 namespace TouristAgency.Users
@@ -97,6 +98,20 @@ namespace TouristAgency.Users
                     if (voucher.TouristID == tourist.ID)
                     {
                         tourist.WonVouchers.Add(voucher);
+                    }
+                }
+            }
+        }
+
+        public void LoadUsersToTourists(List<User> users)
+        {
+            foreach (User user in users)
+            {
+                foreach (Tourist tourist in _tourists)
+                {
+                    if (user.ID == tourist.ID)
+                    {
+                        tourist.Username = user.Username;
                     }
                 }
             }
