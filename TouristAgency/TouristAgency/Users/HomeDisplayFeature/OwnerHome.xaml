@@ -20,18 +20,16 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid Height="70" Width="970" VerticalAlignment="Bottom" Margin="0,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
+        <Grid Height="80" Width="970" VerticalAlignment="Bottom" Margin="0,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>
-            <Button Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="New" Style="{StaticResource CircleBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Help" BorderBrush="DarkSlateBlue" Foreground="BlanchedAlmond" Style="{StaticResource CircleBtnStyle}">
-
-            </Button>
+            <Button Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="NEW" Style="{StaticResource DemoBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="HELP" Style="{StaticResource DemoBtnStyle}"/>
         </Grid>
 
         <Canvas Visibility="{Binding AccountContainerVisibility}"
-                Width="270" 
+                Width="300" 
                 Height="170" 
                 Margin="0,70,10,0" 
                 VerticalAlignment="Top"
@@ -53,40 +51,69 @@
                 </Border>
 
                 <WrapPanel Width="270" Height="170" Orientation="Vertical" Background="Transparent">
-                    <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="22" FontWeight="SemiBold"/>
+                    <Label Width="250" Height="35" Margin="10,15,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="22" FontWeight="SemiBold"/>
                     <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding Status}" FontSize="18" FontWeight="ExtraBlack"/>
-                    <Button Width="210" Height="45" Margin="15,25,0,0" Content="Log out" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
+                    <Button Width="210" Height="45" Margin="10,20,0,0" Content="Log out" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
                 </WrapPanel>
             </Grid>
         </Canvas>
 
         <Canvas Visibility="{Binding NotificationContainerVisibility}"
-                Width="320" 
-                Height="170" 
-                Margin="0,70,30,0" 
+                Width="400" 
+                Height="200" 
+                Margin="0,70,85,0" 
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right" 
                 Background="Transparent"
                 Panel.ZIndex="1000">
 
-            <i:Interaction.Triggers>
+           <!-- <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeave">
                     <i:InvokeCommandAction Command="{Binding ShowNotificationsCmd}" />
                 </i:EventTrigger>
-            </i:Interaction.Triggers>
+            </i:Interaction.Triggers>-->
 
-            <Grid Background="Transparent">
-                <Border Margin="0,0,4,4" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1">
+            <Grid Width="400" Height="200">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+   
+                <Border Grid.RowSpan="2" Margin="0,0,4,4" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="15" Opacity="0.4"/>
                     </Border.Effect>
                 </Border>
-                <StackPanel Width="270" Height="170" Background="Transparent">
-                    <TextBlock FontSize="20" Text="{Binding Notifications}"/>
+
+                <StackPanel Grid.Row="0">
+                    <ListView
+                      Height="auto"
+                      Width="380"
+                      Margin="0,15,0,0"
+                      FontSize="19" 
+                      ItemsSource="{Binding Notifications,UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single"  
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </ListView.Resources>
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="380" DisplayMemberBinding="{Binding}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </StackPanel>
+                <Button Grid.Row="1" Width="280" Height="45" Content="Clear" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,15" Visibility="{Binding BtnClearNotificationVisibility}" Command="{Binding ClearNotificationsCmd}" Style="{StaticResource BasicBtn}"/>
             </Grid>
         </Canvas>
-
 
         <StackPanel Height="740" Width="1015" Orientation="Vertical">
             <WrapPanel Height="65" Width="1015">
@@ -122,15 +149,16 @@
                 <Button Width="170" Style="{StaticResource NavButton}" Content="Accommodations" Command="{Binding ShowDataGridCmd}" CommandParameter="1"/>
                 <Button Width="225" Style="{StaticResource NavButton}" Content="Postponement Requests" Command="{Binding ShowDataGridCmd}" CommandParameter="2"/>
                 <Button Style="{StaticResource NavButton}" Content="Reviews" Command="{Binding ShowDataGridCmd}" CommandParameter="3"/>
-                <Button Style="{StaticResource NavButton}" Content="Forums"/>
+                <Button Style="{StaticResource NavButton}" Content="Forums" Command="{Binding ShowDataGridCmd}" CommandParameter="4"/>
             </WrapPanel>
 
-            <StackPanel>
+            <StackPanel Margin="0,0,3,0">
                 <ListView
                       Visibility="{Binding DataGridVisibility[0]}"
                       Height="550"
-                      Width="1000"
-                      FontSize="19" 
+                      Width="990"
+                      FontSize="23"
+                      FontWeight="Regular"
                       ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
                       SelectionMode="Single"  
                       SelectedItem="{Binding SelectedReservation}"
@@ -149,30 +177,39 @@
                     </i:Interaction.Triggers>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="250" Header="Accommodation" DisplayMemberBinding="{Binding Accommodation.Name}"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Width="125" Header="First Name" DisplayMemberBinding="{Binding Guest.FirstName}"/>
                             <GridViewColumn Width="125" Header="Last Name" DisplayMemberBinding="{Binding Guest.LastName}"/>
-                            <GridViewColumn Width="225" Header="Start" DisplayMemberBinding="{Binding Start}"/>
-                            <GridViewColumn Width="225" Header="End" DisplayMemberBinding="{Binding End}"/>
-                            <GridViewColumn Width="50">
+                            <GridViewColumn Width="240" Header="Accommodation" DisplayMemberBinding="{Binding Accommodation.Name}"/>
+                            <GridViewColumn Width="250" Header="Start" DisplayMemberBinding="{Binding Start}"/>
+                            <GridViewColumn Width="250" Header="End" DisplayMemberBinding="{Binding End}"/>
+                            <!--<GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <CheckBox IsEnabled="False"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                            </GridViewColumn>-->
                         </GridView>
                     </ListView.View>
                 </ListView>
 
                 <ListView   Visibility="{Binding DataGridVisibility[1]}"
                       Height="550" 
-                      Width="1000"
-                      FontSize="19" 
+                      Width="990"
+                      FontSize="23"
+                      FontWeight="SemiBold"
                       ItemsSource="{Binding Accommodations}"
                       SelectionMode="Single"
                       SelectedItem="{Binding SelectedAccommodation}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -188,18 +225,32 @@
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="250" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Width="250" Header="City" DisplayMemberBinding="{Binding Location.City}"/>
-                            <GridViewColumn Width="250" Header="Type" DisplayMemberBinding="{Binding Type}"/>
-                            <GridViewColumn Width="250" Header="Max Number of Guests" DisplayMemberBinding="{Binding MaxGuestNum}"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header="Photo" Width="170">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Height="120" Width="170" Source="{Binding Path=Photos[0].Link}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="210" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="195" Header="City" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="180" Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                            <GridViewColumn Width="230" Header="Guest Capacity" DisplayMemberBinding="{Binding MaxGuestNum}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
 
                 <ListView   Visibility="{Binding DataGridVisibility[2]}"
                            Height="550"
-                           Width="1000"
-                           FontSize="19" 
+                           Width="990"
+                           FontSize="23"
                            ItemsSource="{Binding PostponementRequests}" 
                            SelectedItem="{Binding SelectedRequest}" 
                            SelectionMode="Single"
@@ -218,10 +269,17 @@
                     </i:Interaction.Triggers>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="250" Header="Accommodation" DisplayMemberBinding="{Binding Reservation.Accommodation.Name}"/>
-                            <GridViewColumn Width="250" Header="Last Name" DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
-                            <GridViewColumn Width="250" Header="(New)Start Date" DisplayMemberBinding="{Binding Start}"/>
-                            <GridViewColumn Width="250" Header="(New)End Date" DisplayMemberBinding="{Binding End}"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Width="245" Header="Accommodation" DisplayMemberBinding="{Binding Reservation.Accommodation.Name}"/>
+                            <GridViewColumn Width="235" Header="Last Name" DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
+                            <GridViewColumn Width="255" Header="(New)Start Date" DisplayMemberBinding="{Binding Start}"/>
+                            <GridViewColumn Width="255" Header="(New)End Date" DisplayMemberBinding="{Binding End}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -229,8 +287,8 @@
                 <ListView
                       Visibility="{Binding DataGridVisibility[3]}" 
                       Height="550" 
-                      Width="1000"
-                      FontSize="19"
+                      Width="990"
+                      FontSize="23"
                       ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" 
                       SelectionMode="Single"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -243,13 +301,56 @@
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="180" Header="First Name"  DisplayMemberBinding="{Binding Reservation.Guest.FirstName}"/>
-                            <GridViewColumn Width="180" Header="Last Name"  DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Width="175" Header="First Name"  DisplayMemberBinding="{Binding Reservation.Guest.FirstName}"/>
+                            <GridViewColumn Width="175" Header="Last Name"  DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
                             <GridViewColumn Width="200" Header="Accommodation"  DisplayMemberBinding="{Binding Reservation.Accommodation.Name}"/>
                             <GridViewColumn Width="440" Header="Comment"  DisplayMemberBinding="{Binding Comment}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
+
+                <ListView Visibility="{Binding DataGridVisibility[4]}"
+                      Height="550"
+                      Width="990"
+                      FontSize="23" 
+                      SelectionMode="Single"  
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Width="700" Header="Name"/>
+                            <GridViewColumn Width="290" Header="Usefulness"/>
+                            <!--<GridViewColumn Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsEnabled="False"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>-->
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
             </StackPanel>
         </StackPanel>
     </Grid>

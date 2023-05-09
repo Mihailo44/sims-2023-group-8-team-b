@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="900" 
              Background="White">
 
+    <UserControl.Resources>
+        <con:IntConverter x:Key="IntConv"/>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="110"/>
@@ -30,7 +35,7 @@
             </StackPanel>
             <StackPanel Margin="20,10,0,0">
                 <Label HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Estimated Duration"/>
-                <TextBox Width="80" Height="35" Margin="0,10,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Width="80" Height="35" Margin="0,10,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration,Converter={StaticResource IntConv}}"/>
             </StackPanel>
             <Button Height="50" Width="130" Margin="50,25,0,0" VerticalAlignment="Center" Content="SEARCH" Command="{Binding SearchCmd}" Style="{StaticResource BasicBtn}"/>
         </StackPanel>
@@ -58,6 +63,13 @@
 
             <ListView.View>
                 <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontStyle" Value="Italic"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn Width="420" Header="Start Date" DisplayMemberBinding="{Binding Start}"/>
                     <GridViewColumn Width="420" Header="End Date" DisplayMemberBinding="{Binding End}"/>
                 </GridView>

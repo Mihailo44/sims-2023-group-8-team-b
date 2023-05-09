@@ -171,7 +171,7 @@ namespace TouristAgency.Review.GuestReviewFeature
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
                     _guestReviewService.GuestReviewRepository.Create(NewGuestReview);
                     _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
-                    MessageBox.Show("Guest review created successfully");
+                    MessageBox.Show("Guest review created successfully","Guest Review Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
                 }
                 else
                 {

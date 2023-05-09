@@ -3,5 +3,5 @@
 2卐0卐The Ritz卐10卐HOTEL卐100卐4卐4卐False卐False
 3卐0卐Shangri-La Hotel卐10卐HOTEL卐90卐5卐4卐False卐False
 4卐0卐Hilton Luxor Resort卐11卐HOTEL卐200卐4卐7卐False卐False
-5卐0卐Anantara Palazzo Naiadi卐12卐HOTEL卐80卐5卐10卐False卐False
+5卐0卐Palazzo Naiadi卐12卐HOTEL卐80卐5卐10卐False卐False
 6卐0卐PMF卐0卐HUT卐40卐10卐1卐False卐False

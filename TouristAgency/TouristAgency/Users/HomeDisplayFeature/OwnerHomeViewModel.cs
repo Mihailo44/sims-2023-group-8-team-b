@@ -29,15 +29,17 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private RenovationService _renovationService;
         private string _accountContainerVisibility;
         private string _notificationContainerVisibility;
-        private string _notifications;
+        private List<string> _notifications;
         private string _btnNewVisibility;
+        private string _btnClearNotificationVisibility;
         private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
             {0, "Visible"},
             {1, "Collapsed"},
             {2, "Collapsed"},
-            {3, "Collapsed"}
+            {3, "Collapsed"},
+            {4,"Collapsed" }
         };
 
         public string AccountContainerVisibility
@@ -60,7 +62,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
-        public string Notifications
+        public List<string> Notifications
         {
             get => _notifications;
             set
@@ -77,6 +79,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {
                 _btnNewVisibility = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public string BtnClearNotificationVisibility
+        {
+            get => _btnClearNotificationVisibility;
+            set
+            {
+                if (_btnClearNotificationVisibility != value)
+                {
+                    _btnClearNotificationVisibility = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -128,6 +143,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand ShowAccCmd { get; set; }
         public DelegateCommand ShowNotificationsCmd { get; set; }
         public DelegateCommand ShowAccommodationMain { get; set; }
+        public DelegateCommand ClearNotificationsCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -138,10 +154,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
             SubscribeObservers();
 
             SetUserStatus();
+            Notifications = new();
             ReviewNotification();
             AccountContainerVisibility = "Collapsed";
             NotificationContainerVisibility = "Collapsed";
             BtnNewVisibility = "Collapsed";
+            BtnClearNotificationVisibility = "Collapsed";
 
             InstantiateCollections();
             FillCollections();
@@ -199,6 +217,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
             ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param=> CanShowAccommodationMainExecute());
             ShowNotificationsCmd = new DelegateCommand(param => ShowNotificationsCmdExecute(),param => CanShowNotificationsCmdExecute());
+            ClearNotificationsCmd = new DelegateCommand(param => ClearNotificationsCmdExecute(), param => CanClearNotificationsCmdExecute());   
         }
 
 
@@ -266,11 +285,11 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private void ReviewNotification()
         {
             int changes;
-            string notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
+            List<string> notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
             if (changes > 0)
             {
                 Notifications = notification;
-                //MessageBox.Show(notification, "Unreviewed Guests", MessageBoxButton.OK, MessageBoxImage.Information);
+                BtnClearNotificationVisibility = "Visible";
             }
         }
 
@@ -299,15 +318,15 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 {
                     if (dateDiff > 5.0)
                     {
-                        MessageBox.Show("Guest review time window expired");
+                        MessageBox.Show("Guest review time window expired", "Guest Review Dialogue",MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else if(dateDiff < 0.0)
                     {
-                        MessageBox.Show("Reservation is in progress");
+                        MessageBox.Show("Selected reservation is in progress", "Guest Review Dialogue",MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else if (SelectedReservation.Status == ReviewStatus.REVIEWED)
                     {
-                        MessageBox.Show("Guest has already been reviewed");
+                        MessageBox.Show("Selected guest has already been reviewed", "Guest Review Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
                     }
 
                     return false;
@@ -388,7 +407,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             string sMessageBoxText;
             string sCaption;
 
-            sMessageBoxText = $"Do you want to approve postponement request?\nStart Date:\t{SelectedRequest.Start.ToShortDateString()}\nEnd Date:\t\t{SelectedRequest.End.ToShortDateString()}";
+            sMessageBoxText = $"Do you want to approve postponement request?\nStart Date:\t{SelectedRequest.Start.ToShortDateString()}\nEnd Date:\t{SelectedRequest.End.ToShortDateString()}";
             sCaption = "Postponement Request Dialogue";
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
@@ -415,7 +434,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 return false;
             }
 
-            return index >= 0 && index <=5;
+            return index >= 0 && index <=4;
         }
 
         public void ShowDataGridExecute(object parameter)
@@ -427,7 +446,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             else
                 BtnNewVisibility = "Collapsed";
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i <= 4; i++)
             {
                 if(i == index)
                 {
@@ -487,12 +506,31 @@ namespace TouristAgency.Users.HomeDisplayFeature
             if (NotificationContainerVisibility == "Visible")
             {
                 NotificationContainerVisibility = "Collapsed";
+                if (Notifications.Count == 0)
+                {
+                    BtnClearNotificationVisibility = "Collapsed";
+                }
             }
             else
             {
                 NotificationContainerVisibility = "Visible";
                 AccountContainerVisibility = "Collapsed";
+                if (Notifications.Count > 0)
+                    BtnClearNotificationVisibility = "Visible";
+                else
+                    BtnClearNotificationVisibility = "Collapsed";
             }
+        }
+
+        public bool CanClearNotificationsCmdExecute()
+        {
+            return true ;
+        }
+
+        public void ClearNotificationsCmdExecute()
+        {
+            Notifications.Clear();
+            NotificationContainerVisibility = "Collapsed";
         }
 
         public bool CanShowAccommodationMainExecute()
