@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:TouristAgency.Vouchers"
         mc:Ignorable="d"
         Title="HelpForVouchersDisplay" Height="330" Width="720" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
+            <GradientStop Color="#FFDCD8D4" />
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -24,14 +30,14 @@
             If you have vouchers available, you can use them when booking the tour.
         </TextBlock>
 
-        <Button Grid.Row="0" Grid.Column="1" Width="260" Height="45" FontSize="28" FontWeight="Bold" Background="Honeydew" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,3">
+        <Button Grid.Row="0" Grid.Column="1" Width="260" Height="45" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,3" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../../../Resources/Image/voucher.png" Margin="0,0,10,0"/>
                 <TextBlock>Take me there</TextBlock>
             </StackPanel>
         </Button>
 
-        <Button Grid.Row="1" Grid.Column="1" Width="320" Height="45" FontSize="28" FontWeight="Bold" Background="Honeydew" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,10,0">
+        <Button Grid.Row="1" Grid.Column="1" Width="320" Height="45" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,10,0" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../../../Resources/Image/useVoucher.png" Margin="0,0,10,0"/>
                 <TextBlock>Use a voucher now</TextBlock>

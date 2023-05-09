@@ -29,6 +29,7 @@
     <None Remove="Resources\Image\person-solid.png" />
     <None Remove="Resources\Image\question-solid.png" />
     <None Remove="Resources\Image\report.png" />
+    <None Remove="Resources\Image\reservation.png" />
     <None Remove="Resources\Image\review.png" />
     <None Remove="Resources\Image\right-to-bracket-solid.png" />
     <None Remove="Resources\Image\send.png" />
@@ -79,6 +80,7 @@
     <Resource Include="Resources\Image\person-solid.png" />
     <Resource Include="Resources\Image\question-solid.png" />
     <Resource Include="Resources\Image\report.png" />
+    <Resource Include="Resources\Image\reservation.png" />
     <Resource Include="Resources\Image\review.png" />
     <Resource Include="Resources\Image\right-to-bracket-solid.png" />
     <Resource Include="Resources\Image\send.png" />

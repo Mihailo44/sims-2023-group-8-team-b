@@ -65,8 +65,6 @@ namespace TouristAgency
             _window = window;
             InstantiateServices();
             InstantiateCommands();
-            Username = "Miki";
-            Password = "toki";
         }
 
         private void InstantiateServices()
