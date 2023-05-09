@@ -31,6 +31,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _notificationContainerVisibility;
         private string _notifications;
         private string _btnNewVisibility;
+        private string _btnClearNotificationVisibility;
         private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
@@ -77,6 +78,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {
                 _btnNewVisibility = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public string BtnClearNotificationVisibility
+        {
+            get => _btnClearNotificationVisibility;
+            set
+            {
+                if (_btnClearNotificationVisibility != value)
+                {
+                    _btnClearNotificationVisibility = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -128,6 +142,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand ShowAccCmd { get; set; }
         public DelegateCommand ShowNotificationsCmd { get; set; }
         public DelegateCommand ShowAccommodationMain { get; set; }
+        public DelegateCommand ClearNotificationsCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -142,6 +157,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             AccountContainerVisibility = "Collapsed";
             NotificationContainerVisibility = "Collapsed";
             BtnNewVisibility = "Collapsed";
+            BtnClearNotificationVisibility = "Collapsed";
 
             InstantiateCollections();
             FillCollections();
@@ -199,6 +215,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
             ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param=> CanShowAccommodationMainExecute());
             ShowNotificationsCmd = new DelegateCommand(param => ShowNotificationsCmdExecute(),param => CanShowNotificationsCmdExecute());
+            ClearNotificationsCmd = new DelegateCommand(param => ClearNotificationsCmdExecute(), param => CanClearNotificationsCmdExecute());   
         }
 
 
@@ -270,7 +287,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             if (changes > 0)
             {
                 Notifications = notification;
-                //MessageBox.Show(notification, "Unreviewed Guests", MessageBoxButton.OK, MessageBoxImage.Information);
+                BtnClearNotificationVisibility = "Visible";
             }
         }
 
@@ -487,12 +504,30 @@ namespace TouristAgency.Users.HomeDisplayFeature
             if (NotificationContainerVisibility == "Visible")
             {
                 NotificationContainerVisibility = "Collapsed";
+                if (string.IsNullOrWhiteSpace(Notifications))
+                {
+                    BtnClearNotificationVisibility = "Collapsed";
+                }
             }
             else
             {
                 NotificationContainerVisibility = "Visible";
                 AccountContainerVisibility = "Collapsed";
+                if (!string.IsNullOrWhiteSpace(Notifications))
+                    BtnClearNotificationVisibility = "Visible";
+                else
+                    BtnClearNotificationVisibility = "Collapsed";
             }
+        }
+
+        public bool CanClearNotificationsCmdExecute()
+        {
+            return !string.IsNullOrWhiteSpace(Notifications) ;
+        }
+
+        public void ClearNotificationsCmdExecute()
+        {
+            Notifications = "";
         }
 
         public bool CanShowAccommodationMainExecute()

@@ -31,7 +31,7 @@
         </Grid>
 
         <Canvas Visibility="{Binding AccountContainerVisibility}"
-                Width="270" 
+                Width="300" 
                 Height="170" 
                 Margin="0,70,10,0" 
                 VerticalAlignment="Top"
@@ -53,9 +53,9 @@
                 </Border>
 
                 <WrapPanel Width="270" Height="170" Orientation="Vertical" Background="Transparent">
-                    <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="22" FontWeight="SemiBold"/>
+                    <Label Width="250" Height="35" Margin="10,15,0,0" Padding="35,0,0,0" Content="{Binding LoggedUser.FirstName}" FontSize="22" FontWeight="SemiBold"/>
                     <Label Width="250" Height="35" Margin="10,10,0,0" Padding="35,0,0,0" Content="{Binding Status}" FontSize="18" FontWeight="ExtraBlack"/>
-                    <Button Width="210" Height="45" Margin="15,25,0,0" Content="Log out" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
+                    <Button Width="210" Height="45" Margin="10,20,0,0" Content="Log out" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
                 </WrapPanel>
             </Grid>
         </Canvas>
@@ -63,7 +63,7 @@
         <Canvas Visibility="{Binding NotificationContainerVisibility}"
                 Width="320" 
                 Height="170" 
-                Margin="0,70,30,0" 
+                Margin="0,70,60,0" 
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right" 
                 Background="Transparent"
@@ -75,18 +75,18 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <Grid Background="Transparent">
+            <Grid Height="165" Width="310" Background="Transparent">
                 <Border Margin="0,0,4,4" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="15" Opacity="0.4"/>
                     </Border.Effect>
                 </Border>
-                <StackPanel Width="270" Height="170" Background="Transparent">
-                    <TextBlock FontSize="20" Text="{Binding Notifications}"/>
+                <StackPanel Width="300" Height="160">
+                    <TextBlock Width="300" Height="100" Margin="10,5,0,0" FontSize="20" Text="{Binding Notifications}"/>
+                    <Button Width="210" Height="45" Margin="10,0,0,0" Content="Clear" Visibility="{Binding BtnClearNotificationVisibility}" Command="{Binding ClearNotificationsCmd}" Style="{StaticResource BasicBtn}"/>
                 </StackPanel>
             </Grid>
         </Canvas>
-
 
         <StackPanel Height="740" Width="1015" Orientation="Vertical">
             <WrapPanel Height="65" Width="1015">
