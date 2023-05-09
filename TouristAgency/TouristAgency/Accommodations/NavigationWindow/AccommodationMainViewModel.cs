@@ -36,7 +36,7 @@ namespace TouristAgency.Accommodations.NavigationWindow
         {
             _accommodationRenovationViewModel = new(accommodation);
             _renovationHistoryViewModel = new(accommodation);
-            _accommodationStatisticsViewModel = new();
+            _accommodationStatisticsViewModel = new(accommodation);
             CurrentViewModel = new AccommodationRenovationViewModel(accommodation);
             NavCmd = new DelegateCommand(NavCmdExecute, CanNavCmdExecute);
         }
