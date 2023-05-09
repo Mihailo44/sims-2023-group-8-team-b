@@ -22,6 +22,7 @@ namespace TouristAgency.TourRequests
         private DateTime _endDate;
         private string _description;
         private int _numOfPeople;
+        private TourRequest _tourRequest;
 
         private TourRequestService _tourRequestService;
         private LocationService _locationService;
@@ -31,6 +32,7 @@ namespace TouristAgency.TourRequests
         public TourRequestCreationViewModel(Tourist tourist)
         {
             _app = (App)Application.Current;
+            _tourRequest = new TourRequest();
             _loggedInTourist = tourist;
             _startDate = DateTime.Now;
             _endDate = DateTime.Now;
@@ -57,93 +59,15 @@ namespace TouristAgency.TourRequests
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
         }
 
-        public string Country
+        public TourRequest TourRequest
         {
-            get => _country;
+            get => _tourRequest;
             set
             {
-                if (value != _country)
+                if (value != _tourRequest)
                 {
-                    _country = value;
-                    OnPropertyChanged("Country");
-                }
-            }
-        }
-
-        public string City
-        {
-            get => _city;
-            set
-            {
-                if (value != _city)
-                {
-                    _city = value;
-                    OnPropertyChanged("City");
-                }
-            }
-        }
-
-        public string Language
-        {
-            get => _language;
-            set
-            {
-                if (value != _language)
-                {
-                    _language = value;
-                    OnPropertyChanged("Language");
-                }
-            }
-        }
-
-        public int NumOfPeople
-        {
-            get => _numOfPeople;
-            set
-            {
-                if (_numOfPeople != value)
-                {
-                    _numOfPeople = value;
-                    OnPropertyChanged("NumOfPeople");
-                }
-            }
-        }
-
-        public DateTime StartDate
-        {
-            get => _startDate;
-            set
-            {
-                if (value != _startDate) 
-                {
-                    _startDate = value;
-                    OnPropertyChanged("StartDate");
-                }
-            }
-        }
-
-        public DateTime EndDate
-        {
-            get => _endDate;
-            set
-            {
-                if (value != _endDate)
-                {
-                    _endDate = value;
-                    OnPropertyChanged("EndDate");
-                }
-            }
-        }
-
-        public string Description
-        {
-            get => _description;
-            set
-            {
-                if (value != _description)
-                {
-                    _description = value;
-                    OnPropertyChanged("Description");
+                    _tourRequest = value;
+                    OnPropertyChanged("TourRequest");
                 }
             }
         }
@@ -168,19 +92,18 @@ namespace TouristAgency.TourRequests
 
         private void CreateCmdExecute()
         {
-            TourRequest tourRequest = new TourRequest();
-            tourRequest.TouristID = _loggedInTourist.ID;
-            tourRequest.ShortLocation = new Location(Country, City);
-            tourRequest.ShortLocation = _locationService.LocationRepository.Create(tourRequest.ShortLocation);
-            tourRequest.ShortLocationID = tourRequest.ShortLocation.Id;
-            tourRequest.Language = Language;
-            tourRequest.MaxAttendance = NumOfPeople;
-            tourRequest.Description = Description;
-            tourRequest.StartDate = StartDate;
-            tourRequest.EndDate = EndDate;
-            _tourRequestService.TourRequestRepository.Create(tourRequest);
-            TourRequests.Add(tourRequest);
-            MessageBox.Show("You have successfully send request for tour.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            TourRequest.TouristID = _loggedInTourist.ID;
+            TourRequest.ShortLocation = _locationService.LocationRepository.Create(TourRequest.ShortLocation);
+            if(TourRequest.IsValid)
+            {
+                _tourRequestService.TourRequestRepository.Create(TourRequest);
+                TourRequests.Add(TourRequest);
+                MessageBox.Show("You have successfully send request for tour.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Invalid request");
+            }
         }
     }
 }

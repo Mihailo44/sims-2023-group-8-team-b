@@ -43,9 +43,6 @@
             </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}">
-                    <MenuItem.Background>
-                        <SolidColorBrush>#FF6E9DC2</SolidColorBrush>
-                    </MenuItem.Background>
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/tours.png"/>
                     </MenuItem.Icon>
