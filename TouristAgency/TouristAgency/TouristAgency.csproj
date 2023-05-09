@@ -8,18 +8,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Image\applyFilter.png" />
     <None Remove="Resources\Image\arrow-down-solid.png" />
     <None Remove="Resources\Image\arrow-left-solid.png" />
     <None Remove="Resources\Image\arrow-right-solid.png" />
     <None Remove="Resources\Image\arrow-up-solid.png" />
+    <None Remove="Resources\Image\attendance.png" />
     <None Remove="Resources\Image\bars-solid.png" />
     <None Remove="Resources\Image\bell-exclamation.png" />
+    <None Remove="Resources\Image\cancel.png" />
+    <None Remove="Resources\Image\clearFilter.png" />
+    <None Remove="Resources\Image\create.png" />
+    <None Remove="Resources\Image\create1.png" />
+    <None Remove="Resources\Image\exit.png" />
     <None Remove="Resources\Image\file-pdf-solid.png" />
+    <None Remove="Resources\Image\join.png" />
+    <None Remove="Resources\Image\logout.png" />
+    <None Remove="Resources\Image\notification-bell.png" />
+    <None Remove="Resources\Image\pending.png" />
     <None Remove="Resources\Image\person-solid.png" />
     <None Remove="Resources\Image\question-solid.png" />
+    <None Remove="Resources\Image\report.png" />
+    <None Remove="Resources\Image\review.png" />
     <None Remove="Resources\Image\right-to-bracket-solid.png" />
+    <None Remove="Resources\Image\send.png" />
+    <None Remove="Resources\Image\shortcut.png" />
+    <None Remove="Resources\Image\statistics.png" />
+    <None Remove="Resources\Image\tours.png" />
     <None Remove="Resources\Image\user-solid.png" />
     <None Remove="Resources\Image\userTourist.png" />
+    <None Remove="Resources\Image\useVoucher.png" />
+    <None Remove="Resources\Image\voucher.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\applyFilter.png" />
     <Resource Include="Resources\Image\arrow-down-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -41,20 +61,34 @@
     <Resource Include="Resources\Image\arrow-up-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Image\attendance.png" />
     <Resource Include="Resources\Image\bars-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Image\bell-exclamation.png" />
+    <Resource Include="Resources\Image\cancel.png" />
+    <Resource Include="Resources\Image\clearFilter.png" />
+    <Resource Include="Resources\Image\create.png" />
+    <Resource Include="Resources\Image\create1.png" />
+    <Resource Include="Resources\Image\exit.png" />
     <Resource Include="Resources\Image\file-pdf-solid.png" />
+    <Resource Include="Resources\Image\join.png" />
+    <Resource Include="Resources\Image\logout.png" />
+    <Resource Include="Resources\Image\notification-bell.png" />
+    <Resource Include="Resources\Image\pending.png" />
     <Resource Include="Resources\Image\person-solid.png" />
     <Resource Include="Resources\Image\question-solid.png" />
+    <Resource Include="Resources\Image\report.png" />
+    <Resource Include="Resources\Image\review.png" />
     <Resource Include="Resources\Image\right-to-bracket-solid.png" />
+    <Resource Include="Resources\Image\send.png" />
+    <Resource Include="Resources\Image\shortcut.png" />
+    <Resource Include="Resources\Image\statistics.png" />
+    <Resource Include="Resources\Image\tours.png" />
     <Resource Include="Resources\Image\user-solid.png" />
     <Resource Include="Resources\Image\userTourist.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Accommodations\StatisticsFeature\" />
+    <Resource Include="Resources\Image\useVoucher.png" />
+    <Resource Include="Resources\Image\voucher.png" />
   </ItemGroup>
 
 </Project>

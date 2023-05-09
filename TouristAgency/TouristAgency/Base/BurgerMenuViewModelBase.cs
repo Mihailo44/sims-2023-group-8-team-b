@@ -13,7 +13,7 @@ using TouristAgency.Tours;
 using TouristAgency.Tours.CancelationFeature;
 using TouristAgency.Tours.StatisticsFeature;
 using TouristAgency.Users;
-using TouristAgency.Users.ProfileDisplayFeature;
+using TouristAgency.Users.SuperGuideFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 

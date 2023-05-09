@@ -27,7 +27,7 @@ namespace TouristAgency.Review.GuestReviewFeature
         private string _comment;
         private App app = (App)Application.Current;
 
-        public List<string> ComboNumbers { get; set; }
+        public List<int> ComboNumbers { get; set; }
         public GuestReview NewGuestReview { get; set; }
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
@@ -136,7 +136,7 @@ namespace TouristAgency.Review.GuestReviewFeature
                 if (value != _comment)
                 {
                     _comment = value;
-                    OnPropertyChanged();
+                    CreateCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -145,13 +145,13 @@ namespace TouristAgency.Review.GuestReviewFeature
         {
             for(int i=1; i <= 5; i++)
             {
-                ComboNumbers.Add(i.ToString());
+                ComboNumbers.Add(i);
             }
         }
 
         public bool CanCreateGuestReviewExecute()
         {
-            if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED && NewGuestReview.IsValid)
+            if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED && !string.IsNullOrEmpty(Comment))
             {
                 return true;
             }
@@ -167,6 +167,7 @@ namespace TouristAgency.Review.GuestReviewFeature
             {
                 if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
                 {
+                    NewGuestReview.Comment = Comment;
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
                     _guestReviewService.GuestReviewRepository.Create(NewGuestReview);
                     _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);

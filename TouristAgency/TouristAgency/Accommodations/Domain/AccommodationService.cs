@@ -96,8 +96,7 @@ namespace TouristAgency.Accommodations.Domain
 
         public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
         {
-
-            return AccommodationRepository.GetAll().Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).ToList();
+            return AccommodationRepository.GetAll().Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).OrderByDescending(a => a.Owner.SuperOwner).ToList();
         }
     }
 }

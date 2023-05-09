@@ -18,13 +18,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Height="35" Margin="15,10,0,0" Content="Renovation Description:"/>
-        <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="560" FontSize="21" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged}">
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Height="40" Margin="25,5,0,0" Content="Renovation Description:" FontSize="22" FontWeight="SemiBold"/>
+        <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="540" FontSize="21" Text="{Binding Description,UpdateSourceTrigger=PropertyChanged}">
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="3" Grid.Column="0" Content="SCHEDULE" Command="{Binding CreateCmd}" Style="{StaticResource BasicBtn}"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="CANCEL" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="3" Grid.Column="0" Margin="50,0,0,0" Content="SCHEDULE" Command="{Binding CreateCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="3" Grid.Column="1" Margin="0,0,50,0" Content="CANCEL" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
     </Grid>
 
 </Window>

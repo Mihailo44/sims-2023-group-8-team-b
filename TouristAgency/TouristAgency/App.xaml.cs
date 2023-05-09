@@ -6,10 +6,10 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Requests.Domain;
-using TouristAgency.Review;
 using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.Domain;
 using TouristAgency.Util;
@@ -22,7 +22,7 @@ namespace TouristAgency
     /// </summary>
     public partial class App : Application
     {
-        public ReservationRepository ReservationRepository { get; } 
+        public ReservationRepository ReservationRepository { get; }
         public OwnerService OwnerService { get; }
         public UserRepository UserRepository { get; }
         public OwnerReviewRepository OwnerReviewRepository { get; }
@@ -51,14 +51,14 @@ namespace TouristAgency
 
         private ViewModelBase _currentVm;
         public ViewModelBase CurrentVM
-         {
-             get => _currentVm;
-             set
-             {
-                 _currentVm = value;
-                 OnCurrentVMChanged();
-             }
-         }
+        {
+            get => _currentVm;
+            set
+            {
+                _currentVm = value;
+                OnCurrentVMChanged();
+            }
+        }
 
         private void OnCurrentVMChanged()
         {
@@ -72,7 +72,7 @@ namespace TouristAgency
 
         public App()
         {
-            GuideRepository = new (InjectorService.CreateInstance<IStorage<Guide>>());
+            GuideRepository = new(InjectorService.CreateInstance<IStorage<Guide>>());
             TourTouristRepository = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
             UserRepository = new(InjectorService.CreateInstance<IStorage<User>>());
             LocationRepository = new(InjectorService.CreateInstance<IStorage<Location>>());
@@ -121,6 +121,7 @@ namespace TouristAgency
             GuideReviewRepository.LoadPhotosToReviews(PhotoRepository.GetAll());
             TourRequestRepository.LoadLocationsToTourRequests(LocationRepository.GetAll());
             RenovationRepository.LoadAccommodationsToRenovations(AccommodationRepository.GetAll());
+            TouristRepository.LoadUsersToTourists(UserRepository.GetAll());
             RenovationRecommendationRepository.LoadReservationsToRenovationRecommendation(ReservationRepository.GetAll());
         }
     }

@@ -6,7 +6,7 @@ using TouristAgency.Users;
 using TouristAgency.Users.Domain;
 using TouristAgency.Util;
 using TouristAgency.Accommodations.Domain;
-using TouristAgency.Users.GuideStart;
+using TouristAgency.Users.GuideNavigationWindow;
 using TouristAgency.Users.OwnerNavigationWindow;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
@@ -24,30 +24,6 @@ namespace TouristAgency
         private Window _window;
         private string _username;
         private string _password;
-
-        public dynamic User { get; set; }
-        public DelegateCommand CloseCmd { get; }
-        public DelegateCommand LoginCmd { get; }
-
-        public MainWindowViewModel()
-        {
-            _userService = new();
-        }
-
-        public MainWindowViewModel(Window window)
-        {
-            _ownerService = new();
-            _touristService = new();
-            _guideService = new();
-            _guestService = new();
-            _userService = new();
-            _reservationService = new();
-
-            _window = window;
-
-            LoginCmd = new DelegateCommand(param => LoginExecute(), param => CanLoginExecute());
-            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
-        }
 
         public string Username
         {
@@ -75,6 +51,41 @@ namespace TouristAgency
             }
         }
 
+        public dynamic User { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand LoginCmd { get; set; }
+
+        public MainWindowViewModel()
+        {
+            _userService = new();
+        }
+
+        public MainWindowViewModel(Window window)
+        {
+            _window = window;
+            InstantiateServices();
+            InstantiateCommands();
+            Username = "Miki";
+            Password = "toki";
+        }
+
+        private void InstantiateServices()
+        {
+            _ownerService = new();
+            _touristService = new();
+            _guideService = new();
+            _guestService = new();
+            _userService = new();
+            _reservationService = new();
+        }
+
+        private void InstantiateCommands()
+        {
+            LoginCmd = new DelegateCommand(param => LoginExecute(), param => CanLoginExecute());
+            CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
+        }
+
+
         public bool CanCloseWindowExecute()
         {
             return true;
@@ -96,15 +107,7 @@ namespace TouristAgency
             Password = "";
         }
 
-        private void ReviewNotification()
-        {
-            int changes;
-            string notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
-            if (changes > 0)
-            {
-                MessageBox.Show(notification, "Unreviewed Guests", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
+        
 
         public void LoginExecute()
         {
@@ -120,7 +123,7 @@ namespace TouristAgency
                             app.LoggedUser = User;
                             OwnerMain x = new OwnerMain();
                             x.Show();
-                            ReviewNotification();
+                            //ReviewNotification();
                             ClearTxtBoxes();
                         }
                         break;
@@ -135,6 +138,7 @@ namespace TouristAgency
                     case UserType.TOURIST:
                         {
                             User = _touristService.TouristRepository.GetById(User.ID);
+                            app.LoggedUser = User;
                             User.Username = Username;
                             User.Password = Password;
                             TouristHome x = new TouristHome(User);

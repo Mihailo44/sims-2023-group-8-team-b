@@ -53,9 +53,9 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
 
         private void SetDefaultElementValues()
         {
-            EndDate = DateTime.Today.AddDays(1);
-            StartDate = DateTime.Today;
             EstimatedDuration = "2";
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today.AddDays(double.Parse(EstimatedDuration));
         }
 
         private void FillCollection()
@@ -74,9 +74,10 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
             get => _start;
             set
             {
-                if(_start != value && _start < EndDate)
+                if (_start != value)
                 {
                     _start = value;
+                    EndDate = _start.AddDays(double.Parse(EstimatedDuration));
                     SearchCmd.OnCanExecuteChanged();
                 }
             }
@@ -90,6 +91,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 if(_end != value)
                 {
                     _end = value;
+                    OnPropertyChanged(nameof(EndDate));
                     SearchCmd.OnCanExecuteChanged();
                 }
             }

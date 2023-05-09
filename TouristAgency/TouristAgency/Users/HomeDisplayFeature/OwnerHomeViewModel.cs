@@ -28,6 +28,10 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private PostponementRequestService _postponementRequestService;
         private RenovationService _renovationService;
         private string _accountContainerVisibility;
+        private string _notificationContainerVisibility;
+        private string _notifications;
+        private string _btnNewVisibility;
+        private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
             {0, "Visible"},
@@ -42,6 +46,46 @@ namespace TouristAgency.Users.HomeDisplayFeature
             set
             {
                 _accountContainerVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string NotificationContainerVisibility
+        {
+            get => _notificationContainerVisibility;
+            set
+            {
+                _notificationContainerVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Notifications
+        {
+            get => _notifications;
+            set
+            {
+                _notifications = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string BtnNewVisibility
+        {
+            get => _btnNewVisibility;
+            set
+            {
+                _btnNewVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set
+            {
+                _isChecked = value;
                 OnPropertyChanged();
             }
         }
@@ -82,6 +126,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand ShowDataGridCmd { get; set; }
         public DelegateCommand ImportantCmd { get; set; }
         public DelegateCommand ShowAccCmd { get; set; }
+        public DelegateCommand ShowNotificationsCmd { get; set; }
         public DelegateCommand ShowAccommodationMain { get; set; }
 
         public OwnerHomeViewModel()
@@ -93,14 +138,18 @@ namespace TouristAgency.Users.HomeDisplayFeature
             SubscribeObservers();
 
             SetUserStatus();
+            ReviewNotification();
             AccountContainerVisibility = "Collapsed";
+            NotificationContainerVisibility = "Collapsed";
+            BtnNewVisibility = "Collapsed";
 
             InstantiateCollections();
             FillCollections();
 
             _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
             _renovationService.SetRenovationProgress(_accommodationService);
-            _renovationService.SetRenovationStatus(_accommodationService);
+            _renovationService.CheckAccommodationRenovationStatus(_accommodationService);
+
             InstantiateCommands();
         }
 
@@ -149,6 +198,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
             ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
             ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param=> CanShowAccommodationMainExecute());
+            ShowNotificationsCmd = new DelegateCommand(param => ShowNotificationsCmdExecute(),param => CanShowNotificationsCmdExecute());
         }
 
 
@@ -213,6 +263,17 @@ namespace TouristAgency.Users.HomeDisplayFeature
            _ownerService.OwnerRepository.Update(LoggedUser, LoggedUser.ID);
         }
 
+        private void ReviewNotification()
+        {
+            int changes;
+            string notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
+            if (changes > 0)
+            {
+                Notifications = notification;
+                //MessageBox.Show(notification, "Unreviewed Guests", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
         public bool CanOpenAccommodationCreationExecute()
         {
             return true;
@@ -230,7 +291,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 DateTime today = DateTime.UtcNow.Date;
                 double dateDiff = (today - SelectedReservation.End).TotalDays;
 
-                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDiff < 5.0)
+                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDiff > 0.0 && dateDiff < 5.0)
                 {
                     return true;
                 }
@@ -327,7 +388,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             string sMessageBoxText;
             string sCaption;
 
-            sMessageBoxText = $"Do you want to approve postponement request?\nStart Date:\t{SelectedRequest.Start}\nEnd Date:\t\t{SelectedRequest.End}";
+            sMessageBoxText = $"Do you want to approve postponement request?\nStart Date:\t{SelectedRequest.Start.ToShortDateString()}\nEnd Date:\t\t{SelectedRequest.End.ToShortDateString()}";
             sCaption = "Postponement Request Dialogue";
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
@@ -360,6 +421,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void ShowDataGridExecute(object parameter)
         {
             int index = int.Parse(parameter.ToString());
+
+            if (index == 1)
+                BtnNewVisibility = "Visible";
+            else
+                BtnNewVisibility = "Collapsed";
+
             for (int i = 0; i < 5; i++)
             {
                 if(i == index)
@@ -406,6 +473,25 @@ namespace TouristAgency.Users.HomeDisplayFeature
             else
             {
                 AccountContainerVisibility = "Visible";
+                NotificationContainerVisibility = "Collapsed";
+            }
+        }
+
+        public bool CanShowNotificationsCmdExecute()
+        {
+            return true;
+        }
+
+        public void ShowNotificationsCmdExecute()
+        {
+            if (NotificationContainerVisibility == "Visible")
+            {
+                NotificationContainerVisibility = "Collapsed";
+            }
+            else
+            {
+                NotificationContainerVisibility = "Visible";
+                AccountContainerVisibility = "Collapsed";
             }
         }
 
