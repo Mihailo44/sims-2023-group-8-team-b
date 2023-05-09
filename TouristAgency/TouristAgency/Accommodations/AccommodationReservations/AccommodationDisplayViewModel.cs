@@ -10,14 +10,19 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Requests;
+using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Users;
+using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Reservations
+namespace TouristAgency.Accommodations.AccommodationReservations
 {
     public class AccommodationDisplayViewModel : ViewModelBase, ICloseable, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
+        private Window _window;
 
         private ObservableCollection<Accommodation> _accommodations;
         private ObservableCollection<Reservation> _reservations;
@@ -32,6 +37,7 @@ namespace TouristAgency.Reservations
         private DateTime _end;
         private int _numOfDays;
         private int _numOfPeople;
+        private string _username;
 
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
@@ -42,16 +48,23 @@ namespace TouristAgency.Reservations
         public DelegateCommand SearchDateCmd { get; set; }
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand CancelReservationCmd { get; set; }
+        public DelegateCommand AccommodationDisplayCmd { get; set; }
+        public DelegateCommand PostponementRequestDisplayCmd { get; set; }
+        public DelegateCommand OwnerReviewCreationCmd { get; set; }
+        public DelegateCommand SuperGuestDisplayCmd { get; set; }
+        public DelegateCommand HomeCmd { get; set; }
 
 
         public AccommodationDisplayViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
+            _window = window;
 
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            DisplayUser();
         }
 
         private void InstantiateServices()
@@ -84,6 +97,21 @@ namespace TouristAgency.Reservations
             SearchDateCmd = new DelegateCommand(param => SearchDateCmdExecute(), param => CanSearchDateCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
             CancelReservationCmd = new DelegateCommand(param => CancelReservationCmdExecute(), param => CanCancelReservationCmdExecute());
+            AccommodationDisplayCmd = new DelegateCommand(param => OpenAccommodationDisplayCmdExecute(),
+                param => CanOpenAccommodationDisplayCmdExecute());
+            PostponementRequestDisplayCmd = new DelegateCommand(param => OpenPostponementRequestDisplayCmdExecute(),
+                param => CanOpenPostponementRequestDisplayCmdExecute());
+            OwnerReviewCreationCmd = new DelegateCommand(param => OpenOwnerReviewCreationCmdExecute(),
+                param => CanOpenOwnerReviewCreationCmdExecute());
+            CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
+            SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
+            HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
+        }
+
+        private void DisplayUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+
         }
         public ObservableCollection<Accommodation> Accommodations
         {
@@ -241,6 +269,19 @@ namespace TouristAgency.Reservations
             }
         }
 
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
+                }
+            }
+        }
+
         //TODO bind u xaml-u
         public string SelectedCountry
         {
@@ -368,6 +409,66 @@ namespace TouristAgency.Reservations
         {
             NumOfPeople = 0;
             Reservations.Clear();
+        }
+
+        public bool CanOpenAccommodationDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenAccommodationDisplayCmdExecute()
+        {
+            _app.CurrentVM = new AccommodationDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenPostponementRequestDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenPostponementRequestDisplayCmdExecute()
+        {
+            _app.CurrentVM = new PostponementRequestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenOwnerReviewCreationCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenOwnerReviewCreationCmdExecute()
+        {
+            _app.CurrentVM = new OwnerReviewCreationViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenSuperGuestDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenSuperGuestDisplayCmdExecute()
+        {
+            _app.CurrentVM = new SuperGuestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenHomeCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenHomeCmdExecute()
+        {
+            _app.CurrentVM = new GuestHomeViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanCloseCmdExecute()
+        {
+            return true;
+        }
+
+        public void CloseCmdExecute()
+        {
+            _window.Close();
         }
     }
 }

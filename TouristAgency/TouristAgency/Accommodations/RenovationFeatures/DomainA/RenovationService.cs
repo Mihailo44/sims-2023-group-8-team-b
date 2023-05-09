@@ -24,7 +24,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             DateTime endInterval = start.AddDays(estimatedDuration);
 
             int i = 0;
-            while(!(reservationService.IsReserved(accommodation.Id, startInterval, endInterval)) && (startInterval.AddDays(estimatedDuration) < end))
+            while(!(reservationService.IsReserved(accommodation.Id, startInterval, endInterval)) && (startInterval.AddDays(estimatedDuration) <= end))
             {
                 renovations.Add(new Renovation(accommodation, startInterval, endInterval, estimatedDuration));
                 startInterval = startInterval.AddDays(1);
@@ -42,7 +42,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
 
             foreach (var accommodation in ownersAccommodations)
             {
-                List<Renovation> renovations = RenovationRepository.GetAll().Where(r => r.AccommodationId == accommodation.Id).OrderByDescending(r => r.End).ToList();
+                List<Renovation> renovations = RenovationRepository.GetAll().Where(r => r.AccommodationId == accommodation.Id && r.IsCanceled == false).OrderByDescending(r => r.End).ToList();
                 if (renovations != null && renovations.Count > 0)
                 {
                     Renovation latestRenovation = renovations[0];

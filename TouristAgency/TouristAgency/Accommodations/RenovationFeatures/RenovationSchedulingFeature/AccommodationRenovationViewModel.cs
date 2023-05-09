@@ -19,7 +19,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         private DateTime _start;
         private DateTime _end;
        
-        private string _estimatedDuration;
+        private int _estimatedDuration;
         private RenovationService _renovationService;
         private ReservationService _reservationService;
 
@@ -53,16 +53,16 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
 
         private void SetDefaultElementValues()
         {
-            EstimatedDuration = "2";
+            EstimatedDuration = 2;
             StartDate = DateTime.Today;
-            EndDate = DateTime.Today.AddDays(double.Parse(EstimatedDuration));
+            EndDate = DateTime.Today.AddDays(EstimatedDuration);
         }
 
         private void FillCollection()
         {
             PossibleRenovationDates.Clear();
             List<Renovation> renovationSuggestions = new List<Renovation>();
-            renovationSuggestions = _renovationService.GeneratePotentionalRenovations(StartDate,EndDate,int.Parse(EstimatedDuration), SelectedAccommodation, _reservationService);
+            renovationSuggestions = _renovationService.GeneratePotentionalRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService);
             foreach(var renovation in renovationSuggestions)
             {
                 PossibleRenovationDates.Add(renovation);
@@ -77,7 +77,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 if (_start != value)
                 {
                     _start = value;
-                    EndDate = _start.AddDays(double.Parse(EstimatedDuration));
+                    EndDate = _start.AddDays(EstimatedDuration);
                     SearchCmd.OnCanExecuteChanged();
                 }
             }
@@ -97,7 +97,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
             }
         }
 
-        public string EstimatedDuration
+        public int EstimatedDuration
         {
             get => _estimatedDuration;
             set
@@ -123,7 +123,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
 
         public bool CanSearchCmdExecute()
         {
-            return !string.IsNullOrEmpty(EstimatedDuration) && StartDate < EndDate;
+            return (EstimatedDuration > 0) && (StartDate < EndDate);
         }
 
         public void SearchCmdExecute()

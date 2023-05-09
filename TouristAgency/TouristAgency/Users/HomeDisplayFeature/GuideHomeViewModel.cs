@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Reservations;
+using TouristAgency.Accommodations.AccommodationReservations;
 using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature;
 using TouristAgency.Util;

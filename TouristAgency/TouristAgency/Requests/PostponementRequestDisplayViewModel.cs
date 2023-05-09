@@ -6,11 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using TouristAgency.Accommodations.AccommodationReservations;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Requests.Domain;
+using TouristAgency.Review.OwnerReviewFeature;
+using TouristAgency.Tours;
 using TouristAgency.Users;
+using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.SuperGuestFeature;
 
 namespace TouristAgency.Requests
 {
@@ -24,6 +29,8 @@ namespace TouristAgency.Requests
 
         private DateTime _start;
         private DateTime _end;
+        private string _username;
+        private Window _window;
 
         private ReservationService _reservationService;
         private PostponementRequestService _postponementRequestService;
@@ -31,15 +38,24 @@ namespace TouristAgency.Requests
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand CancelCmd { get; set; }
         public DelegateCommand NotificationCmd { get; set; }
+        public DelegateCommand AccommodationDisplayCmd { get; set; }
+        public DelegateCommand PostponementRequestDisplayCmd { get; set; }
+        public DelegateCommand OwnerReviewCreationCmd { get; set; }
+        public DelegateCommand SuperGuestDisplayCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand HomeCmd { get; set; }
 
         public PostponementRequestDisplayViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
+            _window = window;
+            _username = "";
 
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            DisplayUser();
         }
 
         private void InstantiateServices()
@@ -62,6 +78,21 @@ namespace TouristAgency.Requests
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
             NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
             CancelCmd = new DelegateCommand(param => CancelExecute(), param => CanCancelExecute());
+            AccommodationDisplayCmd = new DelegateCommand(param => OpenAccommodationDisplayCmdExecute(),
+                param => CanOpenAccommodationDisplayCmdExecute());
+            PostponementRequestDisplayCmd = new DelegateCommand(param => OpenPostponementRequestDisplayCmdExecute(),
+                param => CanOpenPostponementRequestDisplayCmdExecute());
+            OwnerReviewCreationCmd = new DelegateCommand(param => OpenOwnerReviewCreationCmdExecute(),
+                param => CanOpenOwnerReviewCreationCmdExecute());
+            CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
+            SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
+            HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
+        }
+
+        private void DisplayUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+
         }
 
         public ObservableCollection<Reservation> Reservations
@@ -112,6 +143,19 @@ namespace TouristAgency.Requests
                 {
                     _end = value;
                     OnPropertyChanged("End");
+                }
+            }
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
                 }
             }
         }
@@ -178,6 +222,66 @@ namespace TouristAgency.Requests
                         "Reservation couldn't be canceled. You can only cancel 24 hours before the start of the reservation");
                 }
             }
+        }
+
+        public bool CanOpenAccommodationDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenAccommodationDisplayCmdExecute()
+        {
+            _app.CurrentVM = new AccommodationDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenPostponementRequestDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenPostponementRequestDisplayCmdExecute()
+        {
+            _app.CurrentVM = new PostponementRequestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenOwnerReviewCreationCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenOwnerReviewCreationCmdExecute()
+        {
+            _app.CurrentVM = new OwnerReviewCreationViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenSuperGuestDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenSuperGuestDisplayCmdExecute()
+        {
+            _app.CurrentVM = new SuperGuestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenHomeCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenHomeCmdExecute()
+        {
+            _app.CurrentVM = new GuestHomeViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanCloseCmdExecute()
+        {
+            return true;
+        }
+
+        public void CloseCmdExecute()
+        {
+            _window.Close();
         }
 
     }

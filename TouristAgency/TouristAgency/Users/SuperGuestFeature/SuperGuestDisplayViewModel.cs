@@ -1,37 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TouristAgency.Accommodations.AccommodationReservations;
 using TouristAgency.Base;
-using TouristAgency.Interfaces;
-using TouristAgency.Users.SuperGuestFeature;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
+using TouristAgency.Requests;
+using TouristAgency.Review.OwnerReviewFeature;
+using TouristAgency.Users.HomeDisplayFeature;
 
-namespace TouristAgency.Users
+namespace TouristAgency.Users.SuperGuestFeature
 {
-    public class GuestHomeViewModel : ViewModelBase, ICloseable
+    public class SuperGuestDisplayViewModel : ViewModelBase
     {
         private App _app;
         private Guest _loggedInGuest;
-        private Window _window;
+        private readonly Window _window;
+
+        private string _username;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand HomeCmd { get; set; }
 
-        public GuestHomeViewModel(Guest guest, Window window)
+        public SuperGuestDisplayViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
             _window = window;
 
             InstantiateCommands();
+            DisplayUser();
         }
 
         private void InstantiateCommands()
@@ -44,6 +47,26 @@ namespace TouristAgency.Users
                 param => CanOpenOwnerReviewCreationCmdExecute());
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
+            HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
+        }
+
+        private void DisplayUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
+                }
+            }
         }
 
         public bool CanOpenAccommodationDisplayCmdExecute()
@@ -53,8 +76,7 @@ namespace TouristAgency.Users
 
         public void OpenAccommodationDisplayCmdExecute()
         {
-            AccommodationDisplay display = new AccommodationDisplay(_loggedInGuest);
-            display.Show();
+            _app.CurrentVM = new AccommodationDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenPostponementRequestDisplayCmdExecute()
@@ -64,8 +86,7 @@ namespace TouristAgency.Users
 
         public void OpenPostponementRequestDisplayCmdExecute()
         {
-            PostponementRequestDisplay display = new PostponementRequestDisplay(_loggedInGuest);
-            display.Show();
+            _app.CurrentVM = new PostponementRequestDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenOwnerReviewCreationCmdExecute()
@@ -75,8 +96,7 @@ namespace TouristAgency.Users
 
         public void OpenOwnerReviewCreationCmdExecute()
         {
-            OwnerReviewCreation creation = new OwnerReviewCreation(_loggedInGuest);
-            creation.Show();
+            _app.CurrentVM = new OwnerReviewCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenSuperGuestDisplayCmdExecute()
@@ -86,8 +106,17 @@ namespace TouristAgency.Users
 
         public void OpenSuperGuestDisplayCmdExecute()
         {
-            SuperGuestDisplay display = new SuperGuestDisplay(_loggedInGuest);
-            display.Show();
+            _app.CurrentVM = new SuperGuestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenHomeCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenHomeCmdExecute()
+        {
+            _app.CurrentVM = new GuestHomeViewModel(_loggedInGuest, _window);
         }
 
         public bool CanCloseCmdExecute()

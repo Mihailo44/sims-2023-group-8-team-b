@@ -9,6 +9,8 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Users.GuideNavigationWindow;
 using TouristAgency.Users.OwnerNavigationWindow;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.GuestNavigationWindow;
 
 namespace TouristAgency
 {
@@ -128,7 +130,10 @@ namespace TouristAgency
                     case UserType.GUEST:
                         {
                             User = _guestService.GuestRepository.GetById(User.ID);
-                            GuestHome x = new GuestHome(User);
+                            app.LoggedUser = User;
+                            User.Username = Username;
+                            User.Password = Password;
+                            GuestMain x = new GuestMain();
                             x.Show();
                             ClearTxtBoxes();
                         }

@@ -11,20 +11,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Requests;
 using TouristAgency.Users;
+using TouristAgency.View.Creation;
+using TouristAgency.View.Display;
 
-namespace TouristAgency.Requests
+namespace TouristAgency.Users.HomeDisplayFeature
 {
     /// <summary>
-    /// Interaction logic for PostponementRequestDisplay.xaml
+    /// Interaction logic for GuestHome.xaml
     /// </summary>
-    public partial class PostponementRequestDisplay : UserControl
+    public partial class GuestHome : UserControl
     {
-        public PostponementRequestDisplay()
+        public GuestHome()
         {
             InitializeComponent();
-            //DataContext = new PostponementRequestDisplayViewModel(loggedInGuest, this);
+           
         }
     }
 }

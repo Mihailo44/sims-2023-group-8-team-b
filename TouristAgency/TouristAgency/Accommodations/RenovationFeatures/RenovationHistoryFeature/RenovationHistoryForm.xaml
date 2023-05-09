@@ -21,7 +21,7 @@
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
             </ListView.ItemContainerStyle>
-
+            
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding CancelRenovationCmd}" />
@@ -30,6 +30,13 @@
 
             <ListView.View>
                 <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="FontStyle" Value="Italic"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn Width="210" Header="Start Date" DisplayMemberBinding="{Binding Start}"/>
                     <GridViewColumn Width="210" Header="End Date" DisplayMemberBinding="{Binding End}"/>
                     <GridViewColumn Width="430" Header="Description" DisplayMemberBinding="{Binding Description}"/>
