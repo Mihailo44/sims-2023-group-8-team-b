@@ -45,6 +45,7 @@ namespace TouristAgency
         public GuestReviewRepository GuestReviewRepository { get; }
         public OwnerRepository OwnerRepository { get; }
         public RenovationRepository RenovationRepository { get; }
+        public RenovationRecommendationRepository RenovationRecommendationRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -93,6 +94,7 @@ namespace TouristAgency
             PhotoRepository = new(InjectorService.CreateInstance<IStorage<Photo>>());
             GuestRepository = new(InjectorService.CreateInstance<IStorage<Guest>>());
             RenovationRepository = new(InjectorService.CreateInstance<IStorage<Renovation>>());
+            RenovationRecommendationRepository = new(InjectorService.CreateInstance<IStorage<RenovationRecommendation>>());
 
             AccommodationRepository.LoadLocationsToAccommodations(LocationRepository.GetAll());
             AccommodationRepository.LoadPhotosToAccommodations(PhotoRepository.GetAll());
@@ -120,6 +122,7 @@ namespace TouristAgency
             TourRequestRepository.LoadLocationsToTourRequests(LocationRepository.GetAll());
             RenovationRepository.LoadAccommodationsToRenovations(AccommodationRepository.GetAll());
             TouristRepository.LoadUsersToTourists(UserRepository.GetAll());
+            RenovationRecommendationRepository.LoadReservationsToRenovationRecommendation(ReservationRepository.GetAll());
         }
     }
 }

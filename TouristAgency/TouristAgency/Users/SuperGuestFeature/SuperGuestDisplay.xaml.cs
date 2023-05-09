@@ -23,6 +23,7 @@ namespace TouristAgency.Users.SuperGuestFeature
         public SuperGuestDisplay(Guest guest)
         {
             InitializeComponent();
+            DataContext = new SuperGuestDisplayViewModel(guest, this);
         }
     }
 }
