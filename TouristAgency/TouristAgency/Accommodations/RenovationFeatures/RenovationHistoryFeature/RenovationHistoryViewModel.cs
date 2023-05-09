@@ -51,7 +51,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
 
         public bool CanCancelRenovationCmdExecute()
         {
-            return SelectedRenovation != null;
+            return SelectedRenovation != null && SelectedRenovation.IsCanceled == false;
         }
 
         public void CancelRenovationCmdExecute()
@@ -64,16 +64,16 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
             {
                 if (today > SelectedRenovation.End)
                 {
-                    MessageBox.Show("Renovation is already done");
+                    MessageBox.Show("Renovation is already done","Renovation Cancelation Dialogue");
                 }
                 else if(dateDiff > 5)
                 {
                     _renovationService.CancelRenovation(SelectedRenovation);
-                    MessageBox.Show("Renovation has been canceled");
+                    MessageBox.Show("Renovation has been canceled successfully", "Renovation Cancelation Dialogue");
                 }
                 else
                 {
-                    MessageBox.Show($"Renovation is in less than 5 days, so it can't be canceled");
+                    MessageBox.Show($"Renovation is in less than 5 days, so it can't be canceled", "Renovation Cancelation Dialogue");
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
             string sMessageBoxText;
             string sCaption;
 
-            sMessageBoxText = $"Do you want to cancel renovation?\nStart Date:\t{SelectedRenovation.Start}\nEnd Date:\t\t{SelectedRenovation.End}";
+            sMessageBoxText = $"Do you want to cancel renovation?\nStart Date:\t{SelectedRenovation.Start.ToShortDateString()}\nEnd Date:\t{SelectedRenovation.End.ToShortDateString()}";
             sCaption = "Renovation Cancelation Dialog";
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
