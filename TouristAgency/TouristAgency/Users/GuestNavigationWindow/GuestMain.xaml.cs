@@ -11,21 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Users;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
 
-namespace TouristAgency.View.Home
+namespace TouristAgency.Users.GuestNavigationWindow
 {
     /// <summary>
-    /// Interaction logic for GuestHome.xaml
+    /// Interaction logic for GuestMain.xaml
     /// </summary>
-    public partial class GuestHome : Window
+    public partial class GuestMain : Window
     {
-        public GuestHome(Guest guest)
+        public GuestMain()
         {
             InitializeComponent();
-            DataContext = new GuestHomeViewModel(guest, this);
+            DataContext = new GuestMainViewModel();
         }
     }
 }
