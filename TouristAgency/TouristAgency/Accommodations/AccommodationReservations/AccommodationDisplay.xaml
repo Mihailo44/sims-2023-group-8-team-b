@@ -43,7 +43,12 @@
 
         <Label Content="Accommodation display and reservation" Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
 
-        <ListView x:Name="AccommodationsListView" FontSize="17" Foreground="Black" ItemsSource="{Binding Path=Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="205,240,10,199" RenderTransformOrigin="0.509,0.477">
+        <ListView x:Name="AccommodationsListView" FontSize="15" Foreground="Black" ItemsSource="{Binding Path=Accommodations}" SelectedItem="{Binding SelectedAccommodation}" Margin="205,240,10,199" RenderTransformOrigin="0.509,0.477">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Photo" Width="180">
@@ -57,13 +62,13 @@
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding Location.City}" Width="120"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Location.Country}" Width="120"/>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" Width="100"/>
-                    <GridViewColumn Header="Max capacity" DisplayMemberBinding="{Binding MaxGuestNum}" Width="90"/>
-                    <GridViewColumn Header="Min days" DisplayMemberBinding="{Binding MinNumOfDays}" Width="90"/>
+                    <GridViewColumn Header="Max capacity" DisplayMemberBinding="{Binding MaxGuestNum}" Width="150"/>
+                    <GridViewColumn Header="Min days" DisplayMemberBinding="{Binding MinNumOfDays}" Width="130"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <GroupBox Width="350" Margin="205,490,0,10" HorizontalAlignment="Left">
+        <GroupBox Width="350" Margin="205,490,0,10" HorizontalAlignment="Left"  BorderBrush="Black" BorderThickness="1">
             <GroupBox.Header>
                 <Label Content="3. Search for available dates" FontSize="20" FontWeight="SemiBold"></Label>
             </GroupBox.Header>
@@ -90,7 +95,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Column="0" Margin="960,490,10,10">
+        <GroupBox Grid.Column="0" Margin="960,490,10,10"  BorderBrush="Black" BorderThickness="1">
             <GroupBox.Header>
                 <Label Content="5. Reservation" FontSize="20" FontWeight="SemiBold"></Label>
             </GroupBox.Header>
@@ -109,6 +114,11 @@
             </Grid>
         </GroupBox>
         <ListView x:Name="ReservationsListView" FontSize="17" ItemsSource="{Binding Path = Reservations}" SelectedItem="{Binding SelectedReservation}" Margin="612,531,262,10">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="from" DisplayMemberBinding="{Binding Path = Start}" Width="160"></GridViewColumn>
@@ -118,7 +128,7 @@
         </ListView>
         <Label Content="4. Select a date" FontWeight="SemiBold" FontSize="20" HorizontalAlignment="Left" Margin="612,492,0,0" VerticalAlignment="Top" Width="165"/>
         <Label Content="2. Select the accommodation:" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="205,198,0,0" VerticalAlignment="Top"/>
-        <GroupBox Margin="200,49,10,480">
+        <GroupBox Margin="200,49,10,480"  BorderBrush="Black" BorderThickness="1">
             <GroupBox.Header>
                 <Label Content="1. Customize" FontSize="20" FontWeight="SemiBold"></Label>
             </GroupBox.Header>
@@ -137,8 +147,12 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Content="Name:" FontSize="15" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.342,0.281"/>
-                <ComboBox x:Name="NameComboBox" IsEditable="True" IsReadOnly="True" Text="*click here" Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Path=Names}" SelectedItem="{Binding SelectedName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                <Label Content="City:" FontSize="15" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.591,0.579"/>
+                <ComboBox x:Name="NameComboBox" IsEditable="True" IsReadOnly="True" Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Path=Names}" SelectedItem="{Binding SelectedName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center"
+                IsHitTestVisible="False"
+               Content="{Binding ElementName=NameComboBox, Path=SelectedItem}"
+               Visibility="{Binding ElementName=NameComboBox, Path=SelectedItem}"/>
+                    <Label Content="City:" FontSize="15" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.591,0.579"/>
                 <ComboBox x:Name="CityComboBox" IsEditable="True" IsReadOnly="True" Text="*click here" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}" SelectedItem="{Binding SelectedCity}" Margin="0,5,0,0"/>
                 <Label Content="Country:" FontSize="15" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" RenderTransformOrigin="0.516,0.601" Margin="0,0,0,10"/>
                 <ComboBox x:Name="CountryComboBox" IsEditable="True" IsReadOnly="True" Text="*click here" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}" SelectedItem="{Binding SelectedCountry}" Grid.ColumnSpan="2" Margin="140,6,0,0"/>

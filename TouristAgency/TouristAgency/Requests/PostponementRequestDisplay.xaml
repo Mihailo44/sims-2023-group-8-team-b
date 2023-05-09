@@ -58,13 +58,18 @@
 
             <Label Content="All reservations:" Foreground="Black" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Height="36" Width="154" Margin="10,0,0,0" VerticalAlignment="Center"/>
             <ListView Grid.Row="1" FontSize="15" Foreground="Black" ItemsSource="{Binding Path=Reservations}" Margin="0,10,10,0" VerticalAlignment="Top" Height="167" SelectedItem="{Binding Path =SelectedReservation}" Grid.ColumnSpan="2">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
-                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
-                        <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
-                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}"></GridViewColumn>
-                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}"></GridViewColumn>
+                        <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}" Width="200"></GridViewColumn>
+                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}" Width="70"></GridViewColumn>
+                        <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}" Width="100"></GridViewColumn>
+                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}" Width="200"></GridViewColumn>
+                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}" Width="200"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -86,7 +91,7 @@
 
         </Grid>
 
-        <GroupBox Header="Request for moving reservation" Foreground="Black"  FontSize="20" FontWeight="SemiBold" Margin="218,289,58,278">
+        <GroupBox Header="Request for moving reservation" Foreground="Black"  FontSize="20" FontWeight="SemiBold" BorderBrush="Black" BorderThickness="1" Margin="218,289,58,278">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -111,14 +116,19 @@
 
         <Label Content="Requests:" Foreground="Black" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="218,406,0,0" VerticalAlignment="Top"/>
         <ListView ItemsSource="{Binding Path=Requests}" Margin="218,447,58,5" FontSize="15" Foreground="Black">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Name}"></GridViewColumn>
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Location.City}"></GridViewColumn>
-                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Location.Country}"></GridViewColumn>
-                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}"></GridViewColumn>
-                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}"></GridViewColumn>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path = Status}"></GridViewColumn>
+                    <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Name}" Width="150"></GridViewColumn>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Location.City}" Width="100"></GridViewColumn>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Reservation.Accommodation.Location.Country}" Width="100"></GridViewColumn>
+                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}" Width="200"></GridViewColumn>
+                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}" Width="200"></GridViewColumn>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path = Status}" Width="100"></GridViewColumn>
                     <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Path = Comment}"></GridViewColumn>
                 </GridView>
             </ListView.View>

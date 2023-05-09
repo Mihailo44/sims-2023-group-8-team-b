@@ -43,7 +43,7 @@
        
         <Label Content="Owner and accommodation review, recommendation for renovation"  Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
 
-        <GroupBox Header="1. Owner and accommodation review (1-5)" FontSize="20" FontWeight="SemiBold" Margin="205,176,26,230">
+        <GroupBox Header="1. Owner and accommodation review (1-5)"  BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="SemiBold" Margin="205,176,26,230">
             <Grid Height="220">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="47*"></RowDefinition>
@@ -85,18 +85,23 @@
                 <Button Grid.Row="4" Grid.Column="5" Margin="0,14,0,0" Width="80" Height="30" VerticalAlignment="Top" Content="Submit" FontWeight="SemiBold" FontSize="15"  Background="#F4F1BB" HorizontalAlignment="Center" Command="{Binding Path=CreateCmd}"/>
             </Grid>
         </GroupBox>
-        <ListView ItemsSource="{Binding Path = UnreviewedReservations}" FontSize="13" Margin="205,53,26,513" SelectedItem="{Binding Path= SelectedReservation}">
+        <ListView ItemsSource="{Binding Path = UnreviewedReservations}" Foreground="Black" FontSize="15" Margin="205,53,26,513" SelectedItem="{Binding Path= SelectedReservation}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Owner name" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Owner.FirstName}"></GridViewColumn>
-                    <GridViewColumn Header="Owner last name" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Owner.LastName}"></GridViewColumn>
-                    <GridViewColumn Header="Accommodation" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
-                    <GridViewColumn Header="City" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
-                    <GridViewColumn Header="Country" Width="100" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
+                    <GridViewColumn Header="Owner name" Width="200" DisplayMemberBinding="{Binding Path = Accommodation.Owner.FirstName}"></GridViewColumn>
+                    <GridViewColumn Header="Owner last name" Width="200" DisplayMemberBinding="{Binding Path = Accommodation.Owner.LastName}"></GridViewColumn>
+                    <GridViewColumn Header="Accommodation" Width="200" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
+                    <GridViewColumn Header="City" Width="150" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
+                    <GridViewColumn Header="Country" Width="200" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-        <GroupBox Header="2. Recommendation for renovation" FontSize="20" FontWeight="SemiBold" Margin="205,454,557,13" RenderTransformOrigin="0.5,0.5">
+        <GroupBox Header="2. Recommendation for renovation"  BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="SemiBold" Margin="205,454,557,13" RenderTransformOrigin="0.5,0.5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -116,7 +121,7 @@
                 <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Submit" FontWeight="SemiBold" FontSize="15"  Background="#F4F1BB" Width="80" Height="25"></Button>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Meaning of levels" Background="AntiqueWhite"  FontSize="20" FontWeight="SemiBold" Margin="668,454,26,13">
+        <GroupBox Header="Meaning of levels" Background="AntiqueWhite"  BorderBrush="Black" BorderThickness="1"  FontSize="20" FontWeight="SemiBold" Margin="668,454,26,13">
             <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" FontSize="15" FontWeight="Normal" Width="472"><Run Text="Level 1 - it would be nice to renovate some small things, but everything works as it should even without it.           "/><Run Text="   "/><LineBreak/><Run Text="Level 2 - minor complaints about the accommodation which if removed would make it perfect.              "/><LineBreak/><Run Text="Level 3 - a few things that bothered me should be renovated.              Level 4 - there are a lot of bad stuff and renovation is really necessary.              "/><LineBreak/><Run Text="Level 5 - the accommodation is in a very bad condition and is not worth renting at all, unless it is renovated."/></TextBlock>
         </GroupBox>
 
