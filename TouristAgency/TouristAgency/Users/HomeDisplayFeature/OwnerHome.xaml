@@ -7,18 +7,27 @@
              xmlns:local="clr-namespace:TouristAgency.View.Home"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="White">
-    
+
     <UserControl.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ImportantCmd}"/>
     </UserControl.InputBindings>
 
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF7B41A3"/>
+                <GradientStop Color="#FF367C8C" Offset="0.7"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <Grid Height="70" Width="970" VerticalAlignment="Bottom" Margin="0,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>
             <Button Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="New" Style="{StaticResource CircleBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Help" Style="{StaticResource CircleBtnStyle}"/>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Help" BorderBrush="DarkSlateBlue" Foreground="BlanchedAlmond" Style="{StaticResource CircleBtnStyle}">
+
+            </Button>
         </Grid>
 
         <Canvas Visibility="{Binding AccountContainerVisibility}"
@@ -30,12 +39,12 @@
                 Background="Transparent"
                 Panel.ZIndex="1000">
 
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeave">
-                        <i:InvokeCommandAction Command="{Binding ShowAccCmd}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeave">
+                    <i:InvokeCommandAction Command="{Binding ShowAccCmd}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <Grid Background="Transparent">
                 <Border Margin="0,0,4,4" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1">
                     <Border.Effect>
@@ -79,8 +88,14 @@
         </Canvas>
 
 
-        <StackPanel Height="740" Width="1010" Orientation="Vertical" Background="AntiqueWhite">
-            <WrapPanel Height="65" Width="1010" Background="#FFCBEAFF">
+        <StackPanel Height="740" Width="1015" Orientation="Vertical">
+            <WrapPanel Height="65" Width="1015">
+                <WrapPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF7B41A3"/>
+                        <GradientStop Color="#FF367C8C" Offset="1.1"/>
+                    </LinearGradientBrush>
+                </WrapPanel.Background>
                 <Grid Height="70" Width="1010">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -90,13 +105,19 @@
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
-                    <Label Height="auto" Margin="15,0,0,0" FontSize="36" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
+                    <Label Height="auto" Margin="15,0,0,0" FontSize="36" Foreground="Wheat" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
                     <Button Grid.Column="1" Content="Notify" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}"/>
                     <Button Grid.Column="2" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
                 </Grid>
             </WrapPanel>
 
-            <WrapPanel Height="auto" Width="auto" Margin="0,0,0,20" Background="Azure">
+            <WrapPanel Height="auto" Width="auto" Margin="0,0,0,20">
+                <WrapPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF367C8C" Offset="0"/>
+                        <GradientStop Color="#FF8453CB" Offset="1"/>
+                    </LinearGradientBrush>
+                </WrapPanel.Background>
                 <Button Margin="20,0,0,0" Style="{StaticResource NavButton}" Content="Reservations" Command="{Binding ShowDataGridCmd}" CommandParameter="0"/>
                 <Button Width="170" Style="{StaticResource NavButton}" Content="Accommodations" Command="{Binding ShowDataGridCmd}" CommandParameter="1"/>
                 <Button Width="225" Style="{StaticResource NavButton}" Content="Postponement Requests" Command="{Binding ShowDataGridCmd}" CommandParameter="2"/>

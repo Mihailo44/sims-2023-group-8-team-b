@@ -22,7 +22,7 @@ namespace TouristAgency
     /// </summary>
     public partial class App : Application
     {
-        public ReservationRepository ReservationRepository { get; } 
+        public ReservationRepository ReservationRepository { get; }
         public OwnerService OwnerService { get; }
         public UserRepository UserRepository { get; }
         public OwnerReviewRepository OwnerReviewRepository { get; }
@@ -50,14 +50,14 @@ namespace TouristAgency
 
         private ViewModelBase _currentVm;
         public ViewModelBase CurrentVM
-         {
-             get => _currentVm;
-             set
-             {
-                 _currentVm = value;
-                 OnCurrentVMChanged();
-             }
-         }
+        {
+            get => _currentVm;
+            set
+            {
+                _currentVm = value;
+                OnCurrentVMChanged();
+            }
+        }
 
         private void OnCurrentVMChanged()
         {
@@ -71,7 +71,7 @@ namespace TouristAgency
 
         public App()
         {
-            GuideRepository = new (InjectorService.CreateInstance<IStorage<Guide>>());
+            GuideRepository = new(InjectorService.CreateInstance<IStorage<Guide>>());
             TourTouristRepository = new(InjectorService.CreateInstance<IStorage<TourTourist>>());
             UserRepository = new(InjectorService.CreateInstance<IStorage<User>>());
             LocationRepository = new(InjectorService.CreateInstance<IStorage<Location>>());
