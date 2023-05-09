@@ -6,36 +6,47 @@
         xmlns:local="clr-namespace:TouristAgency.Users"
         mc:Ignorable="d"
         Title="SuperGuestDisplay" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="#FFFBF3">
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
-        <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25">
-            <Button Height="100" Content="Profile picture"/>
-            <Label HorizontalAlignment="Center">Username: hana123</Label>
-            <Button Height="25" Width="100" Command="{Binding Path=CloseCmd}">Logout</Button>
+        <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB">
+            <Image Source="../../Resources/Image/user-guest.png" Height="88" Margin="0,10,0,0"></Image>
+            <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
+                    <TextBlock>Logout</TextBlock>
+                </StackPanel>
+            </Button>
             <Separator Width="100" Height="20" Background="Transparent"></Separator>
-            <Button Height="70" Content="Help"/>
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
+                    <TextBlock>Help</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Width="100" Height="44" Background="Transparent"></Separator>
             <Label FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center">
                 <TextBlock TextDecorations="Underline">Menu</TextBlock>
             </Label>
-            <Separator Width="100" Height="44" Background="Transparent"></Separator>
-            <Button Content="Display and reservation" Height="40" Command ="{Binding Path=AccommodationDisplayCmd}"/>
-            <Button Content="Review and recommendation" Height="40" Command="{Binding Path=OwnerReviewCreationCmd}"/>
-            <Button Content="Review display" Height="40"/>
-            <Button Content="Move and cancel reservation" Height="40" Command="{Binding Path=PostponementRequestDisplayCmd}"/>
-            <Button Content="Anywhere, anytime" Height="40"/>
-            <Button Content="Super-guest" Height="40"/>
-            <Button Content="Forum" Height="40"/>
-            <Button Content="Reservations report" Height="40"/>
+
+            <Button Content="Display and reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
         </StackPanel>
 
-        <Rectangle HorizontalAlignment="Left" Height="46" Margin="200,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="990"/>
-        <Label Content="Super-guest" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
+        <Label Content="Super-guest" FontSize="30"  Foreground="#89865B" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="223,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="263" Width="948" FontSize="21"><Run Text="You can become a super-guest if you have at least 10 reservations in the previous year. The super-guest title lasts for one year and expires if you don't meet the requirement of 10 reservations again.          "/><LineBreak/><Run/><LineBreak/><Run Text="Super-guest receives 5 bonus points that can be spent in the next year, after which the points are reset to 0.         "/><LineBreak/><Run Text="On each subsequent booking, one bonus point is spent, which brings discounts, which means that the super-guest will have 5 bookings with a discount.          "/><LineBreak/><Run/><LineBreak/><Run Text="Down below you can track your progress:         "/></TextBlock>
-        <Label Content="Number of reservations (this year): 11" FontSize="15" HorizontalAlignment="Left" Margin="583,548,0,0" VerticalAlignment="Top"/>
-        <Label Content="Points (this year): 5" FontSize="15" HorizontalAlignment="Left" Margin="645,583,0,0" VerticalAlignment="Top"/>
-        <Label Content="Status: super-guest" FontSize="15" HorizontalAlignment="Left" Margin="643,618,0,0" VerticalAlignment="Top"/>
+        <Image Source="../../Resources/Image/super-guest.png" Margin="112,368,-112,163"/>
+        <Label Content="Number of reservations (this year): 11" FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Left" Margin="583,548,0,0" VerticalAlignment="Top"/>
+        <Label Content="Points (this year): 5" FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Left" Margin="645,583,0,0" VerticalAlignment="Top"/>
+        <Label Content="Status: super-guest" FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Left" Margin="643,618,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

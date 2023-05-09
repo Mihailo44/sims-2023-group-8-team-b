@@ -6,31 +6,43 @@
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         mc:Ignorable="d"
         Title="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="#FFFBF3">
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
-        <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25">
-            <Button Height="100" Content="Profile picture"/>
-            <Label HorizontalAlignment="Center">Username: hana123</Label>
-            <Button Height="25" Width="100" Command="{Binding Path=CloseCmd}">Logout</Button>
+        <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB">
+            <Image Source="../Resources/Image/user-guest.png" Height="88" Margin="0,10,0,0"></Image>
+            <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent"  Command="{Binding Path=CloseCmd}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
+                    <TextBlock>Logout</TextBlock>
+                </StackPanel>
+            </Button>
             <Separator Width="100" Height="20" Background="Transparent"></Separator>
-            <Button Height="70" Content="Help"/>
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
+                    <TextBlock>Help</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Width="100" Height="44" Background="Transparent"></Separator>
             <Label FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center">
                 <TextBlock TextDecorations="Underline">Menu</TextBlock>
             </Label>
-            <Separator Width="100" Height="44" Background="Transparent"></Separator>
-            <Button Content="Display and reservation" Height="40" Command ="{Binding Path=AccommodationDisplayCmd}"/>
-            <Button Content="Review and recommendation" Height="40" Command="{Binding Path=OwnerReviewCreationCmd}"/>
-            <Button Content="Review display" Height="40"/>
-            <Button Content="Move and cancel reservation" Height="40" Command="{Binding Path=PostponementRequestDisplayCmd}"/>
-            <Button Content="Anywhere, anytime" Height="40"/>
-            <Button Content="Super-guest" Height="40" Command="{Binding Path=SuperGuestDisplayCmd}"/>
-            <Button Content="Forum" Height="40"/>
-            <Button Content="Reservations report" Height="40"/>
+
+            <Button Content="Display and reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command ="{Binding Path=AccommodationDisplayCmd}"/>
+            <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=OwnerReviewCreationCmd}"/>
+            <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=PostponementRequestDisplayCmd}"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
+            <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
         </StackPanel>
 
-        <Label Content="Welcome!!!" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="600,160,0,0" VerticalAlignment="Top" Width="300"/>
-        <Label Content="Book your vacation and enjoy!" FontWeight="Bold" FontSize="15"  HorizontalAlignment="Left" Margin="572,215,0,0" VerticalAlignment="Top"/>
+        <Image Source="../Resources/Image/user-check-guest.png" Height="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="600,75,0,0"/>
+        <Label Content="{Binding WelcomeUsername}" Foreground="#89865B" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" Margin="550,275,0,0" VerticalAlignment="Top" Width="300"/>
+        <Label Content="Book your vacation and enjoy!" Foreground="#89865B" FontWeight="Bold" FontSize="25"  HorizontalAlignment="Left" Margin="516,342,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

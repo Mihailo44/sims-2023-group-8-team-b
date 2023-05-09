@@ -32,6 +32,7 @@ namespace TouristAgency.Reservations
         private DateTime _end;
         private int _numOfDays;
         private int _numOfPeople;
+        private string _username;
 
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
@@ -52,6 +53,7 @@ namespace TouristAgency.Reservations
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            DisplayUser();
         }
 
         private void InstantiateServices()
@@ -84,6 +86,12 @@ namespace TouristAgency.Reservations
             SearchDateCmd = new DelegateCommand(param => SearchDateCmdExecute(), param => CanSearchDateCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
             CancelReservationCmd = new DelegateCommand(param => CancelReservationCmdExecute(), param => CanCancelReservationCmdExecute());
+        }
+
+        private void DisplayUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+
         }
         public ObservableCollection<Accommodation> Accommodations
         {
@@ -237,6 +245,19 @@ namespace TouristAgency.Reservations
                 {
                     _numOfPeople = value;
                     OnPropertyChanged("NumOfPeople");
+                }
+            }
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
                 }
             }
         }

@@ -10,6 +10,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Requests.Domain;
+using TouristAgency.Tours;
 using TouristAgency.Users;
 
 namespace TouristAgency.Requests
@@ -24,6 +25,8 @@ namespace TouristAgency.Requests
 
         private DateTime _start;
         private DateTime _end;
+        private string _username;
+        private Window _window;
 
         private ReservationService _reservationService;
         private PostponementRequestService _postponementRequestService;
@@ -36,10 +39,13 @@ namespace TouristAgency.Requests
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
+            _window = window;
+            _username = "";
 
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            DisplayUser();
         }
 
         private void InstantiateServices()
@@ -62,6 +68,12 @@ namespace TouristAgency.Requests
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
             NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
             CancelCmd = new DelegateCommand(param => CancelExecute(), param => CanCancelExecute());
+        }
+
+        private void DisplayUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+
         }
 
         public ObservableCollection<Reservation> Reservations
@@ -112,6 +124,19 @@ namespace TouristAgency.Requests
                 {
                     _end = value;
                     OnPropertyChanged("End");
+                }
+            }
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
                 }
             }
         }
