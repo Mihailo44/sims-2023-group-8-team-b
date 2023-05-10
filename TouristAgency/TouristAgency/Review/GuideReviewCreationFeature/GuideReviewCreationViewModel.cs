@@ -150,6 +150,7 @@ namespace TouristAgency.Review
         public void SetTourAttractionsExecute(object parameter)
         {
             NewGuideReview.Attractions = Convert.ToInt32(parameter);
+
         }
 
         public bool CanSetTourKnowledgeExecute(object parameter)
