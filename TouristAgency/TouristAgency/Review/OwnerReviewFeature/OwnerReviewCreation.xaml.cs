@@ -15,17 +15,17 @@ using TouristAgency.Review;
 using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Users;
 
-namespace TouristAgency.View.Creation
+namespace TouristAgency.Review.OwnerReviewFeature
 {
     /// <summary>
     /// Interaction logic for OwnerReviewCreation.xaml
     /// </summary>
-    public partial class OwnerReviewCreation : Window
+    public partial class OwnerReviewCreation : UserControl
     {
-        public OwnerReviewCreation(Guest guest)
+        public OwnerReviewCreation()
         {
             InitializeComponent();
-            DataContext = new OwnerReviewCreationViewModel(guest, this);
+            //DataContext = new OwnerReviewCreationViewModel(guest, this);
         }
     }
 }

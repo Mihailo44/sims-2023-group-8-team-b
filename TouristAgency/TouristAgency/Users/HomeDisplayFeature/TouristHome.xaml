@@ -7,6 +7,13 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="TouristHome" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF9BB9D1" Offset="0.99"/>
+            <GradientStop Color="#FFF4D7FF" />
+        </LinearGradientBrush>
+    </Window.Background>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -19,7 +26,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column="0" Height="auto" Width="335" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold">
+        <Menu Grid.Row="0" Grid.Column="0" Height="auto" Width="335" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Background="Transparent">
             <MenuItem Header="_Tour">
                 <MenuItem Header="Attendance on the tour" Command="{Binding TourAttendanceCmd}">
                     <MenuItem.Icon>
@@ -31,6 +38,7 @@
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/review.png"/>
                     </MenuItem.Icon>
+                    
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_View">
@@ -92,7 +100,7 @@
 
             <Label Content="{Binding Username}" Grid.Row="2" Height="70" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"></Label>
             <Label Content="Where would you like to go today?" FontSize="28"></Label>
-            <Button Grid.Row="4" Width="170" Height="45" Command="{Binding CloseCmd}" FontSize="28" FontWeight="Bold" Background="Honeydew" Margin="0,25,0,0">
+            <Button Grid.Row="4" Width="170" Height="45" Command="{Binding CloseCmd}" FontSize="28" FontWeight="Bold" Background="Transparent" Cursor="Hand" BorderBrush="Transparent" Margin="0,25,0,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Image/logout.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
@@ -101,7 +109,7 @@
         </StackPanel>
         
         <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Image Width="100" Height="100" >
+            <Image Width="100" Height="100" Cursor="Hand">
                 <Image.Source>
                     <BitmapImage UriSource="../../Resources/Image/notification-bell.png"/>
                 </Image.Source>

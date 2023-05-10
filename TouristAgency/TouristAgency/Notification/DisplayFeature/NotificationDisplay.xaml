@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Title="NotificationDisplay" Height="720" Width="1000" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
+            <GradientStop Color="#FFDCD8D4" />
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"></ColumnDefinition>
@@ -54,7 +60,7 @@
         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold">
             <TextBlock TextDecorations="Underline">Vouchers won</TextBlock>
         </Label>
-        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="490" Height="250" ItemsSource="{Binding Vouchers}" FontSize="28" FontWeight="Bold">
+        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="490" Height="250" ItemsSource="{Binding Vouchers}" FontSize="28" FontWeight="Bold" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

@@ -17,13 +17,13 @@ namespace TouristAgency.Users.SuperGuestFeature
     /// <summary>
     /// Interaction logic for SuperGuestDisplay.xaml
     /// </summary>
-    public partial class SuperGuestDisplay : Window
+    public partial class SuperGuestDisplay : UserControl
     {
         private Guest _loggedInGuest;
-        public SuperGuestDisplay(Guest guest)
+        public SuperGuestDisplay()
         {
             InitializeComponent();
-            DataContext = new SuperGuestDisplayViewModel(guest, this);
+            //DataContext = new SuperGuestDisplayViewModel(guest, this);
         }
     }
 }
