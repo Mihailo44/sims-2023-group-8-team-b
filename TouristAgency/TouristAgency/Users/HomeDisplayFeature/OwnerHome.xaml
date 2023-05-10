@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:TouristAgency.Converter"
              xmlns:local="clr-namespace:TouristAgency.View.Home"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="White">
 
+    <UserControl.Resources>
+        <con:DateConverter x:Key="DateConv"/>
+    </UserControl.Resources>
+    
     <UserControl.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ImportantCmd}"/>
     </UserControl.InputBindings>
@@ -187,8 +192,8 @@
                             <GridViewColumn Width="125" Header="First Name" DisplayMemberBinding="{Binding Guest.FirstName}"/>
                             <GridViewColumn Width="125" Header="Last Name" DisplayMemberBinding="{Binding Guest.LastName}"/>
                             <GridViewColumn Width="240" Header="Accommodation" DisplayMemberBinding="{Binding Accommodation.Name}"/>
-                            <GridViewColumn Width="250" Header="Start" DisplayMemberBinding="{Binding Start}"/>
-                            <GridViewColumn Width="250" Header="End" DisplayMemberBinding="{Binding End}"/>
+                            <GridViewColumn Width="250" Header="Start" DisplayMemberBinding="{Binding Start,Converter={StaticResource DateConv}}"/>
+                            <GridViewColumn Width="250" Header="End" DisplayMemberBinding="{Binding End,Converter={StaticResource DateConv}}"/>
                             <!--<GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -278,8 +283,8 @@
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Width="245" Header="Accommodation" DisplayMemberBinding="{Binding Reservation.Accommodation.Name}"/>
                             <GridViewColumn Width="235" Header="Last Name" DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
-                            <GridViewColumn Width="255" Header="(New)Start Date" DisplayMemberBinding="{Binding Start}"/>
-                            <GridViewColumn Width="255" Header="(New)End Date" DisplayMemberBinding="{Binding End}"/>
+                            <GridViewColumn Width="255" Header="(New)Start Date" DisplayMemberBinding="{Binding Start,Converter={StaticResource DateConv}}"/>
+                            <GridViewColumn Width="255" Header="(New)End Date" DisplayMemberBinding="{Binding End,Converter={StaticResource DateConv}}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

@@ -22,7 +22,7 @@ namespace TouristAgency.Converter
             string stringValue = value as string;
             int intValue;
 
-            if (string.IsNullOrEmpty(stringValue))
+            if (string.IsNullOrWhiteSpace(stringValue))
             {
                 return null;
             }
