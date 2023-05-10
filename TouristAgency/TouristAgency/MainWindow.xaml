@@ -34,7 +34,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="btn" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Content="Log in" Width="200" Height="40" Margin="10,10,5,0" FontSize="21" FontWeight="SemiBold" Command="{Binding LoginCmd}"/>
+        <Button x:Name="btn" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Content="Log in" Width="200" Height="40" Margin="10,10,5,0" FontSize="21" FontWeight="SemiBold" Command="{Binding LoginCmd}" Style="{StaticResource BasicBtn}"/>
 
         <xctk:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="210" Height="33" FontSize="21" Watermark="Username" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Path=Username,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
@@ -44,7 +44,7 @@
                 <KeyBinding Key="Enter" Command="{Binding LoginCmd}" />
             </TextBox.InputBindings>
         </xctk:WatermarkTextBox>
-        <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Content="Sign Up" Width="90" Height="30" Margin="5,10,0,0" FontSize="18" FontWeight="Medium" Command="{Binding CloseCmd}"/>
+        <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Content="Sign Up" Width="90" Height="30" Margin="5,10,0,0" FontSize="18" FontWeight="Medium" Command="{Binding CloseCmd}" Background="Snow"/>
         <!--<Label Grid.Row="4" Grid.Column="1" Height="30" Margin="3,10,0,0" HorizontalAlignment="Right" Content="Forgot Password?" FontSize="14" FontWeight="Medium"/>-->
     </Grid>
 </Window>

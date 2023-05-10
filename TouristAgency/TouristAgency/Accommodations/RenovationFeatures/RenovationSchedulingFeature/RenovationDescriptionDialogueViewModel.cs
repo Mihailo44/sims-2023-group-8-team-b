@@ -71,7 +71,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         {
             Renovation.Description = Description.Trim();
             _renovationService.RenovationRepository.Create(Renovation);
-            MessageBox.Show("Renovation has been scheduled");
+            MessageBox.Show("Renovation has been scheduled","Renovation Scheduling Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
             _window.Close();
         }
     }

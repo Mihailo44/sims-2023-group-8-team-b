@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:TouristAgency.Converter"
              xmlns:local="clr-namespace:TouristAgency.Accommodations.StatisticsFeature"
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="900" Background="White">
+
+    <UserControl.Resources>
+        <con:IntConverter x:Key="IntConv"/>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -16,7 +22,7 @@
 
         <WrapPanel Grid.Row="0" Background="Bisque">
             <Label Width="160" Height="40" Margin="50,5,0,0" FontSize="22" Content="Stats By Year"/>
-            <ComboBox Height="35" Margin="20,5,0,0"  Width="120" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{Binding CbYearValues}" SelectedItem="{Binding Year,UpdateSourceTrigger=PropertyChanged}" Text="{Binding Year,UpdateSourceTrigger=PropertyChanged}">
+            <ComboBox Height="35" Margin="20,5,0,0"  Width="120" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{Binding CbYearValues}" SelectedItem="{Binding Year,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged}" Text="{Binding Year,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding ShowStatsCmd}"/>

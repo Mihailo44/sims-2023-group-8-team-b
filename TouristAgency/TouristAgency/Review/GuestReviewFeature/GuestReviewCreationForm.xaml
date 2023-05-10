@@ -47,7 +47,7 @@
         <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center" Margin="150,0,0,0"/>
         <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center" Margin="150,0,0,0"/>
         <Label Grid.Row="7" Grid.Column="0" Content="Comment" FontSize="22" FontWeight="Medium" HorizontalAlignment="Center" Margin="150,0,0,0"/>
-        <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Content="CREATE" Command="{Binding CreateCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Content="SUBMIT" Command="{Binding CreateCmd}" Style="{StaticResource BasicBtn}"/>
 
         <ComboBox Grid.Row="1" Grid.Column="1" Width="180" Height="35" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.Cleanliness,Converter={StaticResource IntConv}}"/>
         <ComboBox Grid.Row="2" Grid.Column="1" Width="180" Height="35" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.RuleAbiding,Converter={StaticResource IntConv}}"/>

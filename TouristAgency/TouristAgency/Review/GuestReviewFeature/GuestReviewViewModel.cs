@@ -10,10 +10,11 @@ using TouristAgency.Util;
 using TouristAgency.Review.Domain;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using System.ComponentModel;
 
 namespace TouristAgency.Review.GuestReviewFeature
 {
-    public class GuestReviewViewModel : ViewModelBase, ICreate, ICloseable
+    public class GuestReviewViewModel : ViewModelBase, ICreate, ICloseable, IDataErrorInfo
     {
         private readonly GuestReviewService _guestReviewService;
         private readonly ReservationService _reservationService;
@@ -196,6 +197,36 @@ namespace TouristAgency.Review.GuestReviewFeature
         public void CloseWindowExecute()
         {
             app.CurrentVM = new OwnerHomeViewModel();
+        }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Comment")
+                {
+                    if (string.IsNullOrEmpty(Comment))
+                        return "Required field";
+                }
+
+                return null;
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "Comment" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
+            }
         }
     }
 }
