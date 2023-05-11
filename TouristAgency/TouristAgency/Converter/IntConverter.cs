@@ -19,10 +19,10 @@ namespace TouristAgency.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string stringValue = (string)value;
+            string stringValue = value as string;
             int intValue;
 
-            if (string.IsNullOrEmpty(stringValue))
+            if (string.IsNullOrWhiteSpace(stringValue))
             {
                 return null;
             }

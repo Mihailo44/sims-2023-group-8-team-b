@@ -16,11 +16,6 @@ namespace TouristAgency.Accommodations.CreationFeature
         private LocationService _locationService;
         private Owner _owner;
         private int _ownerId;
-        private string _name;
-        private TYPE _type;
-        private int _maxGuestNum;
-        private int _minNumOfDays;
-        private int _allowedNumOfDaysForCancelation;
         private string _photoLinks;
         private App _app = (App)Application.Current;
 
@@ -29,6 +24,7 @@ namespace TouristAgency.Accommodations.CreationFeature
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
         public Owner LoggedUser { get; }
+
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
 
@@ -83,71 +79,6 @@ namespace TouristAgency.Accommodations.CreationFeature
                 if (value != _ownerId)
                 {
                     _ownerId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public TYPE Type
-        {
-            get => _type;
-            set
-            {
-                if (value != _type)
-                {
-                    _type = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int MaxGuestNum
-        {
-            get => _maxGuestNum;
-            set
-            {
-                if (value != _maxGuestNum)
-                {
-                    _maxGuestNum = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int MinNumOfDays
-        {
-            get => _minNumOfDays;
-            set
-            {
-                if (value != _minNumOfDays)
-                {
-                    _minNumOfDays = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int AllowedNumOfDaysForCancelation
-        {
-            get => _allowedNumOfDaysForCancelation;
-            set
-            {
-                if (value != _allowedNumOfDaysForCancelation)
-                {
-                    _allowedNumOfDaysForCancelation = value;
                     OnPropertyChanged();
                 }
             }
@@ -223,7 +154,7 @@ namespace TouristAgency.Accommodations.CreationFeature
         {
             return !string.IsNullOrEmpty(PhotoLinks);
         }
-
+   
         public void CreateAccommodationExecute()
         {
             PrepareAccommodationForCreation();

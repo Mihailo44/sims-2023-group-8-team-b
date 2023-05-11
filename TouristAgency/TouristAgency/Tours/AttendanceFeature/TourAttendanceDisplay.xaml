@@ -7,6 +7,13 @@
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Title="TourAttendance" Height="600" Width="1100" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
+            <GradientStop Color="#FFDCD8D4" />
+        </LinearGradientBrush>
+    </Window.Background>
+    
     <Grid HorizontalAlignment="Center" Height="580">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -19,7 +26,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Select and join the one of applied tours:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="32" FontWeight="Bold"></Label>
-        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="330" SelectedItem="{Binding SelectedTour}" ItemsSource="{Binding Tours}" FontSize="28" FontWeight="Bold">
+        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="330" SelectedItem="{Binding SelectedTour}" ItemsSource="{Binding Tours}" FontSize="28" FontWeight="Bold" Foreground="Black">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding ShowCheckpointInfoCmd}" />
@@ -44,7 +51,7 @@
             </ListView.View>
         </ListView>
 
-        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="700" Height="155" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Honeydew">
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Width="700" Height="155" HorizontalAlignment="Left" VerticalAlignment="Top">
             <GroupBox.Header>
                 <Label Content="Tour info" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
@@ -62,7 +69,7 @@
             </Grid>
         </GroupBox>
 
-        <Button Grid.Row="2" Grid.Column="1" Command="{Binding JoinCmd}" Width="240" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="28" FontWeight="Bold" Margin="0,0,0,40">
+        <Button Grid.Row="2" Grid.Column="1" Command="{Binding JoinCmd}" Width="240" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom"  FontSize="28" FontWeight="Bold" Margin="0,0,0,40" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../../Resources/Image/join.png" Margin="0,0,10,0"/>
                 <TextBlock>Join the tour</TextBlock>

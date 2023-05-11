@@ -23,25 +23,26 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
-        <StackPanel Width="820" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <StackPanel Margin="20,10,0,0">
-                <Label Height="45" HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Pick a Start Date"/>
-                <DatePicker Width="150" Height="35" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"/>
+        <GroupBox Width="820" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="2">
+            <StackPanel Width="820" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <StackPanel Margin="20,10,0,0">
+                    <Label Height="45" HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Pick a Start Date"/>
+                    <DatePicker Width="150" Height="35" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="20,10,0,0">
+                    <Label Height="45" HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Pick an End Date"/>
+                    <DatePicker Width="150" Height="35" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="20,10,0,0">
+                    <Label HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Estimated Duration"/>
+                    <TextBox Width="80" Height="35" Margin="0,10,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <Button Height="50" Width="130" Margin="50,25,0,0" VerticalAlignment="Center" Content="SEARCH" Command="{Binding SearchCmd}" Style="{StaticResource BasicBtn}"/>
             </StackPanel>
-            <StackPanel Margin="20,10,0,0">
-                <Label Height="45" HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Pick an End Date"/>
-                <DatePicker Width="150" Height="35" Margin="0,5,0,0" FontSize="21" SelectedDate="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}"/>
-            </StackPanel>
-            <StackPanel Margin="20,10,0,0">
-                <Label HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Estimated Duration"/>
-                <TextBox Width="80" Height="35" Margin="0,10,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration,Converter={StaticResource IntConv}}"/>
-            </StackPanel>
-            <Button Height="50" Width="130" Margin="50,25,0,0" VerticalAlignment="Center" Content="SEARCH" Command="{Binding SearchCmd}" Style="{StaticResource BasicBtn}"/>
-        </StackPanel>
+        </GroupBox>
 
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Avaliable Dates"/>
-        <ListView Height="370" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+        <ListView Height="365" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding PossibleRenovationDates}"
                   SelectedItem="{Binding SelectedRenovation}"
@@ -57,7 +58,7 @@
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding CreateCmd}" />
+                    <i:InvokeCommandAction Command="{Binding CreateCmd}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 

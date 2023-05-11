@@ -8,7 +8,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
-namespace TouristAgency.Requests.Domain
+namespace TouristAgency.Accommodations.PostponementFeatures.Domain
 {
     public class PostponementRequest : ISerializable
     {

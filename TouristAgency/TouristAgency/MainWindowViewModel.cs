@@ -67,8 +67,6 @@ namespace TouristAgency
             _window = window;
             InstantiateServices();
             InstantiateCommands();
-            Username = "Miki";
-            Password = "toki";
         }
 
         private void InstantiateServices()
@@ -109,63 +107,67 @@ namespace TouristAgency
             Password = "";
         }
 
-        
-
         public void LoginExecute()
         {
-            User = _userService.UserRepository.CheckCredentials(Username, Password);
-
-            if (User != null)
+            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
-                switch (User.UserType)
-                {
-                    case UserType.OWNER:
-                        {
-                            User = _ownerService.OwnerRepository.GetById(User.ID);
-                            app.LoggedUser = User;
-                            OwnerMain x = new OwnerMain();
-                            x.Show();
-                            //ReviewNotification();
-                            ClearTxtBoxes();
-                        }
-                        break;
-                    case UserType.GUEST:
-                        {
-                            User = _guestService.GuestRepository.GetById(User.ID);
-                            app.LoggedUser = User;
-                            User.Username = Username;
-                            User.Password = Password;
-                            GuestMain x = new GuestMain();
-                            x.Show();
-                            ClearTxtBoxes();
-                        }
-                        break;
-                    case UserType.TOURIST:
-                        {
-                            User = _touristService.TouristRepository.GetById(User.ID);
-                            app.LoggedUser = User;
-                            User.Username = Username;
-                            User.Password = Password;
-                            TouristHome x = new TouristHome(User);
-                            x.Show();
-                            ClearTxtBoxes();
-                        }
-                        break;
-                    case UserType.GUIDE:
-                        {
-                            User = _guideService.GuideRepository.GetById(User.ID);
-                            app.LoggedUser = User;
-                            GuideMain x = new GuideMain();
-                            x.Show();
-                            ClearTxtBoxes();
-                        }
-                        break;
-                    default: MessageBox.Show("User type doesn't exist"); break;
-                }
+                MessageBox.Show("Please enter username and password", "Login Dialogue", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
             else
             {
-                MessageBox.Show("User is not registered");
+                User = _userService.UserRepository.CheckCredentials(Username, Password);
+
+                if (User != null)
+                {
+                    switch (User.UserType)
+                    {
+                        case UserType.OWNER:
+                            {
+                                User = _ownerService.OwnerRepository.GetById(User.ID);
+                                app.LoggedUser = User;
+                                OwnerMain x = new OwnerMain();
+                                x.Show();
+                                ClearTxtBoxes();
+                            }
+                            break;
+                        case UserType.GUEST:
+                            {
+                                User = _guestService.GuestRepository.GetById(User.ID);
+                                app.LoggedUser = User;
+                                User.Username = Username;
+                                User.Password = Password;
+                                GuestMain x = new GuestMain();
+                                x.Show();
+                                ClearTxtBoxes();
+                            }
+                            break;
+                        case UserType.TOURIST:
+                            {
+                                User = _touristService.TouristRepository.GetById(User.ID);
+                                app.LoggedUser = User;
+                                User.Username = Username;
+                                User.Password = Password;
+                                TouristHome x = new TouristHome(User);
+                                x.Show();
+                                ClearTxtBoxes();
+                            }
+                            break;
+                        case UserType.GUIDE:
+                            {
+                                User = _guideService.GuideRepository.GetById(User.ID);
+                                app.LoggedUser = User;
+                                GuideMain x = new GuideMain();
+                                x.Show();
+                                ClearTxtBoxes();
+                            }
+                            break;
+                        default: MessageBox.Show("User type doesn't exist"); break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("User is not registered","Login Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+                }
             }
         }
 

@@ -39,6 +39,13 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right" Height="80" Width="80" Margin="0,0,15,20" Panel.ZIndex="1000" Visibility="Visible">
+            <Grid.Background>
+                <SolidColorBrush Color="Transparent"/>
+            </Grid.Background>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="HELP" Style="{StaticResource DemoBtnStyle}"/>
+        </Grid>
+
         <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="22" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
         <Label Grid.Row="3" Grid.Column="0" Content="City" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
@@ -47,7 +54,7 @@
         <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Days" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
         <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <Label Grid.Row="8" Grid.Column="0" Content="Photos URL" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-        <Button Grid.Row="12" Grid.Column="0" Grid.RowSpan="2" Content="REGISTER" Command="{Binding CreateCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="12" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,15" Content="REGISTER" Command="{Binding CreateCmd}" Style="{StaticResource BasicBtn}"/>
 
         <TextBox Grid.Row="1" Grid.Column="1" Width="250" Height="32" HorizontalAlignment="Left" FontSize="22" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
@@ -67,6 +74,6 @@
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
-        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="12" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,15" Content="CANCEL" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
     </Grid>
 </UserControl>

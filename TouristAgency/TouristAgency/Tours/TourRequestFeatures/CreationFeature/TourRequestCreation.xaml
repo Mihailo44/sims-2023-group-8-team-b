@@ -6,6 +6,21 @@
         xmlns:local="clr-namespace:TouristAgency.TourRequests" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="TourRequestCreation" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
+            <GradientStop Color="#FFDCD8D4" />
+        </LinearGradientBrush>
+    </Window.Background>
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <Grid>
+                <AdornedElementPlaceholder/>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
+                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="7"/>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -16,7 +31,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Column="0" Grid.Row="0" Height="300" Width="1040" VerticalAlignment="Top" Margin="0,5,0,0" Background="Beige">
+        <GroupBox Grid.Column="0" Grid.Row="0" Height="300" Width="1040" VerticalAlignment="Top" Margin="0,5,0,0" BorderBrush="Black">
             <GroupBox.Header>
                 <Label Content="Create tour request" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
@@ -35,39 +50,39 @@
                 <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Width="340" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Country:" FontSize="28" FontWeight="SemiBold"/>
-                        <TextBox x:Name="CountryTextBox" Width="170" Height="40" Text="{Binding Path=Country}" FontSize="28" FontWeight="SemiBold" Margin="21.5,0,0,0"/>
+                        <TextBox x:Name="CountryTextBox" Width="170" Height="40" Text="{Binding Path=TourRequest.ShortLocation.Country, ValidatesOnDataErrors=True}" FontSize="28" FontWeight="SemiBold" Margin="21.5,0,0,0" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="City:" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Width="66" />
-                        <TextBox x:Name="CityTextBox" Width="170" Height="40" Text="{Binding Path=City}" FontSize="28" FontWeight="SemiBold" Margin="75,0,0,0"/>
+                        <TextBox x:Name="CityTextBox" Width="170" Height="40" Text="{Binding Path=TourRequest.ShortLocation.City, ValidatesOnDataErrors=True}" FontSize="28" FontWeight="SemiBold" Margin="75,0,0,0" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Language:" FontSize="28" FontWeight="SemiBold"/>
-                        <TextBox x:Name="LanguageComboBox" Width="170" Height="40" Text="{Binding Path=Language}" FontSize="28" FontWeight="SemiBold"/>
+                        <TextBox x:Name="Language" Width="170" Height="40" Text="{Binding Path=TourRequest.Language, ValidatesOnDataErrors=True}" FontSize="28" FontWeight="SemiBold" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Width="325" Margin="0,6,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Num of people:" FontSize="28" FontWeight="SemiBold"/>
-                        <xctk:UIntegerUpDown x:Name="NumOfPeople" Width="90" Height="40" Value="{Binding NumOfPeople}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"/>
+                        <xctk:UIntegerUpDown x:Name="NumOfPeople" Width="90" Height="40" Value="{Binding TourRequest.MaxAttendance, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Date range:" FontSize="28" FontWeight="SemiBold"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="from:" FontSize="28" FontWeight="SemiBold"></Label>
-                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDate="{Binding StartDate}" SelectedDateFormat="Short"></DatePicker>
+                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDate="{Binding TourRequest.StartDate, ValidatesOnDataErrors=True}" SelectedDateFormat="Short" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="to:" FontSize="28" FontWeight="SemiBold"></Label>
-                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDate="{Binding EndDate}" SelectedDateFormat="Short" Margin="34,0,0,0"></DatePicker>
+                        <DatePicker FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDate="{Binding TourRequest.EndDate, ValidatesOnDataErrors=True}" SelectedDateFormat="Short" Margin="34,0,0,0" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" Orientation="Vertical" Width="340" HorizontalAlignment="Right" Margin="0,6,0,0">
                     <Label Content="Description:" FontSize="28" FontWeight="SemiBold" Margin="4,0,0,0"/>
-                    <TextBox Height="120" Width="320" Text="{Binding Description}" FontSize="28" FontWeight="SemiBold">
+                    <TextBox Height="120" Width="320" Text="{Binding TourRequest.Description}" FontSize="28" FontWeight="SemiBold">
                         <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                         <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                         <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
@@ -75,7 +90,7 @@
                     </TextBox>
                 </StackPanel>
 
-                <Button Grid.Row="3" Grid.Column="3" Command="{Binding CreateCmd}" Width="250" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30">
+                <Button Grid.Row="3" Grid.Column="3" Command="{Binding CreateCmd}" Width="250" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="../../../Resources/Image/send.png" Margin="0,0,10,0"/>
                         <TextBlock> Send request</TextBlock>
@@ -85,7 +100,7 @@
         </GroupBox>
 
         <Label Content="Tour requests:" Grid.Row="1" FontSize="32" FontWeight="Bold" Margin="20,0,0,0"></Label>
-        <ListView Grid.Row="2" Width="1040" Height="315" ItemsSource="{Binding TourRequests}" FontSize="28" FontWeight="Bold" VerticalAlignment="Top">
+        <ListView Grid.Row="2" Width="1040" Height="315" ItemsSource="{Binding TourRequests}" FontSize="28" FontWeight="Bold" VerticalAlignment="Top" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

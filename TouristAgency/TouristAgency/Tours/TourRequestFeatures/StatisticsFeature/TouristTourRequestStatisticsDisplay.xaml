@@ -8,6 +8,12 @@
         mc:Ignorable="d"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Title="TourRequestStatisticsDisplay" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
+            <GradientStop Color="#FFDCD8D4" />
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -33,7 +39,7 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </StackPanel>
-        <Label Content="Accepted tour requests" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
+        <Label Content="Accepted tour requests" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
             <Label Content="Percentage of accepted requests:" VerticalContentAlignment="Bottom" FontSize="28" FontWeight="Bold"></Label>
             <Label Content="{Binding AcceptedPercentage}" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Bottom"></Label>
@@ -50,8 +56,8 @@
         </Label>
         
         <Border Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" BorderThickness="2,2,2,2" BorderBrush="Black"></Border>
-        <Label Content="Denied tour requests" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="32" FontWeight="Bold"></Label>
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Label Content="Denied tour requests" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
             <Label Content="Percentage of denied requests:" VerticalContentAlignment="Bottom" FontSize="28" FontWeight="Bold"></Label>
             <Label Content="{Binding DeniedPercentage}" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Bottom"></Label>
             <Label Content="%" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Bottom"></Label>

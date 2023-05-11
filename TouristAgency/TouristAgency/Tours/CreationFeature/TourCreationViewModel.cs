@@ -289,7 +289,7 @@ namespace TouristAgency.CreationFeature
                 NewTour.AssignedGuide = _loggedInGuide;
                 NewTour.StartDateTime = dateTime;
                 NewTour.RemainingCapacity = NewTour.MaxAttendants;
-                if (HandleTourRequest(dateTime))
+                if (HandleTourRequest(dateTime) && NewTour.IsValid)
                 {
                     AddPhotos();
                     LoadToursToCheckpoints();

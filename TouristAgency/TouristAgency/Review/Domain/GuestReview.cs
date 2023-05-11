@@ -10,7 +10,7 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Review.Domain
 {
-    public class GuestReview : ISerializable, INotifyPropertyChanged, IDataErrorInfo
+    public class GuestReview : ISerializable, INotifyPropertyChanged
     {
         private int _id;
         private Reservation _reservation;
@@ -175,37 +175,6 @@ namespace TouristAgency.Review.Domain
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public string Error => null;
-        public string this[string columnName]
-        {
-            get
-            {
-                if (columnName == "Comment")
-                {
-                    if (string.IsNullOrEmpty(Comment))
-                        return "Required field";
-                }
-
-                return null;
-
-            }
-        }
-
-        private readonly string[] _validatedProperties = { "Comment" };
-
-        public bool IsValid
-        {
-            get
-            {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != null)
-                        return false;
-                }
-                return true;
-            }
         }
 
         public void FromCSV(string[] values)

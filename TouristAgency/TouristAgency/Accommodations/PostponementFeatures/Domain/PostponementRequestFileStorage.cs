@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Serialization;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Requests.Domain
+namespace TouristAgency.Accommodations.PostponementFeatures.Domain
 {
     public class PostponementRequestFileStorage : IStorage<PostponementRequest>
     {

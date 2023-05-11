@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows;
+using System.Xml.Linq;
 using TouristAgency.Util;
 
 namespace TouristAgency.TourRequests
 {
-    public class TourRequest : INotifyPropertyChanged, Interfaces.ISerializable
+    public class TourRequest : INotifyPropertyChanged, Interfaces.ISerializable, IDataErrorInfo
     {
         private int _ID;
         private int _touristID;
@@ -142,6 +144,7 @@ namespace TouristAgency.TourRequests
                 if (value != _language)
                 {
                     _language = value;
+                    OnPropertyChanged("Language");
                 }
             }
         }
@@ -166,6 +169,7 @@ namespace TouristAgency.TourRequests
                 if (value != _startDate)
                 {
                     _startDate = value;
+                    OnPropertyChanged("StartDate");
                 }
             }
         }
@@ -178,7 +182,63 @@ namespace TouristAgency.TourRequests
                 if (value != _endDate)
                 {
                     _endDate = value;
+                    OnPropertyChanged("EndDate");
                 }
+            }
+        }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "City")
+                {
+                    if (string.IsNullOrEmpty(ShortLocation.City))
+                        return "Required field";
+                }
+                else if (columnName == "Country")
+                {
+                    if (string.IsNullOrEmpty(ShortLocation.Country))
+                        return "Required field";
+                }
+                else if (columnName == "Language")
+                {
+                    if (string.IsNullOrEmpty(Language))
+                        return "Required field";
+                }
+                else if (columnName == "MaxAttendance")
+                {
+                    if (string.IsNullOrEmpty(MaxAttendance.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "StartDate")
+                {
+                    if (string.IsNullOrEmpty(StartDate.ToString()))
+                        return "Required field";
+                }
+                else if (columnName == "EndDate")
+                {
+                    if (string.IsNullOrEmpty(EndDate.ToString()))
+                        return "Required field";
+                }
+                return null;
+
+            }
+        }
+
+        private readonly string[] _validatedProperties = { "City", "Country", "Language", "MaxAttendance", "StartDate", "EndDate" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
             }
         }
 

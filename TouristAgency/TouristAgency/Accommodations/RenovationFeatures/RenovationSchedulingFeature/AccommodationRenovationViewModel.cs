@@ -37,6 +37,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
             InstantiateCommands();
             PossibleRenovationDates = new();
             SetDefaultElementValues();
+            FillCollection();
         }
 
         private void InstantiateServices()
