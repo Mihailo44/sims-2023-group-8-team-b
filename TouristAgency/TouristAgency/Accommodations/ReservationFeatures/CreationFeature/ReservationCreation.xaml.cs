@@ -15,18 +15,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.View.Home;
 using TouristAgency.Users;
-using TouristAgency.Accommodations.AccommodationReservations;
+using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 
-namespace TouristAgency.Accommodations.AccommodationReservations
+namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
     /// <summary>
     /// Interaction logic for AccommodationDisplay.xaml
     /// </summary>
-    public partial class AccommodationDisplay : UserControl
+    public partial class ReservationCreation : UserControl
     {
         private Guest _loggedInGuest;
 
-        public AccommodationDisplay()
+        public ReservationCreation()
         {
             InitializeComponent();
             //DataContext = new AccommodationDisplayViewModel(guest, this);

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using TouristAgency.Accommodations.AccommodationReservations;
+using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
@@ -17,9 +17,9 @@ using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Accommodations.PostponementFeatures
+namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
 {
-    public class PostponementRequestDisplayViewModel : ViewModelBase, ICreate
+    public class PostponementRequestCreationViewModel : ViewModelBase, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -45,7 +45,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
-        public PostponementRequestDisplayViewModel(Guest guest, Window window)
+        public PostponementRequestCreationViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
@@ -231,7 +231,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures
 
         public void OpenAccommodationDisplayCmdExecute()
         {
-            _app.CurrentVM = new AccommodationDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new ReservationCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenPostponementRequestDisplayCmdExecute()
@@ -241,7 +241,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures
 
         public void OpenPostponementRequestDisplayCmdExecute()
         {
-            _app.CurrentVM = new PostponementRequestDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new PostponementRequestCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenOwnerReviewCreationCmdExecute()

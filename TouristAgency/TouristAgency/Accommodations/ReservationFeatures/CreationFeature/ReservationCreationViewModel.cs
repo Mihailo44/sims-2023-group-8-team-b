@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures;
+using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -16,9 +17,9 @@ using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Accommodations.AccommodationReservations
+namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
-    public class AccommodationDisplayViewModel : ViewModelBase, ICloseable, ICreate
+    public class ReservationCreationViewModel : ViewModelBase, ICloseable, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -55,7 +56,7 @@ namespace TouristAgency.Accommodations.AccommodationReservations
         public DelegateCommand HomeCmd { get; set; }
 
 
-        public AccommodationDisplayViewModel(Guest guest, Window window)
+        public ReservationCreationViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
@@ -418,7 +419,7 @@ namespace TouristAgency.Accommodations.AccommodationReservations
 
         public void OpenAccommodationDisplayCmdExecute()
         {
-            _app.CurrentVM = new AccommodationDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new ReservationCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenPostponementRequestDisplayCmdExecute()
@@ -428,7 +429,7 @@ namespace TouristAgency.Accommodations.AccommodationReservations
 
         public void OpenPostponementRequestDisplayCmdExecute()
         {
-            _app.CurrentVM = new PostponementRequestDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new PostponementRequestCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenOwnerReviewCreationCmdExecute()

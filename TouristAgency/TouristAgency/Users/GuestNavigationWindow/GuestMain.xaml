@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Users.GuestNavigationWindow"
         xmlns:home="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
-        xmlns:acco="clr-namespace:TouristAgency.Accommodations.AccommodationReservations"
-        xmlns:req="clr-namespace:TouristAgency.Accommodations.PostponementFeatures"
+        xmlns:acco="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.CreationFeature"
+        xmlns:req="clr-namespace:TouristAgency.Accommodations.PostponementFeatures.CreationFeature"
         xmlns:rev="clr-namespace:TouristAgency.Review.OwnerReviewFeature"
         xmlns:sup="clr-namespace:TouristAgency.Users.SuperGuestFeature"
         mc:Ignorable="d"
@@ -16,12 +16,12 @@
             <home:GuestHome/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type acco:AccommodationDisplayViewModel}">
-            <acco:AccommodationDisplay/>
+        <DataTemplate DataType="{x:Type acco:ReservationCreationViewModel}">
+            <acco:ReservationCreation/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type req:PostponementRequestDisplayViewModel}">
-            <req:PostponementRequestDisplay/>
+        <DataTemplate DataType="{x:Type req:PostponementRequestCreationViewModel}">
+            <req:PostponementRequestCreation/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type rev:OwnerReviewCreationViewModel}">

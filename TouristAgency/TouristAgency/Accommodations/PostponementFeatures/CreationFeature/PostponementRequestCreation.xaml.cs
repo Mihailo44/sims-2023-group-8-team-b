@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Users;
 
-namespace TouristAgency.Accommodations.PostponementFeatures
+namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
 {
     /// <summary>
     /// Interaction logic for PostponementRequestDisplay.xaml
     /// </summary>
-    public partial class PostponementRequestDisplay : UserControl
+    public partial class PostponementRequestCreation : UserControl
     {
-        public PostponementRequestDisplay()
+        public PostponementRequestCreation()
         {
             InitializeComponent();
             //DataContext = new PostponementRequestDisplayViewModel(loggedInGuest, this);
