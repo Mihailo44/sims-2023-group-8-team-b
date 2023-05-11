@@ -209,6 +209,10 @@ namespace TouristAgency.Users.HomeDisplayFeature
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
             PostponeCmd = new DelegateCommand(param => OpenPostponeReservationExecute(), param => CanOpenPostponeReservationExecute());
+<<<<<<< HEAD
+=======
+            //PostponeCommentCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanOpenPostponeCommentExecute());
+>>>>>>> 5bcadd7f46d27c8629328c6f5d8c69e07e3bcc50
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
             ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute, CanShowDataGridExecute);
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());

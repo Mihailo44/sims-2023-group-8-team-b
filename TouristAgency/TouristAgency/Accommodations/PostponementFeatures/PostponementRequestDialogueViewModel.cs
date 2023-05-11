@@ -13,8 +13,8 @@ namespace TouristAgency.Accommodations.PostponementFeatures
     {
         private ViewModelBase _currentVm;
 
-        public ViewModelBase CurrentVM
-        {
+        public ViewModelBase CurrentVM 
+        { 
             get => _currentVm;
             set
             {
