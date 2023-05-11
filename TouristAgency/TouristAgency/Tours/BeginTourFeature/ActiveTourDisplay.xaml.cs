@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
-using TouristAgency.Accommodations.AccommodationReservations;
 using System.Windows.Controls;
 
 namespace TouristAgency.Tours.BeginTourFeature

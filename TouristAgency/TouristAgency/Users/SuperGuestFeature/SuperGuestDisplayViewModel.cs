@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TouristAgency.Accommodations.AccommodationReservations;
 using TouristAgency.Accommodations.PostponementFeatures;
+using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
+using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Base;
 using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Users.HomeDisplayFeature;
@@ -76,7 +77,7 @@ namespace TouristAgency.Users.SuperGuestFeature
 
         public void OpenAccommodationDisplayCmdExecute()
         {
-            _app.CurrentVM = new AccommodationDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new ReservationCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenPostponementRequestDisplayCmdExecute()
@@ -86,7 +87,7 @@ namespace TouristAgency.Users.SuperGuestFeature
 
         public void OpenPostponementRequestDisplayCmdExecute()
         {
-            _app.CurrentVM = new PostponementRequestDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new PostponementRequestCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenOwnerReviewCreationCmdExecute()
