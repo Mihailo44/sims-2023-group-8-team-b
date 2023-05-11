@@ -71,7 +71,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}" Width="200"></GridViewColumn>
-                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}" Width="70"></GridViewColumn>
+                        <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}" Width="104"></GridViewColumn>
                         <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}" Width="100"></GridViewColumn>
                         <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}" Width="200"></GridViewColumn>
                         <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}" Width="200"></GridViewColumn>
