@@ -51,10 +51,17 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="240,75,0,0" TextWrapping="Wrap" FontSize="21" VerticalAlignment="Top" Height="238" Width="854"><Run Text="Here you can see the ratings you received from the owner of the accommodation you stayed in."/><LineBreak/><Run Text="          "/><LineBreak/><Run Text="The ratings are from 1 to 5.          "/><LineBreak/><Run/><LineBreak/><Run Text="The reason why this button was disabled before you rated the owner and accommodation was to preserve the objectivity of giving ratings."/></TextBlock>
 
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="240,326,131,241">
+        <ListView ItemsSource="{Binding Path= Reviews}" Margin="240,326,131,241">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding AccommodationName}" Width="150"/>
+                    <GridViewColumn Header="Owner" DisplayMemberBinding="{Binding OwnerName}" Width="120"/>
+                    <GridViewColumn Header="Cleanliness" DisplayMemberBinding="{Binding Cleanliness}" Width="120"/>
+                    <GridViewColumn Header="Rule abiding" DisplayMemberBinding="{Binding RuleAbiding}" Width="100"/>
+                    <GridViewColumn Header="Communication" DisplayMemberBinding="{Binding Communication}" Width="150"/>
+                    <GridViewColumn Header="Overall impression" DisplayMemberBinding="{Binding OverallImpression}" Width="130"/>
+                    <GridViewColumn Header="Noise level" DisplayMemberBinding="{Binding NoiseLevel}" Width="130"/>
+                    <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Comment}" Width="130"/>
                 </GridView>
             </ListView.View>
         </ListView>

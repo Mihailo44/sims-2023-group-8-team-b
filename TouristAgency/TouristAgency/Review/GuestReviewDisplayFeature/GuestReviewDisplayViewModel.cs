@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,10 @@ using System.Windows;
 using System.Windows.Controls;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
+using TouristAgency.Review.Domain;
+using TouristAgency.Review.GuestReviewDisplayFeature.Domain;
 using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Tours;
 using TouristAgency.Users;
@@ -23,6 +27,10 @@ namespace TouristAgency.Review.GuestReviewDisplayFeature
         private Window _window;
 
         private string _username;
+        private ObservableCollection<GuestReviewAccommodation> _reviews;
+
+        private ReservationService _reservationService;
+        private GuestReviewService _guestReviewService;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
@@ -37,6 +45,7 @@ namespace TouristAgency.Review.GuestReviewDisplayFeature
             _app = (App)Application.Current;
             _loggedInGuest = guest;
             _window = window;
+            Reviews = new ObservableCollection<GuestReviewAccommodation>();
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
@@ -45,11 +54,20 @@ namespace TouristAgency.Review.GuestReviewDisplayFeature
 
         private void InstantiateServices()
         {
-
+            _reservationService = new ReservationService();
+            _guestReviewService = new GuestReviewService();
         }
 
         private void InstantiateCollections()
         {
+            List<Reservation> reservations = _reservationService.GetOwnerReviewed(_loggedInGuest.ID);
+            List<GuestReview> guestReviews = _guestReviewService.GetValidByReservationId(reservations);
+            
+            foreach (GuestReview guestReview in guestReviews)
+            {
+                if(guestReview!=null)
+                    Reviews.Add(new GuestReviewAccommodation(guestReview.Reservation.Accommodation, guestReview));
+            }
 
         }
 
@@ -82,6 +100,19 @@ namespace TouristAgency.Review.GuestReviewDisplayFeature
                 {
                     _username = value;
                     OnPropertyChanged("Username");
+                }
+            }
+        }
+
+        public ObservableCollection<GuestReviewAccommodation> Reviews
+        {
+            get => _reviews;
+            set
+            {
+                if (value != _reviews)
+                {
+                    _reviews = value;
+                    OnPropertyChanged("Reviews");
                 }
             }
         }
