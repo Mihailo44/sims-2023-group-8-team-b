@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Requests.Domain;
 
-namespace TouristAgency.Requests
+namespace TouristAgency.Accommodations.PostponementFeatures
 {
     public class PostponementRequestCommentDialogueViewModel : ViewModelBase, ICloseable
     {
@@ -27,6 +27,7 @@ namespace TouristAgency.Requests
             _postponementRequestService = new();
             _postponementRequest = postponementRequest;
             _window = window;
+            Comment = "";
             SubmitCommentCmd = new DelegateCommand(param => SubmitCommentExecute(), param => CanSubmitCommentExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }
@@ -38,12 +39,9 @@ namespace TouristAgency.Requests
 
         public void SubmitCommentExecute()
         {
-            if (Comment != null)
-            {
-                _postponementRequest.Comment = Comment.Trim();
-            }
+            _postponementRequest.Comment = Comment.Trim();
             _postponementRequestService.PostponementRequestRepository.Update(_postponementRequest, _postponementRequest.Id);
-            MessageBox.Show("Comment successfully submited");
+            MessageBox.Show("Comment successfully submited","Postponement Comment Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
             _window.Close();
         }
 

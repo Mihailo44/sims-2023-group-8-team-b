@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Requests.Domain
+namespace TouristAgency.Accommodations.PostponementFeatures.Domain
 {
     public class PostponementRequestRepository : ICrud<PostponementRequest>, ISubject
     {

@@ -31,6 +31,9 @@
                     </Setter.Value>
                 </Setter> -->
             </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="0.9"/>
+            </Trigger>
         </Style.Triggers>
 
     </Style>

@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TouristAgency.Accommodations.AccommodationReservations;
+using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Requests.Domain;
 using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Requests
+namespace TouristAgency.Accommodations.PostponementFeatures
 {
     public class PostponementRequestDisplayViewModel : ViewModelBase, ICreate
     {

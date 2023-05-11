@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Accommodations.Domain;
+using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Converter;
-using TouristAgency.Requests.Domain;
+
 
 namespace TouristAgency.Accommodations.StatisticsFeature
 {
@@ -19,11 +20,13 @@ namespace TouristAgency.Accommodations.StatisticsFeature
         private PostponementRequestService _postponementRequestService;
 
         private int _selectedYear;
-        private string _month;
+        private string _busiestMonth;
         private int _reservationsYearly;
         private int _cancelationsYearly;
         private int _postponationsYearly;
         private int _reservationsMonthly;
+        private int _cancelationsMonthly;
+        private int _posponationsMonthly;
 
         public int SelectedYear
         {
@@ -88,14 +91,40 @@ namespace TouristAgency.Accommodations.StatisticsFeature
             }
         }
 
-        public string BusiestMonth
+        public int CancelationsMonthly
         {
-            get => _month;
+            get => _cancelationsMonthly;
             set
             {
-                if (_month != value)
+                if(_cancelationsMonthly != value)
                 {
-                    _month = value;
+                    _cancelationsMonthly = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int PostponationsMonthly
+        {
+            get => _posponationsMonthly;
+            set
+            {
+                if(_posponationsMonthly != value)
+                {
+                    _posponationsMonthly = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string BusiestMonth
+        {
+            get => _busiestMonth;
+            set
+            {
+                if (_busiestMonth != value)
+                {
+                    _busiestMonth = value;
                     OnPropertyChanged();
                 }
             }
@@ -143,7 +172,7 @@ namespace TouristAgency.Accommodations.StatisticsFeature
             }
 
             CbYearValues.Reverse();
-
+   
             CbMonthValues.Add("January");
             CbMonthValues.Add("February");
             CbMonthValues.Add("March");
@@ -171,8 +200,8 @@ namespace TouristAgency.Accommodations.StatisticsFeature
         {
             int monthNumber = MonthConverter.GetMonthId(SelectedMonth);//proveri da li radi
             ReservationsMonthly = _reservationService.GetByAccommodationId(SelectedAccommodation.Id).Where(r => r.Start.Year == SelectedYear && r.Start.Month == monthNumber && r.IsCanceled == false).Count();
-           // Cancelations = _reservationService.GetByAccommodationId(SelectedAccommodation.Id).Where(r => r.Start.Year == SelectedYear && r.Start.Month == monthNumber && r.IsCanceled == true).Count();
-            //Postponations = _postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == SelectedYear && p.Reservation.Start.Month == monthNumber && p.Reservation.AccommodationId == SelectedAccommodation.Id).Count();
+            CancelationsMonthly = _reservationService.GetByAccommodationId(SelectedAccommodation.Id).Where(r => r.Start.Year == SelectedYear && r.Start.Month == monthNumber && r.IsCanceled == true).Count();
+            PostponationsMonthly = _postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == SelectedYear && p.Reservation.Start.Month == monthNumber && p.Reservation.AccommodationId == SelectedAccommodation.Id).Count();
         }
 
         public bool CanShowYearStatsCmdExecute()

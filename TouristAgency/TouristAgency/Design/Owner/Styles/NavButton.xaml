@@ -11,11 +11,30 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="10" Background="BlanchedAlmond">
+                    <Border CornerRadius="10" BorderThickness="1" BorderBrush="BlanchedAlmond" Background="BlanchedAlmond">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="0.9"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="10" BorderThickness="1" BorderBrush="LightSeaGreen" Background="BlanchedAlmond">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter> 
+                <Setter Property="Foreground" Value="LightSeaGreen"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
+
 </ResourceDictionary>

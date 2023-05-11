@@ -9,7 +9,6 @@ using TouristAgency.Users;
 using TouristAgency.Util;
 using TouristAgency.Tours;
 using TouristAgency.Vouchers;
-using TouristAgency.Requests.Domain;
 using TouristAgency.Users.Domain;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.TourRequests;
@@ -17,6 +16,7 @@ using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Accommodations.PostponementFeatures.Domain;
 
 namespace TouristAgency.Base
 {
