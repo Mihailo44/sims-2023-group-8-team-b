@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TouristAgency.Accommodations.PostponementFeatures;
+using System.Windows.Controls;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Base;
-using TouristAgency.Review.GuestReviewDisplayFeature;
 using TouristAgency.Review.OwnerReviewFeature;
+using TouristAgency.Tours;
+using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Users.SuperGuestFeature
+namespace TouristAgency.Review.GuestReviewDisplayFeature
 {
-    public class SuperGuestDisplayViewModel : ViewModelBase
+    public class GuestReviewDisplayViewModel : ViewModelBase
     {
         private App _app;
         private Guest _loggedInGuest;
-        private readonly Window _window;
+        private Window _window;
 
         private string _username;
 
@@ -30,14 +32,25 @@ namespace TouristAgency.Users.SuperGuestFeature
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
-        public SuperGuestDisplayViewModel(Guest guest, Window window)
+        public GuestReviewDisplayViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
             _window = window;
-
+            InstantiateServices();
+            InstantiateCollections();
             InstantiateCommands();
             DisplayUser();
+        }
+
+        private void InstantiateServices()
+        {
+
+        }
+
+        private void InstantiateCollections()
+        {
+
         }
 
         private void InstantiateCommands()
