@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.Users.GuestNavigationWindow"
         xmlns:home="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
         xmlns:acco="clr-namespace:TouristAgency.Accommodations.AccommodationReservations"
-        xmlns:req="clr-namespace:TouristAgency.Requests"
+        xmlns:req="clr-namespace:TouristAgency.Accommodations.PostponementFeatures"
         xmlns:rev="clr-namespace:TouristAgency.Review.OwnerReviewFeature"
         xmlns:sup="clr-namespace:TouristAgency.Users.SuperGuestFeature"
         mc:Ignorable="d"
