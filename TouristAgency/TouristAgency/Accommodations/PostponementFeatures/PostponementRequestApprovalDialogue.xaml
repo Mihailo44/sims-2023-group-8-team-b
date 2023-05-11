@@ -8,9 +8,9 @@
              d:DesignHeight="400" d:DesignWidth="600" Background="White">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="95"/>
             <RowDefinition Height="80"/>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
