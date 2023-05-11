@@ -120,7 +120,7 @@
                 <Button x:Name="MakeReservationButton" FontSize="14" FontWeight="SemiBold"  Background="#F4F1BB" Grid.Row="1" Grid.ColumnSpan="2" Content="Make a reservation" Width="125" Height="28" HorizontalAlignment="Center" Command="{Binding CreateCmd}"/>
             </Grid>
         </GroupBox>
-        <ListView x:Name="ReservationsListView" FontSize="17" ItemsSource="{Binding Path = Reservations}" SelectedItem="{Binding SelectedReservation}" Margin="598,486,276,55">
+        <ListView x:Name="ReservationsListView" FontSize="15" ItemsSource="{Binding Path = Reservations}" SelectedItem="{Binding SelectedReservation}" Margin="598,486,276,55">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
