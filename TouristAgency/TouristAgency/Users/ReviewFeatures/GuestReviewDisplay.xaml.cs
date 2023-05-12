@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TouristAgency.Review.GuestReviewDisplayFeature
+namespace TouristAgency.Users.ReviewFeatures
 {
     /// <summary>
     /// Interaction logic for GuestReviewDisplay.xaml

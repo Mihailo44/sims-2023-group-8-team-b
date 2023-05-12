@@ -8,9 +8,8 @@ using TouristAgency.Accommodations.PostponementFeatures;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Base;
-using TouristAgency.Review.GuestReviewDisplayFeature;
-using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.ReviewFeatures;
 
 namespace TouristAgency.Users.SuperGuestFeature
 {

@@ -7,7 +7,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Storage;
 using TouristAgency.Util;
 
-namespace TouristAgency.Review.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class OwnerReviewService
     {

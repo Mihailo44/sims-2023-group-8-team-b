@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
-using TouristAgency.Review.GuestReviewDisplayFeature.Domain;
 
 namespace TouristAgency.Review.Domain
 {

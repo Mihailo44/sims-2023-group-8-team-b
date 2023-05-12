@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Review.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class OwnerReviewFileStorage : IStorage<OwnerReview>
     {

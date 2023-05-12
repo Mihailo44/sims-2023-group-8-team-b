@@ -17,6 +17,7 @@ using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
+using TouristAgency.Users.ReviewFeatures.Domain;
 
 namespace TouristAgency.Base
 {

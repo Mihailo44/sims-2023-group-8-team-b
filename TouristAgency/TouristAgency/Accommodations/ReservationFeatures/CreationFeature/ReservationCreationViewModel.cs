@@ -12,10 +12,9 @@ using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Review.GuestReviewDisplayFeature;
-using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature;
 
 namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature

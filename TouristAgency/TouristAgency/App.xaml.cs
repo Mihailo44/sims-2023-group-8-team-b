@@ -12,6 +12,7 @@ using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.Domain;
+using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Util;
 using TouristAgency.Vouchers;
 

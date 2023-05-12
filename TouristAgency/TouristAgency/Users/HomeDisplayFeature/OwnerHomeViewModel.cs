@@ -8,13 +8,14 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Util;
-using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.CreationFeature;
 using TouristAgency.Review.GuestReviewFeature;
 using TouristAgency.Accommodations.NavigationWindow;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
+using TouristAgency.Accommodations.PostponementFeatures;
+using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
 
 namespace TouristAgency.Users.HomeDisplayFeature
@@ -136,6 +137,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand NewAccommodationCmd { get; set; }
         public DelegateCommand NewReviewCmd { get; set; }
         public DelegateCommand PostponeCmd { get; set; }
+        public DelegateCommand PostponeCommentCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand ShowDataGridCmd { get; set; }
         public DelegateCommand ImportantCmd { get; set; }
@@ -209,6 +211,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
             PostponeCmd = new DelegateCommand(param => OpenPostponeReservationExecute(), param => CanOpenPostponeReservationExecute());
+            //PostponeCommentCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanOpenPostponeCommentExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
             ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute, CanShowDataGridExecute);
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());

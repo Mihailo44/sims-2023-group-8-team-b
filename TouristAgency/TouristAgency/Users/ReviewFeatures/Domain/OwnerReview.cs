@@ -8,7 +8,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
-namespace TouristAgency.Review.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class OwnerReview : ISerializable
     {

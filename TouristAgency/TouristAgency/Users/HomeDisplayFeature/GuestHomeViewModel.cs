@@ -10,7 +10,7 @@ using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Review.OwnerReviewFeature;
+using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;

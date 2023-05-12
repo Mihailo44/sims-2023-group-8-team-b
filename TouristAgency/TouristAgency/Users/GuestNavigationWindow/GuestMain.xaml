@@ -7,9 +7,8 @@
         xmlns:home="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
         xmlns:acco="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.CreationFeature"
         xmlns:req="clr-namespace:TouristAgency.Accommodations.PostponementFeatures.CreationFeature"
-        xmlns:rev="clr-namespace:TouristAgency.Review.OwnerReviewFeature"
         xmlns:sup="clr-namespace:TouristAgency.Users.SuperGuestFeature"
-        xmlns:revdis="clr-namespace:TouristAgency.Review.GuestReviewDisplayFeature"
+        xmlns:revdis="clr-namespace:TouristAgency.Users.ReviewFeatures"
         mc:Ignorable="d"
         Title="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -25,8 +24,8 @@
             <req:PostponementRequestCreation/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type rev:OwnerReviewCreationViewModel}">
-            <rev:OwnerReviewCreation/>
+        <DataTemplate DataType="{x:Type revdis:OwnerReviewCreationViewModel}">
+            <revdis:OwnerReviewCreation/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type sup:SuperGuestDisplayViewModel}">

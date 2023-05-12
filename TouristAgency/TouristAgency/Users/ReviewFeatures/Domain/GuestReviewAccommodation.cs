@@ -7,7 +7,7 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Review.Domain;
 
-namespace TouristAgency.Review.GuestReviewDisplayFeature.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class GuestReviewAccommodation
     {

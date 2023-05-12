@@ -12,10 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Review;
-using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Users;
 
-namespace TouristAgency.Review.OwnerReviewFeature
+namespace TouristAgency.Users.ReviewFeatures
 {
     /// <summary>
     /// Interaction logic for OwnerReviewCreation.xaml

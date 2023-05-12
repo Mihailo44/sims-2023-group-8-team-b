@@ -11,14 +11,13 @@ using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Review.Domain;
-using TouristAgency.Review.GuestReviewDisplayFeature;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Users.SuperGuestFeature;
 using TouristAgency.Util;
 
-namespace TouristAgency.Review.OwnerReviewFeature
+namespace TouristAgency.Users.ReviewFeatures
 {
     public class OwnerReviewCreationViewModel : ViewModelBase, ICreate
     {

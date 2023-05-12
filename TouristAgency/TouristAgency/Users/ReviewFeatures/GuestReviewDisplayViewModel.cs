@@ -11,14 +11,13 @@ using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Review.Domain;
-using TouristAgency.Review.GuestReviewDisplayFeature.Domain;
-using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Review.GuestReviewDisplayFeature
+namespace TouristAgency.Users.ReviewFeatures
 {
     public class GuestReviewDisplayViewModel : ViewModelBase
     {
@@ -62,7 +61,7 @@ namespace TouristAgency.Review.GuestReviewDisplayFeature
         {
             List<Reservation> reservations = _reservationService.GetOwnerReviewed(_loggedInGuest.ID);
             List<GuestReview> guestReviews = _guestReviewService.GetValidByReservationId(reservations);
-            
+
             foreach (GuestReview guestReview in guestReviews)
             {
                 Reviews.Add(new GuestReviewAccommodation(guestReview.Reservation.Accommodation, guestReview));
