@@ -47,6 +47,18 @@ namespace TouristAgency.Tours.DisplayFeature
             InstantiateCommands();
         }
 
+        public TourDisplayViewModel(Tourist tourist, Tour tour)
+        {
+            _app = (App)Application.Current;
+            _loggedInTourist = tourist;
+
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
+            Tours.Clear();
+            Tours.Add(tour);
+        }
+
         private void InstantiateServices()
         {
             _touristService = new TouristService();

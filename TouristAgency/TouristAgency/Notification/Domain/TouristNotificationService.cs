@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using TouristAgency.TourRequests;
+using TouristAgency.Tours;
 
 namespace TouristAgency.Vouchers
 {
@@ -18,6 +20,50 @@ namespace TouristAgency.Vouchers
             List<TouristNotification> notifications = TouristNotificationRepository.GetAll().FindAll(t => t.TouristID == TouristID);
             notifications.Reverse();
             return notifications;
+        }
+
+        public void NotifyAboutNewTour(Tour newTour, List<TourRequest> tourRequests)
+        {
+            foreach(TourRequest request in tourRequests)
+            {
+                bool equalByLocation = request.ShortLocation.Equals(newTour.ShortLocation);
+                bool equalByLanguage = request.Language == newTour.Language;
+                if (equalByLocation)
+                {
+                    string message = "A new tour based on " + request.ShortLocation.Country + ", " + request.ShortLocation.City;
+                    TouristNotification notification = new TouristNotification(request.TouristID, Util.TouristNotificationType.SUGGESTED_TOUR, message);
+                    notification.Tour = newTour;
+                    notification.TourID = newTour.ID;
+                    if (!IsNotified(request.TouristID, message))
+                    {
+                        TouristNotificationRepository.Create(notification);
+                    }
+                }
+                if(equalByLanguage)
+                {
+                    string message = "A new tour based on " + request.Language;
+                    TouristNotification notification = new TouristNotification(request.TouristID, Util.TouristNotificationType.SUGGESTED_TOUR, message);
+                    notification.Tour = newTour;
+                    notification.TourID = newTour.ID;
+                    if (!IsNotified(request.TouristID, message))
+                    {
+                        TouristNotificationRepository.Create(notification);
+                    }
+                }
+            }
+        }
+
+        public bool IsNotified(int touristID, string message) 
+        {
+            foreach(TouristNotification notification in TouristNotificationRepository.GetAll())
+            {
+                if(notification.TouristID == touristID && notification.Message == message)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

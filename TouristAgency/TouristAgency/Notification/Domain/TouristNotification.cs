@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using TouristAgency.Interfaces;
+using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Util;
 
 namespace TouristAgency.Vouchers
@@ -9,6 +11,10 @@ namespace TouristAgency.Vouchers
     {
         private int _Id;
         private int _touristID;
+        private int _tourID;
+        private Tour _tour;
+        private int _checkpointID;
+        private Checkpoint _checkpoint;
         private TouristNotificationType _type;
         private string _message;
 
@@ -18,6 +24,8 @@ namespace TouristAgency.Vouchers
         {
             _Id = -1;
             _touristID = -1;
+            _tourID = -1;
+            _checkpointID = -1;
             _type = TouristNotificationType.MESSAGE;
         }
 
@@ -53,6 +61,60 @@ namespace TouristAgency.Vouchers
                 }
             }
         }
+
+        public int TourID
+        {
+            get => _tourID;
+            set
+            {
+                if (value != _tourID)
+                {
+                    _tourID = value;
+                    OnPropertyChanged("TourID");
+                }
+            }
+        }
+
+        public Tour Tour
+        {
+            get => _tour;
+            set
+            {
+                if(value != _tour)
+                {
+                    _tour = value;
+                    OnPropertyChanged("Tour");
+                }
+            }
+        }
+
+
+        public int CheckpointID
+        {
+            get => _checkpointID;
+            set
+            {
+                if (value != _checkpointID)
+                {
+                    _checkpointID = value;
+                    OnPropertyChanged("CheckpointID");
+                }
+            }
+        }
+
+        public Checkpoint Checkpoint
+        {
+            get => _checkpoint;
+            set
+            {
+                if (value != _checkpoint)
+                {
+                    _checkpoint = value;
+                    OnPropertyChanged("Checkpoint");
+                }
+            }
+        }
+
 
         public TouristNotificationType Type
         {
@@ -94,6 +156,8 @@ namespace TouristAgency.Vouchers
             {
                 _Id.ToString(),
                 _touristID.ToString(),
+                _tourID.ToString(),
+                _checkpointID.ToString(),
                 _type.ToString(),
                 _message
             };
@@ -104,8 +168,10 @@ namespace TouristAgency.Vouchers
         {
             _Id = Convert.ToInt32(values[0]);
             _touristID = Convert.ToInt32(values[1]);
-            _type = Enum.Parse<TouristNotificationType>(values[2]);
-            _message = values[3];
+            _tourID = Convert.ToInt32(values[2]);
+            _checkpointID = Convert.ToInt32(values[3]);
+            _type = Enum.Parse<TouristNotificationType>(values[4]);
+            _message = values[5];
         }
     }
 }

@@ -46,6 +46,11 @@ namespace TouristAgency.Tours.BeginTourFeature.Domain
             return TourTouristCheckpointRepository.GetAll().Where(t => t.TouristID == touristID && t.InvitationStatus == InvitationStatus.PENDING).ToList();
         }
 
+        public TourTouristCheckpoint GetPendingInvitationsByCheckpoint(int checkpointID)
+        {
+            return TourTouristCheckpointRepository.GetAll().FirstOrDefault(t => t.TourCheckpoint.CheckpointID == checkpointID && t.InvitationStatus == InvitationStatus.PENDING);
+        }
+
         public void AcceptInvitation(int touristID, int checkpointID)
         {
             TourTouristCheckpoint tourTouristCheckpoint = TourTouristCheckpointRepository.GetAll().Find(t =>

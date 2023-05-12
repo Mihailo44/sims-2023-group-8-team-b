@@ -37,7 +37,6 @@ namespace TouristAgency.Users
             _window = window;
             InstantiateServices();
             InstantiateCommands();
-            NotifyUser();
         }
 
         private void InstantiateServices()
@@ -56,20 +55,6 @@ namespace TouristAgency.Users
             TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => CanTourRequestStatisticsExecute());
             HelpForVoucherCmd = new DelegateCommand(param => HelpForVoucherExecute(), param => CanHelpForVoucherExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
-        }
-
-        private void NotifyUser()
-        {
-            Username = "Welcome, " + _loggedInTourist.Username + "...";
-
-            foreach (var ttc in _ttcService.GetPendingInvitations(_loggedInTourist.ID))
-            {
-                MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _checkpointService.CheckpointRepository.GetById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                {
-                    _ttcService.AcceptInvitation(_loggedInTourist.ID, ttc.TourCheckpoint.CheckpointID);
-                }
-            }
         }
 
         public string Username

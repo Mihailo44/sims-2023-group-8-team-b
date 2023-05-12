@@ -244,8 +244,6 @@ namespace TouristAgency.CreationFeature
                 _tourRequest.Status = TourRequestStatus.ACCEPTED;
                 _tourRequest.GuideID = _loggedInGuide.ID;
                 _tourRequestService.TourRequestRepository.Update(_tourRequest, _tourRequest.ID);
-                TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Promeniti poruku ovde");
-                notification = _touristNotificationService.TouristNotificationRepository.Create(notification);
             }
             return true;
         }
@@ -293,7 +291,13 @@ namespace TouristAgency.CreationFeature
                 {
                     AddPhotos();
                     LoadToursToCheckpoints();
-                    _tourService.TourRepository.Create(new Tour(_newTour));
+                    NewTour = _tourService.TourRepository.Create(new Tour(_newTour));
+                    TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
+                    notification.Tour = NewTour;
+                    notification.TourID = NewTour.ID;
+                    _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.TourRequestRepository.GetAll());
+                    notification = _touristNotificationService.TouristNotificationRepository.Create(notification);
+
                     MessageBox.Show("Successfully created tour!", "Success");
                 }
                 else

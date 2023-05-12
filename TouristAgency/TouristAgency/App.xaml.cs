@@ -124,6 +124,8 @@ namespace TouristAgency
             RenovationRepository.LoadAccommodationsToRenovations(AccommodationRepository.GetAll());
             TouristRepository.LoadUsersToTourists(UserRepository.GetAll());
             RenovationRecommendationRepository.LoadReservationsToRenovationRecommendation(ReservationRepository.GetAll());
+            TouristNotificationRepository.LoadToursToNotifications(TourRepository.GetAll());
+            TouristNotificationRepository.LoadCheckpointsToNotifications(CheckpointRepository.GetAll());
         }
     }
 }

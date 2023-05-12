@@ -40,9 +40,8 @@ namespace TouristAgency.TourRequests
             _endDate = DateTime.Now;
         }
 
-        public TourRequest(int id, TourRequestStatus status, Location shortLocation, string description, string language, int maxAttendants, DateTime startDate, DateTime endDate)
+        public TourRequest(TourRequestStatus status, Location shortLocation, string description, string language, int maxAttendants, DateTime startDate, DateTime endDate)
         {
-            _ID = id;
             _status = status;
             _shortLocation = shortLocation;
             _description = description;

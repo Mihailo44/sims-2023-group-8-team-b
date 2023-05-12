@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Title="NotificationDisplay" Height="720" Width="1000" WindowStartupLocation="CenterScreen">
@@ -31,10 +32,17 @@
             Click on the title or list to view the tour and make a reservation.
         </TextBlock>
 
-        <ListView Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="735" Height="250" FontSize="28" FontWeight="Bold">
+        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="735" Height="250" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedNotification}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Message}"></Label>
+                    <StackPanel>
+                        <Label Content="{Binding Message}"></Label>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding DataContext.NotifyCmd, ElementName=Notificationlw}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
 using TouristAgency.Tours.DisplayFeature;
+using TouristAgency.Tours;
 
 namespace TouristAgency.View.Display
 {
@@ -13,6 +14,12 @@ namespace TouristAgency.View.Display
         {
             InitializeComponent();
             DataContext = new TourDisplayViewModel(tourist, this);
+        }
+
+        public TourDisplay(Tourist tourist, Tour tour)
+        {
+            InitializeComponent();
+            DataContext = new TourDisplayViewModel(tourist, tour);
         }
     }
 }

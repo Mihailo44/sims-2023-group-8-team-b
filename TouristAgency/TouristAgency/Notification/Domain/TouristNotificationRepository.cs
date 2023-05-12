@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TouristAgency.Interfaces;
+using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature.Domain;
 
 namespace TouristAgency.Vouchers
 {
@@ -19,7 +21,9 @@ namespace TouristAgency.Vouchers
 
         public int GenerateId()
         {
-            return _notifications.Max(n => n.ID) + 1;
+            if(_notifications.Count == 0) return 0;
+            else
+                return _notifications.Max(n => n.ID) + 1;
         }
 
         public TouristNotification GetById(int id)
@@ -85,6 +89,33 @@ namespace TouristAgency.Vouchers
             foreach (IObserver observer in _observers)
             {
                 observer.Update();
+            }
+        }
+        public void LoadToursToNotifications(List<Tour> tours)
+        {
+            foreach (Tour tour in tours)
+            {
+                foreach (TouristNotification notification in GetAll())
+                {
+                    if (notification.TourID == tour.ID)
+                    {
+                        notification.Tour = tour;
+                    }
+                }
+            }
+        }
+
+        public void LoadCheckpointsToNotifications(List<Checkpoint> checkpoints)
+        {
+            foreach(Checkpoint checkpoint in checkpoints)
+            {
+                foreach (TouristNotification notification in GetAll())
+                {
+                    if (notification.CheckpointID == checkpoint.ID)
+                    {
+                        notification.Checkpoint = checkpoint;
+                    }
+                }
             }
         }
     }

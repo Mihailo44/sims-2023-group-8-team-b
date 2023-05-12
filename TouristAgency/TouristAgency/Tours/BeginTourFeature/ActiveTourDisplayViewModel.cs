@@ -7,6 +7,7 @@ using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;
+using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours.BeginTourFeature
 {
@@ -28,6 +29,7 @@ namespace TouristAgency.Tours.BeginTourFeature
         private TourTouristService _tourTouristService;
         private TourTouristCheckpointService _tourTouristCheckpointService;
         private TouristService _touristService;
+        private TouristNotificationService _touristNotificationService;
 
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand AddTouristToCheckpointCmd { get; set; }
@@ -57,6 +59,7 @@ namespace TouristAgency.Tours.BeginTourFeature
             _tourTouristService = new TourTouristService();
             _tourTouristCheckpointService = new TourTouristCheckpointService();
             _touristService = new TouristService();
+            _touristNotificationService = new TouristNotificationService();
         }
 
         private void InstantiateCollections()
@@ -185,6 +188,10 @@ namespace TouristAgency.Tours.BeginTourFeature
                     TourCheckpoint selectedTourCheckpoint = SelectedTourCheckpoint;
                     _tourTouristCheckpointService.TourTouristCheckpointRepository.Create(new TourTouristCheckpoint(_selectedTour.ID,
                         selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
+                    TouristNotification notification = new TouristNotification(selectedTourist.ID, TouristNotificationType.ATTENDANCE, "Question from guide about attendance");
+                    notification.Checkpoint = SelectedTourCheckpoint.Checkpoint;
+                    notification.CheckpointID = SelectedTourCheckpoint.CheckpointID;
+                    _touristNotificationService.TouristNotificationRepository.Create(notification);
                 }
             }
         }
