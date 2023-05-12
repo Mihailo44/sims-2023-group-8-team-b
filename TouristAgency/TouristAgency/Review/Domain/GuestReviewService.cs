@@ -18,13 +18,22 @@ namespace TouristAgency.Review.Domain
             GuestReviewRepository = app.GuestReviewRepository;
         }
 
+        public GuestReview GetByReservationId(int reservationId)
+        {
+            return GuestReviewRepository.GetAll().FirstOrDefault(g =>  g.ReservationId == reservationId);
+        }
+
         public List<GuestReview> GetValidByReservationId(List<Reservation> reservations)
         {
             List<GuestReview> guestReviews = new List<GuestReview>();
             
             foreach(Reservation reservation in reservations)
             {
-                guestReviews.Add(GuestReviewRepository.GetById(reservation.Id));
+                GuestReview guestReview = GetByReservationId(reservation.Id);
+                if (guestReview != null)
+                {
+                    guestReviews.Add(guestReview);
+                }
             }
 
             return guestReviews;

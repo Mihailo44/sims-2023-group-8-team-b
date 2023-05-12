@@ -65,8 +65,7 @@ namespace TouristAgency.Review.GuestReviewDisplayFeature
             
             foreach (GuestReview guestReview in guestReviews)
             {
-                if(guestReview!=null)
-                    Reviews.Add(new GuestReviewAccommodation(guestReview.Reservation.Accommodation, guestReview));
+                Reviews.Add(new GuestReviewAccommodation(guestReview.Reservation.Accommodation, guestReview));
             }
 
         }
