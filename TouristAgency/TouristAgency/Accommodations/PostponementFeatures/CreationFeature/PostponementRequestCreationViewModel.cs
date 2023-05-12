@@ -12,6 +12,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Review.OwnerReviewFeature;
+using TouristAgency.Review.GuestReviewDisplayFeature;
 using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
@@ -42,6 +43,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
+        public DelegateCommand GuestReviewDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -87,6 +89,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
+            GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
         }
 
         private void DisplayUser()
@@ -262,6 +265,16 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         public void OpenSuperGuestDisplayCmdExecute()
         {
             _app.CurrentVM = new SuperGuestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenGuestReviewDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReviewDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReviewDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()

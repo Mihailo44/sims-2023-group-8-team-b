@@ -9,6 +9,7 @@
         xmlns:req="clr-namespace:TouristAgency.Accommodations.PostponementFeatures.CreationFeature"
         xmlns:rev="clr-namespace:TouristAgency.Review.OwnerReviewFeature"
         xmlns:sup="clr-namespace:TouristAgency.Users.SuperGuestFeature"
+        xmlns:revdis="clr-namespace:TouristAgency.Review.GuestReviewDisplayFeature"
         mc:Ignorable="d"
         Title="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -30,6 +31,10 @@
 
         <DataTemplate DataType="{x:Type sup:SuperGuestDisplayViewModel}">
             <sup:SuperGuestDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type revdis:GuestReviewDisplayViewModel}">
+            <revdis:GuestReviewDisplay/>
         </DataTemplate>
 
 

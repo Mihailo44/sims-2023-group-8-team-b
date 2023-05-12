@@ -1,26 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TouristAgency.Accommodations.PostponementFeatures;
+using System.Windows.Controls;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
-using TouristAgency.Review.GuestReviewDisplayFeature;
+using TouristAgency.Review.Domain;
+using TouristAgency.Review.GuestReviewDisplayFeature.Domain;
 using TouristAgency.Review.OwnerReviewFeature;
+using TouristAgency.Tours;
+using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Users.SuperGuestFeature
+namespace TouristAgency.Review.GuestReviewDisplayFeature
 {
-    public class SuperGuestDisplayViewModel : ViewModelBase
+    public class GuestReviewDisplayViewModel : ViewModelBase
     {
         private App _app;
         private Guest _loggedInGuest;
-        private readonly Window _window;
+        private Window _window;
 
         private string _username;
+        private ObservableCollection<GuestReviewAccommodation> _reviews;
+
+        private ReservationService _reservationService;
+        private GuestReviewService _guestReviewService;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
@@ -30,14 +40,34 @@ namespace TouristAgency.Users.SuperGuestFeature
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
-        public SuperGuestDisplayViewModel(Guest guest, Window window)
+        public GuestReviewDisplayViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
             _window = window;
-
+            Reviews = new ObservableCollection<GuestReviewAccommodation>();
+            InstantiateServices();
+            InstantiateCollections();
             InstantiateCommands();
             DisplayUser();
+        }
+
+        private void InstantiateServices()
+        {
+            _reservationService = new ReservationService();
+            _guestReviewService = new GuestReviewService();
+        }
+
+        private void InstantiateCollections()
+        {
+            List<Reservation> reservations = _reservationService.GetOwnerReviewed(_loggedInGuest.ID);
+            List<GuestReview> guestReviews = _guestReviewService.GetValidByReservationId(reservations);
+            
+            foreach (GuestReview guestReview in guestReviews)
+            {
+                Reviews.Add(new GuestReviewAccommodation(guestReview.Reservation.Accommodation, guestReview));
+            }
+
         }
 
         private void InstantiateCommands()
@@ -69,6 +99,19 @@ namespace TouristAgency.Users.SuperGuestFeature
                 {
                     _username = value;
                     OnPropertyChanged("Username");
+                }
+            }
+        }
+
+        public ObservableCollection<GuestReviewAccommodation> Reviews
+        {
+            get => _reviews;
+            set
+            {
+                if (value != _reviews)
+                {
+                    _reviews = value;
+                    OnPropertyChanged("Reviews");
                 }
             }
         }

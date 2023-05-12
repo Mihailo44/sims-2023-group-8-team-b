@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Review.GuestReviewDisplayFeature.Domain;
 
 namespace TouristAgency.Review.Domain
 {
@@ -16,5 +17,28 @@ namespace TouristAgency.Review.Domain
         {
             GuestReviewRepository = app.GuestReviewRepository;
         }
+
+        public GuestReview GetByReservationId(int reservationId)
+        {
+            return GuestReviewRepository.GetAll().FirstOrDefault(g =>  g.ReservationId == reservationId);
+        }
+
+        public List<GuestReview> GetValidByReservationId(List<Reservation> reservations)
+        {
+            List<GuestReview> guestReviews = new List<GuestReview>();
+            
+            foreach(Reservation reservation in reservations)
+            {
+                GuestReview guestReview = GetByReservationId(reservation.Id);
+                if (guestReview != null)
+                {
+                    guestReviews.Add(guestReview);
+                }
+            }
+
+            return guestReviews;
+        }
+
+        
     }
 }
