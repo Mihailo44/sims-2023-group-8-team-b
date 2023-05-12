@@ -149,7 +149,7 @@ namespace TouristAgency.TourRequests
             }
         }
 
-        public int MaxAttendance
+        public int MaxAttendants
         {
             get => _maxAttendants; 
             set
@@ -209,7 +209,7 @@ namespace TouristAgency.TourRequests
                 }
                 else if (columnName == "MaxAttendance")
                 {
-                    if (string.IsNullOrEmpty(MaxAttendance.ToString()))
+                    if (string.IsNullOrEmpty(MaxAttendants.ToString()))
                         return "Required field";
                 }
                 else if (columnName == "StartDate")
@@ -253,7 +253,7 @@ namespace TouristAgency.TourRequests
                 ShortLocationID.ToString(),
                 Description,
                 Language,
-                MaxAttendance.ToString(),
+                MaxAttendants.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString()
             };
@@ -269,7 +269,7 @@ namespace TouristAgency.TourRequests
             ShortLocationID = Convert.ToInt32(values[4]);
             Description = Convert.ToString(values[5]);
             Language = values[6];
-            MaxAttendance = Convert.ToInt32(values[7]);
+            MaxAttendants = Convert.ToInt32(values[7]);
             StartDate = Convert.ToDateTime(values[8]);
             EndDate = Convert.ToDateTime(values[9]);
         }

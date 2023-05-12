@@ -102,7 +102,7 @@ namespace TouristAgency.TourRequests
             List<TourRequest> filteredRequests = new List<TourRequest>();
             return TourRequestRepository.GetAll().FindAll(t =>
                     t.ShortLocation.Country.Contains(country) && t.ShortLocation.City.Contains(city) &&
-                    t.Language.Contains(language) && t.MaxAttendance < maxAttendants
+                    t.Language.Contains(language) && t.MaxAttendants < maxAttendants
                     && t.StartDate >= startDate && t.EndDate <= endDate && t.Status == TourRequestStatus.PENDING);
         }
 
@@ -202,7 +202,7 @@ namespace TouristAgency.TourRequests
                     if(tourRequest.Status == TourRequestStatus.ACCEPTED)
                     {
                         accepted++;
-                        avgNumOfPeople += tourRequest.MaxAttendance;
+                        avgNumOfPeople += tourRequest.MaxAttendants;
                     }
                 }
             }
@@ -216,7 +216,7 @@ namespace TouristAgency.TourRequests
                     if (tourRequest.Status == TourRequestStatus.ACCEPTED)
                     {
                         accepted++;
-                        avgNumOfPeople += tourRequest.MaxAttendance;
+                        avgNumOfPeople += tourRequest.MaxAttendants;
                     }
                 }
             }

@@ -34,7 +34,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Tour and guide review" Command="{Binding TourGuideReviewCmd}">
+                <MenuItem Header="Finished tour and guide review" Command="{Binding TourGuideReviewCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/review.png"/>
                     </MenuItem.Icon>

@@ -59,7 +59,7 @@ namespace TouristAgency.TourRequests
             currentTourRequest.ShortLocation = newTourRequest.ShortLocation;
             currentTourRequest.Description = newTourRequest.Description;
             currentTourRequest.Language = newTourRequest.Language;
-            currentTourRequest.MaxAttendance = newTourRequest.MaxAttendance;
+            currentTourRequest.MaxAttendants = newTourRequest.MaxAttendants;
             currentTourRequest.StartDate = newTourRequest.StartDate;
             currentTourRequest.EndDate = newTourRequest.EndDate;
             _storage.Save(_requests);

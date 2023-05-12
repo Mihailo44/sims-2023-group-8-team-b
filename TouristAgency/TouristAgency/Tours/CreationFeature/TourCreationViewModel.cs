@@ -113,7 +113,7 @@ namespace TouristAgency.CreationFeature
             NewLocation = tourRequest.ShortLocation;
             NewTour.ShortLocation.City = tourRequest.ShortLocation.City;
             NewTour.Language = tourRequest.Language;
-            NewTour.MaxAttendants = tourRequest.MaxAttendance;
+            NewTour.MaxAttendants = tourRequest.MaxAttendants;
         }
 
         public void AreControlsEnabled(string state)
