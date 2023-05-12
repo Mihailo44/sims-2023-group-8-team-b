@@ -116,8 +116,16 @@ namespace TouristAgency.Accommodations.Domain
                     }
                     else if (reservation.End.Month > reservation.Start.Month)
                     {
-                        monthlyOccupancy[month.Key - 1] += (DateTime.DaysInMonth(year, month.Key) - reservation.Start.Day);
-                        monthlyOccupancy[month.Key] += reservation.End.Day;
+                        if (reservation.Start.Month == 12)
+                        {
+                            monthlyOccupancy[month.Key - 1] += (DateTime.DaysInMonth(year, month.Key) - reservation.Start.Day);
+                            monthlyOccupancy[0] += reservation.End.Day;
+                        }
+                        else
+                        {
+                            monthlyOccupancy[month.Key - 1] += (DateTime.DaysInMonth(year, month.Key) - reservation.Start.Day);
+                            monthlyOccupancy[month.Key] += reservation.End.Day;
+                        }
                     }
                 }
             }
