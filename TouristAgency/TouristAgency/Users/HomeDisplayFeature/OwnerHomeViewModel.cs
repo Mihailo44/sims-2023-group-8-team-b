@@ -15,7 +15,7 @@ using TouristAgency.Accommodations.NavigationWindow;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.PostponementFeatures;
+using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {

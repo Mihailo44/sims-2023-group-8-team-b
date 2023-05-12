@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Base;
 
-namespace TouristAgency.Accommodations.PostponementFeatures
+namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
 {
     public class PostponementRequestDialogueViewModel : ViewModelBase
     {
         private ViewModelBase _currentVm;
 
-        public ViewModelBase CurrentVM 
-        { 
+        public ViewModelBase CurrentVM
+        {
             get => _currentVm;
             set
             {

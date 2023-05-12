@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TouristAgency.Accommodations.PostponementFeatures.Domain;
 
-namespace TouristAgency.Accommodations.PostponementFeatures
+namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
 {
     /// <summary>
-    /// Interaction logic for PostponementRequestDialogueWindow.xaml
+    /// Interaction logic for PostponementRequestApprovalDialogue.xaml
     /// </summary>
-    public partial class PostponementRequestDialogue : Window
+    public partial class PostponementRequestApprovalDialogue : UserControl
     {
-        public PostponementRequestDialogue(PostponementRequest postponementRequest)
+        public PostponementRequestApprovalDialogue()
         {
             InitializeComponent();
-            DataContext = new PostponementRequestDialogueViewModel(postponementRequest);
         }
     }
 }

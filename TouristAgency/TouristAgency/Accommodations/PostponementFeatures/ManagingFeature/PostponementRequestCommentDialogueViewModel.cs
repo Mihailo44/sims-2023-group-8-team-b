@@ -8,7 +8,7 @@ using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Accommodations.PostponementFeatures
+namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
 {
     public class PostponementRequestCommentDialogueViewModel : ViewModelBase, ICloseable
     {
@@ -41,7 +41,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures
         {
             _postponementRequest.Comment = Comment.Trim();
             _postponementRequestService.PostponementRequestRepository.Update(_postponementRequest, _postponementRequest.Id);
-            MessageBox.Show("Comment successfully submited","Postponement Comment Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+            MessageBox.Show("Comment successfully submited", "Postponement Comment Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
             _window.Close();
         }
 

@@ -48,18 +48,19 @@
             </WrapPanel>
             <WrapPanel>
                 <Label Width="320" Height="40" Margin="50,0,0,0" FontSize="22" Content="Renovation Reccommendations"/>
-                <Label Width="70" Height="40" Margin="10,0,0,0" FontSize="22" FontWeight="SemiBold" Content="to do"/>
+                <Label Width="70" Height="40" Margin="10,0,0,0" FontSize="22" FontWeight="SemiBold" Content="{Binding ReccommendationsYearly}"/>
             </WrapPanel>
             <WrapPanel>
                 <Label Width="250" Height="40" Margin="50,0,0,0" FontSize="22" Content="Busiest Month"/>
-                <Label Width="120" Height="40" Margin="10,0,0,0" FontSize="22" FontWeight="SemiBold" Content="{Binding BusiestMonth,UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Width="120" Height="40" FontSize="22" FontWeight="SemiBold" Content="{Binding BusiestMonth,UpdateSourceTrigger=PropertyChanged}"/>
             </WrapPanel>
         </WrapPanel>
 
         <StackPanel Height="200" Margin="0,200,0,0" Grid.Row="1" Background="Snow">
             <WrapPanel Margin="0,20,0,0">
                 <Label Width="160" Height="40" Margin="50,0,0,0" FontSize="22" Content="Stats By Month"/>
-                <ComboBox Height="35" Margin="20,0,0,0"  Width="140" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{Binding CbMonthValues}" SelectedItem="{Binding SelectedMonth,UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox Height="35" Margin="20,0,0,0"  Width="140" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{Binding CbMonthValues}" SelectedItem="{Binding SelectedMonth,UpdateSourceTrigger=PropertyChanged}"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeave">
                             <i:InvokeCommandAction Command="{Binding ShowMonthStatsCmd}"/>

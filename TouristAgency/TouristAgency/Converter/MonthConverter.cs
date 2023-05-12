@@ -12,7 +12,7 @@ namespace TouristAgency.Converter
     {
         private static Dictionary<int, string> months = new Dictionary<int, string>
         {
-            {0,""},
+            {0,"None"},
             {1,"January"},
             {2,"February"},
             {3,"March"},
@@ -42,7 +42,7 @@ namespace TouristAgency.Converter
                 }
             }
 
-            return -1;
+            return 0;
         }
     }
 }

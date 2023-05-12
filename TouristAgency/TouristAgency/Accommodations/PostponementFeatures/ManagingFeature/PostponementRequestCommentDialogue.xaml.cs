@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TouristAgency.Accommodations.PostponementFeatures
+namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
 {
     /// <summary>
-    /// Interaction logic for PostponementRequestApprovalDialogue.xaml
+    /// Interaction logic for PostponementRequestCommentDialogue.xaml
     /// </summary>
-    public partial class PostponementRequestApprovalDialogue : UserControl
+    public partial class PostponementRequestCommentDialogue : UserControl
     {
-        public PostponementRequestApprovalDialogue()
+        public PostponementRequestCommentDialogue()
         {
             InitializeComponent();
         }

@@ -7,7 +7,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
-namespace TouristAgency.Accommodations.PostponementFeatures
+namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
 {
     public class PostponementRequestApprovalDialogueViewModel : ViewModelBase, ICloseable
     {
@@ -70,11 +70,11 @@ namespace TouristAgency.Accommodations.PostponementFeatures
 
                 request.Status = PostponementRequestStatus.APPROVED;
                 _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
-                MessageBox.Show("Reservation has been postponed");
+                MessageBox.Show("Reservation has been postponed", "Postponement Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Postponement is not possible");
+                MessageBox.Show("Postponement is not possible", "Postponement Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                 request.Status = PostponementRequestStatus.DENIED;
                 request.Comment = "Sorry, the accommodation is reserved in this timeframe";
                 _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
