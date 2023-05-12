@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Design/Owner/Styles/NavButton.xaml"/>
                 <ResourceDictionary Source="Design/Owner/Styles/BasicBtn.xaml"/>
                 <ResourceDictionary Source="Design/Owner/Styles/DemoButton.xaml"/>
+                <ResourceDictionary Source="Design/Owner/Styles/BasicListView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

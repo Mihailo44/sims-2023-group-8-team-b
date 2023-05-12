@@ -46,15 +46,8 @@
                   VerticalAlignment="Top"
                   ItemsSource="{Binding PossibleRenovationDates}"
                   SelectedItem="{Binding SelectedRenovation}"
-                  SelectionMode="Single"
-                  FontSize="19"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-            </ListView.ItemContainerStyle>
+                  Style="{StaticResource BasicListView}"
+                  ItemContainerStyle="{StaticResource ListItem}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">

@@ -68,19 +68,15 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
             </WrapPanel>
-            <ListView Height="90" Width="880" Margin="0,20,0,0" Grid.Row="2"
+            <ListView Height="75" Width="880" Margin="0,20,0,0" Grid.Row="2"
                   VerticalAlignment="Top"
-                  SelectionMode="Single"
                   ItemsSource="{Binding StatsList}"
-                  FontSize="22"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                  Style="{StaticResource BasicListView}"
+                  ItemContainerStyle="{StaticResource ListItem}">
 
                 <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader">
                         <Setter Property="Visibility" Value="Collapsed" />
-                    </Style>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     </Style>
                 </ListView.Resources>
 
@@ -99,7 +95,6 @@
                         <GridViewColumn Width="340" Header="Renovation Reccommendations" DisplayMemberBinding="{Binding Reccommendations}"/>
                     </GridView>
                 </ListView.View>
-
             </ListView>
         </StackPanel>
 
