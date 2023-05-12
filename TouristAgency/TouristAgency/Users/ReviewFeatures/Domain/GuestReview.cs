@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Review.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class GuestReview : ISerializable, INotifyPropertyChanged
     {

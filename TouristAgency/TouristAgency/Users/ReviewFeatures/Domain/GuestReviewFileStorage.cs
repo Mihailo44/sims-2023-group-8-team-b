@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Serialization;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Review.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class GuestReviewFileStorage : IStorage<GuestReview>
     {

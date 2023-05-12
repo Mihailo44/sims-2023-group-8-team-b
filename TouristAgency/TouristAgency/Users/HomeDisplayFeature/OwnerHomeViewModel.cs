@@ -9,14 +9,13 @@ using TouristAgency.Interfaces;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Util;
 using TouristAgency.Accommodations.CreationFeature;
-using TouristAgency.Review.GuestReviewFeature;
 using TouristAgency.Accommodations.NavigationWindow;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.PostponementFeatures;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
+using TouristAgency.Users.ReviewFeatures;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -343,7 +342,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             if (SelectedReservation != null)
             {
-                app.CurrentVM = new GuestReviewViewModel(SelectedReservation);
+                app.CurrentVM = new GuestReviewCreationViewModel(SelectedReservation);
             }
         }
 

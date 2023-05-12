@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
-namespace TouristAgency.Review.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class GuestReviewService
     {
@@ -19,14 +19,14 @@ namespace TouristAgency.Review.Domain
 
         public GuestReview GetByReservationId(int reservationId)
         {
-            return GuestReviewRepository.GetAll().FirstOrDefault(g =>  g.ReservationId == reservationId);
+            return GuestReviewRepository.GetAll().FirstOrDefault(g => g.ReservationId == reservationId);
         }
 
         public List<GuestReview> GetValidByReservationId(List<Reservation> reservations)
         {
             List<GuestReview> guestReviews = new List<GuestReview>();
-            
-            foreach(Reservation reservation in reservations)
+
+            foreach (Reservation reservation in reservations)
             {
                 GuestReview guestReview = GetByReservationId(reservation.Id);
                 if (guestReview != null)
@@ -38,6 +38,6 @@ namespace TouristAgency.Review.Domain
             return guestReviews;
         }
 
-        
+
     }
 }

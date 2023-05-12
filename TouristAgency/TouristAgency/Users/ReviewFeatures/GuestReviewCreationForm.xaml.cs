@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TouristAgency.Review.GuestReviewFeature
+namespace TouristAgency.Users.ReviewFeatures
 {
     /// <summary>
     /// Interaction logic for GuestReviewCreationForm.xaml

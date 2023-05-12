@@ -7,7 +7,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 
 
-namespace TouristAgency.Review.Domain
+namespace TouristAgency.Users.ReviewFeatures.Domain
 {
     public class GuestReviewRepository : ICrud<GuestReview>, ISubject
     {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:TouristAgency.Accommodations.CreationFeature"
         xmlns:home="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
-        xmlns:rev="clr-namespace:TouristAgency.Review.GuestReviewFeature"
+        xmlns:rev="clr-namespace:TouristAgency.Users.ReviewFeatures"
         mc:Ignorable="d"
         Title="OwnerMain" Height="768" Width="1024" 
         WindowStartupLocation="CenterScreen"
@@ -19,7 +19,7 @@
         <DataTemplate DataType="{x:Type home:OwnerHomeViewModel}">
             <home:OwnerHome/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type rev:GuestReviewViewModel}">
+        <DataTemplate DataType="{x:Type rev:GuestReviewCreationViewModel}">
             <rev:GuestReviewCreationForm/>
         </DataTemplate>
     </Window.Resources>

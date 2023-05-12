@@ -7,14 +7,14 @@ using TouristAgency.Interfaces;
 using TouristAgency.Base;
 using System.Windows;
 using TouristAgency.Util;
-using TouristAgency.Review.Domain;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using System.ComponentModel;
+using TouristAgency.Users.ReviewFeatures.Domain;
 
-namespace TouristAgency.Review.GuestReviewFeature
+namespace TouristAgency.Users.ReviewFeatures
 {
-    public class GuestReviewViewModel : ViewModelBase, ICreate, ICloseable, IDataErrorInfo
+    public class GuestReviewCreationViewModel : ViewModelBase, ICreate, ICloseable, IDataErrorInfo
     {
         private readonly GuestReviewService _guestReviewService;
         private readonly ReservationService _reservationService;
@@ -33,12 +33,12 @@ namespace TouristAgency.Review.GuestReviewFeature
         public DelegateCommand CreateCmd { get; }
         public DelegateCommand CloseCmd { get; }
 
-        public GuestReviewViewModel()
+        public GuestReviewCreationViewModel()
         {
             _guestReviewService = new();
         }
 
-        public GuestReviewViewModel(Reservation reservation)
+        public GuestReviewCreationViewModel(Reservation reservation)
         {
             _guestReviewService = new();
             _reservationService = new();
@@ -144,7 +144,7 @@ namespace TouristAgency.Review.GuestReviewFeature
 
         public void FillCombos()
         {
-            for(int i=1; i <= 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
                 ComboNumbers.Add(i);
             }
@@ -172,7 +172,7 @@ namespace TouristAgency.Review.GuestReviewFeature
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
                     _guestReviewService.GuestReviewRepository.Create(NewGuestReview);
                     _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
-                    MessageBox.Show("Guest review created successfully","Guest Review Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show("Guest review created successfully", "Guest Review Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
