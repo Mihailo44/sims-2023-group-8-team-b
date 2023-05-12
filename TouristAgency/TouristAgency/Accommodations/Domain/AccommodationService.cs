@@ -3,7 +3,7 @@ using System.Linq;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
-
+using System;
 
 namespace TouristAgency.Accommodations.Domain
 {
@@ -100,6 +100,31 @@ namespace TouristAgency.Accommodations.Domain
             return AccommodationRepository.GetAll().Where(a => a.Location.Country.Contains(country) && a.Location.City.Contains(city) && a.Name.Contains(name) && a.Type.ToString().Contains(type) && a.MaxGuestNum >= maxGuest && a.MinNumOfDays <= minDays).OrderByDescending(a => a.Owner.SuperOwner).ToList();
         }
 
+        private double[] CalculateMonthlyOccupancy(ReservationService reservationService,Accommodation accommodation,int year)
+        {
+            var monthGroups = reservationService.GetByAccommodationId(accommodation.Id).FindAll(r => r.Start.Year == year && r.IsCanceled == false).GroupBy(r => r.Start.Month);
+
+            double[] monthlyOccupancy = new double[12];
+
+            foreach (var month in monthGroups)
+            {
+                foreach (var reservation in month)
+                {
+                    if (reservation.End.Month == reservation.Start.Month)
+                    {
+                        monthlyOccupancy[month.Key - 1] += (reservation.End - reservation.Start).TotalDays;
+                    }
+                    else if (reservation.End.Month > reservation.Start.Month)
+                    {
+                        monthlyOccupancy[month.Key - 1] += (DateTime.DaysInMonth(year, month.Key) - reservation.Start.Day);
+                        monthlyOccupancy[month.Key] += reservation.End.Day;
+                    }
+                }
+            }
+
+            return monthlyOccupancy;
+        }
+
         public List<int> GetAccommodationStatsByYear(ReservationService reservationService, PostponementRequestService postponementRequestService,RenovationRecommendationService renovationRecommendationService, Accommodation accommodation, int year)
         {
             List<int> results = new List<int>();
@@ -107,16 +132,17 @@ namespace TouristAgency.Accommodations.Domain
             int cancelations = reservationService.GetByAccommodationId(accommodation.Id).Where(r => r.Start.Year == year && r.IsCanceled == true).Count();
             int postponations = postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == year && p.Reservation.AccommodationId == accommodation.Id).Count();
             int reccommendations = renovationRecommendationService.RenovationRecommendationRepository.GetAll().FindAll(r => r.Reservation.AccommodationId == accommodation.Id && r.Reservation.Start.Year == year && r.Reservation.IsCanceled == false).Count();
-            var monthGroups = reservationService.GetByAccommodationId(accommodation.Id).FindAll(r => r.Start.Year == year && r.IsCanceled == false).GroupBy(r => r.Start.Month);
-            int maxNumOfRes = 0;
             int busiestMonth = 0;
-
-            foreach (var month in monthGroups)
+            
+            double[] monthlyOccupancy = CalculateMonthlyOccupancy(reservationService,accommodation,year);
+           
+            double max = 0;
+            for(int i = 0; i < monthlyOccupancy.Length; i++)
             {
-                if (maxNumOfRes <= month.Count())
+                if (max < monthlyOccupancy[i])
                 {
-                    maxNumOfRes = month.Count();
-                    busiestMonth = month.Key;
+                    max = monthlyOccupancy[i];
+                    busiestMonth = i;
                 }
             }
 
@@ -124,7 +150,7 @@ namespace TouristAgency.Accommodations.Domain
             results.Add(cancelations);
             results.Add(postponations);
             results.Add(reccommendations);
-            results.Add(busiestMonth);
+            results.Add(busiestMonth+1);
 
             return results;
         }
