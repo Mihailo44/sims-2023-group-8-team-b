@@ -15,5 +15,19 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
         {
             RenovationRecommendationRepository = app.RenovationRecommendationRepository;
         }
+
+        public bool IsAlreadySubmitted(RenovationRecommendation newRecommendation)
+        {
+            RenovationRecommendation oldRecommendation = RenovationRecommendationRepository.GetAll().FirstOrDefault(
+                r => r.ReservationId == newRecommendation.ReservationId);
+            if (oldRecommendation != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

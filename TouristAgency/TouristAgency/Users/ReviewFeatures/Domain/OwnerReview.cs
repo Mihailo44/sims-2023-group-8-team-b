@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,7 +11,7 @@ using TouristAgency.Util;
 
 namespace TouristAgency.Users.ReviewFeatures.Domain
 {
-    public class OwnerReview : ISerializable
+    public class OwnerReview : ISerializable, INotifyPropertyChanged
     {
         private int _id;
         private Reservation _reservation;
@@ -23,6 +24,15 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
         private int _wifi;
         private string _comment;
         private List<Photo> _photos;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         public OwnerReview()
         {
@@ -70,6 +80,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _reservation)
                 {
                     _reservation = value;
+                    OnPropertyChanged("Reservation");
                 }
             }
         }
@@ -82,6 +93,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _reservationId)
                 {
                     _reservationId = value;
+                    OnPropertyChanged("ReservationId");
                 }
             }
         }
@@ -94,6 +106,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _reviewDate)
                 {
                     _reviewDate = value;
+                    OnPropertyChanged("ReviewDate");
                 }
             }
         }
@@ -106,6 +119,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _cleanliness)
                 {
                     _cleanliness = value;
+                    OnPropertyChanged("Cleanliness");
                 }
             }
         }
@@ -118,6 +132,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _ownerCorrectness)
                 {
                     _ownerCorrectness = value;
+                    OnPropertyChanged("OwnerCorrectness");
                 }
             }
         }
@@ -130,6 +145,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _location)
                 {
                     _location = value;
+                    OnPropertyChanged("Location");
                 }
             }
         }
@@ -142,6 +158,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _comfort)
                 {
                     _comfort = value;
+                    OnPropertyChanged("Comfort");
                 }
             }
         }
@@ -154,6 +171,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _wifi)
                 {
                     _wifi = value;
+                    OnPropertyChanged("Wifi");
                 }
             }
         }
@@ -166,6 +184,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _comment)
                 {
                     _comment = value;
+                    OnPropertyChanged("Comment");
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -11,13 +12,22 @@ using TouristAgency.Util;
 
 namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
 {
-    public class RenovationRecommendation : ISerializable
+    public class RenovationRecommendation : ISerializable, INotifyPropertyChanged
     {
         private int _id;
         private Reservation _reservation;
         private int _reservationId;
         private string _comment;
         private int _urgencyLevel;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         public RenovationRecommendation()
         {
@@ -54,7 +64,8 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                 if (value != _reservation)
                 {
                     _reservation = value;
-                }
+                    OnPropertyChanged("Reservation");
+                }              
             }
         }
 
@@ -66,6 +77,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                 if (value != _reservationId)
                 {
                     _reservationId = value;
+                    OnPropertyChanged("ReservationId");
                 }
             }
         }
@@ -78,6 +90,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                 if (value != _comment)
                 {
                     _comment = value;
+                    OnPropertyChanged("Comment");
                 }
             }
         }
@@ -90,6 +103,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                 if (value != _urgencyLevel)
                 {
                     _urgencyLevel = value;
+                    OnPropertyChanged("UrgencyLevel");
                 }
             }
         }

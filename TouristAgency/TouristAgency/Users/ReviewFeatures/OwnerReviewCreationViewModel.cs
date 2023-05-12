@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Accommodations.PostponementFeatures;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
+using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
@@ -28,12 +29,16 @@ namespace TouristAgency.Users.ReviewFeatures
         private ObservableCollection<Reservation> _unreviewedReservations;
 
         private OwnerReview _newOwnerReview;
+        private RenovationRecommendation _newRecommendation;
         private string _username;
+        private Reservation _selectedReservation;
 
         private ReservationService _reservationService;
         private OwnerReviewService _ownerReviewService;
+        private RenovationRecommendationService _renovationRecommendationService;
 
         public DelegateCommand CreateCmd { get; set; }
+        public DelegateCommand CreateRecommendationCmd { get; set; }
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
@@ -58,18 +63,19 @@ namespace TouristAgency.Users.ReviewFeatures
         {
             _reservationService = new ReservationService();
             _ownerReviewService = new OwnerReviewService();
+            _renovationRecommendationService = new RenovationRecommendationService();
         }
 
         private void InstantiateCollections()
         {
             NewOwnerReview = new OwnerReview();
-
+            NewRecommendation = new RenovationRecommendation();
             UnreviewedReservations = new ObservableCollection<Reservation>(_reservationService.GetUnreviewedByGuestId(_loggedInGuest.ID));
         }
 
         private void InstantiateCommands()
         {
-            CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
+            CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
             AccommodationDisplayCmd = new DelegateCommand(param => OpenAccommodationDisplayCmdExecute(),
                 param => CanOpenAccommodationDisplayCmdExecute());
             PostponementRequestDisplayCmd = new DelegateCommand(param => OpenPostponementRequestDisplayCmdExecute(),
@@ -114,6 +120,19 @@ namespace TouristAgency.Users.ReviewFeatures
             }
         }
 
+        public RenovationRecommendation NewRecommendation
+        {
+            get => _newRecommendation;
+            set
+            {
+                if (value != _newRecommendation)
+                {
+                    _newRecommendation = value;
+                    OnPropertyChanged("NewRecommendation");
+                }
+            }
+        }
+
         public string Username
         {
             get => _username;
@@ -129,8 +148,15 @@ namespace TouristAgency.Users.ReviewFeatures
 
         public Reservation SelectedReservation
         {
-            get;
-            set;
+            get => _selectedReservation;
+            set
+            {
+                if (value != _selectedReservation)
+                {
+                    _selectedReservation = value;
+                    OnPropertyChanged("SelectedReservation");
+                }
+            }
         }
 
         public string PhotoLinks
@@ -139,34 +165,57 @@ namespace TouristAgency.Users.ReviewFeatures
             set;
         }
 
-        public bool CanCreateExecute()
+
+        public bool CanCreateCmdExecute()
         {
             return true;
         }
 
-        public void CreateExecute()
+        public void CreateCmdExecute()
         {
             if (SelectedReservation != null)
             {
-                if (SelectedReservation.OStatus == ReviewStatus.UNREVIEWED)
-                {
-                    NewOwnerReview.ReviewDate = DateTime.Now;
-                    NewOwnerReview.ReservationId = SelectedReservation.Id;
-                    NewOwnerReview.Reservation = SelectedReservation;
-                    NewOwnerReview.Reservation.OStatus = ReviewStatus.REVIEWED;
-
-                    _reservationService.ReservationRepository.Update(NewOwnerReview.Reservation, NewOwnerReview.ReservationId);
-
-                    AddPhotos();
-                    _ownerReviewService.OwnerReviewRepository.Create(NewOwnerReview);
-                    UnreviewedReservations.Remove(SelectedReservation);
-                    MessageBox.Show("Owner review is submitted successfully");
-                }
-                else
-                {
-                    MessageBox.Show("Owner is already reviewed");
-                }
+                CreateReview();
+                CreateRecommendation();
             }
+        }
+
+        public void CreateReview()
+        {
+            if (SelectedReservation.OStatus == ReviewStatus.UNREVIEWED)
+            {
+                NewOwnerReview.ReviewDate = DateTime.Now;
+                NewOwnerReview.ReservationId = SelectedReservation.Id;
+                NewOwnerReview.Reservation = SelectedReservation;
+                NewOwnerReview.Reservation.OStatus = ReviewStatus.REVIEWED;
+
+                _reservationService.ReservationRepository.Update(NewOwnerReview.Reservation, NewOwnerReview.ReservationId);
+
+                AddPhotos();
+                _ownerReviewService.OwnerReviewRepository.Create(NewOwnerReview);
+                UnreviewedReservations.Remove(SelectedReservation);
+                MessageBox.Show("You submitted successfully");
+            }
+            else
+            {
+                MessageBox.Show("You can't submit");
+            }
+        }
+
+        public void CreateRecommendation()
+        {
+            if(NewRecommendation.UrgencyLevel != 0)
+            {
+                NewRecommendation.ReservationId = NewOwnerReview.ReservationId;
+                NewRecommendation.Reservation = NewOwnerReview.Reservation;
+                NewOwnerReview = new OwnerReview();
+                if (!_renovationRecommendationService.IsAlreadySubmitted(NewRecommendation))
+                {
+                    NewRecommendation = _renovationRecommendationService.RenovationRecommendationRepository.Create(NewRecommendation);
+                }
+                
+                NewRecommendation = new RenovationRecommendation();
+            }            
         }
 
         public void AddPhotos()
