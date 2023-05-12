@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Users.GuestNavigationWindow"
         xmlns:home="clr-namespace:TouristAgency.Users.HomeDisplayFeature"
-        xmlns:acco="clr-namespace:TouristAgency.Accommodations.AccommodationReservations"
-        xmlns:req="clr-namespace:TouristAgency.Requests"
-        xmlns:rev="clr-namespace:TouristAgency.Review.OwnerReviewFeature"
+        xmlns:acco="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.CreationFeature"
+        xmlns:req="clr-namespace:TouristAgency.Accommodations.PostponementFeatures.CreationFeature"
         xmlns:sup="clr-namespace:TouristAgency.Users.SuperGuestFeature"
+        xmlns:revdis="clr-namespace:TouristAgency.Users.ReviewFeatures"
         mc:Ignorable="d"
         Title="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -16,20 +16,24 @@
             <home:GuestHome/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type acco:AccommodationDisplayViewModel}">
-            <acco:AccommodationDisplay/>
+        <DataTemplate DataType="{x:Type acco:ReservationCreationViewModel}">
+            <acco:ReservationCreation/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type req:PostponementRequestDisplayViewModel}">
-            <req:PostponementRequestDisplay/>
+        <DataTemplate DataType="{x:Type req:PostponementRequestCreationViewModel}">
+            <req:PostponementRequestCreation/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type rev:OwnerReviewCreationViewModel}">
-            <rev:OwnerReviewCreation/>
+        <DataTemplate DataType="{x:Type revdis:OwnerReviewCreationViewModel}">
+            <revdis:OwnerReviewCreation/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type sup:SuperGuestDisplayViewModel}">
             <sup:SuperGuestDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type revdis:GuestReviewDisplayViewModel}">
+            <revdis:GuestReviewDisplay/>
         </DataTemplate>
 
 

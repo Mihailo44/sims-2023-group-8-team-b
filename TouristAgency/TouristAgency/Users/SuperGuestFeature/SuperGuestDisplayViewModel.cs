@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TouristAgency.Accommodations.AccommodationReservations;
+using TouristAgency.Accommodations.PostponementFeatures;
+using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
+using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Base;
-using TouristAgency.Requests;
-using TouristAgency.Review.OwnerReviewFeature;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.ReviewFeatures;
 
 namespace TouristAgency.Users.SuperGuestFeature
 {
@@ -24,6 +25,7 @@ namespace TouristAgency.Users.SuperGuestFeature
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
+        public DelegateCommand GuestReviewDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -48,6 +50,7 @@ namespace TouristAgency.Users.SuperGuestFeature
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
+            GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
         }
 
         private void DisplayUser()
@@ -76,7 +79,7 @@ namespace TouristAgency.Users.SuperGuestFeature
 
         public void OpenAccommodationDisplayCmdExecute()
         {
-            _app.CurrentVM = new AccommodationDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new ReservationCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenPostponementRequestDisplayCmdExecute()
@@ -86,7 +89,7 @@ namespace TouristAgency.Users.SuperGuestFeature
 
         public void OpenPostponementRequestDisplayCmdExecute()
         {
-            _app.CurrentVM = new PostponementRequestDisplayViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new PostponementRequestCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenOwnerReviewCreationCmdExecute()
@@ -107,6 +110,16 @@ namespace TouristAgency.Users.SuperGuestFeature
         public void OpenSuperGuestDisplayCmdExecute()
         {
             _app.CurrentVM = new SuperGuestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenGuestReviewDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReviewDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReviewDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()

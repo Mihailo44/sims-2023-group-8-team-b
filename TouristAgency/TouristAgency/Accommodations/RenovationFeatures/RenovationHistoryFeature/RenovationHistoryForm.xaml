@@ -4,24 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="900" Background="White">
+
+    <UserControl.Resources>
+        <con:DateConverter x:Key="DateConv"/>
+    </UserControl.Resources>
+    
     <Grid>
 
         <ListView Height="auto" Width="850" Margin="0,20,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding Renovations}"
                   SelectedItem="{Binding SelectedRenovation}"
-                  SelectionMode="Single"
-                  FontSize="19"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                  Style="{StaticResource BasicListView}"
+                  ItemContainerStyle="{StaticResource ListItem}">
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding CancelRenovationCmd}" />
@@ -37,8 +36,8 @@
                             <Setter Property="FontStyle" Value="Italic"/>
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
-                    <GridViewColumn Width="210" Header="Start Date" DisplayMemberBinding="{Binding Start}"/>
-                    <GridViewColumn Width="210" Header="End Date" DisplayMemberBinding="{Binding End}"/>
+                    <GridViewColumn Width="210" Header="Start Date" DisplayMemberBinding="{Binding Start,Converter={StaticResource DateConv}}"/>
+                    <GridViewColumn Width="210" Header="End Date" DisplayMemberBinding="{Binding End,Converter={StaticResource DateConv}}"/>
                     <GridViewColumn Width="430" Header="Description" DisplayMemberBinding="{Binding Description}"/>
                 </GridView>
             </ListView.View>

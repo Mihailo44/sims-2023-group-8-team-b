@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using TouristAgency.Users;
-using TouristAgency.Accommodations.AccommodationReservations;
 using TouristAgency.Tours.DisplayFeature;
 
 namespace TouristAgency.View.Display

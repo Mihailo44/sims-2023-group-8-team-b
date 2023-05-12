@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="TouristAgency.Accommodations.PostponementFeatures.ManagingFeature.PostponementRequestApprovalDialogue"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TouristAgency.Accommodations.PostponementFeatures"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="95"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="15,10,0,0" Content="Do you want to approve this postponement request?" FontSize="23" FontWeight="SemiBold"/>
+            <GroupBox BorderThickness="1" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3">
+                <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" FontWeight="SemiBold" Content="Start Date:"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Content="{Binding SelectedRequest.Start}"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" FontWeight="SemiBold" Content="End Date:"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" Content="{Binding SelectedRequest.End}"/>
+                </StackPanel>
+            </GroupBox>
+         <Button Grid.Row="3" Grid.Column="0" Margin="40,0,0,0" Content="APPROVE" Command="{Binding ApproveCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="DECLINE" Command="{Binding DeclineCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="3" Grid.Column="2" Margin="0,0,40,0" Width="140" Height="60" Content="CANCEL" Command="{Binding CloseCmd}" Style="{StaticResource BasicBtn}"/>
+    </Grid>
+</UserControl>

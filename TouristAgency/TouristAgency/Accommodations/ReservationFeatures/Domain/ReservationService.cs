@@ -133,6 +133,11 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             return ReservationRepository.GetAll().Where(r => r.Accommodation.OwnerId == ownerId && r.Status == ReviewStatus.UNREVIEWED).ToList();
         }
 
+        public List<Reservation> GetOwnerReviewed(int guestId)
+        {
+            return ReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.OStatus == ReviewStatus.REVIEWED);
+        }
+
         public List<Reservation> GetUnreviewedByGuestId(int guestId)
         {
             return ReservationRepository.GetAll().Where(r => r.GuestId == guestId && r.End <= DateTime.Now && r.End.AddDays(5) >= DateTime.Now && r.OStatus == ReviewStatus.UNREVIEWED).ToList();

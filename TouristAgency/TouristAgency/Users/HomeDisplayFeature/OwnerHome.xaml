@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:con="clr-namespace:TouristAgency.Converter"
              xmlns:local="clr-namespace:TouristAgency.View.Home"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="White">
+
+    <UserControl.Resources>
+        <con:DateConverter x:Key="DateConv"/>
+    </UserControl.Resources>
 
     <UserControl.InputBindings>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ImportantCmd}"/>
@@ -20,12 +25,11 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid Height="80" Width="970" VerticalAlignment="Bottom" Margin="0,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
+        <Grid Height="80" Width="80" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="40,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>
             <Button Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="NEW" Style="{StaticResource DemoBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="HELP" Style="{StaticResource DemoBtnStyle}"/>
         </Grid>
 
         <Canvas Visibility="{Binding AccountContainerVisibility}"
@@ -131,10 +135,12 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Label Height="auto" Margin="15,0,0,0" FontSize="36" Foreground="Wheat" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
-                    <Button Grid.Column="1" Content="Notify" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}"/>
-                    <Button Grid.Column="2" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
+                    <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="HELP" Style="{StaticResource DemoBtnStyle}"/>
+                    <Button Grid.Column="2" Content="Notify" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}"/>
+                    <Button Grid.Column="3" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
                 </Grid>
             </WrapPanel>
 
@@ -152,23 +158,16 @@
                 <Button Style="{StaticResource NavButton}" Content="Forums" Command="{Binding ShowDataGridCmd}" CommandParameter="4"/>
             </WrapPanel>
 
-            <StackPanel Margin="0,0,3,0">
+            <StackPanel Width="990">
                 <ListView
                       Visibility="{Binding DataGridVisibility[0]}"
                       Height="550"
                       Width="990"
-                      FontSize="23"
-                      FontWeight="Regular"
+                      Margin="0,15,0,0"
                       ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
-                      SelectionMode="Single"  
                       SelectedItem="{Binding SelectedReservation}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                      Style="{StaticResource BasicListView}"
+                      ItemContainerStyle="{StaticResource ListItem}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
@@ -187,8 +186,8 @@
                             <GridViewColumn Width="125" Header="First Name" DisplayMemberBinding="{Binding Guest.FirstName}"/>
                             <GridViewColumn Width="125" Header="Last Name" DisplayMemberBinding="{Binding Guest.LastName}"/>
                             <GridViewColumn Width="240" Header="Accommodation" DisplayMemberBinding="{Binding Accommodation.Name}"/>
-                            <GridViewColumn Width="250" Header="Start" DisplayMemberBinding="{Binding Start}"/>
-                            <GridViewColumn Width="250" Header="End" DisplayMemberBinding="{Binding End}"/>
+                            <GridViewColumn Width="250" Header="Start" DisplayMemberBinding="{Binding Start,Converter={StaticResource DateConv}}"/>
+                            <GridViewColumn Width="250" Header="End" DisplayMemberBinding="{Binding End,Converter={StaticResource DateConv}}"/>
                             <!--<GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -203,19 +202,11 @@
                 <ListView   Visibility="{Binding DataGridVisibility[1]}"
                       Height="550" 
                       Width="990"
-                      FontSize="23"
-                      FontWeight="SemiBold"
+                      Margin="0,15,0,0"
                       ItemsSource="{Binding Accommodations}"
-                      SelectionMode="Single"
                       SelectedItem="{Binding SelectedAccommodation}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
-
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                      Style="{StaticResource BasicListView}"
+                      ItemContainerStyle="{StaticResource PhotoListItem}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
@@ -247,20 +238,14 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView   Visibility="{Binding DataGridVisibility[2]}"
+                <ListView  Visibility="{Binding DataGridVisibility[2]}"
                            Height="550"
                            Width="990"
-                           FontSize="23"
+                           Margin="0,15,0,0" 
                            ItemsSource="{Binding PostponementRequests}" 
                            SelectedItem="{Binding SelectedRequest}" 
-                           SelectionMode="Single"
-                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                           Style="{StaticResource BasicListView}"
+                           ItemContainerStyle="{StaticResource ListItem}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
@@ -278,8 +263,8 @@
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Width="245" Header="Accommodation" DisplayMemberBinding="{Binding Reservation.Accommodation.Name}"/>
                             <GridViewColumn Width="235" Header="Last Name" DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
-                            <GridViewColumn Width="255" Header="(New)Start Date" DisplayMemberBinding="{Binding Start}"/>
-                            <GridViewColumn Width="255" Header="(New)End Date" DisplayMemberBinding="{Binding End}"/>
+                            <GridViewColumn Width="255" Header="(New)Start Date" DisplayMemberBinding="{Binding Start,Converter={StaticResource DateConv}}"/>
+                            <GridViewColumn Width="255" Header="(New)End Date" DisplayMemberBinding="{Binding End,Converter={StaticResource DateConv}}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -288,16 +273,9 @@
                       Visibility="{Binding DataGridVisibility[3]}" 
                       Height="550" 
                       Width="990"
-                      FontSize="23"
-                      ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}" 
-                      SelectionMode="Single"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                      Margin="0,15,0,0"
+                      ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}"
+                      ItemContainerStyle="{StaticResource ListItem}">
 
                     <ListView.View>
                         <GridView>
@@ -306,6 +284,7 @@
                                     <Setter Property="IsEnabled" Value="False"/>
                                     <Setter Property="FontWeight" Value="SemiBold"/>
                                     <Setter Property="FontStyle" Value="Italic"/>
+                                    <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Width="175" Header="First Name"  DisplayMemberBinding="{Binding Reservation.Guest.FirstName}"/>
@@ -319,15 +298,8 @@
                 <ListView Visibility="{Binding DataGridVisibility[4]}"
                       Height="550"
                       Width="990"
-                      FontSize="23" 
-                      SelectionMode="Single"  
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                      Margin="0,15,0,0"
+                      ItemContainerStyle="{StaticResource ListItem}">
 
                     <ListView.View>
                         <GridView>
@@ -336,6 +308,7 @@
                                     <Setter Property="IsEnabled" Value="False"/>
                                     <Setter Property="FontWeight" Value="SemiBold"/>
                                     <Setter Property="FontStyle" Value="Italic"/>
+                                    <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Width="700" Header="Name"/>

@@ -6,16 +6,16 @@ using System.Windows;
 using System.Linq;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.View.Dialogue;
-using TouristAgency.Requests.Domain;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Util;
-using TouristAgency.Review.Domain;
 using TouristAgency.Accommodations.CreationFeature;
-using TouristAgency.Review.GuestReviewFeature;
 using TouristAgency.Accommodations.NavigationWindow;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.PostponementFeatures.Domain;
+using TouristAgency.Users.ReviewFeatures.Domain;
+using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
+using TouristAgency.Users.ReviewFeatures;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -209,8 +209,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             NewAccommodationCmd = new DelegateCommand(param => OpenAccommodationCreationExecute(), param => CanOpenAccommodationCreationExecute());
             NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
-            PostponeCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanPostponeReservationExecute());
-            //PostponeCommentCmd = new DelegateCommand(param => OpenPostponeCommentExecute(), param => CanOpenPostponeCommentExecute());
+            PostponeCmd = new DelegateCommand(param => OpenPostponeReservationExecute(), param => CanOpenPostponeReservationExecute());
+            //PostponeCommentCmd = new DelegateCommand(param => PostponeReservationExecute(), param => CanOpenPostponeCommentExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
             ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute, CanShowDataGridExecute);
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
@@ -342,79 +342,24 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             if (SelectedReservation != null)
             {
-                app.CurrentVM = new GuestReviewViewModel(SelectedReservation);
+                app.CurrentVM = new GuestReviewCreationViewModel(SelectedReservation);
             }
         }
 
-        public bool CanPostponeReservationExecute()
+        public bool CanOpenPostponeReservationExecute()
         {
-            if (SelectedRequest != null)
-                return true;
-            else
-                return false;
+            return SelectedRequest != null;
         }
 
-        public void PostponeReservationExecute()
+        public void OpenPostponeReservationExecute()
         {
-            MessageBoxResult result = ApprovePostponementRequest();
-            if (SelectedRequest != null)
-            {
-                Reservation reservation = _reservationService.ReservationRepository.GetById(SelectedRequest.Reservation.Id);
-                PostponementRequest request = _postponementRequestService.PostponementRequestRepository.GetById(SelectedRequest.Id);
-                bool accommodationAvailability = _reservationService.IsReserved(reservation.AccommodationId, SelectedRequest.Start, SelectedRequest.End);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    if (!accommodationAvailability)
-                    {
-                        reservation.Start = SelectedRequest.Start;
-                        reservation.End = SelectedRequest.End;
-                        _reservationService.ReservationRepository.Update(reservation, reservation.Id);
-
-                        request.Status = PostponementRequestStatus.APPROVED;
-                        _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
-                        MessageBox.Show("Reservation has been postponed");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Postponement is not possible");
-                        request.Status = PostponementRequestStatus.DENIED;
-                        request.Comment = "Sorry, the accommodation is reserved in this timeframe";
-                        _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
-                    }
-                }
-                if (result == MessageBoxResult.No)
-                {
-                    request.Status = PostponementRequestStatus.DENIED;
-                    OpenPostponeCommentExecute(request);
-                }
-            }
+            PostponementRequestDialogue x = new PostponementRequestDialogue(SelectedRequest);
+            x.Show();
         }
 
         public bool CanOpenPostponeCommentExecute()
         {
             return true;
-        }
-
-        public void OpenPostponeCommentExecute(PostponementRequest postponementRequest)
-        {
-            PostponementRequestCommentDialogue x = new PostponementRequestCommentDialogue(postponementRequest);
-            x.Show();
-        }
-
-        private MessageBoxResult ApprovePostponementRequest()
-        {
-            string sMessageBoxText;
-            string sCaption;
-
-            sMessageBoxText = $"Do you want to approve postponement request?\nStart Date:\t{SelectedRequest.Start.ToShortDateString()}\nEnd Date:\t{SelectedRequest.End.ToShortDateString()}";
-            sCaption = "Postponement Request Dialogue";
-
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Question;
-
-            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-            return result;
         }
 
         public bool CanCloseWindowExecute()

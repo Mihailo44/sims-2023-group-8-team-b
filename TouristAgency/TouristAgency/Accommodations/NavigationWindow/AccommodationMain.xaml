@@ -29,7 +29,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <WrapPanel Grid.Row="0" Height="50" Width="auto" Margin="0,5,0,0" Background="Azure">
+        <WrapPanel Grid.Row="0" Height="50" Width="auto" Margin="0,5,0,0" Background="Snow">
             <Button Margin="25,0,0,0" Style="{StaticResource NavButton}" Content="Statistics" Command="{Binding NavCmd}" CommandParameter="0"/>
             <Button Width="215" Style="{StaticResource NavButton}" Content="Renovation Scheduling" Command="{Binding NavCmd}" CommandParameter="1"/>
             <Button Width="180" Style="{StaticResource NavButton}" Content="Renovation History" Command="{Binding NavCmd}" CommandParameter="2"/>

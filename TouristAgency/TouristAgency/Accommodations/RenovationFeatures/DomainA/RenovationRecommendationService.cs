@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Requests.Domain;
 
 namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
 {
@@ -15,6 +14,20 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
         public RenovationRecommendationService()
         {
             RenovationRecommendationRepository = app.RenovationRecommendationRepository;
+        }
+
+        public bool IsAlreadySubmitted(RenovationRecommendation newRecommendation)
+        {
+            RenovationRecommendation oldRecommendation = RenovationRecommendationRepository.GetAll().FirstOrDefault(
+                r => r.ReservationId == newRecommendation.ReservationId);
+            if (oldRecommendation != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

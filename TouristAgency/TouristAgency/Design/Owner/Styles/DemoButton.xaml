@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <Style x:Key="DemoBtnStyle" TargetType="Button">
-        <Setter Property="Width" Value="75"/>
-        <Setter Property="Height" Value="75"/>
+        <Setter Property="Width" Value="65"/>
+        <Setter Property="Height" Value="65"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
         <Setter Property="Foreground" Value="BlanchedAlmond"/>
         <Setter Property="FontSize" Value="19"/>
@@ -17,5 +17,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity" Value="0.9"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
