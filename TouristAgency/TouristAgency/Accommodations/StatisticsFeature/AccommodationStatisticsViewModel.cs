@@ -136,7 +136,7 @@ namespace TouristAgency.Accommodations.StatisticsFeature
             YearlyStats.Postponations = stats[2];
             YearlyStats.Reccommendations = stats[3];
             BusiestMonth = MonthConverter.GetMonthName(stats[4]);
-            SelectedMonth = "January";
+            SelectedMonth = BusiestMonth;
             GetStatsByMonth();
         }
 

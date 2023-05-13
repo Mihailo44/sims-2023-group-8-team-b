@@ -133,6 +133,23 @@ namespace TouristAgency.Accommodations.Domain
             return monthlyOccupancy;
         }
 
+        private int GetBusiestMonthIndex(double[] monthlyOccupancy)
+        {
+            int busiestMonth = 0;
+            double max = 0;
+
+            for (int i = 0; i < monthlyOccupancy.Length; i++)
+            {
+                if (max < monthlyOccupancy[i])
+                {
+                    max = monthlyOccupancy[i];
+                    busiestMonth = i;
+                }
+            }
+
+            return busiestMonth;
+        }
+
         public List<int> GetAccommodationStatsByYear(ReservationService reservationService, PostponementRequestService postponementRequestService,RenovationRecommendationService renovationRecommendationService, Accommodation accommodation, int year)
         {
             List<int> results = new List<int>();
@@ -143,22 +160,13 @@ namespace TouristAgency.Accommodations.Domain
             int busiestMonth = 0;
             
             double[] monthlyOccupancy = CalculateMonthlyOccupancy(reservationService,accommodation,year);
-           
-            double max = 0;
-            for(int i = 0; i < monthlyOccupancy.Length; i++)
-            {
-                if (max < monthlyOccupancy[i])
-                {
-                    max = monthlyOccupancy[i];
-                    busiestMonth = i;
-                }
-            }
+            busiestMonth = GetBusiestMonthIndex(monthlyOccupancy);
 
             results.Add(reservations);
             results.Add(cancelations);
             results.Add(postponations);
             results.Add(reccommendations);
-            results.Add(busiestMonth+1);
+            results.Add(busiestMonth + 1); //meseci u nizu pocinju od 0,a u DateTime od 1
 
             return results;
         }

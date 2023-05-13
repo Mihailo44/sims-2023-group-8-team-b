@@ -1,4 +1,4 @@
-0卐0卐The Stanley Hotel卐8卐HOTEL卐100卐4卐7卐False卐True
+0卐0卐The Stanley Hotel卐8卐HOTEL卐100卐4卐7卐True卐False
 1卐0卐Plaza Hotel卐9卐HOTEL卐200卐5卐7卐False卐False
 2卐0卐The Ritz卐10卐HOTEL卐100卐4卐4卐False卐False
 3卐0卐Shangri-La Hotel卐10卐HOTEL卐90卐5卐4卐False卐False
