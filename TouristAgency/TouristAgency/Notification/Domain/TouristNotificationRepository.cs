@@ -3,6 +3,7 @@ using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Util;
 
 namespace TouristAgency.Vouchers
 {
@@ -52,8 +53,13 @@ namespace TouristAgency.Vouchers
 
             currentNotification.ID = newNotification.ID;
             currentNotification.TouristID = newNotification.TouristID;
+            currentNotification.TourID = newNotification.TourID;
+            currentNotification.Tour = newNotification.Tour;
+            currentNotification.CheckpointID = newNotification.CheckpointID;
+            currentNotification.Checkpoint = newNotification.Checkpoint;
             currentNotification.Type = newNotification.Type;
             currentNotification.Message = newNotification.Message;
+            currentNotification.IsSeen = newNotification.IsSeen;
 
             _storage.Save(_notifications);
             NotifyObservers();

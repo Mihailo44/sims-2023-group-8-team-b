@@ -110,24 +110,42 @@ namespace TouristAgency.Vouchers
 
         private void AttendanceNotify()
         {
-            var ttc = _ttcService.GetPendingInvitationsByCheckpoint(SelectedNotification.CheckpointID);
-            MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _checkpointService.CheckpointRepository.GetById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
+            SelectedNotification.IsSeen = true;
+            _touristNotificationService.TouristNotificationRepository.Update(SelectedNotification, SelectedNotification.ID);
+            if(SelectedNotification != null)
             {
-                _ttcService.AcceptInvitation(_loggedInTourist.ID, ttc.TourCheckpoint.CheckpointID);
+                TourTouristCheckpoint ttc = _ttcService.GetPendingInvitationsByCheckpoint(SelectedNotification.CheckpointID);
+                MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _checkpointService.CheckpointRepository.GetById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _ttcService.AcceptInvitation(_loggedInTourist.ID, ttc.TourCheckpoint.CheckpointID);
+                }
             }
+            Notifications.Remove(SelectedNotification);
         }
 
         public void SuggestedNotify()
         {
-            TourDisplay x = new TourDisplay(_loggedInTourist, SelectedNotification.Tour);
-            x.Show();
+            if(SelectedNotification != null)
+            {
+                SelectedNotification.IsSeen = true;
+                _touristNotificationService.TouristNotificationRepository.Update(SelectedNotification, SelectedNotification.ID);
+                TourDisplay x = new TourDisplay(_loggedInTourist, SelectedNotification.Tour);
+                x.Show();
+                Notifications.Remove(SelectedNotification);
+            }
         }
 
         public void NewNotify()
         {
-            TourDisplay x = new TourDisplay(_loggedInTourist, SelectedNotification.Tour);
-            x.Show();
+            if(SelectedNotification != null) 
+            {
+                SelectedNotification.IsSeen = true;
+                _touristNotificationService.TouristNotificationRepository.Update(SelectedNotification, SelectedNotification.ID);
+                TourDisplay x = new TourDisplay(_loggedInTourist, SelectedNotification.Tour);
+                x.Show();
+                Notifications.Remove(SelectedNotification);
+            }
         }
     }
 }

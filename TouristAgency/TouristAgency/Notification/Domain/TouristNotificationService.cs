@@ -22,6 +22,13 @@ namespace TouristAgency.Vouchers
             return notifications;
         }
 
+        public List<TouristNotification> GetUnseen()
+        {
+            List<TouristNotification> notifications = TouristNotificationRepository.GetAll().FindAll(n => n.IsSeen == false);
+            notifications.Reverse();
+            return notifications;
+        }
+
         public void NotifyAboutNewTour(Tour newTour, List<TourRequest> tourRequests)
         {
             foreach(TourRequest request in tourRequests)
