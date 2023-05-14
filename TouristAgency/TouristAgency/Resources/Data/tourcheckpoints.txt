@@ -43,3 +43,12 @@
 12|0|True
 12|1|True
 12|2|True
+14|0|True
+14|1|False
+14|2|False
+15|0|True
+15|1|False
+15|2|False
+16|0|True
+16|1|False
+16|2|False

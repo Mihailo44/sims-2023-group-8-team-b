@@ -235,20 +235,23 @@ namespace TouristAgency.CreationFeature
 
         public bool HandleTourRequest(DateTime startDate)
         {
-            if(_tourRequest != null) 
+            if (_tourRequest != null)
             {
-                if(startDate < _tourRequest.StartDate || startDate > _tourRequest.EndDate)
+                if (startDate.Date < _tourRequest.StartDate.Date || startDate.Date > _tourRequest.EndDate.Date)
                 {
+                    MessageBox.Show("The dates must be in range of tour request (" + _tourRequest.StartDate.ToShortDateString() + " - " + _tourRequest.EndDate.ToShortDateString() + ")");
                     return false;
                 }
                 _tourRequest.Status = TourRequestStatus.ACCEPTED;
                 _tourRequest.GuideID = _loggedInGuide.ID;
                 _tourRequestService.TourRequestRepository.Update(_tourRequest, _tourRequest.ID);
+                return true;
             }
-            return true;
+            else
+                return false;
         }
 
-        public void LoadToursToCheckpoints()
+        public void LoadCheckpointsToTours()
         {
             int tourID = _tourService.TourRepository.GenerateId() - 1;
             int i = 0;
@@ -287,22 +290,21 @@ namespace TouristAgency.CreationFeature
                 NewTour.AssignedGuide = _loggedInGuide;
                 NewTour.StartDateTime = dateTime;
                 NewTour.RemainingCapacity = NewTour.MaxAttendants;
-                if (HandleTourRequest(dateTime) && NewTour.IsValid)
+                bool canHandleTourRequest = HandleTourRequest(dateTime);
+                if (NewTour.IsValid)
                 {
                     AddPhotos();
-                    LoadToursToCheckpoints();
+                    LoadCheckpointsToTours();
                     NewTour = _tourService.TourRepository.Create(new Tour(_newTour));
-                    TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
-                    notification.Tour = NewTour;
-                    notification.TourID = NewTour.ID;
-                    _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.TourRequestRepository.GetAll());
-                    notification = _touristNotificationService.TouristNotificationRepository.Create(notification);
-
+                    if (canHandleTourRequest)
+                    {
+                        TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
+                        notification.Tour = NewTour;
+                        notification.TourID = NewTour.ID;
+                        _touristNotificationService.TouristNotificationRepository.Create(notification);
+                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.TourRequestRepository.GetAll());
+                    }
                     MessageBox.Show("Successfully created tour!", "Success");
-                }
-                else
-                {
-                    MessageBox.Show("The dates must be in range of tour request (" + _tourRequest.StartDate.ToShortDateString() + " - " + _tourRequest.EndDate.ToShortDateString() + ")");
                 }
             }
         }

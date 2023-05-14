@@ -4,3 +4,4 @@
 3|20|0|0|ATTENDANCE|Question from guide about attendance
 4|20|0|1|ATTENDANCE|Question from guide about attendance
 5|20|0|2|ATTENDANCE|Question from guide about attendance
+6|20|17|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: ffff
