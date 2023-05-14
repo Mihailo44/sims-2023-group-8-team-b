@@ -158,29 +158,6 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             return ReservationRepository.GetAll().FindAll(r => r.GuestId == id && r.Start >= DateTime.Now && r.IsCanceled == false);
         }
 
-        public List<string> ReviewNotification(int ownerId, out int changes)
-        {
-            DateTime today = DateTime.UtcNow.Date;
-
-            List<string> notification = new List<string>();
-            double dateDiff;
-            changes = 0;
-
-            foreach (var reservation in GetUnreviewed(ownerId))
-            {
-                dateDiff = (today - reservation.End).TotalDays;
-
-                if (today > reservation.End && dateDiff < 5.0)
-                {
-                    notification.Add($"{reservation.Guest.FirstName} {reservation.Guest.LastName} {dateDiff} days left");
-                    changes++;
-                }
-            }
-
-            return notification;
-
-        }
-
         public void ExpiredReservationsCheck(int ownerId)
         {
             DateTime today = DateTime.UtcNow.Date;

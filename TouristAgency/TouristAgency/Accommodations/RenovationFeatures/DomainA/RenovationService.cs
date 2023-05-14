@@ -17,7 +17,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             RenovationRepository = _app.RenovationRepository;
         }
 
-        public List<Renovation> GeneratePotentionalRenovations(DateTime start, DateTime end, int estimatedDuration, Accommodation accommodation, ReservationService reservationService)
+        public List<Renovation> GeneratePotentialRenovations(DateTime start, DateTime end, int estimatedDuration, Accommodation accommodation, ReservationService reservationService)
         {
             List<Renovation> renovations = new List<Renovation>();
             DateTime startInterval = start;
