@@ -34,7 +34,7 @@ namespace TouristAgency.Converter
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid integer value");
+                    return 0;
                 }
             }
         }
