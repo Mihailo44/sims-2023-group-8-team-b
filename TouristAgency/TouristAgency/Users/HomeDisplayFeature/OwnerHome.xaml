@@ -71,11 +71,11 @@
                 Background="Transparent"
                 Panel.ZIndex="1000">
 
-           <!-- <i:Interaction.Triggers>
+            <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeave">
                     <i:InvokeCommandAction Command="{Binding ShowNotificationsCmd}" />
                 </i:EventTrigger>
-            </i:Interaction.Triggers>-->
+            </i:Interaction.Triggers>
 
             <Grid Width="400" Height="200">
                 <Grid.RowDefinitions>

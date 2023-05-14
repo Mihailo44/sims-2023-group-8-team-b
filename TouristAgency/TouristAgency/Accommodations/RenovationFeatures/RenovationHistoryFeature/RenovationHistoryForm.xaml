@@ -23,7 +23,7 @@
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding CancelRenovationCmd}" />
+                    <i:InvokeCommandAction Command="{Binding OpenCancelRenovationCmd}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
