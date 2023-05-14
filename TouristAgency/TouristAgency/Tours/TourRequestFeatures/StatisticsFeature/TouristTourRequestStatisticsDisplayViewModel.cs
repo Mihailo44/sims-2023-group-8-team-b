@@ -27,8 +27,7 @@ namespace TouristAgency.Statistics
         public DelegateCommand GetTourRequestStatisticsCmd { get; set; }
 
         public TourRequestStatisticsDisplayViewModel()
-        {
-            
+        {            
             _app = (App)Application.Current;
             _loggedInTourist = _app.LoggedUser;
             InstantiateServices();
@@ -161,7 +160,7 @@ namespace TouristAgency.Statistics
         {
             AcceptedSeries = new SeriesCollection();
 
-            foreach(TourRequestStatisticsData data in _tourRequestService.GetAcceptedGraphData())
+            foreach(TourRequestStatisticsData data in _tourRequestService.GetAcceptedGraphData(_loggedInTourist.ID))
             {
                 AcceptedSeries.Add(
                     new RowSeries
@@ -178,7 +177,7 @@ namespace TouristAgency.Statistics
         {
             DeniedSeries = new SeriesCollection();
 
-            foreach (TourRequestStatisticsData data in _tourRequestService.GetDeniedGraphData())
+            foreach (TourRequestStatisticsData data in _tourRequestService.GetDeniedGraphData(_loggedInTourist.ID))
             {
                 DeniedSeries.Add(
                     new RowSeries

@@ -221,9 +221,13 @@ namespace TouristAgency.TourRequests
                 }
             }
 
-            accepted = (accepted / countRequest) * 100;
+            accepted = Math.Round((accepted / countRequest) * 100);
             double deined = 100 - accepted;
             avgNumOfPeople = Math.Round(avgNumOfPeople / countPeople);
+            if(countPeople == 0)
+            {
+                avgNumOfPeople = 0;
+            }
             statistics.Add(accepted.ToString());
             statistics.Add(deined.ToString());
             statistics.Add(avgNumOfPeople.ToString());
@@ -231,11 +235,11 @@ namespace TouristAgency.TourRequests
             return statistics;
         }
 
-        public List<TourRequestStatisticsData> GetAcceptedGraphData()
+        public List<TourRequestStatisticsData> GetAcceptedGraphData(int touristID)
         {
             List<string> allLanguages = GetAllLanguages();
             List<Location> allLocations = GetAllLocations();
-            List<TourRequest> allTourRequests = TourRequestRepository.GetAll();
+            List<TourRequest> allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
             List<TourRequestStatisticsData> graphData = new List<TourRequestStatisticsData>();
             
             foreach(TourRequest tourRequest in allTourRequests)
@@ -284,11 +288,11 @@ namespace TouristAgency.TourRequests
             return graphData;
         }
 
-        public List<TourRequestStatisticsData> GetDeniedGraphData()
+        public List<TourRequestStatisticsData> GetDeniedGraphData(int touristID)
         {
             List<string> allLanguages = GetAllLanguages();
             List<Location> allLocations = GetAllLocations();
-            List<TourRequest> allTourRequests = TourRequestRepository.GetAll();
+            List<TourRequest> allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
             List<TourRequestStatisticsData> graphData = new List<TourRequestStatisticsData>();
 
             foreach (TourRequest tourRequest in allTourRequests)

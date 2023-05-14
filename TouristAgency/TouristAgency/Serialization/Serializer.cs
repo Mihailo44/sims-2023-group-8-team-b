@@ -11,7 +11,7 @@ namespace TouristAgency.Serialization
     class Serializer<T> where T : ISerializable, new()
     {
         private static char DELIMITER = '|';
-        //TODO Napraviti metodu koja generise ovo, da ne bude dugacko
+       
         private static string path =  Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/Resources/Data/";
         public void ToCSV(string fileName, List<T> objects)
         {

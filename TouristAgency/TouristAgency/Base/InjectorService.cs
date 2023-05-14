@@ -18,6 +18,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
+using TouristAgency.Notifications;
 
 namespace TouristAgency.Base
 {
@@ -47,7 +48,8 @@ namespace TouristAgency.Base
             { typeof(IStorage<TourRequest>), new TourRequestFileStorage()},
             { typeof(IStorage<TouristNotification>), new TouristNotificationFileStorage()},
             { typeof(IStorage<Renovation>),new RenovationFileStorage()},
-            { typeof(IStorage<RenovationRecommendation>), new RenovationRecommendationFileStorage()}
+            { typeof(IStorage<RenovationRecommendation>), new RenovationRecommendationFileStorage()},
+            { typeof(IStorage<GuestReviewNotification>),new GuestReviewNotificationFileStorage() }
         };
 
         public static T CreateInstance<T>()

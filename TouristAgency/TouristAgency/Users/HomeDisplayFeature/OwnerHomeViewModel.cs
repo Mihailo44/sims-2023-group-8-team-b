@@ -16,6 +16,7 @@ using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
 using TouristAgency.Users.ReviewFeatures;
+using TouristAgency.Notifications;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -27,9 +28,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private OwnerService _ownerService;
         private PostponementRequestService _postponementRequestService;
         private RenovationService _renovationService;
+        private GuestReviewNotificationService _guestReviewNotificationService;
         private string _accountContainerVisibility;
         private string _notificationContainerVisibility;
-        private List<string> _notifications;
         private string _btnNewVisibility;
         private string _btnClearNotificationVisibility;
         private bool _isChecked;
@@ -62,15 +63,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
-        public List<string> Notifications
-        {
-            get => _notifications;
-            set
-            {
-                _notifications = value;
-                OnPropertyChanged();
-            }
-        }
+       public ObservableCollection<Notification> Notifications { get; set; }
 
         public string BtnNewVisibility
         {
@@ -115,8 +108,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
-        public string Status { get; set; }
-
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
@@ -129,6 +120,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
 
         public Owner LoggedUser { get; set; }
+        public string Status { get; set; }
 
         private Window _window;
         private App app = (App)App.Current;
@@ -179,6 +171,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _postponementRequestService = new();
             _ownerService = new();
             _renovationService = new();
+            _guestReviewNotificationService = new();
         }
 
         private void SubscribeObservers()
@@ -284,11 +277,10 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void ReviewNotification()
         {
-            int changes;
-            List<string> notification = _reservationService.ReviewNotification(app.LoggedUser.ID, out changes);
-            if (changes > 0)
+            List<GuestReviewNotification> notification = _guestReviewNotificationService.ReviewNotification(app.LoggedUser.ID,_reservationService);
+            if (notification.Count() > 0)
             {
-                Notifications = notification;
+                Notifications.AddRange(notification);
                 BtnClearNotificationVisibility = "Visible";
             }
         }
@@ -310,7 +302,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 DateTime today = DateTime.UtcNow.Date;
                 double dateDiff = (today - SelectedReservation.End).TotalDays;
 
-                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDiff > 0.0 && dateDiff < 5.0)
+                if (SelectedReservation.Status == ReviewStatus.UNREVIEWED && dateDiff > 0.0 && dateDiff <= 5.0)
                 {
                     return true;
                 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
@@ -12,7 +7,7 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeature
 {
-    public class RenovationHistoryViewModel : ViewModelBase,IObserver
+    public class RenovationHistoryViewModel : ViewModelBase, IObserver
     {
         private RenovationService _renovationService;
         private readonly App _app;
@@ -20,7 +15,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
         public Accommodation SelectedAccommodation { get; } = new();
         public ObservableCollection<Renovation> Renovations { get; set; }
 
-        public DelegateCommand CancelRenovationCmd { get; set; }
+        public DelegateCommand OpenCancelRenovationCmd { get; set; }
 
         public RenovationHistoryViewModel(Accommodation accommodation)
         {
@@ -32,13 +27,13 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
             Renovations = new();
             LoadRenovations();
 
-            CancelRenovationCmd = new DelegateCommand(param => CancelRenovationCmdExecute(),param => CanCancelRenovationCmdExecute());
+            OpenCancelRenovationCmd = new DelegateCommand(param => OpenCancelRenovationCmdExecute(), param => CanOpenCancelRenovationCmdExecute());
         }
 
         private void LoadRenovations()
         {
             Renovations.Clear();
-            foreach(var renovation in _renovationService.GetRenovationsByAccommodationId(SelectedAccommodation.Id))
+            foreach (var renovation in _renovationService.GetRenovationsByAccommodationId(SelectedAccommodation.Id))
             {
                 Renovations.Add(renovation);
             }
@@ -49,48 +44,23 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
             LoadRenovations();
         }
 
-        public bool CanCancelRenovationCmdExecute()
+        public bool CanOpenCancelRenovationCmdExecute()
         {
-            return SelectedRenovation != null && SelectedRenovation.IsCanceled == false;
+            return SelectedRenovation != null;
         }
 
-        public void CancelRenovationCmdExecute()
+        public void OpenCancelRenovationCmdExecute()
         {
-            MessageBoxResult result = CancelRenovationDialogue();
-            DateTime today = DateTime.Now;
-            double dateDiff = (SelectedRenovation.Start - today).TotalDays;
-
-            if (result == MessageBoxResult.Yes)
+            if (SelectedRenovation.IsCanceled)
             {
-                if (today > SelectedRenovation.End)
-                {
-                    MessageBox.Show("Renovation is already done","Renovation Cancelation Dialogue");
-                }
-                else if(dateDiff > 5)
-                {
-                    _renovationService.CancelRenovation(SelectedRenovation);
-                    MessageBox.Show("Renovation has been canceled successfully", "Renovation Cancelation Dialogue");
-                }
-                else
-                {
-                    MessageBox.Show($"Renovation is in less than 5 days, so it can't be canceled", "Renovation Cancelation Dialogue");
-                }
+                MessageBox.Show("Selected renovation has been canceled", "Renovation History Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-        }
+            else
+            {
+                RenovationCancelationDialogue x = new RenovationCancelationDialogue(SelectedRenovation);
+                x.Show();
+            }
 
-        private MessageBoxResult CancelRenovationDialogue()
-        {
-            string sMessageBoxText;
-            string sCaption;
-
-            sMessageBoxText = $"Do you want to cancel renovation?\nStart Date:\t{SelectedRenovation.Start.ToShortDateString()}\nEnd Date:\t{SelectedRenovation.End.ToShortDateString()}";
-            sCaption = "Renovation Cancelation Dialog";
-
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Question;
-
-            MessageBoxResult result = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
-            return result;
         }
     }
 }

@@ -17,9 +17,11 @@
     <None Remove="Resources\Image\bars-solid.png" />
     <None Remove="Resources\Image\bell-exclamation.png" />
     <None Remove="Resources\Image\cancel.png" />
+    <None Remove="Resources\Image\check.png" />
     <None Remove="Resources\Image\clearFilter.png" />
     <None Remove="Resources\Image\create.png" />
     <None Remove="Resources\Image\create1.png" />
+    <None Remove="Resources\Image\denied.png" />
     <None Remove="Resources\Image\exit.png" />
     <None Remove="Resources\Image\file-pdf-solid.png" />
     <None Remove="Resources\Image\join.png" />
@@ -76,9 +78,11 @@
     </Resource>
     <Resource Include="Resources\Image\bell-exclamation.png" />
     <Resource Include="Resources\Image\cancel.png" />
+    <Resource Include="Resources\Image\check.png" />
     <Resource Include="Resources\Image\clearFilter.png" />
     <Resource Include="Resources\Image\create.png" />
     <Resource Include="Resources\Image\create1.png" />
+    <Resource Include="Resources\Image\denied.png" />
     <Resource Include="Resources\Image\exit.png" />
     <Resource Include="Resources\Image\file-pdf-solid.png" />
     <Resource Include="Resources\Image\join.png" />

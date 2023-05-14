@@ -6,6 +6,7 @@ using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Notifications;
 using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
@@ -47,6 +48,7 @@ namespace TouristAgency
         public OwnerRepository OwnerRepository { get; }
         public RenovationRepository RenovationRepository { get; }
         public RenovationRecommendationRepository RenovationRecommendationRepository { get; }
+        public GuestReviewNotificationRepository GuestReviewNotificationRepository { get; } 
 
         public event Action CurrentVMChanged;
 
@@ -96,7 +98,13 @@ namespace TouristAgency
             GuestRepository = new(InjectorService.CreateInstance<IStorage<Guest>>());
             RenovationRepository = new(InjectorService.CreateInstance<IStorage<Renovation>>());
             RenovationRecommendationRepository = new(InjectorService.CreateInstance<IStorage<RenovationRecommendation>>());
+            GuestReviewNotificationRepository = new(InjectorService.CreateInstance<IStorage<GuestReviewNotification>>());
 
+            LoadData();
+        }
+
+        private void LoadData() 
+        {
             AccommodationRepository.LoadLocationsToAccommodations(LocationRepository.GetAll());
             AccommodationRepository.LoadPhotosToAccommodations(PhotoRepository.GetAll());
             AccommodationRepository.LoadOwnersToAccommodations(OwnerRepository.GetAll());
@@ -126,6 +134,7 @@ namespace TouristAgency
             RenovationRecommendationRepository.LoadReservationsToRenovationRecommendation(ReservationRepository.GetAll());
             TouristNotificationRepository.LoadToursToNotifications(TourRepository.GetAll());
             TouristNotificationRepository.LoadCheckpointsToNotifications(CheckpointRepository.GetAll());
+            GuestReviewNotificationRepository.LoadReservationsToNotifications(ReservationRepository.GetAll());
         }
     }
 }

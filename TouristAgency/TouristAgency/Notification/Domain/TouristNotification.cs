@@ -13,10 +13,11 @@ namespace TouristAgency.Vouchers
         private int _touristID;
         private int _tourID;
         private Tour _tour;
-        private int _checkpointID;
+        private int _checkpointID;  
         private Checkpoint _checkpoint;
         private TouristNotificationType _type;
         private string _message;
+        private bool _isSeen;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,6 +28,7 @@ namespace TouristAgency.Vouchers
             _tourID = -1;
             _checkpointID = -1;
             _type = TouristNotificationType.MESSAGE;
+            _isSeen = false;
         }
 
         public TouristNotification(int touristID, TouristNotificationType type, string message)
@@ -34,6 +36,7 @@ namespace TouristAgency.Vouchers
             TouristID = touristID;
             Type = type;
             Message = message;
+            _isSeen = false;
         }
 
         public int ID
@@ -142,6 +145,19 @@ namespace TouristAgency.Vouchers
             }
         }
 
+        public bool IsSeen
+        {
+            get => _isSeen;
+            set
+            {
+                if (value != _isSeen)
+                {
+                    _isSeen = value;
+                    OnPropertyChanged("IsSeen");
+                }
+            }
+        }
+
         protected virtual void OnPropertyChanged(string name)
         {
             if (PropertyChanged != null)
@@ -159,7 +175,8 @@ namespace TouristAgency.Vouchers
                 _tourID.ToString(),
                 _checkpointID.ToString(),
                 _type.ToString(),
-                _message
+                _message,
+                _isSeen.ToString()
             };
             return csvValues;
         }
@@ -172,6 +189,7 @@ namespace TouristAgency.Vouchers
             _checkpointID = Convert.ToInt32(values[3]);
             _type = Enum.Parse<TouristNotificationType>(values[4]);
             _message = values[5];
+            _isSeen = Boolean.Parse(values[6]);
         }
     }
 }

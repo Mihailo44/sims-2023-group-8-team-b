@@ -63,7 +63,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         {
             PossibleRenovationDates.Clear();
             List<Renovation> renovationSuggestions = new List<Renovation>();
-            renovationSuggestions = _renovationService.GeneratePotentionalRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService);
+            renovationSuggestions = _renovationService.GeneratePotentialRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService);
             foreach(var renovation in renovationSuggestions)
             {
                 PossibleRenovationDates.Add(renovation);
