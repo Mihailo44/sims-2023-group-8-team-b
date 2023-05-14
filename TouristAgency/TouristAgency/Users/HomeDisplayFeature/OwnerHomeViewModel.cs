@@ -467,7 +467,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void ClearNotificationsCmdExecute()
         {
             Notifications.Clear();
-            NotificationContainerVisibility = "Collapsed";
+            //NotificationContainerVisibility = "Collapsed";
         }
 
         public bool CanShowAccommodationMainExecute()

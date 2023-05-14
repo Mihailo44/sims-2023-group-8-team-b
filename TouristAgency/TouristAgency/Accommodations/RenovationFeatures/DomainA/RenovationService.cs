@@ -17,6 +17,11 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             RenovationRepository = _app.RenovationRepository;
         }
 
+        public Renovation Create(Renovation newRenovation)
+        {
+            return RenovationRepository.Create(newRenovation);
+        }
+
         public List<Renovation> GeneratePotentialRenovations(DateTime start, DateTime end, int estimatedDuration, Accommodation accommodation, ReservationService reservationService)
         {
             List<Renovation> renovations = new List<Renovation>();

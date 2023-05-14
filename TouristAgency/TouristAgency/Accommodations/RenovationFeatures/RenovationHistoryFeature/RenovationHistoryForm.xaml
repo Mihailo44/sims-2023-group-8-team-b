@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="580" d:DesignWidth="900" Background="White">
+             d:DesignHeight="580" d:DesignWidth="900">
 
     <UserControl.Resources>
         <con:DateConverter x:Key="DateConv"/>

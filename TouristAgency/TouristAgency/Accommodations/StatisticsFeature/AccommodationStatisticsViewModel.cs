@@ -88,6 +88,7 @@ namespace TouristAgency.Accommodations.StatisticsFeature
             SelectedYear = DateTime.Today.Year;
             GetStatsByYear();
             GetStatsByMonth();
+
             ShowYearStatsCmd = new DelegateCommand(param => ShowYearStatsCmdExecute(), param => CanShowYearStatsCmdExecute());
             ShowMonthStatsCmd = new DelegateCommand(param => ShowMonthStatsCmdExecute(), param => CanShowMonthStatsCmdExecute());
         }
@@ -142,12 +143,8 @@ namespace TouristAgency.Accommodations.StatisticsFeature
 
         private void GetStatsByMonth()
         {
-            int monthNumber = MonthConverter.GetMonthId(SelectedMonth);
-            List<int> stats = _accommodationService.GetAccommodationStatsByMonth(_reservationService,_postponementRequestService,_renovationRecommendationService,SelectedAccommodation,SelectedYear,monthNumber);
-            MonthlyStats.Reservations = stats[0];
-            MonthlyStats.Cancelations = stats[1];
-            MonthlyStats.Postponations = stats[2];
-            MonthlyStats.Reccommendations = stats[3];
+            int monthNumber = MonthConverter.GetMonthNumber(SelectedMonth);
+            MonthlyStats = _accommodationService.GetAccommodationStatsByMonth(_reservationService,_postponementRequestService,_renovationRecommendationService,SelectedAccommodation,SelectedYear,monthNumber);
             StatsList.Clear();
             StatsList.Add(MonthlyStats);
         }

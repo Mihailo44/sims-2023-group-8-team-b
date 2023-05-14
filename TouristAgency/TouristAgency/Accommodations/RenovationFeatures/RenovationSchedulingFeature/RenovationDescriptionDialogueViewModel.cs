@@ -70,7 +70,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         public void CreateCmdExecute()
         {
             Renovation.Description = Description.Trim();
-            _renovationService.RenovationRepository.Create(Renovation);
+            _renovationService.Create(Renovation);
             MessageBox.Show("Renovation has been scheduled","Renovation Scheduling Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
             _window.Close();
         }

@@ -4,6 +4,7 @@ using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using System;
+using TouristAgency.Accommodations.Domain.DTO;
 
 namespace TouristAgency.Accommodations.Domain
 {
@@ -171,21 +172,21 @@ namespace TouristAgency.Accommodations.Domain
             return results;
         }
 
-        public List<int> GetAccommodationStatsByMonth(ReservationService reservationService, PostponementRequestService postponementRequestService, RenovationRecommendationService renovationRecommendationService, Accommodation accommodation, int year,int monthNumber)
+        public AccommodationStatisticsDTO GetAccommodationStatsByMonth(ReservationService reservationService, PostponementRequestService postponementRequestService, RenovationRecommendationService renovationRecommendationService, Accommodation accommodation, int year,int monthNumber)
         {
-            List<int> results = new List<int>();
+            AccommodationStatisticsDTO result = new();
 
             int reservations = reservationService.GetByAccommodationId(accommodation.Id).Where(r => r.Start.Year == year && r.Start.Month == monthNumber && r.IsCanceled == false).Count();
             int cancelations = reservationService.GetByAccommodationId(accommodation.Id).Where(r => r.Start.Year == year && r.Start.Month == monthNumber && r.IsCanceled == true).Count();
             int postponements = postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == year && p.Reservation.Start.Month == monthNumber && p.Reservation.AccommodationId == accommodation.Id).Count();
             int reccommendations = renovationRecommendationService.RenovationRecommendationRepository.GetAll().FindAll(r => r.Reservation.AccommodationId == accommodation.Id && r.Reservation.IsCanceled == false && r.Reservation.Start.Year == year && r.Reservation.Start.Month == monthNumber).Count();
 
-            results.Add(reservations);
-            results.Add(cancelations);
-            results.Add(postponements);
-            results.Add(reccommendations);
+            result.Reservations = reservations;
+            result.Cancelations = cancelations;
+            result.Postponations = postponements;
+            result.Reccommendations = reccommendations;
 
-            return results;
+            return result;
         }
     }
 }

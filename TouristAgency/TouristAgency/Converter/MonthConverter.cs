@@ -32,7 +32,7 @@ namespace TouristAgency.Converter
             return months[id];
         }
 
-        public static int GetMonthId(string value)
+        public static int GetMonthNumber(string value)
         {
             foreach(var month in months)
             {

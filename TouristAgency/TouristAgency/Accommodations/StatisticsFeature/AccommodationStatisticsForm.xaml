@@ -7,7 +7,7 @@
              xmlns:con="clr-namespace:TouristAgency.Converter"
              xmlns:local="clr-namespace:TouristAgency.Accommodations.StatisticsFeature"
              mc:Ignorable="d" 
-             d:DesignHeight="580" d:DesignWidth="900" Background="LightBlue">
+             d:DesignHeight="580" d:DesignWidth="900">
 
     <UserControl.Resources>
         <con:IntConverter x:Key="IntConv"/>
@@ -15,13 +15,13 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="180"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="220"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <WrapPanel Grid.Row="0" Background="snow">
+        <WrapPanel Grid.Row="0" Background="Snow">
             <Label Width="160" Height="40" Margin="50,5,0,0" FontWeight="SemiBold" FontSize="22" Content="Stats By Year"/>
             <ComboBox Height="35" Margin="20,5,0,0"  Width="120" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{Binding CbYearValues}" Text="{Binding SelectedYear,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged}"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled">
@@ -34,7 +34,8 @@
             <Button Width="200" Margin="325,5,0,0" Content="Print PDF Report" Style="{StaticResource BasicBtn}"/>
         </WrapPanel>
 
-        <WrapPanel Grid.Row="1" Margin="0,10,0,0" Background="snow">
+        <WrapPanel Grid.Row="1" Margin="0,10,0,0" Background="Snow">
+
             <WrapPanel Margin="0,10,0,0">
                 <Label Width="250" Height="40" Margin="50,0,0,0" FontSize="22" Content="Reservations"/>
                 <Label Width="70" Height="40" Margin="10,0,0,0" FontSize="22" FontWeight="SemiBold" Content="{Binding YearlyStats.Reservations,UpdateSourceTrigger=PropertyChanged}"/>
@@ -57,7 +58,8 @@
             </WrapPanel>
         </WrapPanel>
 
-        <StackPanel Margin="0,10,0,0" Grid.Row="2" Background="snow">
+        <StackPanel Margin="0,10,0,0" Grid.Row="2" Background="Snow">
+
             <WrapPanel Margin="0,20,0,0">
                 <Label Width="160" Height="40" Margin="50,0,0,0" FontWeight="SemiBold" FontSize="22" Content="Stats By Month"/>
                 <ComboBox Height="35" Margin="20,0,0,0"  Width="140" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{Binding CbMonthValues}" SelectedItem="{Binding SelectedMonth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -69,7 +71,7 @@
                     </i:Interaction.Triggers>
                 </ComboBox>
             </WrapPanel>
-            <ListView Height="75" Width="880" Margin="0,20,0,0" Grid.Row="2"
+            <ListView Height="75" Width="860" Margin="0,20,0,0" Grid.Row="2"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding StatsList}"
                   Style="{StaticResource BasicListView}"
@@ -90,16 +92,17 @@
                                 <Setter Property="FontStyle" Value="Italic"/>
                             </Style>
                         </GridView.ColumnHeaderContainerStyle>
-                        <GridViewColumn Width="170" Header="Reservations" DisplayMemberBinding="{Binding Reservations}"/>
-                        <GridViewColumn Width="170" Header="Cancelations" DisplayMemberBinding="{Binding Cancelations}"/>
-                        <GridViewColumn Width="180" Header="Postponations" DisplayMemberBinding="{Binding Postponations}"/>
-                        <GridViewColumn Width="360" Header="Renovation Reccommendations" DisplayMemberBinding="{Binding Reccommendations}"/>
+                        <GridViewColumn Width="155" Header="Reservations" DisplayMemberBinding="{Binding Reservations}"/>
+                        <GridViewColumn Width="155" Header="Cancelations" DisplayMemberBinding="{Binding Cancelations}"/>
+                        <GridViewColumn Width="185" Header="Postponations" DisplayMemberBinding="{Binding Postponations}"/>
+                        <GridViewColumn Width="365" Header="Renovation Reccommendations" DisplayMemberBinding="{Binding Reccommendations}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </StackPanel>
 
-        <Canvas Grid.Row="3" Margin="0,10,0,0" Background="snow">
+        <Canvas Grid.Row="3" Margin="0,10,0,0" Background="Snow">
+          
         </Canvas>
        
     </Grid>

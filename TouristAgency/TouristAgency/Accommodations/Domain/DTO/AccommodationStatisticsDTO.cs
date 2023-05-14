@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TouristAgency.Accommodations.Domain.DTO
 {
-    public class AccommodationStatisticsDTO : INotifyPropertyChanged
+    public class AccommodationStatisticsDTO 
     {
         private int _reservations;
         private int _cancelations;
@@ -23,7 +23,6 @@ namespace TouristAgency.Accommodations.Domain.DTO
                 if (_reservations != value)
                 {
                     _reservations = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -36,7 +35,6 @@ namespace TouristAgency.Accommodations.Domain.DTO
                 if (_cancelations != value)
                 {
                     _cancelations = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -48,7 +46,6 @@ namespace TouristAgency.Accommodations.Domain.DTO
                 if (_postponations != value)
                 {
                     _postponations = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -61,16 +58,9 @@ namespace TouristAgency.Accommodations.Domain.DTO
                 if (_reccommendations != value)
                 {
                     _reccommendations = value;
-                    OnPropertyChanged();
                 }
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
