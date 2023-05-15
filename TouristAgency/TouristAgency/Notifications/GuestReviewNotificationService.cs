@@ -43,7 +43,7 @@ namespace TouristAgency.Notifications
                         GuestReviewNotificationRepository.Delete(oldNotification.Id);
                     }
 
-                    message = $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {dateDiff} days left to review";
+                    message = $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {5 - dateDiff} days left to review";
                     GuestReviewNotification newNotification = new GuestReviewNotification(message);
                     notifications.Add(GuestReviewNotificationRepository.Create(newNotification));
                 }
