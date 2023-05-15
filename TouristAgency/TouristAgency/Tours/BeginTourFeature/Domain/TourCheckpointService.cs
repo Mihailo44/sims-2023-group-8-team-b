@@ -14,6 +14,11 @@ namespace TouristAgency.Tours.BeginTourFeature.Domain
             TourCheckpointRepository = _app.TourCheckpointRepository;
         }
 
+        public TourCheckpoint Create(TourCheckpoint newTourCheckpoint)
+        {
+            return TourCheckpointRepository.Create(newTourCheckpoint);
+        }
+
         public ObservableCollection<TourCheckpoint> GetTourCheckpointsByTourID(int tourID, List<Checkpoint> checkpoints)
         {
             ObservableCollection<TourCheckpoint> tourCheckpoints = new ObservableCollection<TourCheckpoint>(TourCheckpointRepository.GetByID(tourID));

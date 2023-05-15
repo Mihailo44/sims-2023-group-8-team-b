@@ -15,11 +15,12 @@ namespace TouristAgency.Tours.BeginTourFeature.Domain
             _tourCheckpoints = _storage.Load();
             _observers = new List<IObserver>();
         }
-        public void Create(TourCheckpoint TourCheckpoint)
+        public TourCheckpoint Create(TourCheckpoint TourCheckpoint)
         {
             _tourCheckpoints.Add(TourCheckpoint);
             _storage.Save(_tourCheckpoints);
             NotifyObservers();
+            return TourCheckpoint;
         }
 
         public List<TourCheckpoint> GetByID(int id)

@@ -12,6 +12,7 @@ using TouristAgency.Tours;
 using TouristAgency.Users;
 using TouristAgency.Util;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.CreationFeature;
 
 namespace TouristAgency.TourRequests.StatisticsFeature
 {
@@ -30,6 +31,7 @@ namespace TouristAgency.TourRequests.StatisticsFeature
         private int _requestNum;
         private string _mostRequestedLocation;
         private int _mostRequestedNum;
+        private TourRequest _mostRequestedTourRequest;
 
         TourRequestService _tourRequestService;
         public DelegateCommand CloseCmd { get; set; }
@@ -37,6 +39,8 @@ namespace TouristAgency.TourRequests.StatisticsFeature
         public DelegateCommand FilterCmd { get; set; }
 
         public DelegateCommand ClearCmd { get; set; }
+
+        public DelegateCommand CreateMostRequestedCmd { get; set; }
 
         public GuideTourRequestStatisticsDisplayViewModel()
         {
@@ -61,6 +65,7 @@ namespace TouristAgency.TourRequests.StatisticsFeature
             Countries = new ObservableCollection<string>(_tourRequestService.GetAllCountries());
             MostRequestedLocation = PrepareLocation();
             MostRequestedNum = _tourRequestService.GetMostRequested().Item2;
+            _mostRequestedTourRequest = _tourRequestService.GetMostRequested().Item1;
             Language = Languages[0];
             City = Cities[0];
             Country = Countries[0];
@@ -76,6 +81,7 @@ namespace TouristAgency.TourRequests.StatisticsFeature
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             FilterCmd = new DelegateCommand(param => FilterExecute(), param => CanFilterExecute());
             ClearCmd = new DelegateCommand(param => ClearExecute(), param => CanClearExecute());
+            CreateMostRequestedCmd = new DelegateCommand(param => CreateMostRequestedExecute(), param => CanCreateMostRequestedExecute());
         }
 
         public string PrepareLocation()
@@ -248,6 +254,19 @@ namespace TouristAgency.TourRequests.StatisticsFeature
         public void ClearExecute()
         {
             InstantiateCollections();
+        }
+
+        public bool CanCreateMostRequestedExecute()
+        {
+            return true;
+        }
+
+        public void CreateMostRequestedExecute()
+        {
+            if(_mostRequestedTourRequest != null)
+            {
+                _app.CurrentVM = new TourCreationViewModel(_mostRequestedTourRequest, TourCreationScenario.MOST_POPULAR_TOURREQ);
+            }
         }
 
     }   

@@ -11,6 +11,11 @@
             LocationRepository = _app.LocationRepository;
         }
 
+        public Location Create(Location newLocation)
+        {
+            return LocationRepository.Create(newLocation);
+        }
+
         public int FindLocationId(Location location)
         {
             return LocationRepository.GetAll().Find(l => l.Equals(location)).Id;

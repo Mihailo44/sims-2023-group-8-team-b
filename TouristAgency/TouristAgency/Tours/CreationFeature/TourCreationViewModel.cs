@@ -28,6 +28,7 @@ namespace TouristAgency.CreationFeature
         private TourRequest _tourRequest;
         private Location _newLocation;
         private string _photoLinks;
+        private TourCreationScenario _scenario;
 
         private TourService _tourService;
         private LocationService _locationService;
@@ -42,24 +43,13 @@ namespace TouristAgency.CreationFeature
         public DelegateCommand LoadCheckpointsIntoListViewCmd { get; set; }
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
-        public TourCreationViewModel()
-        {
-            _app = (App)Application.Current;
-            _loggedInGuide = _app.LoggedUser;
-            MenuVisibility = "Hidden";
-            _tourRequest = null;
-            InstantiateServices();
-            InstantiateCollections();
-            InstantiateCommands();
-            InstantiateMenuCommands();
-            AreControlsEnabled("True");
-        }
 
-        public TourCreationViewModel(TourRequest tourRequest)
+        public TourCreationViewModel(TourRequest tourRequest = null, TourCreationScenario scenario = TourCreationScenario.DEFAULT)
         {
             _app = (App)Application.Current;
             _loggedInGuide = _app.LoggedUser;
             _tourRequest = tourRequest;
+            _scenario = scenario;
             MenuVisibility = "Hidden";
             InstantiateServices();
             InstantiateCollections();
@@ -67,7 +57,7 @@ namespace TouristAgency.CreationFeature
             InstantiateMenuCommands();
             FillFromTourRequest(tourRequest);
             LoadCheckpointsIntoListView();
-            AreControlsEnabled("False");
+            ChangeControlEnabledStatus(scenario);
         }
 
         private void InstantiateServices()
@@ -108,21 +98,46 @@ namespace TouristAgency.CreationFeature
 
         public void FillFromTourRequest(TourRequest tourRequest)
         {
-            NewTour.Description = tourRequest.Description;
-            NewTour.ShortLocation = tourRequest.ShortLocation;
-            NewLocation = tourRequest.ShortLocation;
-            NewTour.ShortLocation.City = tourRequest.ShortLocation.City;
-            NewTour.Language = tourRequest.Language;
-            NewTour.MaxAttendants = tourRequest.MaxAttendants;
+            if (tourRequest != null)
+            {
+                NewTour.ShortLocation = tourRequest.ShortLocation;
+                NewLocation = tourRequest.ShortLocation;
+                NewTour.ShortLocation.City = tourRequest.ShortLocation.City;
+                NewTour.Language = tourRequest.Language;
+                if(_scenario == TourCreationScenario.ACCEPT_TOURREQ)
+                {
+                    NewTour.Description = tourRequest.Description;
+                    NewTour.MaxAttendants = tourRequest.MaxAttendants;
+                }
+            }
         }
 
-        public void AreControlsEnabled(string state)
+        public void ChangeControlEnabledStatus(TourCreationScenario scenario)
         {
-            CountryEnabled = state;
-            CityEnabled = state;
-            LanguageEnabled = state;
-            CapacityEnabled = state;
-            DescriptionEnabled = state;
+            if(scenario == TourCreationScenario.DEFAULT)
+            {
+                CountryEnabled = "true";
+                CityEnabled = "true";
+                LanguageEnabled = "true";
+                CapacityEnabled = "true";
+                DescriptionEnabled = "true";
+            }
+            else if (scenario == TourCreationScenario.ACCEPT_TOURREQ)
+            {
+                CountryEnabled = "false";
+                CityEnabled = "false";
+                LanguageEnabled = "false";
+                CapacityEnabled = "false";
+                DescriptionEnabled = "false";
+            }
+            else
+            {
+                CountryEnabled = "false";
+                CityEnabled = "false";
+                LanguageEnabled = "false";
+                CapacityEnabled = "true";
+                DescriptionEnabled = "true";
+            }
         }
 
         public Tour NewTour
@@ -210,7 +225,7 @@ namespace TouristAgency.CreationFeature
 
             if (locationID == -1)
             {
-                _locationService.LocationRepository.Create(NewLocation);
+                _locationService.Create(NewLocation);
             }
 
             _newTour.ShortLocation = NewLocation;
@@ -244,7 +259,7 @@ namespace TouristAgency.CreationFeature
                 }
                 _tourRequest.Status = TourRequestStatus.ACCEPTED;
                 _tourRequest.GuideID = _loggedInGuide.ID;
-                _tourRequestService.TourRequestRepository.Update(_tourRequest, _tourRequest.ID);
+                _tourRequestService.Update(_tourRequest, _tourRequest.ID);
                 return true;
             }
             else
@@ -264,7 +279,7 @@ namespace TouristAgency.CreationFeature
                 }
 
                 NewTour.Checkpoints.Add(checkpoint);
-                _tourCheckpointService.TourCheckpointRepository.Create(new TourCheckpoint(tourID, checkpoint.ID, firstVisit));
+                _tourCheckpointService.Create(new TourCheckpoint(tourID, checkpoint.ID, firstVisit));
                 i++;
             }
         }
@@ -295,13 +310,13 @@ namespace TouristAgency.CreationFeature
                 {
                     AddPhotos();
                     LoadCheckpointsToTours();
-                    NewTour = _tourService.TourRepository.Create(new Tour(_newTour));
+                    NewTour = _tourService.Create(new Tour(_newTour));
                     if (canHandleTourRequest)
                     {
                         TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
                         notification.Tour = NewTour;
                         notification.TourID = NewTour.ID;
-                        _touristNotificationService.TouristNotificationRepository.Create(notification);
+                        _touristNotificationService.Create(notification);
                         _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.TourRequestRepository.GetAll());
                     }
                     MessageBox.Show("Successfully created tour!", "Success");

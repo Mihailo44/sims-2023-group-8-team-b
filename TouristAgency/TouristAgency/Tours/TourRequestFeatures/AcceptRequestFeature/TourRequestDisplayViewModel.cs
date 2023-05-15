@@ -197,7 +197,7 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
         public void AcceptTourRequestExecute()
         {
             if(SelectedTourRequest != null)
-                _app.CurrentVM = new TourCreationViewModel(SelectedTourRequest);
+                _app.CurrentVM = new TourCreationViewModel(SelectedTourRequest, Util.TourCreationScenario.ACCEPT_TOURREQ);
         }
 
         public bool CanFilterExecute()

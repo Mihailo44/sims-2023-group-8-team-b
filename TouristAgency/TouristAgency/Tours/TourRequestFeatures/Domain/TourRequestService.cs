@@ -22,6 +22,16 @@ namespace TouristAgency.TourRequests
             TourRequestRepository = _app.TourRequestRepository;
         }
 
+        public TourRequest Create(TourRequest newTourRequest)
+        {
+            return TourRequestRepository.Create(newTourRequest);
+        }
+
+        public TourRequest Update(TourRequest newTourRequest, int ID)
+        {
+            return TourRequestRepository.Update(newTourRequest, ID);
+        }
+
         public List<string> GetAllCountries()
         {
             List<string> countries = new List<string>();

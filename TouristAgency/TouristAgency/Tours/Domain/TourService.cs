@@ -17,6 +17,11 @@ namespace TouristAgency.Tours
             TourRepository = _app.TourRepository;
         }
 
+        public Tour Create(Tour newTour)
+        {
+            return TourRepository.Create(newTour);
+        }
+
         public List<Tour> GetTodayTours(int guideID)
         {
             List<Tour> todayTours = new List<Tour>();

@@ -15,6 +15,11 @@ namespace TouristAgency.Vouchers
             TouristNotificationRepository = _app.TouristNotificationRepository;
         }
 
+        public TouristNotification Create(TouristNotification newTouristNotification)
+        {
+            return TouristNotificationRepository.Create(newTouristNotification);
+        }
+
         public List<TouristNotification> GetByTouristID(int TouristID)
         {
             List<TouristNotification> notifications = TouristNotificationRepository.GetAll().FindAll(t => t.TouristID == TouristID);

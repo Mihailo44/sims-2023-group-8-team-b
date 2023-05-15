@@ -67,7 +67,7 @@
                 <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Width="325" Margin="0,6,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Num of people:" FontSize="28" FontWeight="SemiBold"/>
-                        <xctk:UIntegerUpDown x:Name="NumOfPeople" Width="90" Height="40" Value="{Binding TourRequest.MaxAttendance, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        <xctk:UIntegerUpDown x:Name="NumOfPeople" Width="90" Height="40" Value="{Binding TourRequest.MaxAttendants, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Date range:" FontSize="28" FontWeight="SemiBold"/>
@@ -122,7 +122,7 @@
                     <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
                     <GridViewColumn Header="Start date" Width="210" DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:MM/dd/yyyy}}"/>
                     <GridViewColumn Header="End date" Width="210" DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:MM/dd/yyyy}}"/>
-                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding MaxAttendance}"/>
+                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding MaxAttendants}"/>
                 </GridView>
             </ListView.View>
         </ListView>
