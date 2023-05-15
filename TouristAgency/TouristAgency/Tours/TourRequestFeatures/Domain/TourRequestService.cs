@@ -197,8 +197,9 @@ namespace TouristAgency.TourRequests
         {
             double accepted = 0.0;
             double avgNumOfPeople = 0.0;
+            double denied = 0.0;
             List<string> statistics = new List<string>();
-            List<TourRequest> requestByTouristID = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
+            List<TourRequest> requestByTouristID = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID && t.Status != TourRequestStatus.PENDING);
             int countPeople;
             int countRequest;
 
@@ -214,10 +215,16 @@ namespace TouristAgency.TourRequests
                         accepted++;
                         avgNumOfPeople += tourRequest.MaxAttendants;
                     }
+                    else if(tourRequest.Status == TourRequestStatus.INVALID)
+                    {
+                        denied++;
+                        avgNumOfPeople += tourRequest.MaxAttendants;
+                    }
                 }
             }
             else
             {
+                requestByTouristID = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID && t.StartDate.Year.ToString() == year && t.Status != TourRequestStatus.PENDING);
                 countPeople = requestByTouristID.FindAll(t => t.StartDate.Year.ToString() == year && t.Status == TourRequestStatus.ACCEPTED).Count();
                 countRequest= requestByTouristID.FindAll(t => t.StartDate.Year.ToString() == year).Count();
                 
@@ -228,28 +235,49 @@ namespace TouristAgency.TourRequests
                         accepted++;
                         avgNumOfPeople += tourRequest.MaxAttendants;
                     }
+                    else if (tourRequest.Status == TourRequestStatus.INVALID)
+                    {
+                        denied++;
+                        avgNumOfPeople += tourRequest.MaxAttendants;
+                    }
                 }
             }
-
-            accepted = Math.Round((accepted / countRequest) * 100);
-            double deined = 100 - accepted;
+            if(accepted == 0 && countRequest == 0)
+                accepted = 0;
+            else
+                accepted = Math.Round((accepted / countRequest) * 100);
+            //double deined = 100 - accepted;
+            if (denied == 0 && countRequest == 0)
+                denied = 0;
+            else
+                denied = Math.Round((denied / countRequest) * 100);
             avgNumOfPeople = Math.Round(avgNumOfPeople / countPeople);
             if(countPeople == 0)
             {
                 avgNumOfPeople = 0;
             }
             statistics.Add(accepted.ToString());
-            statistics.Add(deined.ToString());
+            statistics.Add(denied.ToString());
             statistics.Add(avgNumOfPeople.ToString());
 
             return statistics;
         }
 
-        public List<TourRequestStatisticsData> GetAcceptedGraphData(int touristID)
+        public List<TourRequestStatisticsData> GetAcceptedGraphData(int touristID, string selectedYear)
         {
             List<string> allLanguages = GetAllLanguages();
             List<Location> allLocations = GetAllLocations();
-            List<TourRequest> allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
+            List<TourRequest> allTourRequests = new List<TourRequest>();
+
+            if (selectedYear == "All-time")
+            {
+                allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
+            }
+            else
+            {
+                allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID && t.StartDate.Year.ToString() == selectedYear);
+            }
+
             List<TourRequestStatisticsData> graphData = new List<TourRequestStatisticsData>();
             
             foreach(TourRequest tourRequest in allTourRequests)
@@ -298,11 +326,21 @@ namespace TouristAgency.TourRequests
             return graphData;
         }
 
-        public List<TourRequestStatisticsData> GetDeniedGraphData(int touristID)
+        public List<TourRequestStatisticsData> GetDeniedGraphData(int touristID, string selectedYear)
         {
             List<string> allLanguages = GetAllLanguages();
             List<Location> allLocations = GetAllLocations();
-            List<TourRequest> allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
+            List<TourRequest> allTourRequests = new List<TourRequest>();
+
+            if(selectedYear == "All-time")
+            {
+                allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
+            }
+            else
+            {
+                allTourRequests = TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID && t.StartDate.Year.ToString() == selectedYear);
+            }
+
             List<TourRequestStatisticsData> graphData = new List<TourRequestStatisticsData>();
 
             foreach (TourRequest tourRequest in allTourRequests)
