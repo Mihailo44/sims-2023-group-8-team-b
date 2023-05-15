@@ -14,7 +14,7 @@
     
     <Grid>
 
-        <ListView Height="auto" Width="850" Margin="0,20,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+        <ListView Height="auto" Width="850" Margin="0,5,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding Renovations}"
                   SelectedItem="{Binding SelectedRenovation}"

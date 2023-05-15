@@ -27,11 +27,15 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             List<Renovation> renovations = new List<Renovation>();
             DateTime startInterval = start;
             DateTime endInterval = start.AddDays(estimatedDuration);
+
             bool isReserved = reservationService.IsReserved(accommodation.Id, startInterval, endInterval);
             
-            while((!isReserved) && (startInterval.AddDays(estimatedDuration) <= end))
+            while(startInterval.AddDays(estimatedDuration) <= end)
             {
-                renovations.Add(new Renovation(accommodation, startInterval, endInterval, estimatedDuration));
+                if (!isReserved)
+                {
+                    renovations.Add(new Renovation(accommodation, startInterval, endInterval, estimatedDuration));
+                }
                 startInterval = startInterval.AddDays(1);
                 endInterval = startInterval.AddDays(estimatedDuration);
                 
