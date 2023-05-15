@@ -191,7 +191,7 @@
                       ItemContainerStyle="{StaticResource ListItem}">
 
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -230,7 +230,7 @@
                       ItemContainerStyle="{StaticResource PhotoListItem}">
 
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding ShowAccommodationMain}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -269,7 +269,7 @@
                            ItemContainerStyle="{StaticResource ListItem}">
 
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -308,10 +308,10 @@
                                     <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="175" Header="First Name"  DisplayMemberBinding="{Binding Reservation.Guest.FirstName}"/>
-                            <GridViewColumn Width="175" Header="Last Name"  DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
+                            <GridViewColumn Width="165" Header="First Name"  DisplayMemberBinding="{Binding Reservation.Guest.FirstName}"/>
+                            <GridViewColumn Width="165" Header="Last Name"  DisplayMemberBinding="{Binding Reservation.Guest.LastName}"/>
                             <GridViewColumn Width="200" Header="Accommodation"  DisplayMemberBinding="{Binding Reservation.Accommodation.Name}"/>
-                            <GridViewColumn Width="440" Header="Comment"  DisplayMemberBinding="{Binding Comment}"/>
+                            <GridViewColumn Width="460" Header="Comment"  DisplayMemberBinding="{Binding Comment}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
