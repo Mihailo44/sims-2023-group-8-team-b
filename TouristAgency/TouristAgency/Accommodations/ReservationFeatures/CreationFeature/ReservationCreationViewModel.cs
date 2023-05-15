@@ -16,6 +16,7 @@ using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature;
+using TouristAgency.Users.SuperGuestFeature.Domain;
 
 namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
@@ -42,6 +43,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 
         private ReservationService _reservationService;
         private AccommodationService _accommodationService;
+        private SuperGuestTitleService _superGuestTitleService;
 
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand SearchCmd { get; set; }
@@ -73,6 +75,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
         {
             _reservationService = new ReservationService();
             _accommodationService = new AccommodationService();
+            _superGuestTitleService = new SuperGuestTitleService();
         }
 
         private void InstantiateCollections()
@@ -400,6 +403,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
                 newReservation.GuestId = _loggedInGuest.ID;
                 _reservationService.ReservationRepository.Create(newReservation);
                 Reservations.Remove(newReservation);
+                _superGuestTitleService.UsePoint(_loggedInGuest.ID);
                 MessageBox.Show("Successfully reserved");
             }
         }

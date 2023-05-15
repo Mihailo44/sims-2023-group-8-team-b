@@ -6,12 +6,22 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Users.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using System.ComponentModel;
 
 namespace TouristAgency.Users
 {
-    public class Guest : User, ISerializable
+    public class Guest : User, ISerializable, INotifyPropertyChanged
     {
         private List<Reservation> _reservations;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
         public Guest()
         {
             _reservations = new List<Reservation>();
@@ -25,9 +35,12 @@ namespace TouristAgency.Users
                 if (_reservations != value)
                 {
                     _reservations = value;
+                    OnPropertyChanged("Reservations");
                 }
             }
         }
+
+        
 
         public bool IsSelected
         {
@@ -62,7 +75,7 @@ namespace TouristAgency.Users
                 _dateOfBirth.ToString(),
                 _email,
                 _phone,
-                _fullLocationID.ToString()
+                _fullLocationID.ToString(),
             };
             return csvValues;
         }

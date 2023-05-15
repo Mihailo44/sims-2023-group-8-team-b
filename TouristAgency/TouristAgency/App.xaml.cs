@@ -14,6 +14,7 @@ using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
+using TouristAgency.Users.SuperGuestFeature.Domain;
 using TouristAgency.Util;
 using TouristAgency.Vouchers;
 
@@ -48,7 +49,8 @@ namespace TouristAgency
         public OwnerRepository OwnerRepository { get; }
         public RenovationRepository RenovationRepository { get; }
         public RenovationRecommendationRepository RenovationRecommendationRepository { get; }
-        public GuestReviewNotificationRepository GuestReviewNotificationRepository { get; } 
+        public GuestReviewNotificationRepository GuestReviewNotificationRepository { get; }
+        public SuperGuestTitleRepository SuperGuestTitleRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -99,6 +101,7 @@ namespace TouristAgency
             RenovationRepository = new(InjectorService.CreateInstance<IStorage<Renovation>>());
             RenovationRecommendationRepository = new(InjectorService.CreateInstance<IStorage<RenovationRecommendation>>());
             GuestReviewNotificationRepository = new(InjectorService.CreateInstance<IStorage<GuestReviewNotification>>());
+            SuperGuestTitleRepository = new(InjectorService.CreateInstance<IStorage<SuperGuestTitle>>());
 
             LoadData();
         }
@@ -135,6 +138,7 @@ namespace TouristAgency
             TouristNotificationRepository.LoadToursToNotifications(TourRepository.GetAll());
             TouristNotificationRepository.LoadCheckpointsToNotifications(CheckpointRepository.GetAll());
             GuestReviewNotificationRepository.LoadReservationsToNotifications(ReservationRepository.GetAll());
+            SuperGuestTitleRepository.LoadGuestsToSuperGuestTitles(GuestRepository.GetAll());
         }
     }
 }

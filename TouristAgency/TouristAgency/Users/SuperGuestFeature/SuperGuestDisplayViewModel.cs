@@ -7,9 +7,11 @@ using System.Windows;
 using TouristAgency.Accommodations.PostponementFeatures;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
+using TouristAgency.Users.SuperGuestFeature.Domain;
 
 namespace TouristAgency.Users.SuperGuestFeature
 {
@@ -20,6 +22,14 @@ namespace TouristAgency.Users.SuperGuestFeature
         private readonly Window _window;
 
         private string _username;
+        private SuperGuestTitle _superGuestTitle;
+        private int _numOfReservations;
+        private int _points;
+        private string _status;
+
+        private GuestService _guestService;
+        private ReservationService _reservationService;
+        private SuperGuestTitleService _superGuestTitleService;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
@@ -35,8 +45,34 @@ namespace TouristAgency.Users.SuperGuestFeature
             _loggedInGuest = guest;
             _window = window;
 
+            InstantiateServices();
+            _superGuestTitleService.RefreshSuperGuestTitles(_guestService.GuestRepository.GetAll(), _reservationService.ReservationRepository.GetAll());
+            InstantiateCollections();
             InstantiateCommands();
             DisplayUser();
+        }
+
+        private void InstantiateServices()
+        {
+            _guestService = new GuestService();
+            _reservationService = new ReservationService();
+            _superGuestTitleService = new SuperGuestTitleService();
+        }
+
+        private void InstantiateCollections() 
+        {
+            NumOfReservations = _superGuestTitleService.GetNumOfReservations(_loggedInGuest, _reservationService.ReservationRepository.GetAll());
+            _superGuestTitle = _superGuestTitleService.GetByGuestId(_loggedInGuest.ID);
+            if (_superGuestTitle != null) 
+            {
+                Points = _superGuestTitle.Points;
+                Status = "super-guest";
+            }
+            else
+            {
+                Points = 0;
+                Status = "regular-guest";
+            }
         }
 
         private void InstantiateCommands()
@@ -72,6 +108,57 @@ namespace TouristAgency.Users.SuperGuestFeature
             }
         }
 
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if (value != _status)
+                {
+                    _status = value;
+                    OnPropertyChanged("Status");
+                }
+            }
+        }
+
+        public SuperGuestTitle SuperGuestTitle
+        {
+            get => _superGuestTitle;
+            set
+            {
+                if (value != _superGuestTitle)
+                {
+                    _superGuestTitle = value;
+                    OnPropertyChanged("SuperGuestTitle");
+                }
+            }
+        }
+
+        public int NumOfReservations
+        {
+            get { return _numOfReservations; }
+            set
+            {
+                if (_numOfReservations != value)
+                {
+                    _numOfReservations = value;
+                    OnPropertyChanged("NumOfReservations");
+                }
+            }
+        }
+
+        public int Points
+        {
+            get { return _points; }
+            set
+            {
+                if (_points != value)
+                {
+                    _points = value;
+                    OnPropertyChanged("Points");
+                }
+            }
+        }
         public bool CanOpenAccommodationDisplayCmdExecute()
         {
             return true;
