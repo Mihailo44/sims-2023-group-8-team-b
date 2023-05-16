@@ -252,7 +252,7 @@ namespace TouristAgency.CreationFeature
         {
             if (_tourRequest != null)
             {
-                if (startDate.Date < _tourRequest.StartDate.Date || startDate.Date > _tourRequest.EndDate.Date)
+                if ((startDate.Date < _tourRequest.StartDate.Date || startDate.Date > _tourRequest.EndDate.Date) && _scenario == TourCreationScenario.ACCEPT_TOURREQ)
                 {
                     MessageBox.Show("The dates must be in range of tour request (" + _tourRequest.StartDate.ToShortDateString() + " - " + _tourRequest.EndDate.ToShortDateString() + ")");
                     return false;
@@ -310,16 +310,31 @@ namespace TouristAgency.CreationFeature
                 {
                     AddPhotos();
                     LoadCheckpointsToTours();
-                    NewTour = _tourService.Create(new Tour(_newTour));
-                    if (canHandleTourRequest)
+                    if (canHandleTourRequest && _scenario != TourCreationScenario.DEFAULT)
                     {
-                        TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
-                        notification.Tour = NewTour;
-                        notification.TourID = NewTour.ID;
-                        _touristNotificationService.Create(notification);
-                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.TourRequestRepository.GetAll());
+                        if (_scenario != TourCreationScenario.MOST_POPULAR_TOURREQ)
+                        {
+                            TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
+                            notification.Tour = NewTour;
+                            notification.TourID = NewTour.ID;
+                            _touristNotificationService.Create(notification);
+                        }
+                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetInvalidTourRequests());
+                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetAcceptedTourRequests());
+                        NewTour = _tourService.Create(new Tour(_newTour));
+                        MessageBox.Show("Successfully created tour!", "Success");
                     }
-                    MessageBox.Show("Successfully created tour!", "Success");
+                    else if(!canHandleTourRequest && _scenario == TourCreationScenario.DEFAULT)
+                    {
+                        NewTour = _tourService.Create(new Tour(_newTour));
+                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetInvalidTourRequests());
+                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetAcceptedTourRequests());
+                        MessageBox.Show("Successfully created tour!", "Success");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occured!");
+                    }
                 }
             }
         }

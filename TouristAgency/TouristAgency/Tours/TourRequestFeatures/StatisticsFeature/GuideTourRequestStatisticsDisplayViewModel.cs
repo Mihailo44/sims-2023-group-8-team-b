@@ -42,6 +42,8 @@ namespace TouristAgency.TourRequests.StatisticsFeature
 
         public DelegateCommand CreateMostRequestedCmd { get; set; }
 
+        public DelegateCommand CreateTourByFilterCmd { get; set; }
+
         public GuideTourRequestStatisticsDisplayViewModel()
         {
             _app = (App)Application.Current;
@@ -82,6 +84,7 @@ namespace TouristAgency.TourRequests.StatisticsFeature
             FilterCmd = new DelegateCommand(param => FilterExecute(), param => CanFilterExecute());
             ClearCmd = new DelegateCommand(param => ClearExecute(), param => CanClearExecute());
             CreateMostRequestedCmd = new DelegateCommand(param => CreateMostRequestedExecute(), param => CanCreateMostRequestedExecute());
+            CreateTourByFilterCmd = new DelegateCommand(param => CreateTourByFilterExecute(), param => CanCreateTourByFilterExecute());
         }
 
         public string PrepareLocation()
@@ -266,6 +269,23 @@ namespace TouristAgency.TourRequests.StatisticsFeature
             if(_mostRequestedTourRequest != null)
             {
                 _app.CurrentVM = new TourCreationViewModel(_mostRequestedTourRequest, TourCreationScenario.MOST_POPULAR_TOURREQ);
+            }
+        }
+
+        public bool CanCreateTourByFilterExecute()
+        {
+            return true;
+        }
+
+        public void CreateTourByFilterExecute()
+        {
+            DateTime start = new DateTime(StartYear, StartMonth, 1);
+            DateTime end = new DateTime(EndYear, EndMonth, 1);
+            List<TourRequest> potentials =  _tourRequestService.Search(Country, City, Language, start, end);
+            potentials = potentials.FindAll(t => t.Status != TourRequestStatus.PENDING);
+            if(potentials != null && potentials.Count != 0)
+            {
+                _app.CurrentVM = new TourCreationViewModel(potentials[0], TourCreationScenario.MOST_POPULAR_TOURREQ);
             }
         }
 

@@ -99,10 +99,19 @@ namespace TouristAgency.TourRequests
         {
             return TourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
         }
+        public List<TourRequest> GetAcceptedTourRequests()
+        {
+            return TourRequestRepository.GetAll().FindAll(t => t.Status == TourRequestStatus.ACCEPTED);
+        }
 
         public List<TourRequest> GetPendingTourRequests()
         {
-            return TourRequestRepository.GetAll().FindAll(t => t.Status == TourRequestStatus.PENDING);
+            return TourRequestRepository.GetAll().FindAll(t => t.Status == TourRequestStatus.PENDING && t.StartDate >= DateTime.Now);
+        }
+
+        public List<TourRequest> GetInvalidTourRequests()
+        {
+            return TourRequestRepository.GetAll().FindAll(t => t.Status == TourRequestStatus.INVALID);
         }
 
         //Country, City, Language, MaxAttendants, StartDate, EndDate

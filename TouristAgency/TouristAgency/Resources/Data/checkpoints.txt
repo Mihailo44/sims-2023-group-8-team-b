@@ -7,6 +7,6 @@
 6|Niska tvrdjava|2
 7|Cele kula|2
 8|Park Cair|2
-9|SpainTest1|25
-10|SpainTest2|25
-11|SpainTest3|25
+9|SpainTest1|15
+10|SpainTest2|15
+11|SpainTest3|15

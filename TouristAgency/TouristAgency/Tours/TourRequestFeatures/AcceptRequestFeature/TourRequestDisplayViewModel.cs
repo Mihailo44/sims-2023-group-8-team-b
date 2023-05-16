@@ -54,6 +54,7 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
         private void InstantiateServices()
         {
             _tourRequestService = new TourRequestService();
+            _tourRequestService.InvalidateOldTourRequests();
         }
 
         private void InstantiateCollections()

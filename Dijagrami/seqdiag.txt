@@ -1,0 +1,76 @@
+@startuml
+
+Actor User as U
+Participant WPF as W
+Participant TourCreationViewModel as TCVM
+Participant NotificationDisplayViewModel as NDVM
+Participant TouristNotificationService as TNS
+Participant TouristNotificationRepository as TNR
+Participant Location as L
+
+U -> W: Creates tour
+W -> TCVM: NewTour
+TCVM -> TCVM ++: CreateTourExecute()
+
+opt canHandleTourRequest:
+   TCVM -> TNS ++: Create(notification)
+   TNS -> TNR ++: Create(notification)
+   TNR -> TNS --: notification
+   TNS -> TCVM --: notification
+   TCVM -> TNS --++: NotifyAboutNewTour(newTour, tourRequests)
+
+   loop tourRequests:
+      TNS -> L ++: Equals(newTour.ShortLocation)
+      alt newLocation.City == city && newLocation.Country == country:
+         L -> TNS: true
+      else
+         L -> TNS --: false
+      end
+      
+      opt equalByLocation:
+         TNS -> TNS ++: IsNotified(request.TouristID, message)
+         TNS -> TNR ++: GetAll()
+         TNR -> TNS --: notifications
+         TNS -> TNS --: notifiedStatus
+
+         opt !notifiedStatus:
+            TNS -> TNR ++: Create(notification)
+            TNR -> TNS --: notification
+         end
+      end
+
+      opt equalByLanguage:
+         TNS -> TNS ++: IsNotified(request.TouristID, message)
+         TNS -> TNR ++: GetAll()
+         TNR -> TNS --: notifications
+         TNS -> TNS --: notifiedStatus
+
+         opt !notifiedStatus:
+            TNS -> TNR ++: Create(notification)
+            TNR -> TNS --: notification
+         end
+      end
+   end
+end
+
+U -> W ++: See notification
+W -> NDVM ++
+NDVM -> TNS: GetAll()
+TNS -> TNR ++: GetAll()
+TNR -> TNS --: notifications
+TNS -> NDVM --: notifications
+NDVM -> W --
+
+U -> W: Select new tour notification
+
+W -> NDVM: SelectedNotification
+NDVM -> NDVM ++: NotifyExecute()
+alt SelectedNotification.Type == SUGGESTED_TOUR:
+   NDVM -> W: TourDisplay(loggedInTourist, SelectedNotification.Tour)
+else SelectedNotification.Type == TOUR_REQUEST_ACCEPTED:
+   NDVM -> W --: TourDisplay(loggedInTourist, SelectedNotification.Tour)
+end
+
+W -> U --
+
+@enduml
