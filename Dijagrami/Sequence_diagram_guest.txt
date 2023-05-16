@@ -1,0 +1,63 @@
+@startuml
+Actor User as U
+Participant WPF as W
+Participant SuperGuestDisplayViewModel as SGDVM
+Participant ReservationCreationViewModel as RCVM
+Participant ReservationService as RS
+Participant ReservationRepository as RR
+Participant SuperGuestTitleService as SGTS
+Participant SuperGUestTitleRepository as SGTR
+Participant GuestService as GS
+Participant GuestRepository as GR
+
+U -> W: See super guest status
+W -> SGDVM++: guest, window
+
+SGDVM -> SGDVM++: InstantiateCollections()
+SGDVM -> RS++: GetAll()
+RS -> RR++: GetAll()
+RR --> RS--: allReservations
+RS --> SGDVM--: allReservations
+SGDVM -> SGTS++: GetNumOfReservations(loggedInGuest, allReservations)
+SGTS --> SGDVM--: numOfReservations
+SGDVM -> SGTS++: GetByGuestId(loggedInGuest.ID)
+SGTS -> SGTR++: GetAll()
+SGTR --> SGTS--: allSuperGuestTitles
+loop allSuperGuestTitles: 
+     opt GuestId == guestId:
+        SGTS --> SGDVM--: SuperGuestTitle
+     end
+end
+return guestData
+alt superGuestTitle != null:
+     SGDVM --> W: superGuestData
+else 
+     SGDVM --> W--: regularGuestData
+end
+
+U -> W: Create a reservation
+W -> RCVM++: SelectedAccommodation, SelectedReservation
+RCVM -> RCVM++: CreateCmdExecute()
+opt selectedAccommodation.MaxGuestNum >= NumOfPeople && selectedAccommodation.MinNumOfDays <= NumOfDays && newReservation != null:
+RCVM -> RS++: Create(newReservation)
+RS -> RR++: Create(newReservation)
+RR --> RS--: newReservation
+RS --> RCVM--: newReservation 
+RCVM -> SGTS++: UsePoints(loggedInGuest.ID)
+SGTS -> SGTS++: GetByGuestId(guestId)
+SGTS -> SGTR++: GetAll()
+SGTR --> SGTS--: allSuperGuestTitles
+loop allSuperGuestTitles: 
+     opt GuestId == guestId:
+        return: SuperGuestTitle
+     end
+end
+opt SuperGuestTitle != null:
+     SGTS -> SGTR++: Update(superGuestTitle, superGuestTitle.Id)
+     SGTR --> SGTS--: newSuperGuestTitle
+end
+SGTS --> RCVM--
+RCVM -> RCVM--
+RCVM --> W--: successMessage
+end
+@enduml
