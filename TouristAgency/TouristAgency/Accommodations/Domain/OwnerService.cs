@@ -18,26 +18,26 @@ namespace TouristAgency.Accommodations.Domain
             OwnerRepository = app.OwnerRepository;
         }
 
-        public bool IsSuperOwner(List<OwnerReview> ownerReviews, out double average)
+        public bool IsSuperOwner(List<OwnerReview> ownerReviews, out double ownerScore)
         {
             if (ownerReviews.Count() >= 5) //stavi na 50
             {
                 double sum = 0;
-                double ownerScore = 0;
+    
                 foreach (OwnerReview ownerReview in ownerReviews)
                 {
                     sum += (ownerReview.Cleanliness + ownerReview.Comfort + ownerReview.OwnerCorrectness + ownerReview.Location + ownerReview.Wifi) / 5;
                 }
 
                 ownerScore = CalculateOwnerScore(sum, ownerReviews.Count());
-                average = ownerScore;
 
-                if (average > 2.5) // smanji tipa na 2 da bi bilo vece da vidi da radi
+                if (ownerScore > 3.0) // smanji tipa na 2 da bi bilo vece da vidi da radi
                 {
                     return true;
                 }
             }
-            average = 0;
+
+            ownerScore = 0;
             return false;
         }
 

@@ -37,6 +37,7 @@ namespace TouristAgency.Users
             _window = window;
             InstantiateServices();
             InstantiateCommands();
+            WelcomeUser();
         }
 
         private void InstantiateServices()
@@ -55,6 +56,11 @@ namespace TouristAgency.Users
             TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => CanTourRequestStatisticsExecute());
             HelpForVoucherCmd = new DelegateCommand(param => HelpForVoucherExecute(), param => CanHelpForVoucherExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
+        }
+
+        private void WelcomeUser()
+        {
+            Username = "Welcome, " + _loggedInTourist.Username + "...";
         }
 
         public string Username

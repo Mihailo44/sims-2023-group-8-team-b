@@ -94,15 +94,26 @@ namespace TouristAgency.TourRequests
         {
             TourRequest.TouristID = _loggedInTourist.ID;
             TourRequest.ShortLocation = _locationService.LocationRepository.Create(TourRequest.ShortLocation);
-            if(TourRequest.IsValid)
+            TourRequest.ShortLocationID = TourRequest.ShortLocation.Id;
+            TimeSpan ts = TourRequest.StartDate - DateTime.Today;
+            if (TourRequest.IsValid &&  ts.TotalHours > 48)
             {
                 _tourRequestService.TourRequestRepository.Create(TourRequest);
                 TourRequests.Add(TourRequest);
+                TourRequest = new TourRequest();
                 MessageBox.Show("You have successfully send request for tour.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            else if(!TourRequest.IsValid)
             {
-                MessageBox.Show("Invalid request");
+                MessageBox.Show("Invalid request, check your inputs and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (TourRequest.EndDate < TourRequest.StartDate)
+            {
+                MessageBox.Show("End date cannot be before a start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if(ts.TotalHours <= 48)
+            {
+                MessageBox.Show("Cannot create request 48 hours before start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

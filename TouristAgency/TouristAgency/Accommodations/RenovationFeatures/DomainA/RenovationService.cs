@@ -27,15 +27,19 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             List<Renovation> renovations = new List<Renovation>();
             DateTime startInterval = start;
             DateTime endInterval = start.AddDays(estimatedDuration);
-            bool isReserved = reservationService.IsReserved(accommodation.Id, startInterval, endInterval);
+
+            bool isReserved;
             
-            while((!isReserved) && (startInterval.AddDays(estimatedDuration) <= end))
+            while(startInterval.AddDays(estimatedDuration) <= end)
             {
-                renovations.Add(new Renovation(accommodation, startInterval, endInterval, estimatedDuration));
+                isReserved = reservationService.IsReserved(accommodation.Id, startInterval, endInterval);
+
+                if (!isReserved)
+                {
+                    renovations.Add(new Renovation(accommodation, startInterval, endInterval, estimatedDuration));
+                }
                 startInterval = startInterval.AddDays(1);
                 endInterval = startInterval.AddDays(estimatedDuration);
-                
-                isReserved = reservationService.IsReserved(accommodation.Id, startInterval, endInterval);
             }
 
             return renovations;
@@ -82,19 +86,9 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                     if (today > renovation.End)
                     {
                         Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
-                        if ((renovatedAccommodation != null) && (renovatedAccommodation.CurrentlyRenovating == true))
-                        {
-                            renovatedAccommodation.CurrentlyRenovating = false;//ne moze ovako
-                            renovatedAccommodation.RecentlyRenovated = true;
-                            accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
-                        }
-                    }
-                    if (today == renovation.Start)
-                    {
-                        Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
                         if (renovatedAccommodation != null)
                         {
-                            renovatedAccommodation.CurrentlyRenovating = true;//ne moze ovako
+                            renovatedAccommodation.RecentlyRenovated = true;
                             accommodationService.AccommodationRepository.Update(renovatedAccommodation, renovatedAccommodation.Id);
                         }
                     }
@@ -116,6 +110,31 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
 
             renovations = RenovationRepository.GetAll().FindAll(r => r.Accommodation.OwnerId == ownerId);
             return renovations;
+        }
+
+        public bool IsRenovating(int accommodationID, DateTime start, DateTime end)
+        {
+            foreach (Renovation renovation in GetRenovationsByAccommodationId(accommodationID))
+            {
+                if (end.Date >= renovation.Start.Date && end.Date <= renovation.End.Date)
+                {
+                    return true && !renovation.IsCanceled;
+                }
+                else if (start.Date >= renovation.Start.Date && end.Date <= renovation.End.Date)
+                {
+                    return true && !renovation.IsCanceled;
+                }
+                else if (start.Date >= renovation.Start.Date && start.Date <= renovation.End.Date)
+                {
+                    return true && !renovation.IsCanceled;
+                }
+                else if (start.Date <= renovation.Start.Date && end.Date >= renovation.End.Date)
+                {
+                    return true && !renovation.IsCanceled;
+                }
+            }
+
+            return false;
         }
     }
 }

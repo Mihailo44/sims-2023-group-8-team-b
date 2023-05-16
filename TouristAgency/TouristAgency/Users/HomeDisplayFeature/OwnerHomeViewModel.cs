@@ -264,9 +264,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void SetUserStatus()
         {
-            double average;
-            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID), out average);
-            LoggedUser.Average = average;
+            double ownerScore;
+            LoggedUser.SuperOwner = _ownerService.IsSuperOwner(_ownerReviewService.GetByOwnerId(LoggedUser.ID), out ownerScore);
+            LoggedUser.Average = ownerScore;
             if (LoggedUser.SuperOwner)
                 Status = $"SUPER OWNER ({LoggedUser.Average:F2})";
             else
@@ -321,7 +321,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
                         MessageBox.Show("Selected guest has already been reviewed", "Guest Review Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
                     }
     
-
                     return false;
                 }
             }

@@ -33,8 +33,6 @@ namespace TouristAgency.Statistics
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
-            GetAcceptedTourRequestData();
-            GetDeniedTourRequestData();
         }
 
         private void InstantiateServices()
@@ -150,6 +148,8 @@ namespace TouristAgency.Statistics
 
         public void GetTourRequestStatisticsExecute()
         {
+            GetAcceptedTourRequestData();
+            GetDeniedTourRequestData();
             List<string> results = _tourRequestService.GetTourRequestStatisticsByYear(_loggedInTourist.ID, SelectedYear);
             AcceptedPercentage = results[0];
             DeniedPercentage = results[1];
@@ -160,7 +160,7 @@ namespace TouristAgency.Statistics
         {
             AcceptedSeries = new SeriesCollection();
 
-            foreach(TourRequestStatisticsData data in _tourRequestService.GetAcceptedGraphData(_loggedInTourist.ID))
+            foreach(TourRequestStatisticsData data in _tourRequestService.GetAcceptedGraphData(_loggedInTourist.ID, SelectedYear))
             {
                 AcceptedSeries.Add(
                     new RowSeries
@@ -177,7 +177,7 @@ namespace TouristAgency.Statistics
         {
             DeniedSeries = new SeriesCollection();
 
-            foreach (TourRequestStatisticsData data in _tourRequestService.GetDeniedGraphData(_loggedInTourist.ID))
+            foreach (TourRequestStatisticsData data in _tourRequestService.GetDeniedGraphData(_loggedInTourist.ID, SelectedYear))
             {
                 DeniedSeries.Add(
                     new RowSeries

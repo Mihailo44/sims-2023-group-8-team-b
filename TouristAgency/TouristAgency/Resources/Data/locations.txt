@@ -15,13 +15,6 @@
 14|||Loznica|Serbia
 15|||Barcelona|Spain
 16|||Berlin|Germany
-17||||
-18||||
-19||||
-21|||fss|nes
-21|||fss|nes
-22|||Novi Sad|Srbija
-23|||Novi Sad|Serbia
-24|||Novi Sad|Serbia
-25|||Barcelona|Spain
-26|||Novi Sad|Serbia
+17|||Barcelona|Spain
+18|||Barcelona|Spain
+19|||Novi Sad|Serbia
