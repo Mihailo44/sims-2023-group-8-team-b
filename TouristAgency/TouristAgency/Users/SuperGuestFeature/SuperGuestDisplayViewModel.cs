@@ -61,7 +61,8 @@ namespace TouristAgency.Users.SuperGuestFeature
 
         private void InstantiateCollections() 
         {
-            NumOfReservations = _superGuestTitleService.GetNumOfReservations(_loggedInGuest, _reservationService.ReservationRepository.GetAll());
+            List<Reservation> allReservations = _reservationService.GetAll();
+            NumOfReservations = _superGuestTitleService.GetNumOfReservations(_loggedInGuest, allReservations);
             _superGuestTitle = _superGuestTitleService.GetByGuestId(_loggedInGuest.ID);
             if (_superGuestTitle != null) 
             {

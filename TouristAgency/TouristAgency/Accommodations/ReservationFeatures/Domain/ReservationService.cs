@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using TouristAgency.Accommodations.Domain;
+using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Users;
 using TouristAgency.Util;
 
@@ -14,11 +15,23 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
     {
         private readonly App _app;
         public ReservationRepository ReservationRepository { get; }
+        public RenovationService RenovationService { get; set; }
 
         public ReservationService()
         {
             _app = (App)App.Current;
             ReservationRepository = _app.ReservationRepository;
+            RenovationService = new RenovationService();
+        }
+
+        public List<Reservation> GetAll()
+        {
+            return ReservationRepository.GetAll();
+        }
+
+        public Reservation Create(Reservation reservation)
+        {
+            return ReservationRepository.Create(reservation);
         }
 
         public ObservableCollection<Reservation> GeneratePotentionalReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
@@ -30,7 +43,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             for (int i = 0; i < numOfReservations; i++)
             {
                 if (IsReserved(accommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) ==
-                    false)
+                    false && RenovationService.IsRenovating(accommodation.Id, startInterval.AddDays(i), endInterval.AddDays(i)) == false)
                 {
                     reservations.Add(new Reservation(guest, accommodation, startInterval.AddDays(i), endInterval.AddDays(i)));
                 }
@@ -67,7 +80,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             for (int i = 0; i < numOfReservations; i++)
             {
                 if (IsReserved(accommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) ==
-                    false)
+                    false && RenovationService.IsRenovating(accommodation.Id, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)) == false)
                 {
                     reservations.Add(new Reservation(guest, accommodation, startFirstInterval.AddDays(i), endFirstInterval.AddDays(i)));
                 }
@@ -86,7 +99,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             for (int i = 0; i < numOfReservations; i++)
             {
                 if (IsReserved(accommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) ==
-                    false)
+                    false && RenovationService.IsRenovating(accommodation.Id, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)) == false)
                 {
                     reservations.Add(new Reservation(guest, accommodation, startSecondInterval.AddDays(i), endSecondInterval.AddDays(i)));
                 }

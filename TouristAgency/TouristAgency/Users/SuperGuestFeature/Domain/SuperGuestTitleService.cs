@@ -18,6 +18,11 @@ namespace TouristAgency.Users.SuperGuestFeature.Domain
             SuperGuestTitleRepository = app.SuperGuestTitleRepository;
         } 
 
+        public List<SuperGuestTitle> GetAll()
+        {
+            return SuperGuestTitleRepository.GetAll();
+        }
+
         public void RefreshSuperGuestTitles(List<Guest> guests, List<Reservation> reservations)
         {
             CleanUpSuperGuestTitles(guests, reservations);
@@ -47,7 +52,7 @@ namespace TouristAgency.Users.SuperGuestFeature.Domain
             {
                 foreach (SuperGuestTitle superGuestTitle in SuperGuestTitleRepository.GetAll())
                 {
-                    if (superGuestTitle.LastUpdated.Year != DateTime.Now.Year || GetNumOfReservations(guest, reservations) < 10)
+                    if ((superGuestTitle.LastUpdated.Year != DateTime.Now.Year || GetNumOfReservations(guest, reservations) < 10) && superGuestTitle.GuestId == guest.ID)
                     {
                         superGuestTitles.Add(superGuestTitle);
                     }
@@ -63,7 +68,7 @@ namespace TouristAgency.Users.SuperGuestFeature.Domain
 
         public SuperGuestTitle GetByGuestId(int guestId)
         {
-            return SuperGuestTitleRepository.GetAll().FirstOrDefault(s => s.GuestId == guestId);
+            return GetAll().FirstOrDefault(s => s.GuestId == guestId);
         }
 
         public int GetNumOfTitles(Guest guest)
@@ -100,6 +105,7 @@ namespace TouristAgency.Users.SuperGuestFeature.Domain
                 if (superGuestTitle.Points >= 1)
                 {
                     superGuestTitle.Points--;
+                    superGuestTitle.LastUpdated = DateTime.Now;
                     SuperGuestTitleRepository.Update(superGuestTitle, superGuestTitle.Id);
                 }
             }
