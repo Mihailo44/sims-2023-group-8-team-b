@@ -1,0 +1,35 @@
+@startuml
+actor User as U
+participant WPF
+participant AccommodationRenovationViewModel as ARVM
+participant RenovationDescriptionDialogueViewModel as RDDVM
+participant RenovationService as RS
+participant ReservationService as ResS
+participant RenovationRepository as RR
+participant ReservationRepository as ResR
+
+U->WPF: New renovation request
+WPF->ARVM: Selected accommodation
+ARVM->ARVM ++: SearchCmdExecute()
+ARVM->ARVM ++: FillCollection()
+ARVM->RS ++: GeneratePotentialRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService)
+loop startInterval.AddDays(estimatedDuration) <= end
+RS->ResS: IsReserved(accommodation.Id, startInterval, endInterval)
+ResS-->RS --: IsReserved
+end
+RS-->ARVM --: renovations
+ARVM->ARVM--
+ARVM->ARVM--
+
+U->WPF: Create request
+WPF->ARVM
+ARVM->ARVM ++: CreateCmdExecute()
+ARVM-->WPF --: SelectedRenovation
+WPF->RDDVM: Open Renovation Description Dialogue Form
+RDDVM->RDDVM ++: CreateCmdExecute()
+RDDVM->RS ++: Create(SelectedRenovation)
+RS->RR ++: Create(SelectedRenovation)
+RR-->RS --: newRenovation
+RS-->RDDVM --: newRenovation
+RDDVM->WPF --: Status message
+@enduml
