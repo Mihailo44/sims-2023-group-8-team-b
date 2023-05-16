@@ -18,6 +18,11 @@ namespace TouristAgency.Users.SuperGuestFeature.Domain
             SuperGuestTitleRepository = app.SuperGuestTitleRepository;
         } 
 
+        public List<SuperGuestTitle> GetAll()
+        {
+            return SuperGuestTitleRepository.GetAll();
+        }
+
         public void RefreshSuperGuestTitles(List<Guest> guests, List<Reservation> reservations)
         {
             CleanUpSuperGuestTitles(guests, reservations);
@@ -63,7 +68,7 @@ namespace TouristAgency.Users.SuperGuestFeature.Domain
 
         public SuperGuestTitle GetByGuestId(int guestId)
         {
-            return SuperGuestTitleRepository.GetAll().FirstOrDefault(s => s.GuestId == guestId);
+            return GetAll().FirstOrDefault(s => s.GuestId == guestId);
         }
 
         public int GetNumOfTitles(Guest guest)

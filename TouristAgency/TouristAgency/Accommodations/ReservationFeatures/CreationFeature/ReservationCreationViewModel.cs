@@ -401,7 +401,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
                 newReservation.AccommodationId = selectedAccommodation.Id;
                 newReservation.Guest = _loggedInGuest;
                 newReservation.GuestId = _loggedInGuest.ID;
-                _reservationService.ReservationRepository.Create(newReservation);
+                _reservationService.Create(newReservation);
                 Reservations.Remove(newReservation);
                 _superGuestTitleService.UsePoint(_loggedInGuest.ID);
                 MessageBox.Show("Successfully reserved");

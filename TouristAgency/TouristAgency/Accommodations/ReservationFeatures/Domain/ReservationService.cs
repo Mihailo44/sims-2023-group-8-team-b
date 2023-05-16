@@ -21,6 +21,16 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             ReservationRepository = _app.ReservationRepository;
         }
 
+        public List<Reservation> GetAll()
+        {
+            return ReservationRepository.GetAll();
+        }
+
+        public Reservation Create(Reservation reservation)
+        {
+            return ReservationRepository.Create(reservation);
+        }
+
         public ObservableCollection<Reservation> GeneratePotentionalReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
         {
             ObservableCollection<Reservation> reservations = new ObservableCollection<Reservation>();
