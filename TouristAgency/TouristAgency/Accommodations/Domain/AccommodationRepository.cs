@@ -54,7 +54,6 @@ namespace TouristAgency.Accommodations.Domain
             currentAccommodation.MinNumOfDays = updatedAccommodation.MinNumOfDays;
             currentAccommodation.AllowedNumOfDaysForCancelation = updatedAccommodation.AllowedNumOfDaysForCancelation;
             currentAccommodation.RecentlyRenovated = updatedAccommodation.RecentlyRenovated;
-            currentAccommodation.CurrentlyRenovating = updatedAccommodation.CurrentlyRenovating;
 
             _storage.Save(_accommodations);
             NotifyObservers();
