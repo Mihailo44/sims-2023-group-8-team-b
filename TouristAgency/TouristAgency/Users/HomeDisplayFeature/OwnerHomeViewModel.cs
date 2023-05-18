@@ -32,6 +32,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private PhotoRepository _photoRepository;
         private LocationService _locationService;
         private string _photoLinks;
+        private string _searchInput;
         private string _accountContainerVisibility;
         private string _notificationContainerVisibility;
         private string _btnNewVisibility;
@@ -44,7 +45,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {1, "Collapsed"},
             {2, "Collapsed"},
             {3, "Collapsed"},
-            {4,"Collapsed" }
+            {4, "Collapsed"}
         };
 
         public string AccountContainerVisibility
@@ -133,7 +134,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 if (_photoLinks != value)
                 {
                     _photoLinks = value;
-                    //CreateCmd.OnCanExecuteChanged();
+                }
+            }
+        }
+
+        public string SearchInput
+        {
+            get => _searchInput;
+            set
+            {
+                if(_searchInput != value)
+                {
+                    _searchInput = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -158,7 +171,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public Location NewLocation { get; set; }
 
         private Window _window;
-        private App app = (App)App.Current;
+        private App _app = (App)App.Current;
 
         public DelegateCommand CreateAccommodationCmd { get; set; }
         public DelegateCommand NewReviewCmd { get; set; }
@@ -173,10 +186,11 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand ShowNotificationsCmd { get; set; }
         public DelegateCommand ShowAccommodationMain { get; set; }
         public DelegateCommand ClearNotificationsCmd { get; set; }
+        public DelegateCommand SearchCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
-            LoggedUser = app.LoggedUser;
+            LoggedUser = _app.LoggedUser;
             _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
 
             InstantiateServices();
@@ -187,6 +201,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             NewAccommodation = new();
             NewLocation = new();
             ReviewNotification();
+
             AccountContainerVisibility = "Collapsed";
             NotificationContainerVisibility = "Collapsed";
             BtnNewVisibility = "Collapsed";
@@ -212,7 +227,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _ownerService = new();
             _renovationService = new();
             _guestReviewNotificationService = new();
-            _photoRepository = app.PhotoRepository;
+            _photoRepository = _app.PhotoRepository;
             _locationService = new();
         }
 
@@ -243,7 +258,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private void InstantiateCommands()
         {
             CreateAccommodationCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
-            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewCreationForm());
+            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewFormExecute());
             PostponeCmd = new DelegateCommand(param => OpenPostponeReservationExecute(), param => CanOpenPostponeReservationExecute());
             OpenAccommodationCreationCmd = new DelegateCommand(param => OpenAccommodationCreationCmdExecute(),param=> CanOpenAccommodationCreationCmdExecute());
             CloseAccommodationCreationCmd = new DelegateCommand(param => CloseAccommodationCreationCmdExecute(),param => CanCloseAccommodationCreationCmdExecute());
@@ -254,6 +269,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param=> CanShowAccommodationMainExecute());
             ShowNotificationsCmd = new DelegateCommand(param => ShowNotificationsCmdExecute(),param => CanShowNotificationsCmdExecute());
             ClearNotificationsCmd = new DelegateCommand(param => ClearNotificationsCmdExecute(), param => CanClearNotificationsCmdExecute());   
+            SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
         }
 
 
@@ -280,21 +296,13 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void LoadPostponementRequests(int ownerId)
         {
             PostponementRequests.Clear();
-            List<PostponementRequest> postponementRequests = _postponementRequestService.GetByOwnerId(ownerId);
-            foreach (var postponementRequest in postponementRequests)
-            {
-                PostponementRequests.Add(postponementRequest);
-            }
+            PostponementRequests.AddRange(_postponementRequestService.GetByOwnerId(ownerId));
         }
 
         public void LoadOwnerReviews(int ownerId)
         {
             OwnerReviews.Clear();
-            List<OwnerReview> ownerReviews = _ownerReviewService.GetReviewedReservationsByOwnerId(ownerId);
-            foreach (var ownerReview in ownerReviews)
-            {
-                OwnerReviews.Add(ownerReview);
-            }
+            OwnerReviews.AddRange(_ownerReviewService.GetReviewedReservationsByOwnerId(ownerId));
         }
 
         public void Update()
@@ -320,7 +328,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void ReviewNotification()
         {
-            List<GuestReviewNotification> notification = _guestReviewNotificationService.ReviewNotification(app.LoggedUser.ID,_reservationService);
+            List<GuestReviewNotification> notification = _guestReviewNotificationService.ReviewNotification(_app.LoggedUser.ID,_reservationService);
             if (notification.Count() > 0)
             {
                 Notifications.AddRange(notification);
@@ -328,7 +336,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
-        public bool CanOpenGuestReviewCreationForm()
+        public bool CanOpenGuestReviewFormExecute()
         {
             if (SelectedReservation != null)
             {
@@ -367,7 +375,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             if (SelectedReservation != null)
             {
-                app.CurrentVM = new GuestReviewCreationViewModel(SelectedReservation);
+                _app.CurrentVM = new GuestReviewCreationViewModel(SelectedReservation);
             }
         }
 
@@ -379,7 +387,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void OpenPostponeReservationExecute()
         {
             PostponementRequestDialogue x = new PostponementRequestDialogue(SelectedRequest);
-            x.Show();
+            x.ShowDialog();
         }
 
         public bool CanOpenPostponeCommentExecute()
@@ -600,6 +608,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
             DataGridVisibility[1] = "Visible";
             BtnNewVisibility = "Visible";
             OnPropertyChanged(nameof(DataGridVisibility));
+        }
+
+        public bool CanSearchCmdExecute()
+        {
+            return true;
+        }
+
+        public void SearchCmdExecute()
+        {
+            ShowDataGridExecute(0);
+
+            Reservations.Clear();
+            Reservations.AddRange(_reservationService.SearchReservations(SearchInput));
         }
     }
 }

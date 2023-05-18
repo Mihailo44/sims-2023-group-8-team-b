@@ -202,5 +202,17 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
             return false;
         }
+
+        public List<Reservation> SearchReservations(string searchInput)
+        {
+            List<Reservation> reservations = GetByOwnerId(_app.LoggedUser.ID);
+
+            searchInput ??= "";
+
+            if (searchInput.ToLower() == "unrwd")
+                return reservations.FindAll(r => r.Status == ReviewStatus.UNREVIEWED);
+            else
+                return reservations.FindAll(r => r.Guest.FirstName.ToLower().Contains(searchInput.ToLower()) || r.Guest.LastName.ToLower().Contains(searchInput.ToLower()) || r.Accommodation.Name.ToLower().Contains(searchInput.ToLower()));
+        }
     }
 }
