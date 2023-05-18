@@ -79,7 +79,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 {
                     _start = value;
                     EndDate = _start.AddDays(EstimatedDuration);
-                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -93,7 +92,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 {
                     _end = value;
                     OnPropertyChanged(nameof(EndDate));
-                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -106,7 +104,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 if(_estimatedDuration != value)
                 {
                     _estimatedDuration = value;
-                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }

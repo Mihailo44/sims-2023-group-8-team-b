@@ -5,12 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:con="clr-namespace:TouristAgency.Converter"
-             xmlns:local="clr-namespace:TouristAgency.View.Home"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="White">
 
     <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <Grid>
+                <AdornedElementPlaceholder/>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
+                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="19" Margin="0,0,7,0"/>
+            </Grid>
+        </ControlTemplate>
         <con:DateConverter x:Key="DateConv"/>
+        <con:IntConverter x:Key="IntConv"/>
     </UserControl.Resources>
 
     <UserControl.InputBindings>
@@ -20,16 +27,20 @@
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF7B41A3"/>
+                <GradientStop Color="#FFA96BD4"/>
                 <GradientStop Color="#FF367C8C" Offset="0.7"/>
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid Height="80" Width="80" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="40,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
+        <Grid Height="100" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0,0,35" Panel.ZIndex="1000" Visibility="Visible">
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>
-            <Button Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="NEW" Style="{StaticResource DemoBtnStyle}" Command="{Binding NewAccommodationCmd}"/>
+            <Button Width="85" Height="85" Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="NEW" Style="{StaticResource DemoBtnStyle}" Command="{Binding OpenAccommodationCreationCmd}">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Direction="330" Softness="0.9" ShadowDepth="7" Opacity="0.4"/>
+                </Button.BitmapEffect>
+            </Button>
         </Grid>
 
         <Canvas Visibility="{Binding AccountContainerVisibility}"
@@ -144,7 +155,7 @@
             <WrapPanel Height="65" Width="1015">
                 <WrapPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF7B41A3"/>
+                        <GradientStop Color="#FF9257BB"/>
                         <GradientStop Color="#FF367C8C" Offset="1.1"/>
                     </LinearGradientBrush>
                 </WrapPanel.Background>
@@ -181,7 +192,7 @@
 
             <StackPanel Width="990">
                 <ListView
-                      Visibility="{Binding DataGridVisibility[0]}"
+                      Visibility="{Binding DataGridVisibility[0],Mode=TwoWay}"
                       Height="550"
                       Width="990"
                       Margin="0,15,0,0"
@@ -191,7 +202,7 @@
                       ItemContainerStyle="{StaticResource ListItem}">
 
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
+                        <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -220,7 +231,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView   Visibility="{Binding DataGridVisibility[1]}"
+                <ListView   Visibility="{Binding DataGridVisibility[1],Mode=TwoWay}"
                       Height="550" 
                       Width="990"
                       Margin="0,15,0,0"
@@ -230,7 +241,7 @@
                       ItemContainerStyle="{StaticResource PhotoListItem}">
 
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
+                        <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding ShowAccommodationMain}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -269,7 +280,7 @@
                            ItemContainerStyle="{StaticResource ListItem}">
 
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
+                        <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding PostponeCmd}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -296,6 +307,7 @@
                       Width="990"
                       Margin="0,15,0,0"
                       ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource BasicListView}"
                       ItemContainerStyle="{StaticResource ListItem}">
 
                     <ListView.View>
@@ -345,6 +357,78 @@
                     </ListView.View>
                 </ListView>
 
+                <Canvas Visibility="{Binding InputFormVisibility}" 
+                        Height="550"
+                        Width="990"
+                        Margin="0,15,0,0"
+                        Panel.ZIndex="1000">
+                    <Grid Height="550" Width="990">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="22" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="City" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Type" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="Capacity" FontWeight="SemiBold" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Duration" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Label Grid.Row="8" Grid.Column="0" Content="Photos URL" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,15" Content="REGISTER" Command="{Binding CreateAccommodationCmd}" Style="{StaticResource BasicBtn}"/>
+
+                        <Border Grid.Row="1" Grid.Column="1" Width="250" Height="35" HorizontalAlignment="Left" Background="White" CornerRadius="15" BorderThickness="0.5" >
+                            <TextBox Background="Transparent" BorderThickness="0" FontSize="22" HorizontalContentAlignment="Center" Text="{Binding Path=NewAccommodation.Name,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="1" Width="250" Height="35" HorizontalAlignment="Left" Background="White" CornerRadius="15" BorderThickness="0.5">
+                            <TextBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center"  FontSize="22" Text="{Binding Path=NewLocation.Country,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="1" Width="250" Height="35" HorizontalAlignment="Left" Background="White" CornerRadius="15" BorderThickness="0.5">
+                            <TextBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center" FontSize="22" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </Border>
+                        <ComboBox Grid.Row="4" Grid.Column="1" Width="200" HorizontalAlignment="Left" Height="35" Margin="25,0,0,0" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" ItemsSource="{Binding TypeComboValues}" Text="{Binding Path=NewAccommodation.Type, UpdateSourceTrigger=PropertyChanged}"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                        <Border Grid.Row="5" Grid.Column="1" Width="250" Height="35" HorizontalAlignment="Left" Background="White" CornerRadius="15" BorderThickness="0.5">
+                            <TextBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center" FontSize="22" Text="{Binding Path=NewAccommodation.MaxGuestNum,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </Border>
+                        <Border Grid.Row="6" Grid.Column="1" Width="250" Height="35" HorizontalAlignment="Left" Background="White" CornerRadius="15" BorderThickness="0.5">
+                            <TextBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center" FontSize="22" Text="{Binding Path=NewAccommodation.MinNumOfDays,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </Border>
+                        <Border Grid.Row="7" Grid.Column="1" Width="250" Height="35" HorizontalAlignment="Left" Background="White" CornerRadius="15" BorderThickness="0.5">
+                            <TextBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center" FontSize="22" Text="{Binding Path=NewAccommodation.AllowedNumOfDaysForCancelation,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
+                        </Border>
+                        <Border Grid.Row="8" Grid.Column="1" Grid.RowSpan="3" Margin="0,10,15,0" Background="White" CornerRadius="15" BorderThickness="1">
+                            <TextBox Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center" FontSize="19" Text="{Binding Path=PhotoLinks,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                                <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+                                <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+                            </TextBox>
+                        </Border>
+                        <Button Grid.Row="11" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,15" Content="CANCEL" Command="{Binding CloseAccommodationCreationCmd}" Style="{StaticResource BasicBtn}"/>
+                    </Grid>
+                </Canvas>
             </StackPanel>
         </StackPanel>
     </Grid>

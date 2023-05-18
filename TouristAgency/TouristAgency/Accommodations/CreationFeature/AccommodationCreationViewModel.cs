@@ -11,7 +11,7 @@ namespace TouristAgency.Accommodations.CreationFeature
 {
     public class AccommodationCreationViewModel : ViewModelBase, ICloseable, ICreate, IDataErrorInfo
     {
-        private AccommodationService _accommodation;
+        private AccommodationService _accommodationService;
         private PhotoRepository _photoRepository;
         private LocationService _locationService;
         private Owner _owner;
@@ -40,7 +40,7 @@ namespace TouristAgency.Accommodations.CreationFeature
 
         private void InstantiateServices()
         {
-            _accommodation = new();
+            _accommodationService = new();
             _photoRepository = _app.PhotoRepository;
             _locationService = new();
         }
@@ -160,7 +160,7 @@ namespace TouristAgency.Accommodations.CreationFeature
             PrepareAccommodationForCreation();
             try
             {
-                _accommodation.AccommodationRepository.Create(NewAccommodation);
+                _accommodationService.AccommodationRepository.Create(NewAccommodation);
                 AddPhotos();
                 MessageBox.Show("Accommodation created successfully");
             }

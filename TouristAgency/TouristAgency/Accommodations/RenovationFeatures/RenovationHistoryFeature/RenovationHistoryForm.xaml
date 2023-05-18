@@ -11,11 +11,12 @@
     <UserControl.Resources>
         <con:DateConverter x:Key="DateConv"/>
     </UserControl.Resources>
-    
-    <Grid>
 
-        <ListView Height="auto" Width="850" Margin="0,5,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                  VerticalAlignment="Top"
+    <Grid>
+        <StackPanel Height="auto" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                  VerticalAlignment="Top" Background="Snow">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="SemiBold" Content="Renovation History"/>
+            <ListView Height="auto" Width="850" Margin="0,5,0,0" VerticalAlignment="Top"
                   ItemsSource="{Binding Renovations}"
                   SelectedItem="{Binding SelectedRenovation}"
                   Style="{StaticResource BasicListView}"
@@ -42,5 +43,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
+       </StackPanel>
     </Grid>
 </UserControl>

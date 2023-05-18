@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="900">
@@ -36,7 +37,7 @@
                 </StackPanel>
                 <StackPanel Margin="20,10,0,0">
                     <Label HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Estimated Duration"/>
-                    <TextBox Width="80" Height="35" Margin="0,10,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration,Converter={StaticResource IntConv},UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="80" Height="35" Margin="0,10,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration,Converter={StaticResource IntConv}}"/>
                 </StackPanel>
                 <Button Height="50" Width="170" Margin="25,35,0,0" VerticalAlignment="Center" Content="FIND DATES" Command="{Binding SearchCmd}" Style="{StaticResource BasicBtn}"/>
             </StackPanel>
