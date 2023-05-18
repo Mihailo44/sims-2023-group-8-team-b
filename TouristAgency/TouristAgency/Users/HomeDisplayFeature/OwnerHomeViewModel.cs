@@ -32,6 +32,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private PhotoRepository _photoRepository;
         private LocationService _locationService;
         private string _photoLinks;
+        private string _searchInput;
         private string _accountContainerVisibility;
         private string _notificationContainerVisibility;
         private string _btnNewVisibility;
@@ -138,6 +139,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
+        public string SearchInput
+        {
+            get => _searchInput;
+            set
+            {
+                if(_searchInput != value)
+                {
+                    _searchInput = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
@@ -173,6 +187,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand ShowNotificationsCmd { get; set; }
         public DelegateCommand ShowAccommodationMain { get; set; }
         public DelegateCommand ClearNotificationsCmd { get; set; }
+        public DelegateCommand SearchCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -254,6 +269,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param=> CanShowAccommodationMainExecute());
             ShowNotificationsCmd = new DelegateCommand(param => ShowNotificationsCmdExecute(),param => CanShowNotificationsCmdExecute());
             ClearNotificationsCmd = new DelegateCommand(param => ClearNotificationsCmdExecute(), param => CanClearNotificationsCmdExecute());   
+            SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
         }
 
 
@@ -600,6 +616,26 @@ namespace TouristAgency.Users.HomeDisplayFeature
             DataGridVisibility[1] = "Visible";
             BtnNewVisibility = "Visible";
             OnPropertyChanged(nameof(DataGridVisibility));
+        }
+
+        public bool CanSearchCmdExecute()
+        {
+            return true;
+        }
+
+        public void SearchCmdExecute()
+        {
+            ShowDataGridExecute(0);
+
+            Reservations.Clear();
+
+            foreach(var reservation in _reservationService.SearchReservations(SearchInput))
+            {
+                Reservations.Add(reservation);
+            }
+
+            if (Reservations.Count == 0)
+                MessageBox.Show("No results found","Search Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
         }
     }
 }

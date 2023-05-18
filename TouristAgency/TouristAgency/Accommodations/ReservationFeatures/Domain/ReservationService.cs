@@ -202,5 +202,15 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
             return false;
         }
+
+        public List<Reservation> SearchReservations(string searchInput)
+        {
+            List<Reservation> reservations = new List<Reservation>();
+
+            searchInput ??= "";
+
+            reservations = ReservationRepository.GetAll().FindAll(r => r.Guest.FirstName.ToLower().Contains(searchInput.ToLower()) || r.Guest.LastName.ToLower().Contains(searchInput.ToLower()) || r.Accommodation.Name.ToLower().Contains(searchInput.ToLower()));
+            return reservations;
+        }
     }
 }

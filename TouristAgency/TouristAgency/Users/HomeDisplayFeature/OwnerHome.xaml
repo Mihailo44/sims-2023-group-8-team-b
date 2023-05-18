@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="White">
@@ -164,15 +165,25 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="70"/>
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Label Height="auto" Margin="15,0,0,0" FontSize="36" Foreground="Wheat" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
-                    <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="HELP" Style="{StaticResource DemoBtnStyle}"/>
-                    <Button Grid.Column="2" Content="Notify" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}"/>
-                    <Button Grid.Column="3" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
+                    <Border Grid.Column="1" Height="40" Width="350" HorizontalAlignment="Center" Background="White" CornerRadius="15" BorderThickness="0.5" >
+                        <xctk:WatermarkTextBox Background="Transparent" BorderThickness="0" Watermark="Search Reservations" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="Regular" Text="{Binding SearchInput,UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchCmd}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </xctk:WatermarkTextBox>
+                    </Border>
+                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="HELP" Style="{StaticResource DemoBtnStyle}"/>
+                    <Button Grid.Column="3" Content="Notify" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}"/>
+                    <Button Grid.Column="4" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
                 </Grid>
             </WrapPanel>
 
