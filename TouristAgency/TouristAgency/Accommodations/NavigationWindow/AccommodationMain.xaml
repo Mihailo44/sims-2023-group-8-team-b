@@ -7,7 +7,7 @@
         xmlns:his="clr-namespace:TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeature"
         xmlns:stat="clr-namespace:TouristAgency.Accommodations.StatisticsFeature"
         mc:Ignorable="d"
-        Title="Accommodation Details" Height="650" Width="900" 
+        Title="Accommodation Details" Height="670" Width="900" 
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize" Background="DarkSlateBlue">
 
