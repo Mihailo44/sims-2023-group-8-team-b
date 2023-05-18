@@ -205,12 +205,14 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
         public List<Reservation> SearchReservations(string searchInput)
         {
-            List<Reservation> reservations = new List<Reservation>();
+            List<Reservation> reservations = GetByOwnerId(_app.LoggedUser.ID);
 
             searchInput ??= "";
 
-            reservations = ReservationRepository.GetAll().FindAll(r => r.Guest.FirstName.ToLower().Contains(searchInput.ToLower()) || r.Guest.LastName.ToLower().Contains(searchInput.ToLower()) || r.Accommodation.Name.ToLower().Contains(searchInput.ToLower()));
-            return reservations;
+            if (searchInput.ToLower() == "unrwd")
+                return reservations.FindAll(r => r.Status == ReviewStatus.UNREVIEWED);
+            else
+                return reservations.FindAll(r => r.Guest.FirstName.ToLower().Contains(searchInput.ToLower()) || r.Guest.LastName.ToLower().Contains(searchInput.ToLower()) || r.Accommodation.Name.ToLower().Contains(searchInput.ToLower()));
         }
     }
 }

@@ -58,7 +58,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
             else
             {
                 RenovationCancelationDialogue x = new RenovationCancelationDialogue(SelectedRenovation);
-                x.Show();
+                x.ShowDialog();
             }
 
         }

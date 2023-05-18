@@ -62,12 +62,8 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         private void FillCollection()
         {
             PossibleRenovationDates.Clear();
-            List<Renovation> renovationSuggestions = new List<Renovation>();
-            renovationSuggestions = _renovationService.GeneratePotentialRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService);
-            foreach(var renovation in renovationSuggestions)
-            {
-                PossibleRenovationDates.Add(renovation);
-            }
+            List<Renovation> renovationSuggestions = _renovationService.GeneratePotentialRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService);
+            PossibleRenovationDates.AddRange(renovationSuggestions);
         }
 
         public DateTime StartDate
@@ -116,7 +112,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         public void CreateCmdExecute()
         {
             RenovationDescriptionDialogue x = new(SelectedRenovation);
-            x.Show();
+            x.ShowDialog();
         }
 
         public bool CanSearchCmdExecute()
