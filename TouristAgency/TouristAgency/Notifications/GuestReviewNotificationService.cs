@@ -35,22 +35,36 @@ namespace TouristAgency.Notifications
             {
                 dateDiff = (today - reservation.End).TotalDays;
 
-                if (today > reservation.End && dateDiff <= 5.0)
+                if (today > reservation.End)
                 {
-                    GuestReviewNotification oldNotification = GuestReviewNotificationRepository.GetAll().Find(n => n.ReservationId == reservation.Id);
-                    if (oldNotification != null)
+                    if (dateDiff <= 5.0)
                     {
-                        GuestReviewNotificationRepository.Delete(oldNotification.Id);
+                        GuestReviewNotification oldNotification = GuestReviewNotificationRepository.GetAll().Find(n => n.ReservationId == reservation.Id);
+                        if (oldNotification != null)
+                        {
+                            oldNotification.Message = $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {5 - dateDiff} days left to review";
+                            GuestReviewNotificationRepository.Update(oldNotification, oldNotification.Id);
+                        }
+                        else
+                        {
+                            message = $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {5 - dateDiff} days left to review";
+                            GuestReviewNotification newNotification = new GuestReviewNotification(message);
+                            newNotification.ReservationId = reservation.Id;
+                            notifications.Add(GuestReviewNotificationRepository.Create(newNotification));
+                        }
                     }
-
-                    message = $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {5 - dateDiff} days left to review";
-                    GuestReviewNotification newNotification = new GuestReviewNotification(message);
-                    notifications.Add(GuestReviewNotificationRepository.Create(newNotification));
+                    else
+                    {
+                        GuestReviewNotification oldNotification = GuestReviewNotificationRepository.GetAll().Find(n => n.ReservationId == reservation.Id);
+                        if (oldNotification != null)
+                        {
+                            GuestReviewNotificationRepository.Delete(oldNotification.Id);
+                        }
+                    }
                 }
             }
 
             return notifications;
-
         }
     }
 }

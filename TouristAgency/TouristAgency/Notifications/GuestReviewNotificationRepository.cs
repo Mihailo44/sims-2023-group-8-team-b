@@ -57,6 +57,7 @@ namespace TouristAgency.Notifications
             GuestReviewNotification notification = GetById(id);
             if (notification == null)
                 return;
+
             _notifications.Remove(notification);
             _storage.Save(_notifications);
             NotifyObservers();
