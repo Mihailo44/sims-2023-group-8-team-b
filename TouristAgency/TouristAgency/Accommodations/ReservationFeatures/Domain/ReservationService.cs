@@ -210,7 +210,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             searchInput ??= "";
 
             if (searchInput.ToLower() == "unrwd")
-                return reservations.FindAll(r => r.Status == ReviewStatus.UNREVIEWED);
+                return reservations.FindAll(r => r.Status == ReviewStatus.UNREVIEWED && r.End <= DateTime.Today);
             else
                 return reservations.FindAll(r => r.Guest.FirstName.ToLower().Contains(searchInput.ToLower()) || r.Guest.LastName.ToLower().Contains(searchInput.ToLower()) || r.Accommodation.Name.ToLower().Contains(searchInput.ToLower()));
         }
