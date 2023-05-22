@@ -18,9 +18,9 @@ namespace TouristAgency.Notifications
 
         }
 
-        public GuestReviewNotification(string message) : base(message)
+        public GuestReviewNotification(string message,int reservationId) : base(message)
         {
-
+            _reservationId = reservationId;
         }
 
         public int ReservationId

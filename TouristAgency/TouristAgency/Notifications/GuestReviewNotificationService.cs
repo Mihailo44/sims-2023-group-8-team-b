@@ -23,11 +23,10 @@ namespace TouristAgency.Notifications
             return GuestReviewNotificationRepository.GetAll().FindAll(r => r.Reservation.Accommodation.OwnerId == id);
         }
 
-        public List<GuestReviewNotification> ReviewNotification(int ownerId,ReservationService reservationService)
+        public void ManageNotifications(int ownerId,ReservationService reservationService)
         {
             DateTime today = DateTime.UtcNow.Date;
 
-            List<GuestReviewNotification> notifications = new List<GuestReviewNotification>();
             double dateDiff;
             string message;
 
@@ -48,9 +47,8 @@ namespace TouristAgency.Notifications
                         else
                         {
                             message = $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {5 - dateDiff} days left to review";
-                            GuestReviewNotification newNotification = new GuestReviewNotification(message);
-                            newNotification.ReservationId = reservation.Id;
-                            notifications.Add(GuestReviewNotificationRepository.Create(newNotification));
+                            GuestReviewNotification newNotification = new GuestReviewNotification(message,reservation.Id);
+                            GuestReviewNotificationRepository.Create(newNotification);
                         }
                     }
                     else
@@ -63,8 +61,6 @@ namespace TouristAgency.Notifications
                     }
                 }
             }
-
-            return notifications;
         }
     }
 }

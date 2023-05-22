@@ -31,6 +31,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private GuestReviewNotificationService _guestReviewNotificationService;
         private PhotoRepository _photoRepository;
         private LocationService _locationService;
+        private GuestReviewService _guestReviewService;
         private string _photoLinks;
         private string _searchInput;
         private string _accountContainerVisibility;
@@ -38,6 +39,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _btnNewVisibility;
         private string _btnClearNotificationVisibility;
         private string _inputFormVisibility;
+        private string _reviewFormVisibility;
+        private string _comment;
         private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
@@ -106,6 +109,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
+        public string ReviewFormVisibility
+        {
+            get => _reviewFormVisibility;
+            set
+            {
+                if(_reviewFormVisibility != value)
+                {
+                    _reviewFormVisibility = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool IsChecked
         {
             get => _isChecked;
@@ -151,6 +167,18 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
+        public string Comment
+        {
+            get => _comment;
+            set
+            {
+                if (value != _comment)
+                {
+                    _comment = value;
+                }
+            }
+        }
+
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
@@ -166,15 +194,17 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public string Status { get; set; }
 
         public List<string> TypeComboValues { get; set; } = new();
+        public List<int> ComboNumbers { get; set; } = new();
 
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
+        public GuestReview NewGuestReview { get; set; }
 
         private Window _window;
         private App _app = (App)App.Current;
 
         public DelegateCommand CreateAccommodationCmd { get; set; }
-        public DelegateCommand NewReviewCmd { get; set; }
+        public DelegateCommand OpenNewReviewCmd { get; set; }
         public DelegateCommand PostponeCmd { get; set; }
         public DelegateCommand OpenAccommodationCreationCmd { get; set; }
         public DelegateCommand CloseAccommodationCreationCmd { get; set; }
@@ -187,6 +217,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand ShowAccommodationMain { get; set; }
         public DelegateCommand ClearNotificationsCmd { get; set; }
         public DelegateCommand SearchCmd { get; set; }
+        public DelegateCommand CreateNewReviewCmd { get; set; }
+        public DelegateCommand CloseReviewCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -200,13 +232,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
             Notifications = new();
             NewAccommodation = new();
             NewLocation = new();
-            ReviewNotification();
+            NewGuestReview = new();
+
+            _guestReviewNotificationService.ManageNotifications(LoggedUser.ID, _reservationService);
 
             AccountContainerVisibility = "Collapsed";
             NotificationContainerVisibility = "Collapsed";
             BtnNewVisibility = "Collapsed";
             BtnClearNotificationVisibility = "Collapsed";
             InputFormVisibility = "Collapsed";
+            ReviewFormVisibility = "Collapsed";
 
             InstantiateCollections();
             FillCollections();
@@ -229,6 +264,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _guestReviewNotificationService = new();
             _photoRepository = _app.PhotoRepository;
             _locationService = new();
+            _guestReviewService = new();
         }
 
         private void SubscribeObservers()
@@ -253,12 +289,27 @@ namespace TouristAgency.Users.HomeDisplayFeature
             LoadReservations(LoggedUser.ID);
             LoadPostponementRequests(LoggedUser.ID);
             LoadOwnerReviews(LoggedUser.ID);
+            LoadNotifications(LoggedUser.ID);
+        }
+
+        private void FillCombos()
+        {
+            ComboNumbers.Clear();
+
+            for (int i = 1; i <= 5; i++)
+            {
+                ComboNumbers.Add(i);
+            }
+
+            ComboNumbers.Reverse();
         }
 
         private void InstantiateCommands()
         {
             CreateAccommodationCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
-            NewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewFormExecute());
+            CreateNewReviewCmd = new DelegateCommand(param => CreateNewReviewCmdExecute(), param => CanCreateNewReviewCmdExecute());
+            OpenNewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewFormExecute());
+            CloseReviewCmd = new DelegateCommand(param => CloseReviewCmdExecute(),param => CanCloseReviewCmdExecute());
             PostponeCmd = new DelegateCommand(param => OpenPostponeReservationExecute(), param => CanOpenPostponeReservationExecute());
             OpenAccommodationCreationCmd = new DelegateCommand(param => OpenAccommodationCreationCmdExecute(),param=> CanOpenAccommodationCreationCmdExecute());
             CloseAccommodationCreationCmd = new DelegateCommand(param => CloseAccommodationCreationCmdExecute(),param => CanCloseAccommodationCreationCmdExecute());
@@ -305,6 +356,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
             OwnerReviews.AddRange(_ownerReviewService.GetReviewedReservationsByOwnerId(ownerId));
         }
 
+        private void LoadNotifications(int ownerId)
+        {
+            List<GuestReviewNotification> notifications = _guestReviewNotificationService.GetByOwnerId(ownerId);
+            if (notifications.Count() > 0)
+            {
+                Notifications.AddRange(notifications);
+                BtnClearNotificationVisibility = "Visible";
+            }
+        }
+
         public void Update()
         {
             LoadAccommodations(LoggedUser.ID);
@@ -324,16 +385,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 Status = "";
 
            _ownerService.OwnerRepository.Update(LoggedUser, LoggedUser.ID);
-        }
-
-        private void ReviewNotification()
-        {
-            List<GuestReviewNotification> notification = _guestReviewNotificationService.ReviewNotification(_app.LoggedUser.ID,_reservationService);
-            if (notification.Count() > 0)
-            {
-                Notifications.AddRange(notification);
-                BtnClearNotificationVisibility = "Visible";
-            }
         }
 
         public bool CanOpenGuestReviewFormExecute()
@@ -375,8 +426,69 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             if (SelectedReservation != null)
             {
-                _app.CurrentVM = new GuestReviewCreationViewModel(SelectedReservation);
+                // _app.CurrentVM = new GuestReviewCreationViewModel(SelectedReservation);
+                FillCombos();
+                NewGuestReview.Reservation = SelectedReservation;
+                NewGuestReview.ReservationId = SelectedReservation.Id;
+                DataGridVisibility[0] = "Collapsed";
+                OnPropertyChanged(nameof(DataGridVisibility));
+                ReviewFormVisibility = "Visible";
             }
+        }
+
+        public bool CanCreateNewReviewCmdExecute()
+        {
+            /*if (!string.IsNullOrEmpty(Comment))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }*/
+
+            return true;
+        }
+
+        public void CreateNewReviewCmdExecute()
+        {
+            try
+            {
+                if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
+                {
+                    NewGuestReview.Comment = Comment;
+                    NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
+                    _guestReviewService.GuestReviewRepository.Create(NewGuestReview);
+                    _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
+                    MessageBox.Show("Guest review created successfully", "Guest Review Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("This guest has already been reviewed");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                ReviewFormVisibility = "Collapsed";
+                DataGridVisibility[0] = "Visible";
+                OnPropertyChanged(nameof(DataGridVisibility));
+            }
+        }
+
+        public bool CanCloseReviewCmdExecute()
+        {
+            return true;
+        }
+
+        public void CloseReviewCmdExecute()
+        {
+            ReviewFormVisibility = "Collapsed";
+            DataGridVisibility[0] = "Visible";
+            OnPropertyChanged(nameof(DataGridVisibility));
         }
 
         public bool CanOpenPostponeReservationExecute()
@@ -420,6 +532,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             int index = int.Parse(parameter.ToString());
 
             InputFormVisibility = "Collapsed";
+            ReviewFormVisibility = "Collapsed";
 
             if (index == 1)
                 BtnNewVisibility = "Visible";
@@ -437,7 +550,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                     DataGridVisibility[i] = "Collapsed";
                 }
 
-                OnPropertyChanged("DataGridVisibility");
+                OnPropertyChanged(nameof(DataGridVisibility));
             }
         }
 

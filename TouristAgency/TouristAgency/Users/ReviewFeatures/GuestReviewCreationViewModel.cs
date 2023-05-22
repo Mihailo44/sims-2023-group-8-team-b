@@ -142,7 +142,7 @@ namespace TouristAgency.Users.ReviewFeatures
             }
         }
 
-        public void FillCombos()
+        private void FillCombos()
         {
             for (int i = 1; i <= 5; i++)
             {

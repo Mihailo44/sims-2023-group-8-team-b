@@ -37,6 +37,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
 
         public GuestReview(Reservation reservation, int cleanliness, int ruleAbiding, int communication, int overallImpression, int noiseLevel, string comment = "")
         {
+            _id = -1;
             _reservation = reservation;
             _reservationId = reservation.Id;
             _reviewDate = DateTime.Now;
@@ -104,6 +105,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _cleanliness)
                 {
                     _cleanliness = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -116,6 +118,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _ruleAbiding)
                 {
                     _ruleAbiding = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -128,6 +131,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (value != _communication)
                 {
                     _communication = value;
+                    OnPropertyChanged();
                 }
             }
         }

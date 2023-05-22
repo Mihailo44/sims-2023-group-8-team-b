@@ -13,7 +13,7 @@
         <ControlTemplate x:Key="ValidationTemplate">
             <Grid>
                 <AdornedElementPlaceholder/>
-                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
+                <TextBlock Panel.ZIndex="1000" Text="{Binding [0].ErrorContent}" Foreground="Red"
                            VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="19" Margin="0,0,7,0"/>
             </Grid>
         </ControlTemplate>
@@ -51,7 +51,7 @@
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right" 
                 Background="Transparent"
-                Panel.ZIndex="1000">
+                Panel.ZIndex="1010">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeave">
@@ -81,7 +81,7 @@
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right" 
                 Background="Transparent"
-                Panel.ZIndex="1000">
+                Panel.ZIndex="1010">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeave">
@@ -214,7 +214,7 @@
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding NewReviewCmd}" />
+                            <i:InvokeCommandAction Command="{Binding OpenNewReviewCmd}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <ListView.View>
@@ -398,7 +398,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="22" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
                         <Label Grid.Row="3" Grid.Column="0" Content="City" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
                         <Label Grid.Row="4" Grid.Column="0" Content="Type" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
                         <Label Grid.Row="5" Grid.Column="0" Content="Capacity" FontWeight="SemiBold" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
@@ -441,6 +441,58 @@
                             </TextBox>
                         </Border>
                         <Button Grid.Row="11" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,15" Content="CANCEL" Command="{Binding CloseAccommodationCreationCmd}" Style="{StaticResource BasicBtn}"/>
+                    </Grid>
+                </Canvas>
+
+                <Canvas Visibility="{Binding ReviewFormVisibility}" 
+                        Height="550"
+                        Width="990"
+                        Margin="0,15,0,0"
+                        Panel.ZIndex="1000" Background="Transparent">
+
+                    <Border Height="550" Width="990" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1" Opacity="0.65"/>
+
+                    <Grid Height="550" Width="990" Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Cleanliness" FontSize="22" FontWeight="SemiBold" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="150,0,0,0"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Rule abiding" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="Communication" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="Comment" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
+                        <Button Grid.Row="10" Grid.Column="0" Grid.RowSpan="2" Content="SUBMIT" Command="{Binding CreateNewReviewCmd}" Style="{StaticResource BasicBtn}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="1" Width="180" Height="35" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.Cleanliness,Converter={StaticResource IntConv}}"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" Width="180" Height="35" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.RuleAbiding,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource IntConv}}"/>
+                        <ComboBox Grid.Row="3" Grid.Column="1" Width="180" Height="35" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.Communication,Converter={StaticResource IntConv}}"/>
+                        <ComboBox Grid.Row="4" Grid.Column="1" Width="180" Height="35" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.OverallImpression,Converter={StaticResource IntConv}}"/>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Width="180" Height="35" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.NoiseLevel,Converter={StaticResource IntConv}}"/>
+                        <Border Grid.Row="7" Grid.Column="1" Grid.RowSpan="3" Margin="0,0,15,0" Background="White" CornerRadius="15" BorderBrush="DarkGray" BorderThickness="1">
+                            <TextBox Background="Transparent" BorderThickness="0" FontSize="22" Text="{Binding Path=Comment,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                            <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+                            <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+                        </TextBox>
+                        </Border>
+                        <Button Grid.Row="10" Grid.Column="1" Grid.RowSpan="2" Content="CANCEL" Command="{Binding CloseReviewCmd}" Style="{StaticResource BasicBtn}"/>
                     </Grid>
                 </Canvas>
             </StackPanel>
