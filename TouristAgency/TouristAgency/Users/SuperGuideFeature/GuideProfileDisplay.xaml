@@ -89,7 +89,7 @@
             </ListView.View>
         </ListView>
 
-        <Button FontSize="13" Height="42" Width="81" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Command="{Binding CloseCmd}">Go back</Button>
+        <Button Style="{StaticResource BasicButton}" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Command="{Binding CloseCmd}">Go back</Button>
 
         <custom:BurgerMenu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="12" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-7,-0,164,-54">
         </custom:BurgerMenu>

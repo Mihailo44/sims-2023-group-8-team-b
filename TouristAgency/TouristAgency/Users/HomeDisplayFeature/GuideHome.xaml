@@ -58,6 +58,8 @@
                                 <i:InvokeCommandAction Command="{Binding DataContext.StartTourCmd, ElementName=AvailableToursListView}" CommandParameter="{Binding ID}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
+                        
+                        
                     </StackPanel>
 
                 </DataTemplate>
