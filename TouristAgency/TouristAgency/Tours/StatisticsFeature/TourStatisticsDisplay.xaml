@@ -84,12 +84,11 @@
             </lvc:PieChart>
         </StackPanel>
 
-        <Button Grid.Row="4" 
+        <Button 
+                Style="{StaticResource BasicButton}"
+                Grid.Row="4" 
                 Grid.Column="0" 
                 Grid.ColumnSpan="2" 
-                Height="57" 
-                Width="138" 
-                FontSize="20" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Margin="0,11,0,0" 

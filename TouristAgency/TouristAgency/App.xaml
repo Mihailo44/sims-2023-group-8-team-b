@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Design/Owner/Styles/BasicBtn.xaml"/>
                 <ResourceDictionary Source="Design/Owner/Styles/DemoButton.xaml"/>
                 <ResourceDictionary Source="Design/Owner/Styles/BasicListView.xaml"/>
+                <ResourceDictionary Source="Design/Guide/Styles/BasicButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

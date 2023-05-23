@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -36,6 +38,7 @@ namespace TouristAgency.CreationFeature
         private TourCheckpointService _tourCheckpointService;
         private TourRequestService _tourRequestService;
         private TouristNotificationService _touristNotificationService;
+        private PhotoService _photoService;
         public DelegateCommand AddCheckpointCmd { get; set; }
         public DelegateCommand RemoveCheckpointCmd { get; set; }
         public DelegateCommand AddMultipleDatesCmd { get; set; }
@@ -43,6 +46,7 @@ namespace TouristAgency.CreationFeature
         public DelegateCommand LoadCheckpointsIntoListViewCmd { get; set; }
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand LoadPhotoLinksCmd { get; set; }
 
         public TourCreationViewModel(TourRequest tourRequest = null, TourCreationScenario scenario = TourCreationScenario.DEFAULT)
         {
@@ -68,6 +72,7 @@ namespace TouristAgency.CreationFeature
             _tourCheckpointService = new TourCheckpointService();
             _tourRequestService = new TourRequestService();
             _touristNotificationService = new TouristNotificationService();
+            _photoService = new PhotoService();
         }
 
         private void InstantiateCollections()
@@ -94,6 +99,7 @@ namespace TouristAgency.CreationFeature
                 param => CanLoadCheckpointsIntoListView());
             CreateCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
+            LoadPhotoLinksCmd = new DelegateCommand(param => LoadPhotoLinksExecute(), param => CanLoadPhotoLinksExecute());
         }
 
         public void FillFromTourRequest(TourRequest tourRequest)
@@ -243,8 +249,22 @@ namespace TouristAgency.CreationFeature
                 {
                     Photo photo = new Photo(photoLink, 'T', tourID);
                     _newTour.Photos.Add(photo);
-                    _app.PhotoRepository.Create(photo);
+                    //_app.PhotoRepository.Create(photo);
+                    _photoService.Create(photo);
                 }
+            }
+        }
+
+        public void AddPhotos(List<string> paths)
+        {
+            int tourID = _tourService.TourRepository.GenerateId() - 1;
+            _newTour.Photos.Clear();
+            foreach (string photoLink in paths)
+            {
+                Photo photo = new Photo(photoLink, 'T', tourID);
+                _newTour.Photos.Add(photo);
+                //_app.PhotoRepository.Create(photo);
+                _photoService.Create(photo);
             }
         }
 
@@ -308,7 +328,8 @@ namespace TouristAgency.CreationFeature
                 bool canHandleTourRequest = HandleTourRequest(dateTime);
                 if (NewTour.IsValid)
                 {
-                    AddPhotos();
+                    if(PhotoLinks != null && PhotoLinks != "")
+                        AddPhotos();
                     LoadCheckpointsToTours();
                     if (canHandleTourRequest && _scenario != TourCreationScenario.DEFAULT)
                     {
@@ -407,6 +428,18 @@ namespace TouristAgency.CreationFeature
         public void CloseExecute()
         {
             _app.CurrentVM = new GuideHomeViewModel();
+        }
+
+        public bool CanLoadPhotoLinksExecute()
+        {
+            return true;
+        }
+
+        public void LoadPhotoLinksExecute()
+        {
+            List<String> selectedPaths = _photoService.SelectPhotoPaths();
+            selectedPaths = _photoService.CopyToResourceDirectory(selectedPaths);
+            AddPhotos(selectedPaths);
         }
     }
 }
