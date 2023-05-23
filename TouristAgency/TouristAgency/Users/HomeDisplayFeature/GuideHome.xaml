@@ -38,8 +38,8 @@
         <ListView x:Name="AvailableToursListView" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Height="192" Width="333" HorizontalAlignment="Center" VerticalAlignment="Top" ItemsSource="{Binding Path=AvailableTours}" Foreground="Black" SelectionMode="Single" SelectedItem="{Binding SelectedTour}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-
                     <StackPanel Orientation="Horizontal">
+                        
                         <Image Height="55" Width="55" Source="{Binding Photos[0].Link}">
                         </Image>
 
@@ -58,8 +58,7 @@
                                 <i:InvokeCommandAction Command="{Binding DataContext.StartTourCmd, ElementName=AvailableToursListView}" CommandParameter="{Binding ID}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        
-                        
+
                     </StackPanel>
 
                 </DataTemplate>

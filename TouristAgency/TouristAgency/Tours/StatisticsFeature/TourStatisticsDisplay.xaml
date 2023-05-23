@@ -34,7 +34,14 @@
                   Width="333" 
                   ItemsSource="{Binding Tours}" 
                   SelectedItem="{Binding SelectedTour}" 
-                  x:Name="_lw">
+                  x:Name="_lw"
+                   HorizontalContentAlignment="Stretch">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected}" />
+                </Style>
+            </ListView.ItemContainerStyle>
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
@@ -42,7 +49,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <ListView.View>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
@@ -58,7 +65,20 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel HorizontalAlignment="Stretch">
+                        <Image Height="55px" Width="55px" HorizontalAlignment="Left" Source="{Binding Photos[0].Link}"></Image>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="{Binding StartDateTime}"/>
+                        </StackPanel>
+                        <RadioButton IsChecked="{Binding IsSelected}" VerticalAlignment="Center" HorizontalAlignment="Right"></RadioButton>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <StackPanel Grid.Row="3" Grid.Column="0">

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours.BeginTourFeature.Domain;
@@ -93,6 +95,7 @@ namespace TouristAgency.Tours
 
         public void LoadPhotosToTours(List<Photo> photos)
         {
+            Photo defaultPhoto = new Photo(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Resources\\Image\\TourImage\\none.jpeg", 'T', -1);
             foreach (Tour tour in _tours)
             {
                 foreach (Photo photo in photos)
@@ -101,6 +104,10 @@ namespace TouristAgency.Tours
                     {
                         tour.Photos.Add(new Photo(photo));
                     }
+                }
+                if(tour.Photos.Count == 0)
+                {
+                    tour.Photos.Add(defaultPhoto);
                 }
             }
         }

@@ -36,14 +36,18 @@
             </TextBlock.Inlines>
         </TextBlock>
 
-        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding AvailableTours}" Width="333" SelectionMode="Multiple">
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding AvailableTours}" Width="333" SelectionMode="Multiple" HorizontalContentAlignment="Stretch">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected}" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
 
-            <ListView.View>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
@@ -52,7 +56,20 @@
                     <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
                     <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel HorizontalAlignment="Stretch">
+                        <Image Height="55px" Width="55px" HorizontalAlignment="Left" Source="{Binding Photos[0].Link}"></Image>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="{Binding StartDateTime}"/>
+                        </StackPanel>
+                        <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource BasicButton}" Command = "{Binding CancelExistingTourCmd}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-40,0,0">Cancel tours</Button>

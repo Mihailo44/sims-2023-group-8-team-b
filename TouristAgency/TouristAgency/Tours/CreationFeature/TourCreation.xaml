@@ -23,8 +23,8 @@
 
 
     <Grid>
-        <custom:BurgerMenu VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0" Visibility="Hidden"></custom:BurgerMenu>
         <custom:BurgerButton Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
+        <custom:BurgerMenu VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
         <StackPanel>
             <Grid Margin="0,10,0,0" Width="300">
                 <Grid.ColumnDefinitions>

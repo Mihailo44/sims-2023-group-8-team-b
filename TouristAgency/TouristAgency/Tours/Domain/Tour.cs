@@ -17,6 +17,7 @@ namespace TouristAgency.Tours
         private string _description;
         private Location _shortLocation;
         private int _shortLocationID; //TODO PROVERA DA LI POSTOJI
+        private bool _isSelected;
         private string _language;
         private int _maxAttendants;
         private int _currentAttendants;
@@ -47,6 +48,7 @@ namespace TouristAgency.Tours
             _assignedGuide = new Guide();
             _shortLocation = new Location();
             _photos = new List<Photo>();
+            IsSelected = false;
         }
 
         public Tour(int id, string name, string description, Location location, string language, int maxAttendants, int duration, DateTime startDateTime)
@@ -65,6 +67,7 @@ namespace TouristAgency.Tours
             _registeredTourists = new List<Tourist>();
             _assignedGuide = new Guide();
             _photos = new List<Photo>();
+            IsSelected = false;
         }
 
         public Tour(Tour newTour)
@@ -306,8 +309,15 @@ namespace TouristAgency.Tours
 
         public bool IsSelected
         {
-            get;
-            set;
+            get => _isSelected;
+            set
+            {
+                if(value != _isSelected)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged("IsSelected");
+                }
+            }
         }
 
         public string Error => null;

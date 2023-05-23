@@ -13,6 +13,7 @@ using TouristAgency.Tours;
 using TouristAgency.Tours.CancelationFeature;
 using TouristAgency.Tours.StatisticsFeature;
 using TouristAgency.Users;
+using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.SuperGuideFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
@@ -23,6 +24,8 @@ namespace TouristAgency.Base
     {
         private string _menuVisibility;
         private App _app = (App)Application.Current;
+
+        public DelegateCommand GuideHomeCmd { get; set; }
         public DelegateCommand ShowMenuCmd { get; set; }
         public DelegateCommand HideMenuCmd { get; set; }
         public DelegateCommand CreateTourCmd { get; set; }
@@ -35,15 +38,16 @@ namespace TouristAgency.Base
 
         public void InstantiateMenuCommands()
         {
-            CreateTourCmd = new DelegateCommand(param => CreateTourExecute(), param => CanCreateTourExecute());
-            ActiveTourCmd = new DelegateCommand(param => ActiveTourExecute(), param => CanActiveTourExecute());
-            CancelTourCmd = new DelegateCommand(param => CancelTourExecute(), param => CanCancelTourExecute());
-            TourStatisticsCmd = new DelegateCommand(param => TourStatisticsExecute(), param => CanTourStatisticsExecute());
-            GuideProfileCmd = new DelegateCommand(param => GuideProfileExecute(), param => CanGuideProfileExecute());
-            TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => CanTourRequestExecute());
-            TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => CanTourRequestStatisticsExecute());
-            ShowMenuCmd = new DelegateCommand(param => ShowMenuExecute(), param => CanShowMenuExecute());
-            HideMenuCmd = new DelegateCommand(param => HideMenuExecute(), param => CanHideMenuExecute());
+            GuideHomeCmd = new DelegateCommand(param => GuideHomeExecute(), param => AlwaysExecutes());
+            CreateTourCmd = new DelegateCommand(param => CreateTourExecute(), param => AlwaysExecutes());
+            ActiveTourCmd = new DelegateCommand(param => ActiveTourExecute(), param => AlwaysExecutes());
+            CancelTourCmd = new DelegateCommand(param => CancelTourExecute(), param => AlwaysExecutes());
+            TourStatisticsCmd = new DelegateCommand(param => TourStatisticsExecute(), param => AlwaysExecutes());
+            GuideProfileCmd = new DelegateCommand(param => GuideProfileExecute(), param => AlwaysExecutes());
+            TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => AlwaysExecutes());
+            TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => AlwaysExecutes());
+            ShowMenuCmd = new DelegateCommand(param => ShowMenuExecute(), param => AlwaysExecutes());
+            HideMenuCmd = new DelegateCommand(param => HideMenuExecute(), param => AlwaysExecutes());
         }
 
         public string MenuVisibility
@@ -59,40 +63,35 @@ namespace TouristAgency.Base
             }
         }
 
-        public bool CanShowMenuExecute()
+        public bool AlwaysExecutes()
         {
             return true;
         }
+
 
         public void ShowMenuExecute()
         {
             MenuVisibility = "Visible";
         }
 
-        public bool CanHideMenuExecute()
-        {
-            return true;
-        }
 
         public void HideMenuExecute()
         {
             MenuVisibility = "Hidden";
         }
 
-        public bool CanCreateTourExecute()
+
+        public void GuideHomeExecute()
         {
-            return true;
+            _app.CurrentVM = new GuideHomeViewModel();
         }
+
 
         public void CreateTourExecute()
         {
             _app.CurrentVM = new TourCreationViewModel();
         }
 
-        public bool CanActiveTourExecute()
-        {
-            return true;
-        }
 
         public void ActiveTourExecute()
         {
@@ -100,30 +99,18 @@ namespace TouristAgency.Base
             //activeTour.Show();
         }
 
-        public bool CanCancelTourExecute()
-        {
-            return true;
-        }
 
         public void CancelTourExecute()
         {
             _app.CurrentVM = new CancelTourDisplayViewModel();
         }
 
-        public bool CanTourStatisticsExecute()
-        {
-            return true;
-        }
 
         public void TourStatisticsExecute()
         {
             _app.CurrentVM = new TourStatisticsDisplayViewModel();
         }
 
-        public bool CanGuideProfileExecute()
-        {
-            return true;
-        }
 
         public void GuideProfileExecute()
         {
@@ -131,18 +118,9 @@ namespace TouristAgency.Base
             _app.CurrentVM = new GuideProfileDisplayViewModel();
         }
 
-        public bool CanTourRequestExecute()
-        {
-            return true;
-        }
         public void TourRequestExecute()
         {
             _app.CurrentVM = new TourRequestDisplayViewModel();
-        }
-
-        public bool CanTourRequestStatisticsExecute()
-        {
-            return true;
         }
 
         public void TourRequestStatisticsExecute()
