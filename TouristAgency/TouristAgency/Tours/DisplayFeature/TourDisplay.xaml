@@ -95,11 +95,18 @@
                     <GridViewColumn Header="Name" Width="270" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date and time" Width="310" DisplayMemberBinding="{Binding StartDateTime}"/>
-                    <GridViewColumn Header="Duration (h)" DisplayMemberBinding="{Binding Duration}"/>
-                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
-                    <GridViewColumn Header="Remaining" DisplayMemberBinding="{Binding RemainingCapacity}"/>
+                    <GridViewColumn Header="Start date" Width="200" DisplayMemberBinding="{Binding StartDateTime, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="More info" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Height="40" Width="130" FontSize="28" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent">
+                                    <Button.Effect>
+                                        <DropShadowEffect ShadowDepth="4" BlurRadius="20"/>
+                                    </Button.Effect>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

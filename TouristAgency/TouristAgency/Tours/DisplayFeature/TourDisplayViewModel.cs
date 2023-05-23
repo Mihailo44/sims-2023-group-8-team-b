@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Tours;
+using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Users;
 using TouristAgency.View.Display;
 
@@ -36,8 +36,9 @@ namespace TouristAgency.Tours.DisplayFeature
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand ClearCmd { get; set; }
         public DelegateCommand CancelCmd { get; set; }
+        public DelegateCommand DetailsCmd { get; set; }
 
-        public TourDisplayViewModel(Tourist tourist, Window window)
+        public TourDisplayViewModel(Tourist tourist)
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
@@ -76,10 +77,11 @@ namespace TouristAgency.Tours.DisplayFeature
 
         private void InstantiateCommands()
         {
-            FilterCmd = new DelegateCommand(param => FilterCmdExecute(), param => CanFilterCmdExecute());
-            CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
-            ClearCmd = new DelegateCommand(param => ClearCmdExecute(), param => CanClearCmdExecute());
-            CancelCmd = new DelegateCommand(param => CancelCmdExecute(), param => CanCancelCmdExecute());
+            FilterCmd = new DelegateCommand(param => FilterExecute(), param => CanFilterExecute());
+            CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
+            ClearCmd = new DelegateCommand(param => ClearExecute(), param => CanClearExecute());
+            CancelCmd = new DelegateCommand(param => CancelExecute(), param => CanCancelExecute());
+            DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
         }
 
         public ObservableCollection<Tour> Tours
@@ -210,12 +212,12 @@ namespace TouristAgency.Tours.DisplayFeature
             set;
         }
 
-        public bool CanFilterCmdExecute()
+        public bool CanFilterExecute()
         {
             return true;
         }
 
-        private void FilterCmdExecute()
+        private void FilterExecute()
         {
             string country = SelectedCountry;
             string city = SelectedCity;
@@ -229,24 +231,24 @@ namespace TouristAgency.Tours.DisplayFeature
             }
         }
 
-        public bool CanClearCmdExecute()
+        public bool CanClearExecute()
         {
             return true;
         }
 
-        private void ClearCmdExecute()
+        private void ClearExecute()
         {
             Tours = new ObservableCollection<Tour>(_tourService.GetValidTours());
             MinDuration = 0;
             MaxDuration = 0;
         }
 
-        public bool CanCreateCmdExecute()
+        public bool CanCreateExecute()
         {
             return true;
         }
 
-        private void CreateCmdExecute()
+        private void CreateExecute()
         {
             Tour selectedTour = SelectedTour;
             if (selectedTour == null)
@@ -313,17 +315,31 @@ namespace TouristAgency.Tours.DisplayFeature
             }
         }
 
-        public bool CanCancelCmdExecute()
+        public bool CanCancelExecute()
         {
             return true;
         }
 
-        private void CancelCmdExecute()
+        private void CancelExecute()
         {
             MinDuration = 0;
             MaxDuration = 0;
             NumberOfPeople = 0;
             NumberOfReservation = 0;
+        }
+
+        public bool CanDetailsExecute()
+        {
+            return true;
+        }
+
+        public void DetailsExecute()
+        {
+            if(SelectedTour != null) 
+            {
+                TourDetailsDisplay display = new TourDetailsDisplay(SelectedTour);
+                display.Show();
+            }
         }
     }
 }

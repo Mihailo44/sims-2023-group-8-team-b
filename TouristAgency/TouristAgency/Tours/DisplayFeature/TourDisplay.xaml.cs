@@ -13,7 +13,7 @@ namespace TouristAgency.View.Display
         public TourDisplay(Tourist tourist)
         {
             InitializeComponent();
-            DataContext = new TourDisplayViewModel(tourist, this);
+            DataContext = new TourDisplayViewModel(tourist);
         }
 
         public TourDisplay(Tourist tourist, Tour tour)
