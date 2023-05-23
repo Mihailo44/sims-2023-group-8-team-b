@@ -113,13 +113,20 @@ namespace TouristAgency.Review
 
         public void CreateExecute()
         {
-            AddPhotos();
-            NewGuideReview.TouristID = _loggedInTourist.ID;
-            NewGuideReview.Tourist = _loggedInTourist;
-            NewGuideReview.TourID = SelectedTour.ID;
-            NewGuideReview.Tour = SelectedTour;
-            _guideReviewService.GuideReviewRepository.Create(NewGuideReview);
-            MessageBox.Show("Successfully send a review.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            if(SelectedTour != null)
+            {
+                AddPhotos();
+                NewGuideReview.TouristID = _loggedInTourist.ID;
+                NewGuideReview.Tourist = _loggedInTourist;
+                NewGuideReview.TourID = SelectedTour.ID;
+                NewGuideReview.Tour = SelectedTour;
+                _guideReviewService.GuideReviewRepository.Create(NewGuideReview);
+                MessageBox.Show("Successfully send a review.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Please select a tour for reviewing.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         public bool CanSetTourQualityExecute(object parameter)

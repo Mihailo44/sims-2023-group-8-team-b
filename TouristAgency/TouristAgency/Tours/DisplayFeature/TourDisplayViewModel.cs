@@ -73,6 +73,9 @@ namespace TouristAgency.Tours.DisplayFeature
             Countries = new ObservableCollection<string>(_tourService.GetAllCountries());
             Cities = new ObservableCollection<string>(_tourService.GetAllCities());
             Languages = new ObservableCollection<string>(_tourService.GetAllLanguages());
+            SelectedCountry = "";
+            SelectedCity = "";
+            SelectedLanguage = "";
         }
 
         private void InstantiateCommands()
@@ -223,12 +226,14 @@ namespace TouristAgency.Tours.DisplayFeature
             string city = SelectedCity;
             string language = SelectedLanguage;
 
+            
             Tours = new ObservableCollection<Tour>(_tourService.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
 
             if (MinDuration == 0 && MaxDuration == 0)
             {
                 MessageBox.Show("You must change the value for min or max duration of tour.", "Alert");
             }
+            
         }
 
         public bool CanClearExecute()

@@ -9,3 +9,4 @@
 9|18|-1|0|SUGGESTED_TOUR|A new tour based on Chinese|True
 10|20|0|3|ATTENDANCE|Question from guide about attendance|False
 11|20|0|4|ATTENDANCE|Question from guide about attendance|False
+12|20|40|0|SUGGESTED_TOUR|A new tour based on Spanish|False

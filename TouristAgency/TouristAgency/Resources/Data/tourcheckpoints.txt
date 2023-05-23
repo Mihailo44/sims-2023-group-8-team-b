@@ -147,3 +147,9 @@
 37|0|True
 37|1|False
 37|2|False
+38|0|True
+38|1|False
+38|2|False
+39|0|True
+39|1|False
+39|2|False

@@ -1,0 +1,54 @@
+﻿<Window x:Class="TouristAgency.Tours.DetailsFeature.TourDetailsDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.Tours.DetailsFeature"
+        mc:Ignorable="d"
+        Title="TourDetailsDisplay" Height="800" Width="450" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Tour.Name}" HorizontalContentAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
+        <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="150" Source="{Binding Tour.Photos[0].Link}" HorizontalAlignment="Center"></Image>
+        <Label Grid.Row="2" Grid.Column="0" Content="City:" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="3" Grid.Column="0" Content="Country:" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="4" Grid.Column="0" Content="Language:" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="5" Grid.Column="0" Content="Start date:" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="6" Grid.Column="0" Content="Start time:" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="7" Grid.Column="0" Content="Duration (h):" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="8" Grid.Column="0" Content="Max attendants:" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="9" Grid.Column="0" Content="Remaining:" VerticalAlignment="Center" FontSize="28" FontWeight="SemiBold"></Label>
+
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Tour.ShortLocation.City}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="3" Grid.Column="1" Content="{Binding Tour.ShortLocation.Country}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="4" Grid.Column="1" Content="{Binding Tour.Language}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="5" Grid.Column="1" ContentStringFormat="{}{0:MM/dd/yyyy}" Content="{Binding Tour.StartDateTime}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="6" Grid.Column="1" ContentStringFormat="{}{0:HH:mm}" Content="{Binding Tour.StartDateTime}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="7" Grid.Column="1" Content="{Binding Tour.Duration}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="8" Grid.Column="1" Content="{Binding Tour.MaxAttendants}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+        <Label Grid.Row="9" Grid.Column="1" Content="{Binding Tour.RemainingCapacity}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"></Label>
+
+        <Button Grid.Row="10" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Command="{Binding CloseCmd}" Content="Close" BorderBrush="Transparent" Background="Transparent" FontSize="28" FontWeight="Bold" Width="150" Height="40">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="25"/>
+            </Button.Effect>
+        </Button>
+    </Grid>
+</Window>
