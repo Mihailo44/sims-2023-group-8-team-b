@@ -41,9 +41,8 @@ namespace TouristAgency.Serialization
             foreach (string line in File.ReadLines(fileName))
             {
                 if (line.Trim().StartsWith("//"))
-                {
                     continue;
-                }
+
                 string[] csvValues = line.Split(DELIMITER);
                 T obj = new T();
                 obj.FromCSV(csvValues);

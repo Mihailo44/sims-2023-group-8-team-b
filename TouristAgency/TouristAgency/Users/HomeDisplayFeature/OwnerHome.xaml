@@ -11,14 +11,15 @@
 
     <UserControl.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
-            <Grid>
+            <Grid Panel.ZIndex="1000">
                 <AdornedElementPlaceholder/>
-                <TextBlock Panel.ZIndex="1000" Text="{Binding [0].ErrorContent}" Foreground="Red"
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
                            VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="19" Margin="0,0,7,0"/>
             </Grid>
         </ControlTemplate>
         <con:DateConverter x:Key="DateConv"/>
         <con:IntConverter x:Key="IntConv"/>
+        <con:HotLocationConverter x:Key="LocationConv"/>
     </UserControl.Resources>
 
     <UserControl.InputBindings>
@@ -152,8 +153,8 @@
             </Grid>
         </Canvas>
 
-        <StackPanel Height="740" Width="1015" Orientation="Vertical">
-            <WrapPanel Height="65" Width="1015">
+        <StackPanel Height="745" Width="1015" Orientation="Vertical">
+            <WrapPanel Height="70" Width="1015">
                 <WrapPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FF9257BB"/>
@@ -172,18 +173,18 @@
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Label Height="auto" Margin="15,0,0,0" FontSize="36" Foreground="Wheat" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
-                    <Border Grid.Column="1" Height="40" Width="350" HorizontalAlignment="Center" Background="White" CornerRadius="15" BorderThickness="0.5" >
-                        <xctk:WatermarkTextBox Background="Transparent" BorderThickness="0" Watermark="Search Reservations" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="Regular" Text="{Binding SearchInput,UpdateSourceTrigger=PropertyChanged}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="TextChanged">
-                                    <i:InvokeCommandAction Command="{Binding SearchCmd}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </xctk:WatermarkTextBox>
+                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource DemoBtnStyle}">
+                        <Image Width="65" Height="63" Source="../../Resources/Image/help.png"/>
+                    </Button>
+                    <Button Grid.Column="3" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}">
+                        <Image Width="45" Height="45" Margin="6,0,0,0" Source="../../Resources/Image/bell1.png"/>
+                    </Button>
+                    <Border Visibility="{Binding NotificationCountVisibility,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Background="snow" CornerRadius="15" BorderThickness="0.5">
+                        <Label BorderThickness="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" FontSize="17" Foreground="Firebrick" FontWeight="SemiBold" Content="{Binding NotificationCount,Converter={StaticResource IntConv}}"/>
                     </Border>
-                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="HELP" Style="{StaticResource DemoBtnStyle}"/>
-                    <Button Grid.Column="3" Content="Notify" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}"/>
-                    <Button Grid.Column="4" Content="Acc" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}"/>
+                    <Button Grid.Column="4" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowAccCmd}">
+                        <Image Width="59" Height="59" Source="../../Resources/Image/account.png"/>
+                    </Button>
                 </Grid>
             </WrapPanel>
 
@@ -202,11 +203,22 @@
             </WrapPanel>
 
             <StackPanel Width="990">
+
+                <Border Visibility="{Binding DataGridVisibility[0]}" Height="40" Width="350" HorizontalAlignment="Center" Background="LightSteelBlue" CornerRadius="15" BorderThickness="0.5" >
+                    <xctk:WatermarkTextBox Background="Transparent" BorderThickness="0" Watermark="Search Reservations" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="SemiBold" Text="{Binding SearchInput,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SearchCmd}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </xctk:WatermarkTextBox>
+                </Border>
+
                 <ListView
                       Visibility="{Binding DataGridVisibility[0],Mode=TwoWay}"
-                      Height="550"
+                      Height="510"
                       Width="990"
-                      Margin="0,15,0,0"
+                      Margin="0,15,5,0"
                       ItemsSource="{Binding Reservations,UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedReservation}"
                       Style="{StaticResource BasicListView}"
@@ -245,7 +257,7 @@
                 <ListView   Visibility="{Binding DataGridVisibility[1],Mode=TwoWay}"
                       Height="550" 
                       Width="990"
-                      Margin="0,15,0,0"
+                      Margin="0,15,5,0"
                       ItemsSource="{Binding Accommodations}"
                       SelectedItem="{Binding SelectedAccommodation}"
                       Style="{StaticResource BasicListView}"
@@ -273,10 +285,16 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="210" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Width="195" Header="City" DisplayMemberBinding="{Binding Location.City}"/>
-                            <GridViewColumn Width="180" Header="Type" DisplayMemberBinding="{Binding Type}"/>
-                            <GridViewColumn Width="230" Header="Guest Capacity" DisplayMemberBinding="{Binding MaxGuestNum}"/>
+                            <GridViewColumn Width="240" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="255" Header="City" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="220" Header="Guest Capacity" DisplayMemberBinding="{Binding MaxGuestNum}"/>
+                            <GridViewColumn Width="100" Header="Hot">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Height="40" Width="40" Source="{Binding HotLocation,Converter={StaticResource LocationConv}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -284,7 +302,7 @@
                 <ListView  Visibility="{Binding DataGridVisibility[2]}"
                            Height="550"
                            Width="990"
-                           Margin="0,15,0,0" 
+                           Margin="0,15,5,0" 
                            ItemsSource="{Binding PostponementRequests}" 
                            SelectedItem="{Binding SelectedRequest}" 
                            Style="{StaticResource BasicListView}"
@@ -316,7 +334,7 @@
                       Visibility="{Binding DataGridVisibility[3]}" 
                       Height="550" 
                       Width="990"
-                      Margin="0,15,0,0"
+                      Margin="0,15,5,0"
                       ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}"
                       Style="{StaticResource BasicListView}"
                       ItemContainerStyle="{StaticResource ListItem}">
@@ -342,7 +360,7 @@
                 <ListView Visibility="{Binding DataGridVisibility[4]}"
                       Height="550"
                       Width="990"
-                      Margin="0,15,0,0"
+                      Margin="0,15,5,0"
                       ItemContainerStyle="{StaticResource ListItem}">
 
                     <ListView.View>
@@ -355,8 +373,8 @@
                                     <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="700" Header="Name"/>
-                            <GridViewColumn Width="290" Header="Usefulness"/>
+                            <GridViewColumn Width="890" Header="Name"/>
+                            <GridViewColumn Width="100"/>
                             <!--<GridViewColumn Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -371,7 +389,7 @@
                 <Canvas Visibility="{Binding InputFormVisibility}" 
                         Height="550"
                         Width="990"
-                        Margin="0,15,0,0"
+                        Margin="0,15,5,0"
                         Panel.ZIndex="1000" Background="Transparent">
 
                     <Border Height="550" Width="990" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1" Opacity="0.65"/>
@@ -397,14 +415,14 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-                        <Label Grid.Row="3" Grid.Column="0" Content="City" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-                        <Label Grid.Row="4" Grid.Column="0" Content="Type" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-                        <Label Grid.Row="5" Grid.Column="0" Content="Capacity" FontWeight="SemiBold" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-                        <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Duration" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
-                        <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <Label Grid.Row="8" Grid.Column="0" Content="Photos URL" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,0,0,0"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Name" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Country" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="City" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Type" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="Capacity" FontWeight="SemiBold" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="6" Grid.Column="0" Content="Min Reservation Duration" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="Allowed Number Of Days For Cancelation" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="8" Grid.Column="0" Content="Photos URL" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
                         <Button Grid.Row="11" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,15" Content="REGISTER" Command="{Binding CreateAccommodationCmd}" Style="{StaticResource BasicBtn}"/>
 
                         <Border Grid.Row="1" Grid.Column="1" Width="250" Height="35" HorizontalAlignment="Left" Background="White" CornerRadius="15" BorderBrush="DarkGray" BorderThickness="1" >
@@ -447,7 +465,7 @@
                 <Canvas Visibility="{Binding ReviewFormVisibility}" 
                         Height="550"
                         Width="990"
-                        Margin="0,15,0,0"
+                        Margin="0,15,5,0"
                         Panel.ZIndex="1000" Background="Transparent">
 
                     <Border Height="550" Width="990" Background="Snow" CornerRadius="12" BorderBrush="LightGray" BorderThickness="1" Opacity="0.65"/>
@@ -472,12 +490,12 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Cleanliness" FontSize="22" FontWeight="SemiBold" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="150,0,0,0"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="Rule abiding" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
-                        <Label Grid.Row="3" Grid.Column="0" Content="Communication" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
-                        <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
-                        <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
-                        <Label Grid.Row="7" Grid.Column="0" Content="Comment" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="150,0,0,0"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Cleanliness" FontSize="22" FontWeight="SemiBold" VerticalContentAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Rule abiding" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="Communication" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Overall Impression" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="Noise level" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="Comment" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Right" Margin="0,0,20,0"/>
                         <Button Grid.Row="10" Grid.Column="0" Grid.RowSpan="2" Content="SUBMIT" Command="{Binding CreateNewReviewCmd}" Style="{StaticResource BasicBtn}"/>
 
                         <ComboBox Grid.Row="1" Grid.Column="1" Width="180" Height="35" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="22" ItemsSource="{Binding ComboNumbers}" Text="{Binding Path=NewGuestReview.Cleanliness,Converter={StaticResource IntConv}}"/>

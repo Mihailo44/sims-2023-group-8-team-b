@@ -32,6 +32,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private PhotoRepository _photoRepository;
         private LocationService _locationService;
         private GuestReviewService _guestReviewService;
+        private RenovationRecommendationService _recommendationService;
+
         private string _photoLinks;
         private string _searchInput;
         private string _accountContainerVisibility;
@@ -40,6 +42,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _btnClearNotificationVisibility;
         private string _inputFormVisibility;
         private string _reviewFormVisibility;
+        private string _notificationCountVisibility;
         private string _comment;
         private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
@@ -70,8 +73,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 OnPropertyChanged();
             }
         }
-
-       public ObservableCollection<Notification> Notifications { get; set; }
 
         public string BtnNewVisibility
         {
@@ -120,6 +121,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public string NotificationCountVisibility 
+        { 
+            get => _notificationCountVisibility;
+            set
+            {
+                if(_notificationCountVisibility != value)
+                {
+                    _notificationCountVisibility = value;
+                    OnPropertyChanged();
+                }
+            } 
         }
 
         public bool IsChecked
@@ -190,6 +204,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public ObservableCollection<OwnerReview> OwnerReviews { get; set; }
 
+        public ObservableCollection<Notification> Notifications { get; set; }
+        public int NotificationCount { get; set; }
+
         public Owner LoggedUser { get; set; }
         public string Status { get; set; }
 
@@ -227,6 +244,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
             InstantiateServices();
             SubscribeObservers();
+            InstantiateCollections();
 
             SetUserStatus();
             Notifications = new();
@@ -243,12 +261,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
             InputFormVisibility = "Collapsed";
             ReviewFormVisibility = "Collapsed";
 
-            InstantiateCollections();
-            FillCollections();
-
             _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
             _renovationService.SetRenovationProgress(_accommodationService);
             _renovationService.CheckAccommodationRenovationStatus(_accommodationService);
+            _accommodationService.SetHotLocationsStatus(_locationService, _accommodationService, _reservationService, _postponementRequestService, _recommendationService);
+
+            FillCollections();
 
             InstantiateCommands();
         }
@@ -265,6 +283,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _photoRepository = _app.PhotoRepository;
             _locationService = new();
             _guestReviewService = new();
+            _recommendationService = new();
         }
 
         private void SubscribeObservers()
@@ -363,6 +382,13 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {
                 Notifications.AddRange(notifications);
                 BtnClearNotificationVisibility = "Visible";
+                NotificationCountVisibility = "Visible";
+                NotificationCount = notifications.Count();
+            }
+            else
+            {
+                NotificationCount = 0;
+                NotificationCountVisibility = "Collapsed";
             }
         }
 
@@ -623,6 +649,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void ClearNotificationsCmdExecute()
         {
             Notifications.Clear();
+            NotificationCountVisibility = "Collapsed";
+            NotificationCount = 0;
             //NotificationContainerVisibility = "Collapsed";
         }
 

@@ -1,4 +1,4 @@
-0|Miki|toki|OWNER
+0|miki|toki|OWNER
 1|maki|m178|TOURIST
 2|todor|todor123|TOURIST
 3|olja|olja111|TOURIST

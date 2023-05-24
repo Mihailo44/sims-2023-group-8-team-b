@@ -39,7 +39,12 @@
                     <Label HorizontalAlignment="Center" FontSize="21" FontWeight="Medium" Content="Estimated Duration"/>
                     <TextBox Width="80" Height="35" Margin="0,10,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="19" Text="{Binding EstimatedDuration,Converter={StaticResource IntConv}}"/>
                 </StackPanel>
-                <Button Height="50" Width="170" Margin="25,35,0,0" VerticalAlignment="Center" Content="FIND DATES" Command="{Binding SearchCmd}" Style="{StaticResource BasicBtn}"/>
+                <Button Height="50" Width="180" Margin="25,35,0,0" VerticalAlignment="Center" Command="{Binding SearchCmd}" Style="{StaticResource BasicBtn}">
+                    <WrapPanel Height="45">
+                        <Label Height="45" VerticalContentAlignment="Center" Content="FIND DATES" Foreground="BlanchedAlmond"/>
+                        <Image Width="35" Height="27" Source="../../../Resources/Image/loupe.png"/>
+                    </WrapPanel>
+                </Button>
             </StackPanel>
         </GroupBox>
 

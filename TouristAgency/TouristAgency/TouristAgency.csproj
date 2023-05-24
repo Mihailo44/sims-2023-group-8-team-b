@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Image\account.png" />
     <None Remove="Resources\Image\applyFilter.png" />
     <None Remove="Resources\Image\arrow-down-solid.png" />
     <None Remove="Resources\Image\arrow-left-solid.png" />
@@ -16,6 +17,8 @@
     <None Remove="Resources\Image\attendance.png" />
     <None Remove="Resources\Image\bars-solid.png" />
     <None Remove="Resources\Image\bell-exclamation.png" />
+    <None Remove="Resources\Image\bell.png" />
+    <None Remove="Resources\Image\bell1.png" />
     <None Remove="Resources\Image\cancel.png" />
     <None Remove="Resources\Image\check.png" />
     <None Remove="Resources\Image\clearFilter.png" />
@@ -24,9 +27,11 @@
     <None Remove="Resources\Image\denied.png" />
     <None Remove="Resources\Image\exit.png" />
     <None Remove="Resources\Image\file-pdf-solid.png" />
+    <None Remove="Resources\Image\help.png" />
     <None Remove="Resources\Image\imagebrowse.png" />
     <None Remove="Resources\Image\join.png" />
     <None Remove="Resources\Image\logout.png" />
+    <None Remove="Resources\Image\loupe.png" />
     <None Remove="Resources\Image\notification-bell.png" />
     <None Remove="Resources\Image\pending.png" />
     <None Remove="Resources\Image\logout-guest.png" />
@@ -60,6 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\account.png" />
     <Resource Include="Resources\Image\applyFilter.png" />
     <Resource Include="Resources\Image\arrow-down-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -78,6 +84,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Image\bell-exclamation.png" />
+    <Resource Include="Resources\Image\bell.png" />
+    <Resource Include="Resources\Image\bell1.png" />
     <Resource Include="Resources\Image\cancel.png" />
     <Resource Include="Resources\Image\check.png" />
     <Resource Include="Resources\Image\clearFilter.png" />
@@ -86,11 +94,13 @@
     <Resource Include="Resources\Image\denied.png" />
     <Resource Include="Resources\Image\exit.png" />
     <Resource Include="Resources\Image\file-pdf-solid.png" />
+    <Resource Include="Resources\Image\help.png" />
     <Resource Include="Resources\Image\imagebrowse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Image\join.png" />
     <Resource Include="Resources\Image\logout.png" />
+    <Resource Include="Resources\Image\loupe.png" />
     <Resource Include="Resources\Image\notification-bell.png" />
     <Resource Include="Resources\Image\pending.png" />
     <Resource Include="Resources\Image\logout-guest.png" />
