@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
+using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Util;
 
-namespace TouristAgency.Vouchers
+namespace TouristAgency.Notifications.Domain
 {
     public class TouristNotificationService
     {
@@ -36,27 +38,29 @@ namespace TouristAgency.Vouchers
 
         public void NotifyAboutNewTour(Tour newTour, List<TourRequest> tourRequests)
         {
-            foreach(TourRequest request in tourRequests)
+            foreach (TourRequest request in tourRequests)
             {
                 bool equalByLocation = request.ShortLocation.Equals(newTour.ShortLocation);
                 bool equalByLanguage = request.Language == newTour.Language;
                 if (equalByLocation)
                 {
                     string message = "A new tour based on " + request.ShortLocation.Country + ", " + request.ShortLocation.City;
-                    TouristNotification notification = new TouristNotification(request.TouristID, Util.TouristNotificationType.SUGGESTED_TOUR, message);
+                    TouristNotification notification = new TouristNotification(request.TouristID, Util.TouristNotificationType.SUGGESTED_TOUR_LOCATION, message);
                     notification.Tour = newTour;
                     notification.TourID = newTour.ID;
+                    notification.Description = "Based on your previous requests, a new tour with the location " + request.ShortLocation.Country + ", " + request.ShortLocation.City + " is available. Check it out!";
                     if (!IsNotified(request.TouristID, message))
                     {
                         TouristNotificationRepository.Create(notification);
                     }
                 }
-                if(equalByLanguage)
+                if (equalByLanguage)
                 {
                     string message = "A new tour based on " + request.Language;
-                    TouristNotification notification = new TouristNotification(request.TouristID, Util.TouristNotificationType.SUGGESTED_TOUR, message);
+                    TouristNotification notification = new TouristNotification(request.TouristID, Util.TouristNotificationType.SUGGESTED_TOUR_LANGUAGE, message);
                     notification.Tour = newTour;
                     notification.TourID = newTour.ID;
+                    notification.Description = "Based on your previous requests, a new tour with the language " + request.Language + " is available. Check it out!";
                     if (!IsNotified(request.TouristID, message))
                     {
                         TouristNotificationRepository.Create(notification);
@@ -65,11 +69,20 @@ namespace TouristAgency.Vouchers
             }
         }
 
-        public bool IsNotified(int touristID, string message) 
+        public void NotifyAboutAttendance(int touristID, Checkpoint checkpoint, int checkpointID)
         {
-            foreach(TouristNotification notification in TouristNotificationRepository.GetAll())
+            TouristNotification notification = new TouristNotification(touristID, TouristNotificationType.ATTENDANCE, "Attendance confirmation");
+            notification.Checkpoint = checkpoint;
+            notification.CheckpointID = checkpointID;
+            notification.Description = "The guide has marked you as present at " + checkpoint.Location.Country + ", " + checkpoint.Location.City + ". Please confirm.";
+            TouristNotificationRepository.Create(notification);
+        }
+
+        public bool IsNotified(int touristID, string message)
+        {
+            foreach (TouristNotification notification in TouristNotificationRepository.GetAll())
             {
-                if(notification.TouristID == touristID && notification.Message == message)
+                if (notification.TouristID == touristID && notification.Title == message)
                 {
                     return true;
                 }

@@ -20,6 +20,7 @@ using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Notifications;
 using TouristAgency.Users.SuperGuestFeature.Domain;
+using TouristAgency.Notifications.Domain;
 
 namespace TouristAgency.Base
 {

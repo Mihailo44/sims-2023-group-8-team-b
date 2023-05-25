@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Image\accepted.png" />
     <None Remove="Resources\Image\applyFilter.png" />
     <None Remove="Resources\Image\arrow-down-solid.png" />
     <None Remove="Resources\Image\arrow-left-solid.png" />
@@ -24,8 +25,10 @@
     <None Remove="Resources\Image\denied.png" />
     <None Remove="Resources\Image\exit.png" />
     <None Remove="Resources\Image\file-pdf-solid.png" />
+    <None Remove="Resources\Image\gps.png" />
     <None Remove="Resources\Image\imagebrowse.png" />
     <None Remove="Resources\Image\join.png" />
+    <None Remove="Resources\Image\language.png" />
     <None Remove="Resources\Image\logout.png" />
     <None Remove="Resources\Image\notification-bell.png" />
     <None Remove="Resources\Image\pending.png" />
@@ -60,6 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\accepted.png" />
     <Resource Include="Resources\Image\applyFilter.png" />
     <Resource Include="Resources\Image\arrow-down-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -86,10 +90,12 @@
     <Resource Include="Resources\Image\denied.png" />
     <Resource Include="Resources\Image\exit.png" />
     <Resource Include="Resources\Image\file-pdf-solid.png" />
+    <Resource Include="Resources\Image\gps.png" />
     <Resource Include="Resources\Image\imagebrowse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Image\join.png" />
+    <Resource Include="Resources\Image\language.png" />
     <Resource Include="Resources\Image\logout.png" />
     <Resource Include="Resources\Image\notification-bell.png" />
     <Resource Include="Resources\Image\pending.png" />

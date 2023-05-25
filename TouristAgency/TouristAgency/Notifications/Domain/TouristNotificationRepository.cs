@@ -5,7 +5,7 @@ using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Util;
 
-namespace TouristAgency.Vouchers
+namespace TouristAgency.Notifications.Domain
 {
     public class TouristNotificationRepository : ICrud<TouristNotification>, ISubject
     {
@@ -22,7 +22,7 @@ namespace TouristAgency.Vouchers
 
         public int GenerateId()
         {
-            if(_notifications.Count == 0) return 0;
+            if (_notifications.Count == 0) return 0;
             else
                 return _notifications.Max(n => n.ID) + 1;
         }
@@ -58,7 +58,7 @@ namespace TouristAgency.Vouchers
             currentNotification.CheckpointID = newNotification.CheckpointID;
             currentNotification.Checkpoint = newNotification.Checkpoint;
             currentNotification.Type = newNotification.Type;
-            currentNotification.Message = newNotification.Message;
+            currentNotification.Title = newNotification.Title;
             currentNotification.IsSeen = newNotification.IsSeen;
 
             _storage.Save(_notifications);
@@ -113,7 +113,7 @@ namespace TouristAgency.Vouchers
 
         public void LoadCheckpointsToNotifications(List<Checkpoint> checkpoints)
         {
-            foreach(Checkpoint checkpoint in checkpoints)
+            foreach (Checkpoint checkpoint in checkpoints)
             {
                 foreach (TouristNotification notification in GetAll())
                 {

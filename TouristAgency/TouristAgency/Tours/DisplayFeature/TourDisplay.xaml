@@ -6,7 +6,7 @@
         xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Tour" Height="750" Width="1100" WindowStartupLocation="CenterScreen" Opacity="0.98">
+        Title="Tour" Height="780" Width="1100" WindowStartupLocation="CenterScreen" Opacity="0.98">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
@@ -21,12 +21,13 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="220"></RowDefinition>
-            <RowDefinition Height="340"></RowDefinition>
-            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="330"></RowDefinition>
+            <RowDefinition Height="135"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Height="200" Width="1050" VerticalAlignment="Top" Margin="0,5,0,0" BorderBrush="Black" BorderThickness="2">
+        <GroupBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Height="200" Width="1050" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="2" Margin="0,-15,0,0">
             <GroupBox.Header>
                 <Label Content="Filters" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
@@ -77,7 +78,9 @@
             </Grid>
         </GroupBox>
 
-        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="1050" Height="300" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" Margin="0,20,0,0" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" >
+        <Label Content="Filtered tours:" Grid.Row="1" Grid.Column="0" FontSize="32" FontWeight="Bold" Margin="0,10,0,0"/>
+
+        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="1050" Height="300" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" Margin="0,0,0,20">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -111,7 +114,7 @@
             </ListView.View>
         </ListView>
 
-        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Width="1050" Height="120" Margin="0,0,0,5" BorderBrush="Black" BorderThickness="2">
+        <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="1050" Height="120" BorderBrush="Black" BorderThickness="2" Margin="0,0,0,10">
             <GroupBox.Header>
                 <Label Content="Reservation" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>

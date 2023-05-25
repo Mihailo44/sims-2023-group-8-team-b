@@ -7,6 +7,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Notifications;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;

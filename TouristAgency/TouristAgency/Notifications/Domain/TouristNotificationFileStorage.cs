@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Vouchers
+namespace TouristAgency.Notifications.Domain
 {
     public class TouristNotificationFileStorage : IStorage<TouristNotification>
     {
