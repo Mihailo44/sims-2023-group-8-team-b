@@ -20,7 +20,7 @@ namespace TouristAgency.Notifications
 
         public List<GuestReviewNotification> GetByOwnerId(int id)
         {
-            return GuestReviewNotificationRepository.GetAll().FindAll(r => r.Reservation.Accommodation.OwnerId == id);
+            return GuestReviewNotificationRepository.GetAll().FindAll(r => r?.Reservation.Accommodation.OwnerId == id);
         }
 
         public void ManageNotifications(int ownerId,ReservationService reservationService)
@@ -48,6 +48,7 @@ namespace TouristAgency.Notifications
                         {
                             message = $"{reservation.Guest.FirstName} {reservation.Guest.LastName} {5 - dateDiff} days left to review";
                             GuestReviewNotification newNotification = new GuestReviewNotification(message,reservation.Id);
+                            newNotification.Reservation = reservationService.ReservationRepository.GetAll().Find(r => r.Id == newNotification.ReservationId);
                             GuestReviewNotificationRepository.Create(newNotification);
                         }
                     }

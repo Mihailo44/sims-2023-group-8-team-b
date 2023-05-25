@@ -22,6 +22,7 @@ namespace TouristAgency.Accommodations.Domain
         private int _allowedNumOfDaysForCancelation;
         private List<Photo> _photos;
         private bool _recentlyRenovated;
+        private bool _hotLocation;
 
         public Accommodation()
         {
@@ -186,6 +187,18 @@ namespace TouristAgency.Accommodations.Domain
             }
         }
 
+        public bool HotLocation
+        {
+            get => _hotLocation;
+            set
+            {
+                if(value != _hotLocation)
+                {
+                    _hotLocation = value;
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -250,6 +263,7 @@ namespace TouristAgency.Accommodations.Domain
             MinNumOfDays = int.Parse(values[6]);
             AllowedNumOfDaysForCancelation = int.Parse(values[7]);
             RecentlyRenovated = bool.Parse(values[8]);
+            HotLocation = bool.Parse(values[9]);
         }
 
         public string[] ToCSV()
@@ -264,7 +278,8 @@ namespace TouristAgency.Accommodations.Domain
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),
                 AllowedNumOfDaysForCancelation.ToString(),
-                RecentlyRenovated.ToString()
+                RecentlyRenovated.ToString(),
+                HotLocation.ToString()
             };
             return csvValues;
         }
