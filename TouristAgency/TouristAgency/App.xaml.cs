@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
+using TouristAgency.Accommodations.ForumFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
@@ -52,6 +53,7 @@ namespace TouristAgency
         public RenovationRecommendationRepository RenovationRecommendationRepository { get; }
         public GuestReviewNotificationRepository GuestReviewNotificationRepository { get; }
         public SuperGuestTitleRepository SuperGuestTitleRepository { get; }
+        public ForumRepository ForumRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -103,6 +105,7 @@ namespace TouristAgency
             RenovationRecommendationRepository = new(InjectorService.CreateInstance<IStorage<RenovationRecommendation>>());
             GuestReviewNotificationRepository = new(InjectorService.CreateInstance<IStorage<GuestReviewNotification>>());
             SuperGuestTitleRepository = new(InjectorService.CreateInstance<IStorage<SuperGuestTitle>>());
+            ForumRepository = new(InjectorService.CreateInstance<IStorage<Forum>>());
 
             LoadData();
         }
