@@ -8,12 +8,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Title="NotificationDisplay" Height="700" Width="850" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
-            <GradientStop Color="#FFDCD8D4" />
-        </LinearGradientBrush>
-    </Window.Background>
+
     <Window.Resources>
         <converter:TouristNotificationTypeConverter x:Key="TouristNotificationTypeConverter"></converter:TouristNotificationTypeConverter>
         <converter:IsSeenConverter x:Key="IsSeenConverter"></converter:IsSeenConverter>
@@ -29,7 +24,7 @@
         </Grid.RowDefinitions>
         <Label Content="Notifications" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 
-        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" HorizontalContentAlignment="Stretch">
+        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" HorizontalContentAlignment="Stretch" Background="#FFF3F7">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

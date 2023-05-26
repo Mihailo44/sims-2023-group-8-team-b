@@ -14,14 +14,7 @@ namespace TouristAgency.TourRequests
         private App _app;
         private Tourist _loggedInTourist;
 
-        private string _country;
-        private string _city;
-        private string _language;
         private ObservableCollection<TourRequest> _tourRequests;
-        private DateTime _startDate;
-        private DateTime _endDate;
-        private string _description;
-        private int _numOfPeople;
         private TourRequest _tourRequest;
 
         private TourRequestService _tourRequestService;
@@ -34,8 +27,6 @@ namespace TouristAgency.TourRequests
             _app = (App)Application.Current;
             _tourRequest = new TourRequest();
             _loggedInTourist = tourist;
-            _startDate = DateTime.Now;
-            _endDate = DateTime.Now;
 
             InstantiateServices();
             InstantiateCollections();

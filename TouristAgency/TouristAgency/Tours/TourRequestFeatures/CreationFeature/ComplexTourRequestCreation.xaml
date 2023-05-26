@@ -1,0 +1,97 @@
+﻿<Window x:Class="TouristAgency.Tours.TourRequestFeatures.CreationFeature.ComplexTourRequestCreation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.Tours.TourRequestFeatures.CreationFeature"
+        mc:Ignorable="d"
+        Title="ComplexTourRequestCreation" Height="785" Width="1100" WindowStartupLocation="CenterScreen" Background="#FFF3F7">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="280"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="280"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="5,5,0,0">
+            <Label Content="Insert name for your new complex tour:" FontSize="32" FontWeight="Bold"></Label>
+            <TextBox Width="460" Height="42" FontSize="32"></TextBox>
+        </StackPanel>
+
+        <ListView x:Name="ComplexToursListView" ItemsSource="{Binding Path=Tours}" Width="1070" Height="280" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Country" Width="165" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="City" Width="165" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Language" Width="165" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Start date" Width="200" DisplayMemberBinding="{Binding StartDateTime, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="End date" Width="200" DisplayMemberBinding="{Binding StartDateTime, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="More info" Width="140">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Details" Style="{StaticResource TouristBasicButton}" Command="{Binding DataContext.DetailsCmd, ElementName=ComplexToursListView}" Width="130"></Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,15,0">
+            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="25" Source="../../../Resources/Image/add.png" Margin="0,0,5,0"/>
+                    <TextBlock>Add new part</TextBlock>
+                </StackPanel>
+            </Button>
+            <Label></Label>
+            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="25" Source="../../../Resources/Image/cancel1.png" Margin="0,0,5,0"/>
+                    <TextBlock>Remove part</TextBlock>
+                </StackPanel>
+            </Button>
+            <Label></Label>
+            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="30" Source="../../../Resources/Image/send1.png" Margin="0,0,5,0"/>
+                    <TextBlock>Send request</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <Label Content="Complex tour requests:" Grid.Row="3" Grid.Column="0" FontSize="32" FontWeight="Bold" Margin="5,0,0,0"></Label>
+
+        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Tours}" Width="1070" Height="280" Grid.Row="4" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Complex tour name" Width="350" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="More info" Width="600">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="Click here to see more info and all parts of the complex tour"></Label>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
