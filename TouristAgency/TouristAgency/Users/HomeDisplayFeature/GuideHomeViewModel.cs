@@ -11,7 +11,7 @@ using TouristAgency.View.Display;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
-    public class GuideHomeViewModel :BurgerMenuViewModelBase, ICloseable
+    public class GuideHomeViewModel : BurgerMenuViewModelBase, ICloseable
     {
         private App _app;
         private Window _window;

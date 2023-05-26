@@ -64,7 +64,14 @@
                     </i:Interaction.Triggers>
                 </Label>
                 <Label FontSize="16">- Super guide program</Label>
-                <Label FontSize="16">- Leave us</Label>
+                <Label FontSize="16">
+                    <Label.Content>- Leave us</Label.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding LeaveUsCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
             </StackPanel>
 
             <StackPanel Margin="0,10,0,0">

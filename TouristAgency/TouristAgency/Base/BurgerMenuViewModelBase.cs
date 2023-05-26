@@ -14,6 +14,7 @@ using TouristAgency.Tours.CancelationFeature;
 using TouristAgency.Tours.StatisticsFeature;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.QuitFeature;
 using TouristAgency.Users.SuperGuideFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
@@ -31,6 +32,7 @@ namespace TouristAgency.Base
         public DelegateCommand CreateTourCmd { get; set; }
         public DelegateCommand ActiveTourCmd { get; set; }
         public DelegateCommand CancelTourCmd { get; set; }
+        public DelegateCommand LeaveUsCmd { get; set; }
         public DelegateCommand TourStatisticsCmd { get; set; }
         public DelegateCommand GuideProfileCmd { get; set; }
         public DelegateCommand TourRequestCmd { get; set; }
@@ -42,6 +44,7 @@ namespace TouristAgency.Base
             CreateTourCmd = new DelegateCommand(param => CreateTourExecute(), param => AlwaysExecutes());
             ActiveTourCmd = new DelegateCommand(param => ActiveTourExecute(), param => AlwaysExecutes());
             CancelTourCmd = new DelegateCommand(param => CancelTourExecute(), param => AlwaysExecutes());
+            LeaveUsCmd = new DelegateCommand(param => LeaveUsExecute(), param => AlwaysExecutes());
             TourStatisticsCmd = new DelegateCommand(param => TourStatisticsExecute(), param => AlwaysExecutes());
             GuideProfileCmd = new DelegateCommand(param => GuideProfileExecute(), param => AlwaysExecutes());
             TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => AlwaysExecutes());
@@ -103,6 +106,11 @@ namespace TouristAgency.Base
         public void CancelTourExecute()
         {
             _app.CurrentVM = new CancelTourDisplayViewModel();
+        }
+
+        public void LeaveUsExecute()
+        {
+            _app.CurrentVM = new GuideQuitFeatureViewModel();
         }
 
 

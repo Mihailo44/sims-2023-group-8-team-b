@@ -14,6 +14,7 @@
         xmlns:tr="clr-namespace:TouristAgency.TourRequests"
         xmlns:acceptreq="clr-namespace:TouristAgency.TourRequests.AcceptRequestFeature"
         xmlns:begin="clr-namespace:TouristAgency.Tours.BeginTourFeature"
+        xmlns:quit="clr-namespace:TouristAgency.Users.QuitFeature"
         mc:Ignorable="d"
         Title="GuideMain" Height="600" Width="390" WindowStartupLocation="CenterScreen" Name="GuideStart">
 
@@ -48,6 +49,10 @@
         
         <DataTemplate DataType="{x:Type begin:ActiveTourDisplayViewModel}">
             <begin:ActiveTourDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type quit:GuideQuitFeatureViewModel}">
+            <quit:GuideQuitFeature/>
         </DataTemplate>
     </Window.Resources>
 
