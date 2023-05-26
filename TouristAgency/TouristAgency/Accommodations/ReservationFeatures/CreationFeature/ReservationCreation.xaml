@@ -8,7 +8,12 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Height="700" Width="1200">
+    
     <Grid Background="#FFFBF3">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="#FFD3A1" Height="700" Width="270" Margin="200,0,730,0">
+            <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="-The section &quot;1. Customize&quot; is used to search for accommodations according to certain parameters that you set yourself by clicking on the combo box next to the given parameter (for example, city), or by adjusting the numeric stepper for numbers by clicking on the arrows (for example for max capacity). Of course, if you prefer, you can enter the number yourself."/><LineBreak/><Run/><LineBreak/><Run Text="-When you set the parameters by which you are looking for accommodation, you can click the search button and in the section below (&quot;2. Select the accommodation&quot;) you will see all the accommodations that meet those parameters. By clicking on the show all button, a list of all accommodations will appear, as it did at the beginning."/><LineBreak/><Run/><LineBreak/><Run Text="-To book an accommodation, click on it, then in the section &quot;3. Search for available dates&quot; , select a date range (or enter it), specify the number of days and click search."/><LineBreak/><Run/><LineBreak/><Run Text="-Then in the section &quot;4. Select a date&quot; , click on the date range you want, in the section &quot;5. Reservation&quot; specify number of people and click on make a reservation button. If your reservation was successful, a notification will pop up and then you can click ok."/><LineBreak/><LineBreak/><Run/><LineBreak/><Run Text="."/></TextBlock>
+        </StackPanel>
+
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
         <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-18" Background="#F4F1BB">
@@ -27,7 +32,7 @@
                 </StackPanel>
             </Button>
             <Separator Width="100" Height="20" Background="Transparent"></Separator>
-            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent">
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ShowHelpMenuCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
                     <TextBlock>Help</TextBlock>
@@ -117,7 +122,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Content="Number of people:" FontSize="15" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <WPFExtended:UIntegerUpDown Grid.Column="1" Width="45" Height="25" HorizontalAlignment="Right" Value="{Binding Path = NumOfPeople}" VerticalAlignment="Center"/>
-                <Button x:Name="MakeReservationButton" FontSize="14" FontWeight="SemiBold"  Background="#F4F1BB" Grid.Row="1" Grid.ColumnSpan="2" Content="Make a reservation" Width="125" Height="28" HorizontalAlignment="Center" Command="{Binding CreateCmd}"/>
+                <Button x:Name="MakeReservationButton" FontSize="14" FontWeight="SemiBold"  Background="#F4F1BB" Grid.Row="1" Grid.ColumnSpan="2" Content="Make a reservation" Width="125" Height="28" HorizontalAlignment="Center" Command="{Binding CreateCmd}" Click="MakeReservationButton_Click"/>
             </Grid>
         </GroupBox>
         <ListView x:Name="ReservationsListView" FontSize="15" ItemsSource="{Binding Path = Reservations}" SelectedItem="{Binding SelectedReservation}" Margin="598,486,276,55">
@@ -154,13 +159,13 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Content="Name:" FontSize="15" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.342,0.281"/>
-                <ComboBox x:Name="NameComboBox" IsEditable="True" IsReadOnly="True" Text="*click here" Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Path=Names}" SelectedItem="{Binding SelectedName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                <ComboBox x:Name="NameComboBox" Grid.Row="0" Grid.Column="1" Width="120" ItemsSource="{Binding Path=Names}" SelectedItem="{Binding SelectedName}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
                 <Label Content="City:" FontSize="15" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.591,0.579"/>
-                <ComboBox x:Name="CityComboBox" IsEditable="True" IsReadOnly="True" Text="*click here" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}" SelectedItem="{Binding SelectedCity}" Margin="0,5,0,0"/>
+                <ComboBox x:Name="CityComboBox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Cities}" SelectedItem="{Binding SelectedCity}" Margin="0,5,0,0"/>
                 <Label Content="Country:" FontSize="15" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" RenderTransformOrigin="0.516,0.601" Margin="0,0,0,10"/>
-                <ComboBox x:Name="CountryComboBox" IsEditable="True" IsReadOnly="True" Text="*click here" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}" SelectedItem="{Binding SelectedCountry}" Grid.ColumnSpan="2" Margin="140,6,0,0"/>
+                <ComboBox x:Name="CountryComboBox" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Countries}" SelectedItem="{Binding SelectedCountry}" Grid.ColumnSpan="2" Margin="140,6,0,0"/>
                 <Label Content="Type:" FontSize="15" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <ComboBox x:Name="TypeComboBox" IsEditable="True" IsReadOnly="True" Text="*click here" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Types}" SelectedItem="{Binding SelectedType}" Grid.ColumnSpan="2" Margin="140,4,0,0"/>
+                <ComboBox x:Name="TypeComboBox" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path = Types}" SelectedItem="{Binding SelectedType}" Grid.ColumnSpan="2" Margin="140,4,0,0"/>
                 <Label Content="Max capacity:" FontSize="15" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Height="29"/>
                 <WPFExtended:UIntegerUpDown HorizontalAlignment="Left" Grid.Row="0" Grid.Column="5" VerticalAlignment="Top" Width="45" Height="25" Value="{Binding Path = MaxGuestNum}" Margin="10,5,0,0"/>
                 <Label Content="Min days for reservation:" Grid.ColumnSpan="2" FontSize="15" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="4" VerticalAlignment="Top" Width="239"/>

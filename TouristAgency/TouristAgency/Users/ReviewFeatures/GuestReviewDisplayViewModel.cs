@@ -18,7 +18,7 @@ using TouristAgency.Users.SuperGuestFeature;
 
 namespace TouristAgency.Users.ReviewFeatures
 {
-    public class GuestReviewDisplayViewModel : ViewModelBase
+    public class GuestReviewDisplayViewModel : HelpMenuViewModelBase
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -47,6 +47,7 @@ namespace TouristAgency.Users.ReviewFeatures
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 

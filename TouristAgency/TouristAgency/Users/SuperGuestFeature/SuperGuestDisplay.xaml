@@ -12,6 +12,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
         <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB">
@@ -55,17 +56,17 @@
 
         <TextBlock HorizontalAlignment="Left" Margin="223,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="263" Width="948" FontSize="21" Grid.ColumnSpan="2"><Run Text="You can become a super-guest if you have at least 10 reservations in the previous year. The super-guest title lasts for one year and expires if you don't meet the requirement of 10 reservations again.          "/><LineBreak/><Run/><LineBreak/><Run Text="Super-guest receives 5 bonus points that can be spent in the next year, after which the points are reset to 0.         "/><LineBreak/><Run Text="On each subsequent booking, one bonus point is spent, which brings discounts, which means that the super-guest will have 5 bookings with a discount.          "/><LineBreak/><Run/><LineBreak/><Run Text="Down below you can track your progress:         "/></TextBlock>
         <Image Source="../../Resources/Image/super-guest.png" Margin="112,368,-112,163" Grid.ColumnSpan="2"/>
-        <Label Content="Number of reservations (this year): " FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Left" Margin="583,548,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label Content="{Binding Path= NumOfReservations}" Margin="238,548,224,116" Grid.Column="1"/>
-        <Label Content="Points (this year): " FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Left" Margin="45,583,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label Content="{Binding Path= Points}" Margin="181,584,349,88" Grid.Column="1"></Label>
-        <Label Content="Status: " FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Left" Margin="43,618,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label Content="{Binding Path= Status}" Margin="114,632,367,42" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+        <Label Content="Number of reservations (this year): " FontWeight="Normal" FontSize="15" HorizontalAlignment="Left" Margin="583,548,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="{Binding Path= NumOfReservations}" FontWeight="SemiBold" FontSize="15" Margin="233,548,229,122" Grid.Column="1"/>
+        <Label Content="Points (this year): " FontWeight="Normal" FontSize="15" HorizontalAlignment="Left" Margin="45,583,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="{Binding Path= Points}" FontWeight="SemiBold" FontSize="15" Margin="181,584,349,88" Grid.Column="1"></Label>
+        <Label Content="Status: " FontWeight="Normal" FontSize="15" HorizontalAlignment="Left" Margin="51,618,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="{Binding Path= Status}" FontWeight="SemiBold" FontSize="15" Margin="114,617,367,44" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform/>
-                    <RotateTransform Angle="0.942"/>
+                    <RotateTransform Angle="-0.27"/>
                     <TranslateTransform/>
                 </TransformGroup>
             </Label.RenderTransform>

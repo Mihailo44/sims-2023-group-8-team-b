@@ -19,7 +19,7 @@ using TouristAgency.Users.ReviewFeatures;
 
 namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
 {
-    public class PostponementRequestCreationViewModel : ViewModelBase, ICreate
+    public class PostponementRequestCreationViewModel : HelpMenuViewModelBase, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -56,6 +56,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 

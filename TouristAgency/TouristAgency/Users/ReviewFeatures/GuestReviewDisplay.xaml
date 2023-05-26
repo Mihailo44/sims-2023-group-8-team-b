@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Height="700" Width="1200">
     <Grid Background="#FFFBF3">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="#FFD3A1" Height="700" Width="270" Margin="200,0,730,0">
+            <TextBlock FontSize="15" TextWrapping="Wrap" Height="694"><Run Text="-Here you can see the ratings you received from the owner of the accommodation you stayed in."/><LineBreak/><Run/><LineBreak/><Run Text="-The ratings are from 1 to 5."/><LineBreak/><Run/><LineBreak/><Run Text="-The reason why you can't see your ratings before you rated the owner and accommodation was to preserve the objectivity of giving ratings."/><LineBreak/></TextBlock>
+        </StackPanel>
+        
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
         <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB" Height="725" VerticalAlignment="Bottom">
@@ -25,7 +29,7 @@
                 </StackPanel>
             </Button>
             <Separator Width="100" Height="20" Background="Transparent"></Separator>
-            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent">
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ShowHelpMenuCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
                     <TextBlock>Help</TextBlock>
@@ -48,9 +52,14 @@
 
         <Label Content="Review display" Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="240,75,0,0" TextWrapping="Wrap" FontSize="21" VerticalAlignment="Top" Height="238" Width="854"><Run Text="Here you can see the ratings you received from the owner of the accommodation you stayed in."/><LineBreak/><Run Text="          "/><LineBreak/><Run Text="The ratings are from 1 to 5.          "/><LineBreak/><Run/><LineBreak/><Run Text="The reason why this button was disabled before you rated the owner and accommodation was to preserve the objectivity of giving ratings."/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="240,75,0,0" TextWrapping="Wrap" FontSize="21" VerticalAlignment="Top" Height="238" Width="854"><Run Text="Here you can see the ratings you received from the owner of the accommodation you stayed in."/><LineBreak/><Run Text="          "/><LineBreak/><Run Text="The ratings are from 1 to 5.          "/><LineBreak/><Run/><LineBreak/><Run Text="The reason why you can't see your ratings before you rated the owner and accommodation was to preserve the objectivity of giving ratings."/></TextBlock>
 
-        <ListView ItemsSource="{Binding Path= Reviews}" Margin="240,326,131,241">
+        <ListView ItemsSource="{Binding Path= Reviews}" Margin="240,313,106,226" Foreground="Black" FontSize="15">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding AccommodationName}" Width="150"/>
@@ -60,7 +69,7 @@
                     <GridViewColumn Header="Communication" DisplayMemberBinding="{Binding Communication}" Width="150"/>
                     <GridViewColumn Header="Overall impression" DisplayMemberBinding="{Binding OverallImpression}" Width="130"/>
                     <GridViewColumn Header="Noise level" DisplayMemberBinding="{Binding NoiseLevel}" Width="130"/>
-                    <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Comment}" Width="130"/>
+                    <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Comment}" Width="Auto"/>
                 </GridView>
             </ListView.View>
         </ListView>

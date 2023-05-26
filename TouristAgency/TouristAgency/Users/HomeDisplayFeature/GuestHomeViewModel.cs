@@ -17,7 +17,7 @@ using TouristAgency.View.Display;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
-    public class GuestHomeViewModel : ViewModelBase, ICloseable
+    public class GuestHomeViewModel : HelpMenuViewModelBase, ICloseable
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -29,6 +29,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
+        public DelegateCommand GuestReviewDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -36,9 +37,10 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = window;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
 
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             ShowUser();
             WelcomeUser();
         }
@@ -54,6 +56,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
+            GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
         }
 
         private void ShowUser()
@@ -129,6 +132,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void OpenSuperGuestDisplayCmdExecute()
         {
             _app.CurrentVM = new SuperGuestDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenGuestReviewDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReviewDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReviewDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()

@@ -20,7 +20,7 @@ using TouristAgency.Util;
 
 namespace TouristAgency.Users.ReviewFeatures
 {
-    public class OwnerReviewCreationViewModel : ViewModelBase, ICreate
+    public class OwnerReviewCreationViewModel : HelpMenuViewModelBase, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -56,6 +56,7 @@ namespace TouristAgency.Users.ReviewFeatures
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 

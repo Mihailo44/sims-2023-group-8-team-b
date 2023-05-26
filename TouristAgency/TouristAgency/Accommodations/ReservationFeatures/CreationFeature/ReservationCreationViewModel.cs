@@ -20,7 +20,7 @@ using TouristAgency.Users.SuperGuestFeature.Domain;
 
 namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
-    public class ReservationCreationViewModel : ViewModelBase, ICloseable, ICreate
+    public class ReservationCreationViewModel : HelpMenuViewModelBase, ICloseable, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -68,6 +68,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 
