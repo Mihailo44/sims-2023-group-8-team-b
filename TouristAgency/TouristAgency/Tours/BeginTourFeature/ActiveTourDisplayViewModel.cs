@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;
-using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours.BeginTourFeature
 {
@@ -188,10 +188,7 @@ namespace TouristAgency.Tours.BeginTourFeature
                     TourCheckpoint selectedTourCheckpoint = SelectedTourCheckpoint;
                     _tourTouristCheckpointService.TourTouristCheckpointRepository.Create(new TourTouristCheckpoint(_selectedTour.ID,
                         selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
-                    TouristNotification notification = new TouristNotification(selectedTourist.ID, TouristNotificationType.ATTENDANCE, "Question from guide about attendance");
-                    notification.Checkpoint = SelectedTourCheckpoint.Checkpoint;
-                    notification.CheckpointID = SelectedTourCheckpoint.CheckpointID;
-                    _touristNotificationService.TouristNotificationRepository.Create(notification);
+                    _touristNotificationService.NotifyAboutAttendance(selectedTourist.ID, SelectedTourCheckpoint.Checkpoint, SelectedTourCheckpoint.CheckpointID);
                 }
             }
         }

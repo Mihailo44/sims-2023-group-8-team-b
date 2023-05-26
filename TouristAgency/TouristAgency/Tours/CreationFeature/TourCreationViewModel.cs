@@ -7,13 +7,13 @@ using System.Reflection;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;
-using TouristAgency.Vouchers;
 
 namespace TouristAgency.CreationFeature
 {

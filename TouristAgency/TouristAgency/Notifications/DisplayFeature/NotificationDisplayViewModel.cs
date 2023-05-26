@@ -1,18 +1,21 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
+using TouristAgency.Interfaces;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.View.Display;
+using TouristAgency.Vouchers;
 
-namespace TouristAgency.Vouchers
+namespace TouristAgency.Notifications.DisplayFeature
 {
-    public class NotificationDisplayViewModel : ViewModelBase
+    public class NotificationDisplayViewModel : ViewModelBase, ICloseable
     {
         private App _app;
         private Tourist _loggedInTourist;
-
-        private ObservableCollection<Voucher> _vouchers;
+        private Window _window;
+        
         private ObservableCollection<TouristNotification> _notifications;
         private TouristNotification _selectedNotification;
 
@@ -21,12 +24,14 @@ namespace TouristAgency.Vouchers
         private TourTouristCheckpointService _ttcService;
         private CheckpointService _checkpointService;
 
+        public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand NotifyCmd { get; set; }
 
         public NotificationDisplayViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
+            _window = window;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
@@ -42,26 +47,13 @@ namespace TouristAgency.Vouchers
 
         private void InstantiateCollections()
         {
-            Vouchers = new ObservableCollection<Voucher>(_touristService.GetValidVouchers(_loggedInTourist));
             Notifications = new ObservableCollection<TouristNotification>(_touristNotificationService.GetByTouristID(_loggedInTourist.ID));
         }
 
         private void InstantiateCommands()
         {
             NotifyCmd = new DelegateCommand(param => NotifyExecute(), param => CanNotifyExecute());
-        }
-
-        public ObservableCollection<Voucher> Vouchers
-        {
-            get => _vouchers;
-            set
-            {
-                if (value != _vouchers)
-                {
-                    _vouchers = value;
-                    OnPropertyChanged("Vouchers");
-                }
-            }
+            CloseCmd = new DelegateCommand(param =>  CloseExecute(), param => CanCloseExecute());
         }
 
         public ObservableCollection<TouristNotification> Notifications
@@ -82,7 +74,7 @@ namespace TouristAgency.Vouchers
             get => _selectedNotification;
             set
             {
-                if (value != _selectedNotification) 
+                if (value != _selectedNotification)
                 {
                     _selectedNotification = value;
                     OnPropertyChanged("SelectedNotification");
@@ -102,7 +94,8 @@ namespace TouristAgency.Vouchers
                 switch (SelectedNotification.Type)
                 {
                     case Util.TouristNotificationType.ATTENDANCE: AttendanceNotify(); break;
-                    case Util.TouristNotificationType.SUGGESTED_TOUR: SuggestedNotify(); break;
+                    case Util.TouristNotificationType.SUGGESTED_TOUR_LOCATION: SuggestedNotify(); break;
+                    case Util.TouristNotificationType.SUGGESTED_TOUR_LANGUAGE: SuggestedNotify(); break;
                     case Util.TouristNotificationType.TOUR_REQUEST_ACCEPTED: NewNotify(); break;
                 }
             }
@@ -112,7 +105,7 @@ namespace TouristAgency.Vouchers
         {
             SelectedNotification.IsSeen = true;
             _touristNotificationService.TouristNotificationRepository.Update(SelectedNotification, SelectedNotification.ID);
-            if(SelectedNotification != null)
+            if (SelectedNotification != null)
             {
                 TourTouristCheckpoint ttc = _ttcService.GetPendingInvitationsByCheckpoint(SelectedNotification.CheckpointID);
                 MessageBoxResult result = MessageBox.Show("The guide has added you as present at the tour. Are you at: " + _checkpointService.CheckpointRepository.GetById(ttc.TourCheckpoint.CheckpointID).AttractionName + "?", "Question", MessageBoxButton.YesNo);
@@ -121,31 +114,38 @@ namespace TouristAgency.Vouchers
                     _ttcService.AcceptInvitation(_loggedInTourist.ID, ttc.TourCheckpoint.CheckpointID);
                 }
             }
-            Notifications.Remove(SelectedNotification);
         }
 
         public void SuggestedNotify()
         {
-            if(SelectedNotification != null)
+            if (SelectedNotification != null)
             {
                 SelectedNotification.IsSeen = true;
                 _touristNotificationService.TouristNotificationRepository.Update(SelectedNotification, SelectedNotification.ID);
                 TourDisplay x = new TourDisplay(_loggedInTourist, SelectedNotification.Tour);
                 x.Show();
-                Notifications.Remove(SelectedNotification);
             }
         }
 
         public void NewNotify()
         {
-            if(SelectedNotification != null) 
+            if (SelectedNotification != null)
             {
                 SelectedNotification.IsSeen = true;
                 _touristNotificationService.TouristNotificationRepository.Update(SelectedNotification, SelectedNotification.ID);
                 TourDisplay x = new TourDisplay(_loggedInTourist, SelectedNotification.Tour);
                 x.Show();
-                Notifications.Remove(SelectedNotification);
             }
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
+        {
+            _window.Close();
         }
     }
 }

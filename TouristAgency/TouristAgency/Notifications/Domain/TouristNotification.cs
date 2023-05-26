@@ -5,7 +5,7 @@ using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Util;
 
-namespace TouristAgency.Vouchers
+namespace TouristAgency.Notifications.Domain
 {
     public class TouristNotification : INotifyPropertyChanged, ISerializable
     {
@@ -13,10 +13,11 @@ namespace TouristAgency.Vouchers
         private int _touristID;
         private int _tourID;
         private Tour _tour;
-        private int _checkpointID;  
+        private int _checkpointID;
         private Checkpoint _checkpoint;
         private TouristNotificationType _type;
-        private string _message;
+        private string _title;
+        private string _description;
         private bool _isSeen;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -35,7 +36,7 @@ namespace TouristAgency.Vouchers
         {
             TouristID = touristID;
             Type = type;
-            Message = message;
+            Title = message;
             _isSeen = false;
         }
 
@@ -57,7 +58,7 @@ namespace TouristAgency.Vouchers
             get => _touristID;
             set
             {
-                if (value != _touristID)
+                if(value != _touristID)
                 {
                     _touristID = value;
                     OnPropertyChanged("TouristID");
@@ -70,7 +71,7 @@ namespace TouristAgency.Vouchers
             get => _tourID;
             set
             {
-                if (value != _tourID)
+                if(value != _tourID)
                 {
                     _tourID = value;
                     OnPropertyChanged("TourID");
@@ -97,7 +98,7 @@ namespace TouristAgency.Vouchers
             get => _checkpointID;
             set
             {
-                if (value != _checkpointID)
+                if(value != _checkpointID)
                 {
                     _checkpointID = value;
                     OnPropertyChanged("CheckpointID");
@@ -110,7 +111,7 @@ namespace TouristAgency.Vouchers
             get => _checkpoint;
             set
             {
-                if (value != _checkpoint)
+                if(value != _checkpoint)
                 {
                     _checkpoint = value;
                     OnPropertyChanged("Checkpoint");
@@ -124,7 +125,7 @@ namespace TouristAgency.Vouchers
             get => _type;
             set
             {
-                if (value != _type)
+                if(value != _type)
                 {
                     _type = value;
                     OnPropertyChanged("Type");
@@ -132,15 +133,28 @@ namespace TouristAgency.Vouchers
             }
         }
 
-        public string Message
+        public string Title
         {
-            get => _message;
+            get => _title;
             set
             {
-                if (value != _message)
+                if(value != _title)
                 {
-                    _message = value;
-                    OnPropertyChanged("Message");
+                    _title = value;
+                    OnPropertyChanged("Title");
+                }
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if(value != _description)
+                {
+                    _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
@@ -150,7 +164,7 @@ namespace TouristAgency.Vouchers
             get => _isSeen;
             set
             {
-                if (value != _isSeen)
+                if(value != _isSeen)
                 {
                     _isSeen = value;
                     OnPropertyChanged("IsSeen");
@@ -160,7 +174,7 @@ namespace TouristAgency.Vouchers
 
         protected virtual void OnPropertyChanged(string name)
         {
-            if (PropertyChanged != null)
+            if(PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
@@ -175,7 +189,8 @@ namespace TouristAgency.Vouchers
                 _tourID.ToString(),
                 _checkpointID.ToString(),
                 _type.ToString(),
-                _message,
+                _title,
+                _description,
                 _isSeen.ToString()
             };
             return csvValues;
@@ -188,8 +203,9 @@ namespace TouristAgency.Vouchers
             _tourID = Convert.ToInt32(values[2]);
             _checkpointID = Convert.ToInt32(values[3]);
             _type = Enum.Parse<TouristNotificationType>(values[4]);
-            _message = values[5];
-            _isSeen = Boolean.Parse(values[6]);
+            _title = values[5];
+            _description = values[6];
+            _isSeen = bool.Parse(values[7]);
         }
     }
 }

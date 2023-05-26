@@ -20,6 +20,8 @@ using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Notifications;
 using TouristAgency.Users.SuperGuestFeature.Domain;
+using TouristAgency.Notifications.Domain;
+using TouristAgency.Accommodations.ForumFeatures.Domain;
 
 namespace TouristAgency.Base
 {
@@ -51,7 +53,9 @@ namespace TouristAgency.Base
             { typeof(IStorage<Renovation>),new RenovationFileStorage()},
             { typeof(IStorage<RenovationRecommendation>), new RenovationRecommendationFileStorage()},
             { typeof(IStorage<GuestReviewNotification>),new GuestReviewNotificationFileStorage() },
-            { typeof(IStorage<SuperGuestTitle>), new SuperGuestTitleFileStorage()}
+            { typeof(IStorage<SuperGuestTitle>), new SuperGuestTitleFileStorage()},
+            { typeof(IStorage<Forum>), new ForumFileStorage()},
+            { typeof(IStorage<ForumComment>), new ForumCommentFileStorage()}
         };
 
         public static T CreateInstance<T>()

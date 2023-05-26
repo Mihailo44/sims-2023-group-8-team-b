@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
+using TouristAgency.Accommodations.ForumFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Notifications;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
@@ -51,6 +53,8 @@ namespace TouristAgency
         public RenovationRecommendationRepository RenovationRecommendationRepository { get; }
         public GuestReviewNotificationRepository GuestReviewNotificationRepository { get; }
         public SuperGuestTitleRepository SuperGuestTitleRepository { get; }
+        public ForumRepository ForumRepository { get; }
+        public ForumCommentRepository ForumCommentRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -102,6 +106,8 @@ namespace TouristAgency
             RenovationRecommendationRepository = new(InjectorService.CreateInstance<IStorage<RenovationRecommendation>>());
             GuestReviewNotificationRepository = new(InjectorService.CreateInstance<IStorage<GuestReviewNotification>>());
             SuperGuestTitleRepository = new(InjectorService.CreateInstance<IStorage<SuperGuestTitle>>());
+            ForumRepository = new(InjectorService.CreateInstance<IStorage<Forum>>());
+            ForumCommentRepository = new(InjectorService.CreateInstance<IStorage<ForumComment>>());
 
             LoadData();
         }
@@ -139,6 +145,9 @@ namespace TouristAgency
             TouristNotificationRepository.LoadCheckpointsToNotifications(CheckpointRepository.GetAll());
             GuestReviewNotificationRepository.LoadReservationsToNotifications(ReservationRepository.GetAll());
             SuperGuestTitleRepository.LoadGuestsToSuperGuestTitles(GuestRepository.GetAll());
+            ForumRepository.LoadLocationsToForums(LocationRepository.GetAll());
+            ForumCommentRepository.LoadForumsToComments(ForumRepository.GetAll());
+            ForumCommentRepository.LoadUsersToComments(UserRepository.GetAll());
         }
     }
 }

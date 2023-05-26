@@ -4,6 +4,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Statistics;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Tours.VoucherFeatures.DisplayFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 using TouristAgency.Vouchers;
@@ -28,6 +29,7 @@ namespace TouristAgency.Users
         public DelegateCommand TourRequestCmd { get; set; }
         public DelegateCommand TourRequestStatisticsCmd { get; set; }
         public DelegateCommand HelpForVoucherCmd { get; set; }
+        public DelegateCommand VouchersCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
 
         public TouristHomeViewModel(Tourist tourist, Window window)
@@ -55,6 +57,7 @@ namespace TouristAgency.Users
             TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => CanTourRequestExecute());
             TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => CanTourRequestStatisticsExecute());
             HelpForVoucherCmd = new DelegateCommand(param => HelpForVoucherExecute(), param => CanHelpForVoucherExecute());
+            VouchersCmd = new DelegateCommand(param => VouchersExecute(), param => CanVouchersExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
@@ -150,6 +153,17 @@ namespace TouristAgency.Users
         public void HelpForVoucherExecute()
         {
             HelpForVouchersDisplay display = new HelpForVouchersDisplay(_loggedInTourist);
+            display.Show();
+        }
+
+        public bool CanVouchersExecute()
+        {
+            return true;
+        }
+
+        public void VouchersExecute()
+        {
+            VoucherDisplay display = new VoucherDisplay(_loggedInTourist);
             display.Show();
         }
 
