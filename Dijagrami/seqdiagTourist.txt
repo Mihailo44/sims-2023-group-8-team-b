@@ -2,22 +2,19 @@
 
 Actor User as U
 Participant WPF as W
-Participant TourCreationViewModel as TCVM
-Participant NotificationDisplayViewModel as NDVM
 Participant TouristNotificationService as TNS
 Participant TouristNotificationRepository as TNR
 Participant Location as L
 
-U -> W: Creates tour
-W -> TCVM: NewTour
-TCVM -> TCVM ++: CreateTourExecute()
+U -> W: Inputs tour data and presses button
+W -> W ++: CreateTourExecute()
 
 opt canHandleTourRequest:
-   TCVM -> TNS ++: Create(notification)
+   W -> TNS ++: Create(notification)
    TNS -> TNR ++: Create(notification)
    TNR -> TNS --: notification
-   TNS -> TCVM --: notification
-   TCVM -> TNS --++: NotifyAboutNewTour(newTour, tourRequests)
+   TNS -> W --: notification
+   W -> TNS --++: NotifyAboutNewTour(newTour, tourRequests)
 
    loop tourRequests:
       TNS -> L ++: Equals(newTour.ShortLocation)
@@ -48,27 +45,28 @@ opt canHandleTourRequest:
          opt !notifiedStatus:
             TNS -> TNR ++: Create(notification)
             TNR -> TNS --: notification
+            TNS -> TNS --
          end
       end
    end
 end
 
-U -> W ++: See notification
-W -> NDVM ++
-NDVM -> TNS: GetAll()
+U -> W ++: Open notification window
+W -> W ++
+W -> TNS ++: GetAll()
 TNS -> TNR ++: GetAll()
 TNR -> TNS --: notifications
-TNS -> NDVM --: notifications
-NDVM -> W --
+TNS -> W --: notifications
+W -> W --
 
 U -> W: Select new tour notification
 
-W -> NDVM: SelectedNotification
-NDVM -> NDVM ++: NotifyExecute()
+W -> W: SelectedNotification
+W -> W ++: NotifyExecute()
 alt SelectedNotification.Type == SUGGESTED_TOUR:
-   NDVM -> W: TourDisplay(loggedInTourist, SelectedNotification.Tour)
+   W -> W: TourDisplay(loggedInTourist, SelectedNotification.Tour)
 else SelectedNotification.Type == TOUR_REQUEST_ACCEPTED:
-   NDVM -> W --: TourDisplay(loggedInTourist, SelectedNotification.Tour)
+   W -> W --: TourDisplay(loggedInTourist, SelectedNotification.Tour)
 end
 
 W -> U --

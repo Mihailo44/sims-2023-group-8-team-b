@@ -66,7 +66,7 @@
         </ListView>
 
 
-        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Width="233" Height="100">
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Width="233" Height="100" Margin="15,0,0,0">
             <StackPanel>
                 <Button Width="64" Height="64" VerticalAlignment="Top" Margin="7,13,7,0" Command="{Binding GuideProfileCmd}">
                     <Button.Template>
@@ -79,7 +79,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Label HorizontalAlignment="Center">Manage profile</Label>
+                <Label HorizontalAlignment="Center" FontWeight="Bold">Profile</Label>
             </StackPanel>
 
             <StackPanel Margin="51,0,0,0">
@@ -88,21 +88,21 @@
                         <BitmapImage UriSource="../../Resources/Image/file-pdf-solid.png"/>
                     </Image.Source>
                 </Image>
-                <Label HorizontalAlignment="Center">Manage reports</Label>
+                <Label HorizontalAlignment="Center" FontWeight="Bold">Reports</Label>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Width="233" Height="100">
+        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Width="233" Height="100" Margin="10,0,0,0">
             <StackPanel>
                 <Image Width="64" Height="64" VerticalAlignment="Top" Margin="7,13,7,0">
                     <Image.Source>
                         <BitmapImage UriSource="../../Resources/Image/question-solid.png"/>
                     </Image.Source>
                 </Image>
-                <Label HorizontalAlignment="Center">Tutorials</Label>
+                <Label HorizontalAlignment="Center" FontWeight="Bold">Tutorials</Label>
             </StackPanel>
 
-            <StackPanel Margin="75,0,0,0">
+            <StackPanel Margin="46,0,0,0">
                 <Image Width="64" Height="64" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="7,13,7,0">
                     <Image.Source>
                         <BitmapImage UriSource="../../Resources/Image/right-to-bracket-solid.png"/>
@@ -114,7 +114,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <Label HorizontalAlignment="Center">Logout</Label>
+                <Label HorizontalAlignment="Center" FontWeight="Bold">Logout</Label>
             </StackPanel>
         </StackPanel>
 

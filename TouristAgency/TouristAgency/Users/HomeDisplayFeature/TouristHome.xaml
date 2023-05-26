@@ -6,13 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="TouristHome" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF9BB9D1" Offset="0.99"/>
-            <GradientStop Color="#FFF4D7FF" />
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="TouristHome" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0" Background="#FFF3F7">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,7 +32,7 @@
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/review.png"/>
                     </MenuItem.Icon>
-                    
+
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_View">
@@ -52,7 +46,7 @@
                         <Image Source="../../Resources/Image/create.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="View and create requests for complex tours">
+                <MenuItem Header="View and create requests for complex tours" Command="{Binding ComplexTourRequestCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/create1.png"/>
                     </MenuItem.Icon>
@@ -98,26 +92,26 @@
         </Menu>
 
         <StackPanel Grid.Row="0" Grid.RowSpan="5" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,70,0,0">
-            <Image Height="210" Width="210">
+            <Image Height="230" Width="230" Margin="38,0,0,0">
                 <Image.Source>
-                    <BitmapImage UriSource="../../Resources/Image/userTourist.png"/>
+                    <BitmapImage UriSource="../../Resources/Image/user2.png"/>
                 </Image.Source>
             </Image>
 
             <Label Content="{Binding Username}" Grid.Row="2" Height="70" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"></Label>
             <Label Content="Where would you like to go today?" FontSize="28"></Label>
-            <Button Grid.Row="4" Width="170" Height="45" Command="{Binding CloseCmd}" FontSize="28" FontWeight="Bold" Background="Transparent" Cursor="Hand" BorderBrush="Transparent" Margin="0,25,0,0">
+            <Button Style="{StaticResource TouristBasicButton}" Grid.Row="4" Command="{Binding CloseCmd}" Margin="0,25,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/Image/logout.png" Margin="0,0,10,0"/>
+                    <Image Height="32" Source="../../Resources/Image/logout1.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Image Width="100" Height="100" Cursor="Hand">
+            <Image Width="80" Height="80" Cursor="Hand">
                 <Image.Source>
-                    <BitmapImage UriSource="../../Resources/Image/notification-bell.png"/>
+                    <BitmapImage UriSource="../../Resources/Image/notification1.png"/>
                 </Image.Source>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">

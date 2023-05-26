@@ -34,7 +34,7 @@ namespace TouristAgency.Tours
         public Tour Create(Tour newTour)
         {
             newTour.ID = GenerateId();
-            _tours.Add(newTour);
+            _tours.Add(new Tour(newTour));
             _storage.Save(_tours);
             NotifyObservers();
             return newTour;

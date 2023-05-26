@@ -6,13 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.TourRequests" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="TourRequestCreation" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
-            <GradientStop Color="#FFDCD8D4" />
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="TourRequestCreation" Height="750" Width="1100" WindowStartupLocation="CenterScreen" Background="#FFF3F7">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <Grid>
@@ -92,10 +86,10 @@
                     </TextBox>
                 </StackPanel>
 
-                <Button Grid.Row="3" Grid.Column="3" Command="{Binding CreateCmd}" Width="250" Height="40" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+                <Button Style="{StaticResource TouristBasicButton}" Grid.Row="3" Grid.Column="3" Command="{Binding CreateCmd}" Width="240" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../../../Resources/Image/send.png" Margin="0,0,10,0"/>
-                        <TextBlock> Send request</TextBlock>
+                        <Image Source="../../../Resources/Image/send1.png" Margin="0,0,5,0"/>
+                        <TextBlock>Send request</TextBlock>
                     </StackPanel>
                 </Button>
             </Grid>

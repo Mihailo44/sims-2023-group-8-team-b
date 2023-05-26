@@ -6,13 +6,7 @@
         xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Tour" Height="780" Width="1100" WindowStartupLocation="CenterScreen" Opacity="0.98">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
-            <GradientStop Color="#FFDCD8D4" />
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="Tour" Height="780" Width="1100" WindowStartupLocation="CenterScreen" Opacity="0.98" Background="#E7F0FF">
 
     <Grid HorizontalAlignment="Center" Height="720" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
@@ -144,7 +138,7 @@
                         </StackPanel>
                     </Button>
                 </StackPanel>
-                
+
             </Grid>
         </GroupBox>
     </Grid>

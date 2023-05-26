@@ -4,6 +4,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Statistics;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Tours.TourRequestFeatures.CreationFeature;
 using TouristAgency.Tours.VoucherFeatures.DisplayFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
@@ -28,6 +29,7 @@ namespace TouristAgency.Users
         public DelegateCommand NotificationCmd { get; set; }
         public DelegateCommand TourRequestCmd { get; set; }
         public DelegateCommand TourRequestStatisticsCmd { get; set; }
+        public DelegateCommand ComplexTourRequestCmd { get; set; }
         public DelegateCommand HelpForVoucherCmd { get; set; }
         public DelegateCommand VouchersCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
@@ -55,6 +57,7 @@ namespace TouristAgency.Users
             TourAttendanceCmd = new DelegateCommand(param => TourAttendanceExecute(), param => CanTourAttendanceExecute());
             NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
             TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => CanTourRequestExecute());
+            ComplexTourRequestCmd = new DelegateCommand(param => ComplexTourRequestExecute(), param => CanComplexTourRequestExecute());
             TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => CanTourRequestStatisticsExecute());
             HelpForVoucherCmd = new DelegateCommand(param => HelpForVoucherExecute(), param => CanHelpForVoucherExecute());
             VouchersCmd = new DelegateCommand(param => VouchersExecute(), param => CanVouchersExecute());
@@ -131,6 +134,17 @@ namespace TouristAgency.Users
         public void TourRequestExecute()
         {
             TourRequestCreation creation = new TourRequestCreation(_loggedInTourist);
+            creation.Show();
+        }
+
+        public bool CanComplexTourRequestExecute()
+        {
+            return true;
+        }
+
+        public void ComplexTourRequestExecute()
+        {
+            ComplexTourRequestCreation creation = new ComplexTourRequestCreation(_loggedInTourist);
             creation.Show();
         }
 
