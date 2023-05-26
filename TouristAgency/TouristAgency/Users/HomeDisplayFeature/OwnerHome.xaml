@@ -6,6 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:con="clr-namespace:TouristAgency.Converter"
+             xmlns:dis="clr-namespace:TouristAgency.Accommodations.ForumFeatures.DisplayFeature"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024" Background="White">
 
@@ -20,6 +21,10 @@
         <con:DateConverter x:Key="DateConv"/>
         <con:IntConverter x:Key="IntConv"/>
         <con:HotLocationConverter x:Key="LocationConv"/>
+
+        <DataTemplate DataType="{x:Type dis:ForumDisplayViewModel}">
+            <dis:ForumDisplay/>
+        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl.InputBindings>
@@ -203,7 +208,7 @@
             </WrapPanel>
 
             <StackPanel Width="990">
-
+                <ContentControl Content="{Binding CurrentVM}"/>
                 <Border Visibility="{Binding DataGridVisibility[0]}" Height="40" Width="350" HorizontalAlignment="Center" Background="LightSteelBlue" CornerRadius="15" BorderThickness="0.5" >
                     <xctk:WatermarkTextBox Background="Transparent" BorderThickness="0" Watermark="Search Reservations" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="SemiBold" Text="{Binding SearchInput,UpdateSourceTrigger=PropertyChanged}">
                         <i:Interaction.Triggers>
@@ -362,8 +367,15 @@
                       Width="990"
                       Margin="0,15,5,0"
                       ItemsSource="{Binding Forums}"
+                      SelectedItem="{Binding SelectedForum}"
                       Style="{StaticResource BasicListView}"
                       ItemContainerStyle="{StaticResource ListItem}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenForumCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
 
                     <ListView.View>
                         <GridView>
@@ -375,8 +387,8 @@
                                     <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="580" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Width="260" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="500" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="340" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
                             <GridViewColumn Width="150" Header="Is Useful" DisplayMemberBinding="{Binding IsUseful}"/>
                         </GridView>
                     </ListView.View>

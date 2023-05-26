@@ -54,7 +54,8 @@ namespace TouristAgency.Base
             { typeof(IStorage<RenovationRecommendation>), new RenovationRecommendationFileStorage()},
             { typeof(IStorage<GuestReviewNotification>),new GuestReviewNotificationFileStorage() },
             { typeof(IStorage<SuperGuestTitle>), new SuperGuestTitleFileStorage()},
-            { typeof(IStorage<Forum>), new ForumFileStorage()}
+            { typeof(IStorage<Forum>), new ForumFileStorage()},
+            { typeof(IStorage<ForumComment>), new ForumCommentFileStorage()}
         };
 
         public static T CreateInstance<T>()

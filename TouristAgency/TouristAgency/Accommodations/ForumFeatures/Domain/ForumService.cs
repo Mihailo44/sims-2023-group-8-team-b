@@ -10,12 +10,13 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
 {
     public class ForumService
     {
-        private readonly App app = (App)System.Windows.Application.Current;
+        private readonly App _app;
         public ForumRepository ForumRepository { get; }
 
         public ForumService()
         {
-            ForumRepository = app.ForumRepository;
+            _app = (App)App.Current;
+            ForumRepository = _app.ForumRepository;
         }
 
         public List<Forum> GetAll()

@@ -18,6 +18,8 @@ using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Notifications;
 using TouristAgency.Accommodations.ForumFeatures.Domain;
+using GalaSoft.MvvmLight.Messaging;
+using TouristAgency.Accommodations.ForumFeatures.DisplayFeature;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -117,7 +119,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             get => _reviewFormVisibility;
             set
             {
-                if(_reviewFormVisibility != value)
+                if (_reviewFormVisibility != value)
                 {
                     _reviewFormVisibility = value;
                     OnPropertyChanged();
@@ -125,17 +127,17 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
-        public string NotificationCountVisibility 
-        { 
+        public string NotificationCountVisibility
+        {
             get => _notificationCountVisibility;
             set
             {
-                if(_notificationCountVisibility != value)
+                if (_notificationCountVisibility != value)
                 {
                     _notificationCountVisibility = value;
                     OnPropertyChanged();
                 }
-            } 
+            }
         }
 
         public bool IsChecked
@@ -151,10 +153,10 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public Dictionary<int, string> DataGridVisibility
         {
             get => _dataGridVisibility;
-            set 
-            { 
-                _dataGridVisibility = value; 
-                OnPropertyChanged(); 
+            set
+            {
+                _dataGridVisibility = value;
+                OnPropertyChanged();
             }
         }
 
@@ -175,7 +177,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             get => _searchInput;
             set
             {
-                if(_searchInput != value)
+                if (_searchInput != value)
                 {
                     _searchInput = value;
                     OnPropertyChanged();
@@ -195,6 +197,26 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
+        private ViewModelBase _currentVm;
+
+        public ViewModelBase CurrentVM
+        {
+            get => _currentVm;
+            set
+            {
+                if (_currentVm != value)
+                {
+                    _currentVm = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void HandleSwitchViewModelMessage(SwitchViewModelMessage message)
+        {
+            CurrentVM = message.ViewModel;
+        }
+
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
 
@@ -210,6 +232,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public int NotificationCount { get; set; }
 
         public ObservableCollection<Forum> Forums { get; set; }
+        public Forum SelectedForum { get; set; }
 
         public Owner LoggedUser { get; set; }
         public string Status { get; set; }
@@ -222,7 +245,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public GuestReview NewGuestReview { get; set; }
 
         private Window _window;
-        private App _app = (App)App.Current;
+        private readonly App _app;
 
         public DelegateCommand CreateAccommodationCmd { get; set; }
         public DelegateCommand OpenNewReviewCmd { get; set; }
@@ -240,12 +263,14 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand SearchCmd { get; set; }
         public DelegateCommand CreateNewReviewCmd { get; set; }
         public DelegateCommand CloseReviewCmd { get; set; }
+        public DelegateCommand OpenForumCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
+            _app = (App)App.Current;
             LoggedUser = _app.LoggedUser;
             _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
-
+            Messenger.Default.Register<SwitchViewModelMessage>(this, HandleSwitchViewModelMessage);
             InstantiateServices();
             SubscribeObservers();
             InstantiateCollections();
@@ -297,6 +322,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _accommodationService.AccommodationRepository.Subscribe(this);
             _ownerReviewService.OwnerReviewRepository.Subscribe(this);
             _postponementRequestService.PostponementRequestRepository.Subscribe(this);
+            _forumService.ForumRepository.Subscribe(this);
         }
 
         private void InstantiateCollections()
@@ -335,18 +361,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
             CreateAccommodationCmd = new DelegateCommand(param => CreateAccommodationExecute(), param => CanCreateAccommodationExecute());
             CreateNewReviewCmd = new DelegateCommand(param => CreateNewReviewCmdExecute(), param => CanCreateNewReviewCmdExecute());
             OpenNewReviewCmd = new DelegateCommand(param => OpenGuestReviewCreationForm(), param => CanOpenGuestReviewFormExecute());
-            CloseReviewCmd = new DelegateCommand(param => CloseReviewCmdExecute(),param => CanCloseReviewCmdExecute());
+            CloseReviewCmd = new DelegateCommand(param => CloseReviewCmdExecute(), param => CanCloseReviewCmdExecute());
             PostponeCmd = new DelegateCommand(param => OpenPostponeReservationExecute(), param => CanOpenPostponeReservationExecute());
-            OpenAccommodationCreationCmd = new DelegateCommand(param => OpenAccommodationCreationCmdExecute(),param=> CanOpenAccommodationCreationCmdExecute());
-            CloseAccommodationCreationCmd = new DelegateCommand(param => CloseAccommodationCreationCmdExecute(),param => CanCloseAccommodationCreationCmdExecute());
+            OpenAccommodationCreationCmd = new DelegateCommand(param => OpenAccommodationCreationCmdExecute(), param => CanOpenAccommodationCreationCmdExecute());
+            CloseAccommodationCreationCmd = new DelegateCommand(param => CloseAccommodationCreationCmdExecute(), param => CanCloseAccommodationCreationCmdExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
             ShowDataGridCmd = new DelegateCommand(ShowDataGridExecute, CanShowDataGridExecute);
             ImportantCmd = new DelegateCommand(param => ImportantCmdExecute(), param => CanImportantCmdExecute());
             ShowAccCmd = new DelegateCommand(param => ShowAccountCmdExecute(), param => CanShowAccountCmdExecute());
-            ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param=> CanShowAccommodationMainExecute());
-            ShowNotificationsCmd = new DelegateCommand(param => ShowNotificationsCmdExecute(),param => CanShowNotificationsCmdExecute());
-            ClearNotificationsCmd = new DelegateCommand(param => ClearNotificationsCmdExecute(), param => CanClearNotificationsCmdExecute());   
+            ShowAccommodationMain = new DelegateCommand(param => ShowAccommodationMainExecute(), param => CanShowAccommodationMainExecute());
+            ShowNotificationsCmd = new DelegateCommand(param => ShowNotificationsCmdExecute(), param => CanShowNotificationsCmdExecute());
+            ClearNotificationsCmd = new DelegateCommand(param => ClearNotificationsCmdExecute(), param => CanClearNotificationsCmdExecute());
             SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
+            OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
         }
 
 
@@ -401,7 +428,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void LoadForums()
         {
-            List<Forum> forums = _forumService.GetByLocation(LoggedUser.Accommodations);
+            List<Forum> forums = _forumService.GetAll();
             Forums.AddRange(forums);
         }
 
@@ -423,7 +450,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             else
                 Status = "";
 
-           _ownerService.OwnerRepository.Update(LoggedUser, LoggedUser.ID);
+            _ownerService.OwnerRepository.Update(LoggedUser, LoggedUser.ID);
         }
 
         public bool CanOpenGuestReviewFormExecute()
@@ -441,17 +468,17 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 {
                     if (dateDiff > 5.0)
                     {
-                        MessageBox.Show("Guest review time window expired", "Guest Review Dialogue",MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Guest review time window expired", "Guest Review Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-                    else if(dateDiff < 0.0)
+                    else if (dateDiff < 0.0)
                     {
-                        MessageBox.Show("Selected reservation is in progress", "Guest Review Dialogue",MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Selected reservation is in progress", "Guest Review Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else if (SelectedReservation.Status == ReviewStatus.REVIEWED)
                     {
-                        MessageBox.Show("Selected guest has already been reviewed", "Guest Review Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+                        MessageBox.Show("Selected guest has already been reviewed", "Guest Review Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
-    
+
                     return false;
                 }
             }
@@ -537,6 +564,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void OpenPostponeReservationExecute()
         {
+            Messenger.Reset();
             PostponementRequestDialogue x = new PostponementRequestDialogue(SelectedRequest);
             x.ShowDialog();
         }
@@ -563,11 +591,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 return false;
             }
 
-            return index >= 0 && index <=4;
+            return index >= 0 && index <= 4;
         }
 
         public void ShowDataGridExecute(object parameter)
         {
+            Messenger.Default.Send(new SwitchViewModelMessage(null));
             int index = int.Parse(parameter.ToString());
 
             InputFormVisibility = "Collapsed";
@@ -580,7 +609,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
             for (int i = 0; i < 5; i++)
             {
-                if(i == index)
+                if (i == index)
                 {
                     DataGridVisibility[i] = "Visible";
                 }
@@ -617,7 +646,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void ShowAccountCmdExecute()
         {
-            if(AccountContainerVisibility == "Visible")
+            if (AccountContainerVisibility == "Visible")
             {
                 AccountContainerVisibility = "Collapsed";
             }
@@ -656,7 +685,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public bool CanClearNotificationsCmdExecute()
         {
-            return true ;
+            return true;
         }
 
         public void ClearNotificationsCmdExecute()
@@ -735,7 +764,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {
                 _accommodationService.AccommodationRepository.Create(NewAccommodation);
                 AddPhotos();
-                MessageBox.Show("Accommodation created successfully","Accommodation Creation Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("Accommodation created successfully", "Accommodation Creation Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                 InputFormVisibility = "Collapsed";
                 DataGridVisibility[1] = "Visible";
                 BtnNewVisibility = "Visible";
@@ -743,7 +772,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
             catch
             {
-                MessageBox.Show("Something went wrong, please try again","Accommodation Creation Dialogue",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("Something went wrong, please try again", "Accommodation Creation Dialogue", MessageBoxButton.OK, MessageBoxImage.Error);
                 InputFormVisibility = "Collapsed";
                 DataGridVisibility[1] = "Visible";
                 BtnNewVisibility = "Visible";
@@ -775,6 +804,19 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
             Reservations.Clear();
             Reservations.AddRange(_reservationService.SearchReservations(SearchInput));
+        }
+
+        public bool CanOpenForumCmdExecute()
+        {
+            return SelectedForum != null;
+        }
+
+        public void OpenForumCmdExecute()
+        {
+            DataGridVisibility[4] = "Collapsed";
+            OnPropertyChanged(nameof(DataGridVisibility));
+            Messenger.Default.Register<SwitchViewModelMessage>(this, HandleSwitchViewModelMessage);
+            CurrentVM = new ForumDisplayViewModel(SelectedForum);
         }
     }
 }

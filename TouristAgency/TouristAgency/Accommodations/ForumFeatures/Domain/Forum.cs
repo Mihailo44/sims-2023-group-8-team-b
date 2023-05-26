@@ -19,11 +19,13 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
         private Location _location;
         private int _locationId;
         private bool _useful;
+        private DateTime _created;
 
         public Forum()
         {
             _id = -1;
             _useful = false;
+            _created = DateTime.Today;
         }
 
         public Forum(string name,Location location)
@@ -32,6 +34,7 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
             _name = name;
             _location = location;
             _locationId = location.Id;
+            _created = DateTime.Today;
         }
 
         public int Id
@@ -96,6 +99,18 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
             }
         }
 
+        public DateTime Created
+        {
+            get { return _created; }
+            set
+            {
+                if(_created != value)
+                {
+                    _created = value;
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -108,7 +123,8 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
             LocationId = Convert.ToInt32(values[2]);
-            IsUseful = bool.Parse(values[3]);
+            Created = DateTime.Parse(values[3]);
+            IsUseful = bool.Parse(values[4]);
         }
 
         public string[] ToCSV()
@@ -117,6 +133,8 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
             {
                 Id.ToString(),
                 Name,
+                LocationId.ToString(),
+                Created.ToString(),
                 IsUseful.ToString()
             };
 
