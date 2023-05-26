@@ -143,6 +143,7 @@ namespace TouristAgency
             TouristNotificationRepository.LoadCheckpointsToNotifications(CheckpointRepository.GetAll());
             GuestReviewNotificationRepository.LoadReservationsToNotifications(ReservationRepository.GetAll());
             SuperGuestTitleRepository.LoadGuestsToSuperGuestTitles(GuestRepository.GetAll());
+            ForumRepository.LoadLocationsToForums(LocationRepository.GetAll());
         }
     }
 }

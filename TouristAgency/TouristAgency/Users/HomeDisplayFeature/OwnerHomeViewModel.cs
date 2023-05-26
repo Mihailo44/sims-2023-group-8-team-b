@@ -17,6 +17,7 @@ using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Notifications;
+using TouristAgency.Accommodations.ForumFeatures.Domain;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -33,6 +34,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private LocationService _locationService;
         private GuestReviewService _guestReviewService;
         private RenovationRecommendationService _recommendationService;
+        private ForumService _forumService;
 
         private string _photoLinks;
         private string _searchInput;
@@ -207,6 +209,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public ObservableCollection<Notification> Notifications { get; set; }
         public int NotificationCount { get; set; }
 
+        public ObservableCollection<Forum> Forums { get; set; }
+
         public Owner LoggedUser { get; set; }
         public string Status { get; set; }
 
@@ -284,6 +288,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _locationService = new();
             _guestReviewService = new();
             _recommendationService = new();
+            _forumService = new();
         }
 
         private void SubscribeObservers()
@@ -300,6 +305,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             Reservations = new ObservableCollection<Reservation>();
             PostponementRequests = new ObservableCollection<PostponementRequest>();
             OwnerReviews = new ObservableCollection<OwnerReview>();
+            Forums = new ObservableCollection<Forum>();
         }
 
         private void FillCollections()
@@ -309,6 +315,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             LoadPostponementRequests(LoggedUser.ID);
             LoadOwnerReviews(LoggedUser.ID);
             LoadNotifications(LoggedUser.ID);
+            LoadForums();
         }
 
         private void FillCombos()
@@ -390,6 +397,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 NotificationCount = 0;
                 NotificationCountVisibility = "Collapsed";
             }
+        }
+
+        private void LoadForums()
+        {
+            List<Forum> forums = _forumService.GetByLocation(LoggedUser.Accommodations);
+            Forums.AddRange(forums);
         }
 
         public void Update()

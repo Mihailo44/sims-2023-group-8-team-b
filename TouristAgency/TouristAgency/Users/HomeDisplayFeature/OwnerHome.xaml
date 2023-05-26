@@ -361,6 +361,8 @@
                       Height="550"
                       Width="990"
                       Margin="0,15,5,0"
+                      ItemsSource="{Binding Forums}"
+                      Style="{StaticResource BasicListView}"
                       ItemContainerStyle="{StaticResource ListItem}">
 
                     <ListView.View>
@@ -373,15 +375,9 @@
                                     <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="890" Header="Name"/>
-                            <GridViewColumn Width="100"/>
-                            <!--<GridViewColumn Width="50">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox IsEnabled="False"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>-->
+                            <GridViewColumn Width="580" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="260" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="150" Header="Is Useful" DisplayMemberBinding="{Binding IsUseful}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
