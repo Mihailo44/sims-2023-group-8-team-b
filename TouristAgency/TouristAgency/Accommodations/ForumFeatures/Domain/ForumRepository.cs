@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Users.SuperGuestFeature.Domain;
+using TouristAgency.Util;
 
 namespace TouristAgency.Accommodations.ForumFeatures.Domain
 {
@@ -51,7 +52,7 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
             }
 
             currentForum.Name = updatedForum.Name;
-            currentForum.Useful = updatedForum.Useful;
+            currentForum.IsUseful = updatedForum.IsUseful;
 
             _storage.Save(_forums);
             NotifyObservers();
@@ -70,6 +71,18 @@ namespace TouristAgency.Accommodations.ForumFeatures.Domain
         public List<Forum> GetAll()
         {
             return _forums;
+        }
+
+        public void LoadLocationsToForums(List<Location> locations)
+        {
+            foreach(Forum forum in _forums)
+            {
+                Location location = locations.Find(l => l.Id == forum.LocationId);
+                if(location != null)
+                {
+                    forum.Location = location;
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

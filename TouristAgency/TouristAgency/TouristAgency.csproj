@@ -67,6 +67,7 @@
     <None Remove="Resources\Image\userTourist.png" />
     <None Remove="Resources\Image\useVoucher.png" />
     <None Remove="Resources\Image\voucher.png" />
+    <None Remove="Resources\Image\x-solid.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -148,6 +149,9 @@
     <Resource Include="Resources\Image\userTourist.png" />
     <Resource Include="Resources\Image\useVoucher.png" />
     <Resource Include="Resources\Image\voucher.png" />
+    <Resource Include="Resources\Image\x-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
