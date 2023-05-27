@@ -8,18 +8,18 @@ using System.Windows.Data;
 
 namespace TouristAgency.Converter
 {
-    public class HotLocationConverter : IValueConverter
+    public class UsefulForumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool status = (bool)value;
             if (status)
             {
-                return "../../../Resources/Image/check.png";
+                return "../../../Resources/Image/pending.png";
             }
             else
             {
-                return "../../../Resources/Image/pending.png";
+                return "../../../Resources/Image/check.png";
             }
         }
 

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:TouristAgency.Users.ForumFeatures.DisplayFeature"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
@@ -14,6 +15,7 @@
     </UserControl.Resources>
 
     <Grid>
+
         <ListView
                      Height="550"
                      Width="990"
@@ -27,7 +29,7 @@
                     <Setter Property="FontWeight" Value="Regular"/>
                     <Setter Property="Height" Value="200"/>
                     <Setter Property="Width" Value="990"/>
-                    <Setter Property="Margin" Value="0,5,0,0"/>
+                    <Setter Property="Margin" Value="0,2,0,0"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -50,39 +52,39 @@
                             <Setter Property="FontStyle" Value="Italic"/>
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
-                    
+
                     <GridViewColumn Width="990" Header="Feed">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Border CornerRadius="15" BorderThickness="3" Width="970" Height="190" Background="LightGray" >
                                     <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="5"/>
-                                        <RowDefinition Height="65"/>
-                                        <RowDefinition/>
-                                        <RowDefinition Height="10"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5"/>
+                                            <RowDefinition Height="65"/>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="10"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <WrapPanel Grid.Row="1" Grid.Column="0" Width="180" Height="50" Margin="20,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                        <Label FontWeight="Bold" Content="{Binding User.Username}"/>
-                                        <Label FontSize="15" Content="{Binding Created,Converter={StaticResource DateConv}}"/>
-                                    </WrapPanel>
+                                        <WrapPanel Grid.Row="1" Grid.Column="0" Width="180" Height="50" Margin="20,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                            <Label FontWeight="Bold" Content="{Binding User.Username}"/>
+                                            <Label FontSize="15" Content="{Binding Created,Converter={StaticResource DateConv}}"/>
+                                        </WrapPanel>
 
-                                    <WrapPanel Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center">
-                                        <Button Width="120" Height="50" Style="{StaticResource BasicBtn}" Content="REPORT"/>
-                                        <Label Margin="15,5,0,0" Content="{Binding ReportNum}"/>
-                                    </WrapPanel>
+                                        <WrapPanel Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center">
+                                            <Button Width="120" Height="50" Style="{StaticResource BasicBtn}" Content="REPORT"/>
+                                            <Label Margin="15,5,0,0" Content="{Binding ReportNum}"/>
+                                        </WrapPanel>
 
-                                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="LightBlue">
-                                        <TextBlock Padding="10,0,0,0" Text="{Binding Comment}"/>
-                                    </Border>
-                                </Grid>
+                                        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="LightBlue">
+                                            <TextBlock Padding="10,0,0,0" Text="{Binding Comment}"/>
+                                        </Border>
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -90,5 +92,17 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <Grid Height="100" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0.5,5">
+            <Grid.Background>
+                <SolidColorBrush Color="Transparent"/>
+            </Grid.Background>
+            <Button Width="85" Height="85" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="NEW" Style="{StaticResource DemoBtnStyle}" Command="{Binding OpenNewCommentCmd}">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Direction="330" Softness="0.9" ShadowDepth="7" Opacity="0.4"/>
+                </Button.BitmapEffect>
+            </Button>
+        </Grid>
+
     </Grid>
 </UserControl>

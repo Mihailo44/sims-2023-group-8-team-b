@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Users.ForumFeatures.Domain;
 
 namespace TouristAgency.Notifications.Domain
 {
@@ -15,6 +16,23 @@ namespace TouristAgency.Notifications.Domain
         {
             _app = (App)App.Current;
             ForumNotificationRepository = _app.ForumNotificationRepository;
+        }
+
+        public void ManageNotifications(int ownerId, ForumService forumService)
+        {
+            DateTime today = DateTime.UtcNow.Date;
+
+            string message;
+
+            foreach (var forum in forumService.GetAll())
+            {
+                if (forum.Created == today)
+                {
+                    message = $"Check out new forum {forum.Name}";
+                    ForumNotification notification = new ForumNotification(forum,message);
+                    ForumNotificationRepository.Create(notification);
+                }
+            }
         }
     }
 }
