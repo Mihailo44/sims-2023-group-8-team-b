@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.Domain.DTO;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Converter;

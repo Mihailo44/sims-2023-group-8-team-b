@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Accommodations.ForumFeatures.Domain;
 using TouristAgency.Interfaces;
+using TouristAgency.Users.ForumFeatures.Domain;
 
 namespace TouristAgency.Notifications.Domain
 {

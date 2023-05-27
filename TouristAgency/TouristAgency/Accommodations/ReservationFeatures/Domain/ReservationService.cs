@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using TouristAgency.Accommodations.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Users;
 using TouristAgency.Util;
 

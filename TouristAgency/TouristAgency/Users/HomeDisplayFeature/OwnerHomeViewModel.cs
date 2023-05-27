@@ -10,15 +10,15 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Util;
 using TouristAgency.Accommodations.CreationFeature;
 using TouristAgency.Accommodations.NavigationWindow;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
-using TouristAgency.Accommodations.ForumFeatures.Domain;
 using GalaSoft.MvvmLight.Messaging;
-using TouristAgency.Accommodations.ForumFeatures.DisplayFeature;
 using TouristAgency.Notifications.Domain;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
+using TouristAgency.Users.ForumFeatures.Domain;
+using TouristAgency.Users.ForumFeatures.DisplayFeature;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {

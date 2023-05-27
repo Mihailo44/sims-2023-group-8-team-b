@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Serialization;
 
-namespace TouristAgency.Accommodations.ForumFeatures.Domain
+namespace TouristAgency.Users.ForumFeatures.Domain
 {
     public class ForumCommentFileStorage : IStorage<ForumComment>
     {

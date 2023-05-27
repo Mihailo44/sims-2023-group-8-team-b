@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TouristAgency.Accommodations.ForumFeatures.DisplayFeature
+namespace TouristAgency.Users.ForumFeatures.DisplayFeature
 {
     /// <summary>
     /// Interaction logic for ForumDisplay.xaml

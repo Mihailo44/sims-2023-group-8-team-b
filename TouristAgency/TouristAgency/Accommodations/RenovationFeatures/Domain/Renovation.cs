@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
+namespace TouristAgency.Accommodations.RenovationFeatures.Domain
 {
     public class Renovation : ISerializable
     {
@@ -24,9 +24,9 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             _id = -1;
         }
 
-        public Renovation(Accommodation accommodation, DateTime start, DateTime end,int estimatedDuration)
+        public Renovation(Accommodation accommodation, DateTime start, DateTime end, int estimatedDuration)
         {
-            _id= -1;
+            _id = -1;
             _accommodation = accommodation;
             _accommodationId = accommodation.Id;
             _start = start;
@@ -35,7 +35,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             _isCanceled = false;
         }
 
-        public int Id 
+        public int Id
         {
             get => _id;
             set
@@ -44,7 +44,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                 {
                     _id = value;
                 }
-            } 
+            }
         }
 
         public Accommodation Accommodation
@@ -52,7 +52,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             get => _accommodation;
             set
             {
-                if(_accommodation != value)
+                if (_accommodation != value)
                 {
                     _accommodation = value;
                 }
@@ -62,9 +62,9 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
         public int AccommodationId
         {
             get => _accommodationId;
-            set 
+            set
             {
-                if(_accommodationId != value)
+                if (_accommodationId != value)
                 {
                     _accommodationId = value;
                 }
@@ -76,7 +76,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             get => _start;
             set
             {
-                if(_start != value)
+                if (_start != value)
                 {
                     _start = value;
                 }
@@ -88,7 +88,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             get => _end;
             set
             {
-                if(_end != value)
+                if (_end != value)
                 {
                     _end = value;
                 }
@@ -100,7 +100,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             get => _estimatedDuration;
             set
             {
-                if(_estimatedDuration != value)
+                if (_estimatedDuration != value)
                 {
                     _estimatedDuration = value;
                 }
@@ -112,7 +112,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             get => _description;
             set
             {
-                if(_description != value)
+                if (_description != value)
                 {
                     _description = value;
                 }
@@ -124,7 +124,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             get => _isCanceled;
             set
             {
-                if(_isCanceled != value)
+                if (_isCanceled != value)
                 {
                     _isCanceled = value;
                 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Users.SuperGuestFeature.Domain;
 
-namespace TouristAgency.Accommodations.ForumFeatures.Domain
+namespace TouristAgency.Users.ForumFeatures.Domain
 {
     public class ForumService
     {

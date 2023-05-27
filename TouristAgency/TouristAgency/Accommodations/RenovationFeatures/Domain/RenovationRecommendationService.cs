@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
+namespace TouristAgency.Accommodations.RenovationFeatures.Domain
 {
     public class RenovationRecommendationService
     {

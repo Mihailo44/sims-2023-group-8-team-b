@@ -7,7 +7,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Users.SuperGuestFeature.Domain;
 using TouristAgency.Util;
 
-namespace TouristAgency.Accommodations.ForumFeatures.Domain
+namespace TouristAgency.Users.ForumFeatures.Domain
 {
     public class ForumRepository : ICrud<Forum>, ISubject
     {

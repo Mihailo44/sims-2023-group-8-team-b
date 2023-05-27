@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 

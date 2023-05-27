@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
+namespace TouristAgency.Accommodations.RenovationFeatures.Domain
 {
     public class RenovationRecommendationRepository : ICrud<RenovationRecommendation>, ISubject
     {

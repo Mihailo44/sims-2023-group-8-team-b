@@ -5,12 +5,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Accommodations.ForumFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.ForumFeatures.Domain;
 
-namespace TouristAgency.Accommodations.ForumFeatures.DisplayFeature
+namespace TouristAgency.Users.ForumFeatures.DisplayFeature
 {
     public class ForumDisplayViewModel : ViewModelBase,ICloseable,IObserver
     {

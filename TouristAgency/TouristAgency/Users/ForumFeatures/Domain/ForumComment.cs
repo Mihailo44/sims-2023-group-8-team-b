@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Users.Domain;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Accommodations.ForumFeatures.Domain
+namespace TouristAgency.Users.ForumFeatures.Domain
 {
     public class ForumComment : ISerializable
     {

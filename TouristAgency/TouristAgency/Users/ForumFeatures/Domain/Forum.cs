@@ -10,7 +10,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
-namespace TouristAgency.Accommodations.ForumFeatures.Domain
+namespace TouristAgency.Users.ForumFeatures.Domain
 {
     public class Forum : INotifyPropertyChanged, ISerializable
     {

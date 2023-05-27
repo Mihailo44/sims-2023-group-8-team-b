@@ -10,7 +10,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
-namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
+namespace TouristAgency.Accommodations.RenovationFeatures.Domain
 {
     public class RenovationRecommendation : ISerializable, INotifyPropertyChanged
     {
@@ -65,7 +65,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                 {
                     _reservation = value;
                     OnPropertyChanged("Reservation");
-                }              
+                }
             }
         }
 

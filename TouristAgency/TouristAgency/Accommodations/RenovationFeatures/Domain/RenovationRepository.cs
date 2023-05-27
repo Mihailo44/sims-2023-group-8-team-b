@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
+namespace TouristAgency.Accommodations.RenovationFeatures.Domain
 {
-    public class RenovationRepository : ICrud<Renovation>,ISubject
+    public class RenovationRepository : ICrud<Renovation>, ISubject
     {
         private readonly IStorage<Renovation> _storage;
         private readonly List<Renovation> _renovations;
@@ -45,7 +45,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
         {
             Renovation currentRenovation = GetById(id);
 
-            if(currentRenovation == null)
+            if (currentRenovation == null)
                 return null;
 
             currentRenovation.Start = updatedRenovation.Start;
@@ -62,7 +62,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
         public void Delete(int id)
         {
             Renovation renovation = GetById(id);
-            if(renovation != null)
+            if (renovation != null)
             {
                 _renovations.Remove(renovation);
                 _storage.Save(_renovations);
@@ -77,10 +77,10 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
 
         public void LoadAccommodationsToRenovations(List<Accommodation> accommodations)
         {
-            foreach(var renovation in _renovations)
+            foreach (var renovation in _renovations)
             {
                 Accommodation accommodation = accommodations.Find(a => a.Id == renovation.AccommodationId);
-                if(accommodation != null)
+                if (accommodation != null)
                 {
                     renovation.Accommodation = accommodation;
                     renovation.AccommodationId = accommodation.Id;
@@ -100,7 +100,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
 
         public void NotifyObservers()
         {
-            foreach(var observer in _observers)
+            foreach (var observer in _observers)
             {
                 observer.Update();
             }

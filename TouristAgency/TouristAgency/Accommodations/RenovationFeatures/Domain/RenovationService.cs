@@ -4,7 +4,7 @@ using System.Linq;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
-namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
+namespace TouristAgency.Accommodations.RenovationFeatures.Domain
 {
     public class RenovationService
     {
@@ -13,7 +13,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
 
         public RenovationService()
         {
-            _app = (App)App.Current;
+            _app = (App)System.Windows.Application.Current;
             RenovationRepository = _app.RenovationRepository;
         }
 
@@ -29,8 +29,8 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
             DateTime endInterval = start.AddDays(estimatedDuration);
 
             bool isReserved;
-            
-            while(startInterval.AddDays(estimatedDuration) <= end)
+
+            while (startInterval.AddDays(estimatedDuration) <= end)
             {
                 isReserved = reservationService.IsReserved(accommodation.Id, startInterval, endInterval);
 
@@ -62,7 +62,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
                         accommodationService.AccommodationRepository.Update(accommodation, accommodation.Id);
                     }
                 }
-            }       
+            }
         }
 
         public void CancelRenovation(Renovation renovation)
@@ -75,7 +75,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.DomainA
         {
             DateTime today = DateTime.Today;
 
-            foreach(Renovation renovation in GetRenovationsByOwnerId(_app.LoggedUser.ID))
+            foreach (Renovation renovation in GetRenovationsByOwnerId(_app.LoggedUser.ID))
             {
                 if (renovation.IsCanceled)
                 {

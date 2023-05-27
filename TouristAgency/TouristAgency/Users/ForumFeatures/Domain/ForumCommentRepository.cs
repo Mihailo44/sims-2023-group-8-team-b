@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Users.Domain;
 
-namespace TouristAgency.Accommodations.ForumFeatures.Domain
+namespace TouristAgency.Users.ForumFeatures.Domain
 {
     public class ForumCommentRepository : ICrud<ForumComment>,ISubject
     {

@@ -7,7 +7,7 @@ using TouristAgency.Interfaces;
 using TouristAgency.Serialization;
 using TouristAgency.Users.SuperGuestFeature.Domain;
 
-namespace TouristAgency.Accommodations.ForumFeatures.Domain
+namespace TouristAgency.Users.ForumFeatures.Domain
 {
     public class ForumFileStorage : IStorage<Forum>
     {

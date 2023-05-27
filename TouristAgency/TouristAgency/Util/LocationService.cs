@@ -3,8 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 
 namespace TouristAgency.Util
 {
