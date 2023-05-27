@@ -15,11 +15,10 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.ManagingFeature;
-using TouristAgency.Users.ReviewFeatures;
-using TouristAgency.Notifications;
 using TouristAgency.Accommodations.ForumFeatures.Domain;
 using GalaSoft.MvvmLight.Messaging;
 using TouristAgency.Accommodations.ForumFeatures.DisplayFeature;
+using TouristAgency.Notifications.Domain;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {

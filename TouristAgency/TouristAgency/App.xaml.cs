@@ -55,6 +55,7 @@ namespace TouristAgency
         public SuperGuestTitleRepository SuperGuestTitleRepository { get; }
         public ForumRepository ForumRepository { get; }
         public ForumCommentRepository ForumCommentRepository { get; }
+        public ForumNotificationRepository ForumNotificationRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -108,6 +109,7 @@ namespace TouristAgency
             SuperGuestTitleRepository = new(InjectorService.CreateInstance<IStorage<SuperGuestTitle>>());
             ForumRepository = new(InjectorService.CreateInstance<IStorage<Forum>>());
             ForumCommentRepository = new(InjectorService.CreateInstance<IStorage<ForumComment>>());
+            ForumNotificationRepository = new(InjectorService.CreateInstance<IStorage<ForumNotification>>());
 
             LoadData();
         }
@@ -148,6 +150,7 @@ namespace TouristAgency
             ForumRepository.LoadLocationsToForums(LocationRepository.GetAll());
             ForumCommentRepository.LoadForumsToComments(ForumRepository.GetAll());
             ForumCommentRepository.LoadUsersToComments(UserRepository.GetAll());
+            ForumNotificationRepository.LoadForumsToNotifications(ForumRepository.GetAll());
         }
     }
 }

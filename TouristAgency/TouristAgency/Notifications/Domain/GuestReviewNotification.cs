@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 
-namespace TouristAgency.Notifications
+namespace TouristAgency.Notifications.Domain
 {
     public class GuestReviewNotification : Notification, ISerializable
     {

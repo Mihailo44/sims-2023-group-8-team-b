@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TouristAgency.Notifications
+namespace TouristAgency.Notifications.Domain
 {
     public class Notification
     {
@@ -51,6 +51,5 @@ namespace TouristAgency.Notifications
                 _created = value;
             }
         }
-
     }
 }

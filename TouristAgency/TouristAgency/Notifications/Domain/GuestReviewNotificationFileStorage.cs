@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Serialization;
-using TouristAgency.Users.ReviewFeatures.Domain;
 
-namespace TouristAgency.Notifications
+
+namespace TouristAgency.Notifications.Domain
 {
     public class GuestReviewNotificationFileStorage : IStorage<GuestReviewNotification>
     {

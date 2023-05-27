@@ -15,25 +15,25 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Background="LightCoral" Panel.ZIndex="1000" Width="35" Height="35" Margin="0,15,5,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding CloseCmd}"/>
         <ListView
-                      Height="550"
-                      Width="990"
-                      Margin="0,15,5,0"
-                      ItemsSource="{Binding ForumComments}"
-                      Style="{StaticResource BasicListView}">
+                     Height="550"
+                     Width="990"
+                     Margin="0,15,5,0"
+                     ItemsSource="{Binding ForumComments}"
+                     Style="{StaticResource BasicListView}">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="FontWeight" Value="Regular"/>
                     <Setter Property="Height" Value="200"/>
-                    <Setter Property="Margin" Value="0,10,0,0"/>
+                    <Setter Property="Width" Value="990"/>
+                    <Setter Property="Margin" Value="0,5,0,0"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListViewItem}">
                                 <Grid Background="{TemplateBinding Background}">
-                                    <Border BorderBrush="LightGray" BorderThickness="0,0,0,0.5"/>
+                                    <Border BorderBrush="LightGray" BorderThickness="0"/>
                                     <GridViewRowPresenter/>
                                 </Grid>
                             </ControlTemplate>
@@ -55,11 +55,13 @@
                     <GridViewColumn Width="990" Header="Feed">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Grid Width="995" Height="200" Margin="0,0,5,0" Background="LightBlue">
+                                <Border CornerRadius="15" BorderThickness="3" Width="970" Height="190" Background="LightGray" >
+                                    <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5"/>
-                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="65"/>
                                         <RowDefinition/>
+                                        <RowDefinition Height="10"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
@@ -68,7 +70,7 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
 
-                                    <WrapPanel Background="LightCyan" Grid.Row="1" Grid.Column="0" Width="180" Height="50" Margin="20,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <WrapPanel Grid.Row="1" Grid.Column="0" Width="180" Height="50" Margin="20,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
                                         <Label FontWeight="Bold" Content="{Binding User.Username}"/>
                                         <Label FontSize="15" Content="{Binding Created,Converter={StaticResource DateConv}}"/>
                                     </WrapPanel>
@@ -78,11 +80,11 @@
                                         <Label Margin="15,5,0,0" Content="{Binding ReportNum}"/>
                                     </WrapPanel>
 
-                                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="Snow">
-                                        <TextBlock Text="{Binding Comment}"/>
+                                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="LightBlue">
+                                        <TextBlock Padding="10,0,0,0" Text="{Binding Comment}"/>
                                     </Border>
-
                                 </Grid>
+                                </Border>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
