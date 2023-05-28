@@ -4,17 +4,16 @@
     <Style x:Key="TouristBasicButton" TargetType="{x:Type Button}">
         <Setter Property="Width" Value="180" />
         <Setter Property="Height" Value="40"/>
-        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontSize" Value="28"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" Background="#D5D0CD">
-                        <Border.CornerRadius>8</Border.CornerRadius>
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                    <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" Background="#439FE7">
+                        <Border.CornerRadius>5</Border.CornerRadius>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

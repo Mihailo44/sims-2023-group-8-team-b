@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="NotificationDisplay" Height="700" Width="850" WindowStartupLocation="CenterScreen">
+        Title="NotificationDisplay" Height="700" Width="850" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
 
     <Window.Resources>
         <converter:TouristNotificationTypeConverter x:Key="TouristNotificationTypeConverter"></converter:TouristNotificationTypeConverter>
@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <Label Content="Notifications" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 
-        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" HorizontalContentAlignment="Stretch" Background="#FFF3F7">
+        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" HorizontalContentAlignment="Stretch" Background="WhiteSmoke">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -47,6 +47,11 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Style="{StaticResource TouristBasicButton}" Grid.Row="2" Grid.Column="0" Content="Close" Command="{Binding CloseCmd}"></Button>
+        <Button Width="180" Height="40" Background="Transparent" FontSize="28" FontWeight="Bold" Cursor="Hand" Grid.Row="2" Grid.Column="0" BorderBrush="#929292" BorderThickness="1.2" Command="{Binding CloseCmd}">
+            <StackPanel Orientation="Horizontal">
+                <Image Height="24" Source="../../Resources/Image/cancel.png" Margin="0,0,10,0"/>
+                <TextBlock>Close</TextBlock>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

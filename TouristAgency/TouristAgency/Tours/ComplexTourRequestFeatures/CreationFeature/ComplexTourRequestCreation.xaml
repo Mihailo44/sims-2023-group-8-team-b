@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Tours.TourRequestFeatures.CreationFeature"
         mc:Ignorable="d"
-        Title="ComplexTourRequestCreation" Height="785" Width="1100" WindowStartupLocation="CenterScreen" Background="#FFF3F7">
+        Title="Create request for your complex tour" Height="785" Width="1100" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -49,7 +49,16 @@
         </ListView>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,15,0">
-            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40">
+            <Button Style="{StaticResource TouristBasicButton}" Content="List of parts" Command="{Binding ListOfPartsCmd}"></Button>
+            <Label></Label>
+            <Button Height="40" Width="220" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2">
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="25" Source="../../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
+                    <TextBlock>Remove part</TextBlock>
+                </StackPanel>
+            </Button>
+            <Label></Label>
+            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40" Command="{Binding AddNewPartCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="25" Source="../../../Resources/Image/add.png" Margin="0,0,5,0"/>
                     <TextBlock>Add new part</TextBlock>
@@ -58,14 +67,7 @@
             <Label></Label>
             <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40">
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="25" Source="../../../Resources/Image/cancel1.png" Margin="0,0,5,0"/>
-                    <TextBlock>Remove part</TextBlock>
-                </StackPanel>
-            </Button>
-            <Label></Label>
-            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40">
-                <StackPanel Orientation="Horizontal">
-                    <Image Height="30" Source="../../../Resources/Image/send1.png" Margin="0,0,5,0"/>
+                    <Image Height="30" Source="../../../Resources/Image/send2.png" Margin="0,0,5,0"/>
                     <TextBlock>Send request</TextBlock>
                 </StackPanel>
             </Button>

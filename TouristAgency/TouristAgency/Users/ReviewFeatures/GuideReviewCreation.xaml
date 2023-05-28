@@ -6,13 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         xmlns:custom="clr-namespace:TouristAgency.Design.Tourist.Controls"
         mc:Ignorable="d"
-        Title="TourGuideReviewCreation" Height="810" Width="1100" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
-            <GradientStop Color="#FFDCD8D4" />
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="Finished tour and guide review" Height="810" Width="1100" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="790">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -98,9 +92,9 @@
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
 
-                <Button Grid.Row="6" Grid.Column="6" Width="240" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+                <Button Style="{StaticResource TouristBasicButton}" Grid.Row="6" Grid.Column="6" Width="240" Command="{Binding CreateCmd}" HorizontalAlignment="Right" Margin="0,0,10,0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../../Resources/Image/send.png" Margin="0,0,10,0"/>
+                        <Image Height="30" Source="../../Resources/Image/send2.png" Margin="0,0,6,0"/>
                         <TextBlock>Send review</TextBlock>
                     </StackPanel>
                 </Button>
