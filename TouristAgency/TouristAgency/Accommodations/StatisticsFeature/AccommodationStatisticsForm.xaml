@@ -38,7 +38,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <Button Width="200" Margin="295,5,0,0" Content="Print PDF Report" Style="{StaticResource BasicBtn}"/>
+                <Button Width="200" Margin="295,5,0,0" Content="Print PDF Report" Style="{StaticResource BasicBtn}" Command="{Binding PrintReportCmd}"/>
         </WrapPanel>
         </GroupBox>
 

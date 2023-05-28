@@ -35,6 +35,8 @@
             <Button Width="180" Margin="20,5,0,0" Style="{StaticResource NavButton}" Content="Renovation History" Command="{Binding NavCmd}" CommandParameter="2"/>
         </WrapPanel>
 
+        <Button Grid.Row="0" Content="HELP" Style="{StaticResource CircleBtnStyle}" HorizontalAlignment="Right" Margin="0,0,25,0"/>
+
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
 
     </Grid>

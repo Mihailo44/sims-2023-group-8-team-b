@@ -341,7 +341,7 @@
                       Height="550" 
                       Width="990"
                       Margin="0,15,5,0"
-                      ItemsSource="{Binding OwnerReviews,UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding OwnerReviews}"
                       Style="{StaticResource BasicListView}"
                       ItemContainerStyle="{StaticResource ListItem}">
 
@@ -388,9 +388,9 @@
                                     <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="500" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Width="340" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
-                            <GridViewColumn Width="150" Header="Is Useful">
+                            <GridViewColumn Width="520" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="360" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="110" Header="">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Height="35" Width="35" Source="{Binding IsUseful,Converter={StaticResource ForumConv}}"/>

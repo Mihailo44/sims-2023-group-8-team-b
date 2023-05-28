@@ -25,7 +25,7 @@
             <WrapPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
                 <Label FontSize="24" FontWeight="SemiBold" Content="Start Date:"/>
                 <Label FontSize="24" Content="{Binding SelectedRenovation.Start}"/>
-                <Label FontSize="24" FontWeight="SemiBold" Content="End Date:"/>
+                <Label Margin="5,0,0,0" FontSize="24" FontWeight="SemiBold" Content="End Date:"/>
                 <Label FontSize="24" Content="{Binding SelectedRenovation.End}"/>
             </WrapPanel>
         </GroupBox>

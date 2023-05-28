@@ -85,6 +85,7 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="itext7" Version="8.0.0" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
@@ -179,7 +180,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Files\" />
     <Folder Include="Resources\Image\TourImage\" />
+    <Folder Include="Resources\PDF\" />
   </ItemGroup>
 
 </Project>

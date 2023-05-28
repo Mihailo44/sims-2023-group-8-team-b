@@ -13,10 +13,10 @@
     </UserControl.Resources>
 
     <Grid>
-        <StackPanel Height="auto" Width="850" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+        <StackPanel Height="auto" Width="820" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                   VerticalAlignment="Top" Background="Snow">
             <Label HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="SemiBold" Content="Renovation History"/>
-            <ListView Height="auto" Width="850" Margin="0,5,0,0" VerticalAlignment="Top"
+            <ListView Height="auto" Width="820" Margin="0,5,0,0" VerticalAlignment="Top"
                   ItemsSource="{Binding Renovations}"
                   SelectedItem="{Binding SelectedRenovation}"
                   Style="{StaticResource BasicListView}"
@@ -39,7 +39,7 @@
                     </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn Width="210" Header="Start Date" DisplayMemberBinding="{Binding Start,Converter={StaticResource DateConv}}"/>
                     <GridViewColumn Width="210" Header="End Date" DisplayMemberBinding="{Binding End,Converter={StaticResource DateConv}}"/>
-                    <GridViewColumn Width="430" Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn Width="410" Header="Description" DisplayMemberBinding="{Binding Description}"/>
                 </GridView>
             </ListView.View>
         </ListView>
