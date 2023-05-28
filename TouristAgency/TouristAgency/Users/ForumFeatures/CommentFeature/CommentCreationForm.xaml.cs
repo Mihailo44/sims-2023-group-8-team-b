@@ -10,20 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Users.ForumFeatures.Domain;
 
-namespace TouristAgency.Users.ForumFeatures.DisplayFeature
+namespace TouristAgency.Users.ForumFeatures.CommentFeature
 {
     /// <summary>
-    /// Interaction logic for ForumDisplay.xaml
+    /// Interaction logic for CommentCreationForm.xaml
     /// </summary>
-    public partial class ForumDisplay : UserControl
+    public partial class CommentCreationForm : Window
     {
-        public ForumDisplay()
+        public CommentCreationForm(Forum selectedForum)
         {
             InitializeComponent();
+            DataContext = new CommentCreationViewModel(selectedForum,this);
         }
     }
 }

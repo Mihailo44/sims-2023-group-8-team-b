@@ -31,11 +31,13 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private PostponementRequestService _postponementRequestService;
         private RenovationService _renovationService;
         private GuestReviewNotificationService _guestReviewNotificationService;
+        private ForumNotificationService _forumNotificationService;
         private PhotoRepository _photoRepository;
         private LocationService _locationService;
         private GuestReviewService _guestReviewService;
         private RenovationRecommendationService _recommendationService;
         private ForumService _forumService;
+        private ForumCommentService _forumCommentService;
 
         private string _photoLinks;
         private string _searchInput;
@@ -281,6 +283,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             NewGuestReview = new();
 
             _guestReviewNotificationService.ManageNotifications(LoggedUser.ID, _reservationService);
+            _forumNotificationService.ManageNotifications(LoggedUser.ID, _forumService);
 
             AccountContainerVisibility = "Collapsed";
             NotificationContainerVisibility = "Collapsed";
@@ -293,6 +296,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _renovationService.SetRenovationProgress(_accommodationService);
             _renovationService.CheckAccommodationRenovationStatus(_accommodationService);
             _accommodationService.SetHotLocationsStatus(_locationService, _accommodationService, _reservationService, _postponementRequestService, _recommendationService);
+            _forumService.IsUseful(_forumCommentService,_reservationService);
 
             FillCollections();
 
@@ -313,6 +317,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _guestReviewService = new();
             _recommendationService = new();
             _forumService = new();
+            _forumNotificationService = new();
+            _forumCommentService = new();
         }
 
         private void SubscribeObservers()
@@ -410,13 +416,15 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void LoadNotifications(int ownerId)
         {
-            List<GuestReviewNotification> notifications = _guestReviewNotificationService.GetByOwnerId(ownerId);
-            if (notifications.Count() > 0)
+            List<GuestReviewNotification> reviewNotifications = _guestReviewNotificationService.GetByOwnerId(ownerId);
+            List<ForumNotification> forumNotifications = _forumNotificationService.ForumNotificationRepository.GetAll();
+            if (reviewNotifications.Count() > 0 || forumNotifications.Count() > 0)
             {
-                Notifications.AddRange(notifications);
+                Notifications.AddRange(reviewNotifications);
+                Notifications.AddRange(forumNotifications);
                 BtnClearNotificationVisibility = "Visible";
                 NotificationCountVisibility = "Visible";
-                NotificationCount = notifications.Count();
+                NotificationCount = reviewNotifications.Count() + forumNotifications.Count();
             }
             else
             {
@@ -427,6 +435,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void LoadForums()
         {
+            Forums.Clear();
             List<Forum> forums = _forumService.GetAll();
             Forums.AddRange(forums);
         }

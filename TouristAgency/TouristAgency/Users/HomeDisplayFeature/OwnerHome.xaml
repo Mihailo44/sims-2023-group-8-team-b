@@ -21,7 +21,7 @@
         <con:DateConverter x:Key="DateConv"/>
         <con:IntConverter x:Key="IntConv"/>
         <con:HotLocationConverter x:Key="LocationConv"/>
-
+        <con:UsefulForumConverter x:Key="ForumConv"/>
         <DataTemplate DataType="{x:Type dis:ForumDisplayViewModel}">
             <dis:ForumDisplay/>
         </DataTemplate>
@@ -129,10 +129,11 @@
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
                                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                                 <Setter Property="FontSize" Value="20"/>
                                 <Setter Property="FontWeight" Value="Regular"/>
+                                <Setter Property="Padding" Value="10"/>
                                 <Setter Property="Height" Value="30"/>
                                 <Setter Property="Template">
                                     <Setter.Value>
@@ -389,7 +390,13 @@
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Width="500" Header="Name" DisplayMemberBinding="{Binding Name}"/>
                             <GridViewColumn Width="340" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
-                            <GridViewColumn Width="150" Header="Is Useful" DisplayMemberBinding="{Binding IsUseful}"/>
+                            <GridViewColumn Width="150" Header="Is Useful">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Height="35" Width="35" Source="{Binding IsUseful,Converter={StaticResource ForumConv}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>

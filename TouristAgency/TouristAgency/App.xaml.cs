@@ -121,6 +121,7 @@ namespace TouristAgency
             AccommodationRepository.LoadOwnersToAccommodations(OwnerRepository.GetAll());
             OwnerRepository.LoadAccommodationsToOwners(AccommodationRepository.GetAll());
             OwnerRepository.LoadLocationsToOwners(LocationRepository.GetAll());
+            OwnerRepository.LoadOwnerCredentials(UserRepository.GetAll());
             GuestReviewRepository.LoadReservationsToGuestReviews(ReservationRepository.GetAll());
             CheckpointRepository.LoadLocationsToCheckpoints(LocationRepository.GetAll());
             TourRepository.LoadLocationsToTours(LocationRepository.GetAll());

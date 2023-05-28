@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Storage;
+using TouristAgency.Users.Domain;
 using TouristAgency.Util;
 
 namespace TouristAgency.Accommodations.Domain
@@ -98,6 +99,19 @@ namespace TouristAgency.Accommodations.Domain
             foreach (var owner in _owners)
             {
                 owner.FullLocation = locations.Find(l => l.Id == owner.FullLocationID);
+            }
+        }
+
+        public void LoadOwnerCredentials(List<User> users)
+        {
+            foreach(var owner in _owners)
+            {
+                User user = users.Find(u => u.ID == owner.ID);
+                if(user != null)
+                {
+                    owner.Username = user.Username;
+                    owner.Password = user.Password;
+                }
             }
         }
 

@@ -1,0 +1,32 @@
+@startuml
+actor User as U
+participant WPF
+participant RenovationService as RS
+participant ReservationService as ResS
+participant RenovationRepository as RR
+
+U->WPF: Selects start and end dates and presses button
+WPF->WPF++: SearchCmdExecute()
+WPF->WPF++: FillCollection()
+WPF->RS ++: GeneratePotentialRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService)
+loop startInterval.AddDays(estimatedDuration) <= end
+RS->ResS: IsReserved(accommodation.Id, startInterval, endInterval)
+ResS-->RS --: IsReserved
+end
+RS-->WPF--: renovations
+WPF->WPF--
+WPF->WPF--
+WPF-->U: Potential renovation dates
+
+U->WPF: Selects a date and adds a renovation description
+WPF->WPF
+WPF->WPF++: CreateCmdExecute()
+WPF-->WPF --: SelectedRenovation
+WPF->WPF: Open Renovation Description Dialogue Form
+WPF->WPF++: CreateCmdExecute()
+WPF->RS ++: Create(SelectedRenovation)
+RS->RR ++: Create(SelectedRenovation)
+RR-->RS --: newRenovation
+RS-->WPF--: newRenovation
+WPF->WPF --: Status message
+@enduml
