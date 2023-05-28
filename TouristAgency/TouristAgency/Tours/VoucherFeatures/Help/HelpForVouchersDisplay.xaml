@@ -5,13 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Vouchers"
         mc:Ignorable="d"
-        Title="HelpForVouchersDisplay" Height="330" Width="720" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
-            <GradientStop Color="#FFDCD8D4" />
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="Where are my vouchers?" Height="330" Width="720" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -30,16 +24,16 @@
             If you have vouchers available, you can use them when booking the tour.
         </TextBlock>
 
-        <Button Grid.Row="0" Grid.Column="1" Command="{Binding VoucherNotificationCmd}" Width="260" Height="45" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,3" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+        <Button Style="{StaticResource TouristBasicButton}" Grid.Row="0" Grid.Column="1" Command="{Binding VoucherNotificationCmd}" Width="260" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,3">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../../../Resources/Image/voucher.png" Margin="0,0,10,0"/>
                 <TextBlock>Take me there</TextBlock>
             </StackPanel>
         </Button>
 
-        <Button Grid.Row="1" Grid.Column="1" Command="{Binding UseVoucherCmd}" Width="320" Height="45" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,10,0" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+        <Button Style="{StaticResource TouristBasicButton}" Grid.Row="1" Grid.Column="1" Command="{Binding UseVoucherCmd}" Width="320" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,10,0">
             <StackPanel Orientation="Horizontal">
-                <Image Source="../../../Resources/Image/useVoucher.png" Margin="0,0,10,0"/>
+                <Image Height="30" Source="../../../Resources/Image/useVoucher.png" Margin="0,0,10,0"/>
                 <TextBlock>Use a voucher now</TextBlock>
             </StackPanel>
         </Button>

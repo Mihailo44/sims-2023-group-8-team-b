@@ -3,8 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 
 namespace TouristAgency.Util
 {
@@ -50,7 +50,7 @@ namespace TouristAgency.Util
                 List<Accommodation> accommodationsOnLocation = ownersAccommodations.Where(a => a.Location.Equals(location)).ToList();
                 foreach (Accommodation accommodation in accommodationsOnLocation)
                 {
-                    if (accommodation.Location.Equals(location))
+                    if (accommodation.LocationId == location.Id)
                     {
                         List<int> stats = accommodationService.GetAccommodationStatsByYear(reservationService, postponementRequestService, renovationRecommendationService, accommodation, DateTime.Today.Year);
                         
@@ -68,6 +68,20 @@ namespace TouristAgency.Util
   
             Dictionary<Location, int> sortedDictionary = reservationsOnLocation.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
             return sortedDictionary.Keys.ToList();
+        }
+
+        public bool HasAccommodationOnLocation(Owner owner, Location location)
+        {
+            Accommodation accommodation = owner.Accommodations.Find(a => a.LocationId == location.Id);
+
+            if (accommodation != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

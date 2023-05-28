@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
-using TouristAgency.Accommodations.ForumFeatures.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -15,6 +14,7 @@ using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.Domain;
+using TouristAgency.Users.ForumFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Users.SuperGuestFeature.Domain;
 using TouristAgency.Util;
@@ -121,6 +121,7 @@ namespace TouristAgency
             AccommodationRepository.LoadOwnersToAccommodations(OwnerRepository.GetAll());
             OwnerRepository.LoadAccommodationsToOwners(AccommodationRepository.GetAll());
             OwnerRepository.LoadLocationsToOwners(LocationRepository.GetAll());
+            OwnerRepository.LoadOwnerCredentials(UserRepository.GetAll());
             GuestReviewRepository.LoadReservationsToGuestReviews(ReservationRepository.GetAll());
             CheckpointRepository.LoadLocationsToCheckpoints(LocationRepository.GetAll());
             TourRepository.LoadLocationsToTours(LocationRepository.GetAll());

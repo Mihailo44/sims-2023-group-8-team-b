@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="TouristHome" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0" Background="#FFF3F7">
+        Title="Tourist home" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0" Background="WhiteSmoke">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -91,16 +91,16 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Grid.Row="0" Grid.RowSpan="5" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,70,0,0">
-            <Image Height="230" Width="230" Margin="38,0,0,0">
+        <StackPanel Grid.Row="0" Grid.RowSpan="5" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,110,0,0">
+            <Image Height="180">
                 <Image.Source>
-                    <BitmapImage UriSource="../../Resources/Image/user2.png"/>
+                    <BitmapImage UriSource="../../Resources/Image/user3.png"/>
                 </Image.Source>
             </Image>
 
             <Label Content="{Binding Username}" Grid.Row="2" Height="70" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"></Label>
             <Label Content="Where would you like to go today?" FontSize="28"></Label>
-            <Button Style="{StaticResource TouristBasicButton}" Grid.Row="4" Command="{Binding CloseCmd}" Margin="0,25,0,0">
+            <Button Width="180" Height="45" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2" Cursor="Hand" Grid.Row="4" Command="{Binding CloseCmd}" Margin="0,25,0,0">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="32" Source="../../Resources/Image/logout1.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
@@ -108,10 +108,10 @@
             </Button>
         </StackPanel>
 
-        <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Image Width="80" Height="80" Cursor="Hand">
                 <Image.Source>
-                    <BitmapImage UriSource="../../Resources/Image/notification1.png"/>
+                    <BitmapImage UriSource="../../Resources/Image/notification3.png"/>
                 </Image.Source>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">

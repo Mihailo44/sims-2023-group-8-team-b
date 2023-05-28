@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TouristAgency.Accommodations.ForumFeatures.Domain;
 using TouristAgency.Interfaces;
+using TouristAgency.Users.ForumFeatures.Domain;
 
 namespace TouristAgency.Notifications.Domain
 {
@@ -35,7 +35,7 @@ namespace TouristAgency.Notifications.Domain
         {
             newNotification.Id = GenerateId();
             _forumNotifications.Add(newNotification);
-            _storage.Save(_forumNotifications);
+           // _storage.Save(_forumNotifications);
             NotifyObservers();
 
             return newNotification;
@@ -48,7 +48,7 @@ namespace TouristAgency.Notifications.Domain
             currentNotification.Message = updatedNotification.Message;
             currentNotification.Created = updatedNotification.Created;
 
-            _storage.Save(_forumNotifications);
+           // _storage.Save(_forumNotifications);
             NotifyObservers();
 
             return currentNotification;
@@ -60,7 +60,7 @@ namespace TouristAgency.Notifications.Domain
             if(forumNotification != null)
             {
                 _forumNotifications.Remove(forumNotification);
-                _storage.Save(_forumNotifications);
+               // _storage.Save(_forumNotifications);
                 NotifyObservers();
             }
         }

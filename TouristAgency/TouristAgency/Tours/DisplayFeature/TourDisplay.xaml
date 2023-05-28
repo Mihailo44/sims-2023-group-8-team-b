@@ -6,7 +6,7 @@
         xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Tour" Height="780" Width="1100" WindowStartupLocation="CenterScreen" Opacity="0.98" Background="#E7F0FF">
+        Title="View and reservation tour" Height="780" Width="1100" WindowStartupLocation="CenterScreen" Opacity="0.98" Background="WhiteSmoke">
 
     <Grid HorizontalAlignment="Center" Height="720" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
@@ -55,16 +55,16 @@
                 <Label Grid.Row="2" Grid.Column="2" Content="Num of people:" FontSize="28" FontWeight="SemiBold"/>
                 <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="3" Height="39" Width="73" HorizontalAlignment="Left" Value="{Binding Path=NumberOfPeople}" FontSize="28" FontWeight="SemiBold"/>
                 <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
-                    <Button Width="210" Height="40" Command="{Binding FilterCmd}" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+                    <Button Style="{StaticResource TouristBasicButton}" Width="210" Command="{Binding FilterCmd}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../../Resources/Image/applyFilter.png" Margin="0,0,10,0"/>
+                            <Image Height="32" Source="../../Resources/Image/filter.png" Margin="0,0,10,0"/>
                             <TextBlock>Apply filter</TextBlock>
                         </StackPanel>
                     </Button>
                     <Label></Label>
-                    <Button Width="210" Height="40" Command="{Binding ClearCmd}" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+                    <Button Width="210" Height="40" FontSize="28" FontWeight="Bold" Background="Transparent" Command="{Binding ClearCmd}" BorderBrush="#929292" BorderThickness="1.2" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../../Resources/Image/clearFilter.png" Margin="0,0,10,0"/>
+                            <Image Source="../../Resources/Image/clear.png" Margin="0,0,5,0"/>
                             <TextBlock>Clear filter</TextBlock>
                         </StackPanel>
                     </Button>
@@ -124,17 +124,17 @@
                 <Label Grid.Column="0" Content="Number of reservations:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,10"/>
                 <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="1" Width="73" Height="39" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}" FontSize="28" FontWeight="Bold" Margin="0,0,0,8"/>
                 <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,8">
-                    <Button Grid.Column="2" Width="300" Height="40" HorizontalAlignment="Right" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" Margin="6,0,0,0" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+                    <Button Grid.Column="3" Width="140" Height="40" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../../Resources/Image/reservation.png" Margin="0,0,10,0"/>
-                            <TextBlock>Make a reservation</TextBlock>
+                            <Image Height="24" Source="../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
+                            <TextBlock>Cancel</TextBlock>
                         </StackPanel>
                     </Button>
                     <Label></Label>
-                    <Button Grid.Column="3" Width="170" Height="40" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+                    <Button Style="{StaticResource TouristBasicButton}" Grid.Column="2" Width="300" HorizontalAlignment="Right" Command="{Binding CreateCmd}" Margin="6,0,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="../../Resources/Image/cancel.png" Margin="0,0,10,0"/>
-                            <TextBlock>Cancel</TextBlock>
+                            <Image Height="32" Source="../../Resources/Image/reservation.png" Margin="0,0,5,0"/>
+                            <TextBlock>Make a reservation</TextBlock>
                         </StackPanel>
                     </Button>
                 </StackPanel>

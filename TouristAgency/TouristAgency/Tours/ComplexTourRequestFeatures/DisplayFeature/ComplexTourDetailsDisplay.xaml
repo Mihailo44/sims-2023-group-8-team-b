@@ -1,0 +1,46 @@
+﻿<Window x:Class="TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature.ComplexTourDetailsDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature"
+        mc:Ignorable="d"
+        Title="View all parts of the complex tour" Height="530" Width="1090" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="360"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Complex tour: Visit to Novi Sad" FontSize="32" FontWeight="Bold" Margin="5,5,0,0"></Label>
+        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Tours}" Width="1060" Height="350" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="From"/>
+                    <GridViewColumn Header="To"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Style="{StaticResource TouristBasicButton}" Grid.Row="2" Grid.Column="0" Width="160" HorizontalAlignment="Right" Margin="0,0,7,0">
+            <StackPanel Orientation="Horizontal">
+                <Image Height="30" Source="../../../Resources/Image/cancel1.png" Margin="0,0,10,0"/>
+                <TextBlock>Close</TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

@@ -30,6 +30,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
+        public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -57,6 +58,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
+            AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
         }
 
         private void ShowUser()
@@ -142,6 +144,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void OpenGuestReviewDisplayCmdExecute()
         {
             _app.CurrentVM = new GuestReviewDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenAnywhereAnytimeCreationCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenAnywhereAnytimeCreationCmdExecute()
+        {
+            _app.CurrentVM = new AnywhereAnytimeCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()

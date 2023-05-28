@@ -47,7 +47,7 @@
             <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=OwnerReviewCreationCmd}"/>
             <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReviewDisplayCmd}"/>
             <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=PostponementRequestDisplayCmd}"/>
-            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=AnywhereAnytimeCreationCmd}"/>
             <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
             <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
             <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>

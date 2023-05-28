@@ -7,13 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="TourRequestStatisticsDisplay" Height="750" Width="1100" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
-            <GradientStop Color="#FFDCD8D4" />
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="View tour requests statistic" Height="750" Width="1100" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
