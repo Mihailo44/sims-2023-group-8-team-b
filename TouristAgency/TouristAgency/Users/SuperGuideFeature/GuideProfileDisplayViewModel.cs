@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
@@ -14,6 +15,14 @@ namespace TouristAgency.Users.SuperGuideFeature
         private Guide _loggedInGuide;
         private ObservableCollection<Tour> _availableTours;
         private ObservableCollection<string> _years;
+        private string _name;
+        private string _username;
+        public int _totalTourCount;
+        private int _yearlyTourCount;
+        private string _mostUsedLanguage;
+        private string _mostVisitedCity;
+        private string _mostVisitedCountry;
+
         private TourService _tourService;
         public DelegateCommand GetBestTourCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
@@ -36,7 +45,15 @@ namespace TouristAgency.Users.SuperGuideFeature
 
         private void InstantiateCollections()
         {
+            int guideID = _loggedInGuide.ID;
+            Name = _loggedInGuide.FirstName + " " + _loggedInGuide.LastName;
+            Username = "@"+_loggedInGuide.Username;
             Years = new ObservableCollection<string>(_tourService.GetYearsForStatistics());
+            MostUsedLanguage = _tourService.GetMostUsedLanguage(guideID);
+            MostVisitedCity = _tourService.GetMostVisitedCity(guideID);
+            MostVisitedCountry = _tourService.GetMostVisitedCountry(guideID);
+            TotalTourCount = _tourService.GetTourCount(guideID);
+            YearlyTourCount = _tourService.GetYearlyTourCount(DateTime.Now.Year, guideID);
         }
 
         private void InstantiateCommands()
@@ -67,6 +84,97 @@ namespace TouristAgency.Users.SuperGuideFeature
                 if (value != _years)
                 {
                     _years = value;
+                }
+            }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+
+        public string Username
+        {
+            get { return _username; }
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
+                }
+            }
+        }
+
+        public int TotalTourCount
+        {
+            get { return _totalTourCount; }
+            set
+            {
+                if (value != _totalTourCount)
+                {
+                    _totalTourCount = value;
+                    OnPropertyChanged("TotalTourCount");
+                }
+            }
+        }
+
+        public int YearlyTourCount
+        {
+            get { return _yearlyTourCount; }
+            set
+            {
+                if (value != _yearlyTourCount)
+                {
+                    _yearlyTourCount = value;
+                    OnPropertyChanged("YearlyTourCount");
+                }
+            }
+        }
+
+        public string MostUsedLanguage
+        {
+            get { return _mostUsedLanguage; }
+            set
+            {
+                if (value != _mostUsedLanguage)
+                {
+                    _mostUsedLanguage = value;
+                    OnPropertyChanged("MostUsedLanguage");
+                }
+            }
+        }
+
+        public string MostVisitedCity
+        {
+            get { return _mostVisitedCity; }
+            set
+            {
+                if (value != _mostVisitedCity)
+                {
+                    _mostVisitedCity = value;
+                    OnPropertyChanged("MostVisitedCity");
+                }
+            }
+        }
+
+        public string MostVisitedCountry
+        {
+            get { return _mostVisitedCountry; }
+            set
+            {
+                if (value != _mostVisitedCountry)
+                {
+                    _mostVisitedCountry = value;
+                    OnPropertyChanged("MostVisitedCountry");
                 }
             }
         }

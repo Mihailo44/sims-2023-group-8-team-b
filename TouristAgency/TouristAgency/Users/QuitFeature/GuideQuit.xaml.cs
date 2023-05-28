@@ -18,12 +18,12 @@ namespace TouristAgency.Users.QuitFeature
     /// <summary>
     /// Interaction logic for GuideQuitFeature.xaml
     /// </summary>
-    public partial class GuideQuitFeature : UserControl
+    public partial class GuideQuit : UserControl
     {
-        public GuideQuitFeature()
+        public GuideQuit()
         {
             InitializeComponent();
-            DataContext = new GuideQuitFeatureViewModel();
+            DataContext = new GuideQuitViewModel();
         }
     }
 }

@@ -12,7 +12,7 @@ using TouristAgency.Users.HomeDisplayFeature;
 
 namespace TouristAgency.Users.QuitFeature
 {
-    public class GuideQuitFeatureViewModel : BurgerMenuViewModelBase, ICloseable
+    public class GuideQuitViewModel : BurgerMenuViewModelBase, ICloseable
     {
         private App _app;
         private Guide _loggedInGuide;
@@ -21,7 +21,7 @@ namespace TouristAgency.Users.QuitFeature
 
         public DelegateCommand CloseCmd { get; set; }
 
-        public GuideQuitFeatureViewModel()
+        public GuideQuitViewModel()
         {
             _app = (App)Application.Current;
             _loggedInGuide = _app.LoggedUser;

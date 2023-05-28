@@ -51,8 +51,8 @@
             <begin:ActiveTourDisplay/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type quit:GuideQuitFeatureViewModel}">
-            <quit:GuideQuitFeature/>
+        <DataTemplate DataType="{x:Type quit:GuideQuitViewModel}">
+            <quit:GuideQuit/>
         </DataTemplate>
     </Window.Resources>
 

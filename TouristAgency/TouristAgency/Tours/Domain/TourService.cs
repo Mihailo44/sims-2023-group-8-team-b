@@ -22,6 +22,80 @@ namespace TouristAgency.Tours
             return TourRepository.Create(newTour);
         }
 
+        public List<Tour> GetAll()
+        {
+            return TourRepository.GetAll();
+        }
+
+        public Tour Update(Tour newTour, int id)
+        {
+            return TourRepository.Update(newTour, id);
+        }
+
+        public void Delete(int id)
+        {
+            TourRepository.Delete(id);
+        }
+
+        public int GetTourCount(int guideID)
+        {
+            return GetAll().FindAll(t => t.AssignedGuideID == guideID).Count();
+        }
+
+        public int GetYearlyTourCount(int year, int guideID)
+        {
+            return GetAll().FindAll(t => t.AssignedGuideID == guideID && t.StartDateTime.Year == year).Count();
+        }
+
+        public string GetMostUsedLanguage(int guideID)
+        {
+            var groups = GetAll().GroupBy(t => t.Language);
+            int max = -1;
+            string language = "";
+            foreach( var group in groups)
+            {
+                if(group.Count() > max)
+                {
+                    max = group.Count();
+                    language = group.Key;
+                }
+            }
+            return language;
+        }
+
+        public string GetMostVisitedCountry(int guideID)
+        {
+            var groups = GetAll().GroupBy(t => t.ShortLocation.Country);
+            int max = -1;
+            string country = "";
+            foreach (var group in groups)
+            {
+                if (group.Count() > max)
+                {
+                    max = group.Count();
+                    country = group.Key;
+                }
+            }
+            return country;
+        }
+
+        public string GetMostVisitedCity(int guideID)
+        {
+            var groups = GetAll().GroupBy(t => t.ShortLocation.City);
+            int max = -1;
+            string city = "";
+            foreach (var group in groups)
+            {
+                if (group.Count() > max)
+                {
+                    max = group.Count();
+                    city = group.Key;
+                }
+            }
+            return city;
+        }
+
+
         public List<Tour> GetTodayTours(int guideID)
         {
             List<Tour> todayTours = new List<Tour>();

@@ -156,6 +156,8 @@ namespace TouristAgency
                             {
                                 User = _guideService.GuideRepository.GetById(User.ID);
                                 app.LoggedUser = User;
+                                User.Username = Username;
+                                User.Password = Password;
                                 GuideMain x = new GuideMain();
                                 x.Show();
                                 ClearTxtBoxes();
