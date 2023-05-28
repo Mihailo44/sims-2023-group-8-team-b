@@ -12,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TouristAgency.Users;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
 
-namespace TouristAgency.Users.HomeDisplayFeature
+namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
     /// <summary>
-    /// Interaction logic for GuestHome.xaml
+    /// Interaction logic for AnywhereAnytimeCreation.xaml
     /// </summary>
-    public partial class GuestHome : UserControl
+    public partial class AnywhereAnytimeCreation : UserControl
     {
-        public GuestHome()
+        private Guest _loggedInGuest;
+        public AnywhereAnytimeCreation()
         {
             InitializeComponent();
         }
+
     }
 }

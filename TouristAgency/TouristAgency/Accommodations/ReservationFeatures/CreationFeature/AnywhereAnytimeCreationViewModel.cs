@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TouristAgency.Accommodations.PostponementFeatures;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
-using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Users;
+using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature;
-using TouristAgency.View.Creation;
-using TouristAgency.View.Display;
 
-namespace TouristAgency.Users.HomeDisplayFeature
+namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
-    public class GuestHomeViewModel : HelpMenuViewModelBase, ICloseable
+    public class AnywhereAnytimeCreationViewModel : HelpMenuViewModelBase, ICloseable
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -34,11 +31,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
-        public GuestHomeViewModel(Guest guest, Window window)
+
+        public AnywhereAnytimeCreationViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
+            _window = window;
 
             InstantiateCommands();
             InstantiateHelpMenuCommands();
@@ -96,6 +94,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 }
             }
         }
+
         public bool CanOpenAccommodationDisplayCmdExecute()
         {
             return true;
@@ -113,7 +112,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void OpenPostponementRequestDisplayCmdExecute()
         {
-           _app.CurrentVM = new PostponementRequestCreationViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new PostponementRequestCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenOwnerReviewCreationCmdExecute()
@@ -163,7 +162,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void OpenHomeCmdExecute()
         {
-           _app.CurrentVM = new GuestHomeViewModel(_loggedInGuest, _window);
+            _app.CurrentVM = new GuestHomeViewModel(_loggedInGuest, _window);
         }
 
         public bool CanCloseCmdExecute()
