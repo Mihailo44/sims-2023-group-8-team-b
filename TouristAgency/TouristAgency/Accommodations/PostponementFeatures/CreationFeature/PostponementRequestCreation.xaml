@@ -8,6 +8,10 @@
         mc:Ignorable="d"
          Height="700" Width="1200">
     <Grid Background="#FFFBF3">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="#FFD3A1" Height="700" Width="270" Margin="200,0,730,0">
+            <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="-If you want to cancel a reservation, select it from the All reservations list and click the cancel reservation button."/><LineBreak/><Run/><LineBreak/><Run Text="-If you cancelled your reservation successfully, a message will pop up and then you can click the ok button."/><LineBreak/><Run/><LineBreak/><Run Text="-Keep in mind that you can cancel the reservation no later than 24 hours before the start date of the stay, unless there are other restrictions set by the owner."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-If you want to move the reservation, select it from the &quot;All reservations&quot; list, then in the &quot;Request for moving reservation&quot; section, select the date range you want to move the reservation to and click send a request button."/><LineBreak/><Run/><LineBreak/><Run Text="-If your request has been successfully sent, it will appear down in the &quot;Requests&quot; list."/><LineBreak/><Run/><LineBreak/><Run Text="-There you can track the status of your request (on hold, approved or denied)."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-You will also get notifications about the status of your request and if you want to see those notifications, just click on the bell icon."/><LineBreak/></TextBlock>
+        </StackPanel>
+        
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
         <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB" Height="725" VerticalAlignment="Bottom">
@@ -26,7 +30,7 @@
                 </StackPanel>
             </Button>
             <Separator Width="100" Height="20" Background="Transparent"></Separator>
-            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent">
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ShowHelpMenuCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
                     <TextBlock>Help</TextBlock>
@@ -41,7 +45,7 @@
             <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=OwnerReviewCreationCmd}"/>
             <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReviewDisplayCmd}"/>
             <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=PostponementRequestDisplayCmd}"/>
-            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=AnywhereAnytimeCreationCmd}"/>
             <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
             <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
             <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>

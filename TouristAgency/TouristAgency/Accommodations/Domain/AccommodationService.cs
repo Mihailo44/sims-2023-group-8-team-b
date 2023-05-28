@@ -2,10 +2,10 @@
 using System.Linq;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
 using System;
 using TouristAgency.Accommodations.Domain.DTO;
 using TouristAgency.Util;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 
 namespace TouristAgency.Accommodations.Domain
 {

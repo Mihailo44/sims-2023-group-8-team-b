@@ -19,7 +19,7 @@ using TouristAgency.Users.ReviewFeatures;
 
 namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
 {
-    public class PostponementRequestCreationViewModel : ViewModelBase, ICreate
+    public class PostponementRequestCreationViewModel : HelpMenuViewModelBase, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -43,6 +43,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
+        public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -56,6 +57,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 
@@ -89,6 +91,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
+            AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
         }
 
         private void DisplayUser()
@@ -274,6 +277,16 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         public void OpenGuestReviewDisplayCmdExecute()
         {
             _app.CurrentVM = new GuestReviewDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenAnywhereAnytimeCreationCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenAnywhereAnytimeCreationCmdExecute()
+        {
+            _app.CurrentVM = new AnywhereAnytimeCreationViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()
