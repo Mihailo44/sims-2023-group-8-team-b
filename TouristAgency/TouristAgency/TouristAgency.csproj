@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Files\**" />
+    <EmbeddedResource Remove="Files\**" />
+    <None Remove="Files\**" />
+    <Page Remove="Files\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Image\accepted.png" />
     <None Remove="Resources\Image\account.png" />
     <None Remove="Resources\Image\add.png" />
@@ -182,7 +189,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Files\" />
     <Folder Include="Resources\Image\TourImage\" />
     <Folder Include="Resources\PDF\" />
   </ItemGroup>

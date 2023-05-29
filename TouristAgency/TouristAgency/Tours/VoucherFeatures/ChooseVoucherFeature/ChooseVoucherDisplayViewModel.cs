@@ -29,6 +29,9 @@ namespace TouristAgency.Vouchers
             _loggedInTourist = tourist;
             _tourID = tourID;
             _window = window;
+            InstantiateServices();
+            InstantiateCollections();
+            InstantiateCommands();
         }
 
         private void InstantiateServices()

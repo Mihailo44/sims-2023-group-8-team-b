@@ -78,6 +78,13 @@ namespace TouristAgency.Notifications.Domain
             TouristNotificationRepository.Create(notification);
         }
 
+        public void NotifyAboutWonVoucher(int touristID)
+        {
+            TouristNotification notification = new TouristNotification(touristID, TouristNotificationType.VOUCHER, "Won voucher");
+            notification.Description = "You have won a voucher for booking 5 tours. Click here to see your vouchers.";
+            TouristNotificationRepository.Create(notification);
+        }
+
         public bool IsNotified(int touristID, string message)
         {
             foreach (TouristNotification notification in TouristNotificationRepository.GetAll())

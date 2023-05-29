@@ -36,9 +36,9 @@
             </ListView.View>
         </ListView>
 
-        <Button Style="{StaticResource TouristBasicButton}" Grid.Row="2" Grid.Column="0" Width="160" HorizontalAlignment="Right" Margin="0,0,7,0">
+        <Button Grid.Row="2" Grid.Column="0" Width="160" Height="40" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,7,0">
             <StackPanel Orientation="Horizontal">
-                <Image Height="30" Source="../../../Resources/Image/cancel1.png" Margin="0,0,10,0"/>
+                <Image Height="30" Source="../../../Resources/Image/cancel.png" Margin="0,0,10,0"/>
                 <TextBlock>Close</TextBlock>
             </StackPanel>
         </Button>

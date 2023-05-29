@@ -5,18 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Choose your voucher" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Choose your voucher" Height="450" Width="650" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="360"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="350" Width="750" ItemsSource="{Binding Vouchers}" SelectedItem="{Binding SelectedVoucher}" FontSize="28" FontWeight="Bold">
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="List of your vouchers:" FontSize="32" FontWeight="Bold" Margin="15,0,0,0"></Label>
+        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="290" Width="600" ItemsSource="{Binding Vouchers}" SelectedItem="{Binding SelectedVoucher}" FontSize="28" FontWeight="Bold">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -24,18 +26,18 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Voucher no." Width="375" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Expires" Width="375" DisplayMemberBinding="{Binding ExpirationDate}"/>
+                    <GridViewColumn Header="Voucher name" Width="295" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Expires" Width="295" DisplayMemberBinding="{Binding ExpirationDate, StringFormat={}{0:MM/dd/yyyy}}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Style="{StaticResource TouristBasicButton}" Grid.Row="1" Grid.Column="0" Command="{Binding UseVoucherCmd}">
+        <Button Style="{StaticResource TouristBasicButton}" Grid.Row="2" Grid.Column="0" Command="{Binding UseVoucherCmd}">
             <StackPanel Orientation="Horizontal">
                 <Image Height="30" Source="../../../Resources/Image/useVoucher.png" Margin="0,0,10,0"/>
                 <TextBlock>Confirm</TextBlock>
             </StackPanel>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" Command="{Binding CloseCmd}" Height="40" Width="180" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2" Cursor="Hand">
+        <Button Grid.Row="2" Grid.Column="1" Command="{Binding CloseCmd}" Height="40" Width="180" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2" Cursor="Hand">
             <StackPanel Orientation="Horizontal">
                 <Image Height="24" Source="../../../Resources/Image/cancel.png" Margin="0,0,10,0"/>
                 <TextBlock>Cancel</TextBlock>

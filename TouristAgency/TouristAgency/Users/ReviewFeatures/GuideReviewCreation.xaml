@@ -82,10 +82,25 @@
                 <custom:SocialReviewControl Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="5"></custom:SocialReviewControl>
 
                 <Label Content="Additional comment:" Grid.Row="0" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416"></TextBox>
+                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416" FontSize="28">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                    <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+                    <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+                    <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
+                    <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
+                </TextBox>
 
                 <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="80" Width="416" Text="{Binding PhotoLinks}">
+                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="80" Width="416" Text="{Binding PhotoLinks}" FontSize="28">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>

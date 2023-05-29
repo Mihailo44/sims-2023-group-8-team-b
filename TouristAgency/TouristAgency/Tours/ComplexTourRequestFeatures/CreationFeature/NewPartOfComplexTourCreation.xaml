@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.Tours.TourRequestFeatures.CreationFeature"
         mc:Ignorable="d"
-        Title="NewPartOfComplexTourCreation" Height="315" Width="1000" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Add new part for your new complex tour" Height="315" Width="1000" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -22,15 +22,33 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Width="340" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,15,0,0">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Country:" FontSize="28" FontWeight="SemiBold"/>
-                <TextBox x:Name="CountryTextBox" Width="170" Height="40" FontSize="28" FontWeight="SemiBold" Margin="21.5,0,0,0"/>
+                <TextBox x:Name="CountryTextBox" Width="170" Height="40" FontSize="28" FontWeight="SemiBold" Margin="21.5,0,0,0">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="City:" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Width="66" />
-                <TextBox x:Name="CityTextBox" Width="170" Height="40" FontSize="28" FontWeight="SemiBold" Margin="75,0,0,0"/>
+                <TextBox x:Name="CityTextBox" Width="170" Height="40" FontSize="28" FontWeight="SemiBold" Margin="75,0,0,0">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Language:" FontSize="28" FontWeight="SemiBold"/>
-                <TextBox x:Name="Language" Width="170" Height="40" FontSize="28" FontWeight="SemiBold"/>
+                <TextBox x:Name="Language" Width="170" Height="40" FontSize="28" FontWeight="SemiBold">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
             </StackPanel>
         </StackPanel>
 
@@ -55,6 +73,11 @@
         <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" Orientation="Vertical" Width="340" HorizontalAlignment="Right" Margin="0,20,0,0">
             <Label Content="Description:" FontSize="28" FontWeight="SemiBold" Margin="10,0,0,0"/>
             <TextBox Height="120" Width="310" Text="{Binding TourRequest.Description}" FontSize="28" FontWeight="SemiBold">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
                 <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                 <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                 <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>

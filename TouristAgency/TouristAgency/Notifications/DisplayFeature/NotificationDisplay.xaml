@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="NotificationDisplay" Height="700" Width="850" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="NotificationDisplay" Height="700" Width="850" WindowStartupLocation="CenterScreen" Background="WhiteSmoke" FontFamily="San Francisco">
 
     <Window.Resources>
         <converter:TouristNotificationTypeConverter x:Key="TouristNotificationTypeConverter"></converter:TouristNotificationTypeConverter>

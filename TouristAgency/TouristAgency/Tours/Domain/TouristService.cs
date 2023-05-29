@@ -16,6 +16,26 @@ namespace TouristAgency.Users
             TouristRepository = _app.TouristRepository;
         }
 
+        public Tourist Create(Tourist tourist)
+        {
+            return TouristRepository.Create(tourist);
+        }
+
+        public List<Tourist> GetAll()
+        {
+            return TouristRepository.GetAll();
+        }
+
+        public Tourist Update(Tourist newTourist, int id) 
+        {
+            return TouristRepository.Update(newTourist, id);
+        }
+
+        public void Delete(int id) 
+        {
+            TouristRepository.Delete(id);
+        }
+
         public List<Voucher> GetValidVouchers(Tourist tourist)
         {
             DateTime nowDateTime = DateTime.Now;
@@ -51,6 +71,5 @@ namespace TouristAgency.Users
 
             return false;
         }
-
     }
 }
