@@ -20,7 +20,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         private ForumCommentService _forumCommentService;
         private LocationService _locationService;
 
-        public Forum SelectedForum { get; }
+        public static Forum SelectedForum { get; set; }
 
         public DelegateCommand OpenNewCommentCmd { get; }
         public DelegateCommand ReportCmd { get; }
@@ -81,6 +81,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
 
         public void ReportCmdExecute()
         {
+            
             MessageBox.Show("radim");
         }
 
