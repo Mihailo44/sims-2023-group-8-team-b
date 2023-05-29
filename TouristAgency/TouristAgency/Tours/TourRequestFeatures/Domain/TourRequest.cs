@@ -19,6 +19,7 @@ namespace TouristAgency.TourRequests
         private int _maxAttendants;
         private DateTime _startDate;
         private DateTime _endDate;
+        private int _complexTourRequestID;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -186,6 +187,19 @@ namespace TouristAgency.TourRequests
             }
         }
 
+        public int ComplexTourRequestID
+        {
+            get => _complexTourRequestID;
+            set
+            {
+                if(value != _complexTourRequestID)
+                {
+                    _complexTourRequestID = value;
+                    OnPropertyChanged("ComplexTourRequestID");
+                }
+            }
+        }
+
         public string Error => null;
         public string this[string columnName]
         {
@@ -254,7 +268,8 @@ namespace TouristAgency.TourRequests
                 Language,
                 MaxAttendants.ToString(),
                 StartDate.ToString(),
-                EndDate.ToString()
+                EndDate.ToString(),
+                ComplexTourRequestID.ToString()
             };
             return csvValues;
         }
@@ -271,6 +286,7 @@ namespace TouristAgency.TourRequests
             MaxAttendants = Convert.ToInt32(values[7]);
             StartDate = Convert.ToDateTime(values[8]);
             EndDate = Convert.ToDateTime(values[9]);
+            ComplexTourRequestID = Convert.ToInt32(values[10]);
         }
     }
 }

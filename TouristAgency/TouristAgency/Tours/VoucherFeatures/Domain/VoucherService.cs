@@ -1,4 +1,7 @@
-﻿namespace TouristAgency.Vouchers
+﻿using System.Collections.Generic;
+using System.Windows.Documents;
+
+namespace TouristAgency.Vouchers
 {
     public class VoucherService
     {
@@ -9,6 +12,26 @@
         {
             _app = (App)System.Windows.Application.Current;
             VoucherRepository = _app.VoucherRepository;
+        }
+
+        public Voucher Create(Voucher voucher)
+        {
+            return VoucherRepository.Create(voucher);
+        }
+
+        public List<Voucher> GetAll() 
+        {
+            return VoucherRepository.GetAll();
+        }
+
+        public Voucher Update(Voucher voucher, int voucherID) 
+        {
+            return VoucherRepository.Update(voucher, voucherID);
+        }
+
+        public void Delete(int voucherID) 
+        {
+            VoucherRepository.Delete(voucherID);
         }
 
         public int GetVouchersFromTours(int tourID)
@@ -23,6 +46,17 @@
             }
 
             return i;
+        }
+
+        public Voucher WinVoucher(int touristID, int tourID, int numOfReservations)
+        {
+            if(numOfReservations == 5) 
+            {
+                Voucher voucher = new Voucher(touristID, tourID, "Won voucher", false, System.DateTime.Now.AddMonths(6));
+                Create(voucher);
+                return voucher;
+            }
+            return null;
         }
 
         public void UseVoucher(Voucher voucher, int tourID)

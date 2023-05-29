@@ -12,6 +12,7 @@ using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.Domain;
 using TouristAgency.Users.ForumFeatures.Domain;
@@ -57,6 +58,7 @@ namespace TouristAgency
         public ForumCommentRepository ForumCommentRepository { get; }
         public ForumNotificationRepository ForumNotificationRepository { get; }
         public UserCommentRepository UserCommentRepository { get; }
+        public ComplexTourRequestRepository ComplexTourRequestRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -112,6 +114,7 @@ namespace TouristAgency
             ForumCommentRepository = new(InjectorService.CreateInstance<IStorage<ForumComment>>());
             ForumNotificationRepository = new(InjectorService.CreateInstance<IStorage<ForumNotification>>());
             UserCommentRepository = new(InjectorService.CreateInstance<IStorage<UserComment>>());
+            ComplexTourRequestRepository = new(InjectorService.CreateInstance<IStorage<ComplexTourRequest>>());
 
             LoadData();
         }

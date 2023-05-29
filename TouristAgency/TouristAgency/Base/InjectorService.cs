@@ -22,6 +22,7 @@ using TouristAgency.Notifications;
 using TouristAgency.Users.SuperGuestFeature.Domain;
 using TouristAgency.Notifications.Domain;
 using TouristAgency.Users.ForumFeatures.Domain;
+using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
 
 namespace TouristAgency.Base
 {
@@ -57,7 +58,8 @@ namespace TouristAgency.Base
             { typeof(IStorage<Forum>), new ForumFileStorage()},
             { typeof(IStorage<ForumComment>), new ForumCommentFileStorage()},
             { typeof(IStorage<ForumNotification>), new ForumNotificationFileStorage()},
-            { typeof(IStorage<UserComment>),new UserCommentFileStorage() }
+            { typeof(IStorage<UserComment>),new UserCommentFileStorage()},
+            { typeof(IStorage<ComplexTourRequest>), new ComplexTourRequestFileStorage() }
         };
 
         public static T CreateInstance<T>()

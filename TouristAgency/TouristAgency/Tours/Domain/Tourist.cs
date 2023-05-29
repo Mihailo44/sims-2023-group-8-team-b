@@ -12,12 +12,14 @@ namespace TouristAgency.Users
     {
         private List<Tour> _appliedTours;
         private List<Voucher> _wonVouchers;
+        private int _numOfReservations;
 
         public Tourist()
         {
             UserType = UserType.TOURIST;
             _appliedTours = new List<Tour>();
             _wonVouchers = new List<Voucher>();
+            _numOfReservations = 0;
         }
 
         public List<Tour> AppliedTours
@@ -50,6 +52,18 @@ namespace TouristAgency.Users
             set;
         }
 
+        public int NumOfReservations
+        {
+            get => _numOfReservations;
+            set
+            {
+                if(value != _numOfReservations)
+                {
+                    _numOfReservations = value;
+                }
+            }
+        }
+
         public Tourist(User user) : base(user)
         {
             UserType = UserType.TOURIST;
@@ -66,7 +80,8 @@ namespace TouristAgency.Users
                 _dateOfBirth.ToString(),
                 _email,
                 _phone,
-                _fullLocationID.ToString()
+                _fullLocationID.ToString(),
+                _numOfReservations.ToString()
             };
             return csvValues;
         }
@@ -79,7 +94,8 @@ namespace TouristAgency.Users
             _dateOfBirth = DateOnly.Parse(values[3]);
             _email = values[4];
             _phone = values[5];
-            _fullLocationID = Convert.ToInt32(6);
+            _fullLocationID = Convert.ToInt32(values[6]);
+            _numOfReservations = Convert.ToInt32(values[7]);
         }
 
         public int GetAgeCategory()

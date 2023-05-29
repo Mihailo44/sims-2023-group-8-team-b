@@ -5,9 +5,11 @@ using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Users;
 using TouristAgency.View.Display;
+using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours.DisplayFeature
 {
@@ -29,7 +31,8 @@ namespace TouristAgency.Tours.DisplayFeature
         private TouristService _touristService;
         private TourService _tourService;
         private TourTouristService _tourTouristService;
-
+        private VoucherService _voucherService;
+        private TouristNotificationService _touristNotificationService;
 
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand FilterCmd { get; set; }
@@ -65,6 +68,8 @@ namespace TouristAgency.Tours.DisplayFeature
             _touristService = new TouristService();
             _tourTouristService = new TourTouristService();
             _tourService = new TourService();
+            _voucherService = new VoucherService();
+            _touristNotificationService = new TouristNotificationService();
         }
 
         private void InstantiateCollections()
@@ -310,13 +315,22 @@ namespace TouristAgency.Tours.DisplayFeature
                     MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
+                _loggedInTourist.NumOfReservations++;
+                Voucher potentionalVoucher = _voucherService.WinVoucher(_loggedInTourist.ID, selectedTour.ID, _loggedInTourist.NumOfReservations);
+                if(potentionalVoucher != null) 
+                {
+                    _loggedInTourist.WonVouchers.Add(potentionalVoucher);
+                    _touristNotificationService.NotifyAboutWonVoucher(_loggedInTourist.ID);
+                }
+                _touristService.Update(_loggedInTourist, _loggedInTourist.ID);
                 _tourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
                 _tourTouristService.TourTouristRepository.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);
+                NumberOfReservation = 0;
             }
             else
             {
-                MessageBox.Show("Number of reservation can not be a null!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Number of reservation can not be a zero!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
