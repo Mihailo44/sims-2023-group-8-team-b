@@ -77,7 +77,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
             {
                 foreach (ComplexTourRequest complexRequest in GetAll())
                 {
-                    if (request.ComplexTourRequestID == complexRequest.Id)
+                    if (request.ComplexTourRequestID == complexRequest.ID)
                     {
                         complexRequest.Components.Add(request);
                     }
