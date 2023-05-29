@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Users;
@@ -12,10 +15,11 @@ using TouristAgency.Users.ForumFeatures.DisplayFeature;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature;
+using TouristAgency.Users.SuperGuestFeature.Domain;
 
 namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
-    public class AnywhereAnytimeCreationViewModel : HelpMenuViewModelBase, ICloseable
+    public class AnywhereAnytimeCreationViewModel : HelpMenuViewModelBase, ICloseable, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -23,6 +27,20 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
         private string _username;
         private string _welcomeUsername;
 
+        private int _numOfPeople;
+        private int _numOfDays;
+        private DateTime? _start;
+        private DateTime? _end;
+        private ObservableCollection<Accommodation> _accommodations;
+        private ObservableCollection<Reservation> _reservations;
+
+        private ReservationService _reservationService;
+        private AccommodationService _accommodationService;
+        private SuperGuestTitleService _superGuestTitleService;
+
+        public DelegateCommand SearchCmd { get; set; }
+        public DelegateCommand SearchDatesCmd { get; set; }
+        public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
@@ -40,10 +58,28 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
             _loggedInGuest = guest;
             _window = window;
 
+            InstantiateServices();
+            InstantiateCollections();
             InstantiateCommands();
             InstantiateHelpMenuCommands();
             ShowUser();
             WelcomeUser();
+        }
+
+        private void InstantiateServices()
+        {
+            _reservationService = new ReservationService();
+            _accommodationService = new AccommodationService();
+            _superGuestTitleService = new SuperGuestTitleService();
+        }
+
+        private void InstantiateCollections()
+        {
+            Start = null;
+            End = null;
+
+            Accommodations = new ObservableCollection<Accommodation>();
+            Reservations = new ObservableCollection<Reservation>();
         }
 
         private void InstantiateCommands()
@@ -60,6 +96,9 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
             AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
             ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
+            SearchCmd = new DelegateCommand(param =>  SearchCmdExecute(), param => CanSearchCmdExecute());
+            SearchDatesCmd = new DelegateCommand(param => SearchDatesCmdExecute(), param => CanSearchDatesCmdExecute());
+            CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
         }
 
         private void ShowUser()
@@ -95,6 +134,159 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
                     _welcomeUsername = value;
                     OnPropertyChanged("WelcomeUsername");
                 }
+            }
+        }
+
+        public ObservableCollection<Accommodation> Accommodations
+        {
+            get => _accommodations;
+            set
+            {
+                if (value != _accommodations)
+                {
+                    _accommodations = value;
+                    OnPropertyChanged("Accommodations");
+                }
+            }
+        }
+
+        public ObservableCollection<Reservation> Reservations
+        {
+            get => _reservations;
+            set
+            {
+                if (value != _reservations)
+                {
+                    _reservations = value;
+                    OnPropertyChanged("Reservations");
+                }
+            }
+        }
+
+        public int NumOfDays
+        {
+            get => _numOfDays;
+            set
+            {
+                if (_numOfDays != value)
+                {
+                    _numOfDays = value;
+                    OnPropertyChanged("NumOfDays");
+                }
+            }
+        }
+
+        public DateTime? Start
+        {
+            get => _start;
+            set
+            {
+                if (_start != value)
+                {
+                    _start = value;
+                    OnPropertyChanged("Start");
+                }
+            }
+        }
+
+        public DateTime? End
+        {
+            get => _end;
+            set
+            {
+                if (_end != value)
+                {
+                    _end = value;
+                    OnPropertyChanged("End");
+                }
+            }
+        }
+
+        public int NumOfPeople
+        {
+            get => _numOfPeople;
+            set
+            {
+                if (_numOfPeople != value)
+                {
+                    _numOfPeople = value;
+                    OnPropertyChanged("NumOfPeople");
+                }
+            }
+        }
+
+        public Accommodation SelectedAccommodation
+        {
+            get;
+            set;
+        }
+
+        public Reservation SelectedReservation
+        {
+            get;
+            set;
+        }
+
+        public bool CanCreateCmdExecute()
+        {
+            return true;
+        }
+        private void CreateCmdExecute()
+        {
+            Reservation newReservation = SelectedReservation;
+            Accommodation selectedAccommodation = SelectedAccommodation;
+
+            if (selectedAccommodation.MaxGuestNum >= NumOfPeople && selectedAccommodation.MinNumOfDays <= NumOfDays && newReservation != null)
+            {
+                newReservation.Accommodation = selectedAccommodation;
+                newReservation.AccommodationId = selectedAccommodation.Id;
+                newReservation.Guest = _loggedInGuest;
+                newReservation.GuestId = _loggedInGuest.ID;
+                _reservationService.Create(newReservation);
+                Reservations.Remove(newReservation);
+                _superGuestTitleService.UsePoint(_loggedInGuest.ID);
+                MessageBox.Show("Successfully reserved");
+            }
+        }
+
+        public bool CanSearchCmdExecute()
+        {
+            return true;
+        }
+
+        public void SearchCmdExecute()
+        {
+            if(Start == null || End == null)
+            {
+                Accommodations = new ObservableCollection<Accommodation>(_accommodationService.AccommodationRepository.GetAll().FindAll(a => a.MinNumOfDays <= NumOfDays && a.MaxGuestNum >= NumOfPeople));
+            }
+            else if(Start != null && End != null)
+            {
+                int numOfReservations = ((DateTime)End - (DateTime)Start).Days - NumOfDays + 2;
+                Accommodations = new ObservableCollection<Accommodation>(_reservationService.GetAllFreeAccommodation((DateTime)Start, (DateTime)End, _accommodationService.AccommodationRepository.GetAll(), NumOfDays, NumOfPeople, _loggedInGuest, numOfReservations));
+            }
+        }
+
+        public bool CanSearchDatesCmdExecute()
+        {
+            return true;
+        }
+
+        public void SearchDatesCmdExecute()
+        {
+            if(Start == null || End == null)
+            {
+                Reservations.Clear();
+
+                int numOfReservations = (DateTime.Now.AddYears(1) - DateTime.Now).Days - NumOfDays + 2;
+                Reservations = _reservationService.GeneratePotentionalReservations(DateTime.Now, NumOfDays, numOfReservations, SelectedAccommodation, _loggedInGuest);
+            }
+            else if(Start != null && End != null)
+            {
+                Reservations.Clear();
+
+                int numOfReservations = ((DateTime)End - (DateTime)Start).Days - NumOfDays + 2;
+                Reservations = _reservationService.GeneratePotentionalReservations((DateTime)Start, NumOfDays, numOfReservations, SelectedAccommodation, _loggedInGuest);
             }
         }
 

@@ -203,6 +203,22 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             return false;
         }
 
+        public List<Accommodation> GetAllFreeAccommodation(DateTime start, DateTime end, List<Accommodation> accommodations, int numOfDays, int numOfPeople, Guest guest, int numOfReservations)
+        {
+            List<Accommodation> freeAccommodations = new List<Accommodation>();
+
+            foreach(Accommodation accommodation in accommodations)
+            {
+                if (!freeAccommodations.Contains(accommodation) && GeneratePotentionalReservations(start, numOfDays, numOfReservations, accommodation, guest).Count != 0 && accommodation.MinNumOfDays <= numOfDays && accommodation.MaxGuestNum >= numOfPeople)
+                {
+                    freeAccommodations.Add(accommodation);
+                }
+            }
+            return freeAccommodations;
+            //DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest
+
+        }
+
         public List<Reservation> SearchReservations(string searchInput)
         {
             List<Reservation> reservations = GetByOwnerId(_app.LoggedUser.ID);

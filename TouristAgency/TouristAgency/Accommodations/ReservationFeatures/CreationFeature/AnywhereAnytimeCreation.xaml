@@ -73,41 +73,63 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Content="Number of people:" FontSize="15" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.342,0.281"/>
-                <WPFExtended:UIntegerUpDown HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Width="45" Height="25" Margin="0,5,0,0"/>
+                <WPFExtended:UIntegerUpDown HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Width="45" Height="25" Margin="0,5,0,0" Value="{Binding Path=NumOfPeople}"/>
                 <Label Content="Number of days:" FontSize="15" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.591,0.579"/>
-                <WPFExtended:UIntegerUpDown HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Width="45" Height="25" RenderTransformOrigin="0.832,0.193" Margin="0,5,0,0"/>
+                <WPFExtended:UIntegerUpDown HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Width="45" Height="25" RenderTransformOrigin="0.832,0.193" Margin="0,5,0,0" Value="{Binding Path=NumOfDays}"/>
                 <Label Content="From:" FontSize="15" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" RenderTransformOrigin="0.516,0.601" Margin="0,0,0,10"/>
-                <DatePicker HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="3" FontSize="12" Margin="0,0,0,21"/>
+                <DatePicker HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="3" FontSize="12" Margin="0,0,0,21" SelectedDate="{Binding Path=Start}"/>
                 <Label Content="To:" FontSize="15" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <DatePicker HorizontalAlignment="Right" Grid.Row="1" Grid.Column="3" FontSize="12" VerticalAlignment="Top" Margin="0,3,0,0"/>
+                <DatePicker HorizontalAlignment="Right" Grid.Row="1" Grid.Column="3" FontSize="12" VerticalAlignment="Top" Margin="0,3,0,0" SelectedDate="{Binding Path=End}"/>
                 <Label Content="*optional" FontSize="15" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Height="29"/>
                 <Label Content="*optional" Grid.ColumnSpan="3" FontSize="15" HorizontalAlignment="Right" Grid.Column="4" VerticalAlignment="Top" Width="239" Margin="0,47,130,0" Grid.RowSpan="2"/>
-                <Button Content="Search" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" HorizontalAlignment="Left" Grid.Column="5" VerticalAlignment="Top" Width="130" Height="30" Grid.ColumnSpan="2" Margin="70,47,0,0" Grid.RowSpan="2"/>
+                <Button Content="Search" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" HorizontalAlignment="Left" Grid.Column="5" VerticalAlignment="Top" Width="130" Height="30" Grid.ColumnSpan="2" Margin="70,47,0,0" Grid.RowSpan="2" Command="{Binding Path=SearchCmd}"/>
             </Grid>
         </GroupBox>
 
         <Label Content="Available accommodations anywhere:" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="222,198,0,0" VerticalAlignment="Top"/>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=0}" Margin="222,246,33,272">
+        <ListView ItemsSource="{Binding Path=Accommodations}" SelectedItem="{Binding SelectedAccommodation}"  Margin="222,246,33,272">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Photo" Width="180">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="100" Width="150" Source="{Binding Path=Photos[0].Link}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding Location.City}" Width="120"/>
+                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Location.Country}" Width="120"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" Width="100"/>
+                    <GridViewColumn Header="Max capacity" DisplayMemberBinding="{Binding MaxGuestNum}" Width="150"/>
+                    <GridViewColumn Header="Min days" DisplayMemberBinding="{Binding MinNumOfDays}" Width="130"/>
                 </GridView>
             </ListView.View>
         </ListView>
         <Label Content="Click this button to search for available date ranges only if you haven't specified it up before:" FontSize="17" HorizontalAlignment="Left" Margin="222,433,0,0" VerticalAlignment="Top"/>
-        <Button Content="Search" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" Width="130" Height="30" Margin="967,436,103,234" />
+        <Button Content="Search" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" Width="130" Height="30" Margin="967,436,103,234" Command="{Binding Path=SearchDatesCmd}"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="252,509,0,0" TextWrapping="Wrap" FontSize="17" VerticalAlignment="Top" Height="126" Width="282"><Run Text="Choose an available date range for the selected accommodation:    "/><LineBreak/><Run/><Run/><LineBreak/><Run Text="(This is only in case you haven't specify the date range up before)         "/></TextBlock>
-        
-        <ListView d:ItemsSource="{d:SampleData ItemCount=0}" Margin="574,509,301,69">
+
+        <ListView ItemsSource="{Binding Path = Reservations}" SelectedItem="{Binding SelectedReservation}" Margin="574,509,301,69">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="from" Width="160"/>
-                    <GridViewColumn Header="to" Width="160"/>
+                    <GridViewColumn Header="from" DisplayMemberBinding="{Binding Path = Start}" Width="160"></GridViewColumn>
+                    <GridViewColumn Header="to" DisplayMemberBinding="{Binding Path = End}" Width="160"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <Button Content="Make a reservation" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" Width="130" Height="35" Margin="967,594,103,71"/>
+        <Button Content="Make a reservation" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" Width="130" Height="35" Margin="967,594,103,71" Command="{Binding Path=CreateCmd}"/>
     </Grid>
 </UserControl>

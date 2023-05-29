@@ -21,6 +21,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
     public partial class AnywhereAnytimeCreation : UserControl
     {
         private Guest _loggedInGuest;
+        private Window _window;
         public AnywhereAnytimeCreation()
         {
             InitializeComponent();
