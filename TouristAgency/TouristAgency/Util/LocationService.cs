@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.Domain;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 
 namespace TouristAgency.Util
 {
@@ -41,32 +41,31 @@ namespace TouristAgency.Util
             return location;
         }
 
-        public List<Location> GetHotLocations(AccommodationService accommodationService,ReservationService reservationService,PostponementRequestService postponementRequestService, RenovationRecommendationService renovationRecommendationService,List<Accommodation> ownersAccommodations)
+        public List<Location> GetLocationsStats(AccommodationService accommodationService, ReservationService reservationService, PostponementRequestService postponementRequestService, RenovationRecommendationService renovationRecommendationService, List<Accommodation> ownersAccommodations)
         {
             Dictionary<Location, int> reservationsOnLocation = new();
 
-            foreach(Location location in LocationRepository.GetAll().Distinct())
+            foreach (Location location in LocationRepository.GetAll())
             {
-                List<Accommodation> accommodationsOnLocation = ownersAccommodations.Where(a => a.Location.Equals(location)).ToList();
+                List<Accommodation> accommodationsOnLocation = ownersAccommodations.Where(a => a.LocationId == location.Id).ToList();
+
                 foreach (Accommodation accommodation in accommodationsOnLocation)
                 {
-                    if (accommodation.LocationId == location.Id)
+                    List<int> stats = accommodationService.GetAccommodationStatsByYear(reservationService, postponementRequestService, renovationRecommendationService, accommodation, DateTime.Today.Year);
+
+                    if (reservationsOnLocation.ContainsKey(location))
                     {
-                        List<int> stats = accommodationService.GetAccommodationStatsByYear(reservationService, postponementRequestService, renovationRecommendationService, accommodation, DateTime.Today.Year);
-                        
-                        if (reservationsOnLocation.ContainsKey(location))
-                        {
-                            reservationsOnLocation[location] += stats[0];
-                        }
-                        else
-                        {
-                            reservationsOnLocation[location] = stats[0];
-                        }
+                        reservationsOnLocation[location] += stats[0];
+                    }
+                    else
+                    {
+                        reservationsOnLocation[location] = stats[0];
                     }
                 }
             }
-  
+
             Dictionary<Location, int> sortedDictionary = reservationsOnLocation.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            
             return sortedDictionary.Keys.ToList();
         }
 

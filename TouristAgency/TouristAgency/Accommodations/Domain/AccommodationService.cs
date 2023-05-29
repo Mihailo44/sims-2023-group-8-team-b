@@ -211,7 +211,7 @@ namespace TouristAgency.Accommodations.Domain
 
         public void SetHotLocationsStatus(LocationService locationService, AccommodationService accommodationService, ReservationService reservationService, PostponementRequestService postponementRequestService, RenovationRecommendationService renovationRecommendationService)
         {
-            List<Location> locations = locationService.GetHotLocations(accommodationService, reservationService, postponementRequestService, renovationRecommendationService, GetByOwnerId(app.LoggedUser.ID));
+            List<Location> locations = locationService.GetLocationsStats(accommodationService, reservationService, postponementRequestService, renovationRecommendationService, GetByOwnerId(app.LoggedUser.ID));
 
             List<Location> hotLocations = locations.Take(2).ToList();
 

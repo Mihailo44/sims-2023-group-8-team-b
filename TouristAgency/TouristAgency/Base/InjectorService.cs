@@ -58,6 +58,8 @@ namespace TouristAgency.Base
             { typeof(IStorage<Forum>), new ForumFileStorage()},
             { typeof(IStorage<ForumComment>), new ForumCommentFileStorage()},
             { typeof(IStorage<ForumNotification>), new ForumNotificationFileStorage()},
+            { typeof(IStorage<UserComment>),new UserCommentFileStorage() }
+            { typeof(IStorage<ForumNotification>), new ForumNotificationFileStorage()},
             { typeof(IStorage<ComplexTourRequest>), new ComplexTourRequestFileStorage() }
         };
 
