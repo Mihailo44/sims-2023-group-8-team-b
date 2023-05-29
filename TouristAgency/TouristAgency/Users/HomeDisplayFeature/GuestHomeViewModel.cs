@@ -10,6 +10,7 @@ using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Users.ForumFeatures.DisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature;
 using TouristAgency.View.Creation;
@@ -31,6 +32,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
         public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
+        public DelegateCommand ForumDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -59,6 +61,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
             AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
+            ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
         }
 
         private void ShowUser()
@@ -154,6 +157,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void OpenAnywhereAnytimeCreationCmdExecute()
         {
             _app.CurrentVM = new AnywhereAnytimeCreationViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenForumDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenForumDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestForumDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()

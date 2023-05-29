@@ -1,44 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
-using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Tours;
-using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
-using TouristAgency.Users.SuperGuestFeature;
 using TouristAgency.Users.ReviewFeatures;
-using TouristAgency.Users.ForumFeatures.DisplayFeature;
+using TouristAgency.Users.SuperGuestFeature;
 
-namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
+namespace TouristAgency.Users.ForumFeatures.DisplayFeature
 {
-    public class PostponementRequestCreationViewModel : HelpMenuViewModelBase, ICreate
+    public class GuestForumDisplayViewModel : HelpMenuViewModelBase, ICloseable
     {
         private App _app;
         private Guest _loggedInGuest;
-
-        private ObservableCollection<Reservation> _reservations;
-        private ObservableCollection<PostponementRequest> _requests;
-
-        private DateTime _start;
-        private DateTime _end;
-        private string _username;
         private Window _window;
+        private string _username;
+        private string _welcomeUsername;
 
-        private ReservationService _reservationService;
-        private PostponementRequestService _postponementRequestService;
-
-        public DelegateCommand CreateCmd { get; set; }
-        public DelegateCommand CancelCmd { get; set; }
-        public DelegateCommand NotificationCmd { get; set; }
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
@@ -49,40 +32,20 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
-        public PostponementRequestCreationViewModel(Guest guest, Window window)
+        public GuestForumDisplayViewModel(Guest guest, Window window)
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
             _window = window;
-            _username = "";
 
-            InstantiateServices();
-            InstantiateCollections();
             InstantiateCommands();
             InstantiateHelpMenuCommands();
-            DisplayUser();
-        }
-
-        private void InstantiateServices()
-        {
-            _reservationService = new ReservationService();
-            _postponementRequestService = new PostponementRequestService();
-        }
-
-        private void InstantiateCollections()
-        {
-            Start = DateTime.Now;
-            End = DateTime.Now;
-
-            Reservations = new ObservableCollection<Reservation>(_reservationService.GetByGuestId(_loggedInGuest.ID));
-            Requests = new ObservableCollection<PostponementRequest>(_postponementRequestService.GetByGuestId(_loggedInGuest.ID));
+            ShowUser();
+            WelcomeUser();
         }
 
         private void InstantiateCommands()
         {
-            CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
-            NotificationCmd = new DelegateCommand(param => NotificationExecute(), param => CanNotificationExecute());
-            CancelCmd = new DelegateCommand(param => CancelExecute(), param => CanCancelExecute());
             AccommodationDisplayCmd = new DelegateCommand(param => OpenAccommodationDisplayCmdExecute(),
                 param => CanOpenAccommodationDisplayCmdExecute());
             PostponementRequestDisplayCmd = new DelegateCommand(param => OpenPostponementRequestDisplayCmdExecute(),
@@ -97,62 +60,14 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
             ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
         }
 
-        private void DisplayUser()
+        private void ShowUser()
         {
             Username = "Username: " + _loggedInGuest.Username;
-
         }
 
-        public ObservableCollection<Reservation> Reservations
+        private void WelcomeUser()
         {
-            get => _reservations;
-            set
-            {
-                if (value != _reservations)
-                {
-                    _reservations = value;
-                    OnPropertyChanged("Reservations");
-                }
-            }
-        }
-
-        public ObservableCollection<PostponementRequest> Requests
-        {
-            get => _requests;
-            set
-            {
-                if (value != _requests)
-                {
-                    _requests = value;
-                    OnPropertyChanged("Requests");
-                }
-            }
-        }
-
-        public DateTime Start
-        {
-            get => _start;
-            set
-            {
-                if (_start != value)
-                {
-                    _start = value;
-                    OnPropertyChanged("Start");
-                }
-            }
-        }
-
-        public DateTime End
-        {
-            get => _end;
-            set
-            {
-                if (_end != value)
-                {
-                    _end = value;
-                    OnPropertyChanged("End");
-                }
-            }
+            WelcomeUsername = "Welcome " + _loggedInGuest.Username + "!!!";
         }
 
         public string Username
@@ -168,66 +83,15 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
             }
         }
 
-        public Reservation SelectedReservation
+        public string WelcomeUsername
         {
-            get;
-            set;
-        }
-
-        bool CanCreateExecute()
-        {
-            return true;
-        }
-
-        void CreateExecute()
-        {
-            DateTime today = DateTime.Now;
-            if (Start >= today && End >= today && End >= Start)
+            get => _welcomeUsername;
+            set
             {
-                if (SelectedReservation != null)
+                if (value != _welcomeUsername)
                 {
-                    PostponementRequest request = new PostponementRequest(SelectedReservation, Start, End);
-                    _postponementRequestService.PostponementRequestRepository.Create(request);
-                    Requests.Add(request);
-                }
-            }
-            else
-            {
-                MessageBox.Show("You have entered invalid dates. Try again.");
-            }
-
-        }
-
-        bool CanNotificationExecute()
-        {
-            return true;
-        }
-
-        void NotificationExecute()
-        {
-            MessageBox.Show(_postponementRequestService.ShowNotifications(_loggedInGuest.ID));
-        }
-
-        bool CanCancelExecute()
-        {
-            return true;
-        }
-
-        void CancelExecute()
-        {
-            if (SelectedReservation != null)
-            {
-                bool result;
-                result = _reservationService.CancelReservation(SelectedReservation);
-                if (result == true)
-                {
-                    Reservations.Remove(SelectedReservation);
-                    MessageBox.Show("Your reservation was successfully canceled");
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Reservation couldn't be canceled. You can only cancel 24 hours before the start of the reservation");
+                    _welcomeUsername = value;
+                    OnPropertyChanged("WelcomeUsername");
                 }
             }
         }
@@ -321,6 +185,5 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         {
             _window.Close();
         }
-
     }
 }

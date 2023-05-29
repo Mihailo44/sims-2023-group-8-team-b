@@ -12,6 +12,7 @@ using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Tours;
 using TouristAgency.Users;
+using TouristAgency.Users.ForumFeatures.DisplayFeature;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Users.SuperGuestFeature;
@@ -36,6 +37,7 @@ namespace TouristAgency.Users.ReviewFeatures
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
         public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
+        public DelegateCommand ForumDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -83,6 +85,7 @@ namespace TouristAgency.Users.ReviewFeatures
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
             AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
+            ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
         }
 
         private void DisplayUser()
@@ -175,6 +178,16 @@ namespace TouristAgency.Users.ReviewFeatures
         public void OpenAnywhereAnytimeCreationCmdExecute()
         {
             _app.CurrentVM = new AnywhereAnytimeCreationViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenForumDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenForumDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestForumDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()
