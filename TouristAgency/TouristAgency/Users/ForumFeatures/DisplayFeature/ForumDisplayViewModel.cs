@@ -19,30 +19,43 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         private readonly App _app;
         private ForumCommentService _forumCommentService;
         private LocationService _locationService;
+        private UserCommentService _userCommentService;
 
         public static Forum SelectedForum { get; set; }
 
-        public DelegateCommand OpenNewCommentCmd { get; }
-        public DelegateCommand ReportCmd { get; }
-        public DelegateCommand CloseCmd { get; }
+        public DelegateCommand OpenNewCommentCmd { get; set; }
+        public DelegateCommand ReportCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
 
         public ObservableCollection<ForumComment> ForumComments { get; set; }
 
         public ForumDisplayViewModel(Forum selectedForum)
         {
             _app = (App)App.Current;
-            _forumCommentService = new();
-            _locationService = new();
+
+            InstantiateServices();
 
             _forumCommentService.ForumCommentRepository.Subscribe(this);
             SelectedForum = selectedForum;
 
             ForumComments = new ObservableCollection<ForumComment>();
 
-            OpenNewCommentCmd = new DelegateCommand(param => OpenNewCommentCmdExecute(),param => CanOpenNewCommentCmdExecute());
-            ReportCmd = new DelegateCommand(param => ReportCmdExecute(),param => CanReportCmdExecute());
-            CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
+            InstantiateCommands();
             LoadComments();
+        }
+
+        private void InstantiateServices()
+        {
+            _forumCommentService = new();
+            _locationService = new();
+            _userCommentService = new();
+        }
+
+        private void InstantiateCommands()
+        {
+            OpenNewCommentCmd = new DelegateCommand(param => OpenNewCommentCmdExecute(), param => CanOpenNewCommentCmdExecute());
+            ReportCmd = new DelegateCommand(ReportCmdExecute, CanReportCmdExecute);
+            CloseCmd = new DelegateCommand(param => CloseCmdExecute(), param => CanCloseCmdExecute());
         }
 
         private void LoadComments()
@@ -74,15 +87,35 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             }
         }
 
-        public bool CanReportCmdExecute()
+        public bool CanReportCmdExecute(object param)
         {
             return true;
         }
 
-        public void ReportCmdExecute()
+        public void ReportCmdExecute(object param)
         {
+            ForumComment comment = param as ForumComment;
+            List<UserComment> reportList = _userCommentService.GetByForumAndUser(SelectedForum.Id);
             
-            MessageBox.Show("radim");
+            if(_locationService.HasAccommodationOnLocation(_app.LoggedUser, SelectedForum.Location))
+            {
+                if (reportList.Find(r => r.CommentId == comment.Id) == null)
+                {
+                    comment.ReportNum++;
+                    _forumCommentService.ForumCommentRepository.Update(comment, comment.Id);
+
+                    UserComment report = new UserComment(SelectedForum.Id, _app.LoggedUser.ID, comment.Id);
+                    _userCommentService.UserCommentRepository.Create(report);
+                }
+                else
+                {
+                    MessageBox.Show("You have already reported this comment", "Report Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You don't have the permission to report comments","Report Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
         }
 
         public bool CanCloseCmdExecute()

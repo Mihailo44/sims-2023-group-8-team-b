@@ -56,6 +56,7 @@ namespace TouristAgency
         public ForumRepository ForumRepository { get; }
         public ForumCommentRepository ForumCommentRepository { get; }
         public ForumNotificationRepository ForumNotificationRepository { get; }
+        public UserCommentRepository UserCommentRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -110,6 +111,7 @@ namespace TouristAgency
             ForumRepository = new(InjectorService.CreateInstance<IStorage<Forum>>());
             ForumCommentRepository = new(InjectorService.CreateInstance<IStorage<ForumComment>>());
             ForumNotificationRepository = new(InjectorService.CreateInstance<IStorage<ForumNotification>>());
+            UserCommentRepository = new(InjectorService.CreateInstance<IStorage<UserComment>>());
 
             LoadData();
         }

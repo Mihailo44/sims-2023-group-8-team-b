@@ -23,12 +23,12 @@ namespace TouristAgency.Converter
 
             if (user.UserType == Util.UserType.OWNER)
             {
-                Owner owner = ownerService.OwnerRepository.GetById(user.ID);
+                //Owner owner = ownerService.OwnerRepository.GetById(user.ID);
 
-                if (owner.Accommodations.Find(a => a.LocationId == forum.LocationId) != null)
-                {
+                //if (owner.Accommodations.Find(a => a.LocationId == forum.LocationId) != null)
+                //{
                     return "../../../Resources/Image/check.png";
-                }
+                //}
             }
             else if (user.UserType == Util.UserType.GUEST)
             {

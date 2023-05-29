@@ -18,6 +18,7 @@
     <Grid>
 
         <ListView
+                     x:Name="Lista"
                      Height="550"
                      Width="990"
                      Margin="0,15,5,0"
@@ -79,7 +80,10 @@
                                         </WrapPanel>
 
                                         <WrapPanel Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center">
-                                            <Button Width="120" Height="50" Style="{StaticResource BasicBtn}" Content="REPORT"/>
+                                            <Button Width="120" Height="50" Content="REPORT" Style="{StaticResource BasicBtn}" Command="{Binding RelativeSource={
+                                                RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type UserControl}},
+                                                Path= DataContext.ReportCmd}" CommandParameter="{Binding}"/>
                                             <Label Margin="15,5,0,0" Content="{Binding ReportNum}"/>
                                         </WrapPanel>
 
