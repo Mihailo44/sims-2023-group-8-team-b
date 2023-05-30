@@ -139,6 +139,7 @@ namespace TouristAgency
             GuideReviewRepository.LoadTouristsToReviews(TouristRepository.GetAll());
             GuideReviewRepository.LoadToursToGuideReviews(TourRepository.GetAll());
             TourRepository.LoadTouristsToTours(TourTouristRepository.GetAll(), TouristRepository.GetAll());
+            TourRepository.LoadGuidesToTours(GuideRepository.GetAll());
             TouristRepository.LoadToursToTourist(TourTouristRepository.GetAll(), TourRepository.GetAll());
             TourRepository.LoadCheckpointsToTours(TourCheckpointRepository.GetAll(), CheckpointRepository.GetAll());
             OwnerReviewRepository.LoadReservationsToOwnerReviews(ReservationRepository.GetAll());

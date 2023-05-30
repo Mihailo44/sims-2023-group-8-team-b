@@ -2,6 +2,7 @@
 using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
+using TouristAgency.Users.Domain;
 
 namespace TouristAgency.Users
 {
@@ -54,6 +55,8 @@ namespace TouristAgency.Users
             currentGuide.Email = newGuide.Email;
             currentGuide.FullLocation = newGuide.FullLocation;
             currentGuide.Phone = newGuide.Phone;
+            currentGuide.Super = newGuide.Super;
+            _storage.Save(_guides);
             return currentGuide;
         }
 
@@ -64,6 +67,20 @@ namespace TouristAgency.Users
             _storage.Save(_guides);
             NotifyObservers();
         }
+
+        /*public void LoadUsersToGuide(List<User> users)
+        {
+            foreach (Guide guide in _guides)
+            {
+                foreach (User user in users)
+                {
+                    if(user.ID == guide.ID)
+                    {
+                        
+                    }
+                }
+            }
+        }*/
 
         public void LoadToursToGuide(List<Tour> tours)
         {

@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Review.Domain;
 using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature;
 using TouristAgency.Util;
@@ -21,6 +23,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private Tour _selectedTour;
 
         private TourService _tourService;
+        private GuideService _guideService;
+        private GuideReviewService _guideReviewService;
 
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand StartTourCmd { get; set; }
@@ -34,11 +38,14 @@ namespace TouristAgency.Users.HomeDisplayFeature
             InstantiateCommands();
             InstantiateCollections();
             InstantiateMenuCommands();
+            CheckForSupers();
         }
 
         private void InstantiateServices()
         {
             _tourService = new TourService();
+            _guideService = new GuideService();
+            _guideReviewService = new GuideReviewService();
         }
 
         private void InstantiateCollections()
@@ -69,7 +76,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             get => _selectedTour;
             set
             {
-                if(value != _selectedTour)
+                if (value != _selectedTour)
                 {
                     _selectedTour = value;
                     OnPropertyChanged("SelectedTour");
@@ -94,14 +101,14 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void StartTourExecute(object parameter)
         {
-            if(CheckStartedTourExistance() && (int)parameter != SelectedTour.ID)
+            if (CheckStartedTourExistance() && (int)parameter != SelectedTour.ID)
             {
                 MessageBox.Show("Tour: " + SelectedTour.Name + " has been already started. Please finish it before starting other tours.");
             }
-            else if(SelectedTour != null)
+            else if (SelectedTour != null)
             {
                 MessageBoxResult result = MessageBox.Show("Are you sure you want to start this tour?", "Alert", MessageBoxButton.YesNo);
-                if(result == MessageBoxResult.Yes)
+                if (result == MessageBoxResult.Yes)
                     _app.CurrentVM = new ActiveTourDisplayViewModel(_loggedInGuide, SelectedTour);
             }
         }
@@ -117,6 +124,24 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 }
             }
             return false;
+        }
+
+        public void CheckForSupers()
+        {
+            foreach(Guide guide in _guideService.GuideRepository.GetAll())
+            {
+                //TODO20
+                if(_tourService.GetTourCount(guide.ID) >= 4 && _guideReviewService.GetGuideScore(guide.ID, DateTime.Now.Year) >= 4)
+                {
+                    guide.Super = "super";
+                    _guideService.Update(guide, guide.ID);
+                }
+                else
+                {
+                    guide.Super = "regular";
+                    _guideService.Update(guide, guide.ID);
+                }
+            }
         }
 
     }

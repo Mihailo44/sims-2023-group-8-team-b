@@ -116,7 +116,17 @@ namespace TouristAgency.Tours
 
         public List<Tour> GetValidTours()
         {
-            return TourRepository.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status == TourStatus.NOT_STARTED).ToList();
+            List<Tour> tours = TourRepository.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status == TourStatus.NOT_STARTED).ToList();
+            for(int i = 0; i < tours.Count; i++)
+            {
+                if (tours[i].AssignedGuide.Super == "super")
+                {
+                    Tour temptour = tours[i];
+                    tours.RemoveAt(i);
+                    tours.Insert(0, temptour);
+                }
+            }
+            return tours;
         }
 
         public List<Tour> GetFinishedToursByTourist(Tourist tourist)

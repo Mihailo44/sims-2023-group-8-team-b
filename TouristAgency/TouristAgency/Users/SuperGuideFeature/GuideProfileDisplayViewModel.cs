@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Review.Domain;
 using TouristAgency.Tours;
 using TouristAgency.Users.HomeDisplayFeature;
 
@@ -22,8 +23,11 @@ namespace TouristAgency.Users.SuperGuideFeature
         private string _mostUsedLanguage;
         private string _mostVisitedCity;
         private string _mostVisitedCountry;
+        private string _score;
+        private string _status;
 
         private TourService _tourService;
+        private GuideReviewService _guideReviewService;
         public DelegateCommand GetBestTourCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public GuideProfileDisplayViewModel()
@@ -41,6 +45,7 @@ namespace TouristAgency.Users.SuperGuideFeature
         private void InstantiateServices()
         {
             _tourService = new TourService();
+            _guideReviewService = new GuideReviewService();
         }
 
         private void InstantiateCollections()
@@ -54,6 +59,8 @@ namespace TouristAgency.Users.SuperGuideFeature
             MostVisitedCountry = _tourService.GetMostVisitedCountry(guideID);
             TotalTourCount = _tourService.GetTourCount(guideID);
             YearlyTourCount = _tourService.GetYearlyTourCount(DateTime.Now.Year, guideID);
+            Score = Convert.ToString(_guideReviewService.GetGuideScore(_loggedInGuide.ID, DateTime.Now.Year));
+            Status = "Status: " + _loggedInGuide.Super + " guide";
         }
 
         private void InstantiateCommands()
@@ -175,6 +182,32 @@ namespace TouristAgency.Users.SuperGuideFeature
                 {
                     _mostVisitedCountry = value;
                     OnPropertyChanged("MostVisitedCountry");
+                }
+            }
+        }
+
+        public string Score
+        {
+            get { return _score; }
+            set
+            {
+                if (value != _score)
+                {
+                    _score = value;
+                    OnPropertyChanged("Score");
+                }
+            }
+        }
+
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                if (value != _status)
+                {
+                    _status = value;
+                    OnPropertyChanged("Status");
                 }
             }
         }

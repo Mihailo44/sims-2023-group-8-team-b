@@ -31,5 +31,21 @@ namespace TouristAgency.Review.Domain
             }
             return reviews;
         }
+
+        public double GetGuideScore(int guideID, int year)
+        {
+            int count = 0;
+            double score = 0;
+            foreach(GuideReview review in GuideReviewRepository.GetAll())
+            {
+                if(review.Tour.AssignedGuideID == guideID && review.Tour.StartDateTime.Year == year)
+                {
+                    score += review.OverallScore();
+                    count++;
+                }
+            }
+
+            return score / count;
+        }
     }
 }

@@ -48,5 +48,6 @@ namespace TouristAgency.Users
         {
             GuideRepository.Delete(id);
         }
+
     }
 }

@@ -269,5 +269,11 @@ namespace TouristAgency.Review.Domain
 
             return csvValues;
         }
+
+        public int OverallScore()
+        {
+            float score = (Quality + TourOrganization + Attractions + Knowledge + Language + SocialInteraction) / 6;
+            return (int)Math.Round(score);
+        }
     }
 }
