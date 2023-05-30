@@ -19,6 +19,8 @@ using TouristAgency.Notifications.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Users.ForumFeatures.Domain;
 using TouristAgency.Users.ForumFeatures.DisplayFeature;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -49,6 +51,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _reviewFormVisibility;
         private string _notificationCountVisibility;
         private string _comment;
+        private string _proba;
         private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
@@ -58,6 +61,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {3, "Collapsed"},
             {4, "Collapsed"}
         };
+
+        public string TypeComboText
+        {
+            get => _proba;
+            set
+            {
+                _proba = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string AccountContainerVisibility
         {
@@ -266,6 +279,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand CloseReviewCmd { get; set; }
         public DelegateCommand OpenForumCmd { get; set; }
         public DelegateCommand LoadPhotoLinksCmd { get; set; }
+        public DelegateCommand DemoCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -381,6 +395,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
             OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
             LoadPhotoLinksCmd = new DelegateCommand(param => LoadPhotoLinksExecute(),param => CanLoadPhotoLinksExecute());
+            DemoCmd = new DelegateCommand(param => DemoCmdExecute(),param => CanDemoCmdExecute());
         }
 
 
@@ -418,8 +433,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void LoadNotifications(int ownerId)
         {
+            Notifications.Clear();
             List<GuestReviewNotification> reviewNotifications = _guestReviewNotificationService.GetByOwnerId(ownerId);
-            List<ForumNotification> forumNotifications = _forumNotificationService.ForumNotificationRepository.GetAll();
+            List<ForumNotification> forumNotifications = _forumNotificationService.GetOwnersNotifications();
             if (reviewNotifications.Count() > 0 || forumNotifications.Count() > 0)
             {
                 Notifications.AddRange(reviewNotifications);
@@ -729,6 +745,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
             DataGridVisibility[1] = "Collapsed";
             BtnNewVisibility = "Hidden";
             OnPropertyChanged(nameof(DataGridVisibility));
+            TypeComboText = TYPE.HOTEL.ToString();
+            OnPropertyChanged(nameof(TypeComboText));
         }
 
         private void FillTypeCombo()
@@ -845,6 +863,71 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 _photoService.PhotoRepository.Create(photo);
             }
             //AddPhotos(selectedPaths);
+        }
+
+        public bool CanDemoCmdExecute()
+        {
+            return true;
+        }
+
+        public void DemoCmdExecute()
+        {
+            if (DataGridVisibility[1] == "Visible" || InputFormVisibility == "Visible")
+            {
+                StartDemo();
+            }
+            else
+            {
+                MessageBox.Show("Go to Accommodations tab to start the demo","Demo Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+        }
+
+        private async void StartDemo()
+        {
+            OpenAccommodationCreationCmdExecute();
+            
+            string name = "Proba";
+            string country = "Srbija";
+            string city = "Novi Sad";
+
+            await Task.Delay(150);
+
+            foreach(char c in name)
+            {
+                NewAccommodation.Name += c.ToString();
+                await Task.Delay(100);
+            }
+
+            foreach(char c in country)
+            {
+                NewLocation.Country += c.ToString();
+                await Task.Delay(100);
+            }
+
+            foreach (char c in city)
+            {
+                NewLocation.City += c.ToString();
+                await Task.Delay(100);
+            }
+
+            NewAccommodation.Type = TYPE.HUT;
+            await Task.Delay(100);
+            NewAccommodation.MaxGuestNum = 100;
+            await Task.Delay(100);
+            NewAccommodation.MinNumOfDays = 5;
+            await Task.Delay(100);
+            NewAccommodation.AllowedNumOfDaysForCancelation = 10;
+            await Task.Delay(100);
+
+            await Task.Delay(1000);
+
+            NewAccommodation.Name = String.Empty;
+            NewAccommodation.Type = TYPE.HOTEL;
+            NewLocation.Country = String.Empty;
+            NewLocation.City = String.Empty;
+            NewAccommodation.MaxGuestNum = 0;
+            NewAccommodation.MinNumOfDays = 0;
+            NewAccommodation.AllowedNumOfDaysForCancelation = 0;
         }
     }
 }

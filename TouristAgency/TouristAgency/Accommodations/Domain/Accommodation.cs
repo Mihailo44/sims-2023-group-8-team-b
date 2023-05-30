@@ -28,6 +28,7 @@ namespace TouristAgency.Accommodations.Domain
         {
             _id = -1;
             _allowedNumOfDaysForCancelation = 1;
+            _type = TYPE.HOTEL;
             _photos = new List<Photo>();
             _recentlyRenovated = false;
         }
@@ -153,6 +154,7 @@ namespace TouristAgency.Accommodations.Domain
                 if (value != _minNumOfDays)
                 {
                     _minNumOfDays = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -165,6 +167,7 @@ namespace TouristAgency.Accommodations.Domain
                 if (value != _allowedNumOfDaysForCancelation)
                 {
                     _allowedNumOfDaysForCancelation = value;
+                    OnPropertyChanged();
                 }
             }
         }
