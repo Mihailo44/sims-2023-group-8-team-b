@@ -51,7 +51,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,15,0">
             <Button Style="{StaticResource TouristBasicButton}" Content="List of parts" Command="{Binding ListOfPartsCmd}"></Button>
             <Label></Label>
-            <Button Height="40" Width="220" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2">
+            <Button Style="{StaticResource TouristBasicButtonWhite}" Width="220">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="25" Source="../../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
                     <TextBlock>Remove part</TextBlock>
