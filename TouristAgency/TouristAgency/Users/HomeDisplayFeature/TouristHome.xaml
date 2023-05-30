@@ -20,8 +20,8 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column="0" Height="auto" Width="400" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Background="Transparent">
-            <MenuItem Header="_Tour">
+        <Menu Grid.Row="0" Grid.Column="0" Height="auto" Width="380" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="32" FontWeight="Bold" Background="Transparent">
+            <MenuItem x:Name="TourMenu" Header="_Tour">
                 <MenuItem Header="Attendance on the tour" Command="{Binding TourAttendanceCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/attendance.png"/>
@@ -121,7 +121,7 @@
             </Image>
             <StackPanel Orientation="Horizontal">
                 <Label Content=""></Label>
-                <Label Content="new notification" FontSize="20"></Label>
+                <Label Content="new notification" FontSize="24"></Label>
             </StackPanel>
         </StackPanel>
     </Grid>
