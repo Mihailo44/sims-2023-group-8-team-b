@@ -10,7 +10,9 @@
         xmlns:creation="clr-namespace:TouristAgency.CreationFeature"
         xmlns:cancelation="clr-namespace:TouristAgency.Tours.CancelationFeature"
         xmlns:tourst="clr-namespace:TouristAgency.Tours.StatisticsFeature"
+        xmlns:display="clr-namespace:TouristAgency.Tours.DisplayFeature"
         xmlns:tourreqst="clr-namespace:TouristAgency.TourRequests.StatisticsFeature"
+        xmlns:review="clr-namespace:TouristAgency.Review.GuideReviewDisplayFeature"
         xmlns:tr="clr-namespace:TouristAgency.TourRequests"
         xmlns:acceptreq="clr-namespace:TouristAgency.TourRequests.AcceptRequestFeature"
         xmlns:begin="clr-namespace:TouristAgency.Tours.BeginTourFeature"
@@ -53,6 +55,14 @@
 
         <DataTemplate DataType="{x:Type quit:GuideQuitViewModel}">
             <quit:GuideQuit/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type display:TourDisplayForReviewViewModel}">
+            <display:TourDisplayForReview/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type review:GuideReviewDisplayViewModel}">
+            <review:GuideReviewDisplay/>
         </DataTemplate>
     </Window.Resources>
 

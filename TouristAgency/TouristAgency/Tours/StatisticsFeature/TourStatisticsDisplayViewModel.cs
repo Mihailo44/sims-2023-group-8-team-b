@@ -207,11 +207,11 @@ namespace TouristAgency.Tours.StatisticsFeature
 
         public void GetReviewsExecute()
         {
-            if (SelectedTour != null && _loggedInGuide != null)
+            /*if (SelectedTour != null && _loggedInGuide != null)
             {
-                GuideReviewDisplay reviewDisplay = new GuideReviewDisplay(_loggedInGuide, SelectedTour);
+                GuideReviewDisplay reviewDisplay = new GuideReviewDisplayViewModel(SelectedTour);
                 reviewDisplay.ShowDialog();
-            }
+            }*/
         }
 
         public bool CanCloseExecute()

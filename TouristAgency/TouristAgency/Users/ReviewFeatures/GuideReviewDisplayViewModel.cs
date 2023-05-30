@@ -5,15 +5,15 @@ using TouristAgency.Interfaces;
 using TouristAgency.Users;
 using TouristAgency.Tours;
 using TouristAgency.Review.Domain;
+using TouristAgency.Users.HomeDisplayFeature;
 
 namespace TouristAgency.Review.GuideReviewDisplayFeature
 {
-    public class GuideReviewDisplayViewModel : ViewModelBase, ICloseable, IObserver
+    public class GuideReviewDisplayViewModel : BurgerMenuViewModelBase, ICloseable, IObserver
     {
 
         private App _app;
         private Guide _loggedInGuide;
-        private Window _window;
 
         private ObservableCollection<GuideReview> _reviews;
         private Tour _selectedTour;
@@ -23,16 +23,17 @@ namespace TouristAgency.Review.GuideReviewDisplayFeature
 
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand MarkAsInvalidCmd { get; set; }
-        public GuideReviewDisplayViewModel(Guide guide, Tour tour, Window window)
+        public GuideReviewDisplayViewModel(Tour tour)
         {
             _app = (App)Application.Current;
-            _loggedInGuide = guide;
+            _loggedInGuide = _app.LoggedUser;
             _selectedTour = tour;
-            _window = window;
+            MenuVisibility = "Hidden";
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
-            _app.GuideReviewRepository.Subscribe(this);
+            InstantiateMenuCommands();
+            //_app.GuideReviewRepository.Subscribe(this);
         }
 
         private void InstantiateServices()
@@ -111,7 +112,7 @@ namespace TouristAgency.Review.GuideReviewDisplayFeature
 
         public void CloseExecute()
         {
-            _window.Close();
+            _app.CurrentVM = new GuideHomeViewModel();
         }
 
         public bool CanMarkAsInvalidExecute()

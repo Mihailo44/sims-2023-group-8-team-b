@@ -1,6 +1,6 @@
-0|0|False
-0|1|False
-0|2|False
+0|0|True
+0|1|True
+0|2|True
 1|0|False
 1|1|False
 1|2|False
@@ -25,3 +25,12 @@
 8|6|False
 8|7|False
 8|8|False
+-1|0|True
+-1|1|False
+-1|2|False
+0|0|True
+0|1|True
+0|2|True
+1|0|True
+1|1|False
+1|2|False

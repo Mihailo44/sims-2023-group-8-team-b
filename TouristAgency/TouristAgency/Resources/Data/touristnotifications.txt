@@ -2,3 +2,9 @@
 1|20|41|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on Esperanto|Based on your previous requests, a new tour with the language Esperanto is available. Check it out!|True
 2|20|41|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Novi Sad|Based on your previous requests, a new tour with the location Serbia, Novi Sad is available. Check it out!|True
 3|20|0|0|VOUCHER|Won voucher|You have won a voucher for booking 5 tours. Click here to see your vouchers.|False
+4|20|0|0|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+5|18|0|0|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+6|20|0|1|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+7|18|0|1|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+8|20|0|2|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+9|18|0|2|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False

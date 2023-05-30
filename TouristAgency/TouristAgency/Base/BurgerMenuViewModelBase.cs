@@ -11,6 +11,7 @@ using TouristAgency.TourRequests.AcceptRequestFeature;
 using TouristAgency.TourRequests.StatisticsFeature;
 using TouristAgency.Tours;
 using TouristAgency.Tours.CancelationFeature;
+using TouristAgency.Tours.DisplayFeature;
 using TouristAgency.Tours.StatisticsFeature;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
@@ -37,6 +38,8 @@ namespace TouristAgency.Base
         public DelegateCommand TourRequestCmd { get; set; }
         public DelegateCommand TourRequestStatisticsCmd { get; set; }
 
+        public DelegateCommand ReviewsCmd { get; set; }
+
         public void InstantiateMenuCommands()
         {
             GuideHomeCmd = new DelegateCommand(param => GuideHomeExecute(), param => AlwaysExecutes());
@@ -47,6 +50,7 @@ namespace TouristAgency.Base
             GuideProfileCmd = new DelegateCommand(param => GuideProfileExecute(), param => AlwaysExecutes());
             TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => AlwaysExecutes());
             TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => AlwaysExecutes());
+            ReviewsCmd = new DelegateCommand(param => ReviewsExecute(), param => AlwaysExecutes());
             ShowMenuCmd = new DelegateCommand(param => ShowMenuExecute(), param => AlwaysExecutes());
             HideMenuCmd = new DelegateCommand(param => HideMenuExecute(), param => AlwaysExecutes());
         }
@@ -125,6 +129,11 @@ namespace TouristAgency.Base
         public void TourRequestStatisticsExecute()
         {
             _app.CurrentVM = new GuideTourRequestStatisticsDisplayViewModel();
+        }
+
+        public void ReviewsExecute()
+        {
+            _app.CurrentVM = new TourDisplayForReviewViewModel();
         }
     }
 }

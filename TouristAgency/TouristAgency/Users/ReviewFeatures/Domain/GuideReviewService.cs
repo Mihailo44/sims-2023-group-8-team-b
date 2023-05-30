@@ -21,7 +21,6 @@ namespace TouristAgency.Review.Domain
         public List<GuideReview> GetReviewsForGuideTourID(int guideID, int tourID)
         {
             List<GuideReview> reviews = new List<GuideReview>();
-
             foreach (var guideReview in GuideReviewRepository.GetAll())
             {
 
