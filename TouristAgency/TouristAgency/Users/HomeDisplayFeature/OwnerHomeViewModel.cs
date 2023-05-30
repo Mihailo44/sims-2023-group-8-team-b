@@ -32,12 +32,12 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private RenovationService _renovationService;
         private GuestReviewNotificationService _guestReviewNotificationService;
         private ForumNotificationService _forumNotificationService;
-        private PhotoRepository _photoRepository;
         private LocationService _locationService;
         private GuestReviewService _guestReviewService;
         private RenovationRecommendationService _recommendationService;
         private ForumService _forumService;
         private ForumCommentService _forumCommentService;
+        private PhotoService _photoService;
 
         private string _photoLinks;
         private string _searchInput;
@@ -265,6 +265,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand CreateNewReviewCmd { get; set; }
         public DelegateCommand CloseReviewCmd { get; set; }
         public DelegateCommand OpenForumCmd { get; set; }
+        public DelegateCommand LoadPhotoLinksCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -312,13 +313,13 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _ownerService = new();
             _renovationService = new();
             _guestReviewNotificationService = new();
-            _photoRepository = _app.PhotoRepository;
             _locationService = new();
             _guestReviewService = new();
             _recommendationService = new();
             _forumService = new();
             _forumNotificationService = new();
             _forumCommentService = new();
+            _photoService = new();
         }
 
         private void SubscribeObservers()
@@ -379,6 +380,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             ClearNotificationsCmd = new DelegateCommand(param => ClearNotificationsCmdExecute(), param => CanClearNotificationsCmdExecute());
             SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
             OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
+            LoadPhotoLinksCmd = new DelegateCommand(param => LoadPhotoLinksExecute(),param => CanLoadPhotoLinksExecute());
         }
 
 
@@ -737,7 +739,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             TypeComboValues.Add(TYPE.HUT.ToString());
         }
 
-        private void AddPhotos()
+        /*private void AddPhotos()
         {
             if (PhotoLinks != null)
             {
@@ -750,7 +752,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                     _photoRepository.Create(photo);
                 }
             }
-        }
+        } */
 
         private void PrepareAccommodationForCreation()
         {
@@ -771,7 +773,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             try
             {
                 _accommodationService.AccommodationRepository.Create(NewAccommodation);
-                AddPhotos();
+               // AddPhotos();
                 MessageBox.Show("Accommodation created successfully", "Accommodation Creation Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                 InputFormVisibility = "Collapsed";
                 DataGridVisibility[1] = "Visible";
@@ -825,6 +827,24 @@ namespace TouristAgency.Users.HomeDisplayFeature
             OnPropertyChanged(nameof(DataGridVisibility));
             Messenger.Default.Register<SwitchViewModelMessage>(this, HandleSwitchViewModelMessage);
             CurrentVM = new ForumDisplayViewModel(SelectedForum);
+        }
+
+        public bool CanLoadPhotoLinksExecute()
+        {
+            return true;
+        }
+
+        public void LoadPhotoLinksExecute()
+        {
+            List<string> selectedPaths = _photoService.SelectPhotoPaths();
+           
+            foreach (string path in selectedPaths)
+            {
+                Photo photo = new Photo(path, 'A', _accommodationService.AccommodationRepository.GenerateId());
+                NewAccommodation.Photos.Add(photo);
+                _photoService.PhotoRepository.Create(photo);
+            }
+            //AddPhotos(selectedPaths);
         }
     }
 }
