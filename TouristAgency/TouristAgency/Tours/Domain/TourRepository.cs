@@ -142,6 +142,16 @@ namespace TouristAgency.Tours
             }
         }
 
+        public void LoadGuidesToTours(List<Guide> guides)
+        {
+            foreach(Guide guide in guides)
+                foreach(Tour tour in _tours)
+                {
+                    if (tour.AssignedGuideID == guide.ID)
+                        tour.AssignedGuide = guide;
+                }
+        }
+
         public void Subscribe(IObserver observer)
         {
             _observers.Add(observer);

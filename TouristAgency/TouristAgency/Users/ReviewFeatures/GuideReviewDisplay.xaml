@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:custom="clr-namespace:TouristAgency.Design.Guide.Controls"
+        xmlns:converter="clr-namespace:TouristAgency.Converter"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
         Height="600" Width="370" Background="White">
+    <UserControl.Resources>
+        <converter:StarConverter x:Key="StarConverter"></converter:StarConverter>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="28"></RowDefinition>
@@ -45,88 +49,60 @@
 
         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Reviews from tourists:</Label>
 
-        <ListView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding GuideReviews}" SelectedItem="{Binding SelectedReview}" x:Name="_lw">
-
+        <ListView x:Name="_lw" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Width="350" ItemsSource="{Binding GuideReviews}" SelectedItem="{Binding SelectedReview}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Width="344">
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <Image Width="75" Height="75" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Image.Source>
-                                    <BitmapImage UriSource="../../Resources/Image/user-solid.png"/>
-                                </Image.Source>
-                            </Image>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80px"></RowDefinition>
+                            <RowDefinition Height="30px"></RowDefinition>
+                            <RowDefinition Height="30px"></RowDefinition>
+                            <RowDefinition Height="30px"></RowDefinition>
+                            <RowDefinition Height="30px"></RowDefinition>
+                            <RowDefinition Height="30px"></RowDefinition>
+                        </Grid.RowDefinitions>
 
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding Tourist.FirstName}"></Label>
-                                    <Label Content="{Binding Tourist.LastName}"></Label>
-                                </StackPanel>
-                                <Label>TBA Arrived at:</Label>
-                            </StackPanel>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="78"></ColumnDefinition>
+                            <ColumnDefinition Width="78"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image Grid.Row="0" Grid.Column="0" Width="75" Height="75">
+                            <Image.Source>
+                                <BitmapImage UriSource="../../Resources/Image/user-solid.png"/>
+                            </Image.Source>
+                        </Image>
 
-                            <Button Width="85" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding DataContext.MarkAsInvalidCmd, ElementName=_lw}">Report</Button>
-                        </DockPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                            <Label VerticalAlignment="Center" FontSize="15" Content="{Binding Tourist.FirstName}"></Label>
+                            <Label VerticalAlignment="Center" FontSize="15" Content="{Binding Tourist.LastName}"></Label>
+                        </StackPanel>
+                        <Button Grid.Row="0" Grid.Column="3" Width="85" Height="27" HorizontalAlignment="Right"  VerticalAlignment="Top" Command="{Binding DataContext.MarkAsInvalidCmd, ElementName=_lw}" Margin="0,0,20,0">Report</Button>
 
-                        <DockPanel HorizontalAlignment="Stretch">
-                            <StackPanel HorizontalAlignment="Left">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label>Category1: </Label>
-                                    <Label Content="{Binding Quality}"></Label>
-                                </StackPanel>
-                                
-                                <StackPanel Orientation="Horizontal">
-                                    <Label>Category2:</Label>
-                                    <Label Content="{Binding TourOrganization}"></Label>
-                                </StackPanel>
+                        <Label Grid.Row="1" Grid.Column="0">Quality:</Label>
+                        <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Source="{Binding Quality, Converter={StaticResource StarConverter}}"></Image>
 
-                                <StackPanel Orientation="Horizontal">
-                                    <Label>Category3:</Label>
-                                    <Label Content="{Binding Attractions}"></Label>
-                                </StackPanel>
+                        <Label Grid.Row="2" Grid.Column="0">Attractions:</Label>
+                        <Image Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Source="{Binding Attractions, Converter={StaticResource StarConverter}}"></Image>
 
-                                <StackPanel Orientation="Horizontal">
-                                    <Label>Category4:</Label>
-                                    <Label Content="{Binding Knowledge}"></Label>
-                                </StackPanel>
-                                
-                                <StackPanel Orientation="Horizontal">
-                                    <Label>Category5:</Label>
-                                    <Label Content="{Binding Language}"></Label>
-                                </StackPanel>
+                        <Label Grid.Row="3" Grid.Column="0">Knowledge:</Label>
+                        <Image Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Source="{Binding Knowledge, Converter={StaticResource StarConverter}}"></Image>
 
-                                <StackPanel Orientation="Horizontal">
-                                    <Label>Category6:</Label>
-                                    <Label Content="{Binding SocialInteraction}"></Label>
-                                </StackPanel>
-                            </StackPanel>
+                        <Label Grid.Row="4" Grid.Column="0">Language:</Label>
+                        <Image Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="2" Source="{Binding Language, Converter={StaticResource StarConverter}}"></Image>
 
-                            <StackPanel HorizontalAlignment="Right">
-                                <Label>Attached photos:</Label>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Photos[0].Link}" Width="30" Height="30"></Image>
-                                    <Image Source="{Binding Photos[1].Link}" Width="30" Height="30"></Image>
-                                    <Image Source="{Binding Photos[2].Link}" Width="30" Height="30"></Image>
-                                </StackPanel>
-
-                                <Label>Description</Label>
-                                <Label Content="TBB"/>
-                            </StackPanel>
-                        </DockPanel>
-
-                        <DockPanel HorizontalAlignment="Center">
-                            <Label>Overall:</Label>
-                            <Image></Image>
-                        </DockPanel>
-
-                        <Label Content="{Binding IsInvalid}"></Label>
-                    </StackPanel>
+                        <Label Grid.Row="5" Grid.Column="0">Social:</Label>
+                        <Image  Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="2" Source="{Binding SocialInteraction, Converter={StaticResource StarConverter}}"></Image>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
+            
+            
         </ListView>
 
         <Button Style="{StaticResource BasicButton}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,18,0,0"  Command="{Binding CloseCmd}">Finish reading</Button>
-        <custom:BurgerMenu Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
+        <custom:BurgerMenu Visibility="Hidden"  Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
     </Grid>
 </UserControl>

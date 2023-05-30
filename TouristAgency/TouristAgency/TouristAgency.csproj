@@ -41,6 +41,7 @@
     <None Remove="Resources\Image\exit.png" />
     <None Remove="Resources\Image\file-pdf-solid.png" />
     <None Remove="Resources\Image\filter.png" />
+    <None Remove="Resources\Image\fourstar.png" />
     <None Remove="Resources\Image\flight2-guest.png" />
     <None Remove="Resources\Image\gps.png" />
     <None Remove="Resources\Image\gps1.png" />
@@ -59,6 +60,7 @@
     <None Remove="Resources\Image\notification1.png" />
     <None Remove="Resources\Image\notification2.png" />
     <None Remove="Resources\Image\notification3.png" />
+    <None Remove="Resources\Image\onestar.png" />
     <None Remove="Resources\Image\pending.png" />
     <None Remove="Resources\Image\logout-guest.png" />
     <None Remove="Resources\Image\notification-bell-guest.png" />
@@ -75,8 +77,10 @@
     <None Remove="Resources\Image\send2.png" />
     <None Remove="Resources\Image\shortcut.png" />
     <None Remove="Resources\Image\statistics.png" />
+    <None Remove="Resources\Image\threestar.png" />
     <None Remove="Resources\Image\tours.png" />
     <None Remove="Resources\Image\super-guest.png" />
+    <None Remove="Resources\Image\twostar.png" />
     <None Remove="Resources\Image\user-check-guest.png" />
     <None Remove="Resources\Image\user-guest.png" />
     <None Remove="Resources\Image\user-solid.png" />
@@ -134,6 +138,9 @@
     <Resource Include="Resources\Image\eiffel-tower-guest.png" />
     <Resource Include="Resources\Image\exit.png" />
     <Resource Include="Resources\Image\file-pdf-solid.png" />
+    <Resource Include="Resources\Image\fivestar.png" />
+    <Resource Include="Resources\Image\fourstar.png" />
+    <Resource Include="Resources\Image\gps.png" />
     <Resource Include="Resources\Image\filter.png" />
     <Resource Include="Resources\Image\gps1.png" />
     <Resource Include="Resources\Image\help.png" />
@@ -146,6 +153,7 @@
     <Resource Include="Resources\Image\loupe.png" />
     <Resource Include="Resources\Image\notification2.png" />
     <Resource Include="Resources\Image\notification3.png" />
+    <Resource Include="Resources\Image\onestar.png" />
     <Resource Include="Resources\Image\pending.png" />
     <Resource Include="Resources\Image\logout-guest.png" />
     <Resource Include="Resources\Image\notification-bell-guest.png" />
@@ -160,8 +168,10 @@
     <Resource Include="Resources\Image\send2.png" />
     <Resource Include="Resources\Image\shortcut.png" />
     <Resource Include="Resources\Image\statistics.png" />
+    <Resource Include="Resources\Image\threestar.png" />
     <Resource Include="Resources\Image\tours.png" />
     <Resource Include="Resources\Image\super-guest.png" />
+    <Resource Include="Resources\Image\twostar.png" />
     <Resource Include="Resources\Image\user-check-guest.png" />
     <Resource Include="Resources\Image\user-solid.png" />
     <Resource Include="Resources\Image\user-guest.png" />
