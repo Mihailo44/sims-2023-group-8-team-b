@@ -1,0 +1,177 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Image\accepted.png" />
+    <None Remove="Resources\Image\account.png" />
+    <None Remove="Resources\Image\add.png" />
+    <None Remove="Resources\Image\applyFilter.png" />
+    <None Remove="Resources\Image\arrow-down-solid.png" />
+    <None Remove="Resources\Image\arrow-left-solid.png" />
+    <None Remove="Resources\Image\arrow-right-solid.png" />
+    <None Remove="Resources\Image\arrow-up-solid.png" />
+    <None Remove="Resources\Image\attendance.png" />
+    <None Remove="Resources\Image\bars-solid.png" />
+    <None Remove="Resources\Image\bell-exclamation.png" />
+    <None Remove="Resources\Image\bell.png" />
+    <None Remove="Resources\Image\bell1.png" />
+    <None Remove="Resources\Image\blank.png" />
+    <None Remove="Resources\Image\cancel.png" />
+    <None Remove="Resources\Image\cancel1.png" />
+    <None Remove="Resources\Image\check.png" />
+    <None Remove="Resources\Image\clear.png" />
+    <None Remove="Resources\Image\clearFilter.png" />
+    <None Remove="Resources\Image\create.png" />
+    <None Remove="Resources\Image\create1.png" />
+    <None Remove="Resources\Image\denied.png" />
+    <None Remove="Resources\Image\eiffel-tower-guest.png" />
+    <None Remove="Resources\Image\exit.png" />
+    <None Remove="Resources\Image\file-pdf-solid.png" />
+    <None Remove="Resources\Image\flight2-guest.png" />
+    <None Remove="Resources\Image\filter.png" />
+    <None Remove="Resources\Image\gps.png" />
+    <None Remove="Resources\Image\gps1.png" />
+    <None Remove="Resources\Image\help.png" />
+    <None Remove="Resources\Image\imagebrowse.png" />
+    <None Remove="Resources\Image\join.png" />
+    <None Remove="Resources\Image\join1.png" />
+    <None Remove="Resources\Image\language.png" />
+    <None Remove="Resources\Image\language1.png" />
+    <None Remove="Resources\Image\logout.png" />
+    <None Remove="Resources\Image\logout1.png" />
+    <None Remove="Resources\Image\logout2.png" />
+    <None Remove="Resources\Image\loupe.png" />
+    <None Remove="Resources\Image\notification-bell.png" />
+    <None Remove="Resources\Image\notification.png" />
+    <None Remove="Resources\Image\notification1.png" />
+    <None Remove="Resources\Image\notification2.png" />
+    <None Remove="Resources\Image\notification3.png" />
+    <None Remove="Resources\Image\pending.png" />
+    <None Remove="Resources\Image\logout-guest.png" />
+    <None Remove="Resources\Image\notification-bell-guest.png" />
+    <None Remove="Resources\Image\person-solid.png" />
+    <None Remove="Resources\Image\play-arrow.png" />
+    <None Remove="Resources\Image\profile-user.png" />
+    <None Remove="Resources\Image\question-solid.png" />
+    <None Remove="Resources\Image\report.png" />
+    <None Remove="Resources\Image\reservation.png" />
+    <None Remove="Resources\Image\review.png" />
+    <None Remove="Resources\Image\right-to-bracket-solid.png" />
+    <None Remove="Resources\Image\send.png" />
+    <None Remove="Resources\Image\send1.png" />
+    <None Remove="Resources\Image\send2.png" />
+    <None Remove="Resources\Image\shortcut.png" />
+    <None Remove="Resources\Image\statistics.png" />
+    <None Remove="Resources\Image\tours.png" />
+    <None Remove="Resources\Image\super-guest.png" />
+    <None Remove="Resources\Image\user-check-guest.png" />
+    <None Remove="Resources\Image\user-guest.png" />
+    <None Remove="Resources\Image\user-solid.png" />
+    <None Remove="Resources\Image\user.png" />
+    <None Remove="Resources\Image\user1.png" />
+    <None Remove="Resources\Image\user2.png" />
+    <None Remove="Resources\Image\user3.png" />
+    <None Remove="Resources\Image\user4.png" />
+    <None Remove="Resources\Image\userTourist.png" />
+    <None Remove="Resources\Image\useVoucher.png" />
+    <None Remove="Resources\Image\voucher.png" />
+    <None Remove="Resources\Image\x-solid.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="itext7" Version="8.0.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Image\accepted.png" />
+    <Resource Include="Resources\Image\account.png" />
+    <Resource Include="Resources\Image\add.png" />
+    <Resource Include="Resources\Image\arrow-down-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\arrow-left-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\arrow-right-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\arrow-up-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\attendance.png" />
+    <Resource Include="Resources\Image\bars-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\bell-exclamation.png" />
+    <Resource Include="Resources\Image\bell.png" />
+    <Resource Include="Resources\Image\bell1.png" />
+    <Resource Include="Resources\Image\blank.png" />
+    <Resource Include="Resources\Image\cancel.png" />
+    <Resource Include="Resources\Image\cancel1.png" />
+    <Resource Include="Resources\Image\check.png" />
+    <Resource Include="Resources\Image\clear.png" />
+    <Resource Include="Resources\Image\create.png" />
+    <Resource Include="Resources\Image\create1.png" />
+    <Resource Include="Resources\Image\denied.png" />
+    <Resource Include="Resources\Image\eiffel-tower-guest.png" />
+    <Resource Include="Resources\Image\exit.png" />
+    <Resource Include="Resources\Image\file-pdf-solid.png" />
+    <Resource Include="Resources\Image\gps.png" />
+    <Resource Include="Resources\Image\gps1.png" />
+    <Resource Include="Resources\Image\help.png" />
+    <Resource Include="Resources\Image\imagebrowse.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\join1.png" />
+    <Resource Include="Resources\Image\language.png" />
+    <Resource Include="Resources\Image\language1.png" />
+    <Resource Include="Resources\Image\logout1.png" />
+    <Resource Include="Resources\Image\logout2.png" />
+    <Resource Include="Resources\Image\loupe.png" />
+    <Resource Include="Resources\Image\notification2.png" />
+    <Resource Include="Resources\Image\notification3.png" />
+    <Resource Include="Resources\Image\pending.png" />
+    <Resource Include="Resources\Image\logout-guest.png" />
+    <Resource Include="Resources\Image\notification-bell-guest.png" />
+    <Resource Include="Resources\Image\person-solid.png" />
+    <Resource Include="Resources\Image\play-arrow.png" />
+    <Resource Include="Resources\Image\profile-user.png" />
+    <Resource Include="Resources\Image\question-solid.png" />
+    <Resource Include="Resources\Image\report.png" />
+    <Resource Include="Resources\Image\reservation.png" />
+    <Resource Include="Resources\Image\review.png" />
+    <Resource Include="Resources\Image\right-to-bracket-solid.png" />
+    <Resource Include="Resources\Image\send2.png" />
+    <Resource Include="Resources\Image\shortcut.png" />
+    <Resource Include="Resources\Image\statistics.png" />
+    <Resource Include="Resources\Image\tours.png" />
+    <Resource Include="Resources\Image\super-guest.png" />
+    <Resource Include="Resources\Image\user-check-guest.png" />
+    <Resource Include="Resources\Image\user-solid.png" />
+    <Resource Include="Resources\Image\user-guest.png" />
+    <Resource Include="Resources\Image\user3.png" />
+    <Resource Include="Resources\Image\user4.png" />
+    <Resource Include="Resources\Image\useVoucher.png" />
+    <Resource Include="Resources\Image\voucher.png" />
+    <Resource Include="Resources\Image\x-solid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Files\" />
+    <Folder Include="Resources\Image\TourImage\" />
+    <Folder Include="Resources\PDF\" />
+  </ItemGroup>
+
+</Project>

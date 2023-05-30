@@ -15,3 +15,5 @@
 14|||Loznica|Serbia
 15|||Barcelona|Spain
 16|||Berlin|Germany
+17|||Novi Sad|Srbija
+18|||Beograd|Srbija
