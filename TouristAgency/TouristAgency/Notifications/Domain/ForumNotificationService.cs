@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TouristAgency.Accommodations.Domain;
 using TouristAgency.Users.ForumFeatures.Domain;
 
 namespace TouristAgency.Notifications.Domain
@@ -29,10 +27,22 @@ namespace TouristAgency.Notifications.Domain
                 if (forum.Created == today)
                 {
                     message = $"Check out new forum {forum.Name}";
-                    ForumNotification notification = new ForumNotification(forum,message);
+                    ForumNotification notification = new ForumNotification(forum, message);
                     ForumNotificationRepository.Create(notification);
                 }
             }
+        }
+
+        public List<ForumNotification> GetOwnersNotifications()
+        {
+            List<ForumNotification> notifications = new();
+
+            foreach (Accommodation a in _app.LoggedUser.Accommodations)
+            {
+                notifications.AddRange(ForumNotificationRepository.GetAll().FindAll(n => n.Forum.LocationId == a.LocationId));
+            }
+
+            return notifications;
         }
     }
 }
