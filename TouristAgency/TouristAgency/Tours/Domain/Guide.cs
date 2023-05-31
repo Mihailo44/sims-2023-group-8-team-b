@@ -12,7 +12,7 @@ namespace TouristAgency.Users
     {
         private List<Tour> _assignedTours;
         private string _super;
-
+        bool _isAccountDisabled;
         public List<Tour> AssignedTours
         {
             get { return _assignedTours; }
@@ -30,6 +30,7 @@ namespace TouristAgency.Users
             UserType = UserType.GUIDE;
             _assignedTours = new List<Tour>();
             _super = "regular";
+            _isAccountDisabled = false;
         }
 
         public Guide(User user) : base(user)
@@ -37,6 +38,7 @@ namespace TouristAgency.Users
             UserType = UserType.GUIDE;
             _assignedTours = new List<Tour>();
             _super = "regular";
+            _isAccountDisabled = false;
         }
 
         new public string[] ToCSV()
@@ -50,7 +52,8 @@ namespace TouristAgency.Users
             _email,
             _phone,
             _fullLocationID.ToString(),
-            _super
+            _super,
+            _isAccountDisabled.ToString()
         };
             return csvValues;
         }
@@ -65,12 +68,19 @@ namespace TouristAgency.Users
             _phone = values[5];
             _fullLocationID = Convert.ToInt32(6);
             _super = values[7];
+            _isAccountDisabled = Convert.ToBoolean(values[8]);
         }
 
         public string Super
         {
             get => _super;
             set => _super = value;
+        }
+
+        public bool IsAccountDisabled
+        {
+            get => _isAccountDisabled;
+            set => _isAccountDisabled = value;
         }
     }
 }

@@ -103,6 +103,6 @@
         </ListView>
 
         <Button Style="{StaticResource BasicButton}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,18,0,0"  Command="{Binding CloseCmd}">Finish reading</Button>
-        <custom:BurgerMenu Visibility="Hidden"  Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
+        <custom:BurgerMenu Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
     </Grid>
 </UserControl>

@@ -1,2 +1,11 @@
 0|20|True
 0|18|True
+8|20|False
+5|20|False
+6|20|False
+7|20|False
+8|20|False
+5|18|False
+6|18|False
+7|18|False
+8|18|False

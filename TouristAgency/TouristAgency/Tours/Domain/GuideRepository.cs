@@ -56,6 +56,7 @@ namespace TouristAgency.Users
             currentGuide.FullLocation = newGuide.FullLocation;
             currentGuide.Phone = newGuide.Phone;
             currentGuide.Super = newGuide.Super;
+            currentGuide.IsAccountDisabled = newGuide.IsAccountDisabled;
             _storage.Save(_guides);
             return currentGuide;
         }

@@ -43,7 +43,7 @@
         </TextBlock>
 
         <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
-            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center">
+            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Consent}">
                 <CheckBox.Content>I have read the above statements</CheckBox.Content>
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
@@ -57,7 +57,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Style="{StaticResource BasicButton}" VerticalAlignment="Top">I wish to leave</Button>
+            <Button Grid.Column="0" Style="{StaticResource BasicButton}" VerticalAlignment="Top" Command="{Binding QuitCmd}">I wish to leave</Button>
             <Button Grid.Column="1" Style="{StaticResource BasicButton}" VerticalAlignment="Top" Command="{Binding CloseCmd}">Cancel</Button>
         </Grid>
     </Grid>

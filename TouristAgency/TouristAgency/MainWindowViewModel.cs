@@ -154,12 +154,17 @@ namespace TouristAgency
                             break;
                         case UserType.GUIDE:
                             {
-                                User = _guideService.GuideRepository.GetById(User.ID);
-                                app.LoggedUser = User;
-                                User.Username = Username;
-                                User.Password = Password;
-                                GuideMain x = new GuideMain();
-                                x.Show();
+                                Guide guide = _guideService.GuideRepository.GetById(User.ID);
+                                app.LoggedUser = guide;
+                                guide.Username = Username;
+                                guide.Password = Password;
+                                if (!guide.IsAccountDisabled)
+                                {
+                                    GuideMain x = new GuideMain();
+                                    x.Show();
+                                }
+                                else
+                                    MessageBox.Show("This account has been disabled");
                                 ClearTxtBoxes();
                             }
                             break;
