@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Tours.DetailsFeature"
         mc:Ignorable="d"
-        Title="TourDetailsDisplay" Height="800" Width="450" WindowStartupLocation="CenterScreen">
+        Title="TourDetailsDisplay" Height="800" Width="450" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="250" ></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -25,16 +25,17 @@
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
+        
         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Tour.Name}" HorizontalContentAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
         <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="150" Source="{Binding Tour.Photos[0].Link}" HorizontalAlignment="Center"></Image>
-        <Label Grid.Row="2" Grid.Column="0" Content="City:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
-        <Label Grid.Row="3" Grid.Column="0" Content="Country:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
-        <Label Grid.Row="4" Grid.Column="0" Content="Language:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
-        <Label Grid.Row="5" Grid.Column="0" Content="Start date:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
-        <Label Grid.Row="6" Grid.Column="0" Content="Start time:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
-        <Label Grid.Row="7" Grid.Column="0" Content="Duration (h):" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
-        <Label Grid.Row="8" Grid.Column="0" Content="Max attendants:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
-        <Label Grid.Row="9" Grid.Column="0" Content="Remaining:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"></Label>
+        <Label Grid.Row="2" Grid.Column="0" Content="City:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="3" Grid.Column="0" Content="Country:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="4" Grid.Column="0" Content="Language:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="5" Grid.Column="0" Content="Start date:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="6" Grid.Column="0" Content="Start time:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="7" Grid.Column="0" Content="Duration (h):" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="8" Grid.Column="0" Content="Max attendants:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="9" Grid.Column="0" Content="Remaining:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
 
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding Tour.ShortLocation.City}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
         <Label Grid.Row="3" Grid.Column="1" Content="{Binding Tour.ShortLocation.Country}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
@@ -45,7 +46,7 @@
         <Label Grid.Row="8" Grid.Column="1" Content="{Binding Tour.MaxAttendants}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
         <Label Grid.Row="9" Grid.Column="1" Content="{Binding Tour.RemainingCapacity}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
 
-        <Button Grid.Row="10" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Command="{Binding CloseCmd}" BorderBrush="#929292" BorderThickness="1.2" Background="Transparent" FontSize="28" Cursor="Hand" FontWeight="Bold" Width="150" Height="40">
+        <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Row="10" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Command="{Binding CloseCmd}">
             <StackPanel Orientation="Horizontal">
                 <Image Height="25" Source="../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
                 <TextBlock>Close</TextBlock>

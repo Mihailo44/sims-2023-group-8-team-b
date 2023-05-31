@@ -11,6 +11,7 @@ namespace TouristAgency.Users
 
     {
         private List<Tour> _assignedTours;
+        private string _super;
 
         public List<Tour> AssignedTours
         {
@@ -28,12 +29,14 @@ namespace TouristAgency.Users
         {
             UserType = UserType.GUIDE;
             _assignedTours = new List<Tour>();
+            _super = "regular";
         }
 
         public Guide(User user) : base(user)
         {
             UserType = UserType.GUIDE;
             _assignedTours = new List<Tour>();
+            _super = "regular";
         }
 
         new public string[] ToCSV()
@@ -46,7 +49,8 @@ namespace TouristAgency.Users
             _dateOfBirth.ToString(),
             _email,
             _phone,
-            _fullLocationID.ToString()
+            _fullLocationID.ToString(),
+            _super
         };
             return csvValues;
         }
@@ -60,6 +64,13 @@ namespace TouristAgency.Users
             _email = values[4];
             _phone = values[5];
             _fullLocationID = Convert.ToInt32(6);
+            _super = values[7];
+        }
+
+        public string Super
+        {
+            get => _super;
+            set => _super = value;
         }
     }
 }

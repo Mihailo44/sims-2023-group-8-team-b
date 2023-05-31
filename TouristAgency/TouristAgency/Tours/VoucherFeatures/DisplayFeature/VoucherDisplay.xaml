@@ -37,7 +37,7 @@
             last for 6 months and can be used for any tour.
         </TextBlock>
 
-        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Width="180" Height="40" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2" Cursor="Hand" HorizontalAlignment="Center" Command="{Binding CloseCmd}">
+        <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center" Command="{Binding CloseCmd}">
             <StackPanel Orientation="Horizontal">
                 <Image Height="24" Source="../../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
                 <TextBlock>Close</TextBlock>
