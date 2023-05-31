@@ -23,7 +23,7 @@ namespace TouristAgency.Converter
 
             if (string.IsNullOrWhiteSpace(stringValue))
             {
-                return 2;
+                return 0;
             }
             else
             {
@@ -33,7 +33,7 @@ namespace TouristAgency.Converter
                 }
                 else
                 {
-                    return 2;
+                    return 0;
                 }
             }
         }

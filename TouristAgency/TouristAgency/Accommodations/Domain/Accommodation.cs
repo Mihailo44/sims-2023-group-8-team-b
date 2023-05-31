@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
 namespace TouristAgency.Accommodations.Domain
 {
-    public class Accommodation : ISerializable, INotifyPropertyChanged, IDataErrorInfo
+    public class Accommodation : ISerializable, INotifyPropertyChanged, IValidate
     {
         private int _id;
         private Owner _owner;
@@ -169,7 +168,7 @@ namespace TouristAgency.Accommodations.Domain
             get => _hotLocation;
             set
             {
-                if(value != _hotLocation)
+                if (value != _hotLocation)
                 {
                     _hotLocation = value;
                 }
@@ -183,55 +182,47 @@ namespace TouristAgency.Accommodations.Domain
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public string Error => null;
-        public string this[string columnName]
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"Name",""}
+        };
+
+        public Dictionary<string, string> ValidationErrors
         {
             get
             {
-                if (columnName == "Name")
-                {
-                    if (string.IsNullOrEmpty(Name))
-                        return "Required field";
-                }
-                else if (columnName == "MaxGuestNum")
-                {
-                    if (string.IsNullOrEmpty(MaxGuestNum.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "MinNumOfDays")
-                {
-                    if (string.IsNullOrEmpty(MinNumOfDays.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "AllowedNumOfDaysForCancelation")
-                {
-                    if (string.IsNullOrEmpty(AllowedNumOfDaysForCancelation.ToString()))
-                        return "Required field";
-                }
-
-                return null;
-
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged();
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
+        public void ValidateSelf()
+        {
+            ValidationErrors.Clear();
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                ValidationErrors["Name"] = "Name is a required field";
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
 
         public bool IsValid
         {
             get
             {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != null)
-                        return false;
-                }
-                return true;
+                return ValidationErrors.Count == 0;
             }
         }
 
+
         public void FromCSV(string[] values)
         {
-
             Id = int.Parse(values[0]);
             Owner.ID = int.Parse(values[1]);
             Name = values[2];

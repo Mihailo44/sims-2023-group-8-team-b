@@ -790,13 +790,21 @@ namespace TouristAgency.Users.HomeDisplayFeature
             PrepareAccommodationForCreation();
             try
             {
-                _accommodationService.AccommodationRepository.Create(NewAccommodation);
-               // AddPhotos();
-                MessageBox.Show("Accommodation created successfully", "Accommodation Creation Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
-                InputFormVisibility = "Collapsed";
-                DataGridVisibility[1] = "Visible";
-                BtnNewVisibility = "Visible";
-                OnPropertyChanged(nameof(DataGridVisibility));
+                NewAccommodation.ValidateSelf();
+                if (NewAccommodation.IsValid)
+                {
+                    _accommodationService.AccommodationRepository.Create(NewAccommodation);
+                    // AddPhotos();
+                    MessageBox.Show("Accommodation created successfully", "Accommodation Creation Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
+                    InputFormVisibility = "Collapsed";
+                    DataGridVisibility[1] = "Visible";
+                    BtnNewVisibility = "Visible";
+                    OnPropertyChanged(nameof(DataGridVisibility));
+                }
+                else
+                {
+                    MessageBox.Show("Registration was not successfull, please fill out all fields","Accommodation Creation Dialogue",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                }
             }
             catch
             {
