@@ -913,11 +913,11 @@ namespace TouristAgency.Users.HomeDisplayFeature
             NewAccommodation.Type = TYPE.HUT;
             await Task.Delay(100);
             NewAccommodation.MaxGuestNum = 100;
-            await Task.Delay(100);
+            await Task.Delay(120);
             NewAccommodation.MinNumOfDays = 5;
-            await Task.Delay(100);
+            await Task.Delay(120);
             NewAccommodation.AllowedNumOfDaysForCancelation = 10;
-            await Task.Delay(100);
+            await Task.Delay(120);
 
             await Task.Delay(1000);
 
