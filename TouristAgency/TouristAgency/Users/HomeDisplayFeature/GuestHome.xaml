@@ -8,7 +8,7 @@
         mc:Ignorable="d"
          Height="700" Width="1200">
     <Grid Background="#FFFBF3">
-        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="#FFD3A1" Height="700" Width="270" Margin="200,0,730,0">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
             <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="-Click the button from the menu for the option you want."/><LineBreak/><Run/><LineBreak/><Run Text="-If you find it hard to do something, you can always click the help button which is located on the left in every section from the menu."/><LineBreak/><Run/><LineBreak/><Run Text="-You will not be able to see your ratings from the owner until you rate the owner and the accommodation in the section Review and recommendation."/><LineBreak/></TextBlock>
         </StackPanel>
 

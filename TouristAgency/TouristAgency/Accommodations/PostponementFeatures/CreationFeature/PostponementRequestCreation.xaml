@@ -8,10 +8,10 @@
         mc:Ignorable="d"
          Height="700" Width="1200">
     <Grid Background="#FFFBF3">
-        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="#FFD3A1" Height="700" Width="270" Margin="200,0,730,0">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
             <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="-If you want to cancel a reservation, select it from the All reservations list and click the cancel reservation button."/><LineBreak/><Run/><LineBreak/><Run Text="-If you cancelled your reservation successfully, a message will pop up and then you can click the ok button."/><LineBreak/><Run/><LineBreak/><Run Text="-Keep in mind that you can cancel the reservation no later than 24 hours before the start date of the stay, unless there are other restrictions set by the owner."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-If you want to move the reservation, select it from the &quot;All reservations&quot; list, then in the &quot;Request for moving reservation&quot; section, select the date range you want to move the reservation to and click send a request button."/><LineBreak/><Run/><LineBreak/><Run Text="-If your request has been successfully sent, it will appear down in the &quot;Requests&quot; list."/><LineBreak/><Run/><LineBreak/><Run Text="-There you can track the status of your request (on hold, approved or denied)."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-You will also get notifications about the status of your request and if you want to see those notifications, just click on the bell icon."/><LineBreak/></TextBlock>
         </StackPanel>
-        
+
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
         <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB" Height="725" VerticalAlignment="Bottom">
@@ -52,7 +52,7 @@
         </StackPanel>
 
 
-        <Label Content="Move and cancel reservation" Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
+        <Label Content="Move and cancel reservation" Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="218,3,0,0" VerticalAlignment="Top"/>
 
         <Grid Margin="218,53,26,347">
             <Grid.RowDefinitions>
@@ -65,7 +65,7 @@
                 <ColumnDefinition Width="165*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Content="All reservations:" Foreground="Black" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Height="36" Width="154" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <Label Content="All reservations:" Foreground="Black" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Height="36" Width="154" VerticalAlignment="Top" Margin="0,7,0,0" Grid.RowSpan="2"/>
             <ListView Grid.Row="1" FontSize="15" Foreground="Black" ItemsSource="{Binding Path=Reservations}" Margin="0,10,28,0" VerticalAlignment="Top" Height="167" SelectedItem="{Binding Path =SelectedReservation}" Grid.ColumnSpan="2">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -83,7 +83,13 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Column="2" Content="Cancel reservation" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Height="30" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" Command="{Binding Path = CancelCmd}"/>
+            <Button Grid.Column="2" Content="Cancel reservation" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Height="30" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" Command="{Binding Path = CancelCmd}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
             <StackPanel  Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"  VerticalAlignment="Top">
                 <Image Width="70" Cursor="Hand">
                     <Image.Source>
@@ -119,7 +125,13 @@
                 <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=Start}"/>
                 <Label Grid.Column="3" Content="to:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                 <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=End}"/>
-                <Button Grid.Column="5" Height="30" Width="126" Content="Send a request" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Grid.Column="5" Height="30" Width="126" Content="Send a request" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </Grid>
         </GroupBox>
 
