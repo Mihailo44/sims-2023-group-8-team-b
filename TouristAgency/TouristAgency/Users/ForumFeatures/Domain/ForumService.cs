@@ -60,7 +60,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             {
                 if (comment.User.UserType == UserType.GUEST)
                 {
-                    foreach (Reservation reservation in reservationService.GetByGuestId(comment.UserId))
+                    foreach (Reservation reservation in reservationService.GetByGuestId(comment.User.ID))
                     {
                         if (reservation.Accommodation.Location.Equals(comment.Forum.Location))
                         {

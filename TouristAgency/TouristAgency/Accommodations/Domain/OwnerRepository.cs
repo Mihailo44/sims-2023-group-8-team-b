@@ -85,7 +85,7 @@ namespace TouristAgency.Accommodations.Domain
         {
             foreach (var accommodation in accommodations)
             {
-                Owner owner = _owners.Find(o => o.ID == accommodation.OwnerId);
+                Owner owner = _owners.Find(o => o.ID == accommodation.Owner.ID);
                 if (owner != null)
                 {
                     owner.Accommodations.Add(accommodation);

@@ -144,10 +144,10 @@ namespace TouristAgency.Accommodations.CreationFeature
 
         private void PrepareAccommodationForCreation()
         {
-            NewAccommodation.OwnerId = LoggedUser.ID;
+            NewAccommodation.Owner.ID = LoggedUser.ID;
             NewAccommodation.Owner = LoggedUser;
             NewAccommodation.Location = _locationService.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim());
-            NewAccommodation.LocationId = _locationService.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
+            NewAccommodation.Location.Id = _locationService.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
         }
 
         public bool CanCreateAccommodationExecute()

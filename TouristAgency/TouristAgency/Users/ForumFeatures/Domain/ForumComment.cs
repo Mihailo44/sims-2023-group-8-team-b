@@ -12,9 +12,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
     {
         private int _id;
         private Forum _forum;
-        private int _forumId;
         private User _user;
-        private int _userId;
         private string _comment;
         private DateTime _created;
         private int _reportNum;
@@ -23,6 +21,8 @@ namespace TouristAgency.Users.ForumFeatures.Domain
         {
             _id = -1;
             _created = DateTime.Now;
+            Forum = new();
+            User = new();
         }
 
         public ForumComment(User user,Forum forum,string comment)
@@ -30,9 +30,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             _id = -1;
             _created = DateTime.Now;
             _user = user;
-            _userId = user.ID;
             _forum = forum;
-            _forumId = forum.Id;
             _comment = comment;
         }
 
@@ -60,18 +58,6 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             }
         }
 
-        public int ForumId
-        {
-            get => _forumId;
-            set
-            {
-                if(_forumId != value)
-                {
-                    _forumId = value;
-                }
-            }
-        }
-
         public User User
         {
             get => _user;
@@ -80,18 +66,6 @@ namespace TouristAgency.Users.ForumFeatures.Domain
                 if(_user != value)
                 {
                     _user = value;
-                }
-            }
-        }
-
-        public int UserId
-        {
-            get => _userId;
-            set
-            {
-                if(_userId != value)
-                {
-                    _userId = value;
                 }
             }
         }
@@ -135,8 +109,8 @@ namespace TouristAgency.Users.ForumFeatures.Domain
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            ForumId = int.Parse(values[1]);
-            UserId = int.Parse(values[2]);
+            Forum.Id = int.Parse(values[1]);
+            User.ID = int.Parse(values[2]);
             Comment = values[3];
             Created = DateTime.Parse(values[4]);
             ReportNum = int.Parse(values[5]);
@@ -147,8 +121,8 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                ForumId.ToString(),
-                UserId.ToString(),
+                Forum.Id.ToString(),
+                User.ID.ToString(),
                 Comment,
                 Created.ToString(),
                 ReportNum.ToString()

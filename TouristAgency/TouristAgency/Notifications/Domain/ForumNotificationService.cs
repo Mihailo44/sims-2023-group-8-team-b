@@ -47,7 +47,7 @@ namespace TouristAgency.Notifications.Domain
 
             foreach (Accommodation a in _app.LoggedUser.Accommodations)
             {
-                notifications.AddRange(ForumNotificationRepository.GetAll().FindAll(n => n.Forum.LocationId == a.LocationId));
+                notifications.AddRange(ForumNotificationRepository.GetAll().FindAll(n => n.Forum.Location.Id == a.Location.Id));
             }
 
             return notifications;

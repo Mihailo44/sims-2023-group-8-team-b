@@ -17,14 +17,12 @@ namespace TouristAgency.Users.ForumFeatures.Domain
         private int _id;
         private string _name;
         private Location _location;
-        private int _locationId;
         private bool _useful;
         private DateTime _created;
 
         public Forum()
         {
             _id = -1;
-            _useful = false;
             _created = DateTime.Today;
         }
 
@@ -33,7 +31,6 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             _id = -1;
             _name = name;
             _location = location;
-            _locationId = location.Id;
             _created = DateTime.Today;
         }
 
@@ -74,18 +71,6 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             }
         }
 
-        public int LocationId
-        {
-            get { return _locationId; }
-            set
-            {
-                if(_locationId != value)
-                {
-                    _locationId = value;
-                }
-            }
-        }
-
         public bool IsUseful
         {
             get { return _useful; }
@@ -120,9 +105,11 @@ namespace TouristAgency.Users.ForumFeatures.Domain
 
         public void FromCSV(string[] values)
         {
+            Location = new();
+
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            LocationId = Convert.ToInt32(values[2]);
+            Location.Id = Convert.ToInt32(values[2]);
             Created = DateTime.Parse(values[3]);
             IsUseful = bool.Parse(values[4]);
         }
@@ -133,7 +120,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             {
                 Id.ToString(),
                 Name,
-                LocationId.ToString(),
+                Location.Id.ToString(),
                 Created.ToString(),
                 IsUseful.ToString()
             };

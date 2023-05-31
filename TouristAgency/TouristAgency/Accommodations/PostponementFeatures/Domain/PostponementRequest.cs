@@ -17,7 +17,6 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
         private DateTime _end;
         private string _comment;
         private Reservation _reservation;
-        private int _reservationId;
         private PostponementRequestStatus _status;
         private bool _seen;
 
@@ -27,12 +26,12 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
             _comment = "";
             _status = PostponementRequestStatus.PENDING;
             _seen = false;
+            Reservation = new();
         }
 
         public PostponementRequest(Reservation reservation, DateTime start, DateTime end)
         {
             _reservation = reservation;
-            _reservationId = reservation.Id;
             _start = start;
             _end = end;
             _comment = "";
@@ -94,18 +93,6 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
             set => _reservation = value;
         }
 
-        public int ReservationId
-        {
-            get => _reservationId;
-            set
-            {
-                if (_reservationId != value)
-                {
-                    _reservationId = value;
-                }
-            }
-        }
-
         public string Comment
         {
             get => _comment;
@@ -133,7 +120,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            ReservationId = int.Parse(values[1]);
+            Reservation.Id = int.Parse(values[1]);
             Start = DateTime.Parse(values[2]);
             End = DateTime.Parse(values[3]);
             Status = Enum.Parse<PostponementRequestStatus>(values[4]);
@@ -146,7 +133,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                ReservationId.ToString(),
+                Reservation.Id.ToString(),
                 Start.ToString(),
                 End.ToString(),
                 Status.ToString(),

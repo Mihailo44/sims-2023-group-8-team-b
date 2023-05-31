@@ -94,7 +94,7 @@ namespace TouristAgency.Accommodations.Domain
 
         public List<Accommodation> GetByOwnerId(int id)
         {
-            return AccommodationRepository.GetAll().FindAll(a => a.OwnerId == id);
+            return AccommodationRepository.GetAll().FindAll(a => a.Owner.ID == id);
         }
 
         public List<Accommodation> Search(string country, string city, string name, string type, int maxGuest, int minDays)
@@ -176,8 +176,8 @@ namespace TouristAgency.Accommodations.Domain
             List<int> results = new List<int>();
             int reservations = reservationService.GetByAccommodationId(accommodation.Id).Where(r => r.Start.Year == year && r.IsCanceled == false).Count();
             int cancelations = reservationService.GetByAccommodationId(accommodation.Id).Where(r => r.Start.Year == year && r.IsCanceled == true).Count();
-            int postponations = postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == year && p.Reservation.AccommodationId == accommodation.Id).Count();
-            int reccommendations = renovationRecommendationService.RenovationRecommendationRepository.GetAll().FindAll(r => r.Reservation.AccommodationId == accommodation.Id && r.Reservation.Start.Year == year && r.Reservation.IsCanceled == false).Count();
+            int postponations = postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == year && p.Reservation.Accommodation.Id == accommodation.Id).Count();
+            int reccommendations = renovationRecommendationService.RenovationRecommendationRepository.GetAll().FindAll(r => r.Reservation.Accommodation.Id == accommodation.Id && r.Reservation.Start.Year == year && r.Reservation.IsCanceled == false).Count();
             int busiestMonth = 0;
 
             double[] monthlyOccupancy = CalculateMonthlyOccupancy(reservationService, accommodation, year);
@@ -198,8 +198,8 @@ namespace TouristAgency.Accommodations.Domain
 
             int reservations = reservationService.GetByAccommodationId(accommodation.Id).Where(r => r.Start.Year == year && r.Start.Month == monthNumber && r.IsCanceled == false).Count();
             int cancelations = reservationService.GetByAccommodationId(accommodation.Id).Where(r => r.Start.Year == year && r.Start.Month == monthNumber && r.IsCanceled == true).Count();
-            int postponements = postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == year && p.Reservation.Start.Month == monthNumber && p.Reservation.AccommodationId == accommodation.Id).Count();
-            int reccommendations = renovationRecommendationService.RenovationRecommendationRepository.GetAll().FindAll(r => r.Reservation.AccommodationId == accommodation.Id && r.Reservation.IsCanceled == false && r.Reservation.Start.Year == year && r.Reservation.Start.Month == monthNumber).Count();
+            int postponements = postponementRequestService.PostponementRequestRepository.GetAll().FindAll(p => p.Reservation.Start.Year == year && p.Reservation.Start.Month == monthNumber && p.Reservation.Accommodation.Id == accommodation.Id).Count();
+            int reccommendations = renovationRecommendationService.RenovationRecommendationRepository.GetAll().FindAll(r => r.Reservation.Accommodation.Id == accommodation.Id && r.Reservation.IsCanceled == false && r.Reservation.Start.Year == year && r.Reservation.Start.Month == monthNumber).Count();
 
             result.Reservations = reservations;
             result.Cancelations = cancelations;

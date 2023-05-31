@@ -12,7 +12,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
     {
         private int _id;
         private Accommodation _accommodation;
-        private int _accommodationId;
         private DateTime _start;
         private DateTime _end;
         private int _estimatedDuration;
@@ -22,13 +21,13 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
         public Renovation()
         {
             _id = -1;
+            Accommodation = new();
         }
 
         public Renovation(Accommodation accommodation, DateTime start, DateTime end, int estimatedDuration)
         {
             _id = -1;
             _accommodation = accommodation;
-            _accommodationId = accommodation.Id;
             _start = start;
             _end = end;
             _estimatedDuration = estimatedDuration;
@@ -55,18 +54,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
                 if (_accommodation != value)
                 {
                     _accommodation = value;
-                }
-            }
-        }
-
-        public int AccommodationId
-        {
-            get => _accommodationId;
-            set
-            {
-                if (_accommodationId != value)
-                {
-                    _accommodationId = value;
                 }
             }
         }
@@ -134,7 +121,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            AccommodationId = int.Parse(values[1]);
+            Accommodation.Id = int.Parse(values[1]);
             Start = DateTime.Parse(values[2]);
             End = DateTime.Parse(values[3]);
             EstimatedDuration = int.Parse(values[4]);
@@ -147,7 +134,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                AccommodationId.ToString(),
+                Accommodation.Id.ToString(),
                 Start.ToString(),
                 End.ToString(),
                 EstimatedDuration.ToString(),

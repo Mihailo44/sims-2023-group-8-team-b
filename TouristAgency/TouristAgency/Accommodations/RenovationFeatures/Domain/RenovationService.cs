@@ -52,7 +52,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
 
             foreach (var accommodation in ownersAccommodations)
             {
-                List<Renovation> renovations = RenovationRepository.GetAll().Where(r => r.AccommodationId == accommodation.Id && r.IsCanceled == false && r.End <= today).OrderByDescending(r => r.End).ToList();
+                List<Renovation> renovations = RenovationRepository.GetAll().Where(r => r.Accommodation.Id == accommodation.Id && r.IsCanceled == false && r.End <= today).OrderByDescending(r => r.End).ToList();
                 if (renovations != null && renovations.Count() > 0)
                 {
                     Renovation latestRenovation = renovations[0];
@@ -85,7 +85,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
                 {
                     if (today > renovation.End)
                     {
-                        Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.AccommodationId);
+                        Accommodation renovatedAccommodation = accommodationService.AccommodationRepository.GetById(renovation.Accommodation.Id);
                         if (renovatedAccommodation != null)
                         {
                             renovatedAccommodation.RecentlyRenovated = true;
@@ -100,7 +100,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
         {
             List<Renovation> renovations = new();
 
-            renovations = RenovationRepository.GetAll().FindAll(r => r.AccommodationId == accommodationId);
+            renovations = RenovationRepository.GetAll().FindAll(r => r.Accommodation.Id == accommodationId);
             return renovations;
         }
 
@@ -108,7 +108,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
         {
             List<Renovation> renovations = new();
 
-            renovations = RenovationRepository.GetAll().FindAll(r => r.Accommodation.OwnerId == ownerId);
+            renovations = RenovationRepository.GetAll().FindAll(r => r.Accommodation.Owner.ID == ownerId);
             return renovations;
         }
 

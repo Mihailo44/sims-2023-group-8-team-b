@@ -11,7 +11,6 @@ namespace TouristAgency.Notifications.Domain
     public class ForumNotification : Notification, ISerializable
     {
         private Forum _forum;
-        private int _forumId;
 
         public ForumNotification() : base()
         {
@@ -21,7 +20,6 @@ namespace TouristAgency.Notifications.Domain
         public ForumNotification(Forum forum,string message) : base(message)
         {
             _forum = forum;
-            _forumId = forum.Id;
         }
 
         public Forum Forum
@@ -36,22 +34,12 @@ namespace TouristAgency.Notifications.Domain
             }
         }
 
-        public int ForumId
-        {
-            get => _forumId;
-            set
-            {
-                if(_forumId != value)
-                {
-                    _forumId = value;
-                }
-            }
-        }
-
         public void FromCSV(string[] values)
         {
+            Forum = new();
+
             Id = int.Parse(values[0]);
-            ForumId = int.Parse(values[1]);
+            Forum.Id = int.Parse(values[1]);
             Message = values[2];
         }
 
@@ -60,7 +48,7 @@ namespace TouristAgency.Notifications.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                ForumId.ToString(),
+                Forum.Id.ToString(),
                 Message
             };
 

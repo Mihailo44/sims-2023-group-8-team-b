@@ -20,7 +20,7 @@ namespace TouristAgency.Notifications.Domain
 
         public List<GuestReviewNotification> GetByOwnerId(int id)
         {
-            return GuestReviewNotificationRepository.GetAll().FindAll(r => r?.Reservation.Accommodation.OwnerId == id);
+            return GuestReviewNotificationRepository.GetAll().FindAll(r => r?.Reservation.Accommodation.Owner.ID == id);
         }
 
         public void ManageNotifications(int ownerId,ReservationService reservationService)

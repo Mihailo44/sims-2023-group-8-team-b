@@ -12,10 +12,8 @@ namespace TouristAgency.Accommodations.Domain
     {
         private int _id;
         private Owner _owner;
-        private int _ownerId;
         private string _name;
         private Location _location;
-        private int _locationId;
         private TYPE _type;
         private int _maxGuestNum;
         private int _minNumOfDays;
@@ -30,16 +28,16 @@ namespace TouristAgency.Accommodations.Domain
             _allowedNumOfDaysForCancelation = 1;
             _type = TYPE.HOTEL;
             _photos = new List<Photo>();
-            _recentlyRenovated = false;
+            Owner = new();
+            Location = new();
         }
 
         public Accommodation(string name, Owner owner, Location location, TYPE type, int maxGuestNum, int minNumOfDays, int allowedNumOfDaysForCancelation)
         {
+            _id = -1;
             _name = name;
             _owner = owner;
-            _ownerId = _owner.ID;
             _location = location;
-            _locationId = location.Id;
             _type = type;
             _maxGuestNum = maxGuestNum;
             _minNumOfDays = minNumOfDays;
@@ -71,18 +69,6 @@ namespace TouristAgency.Accommodations.Domain
             }
         }
 
-        public int OwnerId
-        {
-            get => _ownerId;
-            set
-            {
-                if (value != _ownerId)
-                {
-                    _ownerId = value;
-                }
-            }
-        }
-
         public string Name
         {
             get => _name;
@@ -104,18 +90,6 @@ namespace TouristAgency.Accommodations.Domain
                 if (value != _location)
                 {
                     _location = value;
-                }
-            }
-        }
-
-        public int LocationId
-        {
-            get => _locationId;
-            set
-            {
-                if (value != _locationId)
-                {
-                    _locationId = value;
                 }
             }
         }
@@ -257,10 +231,11 @@ namespace TouristAgency.Accommodations.Domain
 
         public void FromCSV(string[] values)
         {
+
             Id = int.Parse(values[0]);
-            OwnerId = int.Parse(values[1]);
+            Owner.ID = int.Parse(values[1]);
             Name = values[2];
-            LocationId = int.Parse(values[3]);
+            Location.Id = int.Parse(values[3]);
             Type = Enum.Parse<TYPE>(values[4]);
             MaxGuestNum = int.Parse(values[5]);
             MinNumOfDays = int.Parse(values[6]);
@@ -274,9 +249,9 @@ namespace TouristAgency.Accommodations.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                OwnerId.ToString(),
+                Owner.ID.ToString(),
                 Name,
-                LocationId.ToString(),
+                Location.Id.ToString(),
                 Type.ToString(),
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),
