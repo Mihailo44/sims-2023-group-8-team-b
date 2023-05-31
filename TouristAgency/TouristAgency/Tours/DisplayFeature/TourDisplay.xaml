@@ -96,7 +96,7 @@
                     <GridViewColumn Header="More info" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource TouristBasicButtonWhite}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Width="130"></Button>
+                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Width="130"></Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

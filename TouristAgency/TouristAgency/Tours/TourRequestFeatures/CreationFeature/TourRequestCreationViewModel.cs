@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Tours;
+using TouristAgency.Tours.TourRequestFeatures.DisplayFeature;
 using TouristAgency.Users;
 using TouristAgency.Util;
 
@@ -21,6 +21,7 @@ namespace TouristAgency.TourRequests
         private LocationService _locationService;
 
         public DelegateCommand CreateCmd { get; set; }
+        public DelegateCommand ListOfTourRequestsCmd { get; set; }
 
         public TourRequestCreationViewModel(Tourist tourist)
         {
@@ -48,6 +49,7 @@ namespace TouristAgency.TourRequests
         private void InstantiateCommands()
         {
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+            ListOfTourRequestsCmd = new DelegateCommand(param => ListOfTourRequestsExecute(), param => CanListOfTourRequestsExecute());
         }
 
         public TourRequest TourRequest
@@ -106,6 +108,17 @@ namespace TouristAgency.TourRequests
             {
                 MessageBox.Show("Cannot create request 48 hours before start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public bool CanListOfTourRequestsExecute()
+        {
+            return true;
+        }
+
+        public void ListOfTourRequestsExecute()
+        {
+            TourRequestDisplay display = new TourRequestDisplay(_loggedInTourist);
+            display.Show();
         }
     }
 }

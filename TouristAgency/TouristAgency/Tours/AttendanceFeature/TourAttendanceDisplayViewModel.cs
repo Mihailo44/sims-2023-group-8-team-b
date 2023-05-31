@@ -4,6 +4,7 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Users;
 
 namespace TouristAgency.Tours
@@ -24,6 +25,7 @@ namespace TouristAgency.Tours
 
         public DelegateCommand ShowCheckpointInfoCmd { get; set; }
         public DelegateCommand JoinCmd { get; set; }
+        public DelegateCommand DetailsCmd { get; set; }
 
         public TourAttendanceDisplayViewModel(Tourist tourist, Window window)
         {
@@ -51,6 +53,7 @@ namespace TouristAgency.Tours
         {
             ShowCheckpointInfoCmd = new DelegateCommand(param => ShowCheckpointInfoExecute(), param => CanShowCheckpointInfoExecute());
             JoinCmd = new DelegateCommand(param => JoinExecute(), param => CanJoinExecute());
+            DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
         }
 
         public ObservableCollection<Tour> Tours
@@ -128,6 +131,20 @@ namespace TouristAgency.Tours
                 Tours.Add(tour);
             }
             ShowCheckpointInfoExecute();
+        }
+
+        public bool CanDetailsExecute()
+        {
+            return true;
+        }
+
+        public void DetailsExecute()
+        {
+            if (SelectedTour != null)
+            {
+                TourDetailsDisplay display = new TourDetailsDisplay(SelectedTour);
+                display.Show();
+            }
         }
     }
 }

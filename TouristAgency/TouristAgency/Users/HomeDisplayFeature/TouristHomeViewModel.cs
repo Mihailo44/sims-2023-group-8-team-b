@@ -1,10 +1,13 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Statistics;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature;
 using TouristAgency.Tours.TourRequestFeatures.CreationFeature;
+using TouristAgency.Tours.TourRequestFeatures.DisplayFeature;
 using TouristAgency.Tours.VoucherFeatures.DisplayFeature;
 using TouristAgency.Users.HelpFeatures;
 using TouristAgency.View.Creation;
@@ -34,6 +37,8 @@ namespace TouristAgency.Users
         public DelegateCommand HelpForVoucherCmd { get; set; }
         public DelegateCommand VouchersCmd { get; set; }
         public DelegateCommand ShortcutsCmd {  get; set; }
+        public DelegateCommand ListOfTourRequestsCmd { get; set; }
+        public DelegateCommand ListOfComplexTourRequestsCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
 
         public TouristHomeViewModel(Tourist tourist, Window window)
@@ -64,6 +69,8 @@ namespace TouristAgency.Users
             HelpForVoucherCmd = new DelegateCommand(param => HelpForVoucherExecute(), param => CanHelpForVoucherExecute());
             VouchersCmd = new DelegateCommand(param => VouchersExecute(), param => CanVouchersExecute());
             ShortcutsCmd = new DelegateCommand(param => ShortcutsExecute(), param => CanShortcutsExecute());
+            ListOfTourRequestsCmd = new DelegateCommand(param => ListOfTourRequestsExecute(), param => CanListOfTourRequestsExecute());
+            ListOfComplexTourRequestsCmd = new DelegateCommand(param => ListOfComplexTourRequestsExecute(), param => CanListOfComplexTourRequestsExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
@@ -192,6 +199,28 @@ namespace TouristAgency.Users
         public void ShortcutsExecute()
         {
             HelpForShortcutsDisplay display = new HelpForShortcutsDisplay(_loggedInTourist);
+            display.Show();
+        }
+
+        public bool CanListOfTourRequestsExecute()
+        {
+            return true;
+        }
+
+        public void ListOfTourRequestsExecute()
+        {
+            TourRequestDisplay display = new TourRequestDisplay(_loggedInTourist);
+            display.Show();
+        }
+
+        public bool CanListOfComplexTourRequestsExecute()
+        {
+            return true;
+        }
+
+        public void ListOfComplexTourRequestsExecute()
+        {
+            ComplexTourRequestDisplay display = new ComplexTourRequestDisplay(_loggedInTourist);
             display.Show();
         }
 

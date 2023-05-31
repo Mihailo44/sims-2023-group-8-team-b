@@ -32,7 +32,6 @@
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/review.png"/>
                     </MenuItem.Icon>
-
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_View">
@@ -59,6 +58,16 @@
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="View vouchers" Command="{Binding VouchersCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="View your tour requests" Command="{Binding ListOfTourRequestsCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="View your complex tour requests" Command="{Binding ListOfComplexTourRequestsCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/voucher1.png"/>
                     </MenuItem.Icon>
