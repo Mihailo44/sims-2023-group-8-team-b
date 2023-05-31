@@ -14,7 +14,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
         public ComplexTourDetailsDisplay(Tourist tourist)
         {
             InitializeComponent();
-            DataContext = new ComplexTourDetailsDisplayViewModel(tourist);
+            DataContext = new ComplexTourDetailsDisplayViewModel(tourist, this);
         }
     }
 }

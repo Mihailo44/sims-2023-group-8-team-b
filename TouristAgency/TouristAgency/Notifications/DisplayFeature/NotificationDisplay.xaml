@@ -47,7 +47,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Width="180" Height="40" Background="Transparent" FontSize="28" FontWeight="Bold" Cursor="Hand" Grid.Row="2" Grid.Column="0" BorderBrush="#929292" BorderThickness="1.2" Command="{Binding CloseCmd}">
+        <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Row="2" Grid.Column="0" Command="{Binding CloseCmd}">
             <StackPanel Orientation="Horizontal">
                 <Image Height="24" Source="../../Resources/Image/cancel.png" Margin="0,0,10,0"/>
                 <TextBlock>Close</TextBlock>

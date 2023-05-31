@@ -4,25 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TouristAgency.Base;
+using TouristAgency.Interfaces;
 using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
 using TouristAgency.Tours.TourRequestFeatures.Domain;
 using TouristAgency.Users;
 
 namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
 {
-    public class ComplexTourDetailsDisplayViewModel
+    public class ComplexTourDetailsDisplayViewModel : ICloseable
     {
         private App _app;
         private Tourist _loggedInTourist;
+        private Window _window;
 
         private ComplexTourRequest _request;
 
         private ComplexTourRequestService _complexTourRequestService;
 
-        public ComplexTourDetailsDisplayViewModel(Tourist tourist)
+        public DelegateCommand CloseCmd { get; set; }
+
+        public ComplexTourDetailsDisplayViewModel(Tourist tourist, Window window)
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
+            _window = window;
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands(); 
@@ -40,7 +46,17 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
 
         public void InstantiateCommands()
         {
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
+        }
 
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
+        {
+            _window.Close();
         }
     }
 }

@@ -8,9 +8,9 @@
         mc:Ignorable="d"
         Height="700" Width="1200">
     <Grid Background="#FFFBF3">
-        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="#FFD3A1" Height="700" Width="270" Margin="200,0,730,0">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
             <TextBlock FontSize="15" TextWrapping="Wrap" Height="694"><Run Text="-In the section &quot;1. Owner and accommodation review&quot;, you can rate the owner and the accommodation according to different criteria with a rating from 1 to 5."/><LineBreak/><Run/><LineBreak/><Run Text="-You can adjust the numeric stepper for rates by clicking on the arrows (for example for Location). Of course, if you prefer, you can enter the number yourself by clicking on the space to the left of the arrows."/><LineBreak/><Run/><LineBreak/><Run Text="-You can also leave additional comment and photo if you want. For the photo, put URL."/><LineBreak/><Run/><LineBreak/><Run Text="-Once you have finished your rating, you can click the submit button and after that the section &quot;Review display&quot; from the Menu will be enabled."/><LineBreak/><Run/><LineBreak/><Run Text="-In the section &quot;2. Recommendation for renovation&quot; you can leave a recommendation for accommodation renovation if you want. You can also specify level of urgency for renovation (from 1 to 5), by adjusting the numeric stepper. "/><LineBreak/><Run/><LineBreak/><Run Text="-Which level means what is explained in the section &quot;Meaning of levels&quot;."/><LineBreak/><LineBreak/><Run/><LineBreak/><Run Text="."/></TextBlock>
-        </StackPanel> 
+        </StackPanel>
 
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
@@ -51,7 +51,7 @@
             <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
         </StackPanel>
 
-        <Label Content="Owner and accommodation review, recommendation for renovation"  Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="200,-2,0,0" VerticalAlignment="Top"/>
+        <Label Content="Owner and accommodation review, recommendation for renovation"  Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="215,-2,0,0" VerticalAlignment="Top"/>
 
         <GroupBox Header="1. Owner and accommodation review (1-5)"  BorderBrush="Black" BorderThickness="1" FontSize="20" FontWeight="SemiBold" Margin="224,176,26,270">
             <Grid Height="220">
@@ -71,20 +71,20 @@
                     <ColumnDefinition Width="101*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Content="Cleanliness:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="86"/>
-                <Label Grid.Row="1" Content="Owner correctness:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="136"/>
-                <Label Grid.Row="2" Content="Location:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70"/>
-                <Label Grid.Row="3" Content="Comfort:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="68"/>
-                <Label Grid.Row="4" Content="Wi-fi:" FontSize="15" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="45"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Value="{Binding Path=NewOwnerReview.Cleanliness}"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,43,0,0" Grid.RowSpan="2" Value ="{Binding Path = NewOwnerReview.OwnerCorrectness}"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Value ="{Binding Path = NewOwnerReview.Location}"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,3,0,0" Value ="{Binding Path = NewOwnerReview.Comfort}"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="4" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,4,0,0" Value ="{Binding Path = NewOwnerReview.Wifi}"/>
+                <Label Content="Cleanliness:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="108"/>
+                <Label Grid.Row="1" Content="Owner correctness:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="166" Grid.ColumnSpan="2"/>
+                <Label Grid.Row="2" Content="Location:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="108"/>
+                <Label Grid.Row="3" Content="Comfort:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="108"/>
+                <Label Grid.Row="4" Content="Wi-fi:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="74"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Value="{Binding Path=NewOwnerReview.Cleanliness}"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,43,0,0" Grid.RowSpan="2" Value ="{Binding Path = NewOwnerReview.OwnerCorrectness}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Value ="{Binding Path = NewOwnerReview.Location}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Value ="{Binding Path = NewOwnerReview.Comfort}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="4" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,0,0" Value ="{Binding Path = NewOwnerReview.Wifi}"/>
 
-                <Label Grid.Column="2" Content="Additional comment:" FontSize="15" FontWeight="Normal" Height="46" VerticalAlignment="Top" Width="170" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.RowSpan="2"/>
+                <Label Grid.Column="2" Content="Additional comment:" FontSize="18" FontWeight="Normal" Height="46" VerticalAlignment="Top" Width="188" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.RowSpan="2"/>
                 <TextBox Grid.Column="2" Margin="0,43,52,3" Grid.RowSpan="2" Width="500" Text ="{Binding Path = NewOwnerReview.Comment}" HorizontalAlignment="Right" Grid.ColumnSpan="4"/>
-                <Label Grid.Row="2" Grid.Column="2" Content="Photo (put URL):" FontSize="15" FontWeight="Normal" Height="46" Width="170" HorizontalAlignment="Left" Margin="163,2,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                <Label Grid.Row="2" Grid.Column="2" Content="Photo (put URL):" FontSize="18" FontWeight="Normal" Height="46" Width="170" HorizontalAlignment="Left" Margin="163,2,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
                 <TextBox Grid.Row="2" Grid.Column="2" Margin="0,34,52,13" Grid.RowSpan="3" HorizontalAlignment="Right" Width="500" Text="{Binding Path = PhotoLinks}" Grid.ColumnSpan="4">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
@@ -123,13 +123,19 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label Content="Enter your recommendation here:" FontSize="15" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="319" Grid.ColumnSpan="2"/>
+                <Label Content="Enter your recommendation here:" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="319" Grid.ColumnSpan="2"/>
                 <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="395" Height="60" Text="{Binding Path= NewRecommendation.Comment}"/>
-                <Label Content="Level of urgency for renovation (1-5):" Grid.Row="1" FontSize="15" FontWeight="Normal" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Margin="-2,77,0,0" Grid.RowSpan="3"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="56,80,0,0" Grid.RowSpan="2" Value="{Binding Path= NewRecommendation.UrgencyLevel}"/>
+                <Label Content="Level of urgency for renovation (1-5):" Grid.Row="1" FontSize="18" FontWeight="Normal" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Margin="-2,77,0,0" Grid.RowSpan="3"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="107,0,0,0" Value="{Binding Path= NewRecommendation.UrgencyLevel}"/>
             </Grid>
         </GroupBox>
-        <Button Content="Submit" FontWeight="SemiBold" FontSize="15"  Background="#F4F1BB" Width="80" Height="25" Command="{Binding Path= CreateCmd}" Margin="390,616,730,59"/>
+        <Button Content="Submit" FontWeight="SemiBold" FontSize="18"  Background="#F4F1BB" Width="80" Height="30" Command="{Binding Path= CreateCmd}" Margin="403,610,717,60">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <GroupBox Header="Meaning of levels" Background="AntiqueWhite"  BorderBrush="Black" BorderThickness="1"  FontSize="20" FontWeight="SemiBold" Margin="668,430,26,59">
             <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" FontSize="15" FontWeight="Normal" Width="472"><Run Text="Level 0 - everything is perfect and doesn't need renovation."/><LineBreak/><Run Text="Level 1 - it would be nice to renovate some small things, but everything works as it should even without it.           "/><Run Text="   "/><LineBreak/><Run Text="Level 2 - minor complaints about the accommodation which if removed would make it perfect.              "/><LineBreak/><Run Text="Level 3 - a few things that bothered me should be renovated.              Level 4 - there are a lot of bad stuff and renovation is really necessary.              "/><LineBreak/><Run Text="Level 5 - the accommodation is in a very bad condition and is not worth renting at all, unless it is renovated."/></TextBlock>
         </GroupBox>

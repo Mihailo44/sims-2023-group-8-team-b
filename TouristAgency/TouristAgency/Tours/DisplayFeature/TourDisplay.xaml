@@ -62,7 +62,7 @@
                         </StackPanel>
                     </Button>
                     <Label></Label>
-                    <Button Width="210" Height="40" FontSize="28" FontWeight="Bold" Background="Transparent" Command="{Binding ClearCmd}" BorderBrush="#929292" BorderThickness="1.2" Cursor="Hand">
+                    <Button Style="{StaticResource TouristBasicButtonWhite}" Width="210" Command="{Binding ClearCmd}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../../Resources/Image/clear.png" Margin="0,0,5,0"/>
                             <TextBlock>Clear filter</TextBlock>
@@ -96,11 +96,7 @@
                     <GridViewColumn Header="More info" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Height="40" Width="130" FontSize="28" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent">
-                                    <Button.Effect>
-                                        <DropShadowEffect ShadowDepth="4" BlurRadius="20"/>
-                                    </Button.Effect>
-                                </Button>
+                                <Button Style="{StaticResource TouristBasicButtonWhite}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Width="130"></Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -124,7 +120,7 @@
                 <Label Grid.Column="0" Content="Number of reservations:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,10"/>
                 <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="1" Width="73" Height="39" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}" FontSize="28" FontWeight="Bold" Margin="0,0,0,8"/>
                 <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,8">
-                    <Button Grid.Column="3" Width="140" Height="40" FontSize="28" FontWeight="Bold" Background="Transparent" BorderBrush="#929292" BorderThickness="1.2" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}" Cursor="Hand">
+                    <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Column="3" Width="140" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="24" Source="../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
                             <TextBlock>Cancel</TextBlock>

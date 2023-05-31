@@ -40,10 +40,9 @@
     <None Remove="Resources\Image\eiffel-tower-guest.png" />
     <None Remove="Resources\Image\exit.png" />
     <None Remove="Resources\Image\file-pdf-solid.png" />
-    <None Remove="Resources\Image\fivestar.png" />
-    <None Remove="Resources\Image\flight2-guest.png" />
     <None Remove="Resources\Image\filter.png" />
     <None Remove="Resources\Image\fourstar.png" />
+    <None Remove="Resources\Image\flight2-guest.png" />
     <None Remove="Resources\Image\gps.png" />
     <None Remove="Resources\Image\gps1.png" />
     <None Remove="Resources\Image\help.png" />
@@ -93,6 +92,7 @@
     <None Remove="Resources\Image\userTourist.png" />
     <None Remove="Resources\Image\useVoucher.png" />
     <None Remove="Resources\Image\voucher.png" />
+    <None Remove="Resources\Image\voucher1.png" />
     <None Remove="Resources\Image\x-solid.png" />
   </ItemGroup>
 
@@ -141,16 +141,15 @@
     <Resource Include="Resources\Image\fivestar.png" />
     <Resource Include="Resources\Image\fourstar.png" />
     <Resource Include="Resources\Image\gps.png" />
+    <Resource Include="Resources\Image\filter.png" />
     <Resource Include="Resources\Image\gps1.png" />
     <Resource Include="Resources\Image\help.png" />
     <Resource Include="Resources\Image\imagebrowse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Image\join1.png" />
-    <Resource Include="Resources\Image\language.png" />
     <Resource Include="Resources\Image\language1.png" />
     <Resource Include="Resources\Image\logout1.png" />
-    <Resource Include="Resources\Image\logout2.png" />
     <Resource Include="Resources\Image\loupe.png" />
     <Resource Include="Resources\Image\notification2.png" />
     <Resource Include="Resources\Image\notification3.png" />
@@ -180,6 +179,7 @@
     <Resource Include="Resources\Image\user4.png" />
     <Resource Include="Resources\Image\useVoucher.png" />
     <Resource Include="Resources\Image\voucher.png" />
+    <Resource Include="Resources\Image\voucher1.png" />
     <Resource Include="Resources\Image\x-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

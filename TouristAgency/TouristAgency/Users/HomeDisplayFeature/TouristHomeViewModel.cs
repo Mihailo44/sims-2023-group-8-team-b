@@ -6,6 +6,7 @@ using TouristAgency.TourRequests;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Tours.TourRequestFeatures.CreationFeature;
 using TouristAgency.Tours.VoucherFeatures.DisplayFeature;
+using TouristAgency.Users.HelpFeatures;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 using TouristAgency.Vouchers;
@@ -32,6 +33,7 @@ namespace TouristAgency.Users
         public DelegateCommand ComplexTourRequestCmd { get; set; }
         public DelegateCommand HelpForVoucherCmd { get; set; }
         public DelegateCommand VouchersCmd { get; set; }
+        public DelegateCommand ShortcutsCmd {  get; set; }
         public DelegateCommand CloseCmd { get; set; }
 
         public TouristHomeViewModel(Tourist tourist, Window window)
@@ -61,6 +63,7 @@ namespace TouristAgency.Users
             TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => CanTourRequestStatisticsExecute());
             HelpForVoucherCmd = new DelegateCommand(param => HelpForVoucherExecute(), param => CanHelpForVoucherExecute());
             VouchersCmd = new DelegateCommand(param => VouchersExecute(), param => CanVouchersExecute());
+            ShortcutsCmd = new DelegateCommand(param => ShortcutsExecute(), param => CanShortcutsExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
@@ -178,6 +181,17 @@ namespace TouristAgency.Users
         public void VouchersExecute()
         {
             VoucherDisplay display = new VoucherDisplay(_loggedInTourist);
+            display.Show();
+        }
+
+        public bool CanShortcutsExecute()
+        {
+            return true;
+        }
+
+        public void ShortcutsExecute()
+        {
+            HelpForShortcutsDisplay display = new HelpForShortcutsDisplay(_loggedInTourist);
             display.Show();
         }
 
