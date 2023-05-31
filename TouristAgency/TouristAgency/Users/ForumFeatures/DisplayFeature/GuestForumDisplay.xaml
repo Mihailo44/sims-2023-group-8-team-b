@@ -52,34 +52,40 @@
         </StackPanel>
 
         <Label Content="Forum"  Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="230,-4,0,0" VerticalAlignment="Top"/>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=0}" Margin="719,88,194,447" FontSize="20">
+        <ListView ItemsSource="{Binding Path=Forums}" SelectedItem="{Binding Path=SelectedForum}" Margin="719,88,194,447" FontSize="20">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Forum" Width="150"/>
-                    <GridViewColumn Header="Very useful" Width="150"/>
+                    <GridViewColumn Header="Forum" Width="150" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Header="Very useful" Width="150" DisplayMemberBinding="{Binding Path=IsUseful}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Open" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" HorizontalAlignment="Left" Margin="1025,130,0,0" VerticalAlignment="Top">
+        <Button Content="Open" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" HorizontalAlignment="Left" Margin="1025,130,0,0" VerticalAlignment="Top" Command="{Binding Path=OpenForumCmd}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Close" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" HorizontalAlignment="Left" Margin="1025,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.205,0.508">
+        <Button Content="Close" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" HorizontalAlignment="Left" Margin="1025,213,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.205,0.508"  Command="{Binding Path=CloseForumCmd}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=0}" Margin="230,277,75,143">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView Margin="230,277,75,143" ItemsSource="{Binding Path=Comments}" Background="#FFFBF3" BorderThickness="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#F4F1BB" CornerRadius="30" BorderThickness="0.5" BorderBrush="Black">
+                        <StackPanel Width="870">
+                            <Label Content="{Binding Path=User.Username}" FontSize="20" FontWeight="SemiBold"/>
+                            <Label Content="{Binding Path=Created}" FontSize="15"/>
+                            <Label Content="{Binding Path=Comment}" FontSize="15" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Label Content="Leave a comment:" FontSize="20" HorizontalAlignment="Left" Margin="279,585,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Margin="498,572,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="404" Height="63"/>
@@ -107,10 +113,10 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Content="Location:" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Height="37" Width="90" />
-                <ComboBox Grid.Row="0" Grid.Column="1" Margin="0,10,154,10"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Margin="0,10,154,10" ItemsSource="{Binding Path=Cities}" SelectedItem="{Binding Path=City}"/>
                 <Label Grid.Row="1" Grid.Column="0" Content="Leave your first comment:" FontSize="20" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,0,0,0" Height="37" Width="238"/>
-                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,46,154,2" Grid.RowSpan="2"/>
-                <Button Content="Create" Grid.Row="2" Grid.Column="1" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" Margin="178,10,28,2">
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,46,154,2" Grid.RowSpan="2" Text="{Binding Path=Comment}"/>
+                <Button Content="Create" Grid.Row="2" Grid.Column="1" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" Margin="178,10,28,2" Command="{Binding Path=CreateForumCmd}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>

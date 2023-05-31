@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Util;
@@ -34,6 +35,19 @@ namespace TouristAgency.Users.ForumFeatures.Domain
                     forum.IsUseful = true;
                     ForumRepository.Update(forum, forum.Id);
                 }
+            }
+        }
+
+        public bool IsDuplicate(string city)
+        {
+            Forum forum = ForumRepository.GetAll().FirstOrDefault(f => f.Name.Contains(city));
+            if(forum == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 
