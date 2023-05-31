@@ -202,13 +202,19 @@ namespace TouristAgency.Accommodations.Domain
 
         public void ValidateSelf()
         {
-            ValidationErrors.Clear();
+            ValidationClear();
 
             if (string.IsNullOrEmpty(Name))
             {
                 ValidationErrors["Name"] = "Name is a required field";
             }
 
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["Name"]= string.Empty;
             OnPropertyChanged(nameof(ValidationErrors));
         }
 

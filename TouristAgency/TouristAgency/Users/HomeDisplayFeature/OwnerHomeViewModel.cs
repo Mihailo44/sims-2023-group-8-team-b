@@ -823,6 +823,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void CloseAccommodationCreationCmdExecute()
         {
+            NewAccommodation.ValidationClear();
             InputFormVisibility = "Collapsed";
             DataGridVisibility[1] = "Visible";
             BtnNewVisibility = "Visible";
