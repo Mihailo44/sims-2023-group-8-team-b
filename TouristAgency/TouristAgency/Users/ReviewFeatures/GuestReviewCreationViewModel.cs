@@ -46,7 +46,7 @@ namespace TouristAgency.Users.ReviewFeatures
             ComboNumbers = new();
             FillCombos();
             NewGuestReview.Reservation = reservation;
-            NewGuestReview.ReservationId = reservation.Id;
+            NewGuestReview.Reservation.Id = reservation.Id;
             CreateCmd = new DelegateCommand(param => CreateGuestReviewExecute(), param => CanCreateGuestReviewExecute());
             CloseCmd = new DelegateCommand(param => CloseWindowExecute(), param => CanCloseWindowExecute());
         }
@@ -171,7 +171,7 @@ namespace TouristAgency.Users.ReviewFeatures
                     NewGuestReview.Comment = Comment;
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
                     _guestReviewService.GuestReviewRepository.Create(NewGuestReview);
-                    _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
+                    _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.Reservation.Id);
                     MessageBox.Show("Guest review created successfully", "Guest Review Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else

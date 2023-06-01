@@ -93,14 +93,7 @@ namespace TouristAgency.Util
         {
             Accommodation accommodation = owner.Accommodations.Find(a => a.Location.Id == location.Id);
 
-            if (accommodation != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return accommodation != null;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace TouristAgency.Interfaces
     public interface IValidate
     {
        Dictionary<string, string> ValidationErrors { get; set; }
-       void ValidateSelf();
+       //void ValidateSelf();
        bool IsValid { get; }
     }
 }

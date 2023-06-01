@@ -76,7 +76,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
         {
             foreach (GuestReview guestReview in _guestReviews)
             {
-                Reservation reservation = reservations.Find(r => r.Id == guestReview.ReservationId);
+                Reservation reservation = reservations.Find(r => r.Id == guestReview.Reservation.Id);
                 if (reservation != null)
                 {
                     guestReview.Reservation = reservation;

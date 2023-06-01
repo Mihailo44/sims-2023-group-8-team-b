@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
@@ -184,7 +185,10 @@ namespace TouristAgency.Accommodations.Domain
 
         private Dictionary<string, string> _validationErrors = new()
         {
-            {"Name",""}
+            {"Name",string.Empty},
+            {"MaxGuestNum",string.Empty},
+            {"MinNumOfDays",string.Empty},
+            {"CancelationDays",string.Empty }
         };
 
         public Dictionary<string, string> ValidationErrors
@@ -200,13 +204,55 @@ namespace TouristAgency.Accommodations.Domain
             }
         }
 
-        public void ValidateSelf()
+        public void ValidateSelf(string capacity,string minNumOfDays,string cancelationDays)
         {
             ValidationClear();
 
+            Regex _intRegex = new Regex("[0-9]");
+
             if (string.IsNullOrEmpty(Name))
             {
-                ValidationErrors["Name"] = "Name is a required field";
+                ValidationErrors["Name"] = "This is a required field";
+            }
+
+            if (!string.IsNullOrEmpty(capacity))
+            {
+                Match match = _intRegex.Match(capacity);
+                if (!match.Success)
+                {
+                    ValidationErrors["MaxGuestNum"] = "Enter a number";
+                }
+            }
+            else
+            {
+                ValidationErrors["MaxGuestNum"] = "This is a required field";
+            }
+
+            if (!string.IsNullOrEmpty(minNumOfDays))
+            {
+                ValidationErrors["MinNumOfDays"] = "This is a required field";
+                Match match = _intRegex.Match(minNumOfDays);
+                if (!match.Success)
+                {
+                    ValidationErrors["MinNumOfDays"] = "Enter a number";
+                }
+            }
+            else
+            {
+                ValidationErrors["MinNumOfDays"] = "This is a required field";
+            }
+
+            if (!string.IsNullOrEmpty(cancelationDays))
+            {
+                Match match = _intRegex.Match(cancelationDays);
+                if (!match.Success)
+                {
+                    ValidationErrors["CancelationDays"] = "Enter a number";
+                }
+            }
+            else
+            {
+                ValidationErrors["CancelationDays"] = "This is a required field";
             }
 
             OnPropertyChanged(nameof(ValidationErrors));
@@ -214,7 +260,10 @@ namespace TouristAgency.Accommodations.Domain
 
         public void ValidationClear()
         {
-            ValidationErrors["Name"]= string.Empty;
+            ValidationErrors["Name"] = string.Empty;
+            ValidationErrors["MaxGuestNum"] = string.Empty;
+            ValidationErrors["MinNumOfDays"] = string.Empty;
+            ValidationErrors["CancelationDays"] = string.Empty;
             OnPropertyChanged(nameof(ValidationErrors));
         }
 
@@ -222,7 +271,15 @@ namespace TouristAgency.Accommodations.Domain
         {
             get
             {
-                return ValidationErrors.Count == 0;
+                foreach(var key in ValidationErrors.Keys)
+                {
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
         }
 
