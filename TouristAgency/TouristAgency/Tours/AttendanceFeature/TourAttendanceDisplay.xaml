@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Attendance on the tour" Height="600" Width="1100" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Attendance on the tour" Height="600" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid HorizontalAlignment="Center" Height="580">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

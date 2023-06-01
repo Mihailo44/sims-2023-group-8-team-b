@@ -6,7 +6,7 @@
         xmlns:converter="clr-namespace:TouristAgency.Converter"
         xmlns:local="clr-namespace:TouristAgency.Tours.TourRequestFeatures.DisplayFeature"
         mc:Ignorable="d"
-        Title="TourRequestDisplay" Height="620" Width="1100">
+        Title="TourRequestDisplay" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="Choose your voucher" Height="450" Width="650" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Choose your voucher" Height="450" Width="650" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

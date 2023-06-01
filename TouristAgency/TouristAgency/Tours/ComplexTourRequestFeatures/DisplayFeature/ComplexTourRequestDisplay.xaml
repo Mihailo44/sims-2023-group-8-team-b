@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature"
         mc:Ignorable="d"
-        Title="ComplexTourRequestDisplay" Height="620" Width="1100">
+        Title="ComplexTourRequestDisplay" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
