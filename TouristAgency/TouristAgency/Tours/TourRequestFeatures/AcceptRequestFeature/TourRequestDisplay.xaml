@@ -21,8 +21,8 @@
         </Grid.RowDefinitions>
 
         <custom:BurgerButton Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
-
-        <Label Content="Pending tour requests" FontSize="20" HorizontalAlignment="Center" Width="204"></Label>
+        <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">Tour requests</Label>
+        <!--<Label Content="Pending tour requests" FontSize="20" HorizontalAlignment="Center" Width="204"></Label>-->
         <GroupBox Grid.Column="0" Grid.Row="1" Width="350">
             <GroupBox.Header>
                 <Label Content="Filters" FontSize="13"></Label>

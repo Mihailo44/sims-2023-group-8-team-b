@@ -22,8 +22,8 @@
         </Grid.RowDefinitions>
 
         <custom:BurgerButton Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
-
-        <Label Content="Tour request statistics" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Width="204"></Label>
+        <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Grid.ColumnSpan="2">Tour request statistics</Label>
+        <!--<Label Content="Tour request statistics" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Width="204"></Label>-->
         <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Width="350" Height="220">
             <GroupBox.Header>
                 <Label Content="Filters" FontSize="13"></Label>

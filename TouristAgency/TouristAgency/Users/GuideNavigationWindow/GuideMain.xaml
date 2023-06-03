@@ -29,6 +29,10 @@
             <profiledisplay:GuideProfileDisplay/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type profiledisplay:SuperGuideDisplayViewModel}">
+            <profiledisplay:SuperGuideDisplay/>
+        </DataTemplate>
+        
         <DataTemplate DataType="{x:Type cancelation:CancelTourDisplayViewModel}">
             <cancelation:CancelTourDisplay/>
         </DataTemplate>

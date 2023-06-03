@@ -27,7 +27,7 @@
         <custom:BurgerMenu Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
         <Label Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold" Margin="0,-5,0,0" HorizontalAlignment="Center">Leave us</Label>
 
-        <Label Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="25" FontWeight="Bold" Margin="0,-5,0,0" HorizontalAlignment="Center">We are sorry to see you go</Label>
+        <Label Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold" Margin="0,-5,0,0" HorizontalAlignment="Center">We are sorry to see you go</Label>
 
         <TextBlock  Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="20" TextWrapping="Wrap" TextAlignment="Center">
             By terminating your contract with us, <Bold>all of your existing tours will be canceled</Bold> and all tourists registered to said tours will recieve a voucher. <Bold>This is irreversible.</Bold>

@@ -25,7 +25,7 @@
 
         <custom:BurgerButton Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
         
-        <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" FontSize="40" VerticalAlignment="Top" Padding="0" Margin="7,0,0,0">TouristAgency</Label>
+        <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" FontSize="40" VerticalAlignment="Top" Padding="0" Margin="7,-13,0,0">TouristAgency</Label>
 
         <Image Grid.Column="2" Grid.Row="0" Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,13,7,0">
             <Image.Source>

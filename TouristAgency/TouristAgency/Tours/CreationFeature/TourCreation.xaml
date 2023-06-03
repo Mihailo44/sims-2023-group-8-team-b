@@ -162,10 +162,10 @@
 
                     </Grid.RowDefinitions>
 
-                    <Label>Tour start date:</Label>
-                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                        <DatePicker x:Name="dateTimePicker"  Height="25" SelectedDate="{Binding Path=NewTour.StartDateTime, ValidatesOnDataErrors=True}" Width="130"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
-                        <Button x:Name="AddDateButton" Width="20" Height="20" Command="{Binding AddMultipleDatesCmd}">+</Button>
+                    <Label VerticalAlignment="Center">Tour start date:</Label>
+                    <StackPanel Margin="0,10,0,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <DatePicker x:Name="dateTimePicker" Width="100" Height="23" Margin="170,0,0,0" SelectedDate="{Binding Path=NewTour.StartDateTime, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
+                        <Button Style="{StaticResource BasicButton}" Height="23" Width="25" x:Name="AddDateButton" HorizontalContentAlignment="Center" Command="{Binding AddMultipleDatesCmd}">+</Button>
                     </StackPanel>
 
 
