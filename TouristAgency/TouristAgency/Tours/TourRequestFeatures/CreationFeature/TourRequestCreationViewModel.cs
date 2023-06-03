@@ -87,7 +87,7 @@ namespace TouristAgency.TourRequests
         {
             TourRequest.TouristID = _loggedInTourist.ID;
             TourRequest.ShortLocation = _locationService.LocationRepository.Create(TourRequest.ShortLocation);
-            TourRequest.ShortLocationID = TourRequest.ShortLocation.Id;
+            TourRequest.ShortLocationID = TourRequest.ShortLocation.ID;
             TimeSpan ts = TourRequest.StartDate - DateTime.Today;
             if (TourRequest.IsValid &&  ts.TotalHours > 48)
             {

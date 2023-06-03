@@ -42,7 +42,7 @@ namespace TouristAgency.Util
             _country = originalLocation.Country;
         }
 
-        public int Id
+        public int ID
         {
             get { return _ID; }
             set

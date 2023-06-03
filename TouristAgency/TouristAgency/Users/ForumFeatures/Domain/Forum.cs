@@ -109,7 +109,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
 
             Id = Convert.ToInt32(values[0]);
             Name = values[1];
-            Location.Id = Convert.ToInt32(values[2]);
+            Location.ID = Convert.ToInt32(values[2]);
             Created = DateTime.Parse(values[3]);
             IsUseful = bool.Parse(values[4]);
         }
@@ -120,7 +120,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             {
                 Id.ToString(),
                 Name,
-                Location.Id.ToString(),
+                Location.ID.ToString(),
                 Created.ToString(),
                 IsUseful.ToString()
             };

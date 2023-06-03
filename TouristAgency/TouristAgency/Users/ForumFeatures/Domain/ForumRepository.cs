@@ -77,7 +77,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
         {
             foreach(Forum forum in _forums)
             {
-                Location location = locations.Find(l => l.Id == forum.Location.Id);
+                Location location = locations.Find(l => l.ID == forum.Location.ID);
                 if(location != null)
                 {
                     forum.Location = location;

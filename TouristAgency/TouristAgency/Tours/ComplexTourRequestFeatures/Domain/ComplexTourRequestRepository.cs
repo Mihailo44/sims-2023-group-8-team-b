@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.TourRequests;
+using TouristAgency.Users;
 
 namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
 {
@@ -57,7 +58,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
                 return null;
             }
             currentComplexTourRequest.Name = newComplexTourRequest.Name;
-            currentComplexTourRequest.Components = newComplexTourRequest.Components;
+            currentComplexTourRequest.Parts = newComplexTourRequest.Parts;
             _storage.Save(_requests);
             NotifyObservers();
             return currentComplexTourRequest;
@@ -79,7 +80,21 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
                 {
                     if (request.ComplexTourRequestID == complexRequest.ID)
                     {
-                        complexRequest.Components.Add(request);
+                        complexRequest.Parts.Add(request);
+                    }
+                }
+            }
+        }
+
+        public void LoadTouristsToComplexTourRequests(List<Tourist> tourists)
+        {
+            foreach (Tourist tourist in tourists)
+            {
+                foreach (ComplexTourRequest complexRequest in GetAll())
+                {
+                    if (tourist.ID == complexRequest.TouristID)
+                    {
+                        complexRequest.Tourist = tourist;
                     }
                 }
             }

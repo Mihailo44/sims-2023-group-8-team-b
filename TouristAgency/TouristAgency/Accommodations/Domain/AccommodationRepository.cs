@@ -78,7 +78,7 @@ namespace TouristAgency.Accommodations.Domain
             {
                 foreach (Accommodation accommodation in _accommodations)
                 {
-                    if (accommodation.Location.Id == location.Id)
+                    if (accommodation.Location.ID == location.ID)
                     {
                         accommodation.Location = location;
                     }

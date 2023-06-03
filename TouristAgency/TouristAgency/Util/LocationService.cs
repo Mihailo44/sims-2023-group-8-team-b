@@ -26,12 +26,12 @@ namespace TouristAgency.Util
 
         public int FindLocationId(Location location)
         {
-            return LocationRepository.GetAll().Find(l => l.Equals(location)).Id;
+            return LocationRepository.GetAll().Find(l => l.Equals(location)).ID;
         }
 
         public Location FindByCountryAndCity(string country, string city)
         {
-            Location location = LocationRepository.GetAll().Find(l => l.Country.ToLower() == country.ToLower() && l.City.ToLower() == city.ToLower());
+            Location location = LocationRepository.GetAll().FirstOrDefault(l => l.Country.ToLower() == country.ToLower() && l.City.ToLower() == city.ToLower());
             if (location == null)
             {
                 location = new Location(country, city);
@@ -47,7 +47,7 @@ namespace TouristAgency.Util
 
             foreach (Location location in LocationRepository.GetAll())
             {
-                List<Accommodation> accommodationsOnLocation = ownersAccommodations.Where(a => a.Location.Id == location.Id).ToList();
+                List<Accommodation> accommodationsOnLocation = ownersAccommodations.Where(a => a.Location.ID == location.ID).ToList();
 
                 foreach (Accommodation accommodation in accommodationsOnLocation)
                 {
@@ -91,7 +91,7 @@ namespace TouristAgency.Util
 
         public bool HasAccommodationOnLocation(Owner owner, Location location)
         {
-            Accommodation accommodation = owner.Accommodations.Find(a => a.Location.Id == location.Id);
+            Accommodation accommodation = owner.Accommodations.Find(a => a.Location.ID == location.ID);
 
             return accommodation != null;
         }

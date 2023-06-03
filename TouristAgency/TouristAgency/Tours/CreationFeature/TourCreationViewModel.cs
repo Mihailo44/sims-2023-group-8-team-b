@@ -254,7 +254,7 @@ namespace TouristAgency.CreationFeature
         public void PrepareLocation()
         {
             int locationID = _locationService.FindLocationId(NewLocation);
-            NewLocation.Id = locationID;
+            NewLocation.ID = locationID;
 
             if (locationID == -1)
             {
@@ -262,7 +262,7 @@ namespace TouristAgency.CreationFeature
             }
 
             _newTour.ShortLocation = NewLocation;
-            _newTour.ShortLocationID = NewLocation.Id;
+            _newTour.ShortLocationID = NewLocation.ID;
         }
 
         public void AddPhotos()

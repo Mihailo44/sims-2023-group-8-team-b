@@ -289,7 +289,7 @@ namespace TouristAgency.Accommodations.Domain
             Id = int.Parse(values[0]);
             Owner.ID = int.Parse(values[1]);
             Name = values[2];
-            Location.Id = int.Parse(values[3]);
+            Location.ID = int.Parse(values[3]);
             Type = Enum.Parse<TYPE>(values[4]);
             MaxGuestNum = int.Parse(values[5]);
             MinNumOfDays = int.Parse(values[6]);
@@ -305,7 +305,7 @@ namespace TouristAgency.Accommodations.Domain
                 Id.ToString(),
                 Owner.ID.ToString(),
                 Name,
-                Location.Id.ToString(),
+                Location.ID.ToString(),
                 Type.ToString(),
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),

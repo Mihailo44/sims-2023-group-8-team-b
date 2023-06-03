@@ -33,7 +33,7 @@ namespace TouristAgency.Converter
             else if (user.UserType == Util.UserType.GUEST)
             {
                 Guest guest = guestService.GuestRepository.GetById(user.ID);
-                if (guest.Reservations.Find(r => r.Accommodation.Location.Id == forum.Location.Id) != null)
+                if (guest.Reservations.Find(r => r.Accommodation.Location.ID == forum.Location.ID) != null)
                 {
                     return "../../../Resources/Image/check.png";
                 }

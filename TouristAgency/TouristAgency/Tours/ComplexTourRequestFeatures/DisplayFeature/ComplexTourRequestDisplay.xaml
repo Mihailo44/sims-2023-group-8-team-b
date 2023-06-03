@@ -3,9 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:TouristAgency.Converter"
         xmlns:local="clr-namespace:TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature"
         mc:Ignorable="d"
-        Title="ComplexTourRequestDisplay" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
+        Title="ComplexTourRequestDisplay" Height="620" Width="830" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
+
+    <Window.Resources>
+        <converter:ComplexTourRequestStatusConverter x:Key="ComplexTourRequestStatusConverter"></converter:ComplexTourRequestStatusConverter>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -17,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="List of your all complex tour requests:" Grid.Row="0" FontSize="32" FontWeight="Bold" Margin="10,0,0,0"></Label>
-        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Tours}" Width="1070" Height="450" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Requests}" Width="800" Height="450" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -25,12 +31,18 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Complex tour name" Width="350" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="More info" Width="600">
+                    <GridViewColumn Header="Status" Width="150">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Content="Click here to see more info and all parts of the complex tour"></Label>
+                                <Image Height="70" Width="70" Source="{Binding Status, Converter={StaticResource ComplexTourRequestStatusConverter}}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Complex tour name" Width="350" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="More info">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Width="130"></Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

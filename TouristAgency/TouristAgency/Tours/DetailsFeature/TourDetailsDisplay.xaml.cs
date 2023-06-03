@@ -21,8 +21,8 @@ namespace TouristAgency.Tours.DetailsFeature
     {
         public TourDetailsDisplay(Tour tour)
         {
-            DataContext = new TourDetailsDisplayViewModel(tour, this);
             InitializeComponent();
+            DataContext = new TourDetailsDisplayViewModel(tour, this);
         }
     }
 }

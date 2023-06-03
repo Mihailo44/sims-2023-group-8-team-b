@@ -11,19 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TouristAgency.Users;
+using TouristAgency.TourRequests;
 
-namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
+namespace TouristAgency.Tours.DetailsFeature
 {
     /// <summary>
-    /// Interaction logic for ComplexTourRequestDisplay.xaml
+    /// Interaction logic for RequestPartDetailsDisplay.xaml
     /// </summary>
-    public partial class ComplexTourRequestDisplay : Window
+    public partial class RequestPartDetailsDisplay : Window
     {
-        public ComplexTourRequestDisplay(Tourist tourist)
+        public RequestPartDetailsDisplay(string name, TourRequest tourRequest)
         {
             InitializeComponent();
-            DataContext = new ComplexTourRequestDisplayViewModel(tourist, this);
+            DataContext = new RequestPartDetailsDisplayViewModel(name, tourRequest, this);
         }
     }
 }

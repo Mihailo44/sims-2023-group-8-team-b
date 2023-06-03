@@ -24,6 +24,11 @@ namespace TouristAgency.Tours.TourRequestFeatures.Domain
             return ComplexTourRequestRepository.GetAll();
         }
 
+        public List<ComplexTourRequest> GetByTouristID(int touristID)
+        {
+            return ComplexTourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
+        }
+
         public ComplexTourRequest Create(ComplexTourRequest newComplexTourRequest)
         {
             return ComplexTourRequestRepository.Create(newComplexTourRequest);
