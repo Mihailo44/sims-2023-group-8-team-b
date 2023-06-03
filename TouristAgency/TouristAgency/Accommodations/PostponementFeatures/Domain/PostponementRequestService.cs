@@ -20,12 +20,12 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
 
         public List<PostponementRequest> GetByOwnerId(int ownerId)
         {
-            return PostponementRequestRepository.GetAll().FindAll(r => r.Reservation.Accommodation.OwnerId == ownerId && r.Status == PostponementRequestStatus.PENDING);
+            return PostponementRequestRepository.GetAll().FindAll(r => r.Reservation.Accommodation.Owner.ID == ownerId && r.Status == PostponementRequestStatus.PENDING);
         }
 
         public List<PostponementRequest> GetByGuestId(int guestId)
         {
-            return PostponementRequestRepository.GetAll().FindAll(r => r.Reservation.GuestId == guestId);
+            return PostponementRequestRepository.GetAll().FindAll(r => r.Reservation.Guest.ID == guestId);
         }
 
         public string ShowNotifications(int id)
@@ -34,7 +34,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
             foreach (PostponementRequest request in PostponementRequestRepository.GetAll())
             {
                 if (request.Seen == false && request.Status != PostponementRequestStatus.PENDING &&
-                    request.Reservation.GuestId == id)
+                    request.Reservation.Guest.ID == id)
                 {
                     result = "One of your requests has changed";
                     request.Seen = true;

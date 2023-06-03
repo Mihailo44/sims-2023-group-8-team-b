@@ -16,6 +16,11 @@ namespace TouristAgency.Notifications.Domain
             ForumNotificationRepository = _app.ForumNotificationRepository;
         }
 
+        public ForumNotification GetByForum(Forum forum)
+        {
+            return ForumNotificationRepository.GetAll().Find(n => n.Forum.Id == forum.Id);
+        }
+
         public void ManageNotifications(int ownerId, ForumService forumService)
         {
             DateTime today = DateTime.UtcNow.Date;
@@ -26,9 +31,12 @@ namespace TouristAgency.Notifications.Domain
             {
                 if (forum.Created == today)
                 {
-                    message = $"Check out new forum {forum.Name}";
-                    ForumNotification notification = new ForumNotification(forum, message);
-                    ForumNotificationRepository.Create(notification);
+                    if (GetByForum(forum) == null)
+                    {
+                        message = $"Check out new forum {forum.Name}";
+                        ForumNotification notification = new ForumNotification(forum, message);
+                        ForumNotificationRepository.Create(notification);
+                    }
                 }
             }
         }
@@ -39,7 +47,7 @@ namespace TouristAgency.Notifications.Domain
 
             foreach (Accommodation a in _app.LoggedUser.Accommodations)
             {
-                notifications.AddRange(ForumNotificationRepository.GetAll().FindAll(n => n.Forum.LocationId == a.LocationId));
+                notifications.AddRange(ForumNotificationRepository.GetAll().FindAll(n => n.Forum.Location.Id == a.Location.Id));
             }
 
             return notifications;

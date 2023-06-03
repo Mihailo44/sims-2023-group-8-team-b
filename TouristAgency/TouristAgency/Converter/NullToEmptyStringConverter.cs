@@ -8,19 +8,11 @@ using System.Windows.Data;
 
 namespace TouristAgency.Converter
 {
-    public class UsefulForumConverter : IValueConverter
+    public class NullToEmptyStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool status = (bool)value;
-            if (status)
-            {
-                return "../../../Resources/Image/check.png";
-            }
-            else
-            {
-                return "../../../Resources/Image/pending.png";
-            }
+            return value ?? string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

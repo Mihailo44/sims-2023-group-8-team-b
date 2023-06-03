@@ -3,28 +3,110 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.Tours.TourRequestFeatures.CreationFeature"
         mc:Ignorable="d"
-        Title="Create request for your complex tour" Height="785" Width="1100" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
-    <Grid>
+        Title="Create request for your complex tour" Height="790" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
+    <Grid Width="1070">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="65"></RowDefinition>
-            <RowDefinition Height="280"></RowDefinition>
-            <RowDefinition Height="55"></RowDefinition>
-            <RowDefinition Height="55"></RowDefinition>
-            <RowDefinition Height="280"></RowDefinition>
+            <RowDefinition Height="360"></RowDefinition>
+            <RowDefinition Height="330"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="5,5,0,0">
-            <Label Content="Insert name for your new complex tour:" FontSize="32" FontWeight="Bold"></Label>
-            <TextBox Width="460" Height="42" FontSize="32"></TextBox>
-        </StackPanel>
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="360" Width="1070">
+            <GroupBox.Header>
+                <Label Content="Create tour request" FontSize="32" FontWeight="Bold"></Label>
+            </GroupBox.Header>
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" ></ColumnDefinition>
+                    <ColumnDefinition Width="180"></ColumnDefinition>
+                    <ColumnDefinition Width="370"></ColumnDefinition>
+                    <ColumnDefinition Width="330"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,0,0,15">
+                    <Label Content="Insert name for your new complex tour:" FontSize="32" FontWeight="SemiBold"></Label>
+                    <TextBox Width="440" Height="42" FontSize="32"></TextBox>
+                </StackPanel>
 
-        <ListView x:Name="ComplexToursListView" ItemsSource="{Binding Path=Tours}" Width="1070" Height="280" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+                <Label Grid.Row="1" Grid.Column="0" Content="Country:" FontSize="28" FontWeight="SemiBold"/>
+                <TextBox x:Name="CountryTextBox" Grid.Row="1" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Grid.Row="2" Grid.Column="0" Content="City:" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Width="66" />
+                <TextBox x:Name="CityTextBox" Grid.Row="2" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+                <Label Grid.Row="3" Grid.Column="0" Content="Language:" FontSize="28" FontWeight="SemiBold"/>
+                <TextBox x:Name="Language" Grid.Row="3" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2">
+                    <Label Grid.Row="1" Grid.Column="2" Content="Num of people:" FontSize="28" FontWeight="SemiBold"/>
+                    <xctk:UIntegerUpDown x:Name="NumOfPeople" Grid.Row="1" Grid.Column="3" Width="90" Height="40" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2">
+                    <Label  Content="From:" FontSize="28" FontWeight="SemiBold"></Label>
+                    <DatePicker Grid.Row="2" Grid.Column="3"  FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDateFormat="Short"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="2">
+                    <Label Grid.Row="3" Grid.Column="2" Content="To:" FontSize="28" FontWeight="SemiBold"></Label>
+                    <DatePicker Grid.Row="3" Grid.Column="3" FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDateFormat="Short" Margin="35,0,0,0"></DatePicker>
+                </StackPanel>
+
+                <Label Grid.Row="1" Grid.Column="3" Content="Description:" FontSize="28" FontWeight="SemiBold"/>
+                <TextBox Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Height="100" Width="320" Text="{Binding TourRequest.Description}" FontSize="28" FontWeight="SemiBold">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
+                    <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
+                    <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
+                    <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
+                    <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
+                </TextBox>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Right" Margin="0,0,-5,0">
+                    <Button Style="{StaticResource TouristBasicButton}" Content="List of parts" Command="{Binding ListOfPartsCmd}"></Button>
+                    <Label></Label>
+                    <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40" Command="{Binding AddNewPartCmd}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="25" Source="../../../Resources/Image/add.png" Margin="0,0,5,0"/>
+                            <TextBlock>Add new part</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Label></Label>
+                    
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        
+        <ListView x:Name="ComplexToursListView" ItemsSource="{Binding Path=Tours}" Width="1070" Height="300" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" Margin="0,10,0,0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -47,10 +129,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,15,0">
-            <Button Style="{StaticResource TouristBasicButton}" Content="List of parts" Command="{Binding ListOfPartsCmd}"></Button>
-            <Label></Label>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Style="{StaticResource TouristBasicButtonWhite}" Width="220">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="25" Source="../../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
@@ -58,42 +137,12 @@
                 </StackPanel>
             </Button>
             <Label></Label>
-            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40" Command="{Binding AddNewPartCmd}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Height="25" Source="../../../Resources/Image/add.png" Margin="0,0,5,0"/>
-                    <TextBlock>Add new part</TextBlock>
-                </StackPanel>
-            </Button>
-            <Label></Label>
-            <Button Style="{StaticResource TouristBasicButton}" Width="220" Height="40">
+            <Button Style="{StaticResource TouristBasicButton}" Width="220">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="30" Source="../../../Resources/Image/send2.png" Margin="0,0,5,0"/>
                     <TextBlock>Send request</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>
-
-        <Label Content="Complex tour requests:" Grid.Row="3" Grid.Column="0" FontSize="32" FontWeight="Bold" Margin="5,0,0,0"></Label>
-
-        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Tours}" Width="1070" Height="280" Grid.Row="4" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Complex tour name" Width="350" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="More info" Width="600">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Label Content="Click here to see more info and all parts of the complex tour"></Label>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
     </Grid>
 </Window>

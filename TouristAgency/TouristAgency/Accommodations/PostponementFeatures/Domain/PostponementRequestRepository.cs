@@ -76,7 +76,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.Domain
         {
             foreach (var request in _requests)
             {
-                Reservation reservation = reservations.Find(r => r.Id == request.ReservationId);
+                Reservation reservation = reservations.Find(r => r.Id == request.Reservation.Id);
                 if (reservation != null)
                 {
                     request.Reservation = reservation;

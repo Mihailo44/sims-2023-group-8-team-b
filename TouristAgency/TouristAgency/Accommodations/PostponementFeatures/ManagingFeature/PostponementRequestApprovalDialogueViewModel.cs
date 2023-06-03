@@ -60,7 +60,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
         {
             Reservation reservation = _reservationService.ReservationRepository.GetById(SelectedRequest.Reservation.Id);
             PostponementRequest request = _postponementRequestService.PostponementRequestRepository.GetById(SelectedRequest.Id);
-            bool accommodationAvailability = _reservationService.IsReserved(reservation.AccommodationId, SelectedRequest.Start, SelectedRequest.End);
+            bool accommodationAvailability = _reservationService.IsReserved(reservation.Accommodation.Id, SelectedRequest.Start, SelectedRequest.End);
 
             if (!accommodationAvailability)
             {

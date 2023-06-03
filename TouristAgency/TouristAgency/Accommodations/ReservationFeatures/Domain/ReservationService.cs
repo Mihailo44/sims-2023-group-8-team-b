@@ -112,26 +112,26 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
         {
             foreach (Reservation reservation in ReservationRepository.GetAll())
             {
-                if (reservation.AccommodationId == accommodationID && reservation.IsCanceled == true)
+                if (reservation.Accommodation.Id == accommodationID && reservation.IsCanceled == true)
                 {
                     return false;
                 }
-                if (reservation.AccommodationId == accommodationID && end.Date >= reservation.Start.Date &&
+                if (reservation.Accommodation.Id == accommodationID && end.Date >= reservation.Start.Date &&
                     end.Date <= reservation.End.Date)
                 {
                     return true;
                 }
-                else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
+                else if (reservation.Accommodation.Id == accommodationID && start.Date >= reservation.Start.Date &&
                          end.Date <= reservation.End.Date)
                 {
                     return true;
                 }
-                else if (reservation.AccommodationId == accommodationID && start.Date >= reservation.Start.Date &&
+                else if (reservation.Accommodation.Id == accommodationID && start.Date >= reservation.Start.Date &&
                          start.Date <= reservation.End.Date)
                 {
                     return true;
                 }
-                else if (reservation.AccommodationId == accommodationID && start.Date <= reservation.Start.Date &&
+                else if (reservation.Accommodation.Id == accommodationID && start.Date <= reservation.Start.Date &&
                          end.Date >= reservation.End.Date)
                 {
                     return true;
@@ -143,32 +143,32 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
         public List<Reservation> GetUnreviewed(int ownerId)
         {
-            return ReservationRepository.GetAll().Where(r => r.Accommodation.OwnerId == ownerId && r.Status == ReviewStatus.UNREVIEWED).ToList();
+            return ReservationRepository.GetAll().Where(r => r.Accommodation.Owner.ID == ownerId && r.Status == ReviewStatus.UNREVIEWED).ToList();
         }
 
         public List<Reservation> GetOwnerReviewed(int guestId)
         {
-            return ReservationRepository.GetAll().FindAll(r => r.GuestId == guestId && r.OStatus == ReviewStatus.REVIEWED);
+            return ReservationRepository.GetAll().FindAll(r => r.Guest.ID == guestId && r.OStatus == ReviewStatus.REVIEWED);
         }
 
         public List<Reservation> GetUnreviewedByGuestId(int guestId)
         {
-            return ReservationRepository.GetAll().Where(r => r.GuestId == guestId && r.End <= DateTime.Now && r.End.AddDays(5) >= DateTime.Now && r.OStatus == ReviewStatus.UNREVIEWED).ToList();
+            return ReservationRepository.GetAll().Where(r => r.Guest.ID == guestId && r.End <= DateTime.Now && r.End.AddDays(5) >= DateTime.Now && r.OStatus == ReviewStatus.UNREVIEWED).ToList();
         }
 
         public List<Reservation> GetByOwnerId(int id)
         {
-            return ReservationRepository.GetAll().FindAll(r => r.Accommodation.OwnerId == id);
+            return ReservationRepository.GetAll().FindAll(r => r.Accommodation.Owner.ID == id);
         }
 
         public List<Reservation> GetByAccommodationId(int id)
         {
-            return ReservationRepository.GetAll().FindAll(r => r.AccommodationId ==id);
+            return ReservationRepository.GetAll().FindAll(r => r.Accommodation.Id ==id);
         }
 
         public List<Reservation> GetByGuestId(int id)
         {
-            return ReservationRepository.GetAll().FindAll(r => r.GuestId == id && r.Start >= DateTime.Now && r.IsCanceled == false);
+            return ReservationRepository.GetAll().FindAll(r => r.Guest.ID == id && r.Start >= DateTime.Now && r.IsCanceled == false);
         }
 
         public void ExpiredReservationsCheck(int ownerId)

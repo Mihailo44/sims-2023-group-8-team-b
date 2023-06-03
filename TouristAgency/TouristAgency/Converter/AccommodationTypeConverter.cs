@@ -13,7 +13,7 @@ namespace TouristAgency.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            TYPE type = (TYPE)value;
+            TYPE type = Enum.Parse<TYPE>(value.ToString());
             switch (type)
             {
                 case TYPE.HOTEL: return "HOTEL";

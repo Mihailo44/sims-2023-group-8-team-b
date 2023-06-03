@@ -19,7 +19,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
 
         public List<ForumComment> GetForumComments(Forum forum)
         {
-            return ForumCommentRepository.GetAll().FindAll(c => c.ForumId == forum.Id);
+            return ForumCommentRepository.GetAll().FindAll(c => c.Forum.Id == forum.Id);
         }
     }
 }

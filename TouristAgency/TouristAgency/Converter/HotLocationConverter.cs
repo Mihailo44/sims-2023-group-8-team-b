@@ -15,11 +15,11 @@ namespace TouristAgency.Converter
             bool status = (bool)value;
             if (status)
             {
-                return "../../../Resources/Image/check.png";
+                return "../../../Resources/Image/james.png";
             }
             else
             {
-                return "../../../Resources/Image/pending.png";
+                return "../../../Resources/Image/happy.png";
             }
         }
 

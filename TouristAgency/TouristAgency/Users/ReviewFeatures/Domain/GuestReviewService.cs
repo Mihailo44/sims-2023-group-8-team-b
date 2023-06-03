@@ -19,7 +19,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
 
         public GuestReview GetByReservationId(int reservationId)
         {
-            return GuestReviewRepository.GetAll().FirstOrDefault(g => g.ReservationId == reservationId);
+            return GuestReviewRepository.GetAll().FirstOrDefault(g => g.Reservation.Id == reservationId);
         }
 
         public List<GuestReview> GetValidByReservationId(List<Reservation> reservations)

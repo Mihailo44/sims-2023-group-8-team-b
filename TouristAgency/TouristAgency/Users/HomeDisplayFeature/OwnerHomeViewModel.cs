@@ -19,6 +19,8 @@ using TouristAgency.Notifications.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Users.ForumFeatures.Domain;
 using TouristAgency.Users.ForumFeatures.DisplayFeature;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TouristAgency.Users.HomeDisplayFeature
 {
@@ -48,7 +50,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _inputFormVisibility;
         private string _reviewFormVisibility;
         private string _notificationCountVisibility;
+        private string _typeComboText;
         private string _comment;
+       
         private bool _isChecked;
         private Dictionary<int, string> _dataGridVisibility = new Dictionary<int, string>()
         {
@@ -58,6 +62,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
             {3, "Collapsed"},
             {4, "Collapsed"}
         };
+
+        public string TypeComboText
+        {
+            get => _typeComboText;
+            set
+            {
+                _typeComboText = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string AccountContainerVisibility
         {
@@ -266,6 +280,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand CloseReviewCmd { get; set; }
         public DelegateCommand OpenForumCmd { get; set; }
         public DelegateCommand LoadPhotoLinksCmd { get; set; }
+        public DelegateCommand DemoCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -273,6 +288,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             LoggedUser = _app.LoggedUser;
             _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "OwnerStart");
             Messenger.Default.Register<SwitchViewModelMessage>(this, HandleSwitchViewModelMessage);
+
             InstantiateServices();
             SubscribeObservers();
             InstantiateCollections();
@@ -381,6 +397,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             SearchCmd = new DelegateCommand(param => SearchCmdExecute(), param => CanSearchCmdExecute());
             OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
             LoadPhotoLinksCmd = new DelegateCommand(param => LoadPhotoLinksExecute(),param => CanLoadPhotoLinksExecute());
+            DemoCmd = new DelegateCommand(param => DemoCmdExecute(),param => CanDemoCmdExecute());
         }
 
 
@@ -418,8 +435,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void LoadNotifications(int ownerId)
         {
+            Notifications.Clear();
             List<GuestReviewNotification> reviewNotifications = _guestReviewNotificationService.GetByOwnerId(ownerId);
-            List<ForumNotification> forumNotifications = _forumNotificationService.ForumNotificationRepository.GetAll();
+            List<ForumNotification> forumNotifications = _forumNotificationService.GetOwnersNotifications();
             if (reviewNotifications.Count() > 0 || forumNotifications.Count() > 0)
             {
                 Notifications.AddRange(reviewNotifications);
@@ -438,8 +456,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private void LoadForums()
         {
             Forums.Clear();
-            List<Forum> forums = _forumService.GetAll();
-            Forums.AddRange(forums);
+            Forums.AddRange(_forumService.GetAll());
         }
 
         public void Update()
@@ -505,7 +522,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 // _app.CurrentVM = new GuestReviewCreationViewModel(SelectedReservation);
                 FillCombos();
                 NewGuestReview.Reservation = SelectedReservation;
-                NewGuestReview.ReservationId = SelectedReservation.Id;
                 DataGridVisibility[0] = "Collapsed";
                 OnPropertyChanged(nameof(DataGridVisibility));
                 ReviewFormVisibility = "Visible";
@@ -514,15 +530,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public bool CanCreateNewReviewCmdExecute()
         {
-            /*if (!string.IsNullOrEmpty(Comment))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }*/
-
             return true;
         }
 
@@ -530,28 +537,23 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             try
             {
-                if (NewGuestReview.Reservation.Status == ReviewStatus.UNREVIEWED)
+                NewGuestReview.ValidateSelf();
+
+                if (NewGuestReview.IsValid)
                 {
-                    NewGuestReview.Comment = Comment;
                     NewGuestReview.Reservation.Status = ReviewStatus.REVIEWED;
                     _guestReviewService.GuestReviewRepository.Create(NewGuestReview);
-                    _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.ReservationId);
+                    _reservationService.ReservationRepository.Update(NewGuestReview.Reservation, NewGuestReview.Reservation.Id);
                     MessageBox.Show("Guest review created successfully", "Guest Review Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    MessageBox.Show("This guest has already been reviewed");
+                    MessageBox.Show("Review creation was not successfull, please fill out all fields","Guest Review Dialogue",MessageBoxButton.OK,MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                ReviewFormVisibility = "Collapsed";
-                DataGridVisibility[0] = "Visible";
-                OnPropertyChanged(nameof(DataGridVisibility));
             }
         }
 
@@ -562,6 +564,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void CloseReviewCmdExecute()
         {
+            NewGuestReview.ValidationClear();
             ReviewFormVisibility = "Collapsed";
             DataGridVisibility[0] = "Visible";
             OnPropertyChanged(nameof(DataGridVisibility));
@@ -729,6 +732,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
             DataGridVisibility[1] = "Collapsed";
             BtnNewVisibility = "Hidden";
             OnPropertyChanged(nameof(DataGridVisibility));
+            TypeComboText = TYPE.HOTEL.ToString();
+            OnPropertyChanged(nameof(TypeComboText));
         }
 
         private void FillTypeCombo()
@@ -756,10 +761,44 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         private void PrepareAccommodationForCreation()
         {
-            NewAccommodation.OwnerId = LoggedUser.ID;
             NewAccommodation.Owner = LoggedUser;
             NewAccommodation.Location = _locationService.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim());
-            NewAccommodation.LocationId = _locationService.FindByCountryAndCity(NewLocation.Country.Trim(), NewLocation.City.Trim()).Id;
+            NewAccommodation.MinNumOfDays = int.Parse(MinNumOfDays);
+            NewAccommodation.MaxGuestNum = int.Parse(Capacity);
+            NewAccommodation.AllowedNumOfDaysForCancelation = int.Parse(AllowedNumOfDaysForCancelation);
+        }
+
+        private string _capacity;
+        public string Capacity
+        {
+            get => _capacity;
+            set
+            {
+                _capacity = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _minNumOfDays;
+        public string MinNumOfDays
+        {
+            get => _minNumOfDays;
+            set
+            {
+                _minNumOfDays = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _allowedNumOfDaysForCancelation;
+        public string AllowedNumOfDaysForCancelation
+        {
+            get => _allowedNumOfDaysForCancelation;
+            set
+            {
+                _allowedNumOfDaysForCancelation = value;
+                OnPropertyChanged();
+            }
         }
 
         public bool CanCreateAccommodationExecute()
@@ -769,16 +808,24 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void CreateAccommodationExecute()
         {
-            PrepareAccommodationForCreation();
             try
             {
-                _accommodationService.AccommodationRepository.Create(NewAccommodation);
-               // AddPhotos();
-                MessageBox.Show("Accommodation created successfully", "Accommodation Creation Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
-                InputFormVisibility = "Collapsed";
-                DataGridVisibility[1] = "Visible";
-                BtnNewVisibility = "Visible";
-                OnPropertyChanged(nameof(DataGridVisibility));
+                NewAccommodation.ValidateSelf(Capacity,MinNumOfDays,AllowedNumOfDaysForCancelation);
+                if (NewAccommodation.IsValid)
+                {
+                    PrepareAccommodationForCreation();
+                    _accommodationService.AccommodationRepository.Create(NewAccommodation);
+                    // AddPhotos();
+                    MessageBox.Show("Accommodation created successfully", "Accommodation Creation Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
+                    InputFormVisibility = "Collapsed";
+                    DataGridVisibility[1] = "Visible";
+                    BtnNewVisibility = "Visible";
+                    OnPropertyChanged(nameof(DataGridVisibility));
+                }
+                else
+                {
+                    MessageBox.Show("Registration was not successfull, please fill out all fields","Accommodation Creation Dialogue",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                }
             }
             catch
             {
@@ -797,6 +844,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void CloseAccommodationCreationCmdExecute()
         {
+            NewAccommodation.ValidationClear();
             InputFormVisibility = "Collapsed";
             DataGridVisibility[1] = "Visible";
             BtnNewVisibility = "Visible";
@@ -845,6 +893,71 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 _photoService.PhotoRepository.Create(photo);
             }
             //AddPhotos(selectedPaths);
+        }
+
+        public bool CanDemoCmdExecute()
+        {
+            return true;
+        }
+
+        public void DemoCmdExecute()
+        {
+            if (DataGridVisibility[1] == "Visible" || InputFormVisibility == "Visible")
+            {
+                StartDemo();
+            }
+            else
+            {
+                MessageBox.Show("Go to Accommodations tab to start the demo","Demo Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+        }
+
+        private async void StartDemo()
+        {
+            OpenAccommodationCreationCmdExecute();
+            
+            string name = "Proba";
+            string country = "Srbija";
+            string city = "Novi Sad";
+
+            await Task.Delay(150);
+
+            foreach(char c in name)
+            {
+                NewAccommodation.Name += c.ToString();
+                await Task.Delay(100);
+            }
+
+            foreach(char c in country)
+            {
+                NewLocation.Country += c.ToString();
+                await Task.Delay(100);
+            }
+
+            foreach (char c in city)
+            {
+                NewLocation.City += c.ToString();
+                await Task.Delay(100);
+            }
+
+            NewAccommodation.Type = TYPE.HUT;
+            await Task.Delay(100);
+            NewAccommodation.MaxGuestNum = 100;
+            await Task.Delay(200);
+            NewAccommodation.MinNumOfDays = 5;
+            await Task.Delay(200);
+            NewAccommodation.AllowedNumOfDaysForCancelation = 10;
+            await Task.Delay(200);
+
+            await Task.Delay(1200);
+
+            NewAccommodation.Name = String.Empty;
+            NewAccommodation.Type = TYPE.HOTEL;
+            NewLocation.Country = String.Empty;
+            NewLocation.City = String.Empty;
+            NewAccommodation.MaxGuestNum = 0;
+            NewAccommodation.MinNumOfDays = 0;
+            NewAccommodation.AllowedNumOfDaysForCancelation = 0;
         }
     }
 }

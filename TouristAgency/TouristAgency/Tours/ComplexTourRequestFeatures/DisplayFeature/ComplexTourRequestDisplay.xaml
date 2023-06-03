@@ -1,0 +1,48 @@
+﻿<Window x:Class="TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature.ComplexTourRequestDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature"
+        mc:Ignorable="d"
+        Title="ComplexTourRequestDisplay" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="460"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Content="List of your all complex tour requests:" Grid.Row="0" FontSize="32" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Tours}" Width="1070" Height="450" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Complex tour name" Width="350" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="More info" Width="600">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label Content="Click here to see more info and all parts of the complex tour"></Label>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center" Command="{Binding CloseCmd}">
+            <StackPanel Orientation="Horizontal">
+                <Image Height="24" Source="../../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
+                <TextBlock>Close</TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

@@ -74,7 +74,7 @@ namespace TouristAgency.Notifications.Domain
         {
             foreach (ForumNotification forumNotification in _forumNotifications)
             {
-                forumNotification.Forum = forums.Find(f => f.Id == forumNotification.ForumId);
+                forumNotification.Forum = forums.Find(f => f.Id == forumNotification.Forum.Id);
             }
         }
 

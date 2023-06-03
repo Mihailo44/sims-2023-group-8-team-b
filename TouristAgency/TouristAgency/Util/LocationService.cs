@@ -47,7 +47,7 @@ namespace TouristAgency.Util
 
             foreach (Location location in LocationRepository.GetAll())
             {
-                List<Accommodation> accommodationsOnLocation = ownersAccommodations.Where(a => a.LocationId == location.Id).ToList();
+                List<Accommodation> accommodationsOnLocation = ownersAccommodations.Where(a => a.Location.Id == location.Id).ToList();
 
                 foreach (Accommodation accommodation in accommodationsOnLocation)
                 {
@@ -69,18 +69,31 @@ namespace TouristAgency.Util
             return sortedDictionary.Keys.ToList();
         }
 
+        public List<string> GetCities()
+        {
+            List<string> cities = new List<string>();
+
+            foreach(Location location in LocationRepository.GetAll())
+            {
+                if (!cities.Contains(location.City))
+                {
+                    cities.Add(location.City);
+                }
+
+            }
+            return cities;
+        }
+
+        public Location GetByCity(string city)
+        {
+            return LocationRepository.GetAll().FirstOrDefault(l => l.City == city);
+        }
+
         public bool HasAccommodationOnLocation(Owner owner, Location location)
         {
-            Accommodation accommodation = owner.Accommodations.Find(a => a.LocationId == location.Id);
+            Accommodation accommodation = owner.Accommodations.Find(a => a.Location.Id == location.Id);
 
-            if (accommodation != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return accommodation != null;
         }
     }
 }

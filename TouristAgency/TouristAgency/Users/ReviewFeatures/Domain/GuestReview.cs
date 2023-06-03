@@ -10,11 +10,10 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Users.ReviewFeatures.Domain
 {
-    public class GuestReview : ISerializable, INotifyPropertyChanged
+    public class GuestReview : ISerializable, INotifyPropertyChanged,IValidate
     {
         private int _id;
         private Reservation _reservation;
-        private int _reservationId;
         private DateTime _reviewDate;
         private int _cleanliness;
         private int _ruleAbiding;
@@ -33,13 +32,13 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
             _overallImpression = 1;
             _noiseLevel = 1;
             _reviewDate = DateTime.Now;
+            Reservation = new();
         }
 
         public GuestReview(Reservation reservation, int cleanliness, int ruleAbiding, int communication, int overallImpression, int noiseLevel, string comment = "")
         {
             _id = -1;
             _reservation = reservation;
-            _reservationId = reservation.Id;
             _reviewDate = DateTime.Now;
             _cleanliness = cleanliness;
             _ruleAbiding = ruleAbiding;
@@ -69,18 +68,6 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 if (_reservation != value)
                 {
                     _reservation = value;
-                }
-            }
-        }
-
-        public int ReservationId
-        {
-            get => _reservationId;
-            set
-            {
-                if (_reservationId != value)
-                {
-                    _reservationId = value;
                 }
             }
         }
@@ -174,6 +161,55 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
             }
         }
 
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"Comment",string.Empty}
+        };
+
+        public Dictionary<string, string> ValidationErrors
+        {
+            get => _validationErrors;
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var key in ValidationErrors.Keys)
+                {
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["Comment"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidateSelf()
+        {
+            ValidationClear();
+
+            if (string.IsNullOrEmpty(Comment))
+            {
+                ValidationErrors["Comment"] = "This is a required field";
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -184,7 +220,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            ReservationId = int.Parse(values[1]);
+            Reservation.Id = int.Parse(values[1]);
             ReviewDate = DateTime.Parse(values[2]);
             Cleanliness = int.Parse(values[3]);
             RuleAbiding = int.Parse(values[4]);
@@ -199,7 +235,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                ReservationId.ToString(),
+                Reservation.Id.ToString(),
                 ReviewDate.ToShortDateString(),
                 Cleanliness.ToString(),
                 RuleAbiding.ToString(),
@@ -208,7 +244,6 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
                 NoiseLevel.ToString(),
                 Comment
             };
-
             return csvValues;
         }
     }

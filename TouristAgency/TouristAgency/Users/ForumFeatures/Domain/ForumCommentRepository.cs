@@ -70,7 +70,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
         {
             foreach(var comment in _forumComments)
             {
-                comment.Forum = forums.Find(f => f.Id == comment.ForumId);
+                comment.Forum = forums.Find(f => f.Id == comment.Forum.Id);
             }
         }
 
@@ -78,7 +78,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
         {
             foreach (var comment in _forumComments)
             {
-                comment.User = users.Find(u => u.ID == comment.UserId);
+                comment.User = users.Find(u => u.ID == comment.User.ID);
             }
         }
 

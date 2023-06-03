@@ -239,9 +239,9 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
             if (selectedAccommodation.MaxGuestNum >= NumOfPeople && selectedAccommodation.MinNumOfDays <= NumOfDays && newReservation != null)
             {
                 newReservation.Accommodation = selectedAccommodation;
-                newReservation.AccommodationId = selectedAccommodation.Id;
+                newReservation.Accommodation.Id = selectedAccommodation.Id;
                 newReservation.Guest = _loggedInGuest;
-                newReservation.GuestId = _loggedInGuest.ID;
+                newReservation.Guest.ID = _loggedInGuest.ID;
                 _reservationService.Create(newReservation);
                 Reservations.Remove(newReservation);
                 _superGuestTitleService.UsePoint(_loggedInGuest.ID);

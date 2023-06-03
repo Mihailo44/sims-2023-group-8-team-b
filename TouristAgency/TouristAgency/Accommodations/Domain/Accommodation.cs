@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
+using System.Text.RegularExpressions;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
 namespace TouristAgency.Accommodations.Domain
 {
-    public class Accommodation : ISerializable, INotifyPropertyChanged, IDataErrorInfo
+    public class Accommodation : ISerializable, INotifyPropertyChanged, IValidate
     {
         private int _id;
         private Owner _owner;
-        private int _ownerId;
         private string _name;
         private Location _location;
-        private int _locationId;
         private TYPE _type;
         private int _maxGuestNum;
         private int _minNumOfDays;
@@ -28,17 +26,18 @@ namespace TouristAgency.Accommodations.Domain
         {
             _id = -1;
             _allowedNumOfDaysForCancelation = 1;
+            _type = TYPE.HOTEL;
             _photos = new List<Photo>();
-            _recentlyRenovated = false;
+            Owner = new();
+            Location = new();
         }
 
         public Accommodation(string name, Owner owner, Location location, TYPE type, int maxGuestNum, int minNumOfDays, int allowedNumOfDaysForCancelation)
         {
+            _id = -1;
             _name = name;
             _owner = owner;
-            _ownerId = _owner.ID;
             _location = location;
-            _locationId = location.Id;
             _type = type;
             _maxGuestNum = maxGuestNum;
             _minNumOfDays = minNumOfDays;
@@ -70,18 +69,6 @@ namespace TouristAgency.Accommodations.Domain
             }
         }
 
-        public int OwnerId
-        {
-            get => _ownerId;
-            set
-            {
-                if (value != _ownerId)
-                {
-                    _ownerId = value;
-                }
-            }
-        }
-
         public string Name
         {
             get => _name;
@@ -103,18 +90,6 @@ namespace TouristAgency.Accommodations.Domain
                 if (value != _location)
                 {
                     _location = value;
-                }
-            }
-        }
-
-        public int LocationId
-        {
-            get => _locationId;
-            set
-            {
-                if (value != _locationId)
-                {
-                    _locationId = value;
                 }
             }
         }
@@ -153,6 +128,7 @@ namespace TouristAgency.Accommodations.Domain
                 if (value != _minNumOfDays)
                 {
                     _minNumOfDays = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -165,6 +141,7 @@ namespace TouristAgency.Accommodations.Domain
                 if (value != _allowedNumOfDaysForCancelation)
                 {
                     _allowedNumOfDaysForCancelation = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -192,7 +169,7 @@ namespace TouristAgency.Accommodations.Domain
             get => _hotLocation;
             set
             {
-                if(value != _hotLocation)
+                if (value != _hotLocation)
                 {
                     _hotLocation = value;
                 }
@@ -206,58 +183,113 @@ namespace TouristAgency.Accommodations.Domain
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public string Error => null;
-        public string this[string columnName]
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"Name",string.Empty},
+            {"MaxGuestNum",string.Empty},
+            {"MinNumOfDays",string.Empty},
+            {"CancelationDays",string.Empty }
+        };
+
+        public Dictionary<string, string> ValidationErrors
         {
             get
             {
-                if (columnName == "Name")
-                {
-                    if (string.IsNullOrEmpty(Name))
-                        return "Required field";
-                }
-                else if (columnName == "MaxGuestNum")
-                {
-                    if (string.IsNullOrEmpty(MaxGuestNum.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "MinNumOfDays")
-                {
-                    if (string.IsNullOrEmpty(MinNumOfDays.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "AllowedNumOfDaysForCancelation")
-                {
-                    if (string.IsNullOrEmpty(AllowedNumOfDaysForCancelation.ToString()))
-                        return "Required field";
-                }
-
-                return null;
-
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged();
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
+        public void ValidateSelf(string capacity,string minNumOfDays,string cancelationDays)
+        {
+            ValidationClear();
+
+            Regex _intRegex = new Regex("[0-9]");
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                ValidationErrors["Name"] = "This is a required field";
+            }
+
+            if (!string.IsNullOrEmpty(capacity))
+            {
+                Match match = _intRegex.Match(capacity);
+                if (!match.Success)
+                {
+                    ValidationErrors["MaxGuestNum"] = "Enter a number";
+                }
+            }
+            else
+            {
+                ValidationErrors["MaxGuestNum"] = "This is a required field";
+            }
+
+            if (!string.IsNullOrEmpty(minNumOfDays))
+            {
+                ValidationErrors["MinNumOfDays"] = "This is a required field";
+                Match match = _intRegex.Match(minNumOfDays);
+                if (!match.Success)
+                {
+                    ValidationErrors["MinNumOfDays"] = "Enter a number";
+                }
+            }
+            else
+            {
+                ValidationErrors["MinNumOfDays"] = "This is a required field";
+            }
+
+            if (!string.IsNullOrEmpty(cancelationDays))
+            {
+                Match match = _intRegex.Match(cancelationDays);
+                if (!match.Success)
+                {
+                    ValidationErrors["CancelationDays"] = "Enter a number";
+                }
+            }
+            else
+            {
+                ValidationErrors["CancelationDays"] = "This is a required field";
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["Name"] = string.Empty;
+            ValidationErrors["MaxGuestNum"] = string.Empty;
+            ValidationErrors["MinNumOfDays"] = string.Empty;
+            ValidationErrors["CancelationDays"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
 
         public bool IsValid
         {
             get
             {
-                foreach (var property in _validatedProperties)
+                foreach(var key in ValidationErrors.Keys)
                 {
-                    if (this[property] != null)
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
                         return false;
+                    }
                 }
+
                 return true;
             }
         }
 
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            OwnerId = int.Parse(values[1]);
+            Owner.ID = int.Parse(values[1]);
             Name = values[2];
-            LocationId = int.Parse(values[3]);
+            Location.Id = int.Parse(values[3]);
             Type = Enum.Parse<TYPE>(values[4]);
             MaxGuestNum = int.Parse(values[5]);
             MinNumOfDays = int.Parse(values[6]);
@@ -271,9 +303,9 @@ namespace TouristAgency.Accommodations.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                OwnerId.ToString(),
+                Owner.ID.ToString(),
                 Name,
-                LocationId.ToString(),
+                Location.Id.ToString(),
                 Type.ToString(),
                 MaxGuestNum.ToString(),
                 MinNumOfDays.ToString(),

@@ -14,9 +14,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
     {
         private int _id;
         private Guest _guest;
-        private int _guestId;
         private Accommodation _accommodation;
-        private int _accommodationId;
         private DateTime _start;
         private DateTime _end;
         private bool _isCanceled;
@@ -29,14 +27,15 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             _isCanceled = false;
             _status = ReviewStatus.UNREVIEWED;
             _ostatus = ReviewStatus.UNREVIEWED;
+            Accommodation = new();
+            Guest = new();
         }
 
         public Reservation(Guest guest, Accommodation accommodation, DateTime start, DateTime end)
         {
+            _id = -1;
             _guest = guest;
-            _guestId = guest.ID;
             _accommodation = accommodation;
-            _accommodationId = accommodation.Id;
             _start = start;
             _end = end;
             _isCanceled = false;
@@ -68,34 +67,10 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             }
         }
 
-        public int GuestId
-        {
-            get => _guestId;
-            set
-            {
-                if (_guestId != value)
-                {
-                    _guestId = value;
-                }
-            }
-        }
-
         public Accommodation Accommodation
         {
             get => _accommodation;
             set => _accommodation = value;
-        }
-
-        public int AccommodationId
-        {
-            get => _accommodationId;
-            set
-            {
-                if (_accommodationId != value)
-                {
-                    _accommodationId = value;
-                }
-            }
         }
 
         public DateTime Start
@@ -161,8 +136,8 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            GuestId = int.Parse(values[1]);
-            AccommodationId = int.Parse(values[2]);
+            Guest.ID = int.Parse(values[1]);
+            Accommodation.Id = int.Parse(values[2]);
             Start = DateTime.Parse(values[3]);
             End = DateTime.Parse(values[4]);
             Status = Enum.Parse<ReviewStatus>(values[5]);
@@ -175,8 +150,8 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             string[] csvValues =
             {
                 Id.ToString(),
-                GuestId.ToString(),
-                AccommodationId.ToString(),
+                Guest.ID.ToString(),
+                Accommodation.Id.ToString(),
                 Start.ToString(),
                 End.ToString(),
                 Status.ToString(),

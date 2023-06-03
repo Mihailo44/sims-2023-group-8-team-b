@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Util;
@@ -37,6 +38,19 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             }
         }
 
+        public bool IsDuplicate(string city)
+        {
+            Forum forum = ForumRepository.GetAll().FirstOrDefault(f => f.Name.Contains(city));
+            if(forum == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         private int CountOwnerComments(List<ForumComment> forumComments)
         {
             int ownerCommentsNum = 0;
@@ -60,7 +74,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             {
                 if (comment.User.UserType == UserType.GUEST)
                 {
-                    foreach (Reservation reservation in reservationService.GetByGuestId(comment.UserId))
+                    foreach (Reservation reservation in reservationService.GetByGuestId(comment.User.ID))
                     {
                         if (reservation.Accommodation.Location.Equals(comment.Forum.Location))
                         {

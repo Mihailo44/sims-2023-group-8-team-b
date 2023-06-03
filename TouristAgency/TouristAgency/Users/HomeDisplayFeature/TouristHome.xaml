@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Tourist home" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0" Background="WhiteSmoke">
+        Title="Tourist home" Height="700" Width="1200" WindowStartupLocation="Manual" Left="0" Background="#E7F0FF">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,10 +19,14 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-
-        <Menu Grid.Row="0" Grid.Column="0" Height="auto" Width="380" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="32" FontWeight="Bold" Background="Transparent">
-            <MenuItem x:Name="TourMenu" Header="_Tour">
-                <MenuItem Header="Attendance on the tour" Command="{Binding TourAttendanceCmd}">
+        <Menu Grid.Row="0" Grid.Column="0" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Background="Transparent">
+            <MenuItem Header="_Tour">
+                <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/tours.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Attendance on the applied tour" Command="{Binding TourAttendanceCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/attendance.png"/>
                     </MenuItem.Icon>
@@ -32,45 +36,56 @@
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/review.png"/>
                     </MenuItem.Icon>
-
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_View">
-                <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}">
-                    <MenuItem.Icon>
-                        <Image Source="../../Resources/Image/tours.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="View and create tour requests" Command="{Binding TourRequestCmd}">
+            
+            <MenuItem Header="_Tour requests">
+                <MenuItem Header="Create tour requests" Command="{Binding TourRequestCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/create.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="View and create requests for complex tours" Command="{Binding ComplexTourRequestCmd}">
+                <Separator />
+                <MenuItem Header="View your tour requests" Command="{Binding ListOfTourRequestsCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../../Resources/Image/create1.png"/>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <Separator />
                 <MenuItem Header="View statistics on tour requests" Command="{Binding TourRequestStatisticsCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/statistics.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+            </MenuItem>
+            
+            <MenuItem Header="_Complex tour requests">
+                <MenuItem Header="Create requests for complex tours" Command="{Binding ComplexTourRequestCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/create1.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
-                <MenuItem Header="View vouchers" Command="{Binding VouchersCmd}">
+                <MenuItem Header="View your complex tour requests" Command="{Binding ListOfComplexTourRequestsCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/voucher1.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Report">
+            
+            <MenuItem Header="_Voucher">
+                <MenuItem Header="View vouchers" Command="{Binding VouchersCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
                 <MenuItem Header="Generate voucher report">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/report.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            
             <MenuItem Header="_Help">
                 <MenuItem Header="Where can I find my vouchers?" Command="{Binding HelpForVoucherCmd}">
                     <MenuItem.Icon>

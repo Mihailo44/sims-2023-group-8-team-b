@@ -89,7 +89,7 @@ namespace TouristAgency.Users.SuperGuestFeature.Domain
             int numOfReservations = 0;
             foreach (Reservation reservation in reservations)
             {
-                if (reservation.GuestId == guest.ID && DateTime.Now.Year == reservation.Start.Year)
+                if (reservation.Guest.ID == guest.ID && DateTime.Now.Year == reservation.Start.Year)
                 {
                     numOfReservations++;
                 }

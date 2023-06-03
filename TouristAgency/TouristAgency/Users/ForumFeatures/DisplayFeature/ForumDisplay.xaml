@@ -7,21 +7,32 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="990" Background="Transparent">
+             d:DesignHeight="560" d:DesignWidth="990" Background="Transparent">
 
     <UserControl.Resources>
         <con:DateConverter x:Key="DateConv"/>
         <con:IntConverter x:Key="IntConv"/>
+        <con:UsefulForumConverter x:Key="ForumConv"/>
         <con:UsefulCommentConverter x:Key="CommentConv"/>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Height="560" Width="990">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Height="40" HorizontalAlignment="Center" Background="snow">
+            <Label Padding="10,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" FontWeight="SemiBold" Content="{Binding SelectedForum.Name}"/>
+            <Image Margin="10,0,10,0" Height="25" Width="25" Source="{Binding SelectedForum.IsUseful,Converter={StaticResource ForumConv}}"/>
+        </StackPanel>
+        
         <ListView
                      x:Name="Lista"
-                     Height="550"
-                     Width="990"
-                     Margin="0,15,5,0"
+                     Grid.Row="1"
+                     Grid.RowSpan="2"
+                     Margin="0,5,5,0"
                      ItemsSource="{Binding ForumComments}"
                      Style="{StaticResource BasicListView}">
 
@@ -58,7 +69,7 @@
                     <GridViewColumn Width="990" Header="Feed">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="15" BorderThickness="3" Width="970" Height="190" Background="LightGray" >
+                                <Border CornerRadius="15" BorderThickness="3" Width="970" Height="190" Background="DarkGray" >
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="5"/>
@@ -87,7 +98,7 @@
                                             <Label Margin="15,5,0,0" Content="{Binding ReportNum}"/>
                                         </WrapPanel>
 
-                                        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="LightBlue">
+                                        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="LightGray">
                                             <TextBlock Padding="10,0,0,0" Text="{Binding Comment}"/>
                                         </Border>
                                     </Grid>
@@ -99,7 +110,7 @@
             </ListView.View>
         </ListView>
 
-        <Grid Height="100" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0.5,5">
+        <Grid Grid.Row="2" Height="100" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0.5,5">
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>

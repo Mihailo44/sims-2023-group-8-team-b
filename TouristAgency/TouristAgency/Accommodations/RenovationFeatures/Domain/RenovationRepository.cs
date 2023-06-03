@@ -79,11 +79,10 @@ namespace TouristAgency.Accommodations.RenovationFeatures.Domain
         {
             foreach (var renovation in _renovations)
             {
-                Accommodation accommodation = accommodations.Find(a => a.Id == renovation.AccommodationId);
+                Accommodation accommodation = accommodations.Find(a => a.Id == renovation.Accommodation.Id);
                 if (accommodation != null)
                 {
                     renovation.Accommodation = accommodation;
-                    renovation.AccommodationId = accommodation.Id;
                 }
             }
         }
