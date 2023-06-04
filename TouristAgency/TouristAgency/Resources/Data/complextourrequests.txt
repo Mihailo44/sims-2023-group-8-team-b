@@ -1,1 +1,2 @@
-0|France visit|20|PENDING
+0|France visit|20|INVALID
+1|Test complex tour|20|PENDING

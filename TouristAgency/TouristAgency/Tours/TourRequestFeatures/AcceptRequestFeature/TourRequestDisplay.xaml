@@ -67,7 +67,7 @@
         <ListView x:Name="TourRequestlw" Grid.Row="2" Grid.Column="0" Width="350" ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Width="317">
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch">
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
@@ -75,10 +75,10 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         
-                        <Grid Height="144" Width="317">
+                        <Grid Height="144">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="170"></ColumnDefinition>
-                                <ColumnDefinition Width="140"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="113"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -93,13 +93,13 @@
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                                <Label>Tour request from:</Label>
-                                <Label Content="{Binding Tourist.Name}"/>
+                                <Label>From:</Label>
+                                <Label Content="{Binding Name}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                                 <Label>Tour type:</Label>
-                                <Label Content="{Binding TourRequestType}"/>
+                                <Label Content="{Binding Type}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
@@ -121,18 +121,14 @@
 
                             <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
                                 <Label>Proposed countries:</Label>
-                                <Label Content="{Binding ShortLocation.Country}"/>
+                                <Label Content="{Binding Countries}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
                                 <Label>Proposed cities:</Label>
-                                <Label Content="{Binding ShortLocation.City}"/>
+                                <Label Content="{Binding Cities}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
-                                <Label>Data when requested:</Label>
-                                <Label Content="{Binding RequestedDate, StringFormat={}{0:MM/dd/yyyy}}"/>
-                            </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>

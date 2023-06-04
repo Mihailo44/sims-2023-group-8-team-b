@@ -160,6 +160,7 @@ namespace TouristAgency
             ForumNotificationRepository.LoadForumsToNotifications(ForumRepository.GetAll());
             ComplexTourRequestRepository.LoadTouristsToComplexTourRequests(TouristRepository.GetAll());
             ComplexTourRequestRepository.LoadTourRequestsToComplexTourRequests(TourRequestRepository.GetAll());
+            TourRequestRepository.LoadTouristsToTourRequests(TouristRepository.GetAll());
         }
     }
 }

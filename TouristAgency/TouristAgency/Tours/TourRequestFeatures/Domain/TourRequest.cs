@@ -21,6 +21,7 @@ namespace TouristAgency.TourRequests
         private DateTime _startDate;
         private DateTime _endDate;
         private int _complexTourRequestID;
+        private bool _isSelected;
         private TourRequestType _type;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,11 +38,12 @@ namespace TouristAgency.TourRequests
             _ID = -1;
             _touristID = -1;
             _guideID = -1;
+            _complexTourRequestID = -1;
             _status = TourRequestStatus.PENDING;
             _shortLocation = new Location();
             _startDate = DateTime.Now;
             _endDate = DateTime.Now;
-            _type = TourRequestType.SINLGE;
+            _type = TourRequestType.SINGLE;
         }
 
         public TourRequest(TourRequestStatus status, Location shortLocation, string description, string language, int maxAttendants, DateTime startDate, DateTime endDate)
@@ -53,7 +55,8 @@ namespace TouristAgency.TourRequests
             _maxAttendants = maxAttendants;
             _startDate = startDate;
             _endDate = endDate;
-            _type = TourRequestType.SINLGE;
+            _type = TourRequestType.SINGLE;
+            _complexTourRequestID = -1;
         }
 
         public int ID 
@@ -303,6 +306,19 @@ namespace TouristAgency.TourRequests
                         return false;
                 }
                 return true;
+            }
+        }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (value != _isSelected)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged("IsSelected");
+                }
             }
         }
 

@@ -144,6 +144,15 @@ namespace TouristAgency.Tours
             return TourRepository.GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == TourStatus.IN_PROGRESS);
         }
 
+        public bool IsGuideBooked(Guide guide, DateTime startdate)
+        {
+            List<Tour> BookedTours = GetAll().FindAll(t => t.AssignedGuideID == guide.ID &&
+                                                startdate == t.StartDateTime);
+            if (BookedTours.Count == 0)
+                return false;
+            else return true;
+        }
+
         public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration,
             int maxCapacity)
         {

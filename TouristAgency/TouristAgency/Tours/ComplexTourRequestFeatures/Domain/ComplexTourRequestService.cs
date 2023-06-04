@@ -24,6 +24,27 @@ namespace TouristAgency.Tours.TourRequestFeatures.Domain
             return ComplexTourRequestRepository.GetAll();
         }
 
+        public void InvalidateOldTourRequests()
+        {
+            foreach(ComplexTourRequest crequest in GetAll())
+            {
+                foreach(TourRequest request in crequest.Parts)
+                {
+                    if(request.Status == Util.TourRequestStatus.INVALID)
+                    {
+                        crequest.Status = Util.ComplexTourRequestStatus.INVALID;
+                        Update(crequest, crequest.ID);
+                        continue;
+                    }
+                }
+            }
+        }
+
+        public List<ComplexTourRequest> GetPending()
+        {
+            return ComplexTourRequestRepository.GetAll().FindAll(t => t.Status == Util.ComplexTourRequestStatus.PENDING);
+        }
+
         public List<ComplexTourRequest> GetByTouristID(int touristID)
         {
             return ComplexTourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
