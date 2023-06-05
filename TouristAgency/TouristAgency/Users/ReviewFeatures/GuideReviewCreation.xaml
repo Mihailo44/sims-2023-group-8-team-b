@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Select and review one of finished tours:" Grid.Row="0" Grid.Column="0" FontSize="32" FontWeight="Bold" Margin="0,5,0,0"></Label>
-        <ListView x:Name="ToursListView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="310" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}" FontSize="28" FontWeight="Bold" Foreground="Black">
+        <ListView x:Name="ToursListView" ScrollViewer.CanContentScroll="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="310" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}" FontSize="28" FontWeight="Bold" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -72,12 +72,12 @@
                     <RowDefinition Height="48"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label Content="Tour quality:" Grid.Row="0" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Tour organization:" Grid.Row="1" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Tour's attractions:" Grid.Row="2" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Guide's knowledge:" Grid.Row="3" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Guide's language:" Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Social interaction:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
+                <Label Content="Tour quality:" Grid.Row="0" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Tour organization:" Grid.Row="1" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Tour's attractions:" Grid.Row="2" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Guide's knowledge:" Grid.Row="3" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Guide's language:" Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Social interaction:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
 
                 <custom:QualityReviewControl Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="5"></custom:QualityReviewControl>
                 <custom:OrganizationReviewControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5"></custom:OrganizationReviewControl>
@@ -86,8 +86,8 @@
                 <custom:LanguageReviewControl Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5"></custom:LanguageReviewControl>
                 <custom:SocialReviewControl Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="5"></custom:SocialReviewControl>
 
-                <Label Content="Additional comment:" Grid.Row="0" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416" FontSize="28">
+                <Label Content="Additional comment:" Grid.Row="0" Grid.Column="6" Height="40" FontSize="24" FontWeight="SemiBold"></Label>
+                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="90" Width="425" FontSize="28">
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -99,8 +99,8 @@
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
 
-                <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="80" Width="416" Text="{Binding PhotoLinks}" FontSize="28">
+                <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="6" Height="40" FontSize="24" FontWeight="SemiBold"></Label>
+                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="90" Width="425" Text="{Binding PhotoLinks}" FontSize="28">
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -112,7 +112,7 @@
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
 
-                <Button Style="{StaticResource TouristBasicButton}" Grid.Row="6" Grid.Column="6" Width="240" Command="{Binding CreateCmd}" HorizontalAlignment="Right" Margin="0,0,10,0">
+                <Button Style="{StaticResource TouristBasicButton}" Grid.Row="6" Grid.Column="6" Width="240" Command="{Binding CreateCmd}" HorizontalAlignment="Right" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="30" Source="../../Resources/Image/send2.png" Margin="0,0,6,0"/>
                         <TextBlock>Send review</TextBlock>

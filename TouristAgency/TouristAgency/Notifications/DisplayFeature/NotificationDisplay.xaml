@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <Label Content="Notifications" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 
-        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" Background="Transparent" HorizontalContentAlignment="Stretch">
+        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" Background="Transparent" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

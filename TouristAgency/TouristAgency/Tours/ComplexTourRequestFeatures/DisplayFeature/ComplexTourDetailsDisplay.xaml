@@ -22,8 +22,8 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Complex tour: Visit to Novi Sad" FontSize="32" FontWeight="Bold" Margin="5,5,0,0"></Label>
-        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Parts}" Width="1060" Height="350" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold">
+        <Label Grid.Row="0" Grid.Column="0" ScrollViewer.CanContentScroll="False" Content="Complex tour: Visit to Novi Sad" FontSize="32" FontWeight="Bold" Margin="5,5,0,0"></Label>
+        <ListView x:Name="TourRequestsListView" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Path=Parts}" Width="1060" Height="350" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

@@ -17,7 +17,7 @@
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="360" Width="1070">
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="360" Width="1070" BorderBrush="Black" BorderThickness="2">
             <GroupBox.Header>
                 <Label Content="Create tour request" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
@@ -111,8 +111,8 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
-        
-        <ListView x:Name="ComplexToursListView" ItemsSource="{Binding Parts}" SelectedItem="{Binding SelectedPart}" Width="1070" Height="300" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" FontSize="28" FontWeight="Bold" Margin="0,10,0,0">
+
+        <ListView x:Name="ComplexToursListView" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Parts}" SelectedItem="{Binding SelectedPart}" Width="1070" Height="300" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" FontSize="28" FontWeight="Bold" Margin="0,10,0,0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

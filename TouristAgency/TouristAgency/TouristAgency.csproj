@@ -34,6 +34,7 @@
     <None Remove="Resources\Image\check.png" />
     <None Remove="Resources\Image\clear.png" />
     <None Remove="Resources\Image\clearFilter.png" />
+    <None Remove="Resources\Image\confirmattendance.png" />
     <None Remove="Resources\Image\create.png" />
     <None Remove="Resources\Image\create1.png" />
     <None Remove="Resources\Image\denied.png" />
@@ -96,6 +97,7 @@
     <None Remove="Resources\Image\useVoucher.png" />
     <None Remove="Resources\Image\voucher.png" />
     <None Remove="Resources\Image\voucher1.png" />
+    <None Remove="Resources\Image\voucher2.png" />
     <None Remove="Resources\Image\x-solid.png" />
   </ItemGroup>
 
@@ -135,6 +137,7 @@
     <Resource Include="Resources\Image\cancel1.png" />
     <Resource Include="Resources\Image\check.png" />
     <Resource Include="Resources\Image\clear.png" />
+    <Resource Include="Resources\Image\confirmattendance.png" />
     <Resource Include="Resources\Image\create.png" />
     <Resource Include="Resources\Image\create1.png" />
     <Resource Include="Resources\Image\denied.png" />
@@ -185,6 +188,7 @@
     <Resource Include="Resources\Image\useVoucher.png" />
     <Resource Include="Resources\Image\voucher.png" />
     <Resource Include="Resources\Image\voucher1.png" />
+    <Resource Include="Resources\Image\voucher2.png" />
     <Resource Include="Resources\Image\x-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

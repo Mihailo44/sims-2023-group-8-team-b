@@ -3,7 +3,6 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.TourRequests;
-using TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature;
 using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
 using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Tours.TourRequestFeatures.Domain;
@@ -129,7 +128,12 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
         {
             if(SelectedPart != null)
             {
-                Parts.Remove(SelectedPart);
+                var result = MessageBox.Show("Are you sure you want to remove this part?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if(result == MessageBoxResult.Yes)
+                {
+                    Parts.Remove(SelectedPart);
+                    MessageBox.Show("You have successfully removed this part.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 
@@ -151,24 +155,35 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
 
         public void CreateExecute()
         {
-            NewComplexTourRequest.TouristID = _loggedInTourist.ID;
-            NewComplexTourRequest = _complexTourRequestService.Create(NewComplexTourRequest);
-            foreach(TourRequest request in Parts) 
+            if (Parts.Count >= 2)
             {
-                request.TouristID = _loggedInTourist.ID;
-                request.Tourist = _loggedInTourist;
-                request.ComplexTourRequestID = NewComplexTourRequest.ID;
-                Location location = _locationService.FindByCountryAndCity(request.ShortLocation.Country, request.ShortLocation.City);
-                if (location == null) 
+                NewComplexTourRequest.TouristID = _loggedInTourist.ID;
+                NewComplexTourRequest = _complexTourRequestService.Create(NewComplexTourRequest);
+                foreach (TourRequest request in Parts)
                 {
-                    location = _locationService.Create(request.ShortLocation);
+                    request.TouristID = _loggedInTourist.ID;
+                    request.Tourist = _loggedInTourist;
+                    request.ComplexTourRequestID = NewComplexTourRequest.ID;
+                    Location location = _locationService.FindByCountryAndCity(request.ShortLocation.Country, request.ShortLocation.City);
+                    if (location == null)
+                    {
+                        location = _locationService.Create(request.ShortLocation);
+                    }
+                    request.ShortLocationID = location.ID;
+                    TourRequest tempRequest = _tourRequestService.Create(request);
+                    request.ID = tempRequest.ID;
+                    NewComplexTourRequest.Parts.Add(request);
                 }
-                request.ShortLocationID = location.ID;
-                TourRequest tempRequest = _tourRequestService.Create(request);
-                request.ID = tempRequest.ID;
-                NewComplexTourRequest.Parts.Add(request);
+                MessageBox.Show("You have successfully created complex tour request.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                Parts.Clear();
+                NewTourRequest = new();
+                NewComplexTourRequest = new();
             }
-            MessageBox.Show("You have successfully created complex tour request.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+            {
+                MessageBox.Show("A complex tour must have at least two parts.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
         }
 
         public bool CanDetailsExecute()
