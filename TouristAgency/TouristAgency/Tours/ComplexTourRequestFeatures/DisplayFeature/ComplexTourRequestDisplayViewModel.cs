@@ -8,6 +8,7 @@ using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
+using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Tours.TourRequestFeatures.Domain;
 using TouristAgency.Users;
 
@@ -24,6 +25,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
         private ObservableCollection<ComplexTourRequest> _requests;
 
         public DelegateCommand CloseCmd { get; set; }
+        public DelegateCommand DetailsCmd { get; set; }
 
         public ComplexTourRequestDisplayViewModel(Tourist tourist, Window window)
         {
@@ -47,6 +49,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
 
         private void InstantiateCommands()
         {
+            DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
@@ -60,6 +63,26 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
                     _requests = value;
                     OnPropertyChanged("Requests");
                 }
+            }
+        }
+
+        public ComplexTourRequest SelectedTourRequest
+        {
+            get;
+            set;
+        }
+
+        public bool CanDetailsExecute()
+        {
+            return true;
+        }
+
+        public void DetailsExecute()
+        {
+            if (SelectedTourRequest != null)
+            {
+                ComplexTourDetailsDisplay display = new ComplexTourDetailsDisplay(_loggedInTourist, SelectedTourRequest);
+                display.Show();
             }
         }
 

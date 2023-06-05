@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Vouchers"
         mc:Ignorable="d"
-        Title="Where are my vouchers?" Height="330" Width="720" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Where are my vouchers?" Height="360" Width="720" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition Height="130"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" FontSize="28" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,15">
-            You can view the vouchers in your notifications.
+            You can view the vouchers in your list of vouchers.
         </TextBlock>
 
         <TextBlock Grid.Row="1" Grid.Column="0" FontSize="28" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7,0,0,0"> 
@@ -35,6 +36,13 @@
             <StackPanel Orientation="Horizontal">
                 <Image Height="30" Source="../../../Resources/Image/useVoucher.png" Margin="0,0,10,0"/>
                 <TextBlock>Use a voucher now</TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding CloseCmd}">
+            <StackPanel Orientation="Horizontal">
+                <Image Height="30" Source="../../Resources/Image/cancel.png" Margin="0,0,10,0"/>
+                <TextBlock>Close</TextBlock>
             </StackPanel>
         </Button>
     </Grid>

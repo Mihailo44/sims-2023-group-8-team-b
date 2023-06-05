@@ -1,3 +1,2 @@
-0|France visit|20|ACCEPTED
-1|Test complex tour|20|ACCEPTED
-2|Complex tour 2|20|INVALID
+0|tura1|20|ACCEPTED
+1|tura2|20|INVALID

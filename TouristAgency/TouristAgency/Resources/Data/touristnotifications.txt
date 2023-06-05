@@ -10,8 +10,9 @@
 9|18|0|2|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
 10|20|0|0|VOUCHER|Won voucher|You have won a voucher for booking 5 tours. Click here to see your vouchers.|False
 11|18|0|0|VOUCHER|Won voucher|You have won a voucher for booking 5 tours. Click here to see your vouchers.|False
-12|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: Test part accept||False
-13|20|-1|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on Serbian|Based on your previous requests, a new tour with the language Serbian is available. Check it out!|False
-14|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: Test2||False
-15|20|-1|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Belgrade|Based on your previous requests, a new tour with the location Serbia, Belgrade is available. Check it out!|False
-16|20|-1|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on English|Based on your previous requests, a new tour with the language English is available. Check it out!|False
+12|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: tura2||False
+13|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: cmpl1tura1||False
+14|20|-1|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on English|Based on your previous requests, a new tour with the language English is available. Check it out!|False
+15|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: cmpl1tura2||False
+16|20|-1|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Belgrade|Based on your previous requests, a new tour with the location Serbia, Belgrade is available. Check it out!|False
+17|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: cmpl2||False

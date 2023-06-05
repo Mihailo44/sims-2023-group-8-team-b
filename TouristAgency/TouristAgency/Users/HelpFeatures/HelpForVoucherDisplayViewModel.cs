@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Tours.VoucherFeatures.DisplayFeature;
 using TouristAgency.Users;
 using TouristAgency.View.Display;
 
 namespace TouristAgency.Vouchers
 {
-    public class HelpForVoucherDisplayViewModel : ViewModelBase
+    public class HelpForVoucherDisplayViewModel : ViewModelBase, ICloseable
     {
         private App _app;
         private Tourist _loggedInTourist;
@@ -14,6 +15,7 @@ namespace TouristAgency.Vouchers
 
         public DelegateCommand VoucherNotificationCmd { get; set; }
         public DelegateCommand UseVoucherCmd { get; set; }
+        public DelegateCommand CloseCmd { get; set; }
 
         public HelpForVoucherDisplayViewModel(Tourist tourist, Window window)
         {
@@ -27,6 +29,7 @@ namespace TouristAgency.Vouchers
         {
             VoucherNotificationCmd = new DelegateCommand(param => VoucherNotificationExecute(), param => CanVoucherNotificationExecute());
             UseVoucherCmd = new DelegateCommand(param => UseVoucherExecute(), param => CanUseVoucherExecute());
+            CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
         public bool CanVoucherNotificationExecute()
@@ -36,7 +39,7 @@ namespace TouristAgency.Vouchers
 
         public void VoucherNotificationExecute()
         {
-            NotificationDisplay display = new NotificationDisplay(_loggedInTourist);
+            VoucherDisplay display = new VoucherDisplay(_loggedInTourist);
             display.Show();
         }
 
@@ -49,6 +52,16 @@ namespace TouristAgency.Vouchers
         {
             TourDisplay display = new TourDisplay(_loggedInTourist);
             display.Show();
+        }
+
+        public bool CanCloseExecute()
+        {
+            return true;
+        }
+
+        public void CloseExecute()
+        {
+            _window.Close();
         }
     }
 }

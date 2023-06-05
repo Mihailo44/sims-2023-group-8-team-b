@@ -6,7 +6,7 @@
         xmlns:WPFExtended="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="View and reservation tour" Height="780" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
+        Title="View and reservation tour" Height="790" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
 
     <Grid HorizontalAlignment="Center" Height="720" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
@@ -15,13 +15,13 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="220"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="330"></RowDefinition>
             <RowDefinition Height="135"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Height="200" Width="1050" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="2" Margin="0,-15,0,0">
+        <GroupBox Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Height="220" Width="1050" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="2" Margin="0,-15,0,0">
             <GroupBox.Header>
                 <Label Content="Filters" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
@@ -72,9 +72,9 @@
             </Grid>
         </GroupBox>
 
-        <Label Content="Filtered tours:" Grid.Row="1" Grid.Column="0" FontSize="32" FontWeight="Bold" Margin="0,10,0,0"/>
+        <Label Content="Filtered tours:" Grid.Row="1" Grid.Column="0" FontSize="32" FontWeight="Bold"/>
 
-        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" Width="1050" Height="300" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" Margin="0,0,0,20">
+        <ListView x:Name="ToursListView" ItemsSource="{Binding Path=Tours}" ScrollViewer.CanContentScroll="False" Width="1050" Height="310" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}" Margin="0,0,0,20">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -110,16 +110,17 @@
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="330"></ColumnDefinition>
+                    <ColumnDefinition Width="66.2"></ColumnDefinition>
+                    <ColumnDefinition Width="263.8"/>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Content="Number of reservations:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,10"/>
-                <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="1" Width="73" Height="39" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}" FontSize="28" FontWeight="Bold" Margin="0,0,0,8"/>
-                <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,8">
+                <Label Grid.Column="0" Content="Number of reservations:" FontSize="28" FontWeight="SemiBold" Margin="5,0,0,10" Grid.ColumnSpan="2"/>
+                <WPFExtended:UIntegerUpDown x:Name="numOfReservation" Grid.Column="2" Width="73" Height="39" HorizontalAlignment="Left" Value="{Binding Path=NumberOfReservation}" FontSize="28" FontWeight="Bold" Margin="0,7,0,14"/>
+                <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,10,0">
                     <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Column="3" Width="140" HorizontalAlignment="Right" Margin="0,0,10,0" Command="{Binding CancelCmd}">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="24" Source="../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
@@ -127,7 +128,7 @@
                         </StackPanel>
                     </Button>
                     <Label></Label>
-                    <Button Style="{StaticResource TouristBasicButton}" Grid.Column="2" Width="300" HorizontalAlignment="Right" Command="{Binding CreateCmd}" Margin="6,0,0,0">
+                    <Button Style="{StaticResource TouristBasicButton}" Grid.Column="2" Width="320" HorizontalAlignment="Right" Command="{Binding CreateCmd}" Margin="6,0,0,0">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="32" Source="../../Resources/Image/reservation.png" Margin="0,0,5,0"/>
                             <TextBlock>Make a reservation</TextBlock>

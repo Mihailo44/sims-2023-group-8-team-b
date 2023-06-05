@@ -87,6 +87,12 @@
                     <Image.Source>
                         <BitmapImage UriSource="../../Resources/Image/file-pdf-solid.png"/>
                     </Image.Source>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding GenerateReportCmd}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Image>
                 <Label HorizontalAlignment="Center" FontWeight="Bold">Reports</Label>
             </StackPanel>

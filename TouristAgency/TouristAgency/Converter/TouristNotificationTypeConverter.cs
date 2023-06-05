@@ -19,9 +19,10 @@ namespace TouristAgency.Converter
                 case TouristNotificationType.SUGGESTED_TOUR_LOCATION: return "../../../Resources/Image/gps1.png";
                 case TouristNotificationType.SUGGESTED_TOUR_LANGUAGE: return "../../../Resources/Image/language1.png";
                 case TouristNotificationType.TOUR_REQUEST_ACCEPTED: return "../../../Resources/Image/accepted.png";
+                case TouristNotificationType.ATTENDANCE: return "../../../Resources/Image/confirmattendance.png";
                 //case TouristNotificationType.CANCELED_TOUR: return "../../../Resources/Image/gps.png";
                 //case TouristNotificationType.VOUCHER: return "../../../Resources/Image/voucher.png";
-                default: return "../../../Resources/Image/voucher.png";
+                default: return "../../../Resources/Image/voucher2.png";
             }
         }
 
