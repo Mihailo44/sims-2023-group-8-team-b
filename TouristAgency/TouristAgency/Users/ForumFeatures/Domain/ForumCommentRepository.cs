@@ -46,6 +46,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             ForumComment currentComment = GetById(id);
             currentComment.ReportNum = updatedComment.ReportNum;
             currentComment.Comment = updatedComment.Comment;
+            currentComment.SuperComment = updatedComment.SuperComment;
             
             _storage.Save(_forumComments);  
             NotifyObservers();

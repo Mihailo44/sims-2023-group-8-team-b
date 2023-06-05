@@ -6,7 +6,7 @@
         xmlns:converter="clr-namespace:TouristAgency.Converter"
         xmlns:local="clr-namespace:TouristAgency.Tours.TourRequestFeatures.DisplayFeature"
         mc:Ignorable="d"
-        Title="TourRequestDisplay" Height="620" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
+        Title="TourRequestDisplay" Height="620" Width="1150" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
 
     <Window.Resources>
         <converter:TourRequestStatusConverter x:Key="TourRequestStatusConverter"></converter:TourRequestStatusConverter>
@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="List of your all tour requests:" Grid.Row="0" FontSize="32" FontWeight="Bold" Margin="10,0,0,0"></Label>
-        <ListView Grid.Row="1" Width="1060" Height="450" ItemsSource="{Binding TourRequests}" FontSize="28" FontWeight="Bold" VerticalAlignment="Top" Foreground="Black">
+        <ListView Grid.Row="1" Width="1110" Height="450" ItemsSource="{Binding TourRequests}" FontSize="28" FontWeight="Bold" VerticalAlignment="Top" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -31,7 +31,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Status" Width="150">
+                    <GridViewColumn Header="Status" Width="110">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Height="70" Width="70" Source="{Binding Status, Converter={StaticResource TourRequestStatusConverter}}"></Image>
@@ -41,8 +41,8 @@
                     <GridViewColumn Header="Country" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
                     <GridViewColumn Header="City" Width="150" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date" Width="210" DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:MM/dd/yyyy}}"/>
-                    <GridViewColumn Header="End date" Width="210" DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="Start date" Width="180" DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="End date" Width="180" DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:MM/dd/yyyy}}"/>
                     <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding MaxAttendants}"/>
                 </GridView>
             </ListView.View>

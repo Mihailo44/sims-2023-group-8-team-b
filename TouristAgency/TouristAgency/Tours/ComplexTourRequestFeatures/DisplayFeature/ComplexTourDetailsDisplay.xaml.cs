@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
 using TouristAgency.Users;
 
 namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
@@ -11,10 +12,10 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
     /// </summary>
     public partial class ComplexTourDetailsDisplay : Window
     {
-        public ComplexTourDetailsDisplay(Tourist tourist)
+        public ComplexTourDetailsDisplay(Tourist tourist, ComplexTourRequest request)
         {
             InitializeComponent();
-            DataContext = new ComplexTourDetailsDisplayViewModel(tourist, this);
+            DataContext = new ComplexTourDetailsDisplayViewModel(tourist, this, request);
         }
     }
 }

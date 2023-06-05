@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Select and join the one of applied tours:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="32" FontWeight="Bold"></Label>
-        <ListView x:Name="ToursListView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="330" SelectedItem="{Binding SelectedTour}" ItemsSource="{Binding Tours}" FontSize="28" FontWeight="Bold" Foreground="Black">
+        <ListView x:Name="ToursListView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ScrollViewer.CanContentScroll="False" Width="1030" Height="330" SelectedItem="{Binding SelectedTour}" ItemsSource="{Binding Tours}" FontSize="28" FontWeight="Bold" Foreground="Black">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding ShowCheckpointInfoCmd}" />

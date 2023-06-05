@@ -3,9 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:TouristAgency.Converter"
         xmlns:local="clr-namespace:TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature"
         mc:Ignorable="d"
         Title="View all parts of the complex tour" Height="530" Width="1090" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
+
+    <Window.Resources>
+        <converter:TourRequestStatusConverter x:Key="TourRequestStatusConverter"></converter:TourRequestStatusConverter>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -16,8 +22,8 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Complex tour: Visit to Novi Sad" FontSize="32" FontWeight="Bold" Margin="5,5,0,0"></Label>
-        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Tours}" Width="1060" Height="350" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold" SelectedItem="{Binding SelectedTour}">
+        <Label Grid.Row="0" Grid.Column="0" ScrollViewer.CanContentScroll="False" Content="Complex tour: Visit to Novi Sad" FontSize="32" FontWeight="Bold" Margin="5,5,0,0"></Label>
+        <ListView x:Name="TourRequestsListView" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding Path=Parts}" Width="1060" Height="350" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -25,13 +31,19 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Status" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
+                    <GridViewColumn Header="Status" Width="110">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="70" Width="70" Source="{Binding Status, Converter={StaticResource TourRequestStatusConverter}}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="From"/>
-                    <GridViewColumn Header="To"/>
+                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
+                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
+                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding MaxAttendants}"/>
+                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="To" DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:MM/dd/yyyy}}"/>
                 </GridView>
             </ListView.View>
         </ListView>

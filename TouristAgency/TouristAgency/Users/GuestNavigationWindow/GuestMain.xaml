@@ -12,7 +12,7 @@
         xmlns:any="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.CreationFeature"
         xmlns:forum="clr-namespace:TouristAgency.Users.ForumFeatures.DisplayFeature"
         mc:Ignorable="d"
-        Title="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+        Title="GuestHome" Name="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate DataType="{x:Type home:GuestHomeViewModel}">
             <home:GuestHome/>

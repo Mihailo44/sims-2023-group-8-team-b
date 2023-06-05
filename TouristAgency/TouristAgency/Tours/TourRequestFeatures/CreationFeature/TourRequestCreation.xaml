@@ -27,7 +27,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Column="0" Grid.Row="0" Height="300" Width="1040" VerticalAlignment="Top" Margin="0,5,0,0" BorderBrush="Black">
+        <GroupBox Grid.Column="0" Grid.Row="0" Height="300" Width="1040" VerticalAlignment="Top" Margin="0,5,0,0" BorderBrush="Black" BorderThickness="2">
             <GroupBox.Header>
                 <Label Content="Create tour request" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
@@ -58,7 +58,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="City:" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Width="66" />
-                        <TextBox x:Name="CityTextBox" Width="170" Height="40" Text="{Binding Path=TourRequest.ShortLocation.City, ValidatesOnDataErrors=True}" FontSize="28" FontWeight="SemiBold" Margin="75,0,0,0" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                        <TextBox x:Name="CityTextBox" Width="170" Height="40" Text="{Binding Path=TourRequest.ShortLocation.City, ValidatesOnDataErrors=True}" FontSize="28" FontWeight="SemiBold" Margin="70,0,0,0" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                             <TextBox.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="5"/>
