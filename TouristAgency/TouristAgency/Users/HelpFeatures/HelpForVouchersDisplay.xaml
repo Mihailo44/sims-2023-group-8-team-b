@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Vouchers"
         mc:Ignorable="d"
-        Title="Where are my vouchers?" Height="360" Width="720" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Where are my vouchers?" Height="360" Width="720" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
