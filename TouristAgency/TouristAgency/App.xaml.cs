@@ -161,6 +161,7 @@ namespace TouristAgency
             ComplexTourRequestRepository.LoadTouristsToComplexTourRequests(TouristRepository.GetAll());
             ComplexTourRequestRepository.LoadTourRequestsToComplexTourRequests(TourRequestRepository.GetAll());
             TourRequestRepository.LoadTouristsToTourRequests(TouristRepository.GetAll());
+            GuestRepository.LoadReservationsToGuests(ReservationRepository.GetAll());
         }
     }
 }

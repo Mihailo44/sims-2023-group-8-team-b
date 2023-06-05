@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Interfaces;
 
 namespace TouristAgency.Users
@@ -72,6 +73,20 @@ namespace TouristAgency.Users
         public List<Guest> GetAll()
         {
             return _guests;
+        }
+
+        public void LoadReservationsToGuests(List<Reservation> reservations)
+        {
+            foreach (Reservation reservation in reservations)
+            {
+                foreach(Guest guest in GetAll())
+                {
+                    if(guest.ID == reservation.Guest.ID)
+                    {
+                        guest.Reservations.Add(reservation);
+                    }
+                }
+            }
         }
 
         public void Subscribe(IObserver observer)

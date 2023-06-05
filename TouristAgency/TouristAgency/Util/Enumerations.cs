@@ -17,4 +17,5 @@ namespace TouristAgency.Util
     public enum InvitationStatus { PENDING, ACCEPTED }
     public enum UserType { OWNER, GUIDE, TOURIST, GUEST }
     public enum TouristNotificationType { TOUR_REQUEST_ACCEPTED, SUGGESTED_TOUR_LOCATION, SUGGESTED_TOUR_LANGUAGE, ATTENDANCE, CANCELED_TOUR, VOUCHER, MESSAGE }
+    public enum GuestForumCommentType { COMMENT_STAR, COMMENT }
 }
