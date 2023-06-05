@@ -84,6 +84,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
                 if (guest != null)
                 {
                     reservation.Guest = guest;
+                    guest.Reservations.Add(reservation);
                 }
             }
         }

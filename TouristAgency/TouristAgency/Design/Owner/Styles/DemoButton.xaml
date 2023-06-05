@@ -5,23 +5,17 @@
         <Setter Property="Width" Value="65"/>
         <Setter Property="Height" Value="65"/>
         <Setter Property="Margin" Value="0,0,0,5"/>
-        <Setter Property="Foreground" Value="BlanchedAlmond"/>
+        <Setter Property="Foreground" Value="DarkSlateBlue"/>
         <Setter Property="FontSize" Value="19"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="60" BorderThickness="1" Background="DarkSlateBlue">
+                    <Border CornerRadius="60" BorderThickness="1" Background="BlanchedAlmond">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Opacity" Value="0.9"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>

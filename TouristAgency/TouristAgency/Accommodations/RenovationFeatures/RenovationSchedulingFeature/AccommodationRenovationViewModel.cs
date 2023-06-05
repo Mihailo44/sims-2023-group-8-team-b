@@ -123,6 +123,10 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         public void SearchCmdExecute()
         {
             FillCollection();
+            if(PossibleRenovationDates.Count == 0)
+            {
+                MessageBox.Show("There are no avaliable dates in the selected time frame","Renovation Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
         }
     }
 }

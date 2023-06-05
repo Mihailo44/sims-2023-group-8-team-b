@@ -182,9 +182,10 @@
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Label Height="auto" Margin="15,0,0,0" FontSize="36" Foreground="Wheat" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
-                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource DemoBtnStyle}" Command="{Binding DemoCmd}">
+                    <!--<Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource DemoBtnStyle}" Command="{Binding DemoCmd}">
                         <Image Width="65" Height="63" Source="../../Resources/Image/help.png"/>
-                    </Button>
+                    </Button>-->
+                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource CircleBtnStyle}" Command="{Binding DemoCmd}"/>
                     <Button Grid.Column="3" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}">
                         <Image Width="45" Height="45" Margin="6,0,0,0" Source="../../Resources/Image/bell1.png"/>
                     </Button>
@@ -422,9 +423,9 @@
                                     <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="520" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Width="360" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
-                            <GridViewColumn Width="110" Header="">
+                            <GridViewColumn Width="510" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="320" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="150" Header="Usefulness">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Height="35" Width="35" Source="{Binding IsUseful,Converter={StaticResource ForumConv}}"/>
