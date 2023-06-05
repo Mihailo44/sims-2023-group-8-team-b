@@ -34,7 +34,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 if (_description != value)
                 {
                     _description = value;
-                    CreateCmd.OnCanExecuteChanged();
+                    //CreateCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -64,15 +64,22 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
 
         public bool CanCreateCmdExecute()
         {
-            return !string.IsNullOrEmpty(Description);
+            return true;
         }
 
         public void CreateCmdExecute()
         {
-            Renovation.Description = Description.Trim();
-            _renovationService.Create(Renovation);
-            MessageBox.Show("Renovation has been scheduled","Renovation Scheduling Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
-            _window.Close();
+            if (!string.IsNullOrEmpty(Description))
+            {
+                Renovation.Description = Description.Trim();
+                _renovationService.Create(Renovation);
+                MessageBox.Show("Renovation has been scheduled", "Renovation Scheduling Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
+                _window.Close();
+            }
+            else
+            {
+                MessageBox.Show("Renovation description is required","Renovation Scheduling Dialogue",MessageBoxButton.OK,MessageBoxImage.Warning);
+            }
         }
     }
 }

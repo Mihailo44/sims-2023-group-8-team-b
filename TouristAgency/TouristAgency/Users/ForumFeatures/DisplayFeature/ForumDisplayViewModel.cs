@@ -20,6 +20,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         private ForumCommentService _forumCommentService;
         private LocationService _locationService;
         private UserCommentService _userCommentService;
+        private GuestService _guestService;
 
         public static Forum SelectedForum { get; set; }
 
@@ -49,6 +50,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             _forumCommentService = new();
             _locationService = new();
             _userCommentService = new();
+            _guestService = new();
         }
 
         private void InstantiateCommands()
@@ -96,20 +98,24 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         {
             ForumComment comment = param as ForumComment;
             List<UserComment> reportList = _userCommentService.GetByForumAndUser(SelectedForum.Id);
-            
-            if(_locationService.HasAccommodationOnLocation(_app.LoggedUser, SelectedForum.Location))
-            {
-                if (reportList.Find(r => r.CommentId == comment.Id) == null)
-                {
-                    comment.ReportNum++;
-                    _forumCommentService.ForumCommentRepository.Update(comment, comment.Id);
+            Guest guest = _guestService.GuestRepository.GetById(comment.User.ID);
 
-                    UserComment report = new UserComment(SelectedForum.Id, _app.LoggedUser.ID, comment.Id);
-                    _userCommentService.UserCommentRepository.Create(report);
-                }
-                else
+            if (_locationService.HasAccommodationOnLocation(_app.LoggedUser, SelectedForum.Location))
+            {
+                if (!_locationService.BeenOnLocation(guest, SelectedForum.Location))
                 {
-                    MessageBox.Show("You have already reported this comment", "Report Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (reportList.Find(r => r.CommentId == comment.Id) == null)
+                    {
+                        comment.ReportNum++;
+                        _forumCommentService.ForumCommentRepository.Update(comment, comment.Id);
+
+                        UserComment report = new UserComment(SelectedForum.Id, _app.LoggedUser.ID, comment.Id);
+                        _userCommentService.UserCommentRepository.Create(report);
+                    }
+                    else
+                    {
+                        MessageBox.Show("You have already reported this comment", "Report Dialogue", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
             }
             else

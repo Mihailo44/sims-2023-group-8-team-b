@@ -1,15 +1,6 @@
-﻿using iText.IO.Font;
-using iText.Kernel.Font;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas.Draw;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using iText.Pdfa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.Domain.DTO;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
@@ -189,98 +180,7 @@ namespace TouristAgency.Accommodations.StatisticsFeature
 
         public void PrintReportCmdExecute()
         {
-            try
-            {
-                string filePath = @"..\Resources\PDF\sRGB_CS_profile.icm";
-                string fontFile = @"..\Resources\PDF\FreeSans.ttf";
-                string fileName = @"..\Files\sample" + DateTime.Now.ToString("ddMMMyyyyHHmmss") + ".pdf";
 
-                PdfADocument pdf = new PdfADocument(
-                new PdfWriter(fileName),
-                PdfAConformanceLevel.PDF_A_1B,
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1",
-                new FileStream(filePath, FileMode.Open, FileAccess.Read)));
-
-                PdfFont font = PdfFontFactory.CreateFont(fontFile, PdfEncodings.WINANSI,
-                PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
-                Document document = new Document(pdf);
-
-                document.SetFont(font);
-
-                Paragraph header = new Paragraph("ACCOMMODATION STATISTICS").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20);
-                document.Add(header);
-
-                LineSeparator ls = new LineSeparator(new SolidLine());
-                document.Add(ls);
-
-                Paragraph sellerHeader = new Paragraph("Accommodation:").SetBold().SetTextAlignment(TextAlignment.LEFT);
-                Paragraph sellerDetail = new Paragraph(SelectedAccommodation.Name).SetTextAlignment(TextAlignment.LEFT);
-                Paragraph sellerAddress = new Paragraph(SelectedAccommodation.Location.Country + "," + SelectedAccommodation.Location.City).SetTextAlignment(TextAlignment.LEFT);
-
-                document.Add(sellerHeader);
-                document.Add(sellerDetail);
-                document.Add(sellerAddress);
-
-                Paragraph customerHeader = new Paragraph("Customer details:").SetBold().SetTextAlignment(TextAlignment.RIGHT);
-                Paragraph customerDetail = new Paragraph("Customer ABC").SetTextAlignment(TextAlignment.RIGHT);
-                Paragraph customerAddress1 = new Paragraph("R783, Rose Apartments, Santacruz (E)").SetTextAlignment(TextAlignment.RIGHT);
-                Paragraph customerAddress2 = new Paragraph("Mumbai 400054, Maharashtra India").SetTextAlignment(TextAlignment.RIGHT);
-
-                Paragraph customerContact = new Paragraph("+91 0000000000").SetTextAlignment(TextAlignment.RIGHT);
-
-                document.Add(customerHeader);
-                document.Add(customerDetail);
-                document.Add(customerAddress1);
-                document.Add(customerAddress2);
-                document.Add(customerContact);
-
-                Paragraph orderNo = new Paragraph("Order No:15484659").SetBold().SetTextAlignment(TextAlignment.LEFT);
-                Paragraph invoiceTimestamp = new Paragraph("Date: 30/05/2021 04:25:37 PM").SetTextAlignment(TextAlignment.LEFT);
-
-                document.Add(orderNo);
-                document.Add(invoiceTimestamp);
-
-                Table table = new Table(4, true);
-
-                table.SetFontSize(9);
-                Cell headerProductId = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph("Reservations"));
-                Cell headerProduct = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph("Cancelations"));
-                Cell headerProductPrice = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph("Postponations"));
-                Cell headerProductQty = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph("Renovation Reccommendations"));
-
-                table.AddCell(headerProductId);
-                table.AddCell(headerProduct);
-                table.AddCell(headerProductPrice);
-                table.AddCell(headerProductQty);
-
-                double grandTotalVal = 0;
-                    Cell productid = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(MonthlyStats.Reservations.ToString()));
-                    Cell product = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(MonthlyStats.Cancelations.ToString()));
-                    Cell price = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(MonthlyStats.Postponations.ToString()));
-                    Cell qty = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(MonthlyStats.Reccommendations.ToString()));
-
-                    table.AddCell(productid);
-                    table.AddCell(product);
-                    table.AddCell(price);
-                    table.AddCell(qty);
-
-                Cell grandTotalHeader = new Cell(1, 4).SetTextAlignment(TextAlignment.RIGHT).Add(new Paragraph("Total: "));
-                Cell grandTotal = new Cell(1, 1).SetTextAlignment(TextAlignment.LEFT).Add(new Paragraph(" " + grandTotalVal.ToString()));
-
-                table.AddCell(grandTotalHeader);
-                table.AddCell(grandTotal);
-
-                document.Add(table);
-                table.Flush();
-                table.Complete();
-                document.Close();
-
-                System.Diagnostics.Process.Start(fileName);
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
     }
 }

@@ -5,6 +5,7 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
 using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Users;
 
 namespace TouristAgency.Util
 {
@@ -94,6 +95,12 @@ namespace TouristAgency.Util
             Accommodation accommodation = owner.Accommodations.Find(a => a.Location.ID == location.ID);
 
             return accommodation != null;
+        }
+
+        public bool BeenOnLocation(Guest guest,Location location) 
+        {
+            Reservation reservation = guest.Reservations.Find(r => r.Accommodation.Location.ID == location.ID);
+            return reservation != null;
         }
     }
 }
