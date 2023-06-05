@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="List of your all complex tour requests:" Grid.Row="0" FontSize="32" FontWeight="Bold" Margin="10,0,0,0"></Label>
-        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Requests}" Width="800" Height="450" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold">
+        <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=Requests}" SelectedItem="{Binding SelectedTourRequest}" Width="800" Height="450" Grid.Row="1" Grid.Column="0" Foreground="Black" FontSize="28" FontWeight="Bold">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -42,7 +42,7 @@
                     <GridViewColumn Header="More info">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Width="130"></Button>
+                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=TourRequestsListView}" Width="130"></Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
