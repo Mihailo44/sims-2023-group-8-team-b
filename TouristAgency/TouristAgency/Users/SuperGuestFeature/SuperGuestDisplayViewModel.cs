@@ -16,7 +16,7 @@ using TouristAgency.Users.SuperGuestFeature.Domain;
 
 namespace TouristAgency.Users.SuperGuestFeature
 {
-    public class SuperGuestDisplayViewModel : ViewModelBase
+    public class SuperGuestDisplayViewModel : HelpMenuViewModelBase
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -52,6 +52,7 @@ namespace TouristAgency.Users.SuperGuestFeature
             _superGuestTitleService.RefreshSuperGuestTitles(_guestService.GuestRepository.GetAll(), _reservationService.ReservationRepository.GetAll());
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 

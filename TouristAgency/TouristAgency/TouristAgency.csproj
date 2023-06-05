@@ -29,6 +29,7 @@
     <None Remove="Resources\Image\bell.png" />
     <None Remove="Resources\Image\bell1.png" />
     <None Remove="Resources\Image\blank.png" />
+    <None Remove="Resources\Image\cairo-citadel-guest.png" />
     <None Remove="Resources\Image\cancel-guest.png" />
     <None Remove="Resources\Image\cancel.png" />
     <None Remove="Resources\Image\cancel1.png" />
@@ -90,6 +91,7 @@
     <None Remove="Resources\Image\shortcut.png" />
     <None Remove="Resources\Image\star-guest.png" />
     <None Remove="Resources\Image\statistics.png" />
+    <None Remove="Resources\Image\statue-of-liberty-guest.png" />
     <None Remove="Resources\Image\suitcase-guest.png" />
     <None Remove="Resources\Image\suitcase2-guest.png" />
     <None Remove="Resources\Image\TourImage\hotLocation.png" />
@@ -146,6 +148,7 @@
     <Resource Include="Resources\Image\bell.png" />
     <Resource Include="Resources\Image\bell1.png" />
     <Resource Include="Resources\Image\blank.png" />
+    <Resource Include="Resources\Image\cairo-citadel-guest.png" />
     <Resource Include="Resources\Image\cancel-guest.png" />
     <Resource Include="Resources\Image\cancel.png" />
     <Resource Include="Resources\Image\cancel1.png" />
@@ -198,6 +201,7 @@
     <Resource Include="Resources\Image\shortcut.png" />
     <Resource Include="Resources\Image\star-guest.png" />
     <Resource Include="Resources\Image\statistics.png" />
+    <Resource Include="Resources\Image\statue-of-liberty-guest.png" />
     <Resource Include="Resources\Image\suitcase-guest.png" />
     <Resource Include="Resources\Image\suitcase2-guest.png" />
     <Resource Include="Resources\Image\threestar.png" />
