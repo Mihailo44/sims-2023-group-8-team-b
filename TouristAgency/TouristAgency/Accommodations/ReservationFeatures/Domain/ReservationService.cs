@@ -244,6 +244,11 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
         }
 
+        public List<Reservation> GetInInterval(DateTime start, DateTime end, int guestId)
+        {
+            return GetAll().FindAll(r => r.Start >= start && r.End <= end && r.Guest.ID == guestId);
+        }
+
         public List<Reservation> SearchReservations(string searchInput)
         {
             List<Reservation> reservations = GetByOwnerId(_app.LoggedUser.ID);
