@@ -56,7 +56,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = window;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
 
             InstantiateServices();
             InstantiateCollections();

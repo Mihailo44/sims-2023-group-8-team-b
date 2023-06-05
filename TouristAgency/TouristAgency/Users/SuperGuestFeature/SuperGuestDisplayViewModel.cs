@@ -46,7 +46,7 @@ namespace TouristAgency.Users.SuperGuestFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = window;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
 
             InstantiateServices();
             _superGuestTitleService.RefreshSuperGuestTitles(_guestService.GuestRepository.GetAll(), _reservationService.ReservationRepository.GetAll());
