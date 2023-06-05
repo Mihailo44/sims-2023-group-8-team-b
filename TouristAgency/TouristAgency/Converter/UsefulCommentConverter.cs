@@ -35,7 +35,7 @@ namespace TouristAgency.Converter
                 Guest guest = guestService.GuestRepository.GetById(user.ID);
                 if (guest.Reservations.Find(r => r.Accommodation.Location.ID == forum.Location.ID) != null)
                 {
-                    return "../../../Resources/Image/check.png";
+                    return "../../../Resources/Image/star-guest.png";
                 }
             }
             else

@@ -4,3 +4,5 @@
 3|Subotica forum|4|5/31/2023 12:00:00 AM|False
 4|Belgrade forum|1|5/31/2023 12:00:00 AM|False
 5|Paris forum|10|6/5/2023 12:00:00 AM|False
+6|Nis forum|2|6/5/2023 12:00:00 AM|False
+7|Loznica forum|14|6/5/2023 12:00:00 AM|False

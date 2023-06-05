@@ -5,21 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using TouristAgency.Util;
 
 namespace TouristAgency.Converter
 {
-    public class HotLocationConverter : IValueConverter
+    public class GuestForumUsefulTypeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool status = (bool)value;
-            if (status)
+            bool useful = (bool)value;
+            if(useful == true)
             {
-                return "../../../Resources/Image/TourImage/hotLocation.png";
+                return "../../../Resources/Image/checked2-guest.png";
             }
             else
             {
-                return "../../../Resources/Image/down.png";
+                return "../../../Resources/Image/cancel-guest.png";
             }
         }
 

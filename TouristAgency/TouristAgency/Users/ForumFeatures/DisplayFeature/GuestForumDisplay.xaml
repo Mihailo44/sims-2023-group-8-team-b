@@ -3,10 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:converter="clr-namespace:TouristAgency.Converter"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:v="clr-namespace:TouristAgency.Users.ForumFeatures.DisplayFeature"
         xmlns:local="clr-namespace:TouristAgency.Users.ForumFeatures.DisplayFeature"
         mc:Ignorable="d"
         Height="700" Width="1200">
+
+    <UserControl.Resources>
+        <converter:UsefulCommentConverter x:Key="CommentConv"/>
+        <converter:GuestForumUsefulTypeConverter x:Key="ForumConv"/>
+    </UserControl.Resources>
+
     <Grid  Background="#FFFBF3">
         <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
             <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="-You can create a forum for some location to collect other people's experiences."/><LineBreak/><Run Text="After creation, just select the forum for location you want and click the open button. Forum will appear down below."/><LineBreak/><Run Text="If you want to close forum, click the close button."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-You can leave a comment on forum (for example some questions you would like answered) and click the submit button."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-If the guest was once on that location his comment will be marked with a star."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-Forums that reach 20 comments from guests who have already visited that location (and 10 from owners who own accommodations on that location) will be marked as very useful."/><LineBreak/><Run/></TextBlock>
@@ -52,11 +60,22 @@
         </StackPanel>
 
         <Label Content="Forum"  Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="230,-4,0,0" VerticalAlignment="Top"/>
-        <ListView ItemsSource="{Binding Path=Forums}" SelectedItem="{Binding Path=SelectedForum}" Margin="719,88,194,447" FontSize="20">
+        <ListView ItemsSource="{Binding Path=Forums}" Foreground="Black" SelectedItem="{Binding Path=SelectedForum}" Margin="719,88,194,447" FontSize="18">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Forum" Width="150" DisplayMemberBinding="{Binding Path=Name}"/>
-                    <GridViewColumn Header="Very useful" Width="150" DisplayMemberBinding="{Binding Path=IsUseful}"/>
+                    <GridViewColumn Header="Very useful" Width="130">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="20" Width="20" Source="{Binding IsUseful,Converter={StaticResource ForumConv}}"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -74,15 +93,20 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <ListView Margin="230,277,75,143" ItemsSource="{Binding Path=Comments}" Background="#FFFBF3" BorderThickness="2">
+        <ListView Margin="230,277,75,143" ItemsSource="{Binding Path=Comments}" Background="#FFFBF3"  BorderThickness="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#F4F1BB" CornerRadius="30" BorderThickness="0.5" BorderBrush="Black">
-                        <StackPanel Width="870">
-                            <Label Content="{Binding Path=User.Username}" FontSize="20" FontWeight="SemiBold"/>
-                            <Label Content="{Binding Path=Created}" FontSize="15"/>
-                            <Label Content="{Binding Path=Comment}" FontSize="15" HorizontalAlignment="Center"/>
-                            <Label Content="{Binding Path=SuperComment}" FontSize="15"/>
+                        <StackPanel Width="850">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Path=User.Username}" FontSize="20" Margin="10,0,0,0" FontStyle="Italic" FontWeight="SemiBold"/>
+                                <Image Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="750,10,0,0" Source="{Binding User,Converter={StaticResource CommentConv},ConverterParameter={x:Static v:GuestForumDisplayViewModel.SelectedForum}}"/>
+                            </StackPanel>
+                            <Label Content="{Binding Path=Created}" Margin="10,0,0,0" FontSize="15"/>
+                            <Border CornerRadius="20" Background="#FFFFC0" Width="700" Margin="5">
+                                <Label Content="{Binding Path=Comment}" FontSize="20" HorizontalAlignment="Center" Margin="0,20,0,0">
+                                </Label>
+                            </Border>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

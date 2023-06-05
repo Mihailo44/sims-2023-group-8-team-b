@@ -46,7 +46,8 @@
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>
-            <Button Width="85" Height="85" Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="NEW" Style="{StaticResource DemoBtnStyle}" Command="{Binding OpenAccommodationCreationCmd}">
+            <Button Width="85" Height="85" Visibility="{Binding BtnNewVisibility}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource DemoBtnStyle}" Command="{Binding OpenAccommodationCreationCmd}">
+                <Image Width="50" Height="50" Source="../../Resources/Image/home.png"/>
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="330" Softness="0.9" ShadowDepth="7" Opacity="0.4"/>
                 </Button.BitmapEffect>
@@ -182,8 +183,11 @@
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
                     <Label Height="auto" Margin="15,0,0,0" FontSize="36" Foreground="Wheat" Content="OJ's Tourist Agency" FontStyle="Italic" FontWeight="DemiBold"/>
-                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource DemoBtnStyle}" Command="{Binding DemoCmd}">
+                    <!--<Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource DemoBtnStyle}" Command="{Binding DemoCmd}">
                         <Image Width="65" Height="63" Source="../../Resources/Image/help.png"/>
+                    </Button>-->
+                    <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource CircleBtnStyle}" Command="{Binding DemoCmd}">
+                        <Image Width="55" Height="55" Source="../../Resources/Image/demo.png"/>
                     </Button>
                     <Button Grid.Column="3" Style="{StaticResource CircleBtnStyle}" Command="{Binding ShowNotificationsCmd}">
                         <Image Width="45" Height="45" Margin="6,0,0,0" Source="../../Resources/Image/bell1.png"/>
@@ -204,11 +208,81 @@
                         <GradientStop Color="#FF8453CB" Offset="1"/>
                     </LinearGradientBrush>
                 </WrapPanel.Background>
-                <Button Margin="20,0,0,0" Style="{StaticResource NavButton}" Content="Reservations" Command="{Binding ShowDataGridCmd}" CommandParameter="0"/>
-                <Button Width="170" Style="{StaticResource NavButton}" Content="Accommodations" Command="{Binding ShowDataGridCmd}" CommandParameter="1"/>
-                <Button Width="225" Style="{StaticResource NavButton}" Content="Postponement Requests" Command="{Binding ShowDataGridCmd}" CommandParameter="2"/>
-                <Button Style="{StaticResource NavButton}" Content="Reviews" Command="{Binding ShowDataGridCmd}" CommandParameter="3"/>
-                <Button Style="{StaticResource NavButton}" Content="Forums" Command="{Binding ShowDataGridCmd}" CommandParameter="4"/>
+                <Button Width="180" Margin="20,0,0,0" Style="{StaticResource NavButton}" Command="{Binding ShowDataGridCmd}" CommandParameter="0">
+                    <Grid Width="170">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Content="Reservations" Foreground="DarkSlateBlue"/>
+                        <Image Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Width="30" Height="30" Margin="3,0,0,0" Source="../../Resources/Image/reservations1.png"/>
+                    </Grid>
+                </Button>
+                <Button Width="210" Style="{StaticResource NavButton}" Command="{Binding ShowDataGridCmd}" CommandParameter="1">
+                    <Grid Width="210">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Content="Accommodations" Foreground="DarkSlateBlue"/>
+                        <Image Grid.Column="1" Width="30" HorizontalAlignment="Left" Height="30" Margin="0,0,0,0" Source="../../Resources/Image/home.png"/>
+                    </Grid>
+                </Button>
+                <Button Width="200" Style="{StaticResource NavButton}" Command="{Binding ShowDataGridCmd}" CommandParameter="2">
+                    <Grid Width="200">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label HorizontalAlignment="Center" Content="Postponements" Foreground="DarkSlateBlue"/>
+                        <Image Grid.Column="1" Margin="5,0,0,0" HorizontalAlignment="Left" Source="../../Resources/Image/post-req.png"/>
+                    </Grid>
+                </Button>
+                <Button Width="140" Style="{StaticResource NavButton}" Command="{Binding ShowDataGridCmd}" CommandParameter="3">
+                    <Grid Width="140">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                    
+                        <Label HorizontalAlignment="Center" Content="Reviews" Foreground="DarkSlateBlue"/>
+                        <Image Grid.Column="1" HorizontalAlignment="Left" Width="30" Height="30" Source="../../Resources/Image/rating.png"/>
+                    </Grid>
+                </Button>
+                <Button Width="150" Style="{StaticResource NavButton}" Command="{Binding ShowDataGridCmd}" CommandParameter="4">
+                    <Grid Width="150">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="35"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label HorizontalAlignment="Center" Content="Forums" Foreground="DarkSlateBlue"/>
+                        <Image Grid.Column="1" HorizontalAlignment="Left" Width="30" Height="30" Source="../../Resources/Image/conversation.png"/>
+                    </Grid>
+                </Button>
             </WrapPanel>
 
             <StackPanel Width="990">
@@ -422,9 +496,9 @@
                                     <Setter Property="FontSize" Value="23"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Width="520" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                            <GridViewColumn Width="360" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
-                            <GridViewColumn Width="110" Header="">
+                            <GridViewColumn Width="510" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Width="320" Header="Location" DisplayMemberBinding="{Binding Location.City}"/>
+                            <GridViewColumn Width="150" Header="Usefulness">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Height="35" Width="35" Source="{Binding IsUseful,Converter={StaticResource ForumConv}}"/>

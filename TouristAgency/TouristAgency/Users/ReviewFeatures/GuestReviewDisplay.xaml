@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Height="700" Width="1200">
     <Grid Background="#FFFBF3">
-        <!--<StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
             <TextBlock FontSize="15" TextWrapping="Wrap" Height="694"><Run Text="-Here you can see the ratings you received from the owner of the accommodation you stayed in."/><LineBreak/><Run/><LineBreak/><Run Text="-The ratings are from 1 to 5."/><LineBreak/><Run/><LineBreak/><Run Text="-The reason why you can't see your ratings before you rated the owner and accommodation was to preserve the objectivity of giving ratings."/><LineBreak/></TextBlock>
-        </StackPanel>-->
+        </StackPanel>
         
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 

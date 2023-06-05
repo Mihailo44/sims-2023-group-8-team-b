@@ -23,11 +23,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Height="40" HorizontalAlignment="Center" Background="snow">
-            <Label Padding="10,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" FontWeight="SemiBold" Content="{Binding SelectedForum.Name}"/>
-            <Image Margin="10,0,10,0" Height="25" Width="25" Source="{Binding SelectedForum.IsUseful,Converter={StaticResource ForumConv}}"/>
-        </StackPanel>
-        
+        <Border Grid.Row="0" Height="40" HorizontalAlignment="Center" Background="snow" CornerRadius="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="Transparent">
+                <Label Padding="10,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="28" FontWeight="SemiBold" Content="{Binding SelectedForum.Name}"/>
+                <Image Margin="10,0,10,0" Height="25" Width="25" Source="{Binding SelectedForum.IsUseful,Converter={StaticResource ForumConv}}"/>
+            </StackPanel>
+        </Border>
+
         <ListView
                      x:Name="Lista"
                      Grid.Row="1"
@@ -47,7 +49,7 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListViewItem}">
                                 <Grid Background="{TemplateBinding Background}">
-                                    <Border BorderBrush="LightGray" BorderThickness="0"/>
+                                    <Border BorderBrush="#9DB2BFFF" BorderThickness="0"/>
                                     <GridViewRowPresenter/>
                                 </Grid>
                             </ControlTemplate>
@@ -69,7 +71,7 @@
                     <GridViewColumn Width="990" Header="Feed">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="15" BorderThickness="3" Width="970" Height="190" Background="DarkGray" >
+                                <Border CornerRadius="15" BorderThickness="3" Width="970" Height="190" Background="#9DB2BFFF" >
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="5"/>
@@ -98,7 +100,7 @@
                                             <Label Margin="15,5,0,0" Content="{Binding ReportNum}"/>
                                         </WrapPanel>
 
-                                        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="LightGray">
+                                        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Width="920" HorizontalAlignment="Center" CornerRadius="10" BorderThickness="1" Background="#DDE6EDFF">
                                             <TextBlock Padding="10,0,0,0" Text="{Binding Comment}"/>
                                         </Border>
                                     </Grid>
@@ -114,7 +116,8 @@
             <Grid.Background>
                 <SolidColorBrush Color="Transparent"/>
             </Grid.Background>
-            <Button Width="85" Height="85" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="NEW" Style="{StaticResource DemoBtnStyle}" Command="{Binding OpenNewCommentCmd}">
+            <Button Width="85" Height="85" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource DemoBtnStyle}" Command="{Binding OpenNewCommentCmd}">
+                <Image Width="50" Height="50" Margin="0,5,0,0" Source="../../../Resources/Image/comment.png"/>
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect Color="Black" Direction="330" Softness="0.9" ShadowDepth="7" Opacity="0.4"/>
                 </Button.BitmapEffect>

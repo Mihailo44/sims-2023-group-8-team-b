@@ -95,6 +95,10 @@ namespace TouristAgency.Tours
             return city;
         }
 
+        public List<Tour> GetToursForReport(DateTime startDate, DateTime endDate)
+        {
+            return GetAll().FindAll(t => t.StartDateTime >= startDate && t.StartDateTime <= endDate && t.Status != TourStatus.CANCELLED && t.Status != TourStatus.ENDED);
+        }
 
         public List<Tour> GetTodayTours(int guideID)
         {

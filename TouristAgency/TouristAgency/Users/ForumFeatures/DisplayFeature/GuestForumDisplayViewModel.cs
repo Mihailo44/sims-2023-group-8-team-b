@@ -11,6 +11,7 @@ using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Users.Domain;
 using TouristAgency.Users.ForumFeatures.Domain;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
@@ -56,6 +57,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
+            User = guest;
             _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
             
 
@@ -138,7 +140,13 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             }
         }
 
-        public Forum SelectedForum
+        public static Forum SelectedForum
+        {
+            get;
+            set;
+        }
+
+        public static User User
         {
             get;
             set;

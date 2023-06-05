@@ -30,12 +30,48 @@
         </Grid.RowDefinitions>
 
         <WrapPanel Grid.Row="0" Height="55" Width="auto">
-            <Button Margin="25,5,0,0" Style="{StaticResource NavButton}" Content="Statistics" Command="{Binding NavCmd}" CommandParameter="0"/>
-            <Button Width="215" Margin="20,5,0,0" Style="{StaticResource NavButton}" Content="Renovation Scheduling" Command="{Binding NavCmd}" CommandParameter="1"/>
-            <Button Width="180" Margin="20,5,0,0" Style="{StaticResource NavButton}" Content="Renovation History" Command="{Binding NavCmd}" CommandParameter="2"/>
+            <Button Margin="25,5,0,0" Style="{StaticResource NavButton}" Command="{Binding NavCmd}" CommandParameter="0">
+                <StackPanel Orientation="Horizontal">
+                    <Label HorizontalAlignment="Center" Content="Statistics" Foreground="DarkSlateBlue"/>
+                    <Image Width="30" Height="30" Margin="0,0,-15,0" Source="../../Resources/Image/graph.png"/>
+                </StackPanel>
+            </Button>
+            <Button Width="265" Margin="20,5,0,0" Style="{StaticResource NavButton}" Command="{Binding NavCmd}" CommandParameter="1">
+                <Grid Width="265">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label HorizontalAlignment="Center" Content="Renovation Scheduling" Foreground="DarkSlateBlue"/>
+                    <Image Grid.Column="1" HorizontalAlignment="Left" Width="30" Height="30" Source="../../Resources/Image/timetable.png"/>
+                </Grid>
+            </Button>
+            <Button Width="225" Margin="20,5,0,0" Style="{StaticResource NavButton}" Command="{Binding NavCmd}" CommandParameter="2">
+                <Grid Width="225">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label HorizontalAlignment="Center" Content="Renovation History" Foreground="DarkSlateBlue"/>
+                    <Image Grid.Column="1" Width="30" Height="30" Source="../../Resources/Image/history.png"/>
+                </Grid>
+
+            </Button>
         </WrapPanel>
 
-        <Button Grid.Row="0" Content="HELP" Style="{StaticResource CircleBtnStyle}" HorizontalAlignment="Right" Margin="0,0,25,0"/>
+        <Button Grid.Row="0" Style="{StaticResource CircleBtnStyle}" HorizontalAlignment="Right" Margin="0,0,25,0">
+            <Image Width="55" Height="55" Source="../../Resources/Image/demo.png"/>
+        </Button>
 
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
 
