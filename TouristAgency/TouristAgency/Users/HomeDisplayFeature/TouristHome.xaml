@@ -79,7 +79,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Generate voucher report">
+                <MenuItem Header="Generate voucher report" Command="{Binding GenerateCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/report.png"/>
                     </MenuItem.Icon>

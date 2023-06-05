@@ -65,5 +65,10 @@ namespace TouristAgency.Vouchers
             voucher.IsUsed = true;
             VoucherRepository.Update(voucher, voucher.ID);
         }
+
+        public List<Voucher> GetByTouristID(int touristID) 
+        {
+            return GetAll().FindAll(v => v.TouristID == touristID);
+        }
     }
 }
