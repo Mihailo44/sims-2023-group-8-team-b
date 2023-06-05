@@ -214,7 +214,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\PDF\" />
-    <Folder Include="Tours\VoucherFeatures\ReportFeature\" />
   </ItemGroup>
 
 </Project>
