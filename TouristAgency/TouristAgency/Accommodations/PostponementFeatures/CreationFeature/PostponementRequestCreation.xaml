@@ -23,7 +23,7 @@
                 </i:Interaction.Triggers>
             </Image>
             <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
-            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent">
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent" Command="{Binding Path=CloseCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
@@ -83,7 +83,7 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Column="2" Content="Cancel reservation" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Height="30" HorizontalAlignment="Left" Margin="0,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="126" Command="{Binding Path = CancelCmd}">
+            <Button Grid.Column="1" Content="Cancel reservation" Background="#F4F1BB" FontSize="17" FontWeight="SemiBold" Height="35" HorizontalAlignment="Left" Margin="491,142,0,0" Grid.Row="1" VerticalAlignment="Top" Width="149" Command="{Binding Path = CancelCmd}" Grid.ColumnSpan="2">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -101,7 +101,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Image>
-                <Label Content="Notifications" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
+                <Label Content="Notifications" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
             </StackPanel>
 
         </Grid>
@@ -112,20 +112,20 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="97*"></ColumnDefinition>
+                    <ColumnDefinition Width="55*"></ColumnDefinition>
+                    <ColumnDefinition Width="76*"></ColumnDefinition>
+                    <ColumnDefinition Width="76*"></ColumnDefinition>
+                    <ColumnDefinition Width="76*"></ColumnDefinition>
+                    <ColumnDefinition Width="76*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label Content="I want to move for:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center"></Label>
-                <Label Grid.Column="1" Content="from:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Right" SelectedDate="{Binding Path=Start}"/>
-                <Label Grid.Column="3" Content="to:" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=End}"/>
-                <Button Grid.Column="5" Height="30" Width="126" Content="Send a request" Background="#F4F1BB" FontSize="14" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="I want to move for:" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" Height="34"></Label>
+                <Label Grid.Column="1" Content="from:" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Height="34" Margin="77,0,0,0" Width="52"></Label>
+                <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=Start}" Height="28" Margin="33,0,0,0" Width="119"/>
+                <Label Grid.Column="3" Content="to:" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="34" Width="30"></Label>
+                <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=End}" Height="28" Width="119"/>
+                <Button Grid.Column="5" Height="35" Width="126" Content="Send a request" Background="#F4F1BB" FontSize="17" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>

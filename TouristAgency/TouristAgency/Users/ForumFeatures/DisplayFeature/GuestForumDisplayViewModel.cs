@@ -36,6 +36,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         private LocationService _locationService;
         private ForumService _forumService;
         private ForumCommentService _forumCommentService;
+        private ReservationService _reservationService;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
@@ -45,6 +46,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
         public DelegateCommand ForumDisplayCmd { get; set; }
         public DelegateCommand CreateForumCmd { get; set; }
+        public DelegateCommand CreateCommentCmd { get; set; }
         public DelegateCommand OpenForumCmd { get; set; }
         public DelegateCommand CloseForumCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
@@ -54,7 +56,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = window;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
             
 
             InstantiateServices();
@@ -63,6 +65,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             InstantiateHelpMenuCommands();
             ShowUser();
             WelcomeUser();
+            _forumCommentService.MarkAsSuper(_reservationService.GetAll());
         }
 
         private void InstantiateServices()
@@ -70,6 +73,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             _locationService = new LocationService();
             _forumService = new ForumService();
             _forumCommentService = new ForumCommentService();
+            _reservationService = new ReservationService();
         }
         private void InstantiateCollections()
         {
@@ -95,6 +99,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             CreateForumCmd = new DelegateCommand(param =>  CreateForumCmdExecute(), param => CanCreateForumCmdExecute());
             OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
             CloseForumCmd = new DelegateCommand(param => CloseForumCmdExecute(), param => CanCloseForumCmdExecute());
+            CreateCommentCmd = new DelegateCommand(param => CreateCommentCmdExecute(), param => CanCreateCommentCmdExecute());
         }
 
         private void ShowUser()
@@ -313,6 +318,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
                 _forumService.ForumRepository.Create(forum);
                 ForumComment forumComment = new ForumComment(_loggedInGuest, forum, Comment);
                 _forumCommentService.ForumCommentRepository.Create(forumComment);
+                _forumCommentService.MarkAsSuper(_reservationService.GetAll());
                 Forums.Add(forum);
                 MessageBox.Show("You successfully created a new forum!");
             }
@@ -324,6 +330,43 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             {
                 MessageBox.Show("You have to enter your first comment.");
             }
+        }
+
+        public bool CanCreateCommentCmdExecute()
+        {
+            return true;
+        }
+
+        public void CreateCommentCmdExecute()
+        {
+            /*if(SelectedForum != null)
+            {
+                String city = "";
+                bool first = true;
+                foreach(String part in  SelectedForum.Name.Split(" "))
+                {
+                    if(first == true)
+                    {
+                        city += part;
+                        first = false;
+                    }
+                    else if(part != "Forum")
+                    {
+                        city += " " + part;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                Location location = _locationService.GetByCity(City);
+
+            }*/ 
+
+            ForumComment comment = new ForumComment(_loggedInGuest, SelectedForum, Comment);
+            _forumCommentService.ForumCommentRepository.Create(comment);
+            _forumCommentService.MarkAsSuper(_reservationService.GetAll());
+            Comments = new ObservableCollection<ForumComment>(_forumCommentService.ForumCommentRepository.GetAll().FindAll(c => c.Forum.Id == SelectedForum.Id));
         }
 
         public bool CanOpenHomeCmdExecute()

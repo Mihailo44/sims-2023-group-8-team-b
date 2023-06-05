@@ -24,7 +24,7 @@
                 </i:Interaction.Triggers>
             </Image>
             <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
-            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent">
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent" Command="{Binding Path=CloseCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
@@ -54,7 +54,8 @@
 
         <Label Content="Super-guest" FontSize="30"  Foreground="#89865B" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="223,0,0,0" VerticalAlignment="Top"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="223,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="263" Width="948" FontSize="21" Grid.ColumnSpan="2"><Run Text="You can become a super-guest if you have at least 10 reservations in the previous year. The super-guest title lasts for one year and expires if you don't meet the requirement of 10 reservations again.          "/><LineBreak/><Run/><LineBreak/><Run Text="Super-guest receives 5 bonus points that can be spent in the next year, after which the points are reset to 0.         "/><LineBreak/><Run Text="On each subsequent booking, one bonus point is spent, which brings discounts, which means that the super-guest will have 5 bookings with a discount.          "/><LineBreak/><Run/><LineBreak/><Run Text="Down below you can track your progress:         "/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="247,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="285" Width="924" FontSize="21" Grid.ColumnSpan="2"><Run Text="You can become a super-guest if you have at least 10 reservations in the previous year. The super-guest title lasts for one year and expires if you don't meet the requirement of 10 reservations again.          "/><LineBreak/><Run/><LineBreak/><Run Text="Super-guest receives 5 bonus points that can be spent in the next year, after which the points are reset to 0."/><LineBreak/><Run Text="         "/><LineBreak/><Run Text="On each subsequent booking, one bonus point is spent, which brings discounts, which means that the super-guest will have 5 bookings with a discount.          "/><LineBreak/><Run/><LineBreak/><Run Text="Down below you can track your progress:         "/></TextBlock>
+        <Image Source="../../Resources/Image/dot-guest.png" Margin="223,85,364,602" Width="13" Height="13"/>
         <Image Source="../../Resources/Image/super-guest.png" Margin="112,368,-112,163" Grid.ColumnSpan="2"/>
         <Label Content="Number of reservations (this year):" FontWeight="Normal" FontSize="20" HorizontalAlignment="Left" Margin="520,548,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label Content="{Binding Path= NumOfReservations}" Foreground="SaddleBrown" FontWeight="SemiBold" FontSize="20" Margin="239,549,223,121" Grid.Column="1"/>
@@ -71,6 +72,9 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+        <Image Source="../../Resources/Image/dot-guest.png" Margin="223,168,364,519" Width="13" Height="13"/>
+        <Image Source="../../Resources/Image/dot-guest.png" Margin="223,251,364,436" Width="13" Height="13"/>
+        <Image Source="../../Resources/Image/dot-guest.png" Margin="223,337,364,350" Width="13" Height="13" RenderTransformOrigin="0.538,0.538"/>
 
     </Grid>
 </UserControl>

@@ -56,7 +56,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = window;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
 
             InstantiateServices();
             InstantiateCollections();
@@ -279,7 +279,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
                 Reservations.Clear();
 
                 int numOfReservations = (DateTime.Now.AddYears(1) - DateTime.Now).Days - NumOfDays + 2;
-                Reservations = _reservationService.GeneratePotentionalReservations(DateTime.Now, NumOfDays, numOfReservations, SelectedAccommodation, _loggedInGuest);
+                Reservations = _reservationService.GenerateRandomPotentionalReservations(DateTime.Now, NumOfDays, numOfReservations, SelectedAccommodation, _loggedInGuest);
             }
             else if(Start != null && End != null)
             {

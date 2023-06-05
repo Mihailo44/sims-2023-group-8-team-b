@@ -23,7 +23,7 @@
                 </i:Interaction.Triggers>
             </Image>
             <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
-            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent">
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent" Command="{Binding Path=CloseCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>

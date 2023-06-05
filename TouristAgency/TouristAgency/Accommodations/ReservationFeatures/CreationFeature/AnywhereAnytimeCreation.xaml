@@ -10,7 +10,7 @@
         Height="700" Width="1200">
     <Grid Background="#FFFBF3">
         <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
-            <TextBlock FontSize="14" TextWrapping="Wrap" Height="694"><Run Text="-In this section, you can search for available accommodations only by specifying number of people, number of days (by adjusting the numeric stepper) and date range (by selecting or entering it). "/><LineBreak/><Run/><LineBreak/><Run Text="-When you click the search button (the one that is above the accommodation list) you will see all available accommodations for those parameters you specified. Those accommodations can be located anywhere. You can select one, and then click on make a reservation button."/><LineBreak/><Run/><LineBreak/><Run Text="-However, if you don't specify the date range, then you will only see available accommodations for number of people and number of days that you specified. When you select an accommodation and click the search button (the one that is under the accommodations list), you will see all available date ranges for the selected accommodation."/><LineBreak/><Run Text="Once you select a date range that you want, you can click on make a reservation button."/><LineBreak/><Run/><LineBreak/><Run Text="-This section is only for those who don't really care where and when they book accommodation. That's why it's called &quot;Anywhere, anytime&quot;. Of course, if you prefer a standard way of making a reservation, go to the &quot;Display and reservation&quot; section."/><LineBreak/><Run/><LineBreak/><Run Text="."/></TextBlock>
+            <TextBlock FontSize="14" TextWrapping="Wrap" Height="694"><Run Text="-In this section, you can search for available accommodations only by specifying number of people, number of days (by adjusting the numeric stepper) and date range (by selecting or entering it). "/><LineBreak/><Run Text="When you click the search button (the one that is above the accommodation list) you will see all available accommodations for those parameters you specified. Those accommodations can be located anywhere. You can select one, and then click on the other search button to pick a date range. Finally, to make a reservation click on make a reservation button."/><LineBreak/><Run/><LineBreak/><Run Text="-However, if you don't specify the date range, then you will only see available accommodations for number of people and number of days that you specified. When you select an accommodation and click the search button (the one that is under the accommodations list), you will see all available date ranges for the selected accommodation 3 months from now."/><LineBreak/><Run Text="Once you select a date range that you want, you can click on make a reservation button."/><LineBreak/><Run/><LineBreak/><Run Text="-This section is only for those who don't really care where and when they book accommodation. That's why it's called &quot;Anywhere, anytime&quot;. Of course, if you prefer a standard way of making a reservation, go to the &quot;Display and reservation&quot; section."/><LineBreak/><Run/><LineBreak/><Run Text="."/></TextBlock>
         </StackPanel>
 
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
@@ -60,29 +60,29 @@
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="181*"></ColumnDefinition>
+                    <ColumnDefinition Width="86*"></ColumnDefinition>
+                    <ColumnDefinition Width="133*"></ColumnDefinition>
+                    <ColumnDefinition Width="133*"></ColumnDefinition>
+                    <ColumnDefinition Width="133*"></ColumnDefinition>
+                    <ColumnDefinition Width="133*"></ColumnDefinition>
+                    <ColumnDefinition Width="133*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Content="Number of people:" FontSize="15" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.342,0.281"/>
+                <Label Content="Number of people:" FontSize="18" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.342,0.281" Height="34" Width="162"/>
                 <WPFExtended:UIntegerUpDown HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Width="45" Height="25" Margin="0,5,0,0" Value="{Binding Path=NumOfPeople}"/>
-                <Label Content="Number of days:" FontSize="15" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.591,0.579"/>
+                <Label Content="Number of days:" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.591,0.579" Height="34" Margin="0,50,0,0" Grid.RowSpan="2" Width="162"/>
                 <WPFExtended:UIntegerUpDown HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Width="45" Height="25" RenderTransformOrigin="0.832,0.193" Margin="0,5,0,0" Value="{Binding Path=NumOfDays}"/>
-                <Label Content="From:" FontSize="15" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" RenderTransformOrigin="0.516,0.601" Margin="0,0,0,10"/>
-                <DatePicker HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="3" FontSize="12" Margin="0,0,0,21" SelectedDate="{Binding Path=Start}"/>
-                <Label Content="To:" FontSize="15" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <DatePicker HorizontalAlignment="Right" Grid.Row="1" Grid.Column="3" FontSize="12" VerticalAlignment="Top" Margin="0,3,0,0" SelectedDate="{Binding Path=End}"/>
-                <Label Content="*optional" FontSize="15" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Height="29"/>
-                <Label Content="*optional" Grid.ColumnSpan="3" FontSize="15" HorizontalAlignment="Right" Grid.Column="4" VerticalAlignment="Top" Width="239" Margin="0,47,130,0" Grid.RowSpan="2"/>
-                <Button Content="Search" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" HorizontalAlignment="Left" Grid.Column="5" VerticalAlignment="Top" Width="130" Height="30" Grid.ColumnSpan="2" Margin="70,47,0,0" Grid.RowSpan="2" Command="{Binding Path=SearchCmd}">
+                <Label Content="From:" FontSize="18" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" RenderTransformOrigin="0.516,0.601" Margin="0,0,0,10" Width="55"/>
+                <DatePicker HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="3" FontSize="12" Margin="0,0,133,21" SelectedDate="{Binding Path=Start}" Grid.ColumnSpan="2" Height="24" Width="102"/>
+                <Label Content="To:" FontSize="18" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="34" Margin="0,50,0,0" Grid.RowSpan="2" Width="32"/>
+                <DatePicker HorizontalAlignment="Right" Grid.Row="1" Grid.Column="3" FontSize="12" VerticalAlignment="Top" Margin="0,3,133,0" SelectedDate="{Binding Path=End}" Grid.ColumnSpan="2" Height="24" Width="102"/>
+                <Label Content="*optional" FontSize="18" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Height="34" Width="84"/>
+                <Label Content="*optional" Grid.ColumnSpan="2" FontSize="18" HorizontalAlignment="Right" Grid.Column="4" VerticalAlignment="Top" Width="239" Margin="0,50,3,0" Grid.RowSpan="2" Height="34"/>
+                <Button Content="Search" FontSize="17" FontWeight="SemiBold" Background="#F4F1BB" HorizontalAlignment="Left" Grid.Column="5" VerticalAlignment="Top" Width="130" Height="35" Grid.ColumnSpan="2" Margin="70,47,0,0" Grid.RowSpan="2" Command="{Binding Path=SearchCmd}">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
@@ -93,7 +93,7 @@
         </GroupBox>
 
         <Label Content="Available accommodations anywhere:" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="222,198,0,0" VerticalAlignment="Top"/>
-        <ListView ItemsSource="{Binding Path=Accommodations}" SelectedItem="{Binding SelectedAccommodation}"  Margin="222,246,33,272">
+        <ListView ItemsSource="{Binding Path=Accommodations}" SelectedItem="{Binding SelectedAccommodation}"  Margin="222,246,33,272" FontSize="15">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -117,8 +117,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Click this button to search for available date ranges only if you haven't specified it up before:" FontSize="17" HorizontalAlignment="Left" Margin="222,433,0,0" VerticalAlignment="Top"/>
-        <Button Content="Search" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" Width="130" Height="30" Margin="967,436,103,234" Command="{Binding Path=SearchDatesCmd}">
+        <Label Content="Select an accommodation and click this button to search for available date ranges:" FontSize="18" HorizontalAlignment="Center" Margin="0,439,0,0" VerticalAlignment="Top" Width="694"/>
+        <Button Content="Search" FontSize="17" FontWeight="SemiBold" Background="#F4F1BB" Height="35" Width="130" Margin="967,436,103,224" Command="{Binding Path=SearchDatesCmd}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -126,9 +126,9 @@
             </Button.Resources>
         </Button>
 
-        <TextBlock HorizontalAlignment="Left" Margin="252,509,0,0" TextWrapping="Wrap" FontSize="17" VerticalAlignment="Top" Height="126" Width="282"><Run Text="Choose an available date range for the selected accommodation:    "/><LineBreak/><Run/><Run/><LineBreak/><Run Text="(This is only in case you haven't specify the date range up before)         "/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="257,509,0,0" TextWrapping="Wrap" FontSize="17" VerticalAlignment="Top" Height="126" Width="282"><Run Text="Choose an available date range for the selected accommodation:    "/><LineBreak/><Run Text="(If you haven't specify the date range up before, you will be offered date ranges 3 months from now).         "/></TextBlock>
 
-        <ListView ItemsSource="{Binding Path = Reservations}" SelectedItem="{Binding SelectedReservation}" Margin="574,509,301,69">
+        <ListView ItemsSource="{Binding Path = Reservations}" FontSize="15" SelectedItem="{Binding SelectedReservation}" Margin="574,509,301,69">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -142,12 +142,14 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="Make a reservation" FontSize="14" FontWeight="SemiBold" Background="#F4F1BB" Width="130" Height="35" Margin="967,594,103,71" Command="{Binding Path=CreateCmd}">
+        <Button Content="Make a reservation" FontSize="17" FontWeight="SemiBold" Background="#F4F1BB" Height="35" Margin="938,594,103,71" Command="{Binding Path=CreateCmd}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
+        <Image Source="../../../Resources/Image/dot-guest.png" Height="13" Width="13" Margin="240,450,947,238"/>
+        <Image Source="../../../Resources/Image/dot-guest.png" Height="13" Width="13" Margin="239,515,948,172"/>
     </Grid>
 </UserControl>
