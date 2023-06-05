@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
-using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Tours.TourRequestFeatures.Domain;
 using TouristAgency.Users;
 

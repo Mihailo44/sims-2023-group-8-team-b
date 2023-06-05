@@ -96,10 +96,8 @@
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
-                
+
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Right" Margin="0,0,-5,0">
-                    <Button Style="{StaticResource TouristBasicButton}" Content="List of parts" Command="{Binding ListOfPartsCmd}"></Button>
-                    <Label></Label>
                     <Button Style="{StaticResource TouristBasicButton}" Width="230" Height="40" Command="{Binding AddPartCmd}">
                         <StackPanel Orientation="Horizontal">
                             <Image Height="25" Source="../../../Resources/Image/add.png" Margin="0,0,5,0"/>
