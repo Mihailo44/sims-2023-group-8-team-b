@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="TouristAgency.Accommodations.ReservationFeatures.ReportFeature.GuestReportDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.ReportFeature"
+        mc:Ignorable="d"
+        Height="700" Width="1200">
+    <Grid Background="#FFFBF3">
+
+        <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
+
+        <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-18" Background="#F4F1BB">
+            <Image Source="../../../Resources/Image/user-guest.png" Height="88" Margin="0,10,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding HomeCmd}" CommandParameter="{Binding ID}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
+            <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent" Command="{Binding Path=CloseCmd}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
+                    <TextBlock>Logout</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Width="100" Height="20" Background="Transparent"></Separator>
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ShowHelpMenuCmd}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
+                    <TextBlock>Help</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Width="100" Height="44" Background="Transparent"></Separator>
+            <Label FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center">
+                <TextBlock TextDecorations="Underline">Menu</TextBlock>
+            </Label>
+
+            <Button Content="Display and reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command ="{Binding Path=AccommodationDisplayCmd}"/>
+            <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=OwnerReviewCreationCmd}"/>
+            <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReviewDisplayCmd}"/>
+            <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=PostponementRequestDisplayCmd}"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=AnywhereAnytimeCreationCmd}"/>
+            <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
+            <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ForumDisplayCmd}"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+        </StackPanel>
+
+        <Label Content="Reservations report" Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="222,0,0,0" VerticalAlignment="Top"/>
+
+        <Button Content="Generate regular" HorizontalAlignment="Left" Margin="428,230,0,0" VerticalAlignment="Top" Height="40" Width="130" Command="{Binding Path=GenerateRegularReportCmd}"/>
+        <Button Content="Generate canceled" HorizontalAlignment="Left" Margin="612,230,0,0" VerticalAlignment="Top" Height="40" Width="157"/>
+        <DatePicker HorizontalAlignment="Left" Margin="418,111,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=Start}"/>
+        <DatePicker HorizontalAlignment="Left" Margin="597,111,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=End}"/>
+
+    </Grid>
+</UserControl>
