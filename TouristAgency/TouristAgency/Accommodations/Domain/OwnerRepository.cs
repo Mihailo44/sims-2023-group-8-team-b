@@ -98,7 +98,7 @@ namespace TouristAgency.Accommodations.Domain
         {
             foreach (var owner in _owners)
             {
-                owner.FullLocation = locations.Find(l => l.Id == owner.FullLocationID);
+                owner.FullLocation = locations.Find(l => l.ID == owner.FullLocationID);
             }
         }
 

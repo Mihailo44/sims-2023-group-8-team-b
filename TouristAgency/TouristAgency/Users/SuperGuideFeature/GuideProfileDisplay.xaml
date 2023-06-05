@@ -79,23 +79,32 @@
         <Label Grid.Row="9" Grid.Column="2" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center">by tourist count</Label>
 
         <ListView Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=Tours}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Photo">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Height="30" Width="30" Source="{Binding Path=Photos[0].Link}"></Image>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
-                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date and time" DisplayMemberBinding="{Binding StartDateTime}"/>
-                    <GridViewColumn Header="Tourists" DisplayMemberBinding="{Binding CurrentAttendants}"/>
-                </GridView>
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+
+                    <Image Height="55" Width="55" Source="{Binding Photos[0].Link}">
+                    </Image>
+
+                    <StackPanel>
+                        <Label Content="{Binding Name}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding StartDateTime}"/>
+                            <Label Content="{Binding CurrentAttendants}"/>
+                            <Label>/</Label>
+                            <Label Content="{Binding RemainingCapacity}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding DataContext.StartTourCmd, ElementName=AvailableToursListView}" CommandParameter="{Binding ID}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Button Style="{StaticResource BasicButton}" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Command="{Binding CloseCmd}">Go back</Button>

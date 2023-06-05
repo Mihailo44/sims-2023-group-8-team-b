@@ -5,6 +5,7 @@ using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Review.Domain;
 using TouristAgency.Tours;
+using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Users;
 using TouristAgency.Util;
 
@@ -29,6 +30,7 @@ namespace TouristAgency.Review
         public DelegateCommand SetTourKnowledgeCmd { get; set; }
         public DelegateCommand SetTourLanguageCmd { get; set; }
         public DelegateCommand SetTourSocialCmd { get; set; }
+        public DelegateCommand DetailsCmd { get; set; }
 
         public GuideReviewCreationViewModel(Tourist tourist, Window window)
         {
@@ -60,6 +62,7 @@ namespace TouristAgency.Review
             SetTourKnowledgeCmd = new DelegateCommand(SetTourKnowledgeExecute, CanSetTourKnowledgeExecute);
             SetTourLanguageCmd = new DelegateCommand(SetTourLanguageExecute, CanSetTourLanguageExecute);
             SetTourSocialCmd = new DelegateCommand(SetTourSocialExecute, CanSetTourSocialExecute);
+            DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
         }
 
         public ObservableCollection<Tour> FinishedTours
@@ -188,6 +191,20 @@ namespace TouristAgency.Review
         public void SetTourSocialExecute(object parameter)
         {
             NewGuideReview.SocialInteraction = Convert.ToInt32(parameter);
+        }
+
+        public bool CanDetailsExecute()
+        {
+            return true;
+        }
+
+        public void DetailsExecute()
+        {
+            if (SelectedTour != null)
+            {
+                TourDetailsDisplay display = new TourDetailsDisplay(SelectedTour);
+                display.Show();
+            }
         }
         public void AddPhotos()
         {

@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:TouristAgency.Tours.TourRequestFeatures.CreationFeature"
         mc:Ignorable="d"
-        Title="Add new part for your new complex tour" Height="315" Width="1000" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Add new part for your new complex tour" Height="315" Width="1000" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>

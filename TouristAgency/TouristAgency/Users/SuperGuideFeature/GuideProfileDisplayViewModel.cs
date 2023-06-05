@@ -59,7 +59,7 @@ namespace TouristAgency.Users.SuperGuideFeature
             MostVisitedCountry = _tourService.GetMostVisitedCountry(guideID);
             TotalTourCount = _tourService.GetTourCount(guideID);
             YearlyTourCount = _tourService.GetYearlyTourCount(DateTime.Now.Year, guideID);
-            Score = Convert.ToString(_guideReviewService.GetGuideScore(_loggedInGuide.ID, DateTime.Now.Year));
+            Score = Convert.ToString(Math.Round(_guideReviewService.GetGuideScore(_loggedInGuide.ID, DateTime.Now.Year),2));
             Status = "Status: " + _loggedInGuide.Super + " guide";
         }
 

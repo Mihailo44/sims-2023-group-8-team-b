@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.TourRequests;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using TouristAgency.Users;
 using TouristAgency.Util;
 
@@ -14,16 +10,21 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
 {
     public class ComplexTourRequest : INotifyPropertyChanged, ISerializable
     {
-        private int _id;
+        private int _ID;
         private string _name;
-        private List<TourRequest> _components;
+        private int _touristID;
+        private Tourist _tourist;
+        private List<TourRequest> _parts;
+        private ComplexTourRequestStatus _status;
+        private TourRequestType _type;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ComplexTourRequest() 
         {
-            _id = -1;
-            _components = new List<TourRequest>();
+            _ID = -1;
+            _parts = new List<TourRequest>();
+            _status = ComplexTourRequestStatus.PENDING;
         }
 
         protected virtual void OnPropertyChanged(string name)
@@ -36,12 +37,12 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
 
         public int ID
         {
-            get => _id;
+            get => _ID;
             set
             {
-                if (_id != value) 
+                if (value != _ID) 
                 {
-                    value = _id;
+                    _ID = value; 
                     OnPropertyChanged("ID");
                 }
             }
@@ -60,15 +61,67 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
             }
         }
 
-        public List<TourRequest> Components
+        public int TouristID
         {
-            get => _components;
+            get => _touristID;
             set
             {
-                if (_components != value) 
+                if (value != _touristID)
                 {
-                    _components = value;
-                    OnPropertyChanged("Components");
+                    _touristID = value;
+                    OnPropertyChanged("TouristID");
+                }
+            }
+        }
+
+        public Tourist Tourist
+        {
+            get => _tourist;
+            set
+            {
+                if (value != _tourist)
+                {
+                    _tourist = value;
+                    OnPropertyChanged("Tourist");
+                }
+            }
+        }
+
+        public List<TourRequest> Parts
+        {
+            get => _parts;
+            set
+            {
+                if (_parts != value) 
+                {
+                    _parts = value;
+                    OnPropertyChanged("Parts");
+                }
+            }
+        }
+
+        public ComplexTourRequestStatus Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged("Status");
+                }
+            }
+        }
+
+        public TourRequestType Type
+        {
+            get => _type;
+            set
+            {
+                if (_type != value)
+                {
+                    _type = value;
+                    OnPropertyChanged("Type");
                 }
             }
         }
@@ -77,16 +130,28 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
         {
             string[] csvValues =
             {
-                _id.ToString(),
-                _name
+                _ID.ToString(),
+                _name,
+                _touristID.ToString(),
+                _status.ToString()
             };
             return csvValues;
         }
 
         public void FromCSV(string[] values)
         {
-            _id = Convert.ToInt32(values[0]);
+            _ID = Convert.ToInt32(values[0]);
             _name = values[1];
+            _touristID = Convert.ToInt32(values[2]);
+            _status = Enum.Parse<ComplexTourRequestStatus>(values[3]);
+        }
+
+        public void InvalidateAll()
+        {
+            foreach(TourRequest req in Parts)
+            {
+                req.Status = TourRequestStatus.INVALID;
+            }
         }
     }
 }

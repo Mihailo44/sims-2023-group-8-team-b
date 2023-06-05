@@ -158,6 +158,9 @@ namespace TouristAgency
             ForumCommentRepository.LoadForumsToComments(ForumRepository.GetAll());
             ForumCommentRepository.LoadUsersToComments(UserRepository.GetAll());
             ForumNotificationRepository.LoadForumsToNotifications(ForumRepository.GetAll());
+            ComplexTourRequestRepository.LoadTouristsToComplexTourRequests(TouristRepository.GetAll());
+            ComplexTourRequestRepository.LoadTourRequestsToComplexTourRequests(TourRequestRepository.GetAll());
+            TourRequestRepository.LoadTouristsToTourRequests(TouristRepository.GetAll());
         }
     }
 }

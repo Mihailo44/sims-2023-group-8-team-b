@@ -12,6 +12,8 @@ namespace TouristAgency.Util
     public enum TourStatus { NOT_STARTED, IN_PROGRESS, ENDED, CANCELLED }
     public enum TourCreationScenario { DEFAULT, ACCEPT_TOURREQ, MOST_POPULAR_TOURREQ }
     public enum TourRequestStatus { PENDING, INVALID, ACCEPTED }
+    public enum ComplexTourRequestStatus { PENDING, INVALID, ACCEPTED }
+    public enum TourRequestType { SINGLE, MULTI }
     public enum InvitationStatus { PENDING, ACCEPTED }
     public enum UserType { OWNER, GUIDE, TOURIST, GUEST }
     public enum TouristNotificationType { TOUR_REQUEST_ACCEPTED, SUGGESTED_TOUR_LOCATION, SUGGESTED_TOUR_LANGUAGE, ATTENDANCE, CANCELED_TOUR, VOUCHER, MESSAGE }

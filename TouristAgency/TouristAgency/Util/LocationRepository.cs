@@ -22,17 +22,17 @@ namespace TouristAgency.Util
             if (_locations.Count == 0)
                 return 0;
             else
-                return _locations.Max(l => l.Id) + 1;
+                return _locations.Max(l => l.ID) + 1;
         }
 
         public Location GetById(int id)
         {
-            return _locations.Find(l => l.Id == id);
+            return _locations.Find(l => l.ID == id);
         }
 
         public Location Create(Location newLocation)
         {
-            newLocation.Id = GenerateId();
+            newLocation.ID = GenerateId();
             _locations.Add(newLocation);
             _storage.Save(_locations);
             NotifyObservers();

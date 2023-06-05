@@ -24,6 +24,52 @@ namespace TouristAgency.Tours.TourRequestFeatures.Domain
             return ComplexTourRequestRepository.GetAll();
         }
 
+        public void InvalidateOldTourRequests()
+        {
+            foreach(ComplexTourRequest crequest in GetAll())
+            {
+                foreach(TourRequest request in crequest.Parts)
+                {
+                    if(request.Status == Util.TourRequestStatus.INVALID && crequest.Status != Util.ComplexTourRequestStatus.ACCEPTED)
+                    {
+                        crequest.InvalidateAll();
+                        crequest.Status = Util.ComplexTourRequestStatus.INVALID;
+                        Update(crequest, crequest.ID);
+                        continue;
+                    }
+                }
+            }
+        }
+
+        public void ValidateTourRequests()
+        {
+            foreach (ComplexTourRequest crequest in GetAll())
+            {
+                bool allAccepted = true;
+                foreach (TourRequest request in crequest.Parts)
+                {
+                    if (request.Status == Util.TourRequestStatus.INVALID || request.Status == Util.TourRequestStatus.PENDING)
+                        allAccepted = false;
+                }
+                if(allAccepted)
+                {
+                    crequest.Status = Util.ComplexTourRequestStatus.ACCEPTED;
+                    Update(crequest, crequest.ID);
+                }
+            }
+        }
+
+
+        public List<ComplexTourRequest> GetPending()
+        {
+            return ComplexTourRequestRepository.GetAll().FindAll(t => t.Status == Util.ComplexTourRequestStatus.PENDING);
+        }
+
+        public List<ComplexTourRequest> GetByTouristID(int touristID)
+        {
+            return ComplexTourRequestRepository.GetAll().FindAll(t => t.TouristID == touristID);
+        }
+
         public ComplexTourRequest Create(ComplexTourRequest newComplexTourRequest)
         {
             return ComplexTourRequestRepository.Create(newComplexTourRequest);

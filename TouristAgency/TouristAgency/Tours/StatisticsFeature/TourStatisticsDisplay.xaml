@@ -17,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27px"></RowDefinition>
+            <RowDefinition Height="32px"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="220"></RowDefinition>
             <RowDefinition Height="160"></RowDefinition>
@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <custom:BurgerButton VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
-
+        <Label FontSize="20" FontWeight="Bold" Grid.ColumnSpan="3" HorizontalAlignment="Center">Tour statistics</Label>
         <Label Content="Select a tour to view its statistics" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <ListView Grid.Row="2" 

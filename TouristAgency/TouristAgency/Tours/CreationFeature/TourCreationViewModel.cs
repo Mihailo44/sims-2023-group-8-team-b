@@ -116,12 +116,28 @@ namespace TouristAgency.CreationFeature
                 NewLocation = tourRequest.ShortLocation;
                 NewTour.ShortLocation.City = tourRequest.ShortLocation.City;
                 NewTour.Language = tourRequest.Language;
+                NewTour.StartDateTime = SuggestDete(tourRequest);
                 if(_scenario == TourCreationScenario.ACCEPT_TOURREQ)
                 {
                     NewTour.Description = tourRequest.Description;
                     NewTour.MaxAttendants = tourRequest.MaxAttendants;
                 }
             }
+        }
+
+        public DateTime SuggestDete(TourRequest req)
+        {
+                DateTime start = req.StartDate;
+                while (start < req.EndDate)
+                {
+                    if (!_tourService.IsGuideBooked(_loggedInGuide, start))
+                    {
+                        //MessageBox.Show("Suggested date: " + start, "Suggestion");
+                        return start;
+                    }
+                    start = start.AddDays(1);
+                }
+            return DateTime.Now;
         }
 
         public void ChangeControlEnabledStatus(TourCreationScenario scenario)
@@ -133,6 +149,7 @@ namespace TouristAgency.CreationFeature
                 LanguageEnabled = "true";
                 CapacityEnabled = "true";
                 DescriptionEnabled = "true";
+                DatePickerEnabled = "true";
             }
             else if (scenario == TourCreationScenario.ACCEPT_TOURREQ)
             {
@@ -141,6 +158,7 @@ namespace TouristAgency.CreationFeature
                 LanguageEnabled = "false";
                 CapacityEnabled = "false";
                 DescriptionEnabled = "false";
+                DatePickerEnabled = "false";
             }
             else
             {
@@ -149,6 +167,7 @@ namespace TouristAgency.CreationFeature
                 LanguageEnabled = "false";
                 CapacityEnabled = "true";
                 DescriptionEnabled = "true";
+                DatePickerEnabled = "false";
             }
         }
 
@@ -241,6 +260,8 @@ namespace TouristAgency.CreationFeature
         public string LanguageEnabled { get; set; }
         public string CapacityEnabled { get; set; }
 
+        public string DatePickerEnabled { get; set; }
+
         public void LoadCheckpointsIntoListView()
         {
             SelectedCheckpoints = new ObservableCollection<Checkpoint>();
@@ -254,7 +275,7 @@ namespace TouristAgency.CreationFeature
         public void PrepareLocation()
         {
             int locationID = _locationService.FindLocationId(NewLocation);
-            NewLocation.Id = locationID;
+            NewLocation.ID = locationID;
 
             if (locationID == -1)
             {
@@ -262,7 +283,7 @@ namespace TouristAgency.CreationFeature
             }
 
             _newTour.ShortLocation = NewLocation;
-            _newTour.ShortLocationID = NewLocation.Id;
+            _newTour.ShortLocationID = NewLocation.ID;
         }
 
         public void AddPhotos()
@@ -434,8 +455,17 @@ namespace TouristAgency.CreationFeature
 
         public void AddMultipleDatesExecute()
         {
-            _multipleDates.Add(new(NewTour.StartDateTime));
-            DateCount = _multipleDates.Count;
+            bool found = false;
+            foreach(DateWrapper wrap in _multipleDates)
+            {
+                if(wrap.Date == NewTour.StartDateTime.Date)
+                    found = true;
+            }
+            if(found == false)
+            {
+                _multipleDates.Add(new(NewTour.StartDateTime));
+                DateCount = _multipleDates.Count;
+            }
         }
 
         public bool CanRemoveMultipleDatesExecute(object param)

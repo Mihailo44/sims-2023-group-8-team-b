@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:TouristAgency.TourRequests" 
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Create request for your tour" Height="750" Width="1100" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Create request for your tour" Height="500" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <Grid>
@@ -24,7 +24,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="320"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -34,9 +33,11 @@
             </GroupBox.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="35*"></ColumnDefinition>
+                    <ColumnDefinition Width="36*"/>
+                    <ColumnDefinition Width="272*"/>
+                    <ColumnDefinition Width="343*"></ColumnDefinition>
+                    <ColumnDefinition Width="343*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
@@ -44,7 +45,7 @@
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Width="340" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="4" Width="340" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,29,0,0">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Country:" FontSize="28" FontWeight="SemiBold"/>
                         <TextBox x:Name="CountryTextBox" Width="170" Height="40" Text="{Binding Path=TourRequest.ShortLocation.Country, ValidatesOnDataErrors=True}" FontSize="28" FontWeight="SemiBold" Margin="21.5,0,0,0" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
@@ -77,7 +78,7 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Width="325" Margin="0,6,0,0">
+                <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" Width="325" Margin="9,6,8,0">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Num of people:" FontSize="28" FontWeight="SemiBold"/>
                         <xctk:UIntegerUpDown x:Name="NumOfPeople" Width="90" Height="40" Value="{Binding TourRequest.MaxAttendants, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>
@@ -95,7 +96,7 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" Orientation="Vertical" Width="340" HorizontalAlignment="Right" Margin="0,6,0,0">
+                <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="4" Orientation="Vertical" Width="340" HorizontalAlignment="Right" Margin="0,6,0,0">
                     <Label Content="Description:" FontSize="28" FontWeight="SemiBold" Margin="4,0,0,0"/>
                     <TextBox Height="120" Width="320" Text="{Binding TourRequest.Description}" FontSize="28" FontWeight="SemiBold">
                         <TextBox.Resources>
@@ -110,7 +111,7 @@
                     </TextBox>
                 </StackPanel>
 
-                <Button Style="{StaticResource TouristBasicButton}" Grid.Row="3" Grid.Column="3" Command="{Binding CreateCmd}" Width="240" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30">
+                <Button Style="{StaticResource TouristBasicButton}" Grid.Row="3" Grid.Column="4" Command="{Binding CreateCmd}" Width="240" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,-30">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="30" Source="../../../Resources/Image/send2.png" Margin="0,0,5,0"/>
                         <TextBlock>Send request</TextBlock>
@@ -119,30 +120,20 @@
             </Grid>
         </GroupBox>
 
-        <Label Content="Tour requests:" Grid.Row="1" FontSize="32" FontWeight="Bold" Margin="20,0,0,0"></Label>
-        <ListView Grid.Row="2" Width="1040" Height="315" ItemsSource="{Binding TourRequests}" FontSize="28" FontWeight="Bold" VerticalAlignment="Top" Foreground="Black">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Status" Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Height="70" Width="70" Source="{Binding Status, Converter={StaticResource TourRequestStatusConverter}}"></Image>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Country" Width="150" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="City" Width="150" DisplayMemberBinding="{Binding ShortLocation.City}"/>
-                    <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date" Width="210" DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:MM/dd/yyyy}}"/>
-                    <GridViewColumn Header="End date" Width="210" DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:MM/dd/yyyy}}"/>
-                    <GridViewColumn Header="Capacity" DisplayMemberBinding="{Binding MaxAttendants}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" >
+            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" Width="750" Height="150" FontSize="28" Margin="25,0,0,0" >
+            After you create your request for a regular tour, 
+            it will appear in the list of your requests, which 
+            you can view by clicking the button next to it.
+            </TextBlock>
+
+            <Button Style="{StaticResource TouristBasicButton}" Grid.Row="0" Grid.Column="1" Command="{Binding ListOfTourRequestsCmd}" Width="260" VerticalAlignment="Center" Margin="13,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../../Resources/Image/voucher.png" Margin="0,0,10,0"/>
+                    <TextBlock>Take me there</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Window>

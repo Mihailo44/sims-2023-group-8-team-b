@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
-using System.Xml.Linq;
+using TouristAgency.Users;
 using TouristAgency.Util;
 
 namespace TouristAgency.TourRequests
@@ -10,7 +9,9 @@ namespace TouristAgency.TourRequests
     {
         private int _ID;
         private int _touristID;
+        private Tourist _tourist;
         private int _guideID;
+        private Guide _guide;
         private TourRequestStatus _status;
         private Location _shortLocation;
         private int _shortLocationID;
@@ -20,6 +21,8 @@ namespace TouristAgency.TourRequests
         private DateTime _startDate;
         private DateTime _endDate;
         private int _complexTourRequestID;
+        private bool _isSelected;
+        private TourRequestType _type;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -35,10 +38,12 @@ namespace TouristAgency.TourRequests
             _ID = -1;
             _touristID = -1;
             _guideID = -1;
+            _complexTourRequestID = -1;
             _status = TourRequestStatus.PENDING;
             _shortLocation = new Location();
             _startDate = DateTime.Now;
             _endDate = DateTime.Now;
+            _type = TourRequestType.SINGLE;
         }
 
         public TourRequest(TourRequestStatus status, Location shortLocation, string description, string language, int maxAttendants, DateTime startDate, DateTime endDate)
@@ -50,6 +55,8 @@ namespace TouristAgency.TourRequests
             _maxAttendants = maxAttendants;
             _startDate = startDate;
             _endDate = endDate;
+            _type = TourRequestType.SINGLE;
+            _complexTourRequestID = -1;
         }
 
         public int ID 
@@ -60,6 +67,7 @@ namespace TouristAgency.TourRequests
                 if (value != _ID)
                 {
                     _ID = value;
+                    OnPropertyChanged("ID");
                 }
             }
         }
@@ -72,6 +80,20 @@ namespace TouristAgency.TourRequests
                 if (value != _touristID)
                 {
                     _touristID = value;
+                    OnPropertyChanged("TouristID");
+                }
+            }
+        }
+
+        public Tourist Tourist
+        {
+            get => _tourist;
+            set
+            {
+                if (value != _tourist)
+                {
+                    _tourist = value;
+                    OnPropertyChanged("Tourist");
                 }
             }
         }
@@ -84,6 +106,20 @@ namespace TouristAgency.TourRequests
                 if (value != _guideID)
                 {
                     _guideID = value;
+                    OnPropertyChanged("GuideID");
+                }
+            }
+        }
+
+        public Guide Guide
+        {
+            get => _guide;
+            set
+            {
+                if (value != _guide)
+                {
+                    _guide = value;
+                    OnPropertyChanged("Guide");
                 }
             }
         }
@@ -96,6 +132,7 @@ namespace TouristAgency.TourRequests
                 if (value != _status) 
                 {
                     _status = value;
+                    OnPropertyChanged("Status");
                 }
             }
         }
@@ -108,6 +145,7 @@ namespace TouristAgency.TourRequests
                 if (value != _shortLocation) 
                 {
                     _shortLocation = value;
+                    OnPropertyChanged("ShortLocation");
                 }
             }
         }
@@ -120,6 +158,7 @@ namespace TouristAgency.TourRequests
                 if (_shortLocationID != value)
                 {
                     _shortLocationID = value;
+                    OnPropertyChanged("ShortLocationID");
                 }
             }
         }
@@ -132,6 +171,7 @@ namespace TouristAgency.TourRequests
                 if (value != _description)
                 {
                     _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
@@ -157,6 +197,7 @@ namespace TouristAgency.TourRequests
                 if (value != _maxAttendants)
                 {
                     _maxAttendants = value;
+                    OnPropertyChanged("MaxAttedants");
                 }
             }
         }
@@ -196,6 +237,19 @@ namespace TouristAgency.TourRequests
                 {
                     _complexTourRequestID = value;
                     OnPropertyChanged("ComplexTourRequestID");
+                }
+            }
+        }
+
+        public TourRequestType Type
+        {
+            get => _type;
+            set
+            {
+                if (value != _type)
+                {
+                    _type = value;
+                    OnPropertyChanged("Type");
                 }
             }
         }
@@ -252,6 +306,19 @@ namespace TouristAgency.TourRequests
                         return false;
                 }
                 return true;
+            }
+        }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (value != _isSelected)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged("IsSelected");
+                }
             }
         }
 

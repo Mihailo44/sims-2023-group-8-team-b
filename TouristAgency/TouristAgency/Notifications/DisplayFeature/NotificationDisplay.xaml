@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:TouristAgency.View.Display"
         mc:Ignorable="d"
-        Title="NotificationDisplay" Height="700" Width="850" WindowStartupLocation="CenterScreen" Background="WhiteSmoke" FontFamily="San Francisco">
+        Title="NotificationDisplay" Height="700" Width="850" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
 
     <Window.Resources>
         <converter:TouristNotificationTypeConverter x:Key="TouristNotificationTypeConverter"></converter:TouristNotificationTypeConverter>
@@ -24,14 +24,14 @@
         </Grid.RowDefinitions>
         <Label Content="Notifications" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 
-        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" HorizontalContentAlignment="Stretch" Background="WhiteSmoke">
+        <ListView x:Name="Notificationlw" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Notifications}" Width="800" Height="530" SelectedItem="{Binding SelectedNotification}" Background="Transparent" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Height="80" Width="80" Source="{Binding Type, Converter={StaticResource TouristNotificationTypeConverter}}" Margin="15,0,15,0"></Image>
                         <StackPanel Orientation="Vertical">
                             <Label FontWeight="Bold" Content="{Binding Title}" FontSize="28"></Label>
-                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Width="645" FontSize="26" Margin="0,0,0,10"></TextBlock>
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Width="638" FontSize="26" Margin="0,0,0,10"></TextBlock>
                         </StackPanel>
                         <Canvas Width="20" Height="20" Background="Transparent" VerticalAlignment="Center">
                             <Ellipse Visibility="{Binding IsSeen, Converter={StaticResource IsSeenConverter}}" Width="20" Height="20" Fill="#FF009AFF"></Ellipse>

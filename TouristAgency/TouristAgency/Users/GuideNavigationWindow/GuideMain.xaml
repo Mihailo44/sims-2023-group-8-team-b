@@ -17,6 +17,7 @@
         xmlns:acceptreq="clr-namespace:TouristAgency.TourRequests.AcceptRequestFeature"
         xmlns:begin="clr-namespace:TouristAgency.Tours.BeginTourFeature"
         xmlns:quit="clr-namespace:TouristAgency.Users.QuitFeature"
+        xmlns:complex="clr-namespace:TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature"
         mc:Ignorable="d"
         Title="GuideMain" Height="600" Width="390" WindowStartupLocation="CenterScreen" Name="GuideStart">
 
@@ -29,6 +30,10 @@
             <profiledisplay:GuideProfileDisplay/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type profiledisplay:SuperGuideDisplayViewModel}">
+            <profiledisplay:SuperGuideDisplay/>
+        </DataTemplate>
+        
         <DataTemplate DataType="{x:Type cancelation:CancelTourDisplayViewModel}">
             <cancelation:CancelTourDisplay/>
         </DataTemplate>
@@ -63,6 +68,10 @@
 
         <DataTemplate DataType="{x:Type review:GuideReviewDisplayViewModel}">
             <review:GuideReviewDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type complex:ComplexTourRequestPartDisplayViewModel}">
+            <complex:ComplexTourRequestPartDisplay/>
         </DataTemplate>
     </Window.Resources>
 

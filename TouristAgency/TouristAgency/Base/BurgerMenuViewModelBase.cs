@@ -37,9 +37,8 @@ namespace TouristAgency.Base
         public DelegateCommand GuideProfileCmd { get; set; }
         public DelegateCommand TourRequestCmd { get; set; }
         public DelegateCommand TourRequestStatisticsCmd { get; set; }
-
         public DelegateCommand ReviewsCmd { get; set; }
-
+        public DelegateCommand SuperGuideCmd { get; set; }
         public void InstantiateMenuCommands()
         {
             GuideHomeCmd = new DelegateCommand(param => GuideHomeExecute(), param => AlwaysExecutes());
@@ -51,6 +50,7 @@ namespace TouristAgency.Base
             TourRequestCmd = new DelegateCommand(param => TourRequestExecute(), param => AlwaysExecutes());
             TourRequestStatisticsCmd = new DelegateCommand(param => TourRequestStatisticsExecute(), param => AlwaysExecutes());
             ReviewsCmd = new DelegateCommand(param => ReviewsExecute(), param => AlwaysExecutes());
+            SuperGuideCmd = new DelegateCommand(param => SuperGuideExecute(), param => AlwaysExecutes());
             ShowMenuCmd = new DelegateCommand(param => ShowMenuExecute(), param => AlwaysExecutes());
             HideMenuCmd = new DelegateCommand(param => HideMenuExecute(), param => AlwaysExecutes());
         }
@@ -134,6 +134,11 @@ namespace TouristAgency.Base
         public void ReviewsExecute()
         {
             _app.CurrentVM = new TourDisplayForReviewViewModel();
+        }
+
+        public void SuperGuideExecute()
+        {
+            _app.CurrentVM = new SuperGuideDisplayViewModel();
         }
     }
 }

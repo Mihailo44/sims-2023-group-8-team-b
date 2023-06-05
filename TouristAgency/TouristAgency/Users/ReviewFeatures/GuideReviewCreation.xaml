@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         xmlns:custom="clr-namespace:TouristAgency.Design.Tourist.Controls"
         mc:Ignorable="d"
-        Title="Finished tour and guide review" Height="810" Width="1100" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Finished tour and guide review" Height="810" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="790">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Select and review one of finished tours:" Grid.Row="0" Grid.Column="0" FontSize="32" FontWeight="Bold" Margin="0,5,0,0"></Label>
-        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="310" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}" FontSize="28" FontWeight="Bold" Foreground="Black">
+        <ListView x:Name="ToursListView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="310" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}" FontSize="28" FontWeight="Bold" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -33,12 +33,17 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Name" Width="270" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
                     <GridViewColumn Header="Start date" Width="210" DisplayMemberBinding="{Binding StartDateTime, StringFormat={}{0:MM/dd/yyyy}}"/>
-                    <GridViewColumn Header="Duration (h)" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="More info" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" Width="130"></Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

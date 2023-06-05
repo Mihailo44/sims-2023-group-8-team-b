@@ -71,7 +71,17 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Label>
-                <Label FontSize="16">- Super guide program</Label>
+                
+                <Label FontSize="16">
+                    <Label.Content>- Super guide program</Label.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding SuperGuideCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+                
+                
                 <Label FontSize="16">
                     <Label.Content>- Leave us</Label.Content>
                     <i:Interaction.Triggers>

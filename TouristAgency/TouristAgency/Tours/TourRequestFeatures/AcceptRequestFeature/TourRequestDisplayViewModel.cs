@@ -9,6 +9,10 @@ using TouristAgency.Base;
 using TouristAgency.CreationFeature;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
+using TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature;
+using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
+using TouristAgency.Tours.Domain;
+using TouristAgency.Tours.TourRequestFeatures.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 
@@ -19,7 +23,7 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
         private App _app;
         private Guide _loggedInGuide;
 
-        private ObservableCollection<TourRequest> _tourRequests;
+        private ObservableCollection<TourRequestWrapper> _tourRequests;
 
         private string _country;
         private string _city;
@@ -29,6 +33,7 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
         private int _maxAttendants;
 
         private TourRequestService _tourRequestService;
+        private ComplexTourRequestService _complexTourRequestService;
 
         public DelegateCommand CloseCmd { get; set; }
 
@@ -54,7 +59,14 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
         private void InstantiateServices()
         {
             _tourRequestService = new TourRequestService();
+            _complexTourRequestService = new ComplexTourRequestService();
             _tourRequestService.InvalidateOldTourRequests();
+            _complexTourRequestService.InvalidateOldTourRequests();
+            _complexTourRequestService.ValidateTourRequests();
+            foreach(TourRequest req in _tourRequestService.TourRequestRepository.GetAll())
+            {
+                _tourRequestService.TourRequestRepository.Update(req, req.ID);
+            }
         }
 
         private void InstantiateCollections()
@@ -62,10 +74,23 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
             Country = "";
             City = "";
             Language = "";
-            TourRequests = new ObservableCollection<TourRequest>(_tourRequestService.GetPendingTourRequests());
+            TourRequests = new ObservableCollection<TourRequestWrapper>();
+            LoadRequests();
             Countries = new ObservableCollection<String>(_tourRequestService.GetAllCountries());
             Cities = new ObservableCollection<String>(_tourRequestService.GetAllCities());
             Languages = new ObservableCollection<String>(_tourRequestService.GetAllLanguages());
+        }
+
+        private void LoadRequests()
+        {
+            foreach (TourRequest req in _tourRequestService.GetPendingTourRequests())
+            {   if(req.ComplexTourRequestID == -1)
+                    TourRequests.Add(new TourRequestWrapper(req));
+            }
+            foreach (ComplexTourRequest req in _complexTourRequestService.GetPending())
+            {
+                TourRequests.Add(new TourRequestWrapper(req));
+            }
         }
 
         private void InstantiateCommands()
@@ -77,7 +102,7 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
         }
 
 
-        public ObservableCollection<TourRequest> TourRequests
+        public ObservableCollection<TourRequestWrapper> TourRequests
         {
             get { return _tourRequests; }
             set
@@ -174,7 +199,7 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
             }
         }
 
-        public TourRequest SelectedTourRequest
+        public TourRequestWrapper SelectedTourRequest
         {
             get;
             set;
@@ -197,8 +222,11 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
 
         public void AcceptTourRequestExecute()
         {
-            if(SelectedTourRequest != null)
-                _app.CurrentVM = new TourCreationViewModel(SelectedTourRequest, Util.TourCreationScenario.ACCEPT_TOURREQ);
+            if (SelectedTourRequest != null)
+                if (SelectedTourRequest.Type == Util.TourRequestType.SINGLE)
+                    _app.CurrentVM = new TourCreationViewModel(SelectedTourRequest.Regular, Util.TourCreationScenario.ACCEPT_TOURREQ);
+                else
+                    _app.CurrentVM = new ComplexTourRequestPartDisplayViewModel(SelectedTourRequest.Complex);
         }
 
         public bool CanFilterExecute()
@@ -208,7 +236,11 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
 
         public void FilterExecute()
         {
-            TourRequests = new ObservableCollection<TourRequest>(_tourRequestService.Search(Country, City, Language, MaxAttendants, StartDate, EndDate));
+            TourRequests = new ObservableCollection<TourRequestWrapper>();
+            foreach(TourRequest req in _tourRequestService.Search(Country, City, Language, MaxAttendants, StartDate, EndDate))
+            {
+                TourRequests.Add(new TourRequestWrapper(req));
+            }
         }
 
         public bool CanClearFilterExecute()
@@ -218,7 +250,8 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
 
         public void ClearFilterExecute()
         {
-            TourRequests = new ObservableCollection<TourRequest>(_tourRequestService.GetPendingTourRequests());
+            TourRequests = new ObservableCollection<TourRequestWrapper>();
+            LoadRequests();
             Country = "";
             City = "";
             Language = "";

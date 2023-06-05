@@ -72,7 +72,7 @@ namespace TouristAgency.Tours.BeginTourFeature.Domain
             {
                 foreach (Checkpoint checkpoint in _checkpoints)
                 {
-                    if (checkpoint.LocationID == location.Id)
+                    if (checkpoint.LocationID == location.ID)
                     {
                         checkpoint.Location = new Location(location);
                     }

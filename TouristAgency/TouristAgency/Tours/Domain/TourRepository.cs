@@ -85,7 +85,7 @@ namespace TouristAgency.Tours
             {
                 foreach (Tour tour in _tours)
                 {
-                    if (tour.ShortLocationID == location.Id)
+                    if (tour.ShortLocationID == location.ID)
                     {
                         tour.ShortLocation = new Location(location);
                     }
