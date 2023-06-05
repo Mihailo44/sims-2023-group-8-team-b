@@ -38,13 +38,17 @@
     <None Remove="Resources\Image\clear.png" />
     <None Remove="Resources\Image\clearFilter.png" />
     <None Remove="Resources\Image\colosseum-guest.png" />
+    <None Remove="Resources\Image\comment.png" />
     <None Remove="Resources\Image\confirmattendance.png" />
+    <None Remove="Resources\Image\conversation.png" />
     <None Remove="Resources\Image\create.png" />
     <None Remove="Resources\Image\create1.png" />
+    <None Remove="Resources\Image\demo.png" />
     <None Remove="Resources\Image\denied.png" />
     <None Remove="Resources\Image\destination2-guest.png" />
     <None Remove="Resources\Image\destination4-guest.png" />
     <None Remove="Resources\Image\dot-guest.png" />
+    <None Remove="Resources\Image\down.png" />
     <None Remove="Resources\Image\eiffel-tower-final-guest.png" />
     <None Remove="Resources\Image\eiffel-tower-guest.png" />
     <None Remove="Resources\Image\exit.png" />
@@ -56,8 +60,11 @@
     <None Remove="Resources\Image\flight2-guest.png" />
     <None Remove="Resources\Image\gps.png" />
     <None Remove="Resources\Image\gps1.png" />
+    <None Remove="Resources\Image\graph.png" />
     <None Remove="Resources\Image\happy.png" />
     <None Remove="Resources\Image\help.png" />
+    <None Remove="Resources\Image\history.png" />
+    <None Remove="Resources\Image\home.png" />
     <None Remove="Resources\Image\imagebrowse.png" />
     <None Remove="Resources\Image\james.png" />
     <None Remove="Resources\Image\join.png" />
@@ -79,10 +86,15 @@
     <None Remove="Resources\Image\notification-bell-guest.png" />
     <None Remove="Resources\Image\person-solid.png" />
     <None Remove="Resources\Image\play-arrow.png" />
+    <None Remove="Resources\Image\post-req.png" />
     <None Remove="Resources\Image\profile-user.png" />
     <None Remove="Resources\Image\question-solid.png" />
+    <None Remove="Resources\Image\rating.png" />
     <None Remove="Resources\Image\report.png" />
+    <None Remove="Resources\Image\report1.png" />
     <None Remove="Resources\Image\reservation.png" />
+    <None Remove="Resources\Image\reservation1.png" />
+    <None Remove="Resources\Image\reservations1.png" />
     <None Remove="Resources\Image\review.png" />
     <None Remove="Resources\Image\right-to-bracket-solid.png" />
     <None Remove="Resources\Image\send.png" />
@@ -94,6 +106,7 @@
     <None Remove="Resources\Image\statue-of-liberty-guest.png" />
     <None Remove="Resources\Image\suitcase-guest.png" />
     <None Remove="Resources\Image\suitcase2-guest.png" />
+    <None Remove="Resources\Image\timetable.png" />
     <None Remove="Resources\Image\TourImage\hotLocation.png" />
     <None Remove="Resources\Image\threestar.png" />
     <None Remove="Resources\Image\tours.png" />
@@ -126,7 +139,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\Image\accepted.png" />
-    <Resource Include="Resources\Image\account.png" />
+    <Resource Include="Resources\Image\account.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\add.png" />
     <Resource Include="Resources\Image\arrow-down-solid.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -145,7 +160,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Image\bell-exclamation.png" />
-    <Resource Include="Resources\Image\bell.png" />
     <Resource Include="Resources\Image\bell1.png" />
     <Resource Include="Resources\Image\blank.png" />
     <Resource Include="Resources\Image\cairo-citadel-guest.png" />
@@ -156,13 +170,25 @@
     <Resource Include="Resources\Image\checked2-guest.png" />
     <Resource Include="Resources\Image\clear.png" />
     <Resource Include="Resources\Image\colosseum-guest.png" />
+    <Resource Include="Resources\Image\comment.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\confirmattendance.png" />
+    <Resource Include="Resources\Image\conversation.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\create.png" />
     <Resource Include="Resources\Image\create1.png" />
+    <Resource Include="Resources\Image\demo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\denied.png" />
     <Resource Include="Resources\Image\destination2-guest.png" />
     <Resource Include="Resources\Image\destination4-guest.png" />
     <Resource Include="Resources\Image\dot-guest.png" />
+    <Resource Include="Resources\Image\down.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\eiffel-tower-guest.png" />
     <Resource Include="Resources\Image\eiffel-tower-final-guest.png" />
     <Resource Include="Resources\Image\exit.png" />
@@ -173,12 +199,18 @@
     <Resource Include="Resources\Image\fourstar.png" />
     <Resource Include="Resources\Image\filter.png" />
     <Resource Include="Resources\Image\gps1.png" />
-    <Resource Include="Resources\Image\happy.png" />
-    <Resource Include="Resources\Image\help.png" />
+    <Resource Include="Resources\Image\graph.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\history.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\home.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\imagebrowse.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Image\james.png" />
     <Resource Include="Resources\Image\join1.png" />
     <Resource Include="Resources\Image\language1.png" />
     <Resource Include="Resources\Image\logout1.png" />
@@ -191,10 +223,22 @@
     <Resource Include="Resources\Image\notification-bell-guest.png" />
     <Resource Include="Resources\Image\person-solid.png" />
     <Resource Include="Resources\Image\play-arrow.png" />
+    <Resource Include="Resources\Image\post-req.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\profile-user.png" />
     <Resource Include="Resources\Image\question-solid.png" />
+    <Resource Include="Resources\Image\rating.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\report.png" />
+    <Resource Include="Resources\Image\report1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\reservation.png" />
+    <Resource Include="Resources\Image\reservations1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\review.png" />
     <Resource Include="Resources\Image\right-to-bracket-solid.png" />
     <Resource Include="Resources\Image\send2.png" />
@@ -205,7 +249,12 @@
     <Resource Include="Resources\Image\suitcase-guest.png" />
     <Resource Include="Resources\Image\suitcase2-guest.png" />
     <Resource Include="Resources\Image\threestar.png" />
-    <Resource Include="Resources\Image\TourImage\hotLocation.png" />
+    <Resource Include="Resources\Image\timetable.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Image\TourImage\hotLocation.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Image\tours.png" />
     <Resource Include="Resources\Image\super-guest.png" />
     <Resource Include="Resources\Image\twostar.png" />
