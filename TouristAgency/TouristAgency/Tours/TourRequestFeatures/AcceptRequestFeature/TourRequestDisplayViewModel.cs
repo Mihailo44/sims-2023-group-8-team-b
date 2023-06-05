@@ -62,6 +62,11 @@ namespace TouristAgency.TourRequests.AcceptRequestFeature
             _complexTourRequestService = new ComplexTourRequestService();
             _tourRequestService.InvalidateOldTourRequests();
             _complexTourRequestService.InvalidateOldTourRequests();
+            _complexTourRequestService.ValidateTourRequests();
+            foreach(TourRequest req in _tourRequestService.TourRequestRepository.GetAll())
+            {
+                _tourRequestService.TourRequestRepository.Update(req, req.ID);
+            }
         }
 
         private void InstantiateCollections()

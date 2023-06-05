@@ -145,5 +145,13 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
             _touristID = Convert.ToInt32(values[2]);
             _status = Enum.Parse<ComplexTourRequestStatus>(values[3]);
         }
+
+        public void InvalidateAll()
+        {
+            foreach(TourRequest req in Parts)
+            {
+                req.Status = TourRequestStatus.INVALID;
+            }
+        }
     }
 }

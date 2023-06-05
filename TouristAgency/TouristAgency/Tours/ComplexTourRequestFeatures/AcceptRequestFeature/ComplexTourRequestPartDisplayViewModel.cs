@@ -21,6 +21,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature
         private App _app;
         private Guide _loggedInGuide;
         private ComplexTourRequest _request;
+        private ObservableCollection<TourRequest> _parts;
 
         private TourService _tourService;
 
@@ -49,7 +50,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature
 
         private void InstantiateCollections()
         {
-
+            Parts = new ObservableCollection<TourRequest>(Request.Parts.FindAll(p => p.Status == Util.TourRequestStatus.PENDING));
         }
 
         private void InstantiateCommands()
@@ -75,7 +76,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature
             {
                 if(toureq.GuideID == _loggedInGuide.ID)
                 {
-                    MessageBox.Show("Error", "You have already signed up for a part of this tour!");
+                    MessageBox.Show("You have already signed up for a part of this tour!", "Error");
                     return;
                 }
             }
@@ -117,6 +118,18 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature
         {
             get;
             set;
+        }
+
+        public ObservableCollection<TourRequest> Parts
+        {
+            get => _parts;
+            set
+            {
+                if(value != _parts)
+                {
+                    _parts = value;
+                }
+            }
         }
 
         public DateTime SelectedDate { get; set; }

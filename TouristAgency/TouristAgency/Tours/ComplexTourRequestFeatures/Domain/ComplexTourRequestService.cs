@@ -30,8 +30,9 @@ namespace TouristAgency.Tours.TourRequestFeatures.Domain
             {
                 foreach(TourRequest request in crequest.Parts)
                 {
-                    if(request.Status == Util.TourRequestStatus.INVALID)
+                    if(request.Status == Util.TourRequestStatus.INVALID && crequest.Status != Util.ComplexTourRequestStatus.ACCEPTED)
                     {
+                        crequest.InvalidateAll();
                         crequest.Status = Util.ComplexTourRequestStatus.INVALID;
                         Update(crequest, crequest.ID);
                         continue;
@@ -39,6 +40,25 @@ namespace TouristAgency.Tours.TourRequestFeatures.Domain
                 }
             }
         }
+
+        public void ValidateTourRequests()
+        {
+            foreach (ComplexTourRequest crequest in GetAll())
+            {
+                bool allAccepted = true;
+                foreach (TourRequest request in crequest.Parts)
+                {
+                    if (request.Status == Util.TourRequestStatus.INVALID || request.Status == Util.TourRequestStatus.PENDING)
+                        allAccepted = false;
+                }
+                if(allAccepted)
+                {
+                    crequest.Status = Util.ComplexTourRequestStatus.ACCEPTED;
+                    Update(crequest, crequest.ID);
+                }
+            }
+        }
+
 
         public List<ComplexTourRequest> GetPending()
         {
