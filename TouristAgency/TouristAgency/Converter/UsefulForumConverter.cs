@@ -19,7 +19,7 @@ namespace TouristAgency.Converter
             }
             else
             {
-                return "../../../Resources/Image/pending.png";
+                return "../../../Resources/Image/blank.png";
             }
         }
 

@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TouristAgency.Users.Domain;
 using TouristAgency.Interfaces;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace TouristAgency.Users.ForumFeatures.Domain
 {
-    public class ForumComment : ISerializable
+    public class ForumComment : ISerializable,INotifyPropertyChanged,IValidate
     {
         private int _id;
         private Forum _forum;
@@ -118,6 +120,65 @@ namespace TouristAgency.Users.ForumFeatures.Domain
                 {
                     _reportNum = value;
                 }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"Comment",string.Empty},
+        };
+
+        public Dictionary<string, string> ValidationErrors
+        {
+            get
+            {
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public void ValidateSelf(string comment)
+        {
+            ValidationClear();
+
+            if (string.IsNullOrEmpty(comment))
+            {
+                ValidationErrors["Comment"] = "Please enter a comment";
+            }
+
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["Comment"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var key in ValidationErrors.Keys)
+                {
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
             }
         }
 

@@ -38,8 +38,13 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-                <Button Width="200" Margin="295,5,0,0" Content="Print PDF Report" Style="{StaticResource BasicBtn}" Command="{Binding PrintReportCmd}"/>
-        </WrapPanel>
+                <Button Width="240" Margin="250,5,0,0" Style="{StaticResource BasicBtn}" Command="{Binding PrintReportCmd}">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Print PDF Report" Foreground="BlanchedAlmond"/>
+                        <Image Width="35" Height="35" Margin="5,0,0,0" Source="../../Resources/Image/report1.png"/>
+                    </StackPanel>
+                </Button>
+            </WrapPanel>
         </GroupBox>
 
         <StackPanel Grid.Row="2" Margin="0,7,0,0" Background="Snow">

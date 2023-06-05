@@ -913,6 +913,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 }
                 else
                 {
+                    MessageBox.Show("Do you want to stop the demo?","Demo Dialogue",MessageBoxButton.YesNo,MessageBoxImage.Question);
                     _cts?.Cancel();
                 }
             }

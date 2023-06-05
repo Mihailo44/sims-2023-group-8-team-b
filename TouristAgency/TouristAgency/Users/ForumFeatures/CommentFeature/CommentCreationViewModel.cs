@@ -27,6 +27,7 @@ namespace TouristAgency.Users.ForumFeatures.CommentFeature
             Forum = forum;
             _window = window;
             _forumCommentService = new();
+            NewForumComment = new();
             CloseCmd = new DelegateCommand(param => CloseCmdExecute(),param => CanCloseCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(),param => CanCreateCmdExecute());
         }
@@ -38,9 +39,16 @@ namespace TouristAgency.Users.ForumFeatures.CommentFeature
 
         public void CreateCmdExecute()
         {
-            NewForumComment = new(_app.LoggedUser,Forum,Comment);
-            _forumCommentService.ForumCommentRepository.Create(NewForumComment);
-            _window.Close();
+            NewForumComment.ValidateSelf(Comment);
+            if (NewForumComment.IsValid)
+            {
+                //NewForumComment = new(_app.LoggedUser,Forum,Comment);
+                NewForumComment.User = _app.LoggedUser;
+                NewForumComment.Forum = Forum;
+                NewForumComment.Comment = Comment;
+                _forumCommentService.ForumCommentRepository.Create(NewForumComment);
+                _window.Close();
+            }
         }
 
         public bool CanCloseCmdExecute()

@@ -24,6 +24,7 @@
             <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
             <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
         </TextBox>
+        <TextBlock Padding="0,20,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Text="{Binding NewForumComment.ValidationErrors[Comment],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
         <Button Grid.Row="3" Grid.Column="0" Margin="40,0,0,15" Content="SUBMIT" Style="{StaticResource BasicBtn}" Command="{Binding CreateCmd}"/>
         <Button Grid.Row="3" Grid.Column="1" Margin="0,0,40,15" Width="140" Height="60" Content="CANCEL" Style="{StaticResource BasicBtn}" Command="{Binding CloseCmd}"/>
     </Grid>
