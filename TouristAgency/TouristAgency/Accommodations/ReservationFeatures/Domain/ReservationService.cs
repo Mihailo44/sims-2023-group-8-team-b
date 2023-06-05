@@ -53,6 +53,31 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
             return reservations;
         }
 
+
+        public ObservableCollection<Reservation> GenerateRandomPotentionalReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
+        {
+            ObservableCollection<Reservation> reservations = new ObservableCollection<Reservation>();
+            DateTime startInterval = start;
+            DateTime endInterval = start.AddDays(numOfDays - 1);
+            int dates = 10;
+            Random gen = new Random();
+            int i = 0;
+            while(i<dates)
+            {
+                int days = gen.Next(1, 30);
+                int months = gen.Next(1, 12);
+                if (IsReserved(accommodation.Id, startInterval.AddDays(days).AddMonths(months), endInterval.AddDays(days).AddMonths(months)) ==
+                    false && RenovationService.IsRenovating(accommodation.Id, startInterval.AddDays(days).AddMonths(months), endInterval.AddDays(days).AddMonths(months)) == false)
+                {
+                    reservations.Add(new Reservation(guest, accommodation, startInterval.AddDays(days).AddMonths(months), endInterval.AddDays(days).AddMonths(months)));
+                    i++;
+                }
+
+            }
+
+            return reservations;
+        }
+
         public ObservableCollection<Reservation> GenerateAlternativeReservations(DateTime start, int numOfDays, int numOfReservations, Accommodation accommodation, Guest guest)
         {
             ObservableCollection<Reservation> reservations = new ObservableCollection<Reservation>();

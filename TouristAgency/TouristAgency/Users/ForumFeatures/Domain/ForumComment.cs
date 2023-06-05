@@ -16,6 +16,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
         private string _comment;
         private DateTime _created;
         private int _reportNum;
+        private bool _superComment;
         
         public ForumComment()
         {
@@ -23,6 +24,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             _created = DateTime.Now;
             Forum = new();
             User = new();
+            SuperComment = false;
         }
 
         public ForumComment(User user,Forum forum,string comment)
@@ -32,6 +34,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             _user = user;
             _forum = forum;
             _comment = comment;
+            SuperComment = false;
         }
 
         public int Id
@@ -82,6 +85,18 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             }
         }
 
+        public bool SuperComment
+        {
+            get => _superComment;
+            set
+            {
+                if (_superComment != value)
+                {
+                    _superComment = value;
+                }
+            }
+        }
+
         public DateTime Created
         {
             get => _created;
@@ -114,6 +129,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
             Comment = values[3];
             Created = DateTime.Parse(values[4]);
             ReportNum = int.Parse(values[5]);
+            SuperComment = bool.Parse(values[6]);
         }
 
         public string[] ToCSV()
@@ -125,7 +141,8 @@ namespace TouristAgency.Users.ForumFeatures.Domain
                 User.ID.ToString(),
                 Comment,
                 Created.ToString(),
-                ReportNum.ToString()
+                ReportNum.ToString(),
+                SuperComment.ToString()
             };
 
             return csvValues;
