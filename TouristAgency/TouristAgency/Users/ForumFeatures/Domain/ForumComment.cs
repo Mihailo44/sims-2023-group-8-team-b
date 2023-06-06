@@ -83,6 +83,7 @@ namespace TouristAgency.Users.ForumFeatures.Domain
                 if(_comment != value)
                 {
                     _comment = value;
+                    OnPropertyChanged("Comment");
                 }
             }
         }
