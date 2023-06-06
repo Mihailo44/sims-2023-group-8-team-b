@@ -5,3 +5,4 @@
 4|A|4|https://www.momondo.com/himg/98/72/90/ice-140248-99748240-619880.jpg
 5|A|5|https://assets.anantara.com/image/upload/q_auto,f_auto/media/minor/anantara/images/anantara-palazzo-naiadi-rome/sneak-peak/anantara_palazzo_naiadi_rome_hotel_new_opening_944x510.jpg
 6|A|5|https://assets.anantara.com/image/upload/q_auto,f_auto/media/minor/anantara/images/anantara-palazzo-naiadi-rome/sneak-peak/anantara_palazzo_naiadi_rome_hotel_new_opening_944x510.jpg
+7|A|0|https://www.affine-design.com/en/wp-content/uploads/2014/11/shangri-la-hotel-facade-rue.jpg

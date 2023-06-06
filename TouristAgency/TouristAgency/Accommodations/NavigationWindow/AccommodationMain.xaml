@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Accommodation Details" Height="670" Width="900" 
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize" Background="DarkSlateBlue">
+        ResizeMode="CanMinimize" Background="#5C469C">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:AccommodationRenovationViewModel}">
@@ -31,10 +31,19 @@
 
         <WrapPanel Grid.Row="0" Height="55" Width="auto">
             <Button Margin="25,5,0,0" Style="{StaticResource NavButton}" Command="{Binding NavCmd}" CommandParameter="0">
-                <StackPanel Orientation="Horizontal">
+                <Grid Width="165">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    
                     <Label HorizontalAlignment="Center" Content="Statistics" Foreground="DarkSlateBlue"/>
-                    <Image Width="30" Height="30" Margin="0,0,-15,0" Source="../../Resources/Image/graph.png"/>
-                </StackPanel>
+                    <Image Grid.Column="1" Width="30" HorizontalAlignment="Left" Height="30" Source="../../Resources/Image/graph.png"/>
+                </Grid>
             </Button>
             <Button Width="265" Margin="20,5,0,0" Style="{StaticResource NavButton}" Command="{Binding NavCmd}" CommandParameter="1">
                 <Grid Width="265">
@@ -63,7 +72,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Label HorizontalAlignment="Center" Content="Renovation History" Foreground="DarkSlateBlue"/>
-                    <Image Grid.Column="1" Width="30" Height="30" Source="../../Resources/Image/history.png"/>
+                    <Image Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Left" Source="../../Resources/Image/history.png"/>
                 </Grid>
 
             </Button>
