@@ -72,25 +72,31 @@ namespace TouristAgency.Tours.CancelationFeature
         {
             List<Tour> tourToBeDeleted = new List<Tour>();
 
-            foreach (Tour tour in AvailableTours)
+            MessageBoxResult res = MessageBox.Show("Are you sure you want to cancel these tours?", "Question", MessageBoxButton.YesNo);
+
+
+            if (res == MessageBoxResult.Yes)
             {
-                if (tour.IsSelected)
+                foreach (Tour tour in AvailableTours)
                 {
-                    tourToBeDeleted.Add(tour);
-                    _tourService.ChangeTourStatus(tour.ID, TourStatus.CANCELLED);
-                    foreach (Tourist tourist in tour.RegisteredTourists)
+                    if (tour.IsSelected)
                     {
-                        DateTime oneYear = DateTime.Now.AddYears(1);
-                        Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Compensation voucher [c]", false, oneYear);
-                        _voucherService.VoucherRepository.Create(newVoucher);
-                        tourist.WonVouchers.Add(newVoucher);
+                        tourToBeDeleted.Add(tour);
+                        _tourService.ChangeTourStatus(tour.ID, TourStatus.CANCELLED);
+                        foreach (Tourist tourist in tour.RegisteredTourists)
+                        {
+                            DateTime oneYear = DateTime.Now.AddYears(1);
+                            Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Compensation voucher [c]", false, oneYear);
+                            _voucherService.VoucherRepository.Create(newVoucher);
+                            tourist.WonVouchers.Add(newVoucher);
+                        }
                     }
                 }
-            }
 
-            foreach (Tour tour in tourToBeDeleted)
-            {
-                AvailableTours.Remove(tour);
+                foreach (Tour tour in tourToBeDeleted)
+                {
+                    AvailableTours.Remove(tour);
+                }
             }
         }
 

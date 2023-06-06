@@ -26,4 +26,10 @@
 25|18|0|2|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
 26|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: Test tura 3||False
 27|20|-1|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Nis|Based on your previous requests, a new tour with the location Serbia, Nis is available. Check it out!|False
-28|20|-1|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on Serbian|Based on your previous requests, a new tour with the language Serbian is available. Check it out!|True
+28|20|-1|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on Serbian|Based on your previous requests, a new tour with the language Serbian is available. Check it out!|False
+29|18|0|3|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Belgrade. Please confirm.|False
+30|20|0|3|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Belgrade. Please confirm.|False
+31|18|0|4|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Belgrade. Please confirm.|False
+32|20|0|4|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Belgrade. Please confirm.|False
+33|18|0|5|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Belgrade. Please confirm.|False
+34|20|0|5|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Belgrade. Please confirm.|False

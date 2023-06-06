@@ -28,6 +28,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _welcomeUsername;
         private string _text;
         private int _progressValue;
+        private string _isVisible;
+        private bool _isEnabled;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
@@ -47,6 +49,9 @@ namespace TouristAgency.Users.HomeDisplayFeature
             _app = (App)Application.Current;
             _loggedInGuest = guest;
             _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
+            IsEnabled = true;
+            ProgressValue = 1;
+            Text = "Click the button from the menu for the option you want.";
 
             InstantiateCommands();
             InstantiateHelpMenuCommands();
@@ -131,6 +136,32 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 {
                     _progressValue = value;
                     OnPropertyChanged("ProgressValue");
+                }
+            }
+        }
+
+        public string IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (value != _isVisible)
+                {
+                    _isVisible = value;
+                    OnPropertyChanged("IsVisible");
+                }
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                if (value != _isEnabled)
+                {
+                    _isEnabled = value;
+                    OnPropertyChanged("IsEnabled");
                 }
             }
         }
@@ -231,7 +262,17 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void NextCmdExecute()
         {
-
+            if(ProgressValue == 1)
+            {
+                ProgressValue = 2;
+                Text = "If you find it hard to do something, you can always click the help button which is located on the left in every section from the menu";
+            }
+            else if(ProgressValue == 2)
+            {
+                ProgressValue = 3;
+                Text = "You won't be able to see your ratings from the owner until you rate the owner and the accommodation in the section Review and recommendation.";
+                IsEnabled = false;
+            }
         }
 
         public bool CanSkipCmdExecute()
@@ -241,7 +282,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public void SkipCmdExecute()
         {
-
+            IsVisible = "Hidden";
         }
 
         public bool CanCloseCmdExecute()

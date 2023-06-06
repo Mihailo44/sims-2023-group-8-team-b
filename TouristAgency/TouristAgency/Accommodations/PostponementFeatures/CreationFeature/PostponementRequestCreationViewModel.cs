@@ -17,6 +17,7 @@ using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.SuperGuestFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.ForumFeatures.DisplayFeature;
+using TouristAgency.Accommodations.ReservationFeatures.ReportFeature;
 
 namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
 {
@@ -46,6 +47,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
         public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
         public DelegateCommand ForumDisplayCmd { get; set; }
+        public DelegateCommand GuestReportDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -95,6 +97,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
             AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
             ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
+            GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param => CanOpenGuestReportDisplayCmdExecute());
         }
 
         private void DisplayUser()
@@ -300,6 +303,16 @@ namespace TouristAgency.Accommodations.PostponementFeatures.CreationFeature
         public void OpenForumDisplayCmdExecute()
         {
             _app.CurrentVM = new GuestForumDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenGuestReportDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReportDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReportDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()
