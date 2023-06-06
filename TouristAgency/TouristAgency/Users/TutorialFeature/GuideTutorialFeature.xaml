@@ -60,16 +60,46 @@
 
         <GroupBox Grid.Row="2" Header="Actions performed by the user" Width="280px" Height="100">
             <StackPanel>
-                <Label Content="What infomartion is shown on my profile" Foreground="Blue" FontWeight="Bold"/>
-                <Label Content="How do I become a super guide" Foreground="Blue" FontWeight="Bold"/>
-                <Label Content="How do I quit working for TouristAgency" Foreground="Blue" FontWeight="Bold"/>
+                <Label Content="What infomartion is shown on my profile" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\profil.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+                <Label Content="How do I become a super guide" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\profil.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+                <Label Content="How do I quit working for TouristAgency" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\otkaz.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
             </StackPanel>
         </GroupBox>
 
         <GroupBox Grid.Row="3" Header="How do I see statistics"  Width="280px" Height="100">
             <StackPanel Height="50">
-                <Label Content="The tour statistics screen" Foreground="Blue" FontWeight="Bold"/>
-                <Label Content="The tour request statistics screen" Foreground="Blue" FontWeight="Bold"/>
+                <Label Content="The tour statistics screen" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\statistikature.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+                <Label Content="The tour request statistics screen" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\statistikazahtev.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
             </StackPanel>
         </GroupBox>
 

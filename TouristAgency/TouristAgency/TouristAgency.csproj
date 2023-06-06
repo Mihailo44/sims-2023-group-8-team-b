@@ -81,11 +81,13 @@
     <None Remove="Resources\Image\notification2.png" />
     <None Remove="Resources\Image\notification3.png" />
     <None Remove="Resources\Image\onestar.png" />
+    <None Remove="Resources\Image\pause-solid.png" />
     <None Remove="Resources\Image\pending.png" />
     <None Remove="Resources\Image\logout-guest.png" />
     <None Remove="Resources\Image\notification-bell-guest.png" />
     <None Remove="Resources\Image\person-solid.png" />
     <None Remove="Resources\Image\play-arrow.png" />
+    <None Remove="Resources\Image\play-solid.png" />
     <None Remove="Resources\Image\post-req.png" />
     <None Remove="Resources\Image\profile-user.png" />
     <None Remove="Resources\Image\question-solid.png" />
@@ -104,6 +106,7 @@
     <None Remove="Resources\Image\star-guest.png" />
     <None Remove="Resources\Image\statistics.png" />
     <None Remove="Resources\Image\statue-of-liberty-guest.png" />
+    <None Remove="Resources\Image\stop-solid.png" />
     <None Remove="Resources\Image\suitcase-guest.png" />
     <None Remove="Resources\Image\suitcase2-guest.png" />
     <None Remove="Resources\Image\timetable.png" />
@@ -218,11 +221,13 @@
     <Resource Include="Resources\Image\notification2.png" />
     <Resource Include="Resources\Image\notification3.png" />
     <Resource Include="Resources\Image\onestar.png" />
+    <Resource Include="Resources\Image\pause-solid.png" />
     <Resource Include="Resources\Image\pending.png" />
     <Resource Include="Resources\Image\logout-guest.png" />
     <Resource Include="Resources\Image\notification-bell-guest.png" />
     <Resource Include="Resources\Image\person-solid.png" />
     <Resource Include="Resources\Image\play-arrow.png" />
+    <Resource Include="Resources\Image\play-solid.png" />
     <Resource Include="Resources\Image\post-req.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -246,6 +251,7 @@
     <Resource Include="Resources\Image\star-guest.png" />
     <Resource Include="Resources\Image\statistics.png" />
     <Resource Include="Resources\Image\statue-of-liberty-guest.png" />
+    <Resource Include="Resources\Image\stop-solid.png" />
     <Resource Include="Resources\Image\suitcase-guest.png" />
     <Resource Include="Resources\Image\suitcase2-guest.png" />
     <Resource Include="Resources\Image\threestar.png" />
