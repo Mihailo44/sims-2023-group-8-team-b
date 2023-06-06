@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="37px"></RowDefinition>
             <RowDefinition Height="160px"></RowDefinition>
-            <RowDefinition Height="295px"></RowDefinition>
+            <RowDefinition Height="305px"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -49,6 +49,6 @@
             </TextBlock>
         </StackPanel>
 
-        <Button Grid.Row="3"  Style="{StaticResource BasicButton}" Command="{Binding CloseCmd}" VerticalAlignment="Center">OK</Button>
+        <Button Grid.Row="3"  Style="{StaticResource BasicButton}" Command="{Binding CloseCmd}" VerticalAlignment="Center" Margin="0,0,0,30">OK</Button>
     </Grid>
 </UserControl>

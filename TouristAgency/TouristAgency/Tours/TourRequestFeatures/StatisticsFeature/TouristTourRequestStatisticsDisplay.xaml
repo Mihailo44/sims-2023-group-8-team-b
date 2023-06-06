@@ -35,12 +35,12 @@
         </StackPanel>
         <Label Content="Accepted tour requests" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-            <Label Content="Percentage of accepted requests:" VerticalContentAlignment="Bottom" FontSize="28" FontWeight="Bold"></Label>
-            <Label Content="{Binding AcceptedPercentage}" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Bottom"></Label>
-            <Label Content="%" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Bottom"></Label>
+            <Label Content="Percentage of accepted requests:" VerticalContentAlignment="Bottom" FontSize="28" FontWeight="SemiBold"></Label>
+            <Label Content="{Binding AcceptedPercentage}" FontSize="28" FontWeight="SemiBold" VerticalContentAlignment="Bottom"></Label>
+            <Label Content="%" FontSize="28" FontWeight="SemiBold" VerticalContentAlignment="Bottom"></Label>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
-            <Label Content="Average number of people: " VerticalAlignment="Top" FontSize="28" FontWeight="Bold"></Label>
+            <Label Content="Average number of people: " VerticalAlignment="Top" FontSize="28" FontWeight="SemiBold"></Label>
             <Label Content="{Binding AvgNumOfPeople}" FontSize="28" FontWeight="Bold" VerticalAlignment="Top"></Label>
         </StackPanel>
         <Label Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -52,9 +52,9 @@
         <Border Grid.Row="1" Grid.RowSpan="5" Grid.Column="1" BorderThickness="2,2,2,2" BorderBrush="Black"></Border>
         <Label Content="Denied tour requests" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Label Content="Percentage of denied requests:" VerticalContentAlignment="Bottom" FontSize="28" FontWeight="Bold"></Label>
-            <Label Content="{Binding DeniedPercentage}" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Bottom"></Label>
-            <Label Content="%" FontSize="28" FontWeight="Bold" VerticalContentAlignment="Bottom"></Label>
+            <Label Content="Percentage of denied requests:" VerticalContentAlignment="Bottom" FontSize="28" FontWeight="SemiBold"></Label>
+            <Label Content="{Binding DeniedPercentage}" FontSize="28" FontWeight="SemiBold" VerticalContentAlignment="Bottom"></Label>
+            <Label Content="%" FontSize="28" FontWeight="SemiBold" VerticalContentAlignment="Bottom"></Label>
         </StackPanel>
         <Label Grid.Row="4" Grid.Column="1" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <TextBlock TextDecorations="Underline">
