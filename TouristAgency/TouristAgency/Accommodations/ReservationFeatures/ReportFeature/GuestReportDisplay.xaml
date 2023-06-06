@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         Height="700" Width="1200">
     <Grid Background="#FFFBF3">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
+            <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="In this section you can generate report about your scheduled or canceled reservations."/><LineBreak/><Run/><LineBreak/><Run Text="All you have to do is put a date range in which you want your reservations and then click on Generate scheduled or Generate canceled depending on which reservations you want in your report."/><LineBreak/><Run/><LineBreak/><Run Text="When you click on one of those 2 buttons, if everything went well, a message will pop up to say that generating your report was successfull."/><LineBreak/><Run/><LineBreak/><Run Text="After that, report will be downloaded on your computer and you can open it whenever you want."/><LineBreak/></TextBlock>
+        </StackPanel>
 
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
@@ -86,5 +89,11 @@
             </Grid>
         </GroupBox>
 
+        <Image Source="../../../Resources/Image/pdf-guest.png" Margin="724,103,87,415" Opacity="0.7" />
+        <TextBlock FontSize="20" HorizontalAlignment="Left" Margin="242,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="293" Width="826"><Run Text="In this section you can generate report about your scheduled or canceled reservations."/><LineBreak/><Run/><LineBreak/><Run Text="All you have to do is put a date range in which you want your reservations and then click on Generate scheduled or Generate canceled depending on which reservations you want in your report."/><LineBreak/><Run/><LineBreak/><Run Text="When you click on one of those 2 buttons, if everything went well, a message will pop up to say that generating your report was successfull."/><LineBreak/><Run/><LineBreak/><Run Text="After that, report will be downloaded on your computer and you can open it whenever you want."/></TextBlock>
+        <Image Source="../../../Resources/Image/dot-guest.png" Margin="208,359,950,326"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,409,950,276"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,517,950,168"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,598,950,87"/>
     </Grid>
 </UserControl>

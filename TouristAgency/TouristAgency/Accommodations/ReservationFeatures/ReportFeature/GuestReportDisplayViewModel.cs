@@ -26,6 +26,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
         private App _app;
         private Guest _loggedInGuest;
         private Window _window;
+        private string _username;
 
         private DateTime _start;
         private DateTime _end;
@@ -56,6 +57,8 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
 
             InstantiateCommands();
             InstantiateServices();
+            InstantiateHelpMenuCommands();
+            ShowUser();
         }
 
         private void InstantiateServices()
@@ -83,6 +86,11 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
             GenerateCanceledReportCmd = new DelegateCommand(param => GenerateCanceledReportCmdExecute(), param => CanGenerateCanceledReportCmdExecute());
         }
 
+        private void ShowUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
+        }
+
         public DateTime Start
         {
             get => _start;
@@ -105,6 +113,19 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
                 {
                     _end = value;
                     OnPropertyChanged("End");
+                }
+            }
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
                 }
             }
         }

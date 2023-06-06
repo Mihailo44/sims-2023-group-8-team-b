@@ -16,9 +16,9 @@
     </UserControl.Resources>
 
     <Grid  Background="#FFFBF3">
-        <!--<StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
             <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="-You can create a forum for some location to collect other people's experiences."/><LineBreak/><Run Text="After creation, just select the forum for location you want and click the open button. Forum will appear down below."/><LineBreak/><Run Text="If you want to close forum, click the close button."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-You can leave a comment on forum (for example some questions you would like answered) and click the submit button."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-If the guest was once on that location his comment will be marked with a star."/><LineBreak/><Run/><LineBreak/><Run/><LineBreak/><Run Text="-Forums that reach 20 comments from guests who have already visited that location (and 10 from owners who own accommodations on that location) will be marked as very useful."/><LineBreak/><Run/></TextBlock>
-        </StackPanel> -->
+        </StackPanel>
 
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
@@ -56,7 +56,7 @@
             <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=AnywhereAnytimeCreationCmd}"/>
             <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
             <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ForumDisplayCmd}"/>
-            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReportDisplayCmd}"/>
         </StackPanel>
 
         <Label Content="Forum"  Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="230,-4,0,0" VerticalAlignment="Top"/>

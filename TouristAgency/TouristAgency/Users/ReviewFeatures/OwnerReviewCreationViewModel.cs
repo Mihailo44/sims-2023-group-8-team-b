@@ -10,6 +10,7 @@ using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.ReservationFeatures.ReportFeature;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Users;
@@ -47,6 +48,7 @@ namespace TouristAgency.Users.ReviewFeatures
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
         public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
         public DelegateCommand ForumDisplayCmd { get; set; }
+        public DelegateCommand GuestReportDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -92,6 +94,7 @@ namespace TouristAgency.Users.ReviewFeatures
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
             AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
             ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
+            GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param => CanOpenGuestReportDisplayCmdExecute());
         }
 
         private void DisplayUser()
@@ -263,6 +266,16 @@ namespace TouristAgency.Users.ReviewFeatures
         public bool CanOpenOwnerReviewCreationCmdExecute()
         {
             return true;
+        }
+
+        public bool CanOpenGuestReportDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReportDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReportDisplayViewModel(_loggedInGuest, _window);
         }
 
         public void OpenOwnerReviewCreationCmdExecute()

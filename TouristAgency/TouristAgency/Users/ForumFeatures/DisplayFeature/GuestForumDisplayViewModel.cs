@@ -9,6 +9,7 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.ReservationFeatures.ReportFeature;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Users.Domain;
@@ -52,6 +53,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         public DelegateCommand CreateCommentCmd { get; set; }
         public DelegateCommand OpenForumCmd { get; set; }
         public DelegateCommand CloseForumCmd { get; set; }
+        public DelegateCommand GuestReportDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -105,6 +107,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
             CloseForumCmd = new DelegateCommand(param => CloseForumCmdExecute(), param => CanCloseForumCmdExecute());
             CreateCommentCmd = new DelegateCommand(param => CreateCommentCmdExecute(), param => CanCreateCommentCmdExecute());
+            GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param => CanOpenGuestReportDisplayCmdExecute());
         }
 
         private void ShowUser()
@@ -416,6 +419,16 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             _forumCommentService.MarkAsSuper(_reservationService.GetAll());
             Comments = new ObservableCollection<ForumComment>(_forumCommentService.ForumCommentRepository.GetAll().FindAll(c => c.Forum.Id == SelectedForum.Id));
             Comment = "";
+        }
+
+        public bool CanOpenGuestReportDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReportDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReportDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()
