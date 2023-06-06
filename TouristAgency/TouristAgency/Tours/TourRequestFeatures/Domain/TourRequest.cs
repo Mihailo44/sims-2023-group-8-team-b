@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using TouristAgency.Interfaces;
 using TouristAgency.Users;
 using TouristAgency.Util;
 
 namespace TouristAgency.TourRequests
 {
-    public class TourRequest : INotifyPropertyChanged, Interfaces.ISerializable, IDataErrorInfo
+    public class TourRequest : INotifyPropertyChanged, Interfaces.ISerializable, IValidate
     {
         private int _ID;
         private int _touristID;
@@ -254,57 +256,71 @@ namespace TouristAgency.TourRequests
             }
         }
 
-        public string Error => null;
-        public string this[string columnName]
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"ShortLocation.City",string.Empty},
+            {"ShortLocation.Country",string.Empty},
+            {"Language",string.Empty},
+            {"MaxAttendants",string.Empty},
+        };
+
+        public Dictionary<string, string> ValidationErrors
         {
             get
             {
-                if (columnName == "City")
-                {
-                    if (string.IsNullOrEmpty(ShortLocation.City))
-                        return "Required field";
-                }
-                else if (columnName == "Country")
-                {
-                    if (string.IsNullOrEmpty(ShortLocation.Country))
-                        return "Required field";
-                }
-                else if (columnName == "Language")
-                {
-                    if (string.IsNullOrEmpty(Language))
-                        return "Required field";
-                }
-                else if (columnName == "MaxAttendance")
-                {
-                    if (string.IsNullOrEmpty(MaxAttendants.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "StartDate")
-                {
-                    if (string.IsNullOrEmpty(StartDate.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "EndDate")
-                {
-                    if (string.IsNullOrEmpty(EndDate.ToString()))
-                        return "Required field";
-                }
-                return null;
-
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged("ValidationErrors");
             }
         }
 
-        private readonly string[] _validatedProperties = { "City", "Country", "Language", "MaxAttendance", "StartDate", "EndDate" };
+        public void ValidateSelf()
+        {
+            ValidationClear();
+
+            if (string.IsNullOrEmpty(ShortLocation.City))
+            {
+                ValidationErrors["ShortLocation.City"] = "*";
+            }
+            if (string.IsNullOrEmpty(ShortLocation.Country))
+            {
+                ValidationErrors["ShortLocation.Country"] = "*";
+            }
+            if (string.IsNullOrEmpty(Language))
+            {
+                ValidationErrors["Language"] = "*";
+            }
+            if (MaxAttendants == 0)
+            {
+                ValidationErrors["MaxAttendants"] = "*";
+            }
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["ShortLocation.City"] = string.Empty;
+            ValidationErrors["ShortLocation.Country"] = string.Empty;
+            ValidationErrors["Language"] = string.Empty;
+            ValidationErrors["MaxAttendants"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
 
         public bool IsValid
         {
             get
             {
-                foreach (var property in _validatedProperties)
+                foreach (var key in ValidationErrors.Keys)
                 {
-                    if (this[property] != null)
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
                         return false;
+                    }
                 }
+
                 return true;
             }
         }

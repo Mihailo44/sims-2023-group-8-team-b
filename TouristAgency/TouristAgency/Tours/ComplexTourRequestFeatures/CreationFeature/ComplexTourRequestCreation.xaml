@@ -19,12 +19,12 @@
 
         <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="360" Width="1070" BorderBrush="Black" BorderThickness="2">
             <GroupBox.Header>
-                <Label Content="Create tour request" FontSize="32" FontWeight="Bold"></Label>
+                <Label Content="Create complex tour request" FontSize="32" FontWeight="Bold"></Label>
             </GroupBox.Header>
             <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150" ></ColumnDefinition>
-                    <ColumnDefinition Width="180"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
                     <ColumnDefinition Width="370"></ColumnDefinition>
                     <ColumnDefinition Width="330"/>
                 </Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,0,0,15">
                     <Label Content="Insert name for your new complex tour:" FontSize="32" FontWeight="SemiBold"></Label>
-                    <TextBox Width="457" Height="42" FontSize="32" Text="{Binding NewComplexTourRequest.Name}">
+                    <TextBox Width="464" Height="42" FontSize="32" Text="{Binding NewComplexTourRequest.Name}">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -45,25 +45,29 @@
                         </TextBox.Resources>
                     </TextBox>
                 </StackPanel>
+                <Label Grid.Column="3" Grid.Row="0" Content="{Binding NewComplexTourRequest.ValidationErrors[Name],UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" FontSize="40" FontWeight="Bold" Foreground="Red" Margin="0,0,-5,0"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="Country:" FontSize="28" FontWeight="SemiBold"/>
-                <TextBox x:Name="CountryTextBox" Text="{Binding NewTourRequest.ShortLocation.Country}" Grid.Row="1" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold">
+                <TextBox x:Name="CountryTextBox" HorizontalAlignment="Left" Text="{Binding NewTourRequest.ShortLocation.Country}" Grid.Row="1" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold">
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </TextBox.Resources>
                 </TextBox>
+                <Label Grid.Column="1" Grid.Row="1" Content="{Binding NewTourRequest.ValidationErrors[ShortLocation.Country],UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" FontSize="40" FontWeight="Bold" Foreground="Red" Margin="0,0,-5,0"/>
                 <Label Grid.Row="2" Grid.Column="0" Content="City:" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold" Width="66" />
-                <TextBox x:Name="CityTextBox" Text="{Binding NewTourRequest.ShortLocation.City}" Grid.Row="2" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold" Margin="0,5,0,0" VerticalAlignment="Top">
+                <TextBox x:Name="CityTextBox" HorizontalAlignment="Left" Text="{Binding NewTourRequest.ShortLocation.City}" Grid.Row="2" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold" Margin="0,5,0,0" VerticalAlignment="Top">
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </TextBox.Resources>
                 </TextBox>
+                <Label  Grid.Row="2" Grid.Column="1" Content="{Binding NewTourRequest.ValidationErrors[ShortLocation.City],UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" FontSize="40" FontWeight="Bold" Foreground="Red" Margin="0,0,-5,0"/>
                 <Label Grid.Row="3" Grid.Column="0" Content="Language:" FontSize="28" FontWeight="SemiBold"/>
-                <TextBox x:Name="Language" Text="{Binding NewTourRequest.Language}" Grid.Row="3" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold">
+                <Label Grid.Column="1" Grid.Row="3" Content="{Binding NewTourRequest.ValidationErrors[Language],UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" FontSize="40" FontWeight="Bold" Foreground="Red" Margin="0,0,-5,0"/>
+                <TextBox x:Name="Language" HorizontalAlignment="Left" Text="{Binding NewTourRequest.Language}" Grid.Row="3" Grid.Column="1" Width="180" Height="40" FontSize="28" FontWeight="SemiBold">
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -75,6 +79,7 @@
                     <Label Grid.Row="1" Grid.Column="2" Content="Num of people:" FontSize="28" FontWeight="SemiBold" Margin="0,0,7,0"/>
                     <xctk:UIntegerUpDown x:Name="NumOfPeople" Text="{Binding NewTourRequest.MaxAttendants}" Grid.Row="1" Grid.Column="3" Width="90" Height="40" HorizontalAlignment="Left" FontSize="28" FontWeight="SemiBold"/>
                 </StackPanel>
+                <Label Grid.Column="2" Grid.Row="1" Content="{Binding NewTourRequest.ValidationErrors[MaxAttendants],UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" FontSize="40" FontWeight="Bold" Foreground="Red" Margin="0,0,10,0"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2">
                     <Label  Content="From:" FontSize="28" FontWeight="SemiBold"></Label>
                     <DatePicker SelectedDate="{Binding NewTourRequest.StartDate}" Grid.Row="2" Grid.Column="3"  FontSize="28" FontWeight="SemiBold" Height="39" Width="220" Foreground="Black" SelectedDateFormat="Short"></DatePicker>
@@ -97,6 +102,7 @@
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
 
+                <TextBlock Grid.Row="4" Grid.ColumnSpan="3" Grid.Column="0" Visibility="{Binding ValidationError}" Height="35" Text="* This field is required" FontSize="28" FontWeight="Bold" Foreground="Red"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Right" Margin="0,0,-5,0">
                     <Button Style="{StaticResource TouristBasicButton}" Width="230" Height="40" Command="{Binding AddPartCmd}">
                         <StackPanel Orientation="Horizontal">
@@ -105,7 +111,7 @@
                         </StackPanel>
                     </Button>
                     <Label></Label>
-                    
+
                 </StackPanel>
             </Grid>
         </GroupBox>

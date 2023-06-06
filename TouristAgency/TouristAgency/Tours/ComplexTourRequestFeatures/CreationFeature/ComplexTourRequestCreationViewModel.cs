@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -24,6 +25,8 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
         private ComplexTourRequest _newComplexTourRequest;
         private ObservableCollection<TourRequest> _parts;
 
+        private string _validationError;
+
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand AddPartCmd { get; set; }
         public DelegateCommand RemovePartCmd { get; set; }
@@ -36,6 +39,7 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
             _loggedInTourist = tourist;
             _newTourRequest = new TourRequest();
             _newComplexTourRequest = new ComplexTourRequest();
+            ValidationError = "Hidden";
 
             InstantiateServices();
             InstantiateCollections();
@@ -58,7 +62,6 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
         {
             AddPartCmd = new DelegateCommand(param => AddPartExecute(), param => CanAddPartExecute());
             RemovePartCmd = new DelegateCommand(param => RemovePartExecute(), param => CanRemovePartExecute());
-            ListOfPartsCmd = new DelegateCommand(param =>  ListOfPartsExecute(), param => CanListOfPartsExecute());
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
             DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
         }
@@ -102,6 +105,19 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
             }
         }
 
+        public string ValidationError
+        {
+            get => _validationError;
+            set
+            {
+                if (value != _validationError)
+                {
+                    _validationError = value;
+                    OnPropertyChanged("ValidationError");
+                }
+            }
+        }
+
         public TourRequest SelectedPart
         {
             get;
@@ -115,8 +131,33 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
 
         public void AddPartExecute()
         {
-            Parts.Add(NewTourRequest);
-            NewTourRequest = new TourRequest();
+            NewTourRequest.ValidationClear();
+            NewTourRequest.ValidateSelf();
+            NewComplexTourRequest.ValidationClear();
+            NewComplexTourRequest.ValidateSelf();
+            if (NewTourRequest.IsValid && NewComplexTourRequest.IsValid)
+            {
+                TimeSpan ts = NewTourRequest.StartDate - DateTime.Today;
+                if (NewTourRequest.EndDate < NewTourRequest.StartDate)
+                {
+                    MessageBox.Show("End date cannot be before a start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (ts.TotalHours <= 48)
+                {
+                    MessageBox.Show("Cannot create request 48 hours before start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (ts.TotalHours > 48)
+                {
+                    ValidationError = "Hidden";
+                    Parts.Add(NewTourRequest);
+                    NewTourRequest = new TourRequest();
+                }
+            }
+            else
+            {
+                ValidationError = "Visible";
+                MessageBox.Show("Invalid request, check your inputs and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public bool CanRemovePartExecute()
@@ -137,17 +178,6 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
             }
         }
 
-        public bool CanListOfPartsExecute()
-        {
-            return true;
-        }
-
-        public void ListOfPartsExecute()
-        {
-            //ComplexTourDetailsDisplay display = new ComplexTourDetailsDisplay(_loggedInTourist, );
-            //display.Show();
-        }
-
         public bool CanCreateExecute()
         {
             return true;
@@ -155,34 +185,45 @@ namespace TouristAgency.Tours.TourRequestFeatures.CreationFeature
 
         public void CreateExecute()
         {
-            if (Parts.Count >= 2)
+            NewComplexTourRequest.ValidationClear();
+            NewComplexTourRequest.ValidateSelf();
+            if(NewComplexTourRequest.IsValid)
             {
-                NewComplexTourRequest.TouristID = _loggedInTourist.ID;
-                NewComplexTourRequest = _complexTourRequestService.Create(NewComplexTourRequest);
-                foreach (TourRequest request in Parts)
+                ValidationError = "Hidden";
+                if (Parts.Count >= 2)
                 {
-                    request.TouristID = _loggedInTourist.ID;
-                    request.Tourist = _loggedInTourist;
-                    request.ComplexTourRequestID = NewComplexTourRequest.ID;
-                    Location location = _locationService.FindByCountryAndCity(request.ShortLocation.Country, request.ShortLocation.City);
-                    if (location == null)
+                    NewComplexTourRequest.TouristID = _loggedInTourist.ID;
+                    NewComplexTourRequest = _complexTourRequestService.Create(NewComplexTourRequest);
+                    foreach (TourRequest request in Parts)
                     {
-                        location = _locationService.Create(request.ShortLocation);
+                        request.TouristID = _loggedInTourist.ID;
+                        request.Tourist = _loggedInTourist;
+                        request.ComplexTourRequestID = NewComplexTourRequest.ID;
+                        Location location = _locationService.FindByCountryAndCity(request.ShortLocation.Country, request.ShortLocation.City);
+                        if (location == null)
+                        {
+                            location = _locationService.Create(request.ShortLocation);
+                        }
+                        request.ShortLocationID = location.ID;
+                        TourRequest tempRequest = _tourRequestService.Create(request);
+                        request.ID = tempRequest.ID;
+                        NewComplexTourRequest.Parts.Add(request);
                     }
-                    request.ShortLocationID = location.ID;
-                    TourRequest tempRequest = _tourRequestService.Create(request);
-                    request.ID = tempRequest.ID;
-                    NewComplexTourRequest.Parts.Add(request);
+                    MessageBox.Show("You have successfully created complex tour request.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Parts.Clear();
+                    NewTourRequest = new();
+                    NewComplexTourRequest = new();
                 }
-                MessageBox.Show("You have successfully created complex tour request.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
-                Parts.Clear();
-                NewTourRequest = new();
-                NewComplexTourRequest = new();
+                else
+                {
+                    MessageBox.Show("A complex tour must have at least two parts.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
             }
             else
             {
-                MessageBox.Show("A complex tour must have at least two parts.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                ValidationError = "Visible";
+                MessageBox.Show("Invalid request, check your inputs and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
