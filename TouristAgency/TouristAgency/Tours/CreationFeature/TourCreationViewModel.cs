@@ -158,7 +158,7 @@ namespace TouristAgency.CreationFeature
                 LanguageEnabled = "false";
                 CapacityEnabled = "false";
                 DescriptionEnabled = "false";
-                DatePickerEnabled = "false";
+                //DatePickerEnabled = "false";
             }
             else
             {
@@ -167,14 +167,21 @@ namespace TouristAgency.CreationFeature
                 LanguageEnabled = "false";
                 CapacityEnabled = "true";
                 DescriptionEnabled = "true";
-                DatePickerEnabled = "false";
+                //DatePickerEnabled = "false";
             }
         }
 
         public Tour NewTour
         {
             get => _newTour;
-            set => _newTour = value;
+            set
+            {
+                if(value != _newTour)
+                {
+                    _newTour = value;
+                    OnPropertyChanged("NewTour");
+                }
+            }
         }
 
         public Location NewLocation
@@ -357,71 +364,94 @@ namespace TouristAgency.CreationFeature
 
         public new void CreateTourExecute()
         {
-            //TODO Implementirati proveru da li postoji vec slika u PhotoRepository!
-            if (SelectedCheckpoints.Count < 2)
+            NewTour.ShortLocation.City = NewLocation.City;
+            NewTour.ShortLocation.Country = NewLocation.Country;
+            NewTour.ValidationClear();
+            NewTour.ValidateSelf();
+            if (NewTour.IsValid)
             {
-                MessageBox.Show("Must have selected at least 2 checkpoints!");
-                return;
-            }
-
-            foreach (DateWrapper dateWrapper in _multipleDates)
-            {
-                PrepareLocation();
-                NewTour.AssignedGuideID = _loggedInGuide.ID;
-                NewTour.AssignedGuide = _loggedInGuide;
-                NewTour.StartDateTime = dateWrapper.Date;
-                NewTour.RemainingCapacity = NewTour.MaxAttendants;
-                bool passed = false;
-                bool canHandleTourRequest = HandleTourRequest(dateWrapper.Date);
-                if (NewTour.IsValid)
+                if (SelectedCheckpoints.Count < 2)
                 {
-                    LoadCheckpointsToTours();
-                    if (canHandleTourRequest && _scenario != TourCreationScenario.DEFAULT)
+                    MessageBox.Show("Must have selected at least 2 checkpoints!");
+                    return;
+                }
+                bool error = false;
+                if(_multipleDates.Count == 0)
+                {
+                    MessageBox.Show("Must select atleast 1 date!");
+                    return;
+                }    
+                foreach (DateWrapper dateWrapper in _multipleDates)
+                {
+                    PrepareLocation();
+                    NewTour.AssignedGuideID = _loggedInGuide.ID;
+                    NewTour.AssignedGuide = _loggedInGuide;
+                    NewTour.StartDateTime = dateWrapper.Date;
+                    NewTour.MaxAttendants = 0;
+                    NewTour.RemainingCapacity = NewTour.MaxAttendants;
+                    bool canHandleTourRequest = HandleTourRequest(dateWrapper.Date);
+                    if (NewTour.IsValid)
                     {
-                        if (_scenario != TourCreationScenario.MOST_POPULAR_TOURREQ)
+                        LoadCheckpointsToTours();
+                        if (canHandleTourRequest && _scenario != TourCreationScenario.DEFAULT)
                         {
-                            TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
-                            notification.Tour = NewTour;
-                            notification.TourID = NewTour.ID;
-                            _touristNotificationService.Create(notification);
+                            if (_scenario != TourCreationScenario.MOST_POPULAR_TOURREQ)
+                            {
+                                TouristNotification notification = new TouristNotification(_tourRequest.TouristID, TouristNotificationType.TOUR_REQUEST_ACCEPTED, "Tour request accepted: " + NewTour.Name);
+                                notification.Tour = NewTour;
+                                notification.TourID = NewTour.ID;
+                                _touristNotificationService.Create(notification);
+                            }
+                            _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetInvalidTourRequests());
+                            _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetAcceptedTourRequests());
+                            NewTour = _tourService.Create(new Tour(_newTour));
+
+                            if (_paths != null)
+                                AddPhotos(_paths);
+
+                            else if (PhotoLinks != null && PhotoLinks != "")
+                                AddPhotos();
                         }
-                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetInvalidTourRequests());
-                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetAcceptedTourRequests());
-                        NewTour = _tourService.Create(new Tour(_newTour));
+                        else if (!canHandleTourRequest && _scenario == TourCreationScenario.DEFAULT)
+                        {
+                            NewTour = _tourService.Create(new Tour(_newTour));
 
-                        if (_paths != null)
-                            AddPhotos(_paths);
+                            if (_paths != null)
+                                AddPhotos(_paths);
 
-                        else if (PhotoLinks != null && PhotoLinks != "")
-                            AddPhotos();
+                            else if (PhotoLinks != null && PhotoLinks != "")
+                                AddPhotos();
 
-                        if (!passed)
-                            MessageBox.Show("Successfully created tour!", "Success");
-                        passed = true;
-                    }
-                    else if(!canHandleTourRequest && _scenario == TourCreationScenario.DEFAULT)
-                    {
-                        NewTour = _tourService.Create(new Tour(_newTour));
-
-                        if (_paths != null)
-                            AddPhotos(_paths);
-
-                        else if (PhotoLinks != null && PhotoLinks != "")
-                            AddPhotos();
-
-                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetInvalidTourRequests());
-                        _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetAcceptedTourRequests());
-                        
-                        if(!passed)
-                            MessageBox.Show("Successfully created tour!", "Success");
-                        passed = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("An error occured!");
-                        return;
+                            _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetInvalidTourRequests());
+                            _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetAcceptedTourRequests());
+                        }
+                        else if (canHandleTourRequest == false)
+                        {
+                            MessageBox.Show("An error occured!");
+                            error = true;
+                            break;
+                        }
                     }
                 }
+                if (error == false)
+                {
+                    MessageBox.Show("Successfully created a tour!", "Success");
+                    NewTour.Name = "";
+                    NewTour.ShortLocation.City = "";
+                    NewTour.ShortLocation.Country = "";
+                    NewTour.Description = "";
+                    NewTour.Duration = 0;
+                    NewTour.Language = "";
+                    SelectedCheckpoints.Clear();
+                    AvailableCheckpoints.Clear();
+                    MultipleDates.Clear();
+                    NewTour.StartDateTime = DateTime.Now;
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please input all fields marked with !");
             }
         }
 

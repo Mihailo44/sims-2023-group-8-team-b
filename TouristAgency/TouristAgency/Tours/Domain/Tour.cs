@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
@@ -9,7 +10,7 @@ using TouristAgency.Util;
 namespace TouristAgency.Tours
 {
 
-    public class Tour : ISerializable, INotifyPropertyChanged, IDataErrorInfo
+    public class Tour : ISerializable, INotifyPropertyChanged, IValidate
     {
         private int _ID;
         private string _name;
@@ -320,57 +321,90 @@ namespace TouristAgency.Tours
             }
         }
 
-        public string Error => null;
-        public string this[string columnName]
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"Name",string.Empty},
+            {"ShortLocation.City",string.Empty},
+            {"ShortLocation.Country",string.Empty},
+            {"Description",string.Empty},
+            {"Language",string.Empty},
+            {"MaxAttendants",string.Empty},
+            {"Duration",string.Empty}
+            //{"ShortLocation.Country",string.Empty},
+        };
+
+        public Dictionary<string, string> ValidationErrors
         {
             get
             {
-                if (columnName == "Name")
-                {
-                    if (string.IsNullOrEmpty(Name))
-                        return "Required field";
-                }
-                else if (columnName == "Description")
-                {
-                    if (string.IsNullOrEmpty(Description))
-                        return "Required field";
-                }
-                else if (columnName == "Language")
-                {
-                    if (string.IsNullOrEmpty(Language))
-                        return "Required field";
-                }
-                else if (columnName == "MaxAttendants")
-                {
-                    if (string.IsNullOrEmpty(MaxAttendants.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "Duration")
-                {
-                    if (string.IsNullOrEmpty(Duration.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "StartDateTime")
-                {
-                    if (string.IsNullOrEmpty(StartDateTime.ToString()))
-                        return "Required field";
-                }
-                return null;
-
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged("ValidationErrors");
             }
         }
 
-        private readonly string[] _validatedProperties = { "Name", "MaxGuestNum", "MinNumOfDays", "AllowedNumOfDaysForCancelation" };
+        public void ValidateSelf()
+        {
+            ValidationClear();
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                ValidationErrors["Name"] = "!";
+            }
+            if (string.IsNullOrEmpty(ShortLocation.City))
+            {
+                ValidationErrors["ShortLocation.City"] = "!";
+            }
+            if (string.IsNullOrEmpty(ShortLocation.Country))
+            {
+                ValidationErrors["ShortLocation.Country"] = "!";
+            }
+            if (string.IsNullOrEmpty(Description))
+            {
+                ValidationErrors["Description"] = "!";
+            }
+            if (string.IsNullOrEmpty(Language))
+            {
+                ValidationErrors["Language"] = "!";
+            }
+            if (MaxAttendants == 0)
+            {
+                ValidationErrors["MaxAttendants"] = "!";
+            }
+            if (Duration == 0)
+            {
+                ValidationErrors["Duration"] = "!";
+            }
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["Name"] = string.Empty;
+            ValidationErrors["ShortLocation.City"] = string.Empty;
+            ValidationErrors["ShortLocation.Country"] = string.Empty;
+            ValidationErrors["Description"] = string.Empty;
+            ValidationErrors["Language"] = string.Empty;
+            ValidationErrors["MaxAttendants"] = string.Empty;
+            ValidationErrors["Duration"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
 
         public bool IsValid
         {
             get
             {
-                foreach (var property in _validatedProperties)
+                foreach (var key in ValidationErrors.Keys)
                 {
-                    if (this[property] != null)
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
                         return false;
+                    }
                 }
+
                 return true;
             }
         }

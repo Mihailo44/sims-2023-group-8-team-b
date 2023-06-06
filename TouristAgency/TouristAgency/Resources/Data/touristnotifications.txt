@@ -16,3 +16,14 @@
 15|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: cmpl1tura2||False
 16|20|-1|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Belgrade|Based on your previous requests, a new tour with the location Serbia, Belgrade is available. Check it out!|False
 17|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: cmpl2||False
+18|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: req test||False
+19|20|4|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: req test||False
+20|20|5|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: req test||False
+21|20|0|0|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+22|18|0|0|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+23|20|0|1|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+24|20|0|2|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+25|18|0|2|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+26|20|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: Test tura 3||False
+27|20|-1|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Nis|Based on your previous requests, a new tour with the location Serbia, Nis is available. Check it out!|False
+28|20|-1|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on Serbian|Based on your previous requests, a new tour with the language Serbian is available. Check it out!|False

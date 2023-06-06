@@ -11,20 +11,10 @@
         mc:Ignorable="d"
         Height="600" Width="370" Background="#FEFDFF">
 
-    <UserControl.Resources>
-        <ControlTemplate x:Key="ValidationTemplate">
-            <Grid>
-                <AdornedElementPlaceholder/>
-                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
-                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="7"/>
-            </Grid>
-        </ControlTemplate>
-    </UserControl.Resources>
-
     <ScrollViewer>
         <Grid Height="800">
             <custom:BurgerButton Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
-            <custom:BurgerMenu Visibility="Hidden"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
+            <custom:BurgerMenu VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
             <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">Tour creation</Label>
             <StackPanel>
                 <Grid Margin="0,30,0,0" Width="300">
@@ -44,17 +34,20 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0"  Grid.Column="0" VerticalAlignment="Center">Tour name:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Name, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Name,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[Name],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
 
                     <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Country:</Label>
-                    <TextBox x:Name="CountryTextBox" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.Country, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsEnabled="{Binding CountryEnabled}"/>
-
+                    <TextBox x:Name="CountryTextBox" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.Country}"  IsEnabled="{Binding CountryEnabled}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[ShortLocation.Country],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" Height="35" Margin="0,0,-10,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[ShortLocation.City],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
+                    
                     <Label Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">City:</Label>
                     <!--<TextBox x:Name="CityTextBox"  Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.City, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>-->
-                    <TextBox x:Name="CityTextBox" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.City, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsEnabled="{Binding CityEnabled}"/>
+                    <TextBox x:Name="CityTextBox" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="1" Height="25" Text="{Binding Path=NewLocation.City}" IsEnabled="{Binding CityEnabled}"/>
 
                     <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Description:</Label>
-                    <TextBox x:Name="DescriptionTextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Height="33" Text="{Binding Path=NewTour.Description, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsEnabled="{Binding DescriptionEnabled}">
+                    <TextBox x:Name="DescriptionTextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Height="33" Text="{Binding Path=NewTour.Description}" IsEnabled="{Binding DescriptionEnabled}">
                         <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                         <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                         <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
@@ -66,13 +59,15 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </TextBox>
+                    <TextBlock Grid.Row="2" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[Description],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
 
                     <Label  Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">Language:</Label>
-                    <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Language, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsEnabled="{Binding LanguageEnabled}"></TextBox>
+                    <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="25" Text="{Binding Path=NewTour.Language}" IsEnabled="{Binding LanguageEnabled}"></TextBox>
+                    <TextBlock Grid.Row="3" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[Language],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
 
                     <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">Max capacity:</Label>
-                    <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Height="25" Width="40" HorizontalAlignment="Left" Text="{Binding Path=NewTour.MaxAttendants, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" IsEnabled="{Binding CapacityEnabled}"></xctk:IntegerUpDown>
-
+                    <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Height="25" Width="40" HorizontalAlignment="Left" Text="{Binding Path=NewTour.MaxAttendants}" IsEnabled="{Binding CapacityEnabled}"></xctk:IntegerUpDown>
+                    <TextBlock Grid.Row="4" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[MaxAttendants],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
                 </Grid>
 
                 <Grid Width="300" Margin="0,10,0,0">
@@ -165,11 +160,12 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0">Duration (hours):</Label>
-                    <xctk:IntegerUpDown Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration, ValidatesOnDataErrors=True}"  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></xctk:IntegerUpDown>
+                    <xctk:IntegerUpDown Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration}"></xctk:IntegerUpDown>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[Duration],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
 
                     <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Tour start date:</Label>
                     <StackPanel Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                        <DatePicker x:Name="dateTimePicker" Width="100" Height="23" Margin="170,0,0,0" SelectedDate="{Binding Path=NewTour.StartDateTime, ValidatesOnDataErrors=True}" IsEnabled="{Binding DatePickerEnabled}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"></DatePicker>
+                        <DatePicker x:Name="dateTimePicker" Width="100" Height="23" Margin="170,0,0,0" SelectedDate="{Binding Path=NewTour.StartDateTime, ValidatesOnDataErrors=True}" IsEnabled="{Binding DatePickerEnabled}"></DatePicker>
                         <Button Style="{StaticResource BasicButton}" Height="23" Width="25" x:Name="AddDateButton" HorizontalContentAlignment="Center" Command="{Binding AddMultipleDatesCmd}">+</Button>
                     </StackPanel>
 

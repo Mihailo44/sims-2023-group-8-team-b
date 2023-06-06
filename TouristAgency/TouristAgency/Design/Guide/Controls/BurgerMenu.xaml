@@ -127,7 +127,13 @@
             <StackPanel Margin="0,10,0,0">
                 <Label FontSize="21">Video tutorials</Label>
                 <Rectangle Fill="Black" Height="3" Width="200"/>
-                <Label FontSize="16">- View all tutorials</Label>
+                <Label FontSize="16" Content="- View all tutorials">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding TutorialCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
             </StackPanel>
         </StackPanel>
     </Border>

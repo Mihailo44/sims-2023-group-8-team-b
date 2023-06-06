@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="TouristAgency.Users.TutorialFeature.GuideTutorialFeature"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:custom="clr-namespace:TouristAgency.Design.Guide.Controls"
+             xmlns:local="clr-namespace:TouristAgency.Users.TutorialFeature"
+             mc:Ignorable="d" 
+             Height="600" Width="370" Background="#FEFDFF">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30px"></RowDefinition>
+            <RowDefinition Height="200px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="80px"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <custom:BurgerButton Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
+        <custom:BurgerMenu Grid.RowSpan="10" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
+
+        <GroupBox Grid.Row="1" Header="Actions performed on tours"  Height="160" Width="280px">
+            <StackPanel>
+                <Label Content="How do I start a tour?" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\zapocinjanjeture.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+
+                <Label Content="How do I create a tour" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\kreiranjeture.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+
+                <Label Content="How do I cancel a tour" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\otkazivnajeture.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+
+                <Label Content="How do I accept a regular tour request" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\prihvatanjezahteva.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+                
+                <Label Content="How do I accept a custom tour request" Foreground="Blue" FontWeight="Bold"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Actions performed by the user" Width="280px" Height="100">
+            <StackPanel>
+                <Label Content="What infomartion is shown on my profile" Foreground="Blue" FontWeight="Bold"/>
+                <Label Content="How do I become a super guide" Foreground="Blue" FontWeight="Bold"/>
+                <Label Content="How do I quit working for TouristAgency" Foreground="Blue" FontWeight="Bold"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="3" Header="How do I see statistics"  Width="280px" Height="100">
+            <StackPanel Height="50">
+                <Label Content="The tour statistics screen" Foreground="Blue" FontWeight="Bold"/>
+                <Label Content="The tour request statistics screen" Foreground="Blue" FontWeight="Bold"/>
+            </StackPanel>
+        </GroupBox>
+
+        <Button Grid.Row="4" VerticalAlignment="Top" Style="{StaticResource BasicButton}" Command="{Binding CloseCmd}">Go back</Button>
+    </Grid>
+</UserControl>

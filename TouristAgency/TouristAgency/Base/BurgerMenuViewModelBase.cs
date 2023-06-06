@@ -17,6 +17,7 @@ using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.QuitFeature;
 using TouristAgency.Users.SuperGuideFeature;
+using TouristAgency.Users.TutorialFeature;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 
@@ -39,6 +40,8 @@ namespace TouristAgency.Base
         public DelegateCommand TourRequestStatisticsCmd { get; set; }
         public DelegateCommand ReviewsCmd { get; set; }
         public DelegateCommand SuperGuideCmd { get; set; }
+
+        public DelegateCommand TutorialCmd { get; set; }
         public void InstantiateMenuCommands()
         {
             GuideHomeCmd = new DelegateCommand(param => GuideHomeExecute(), param => AlwaysExecutes());
@@ -53,6 +56,7 @@ namespace TouristAgency.Base
             SuperGuideCmd = new DelegateCommand(param => SuperGuideExecute(), param => AlwaysExecutes());
             ShowMenuCmd = new DelegateCommand(param => ShowMenuExecute(), param => AlwaysExecutes());
             HideMenuCmd = new DelegateCommand(param => HideMenuExecute(), param => AlwaysExecutes());
+            TutorialCmd = new DelegateCommand(param => TutorialExecute(), param => AlwaysExecutes());
         }
 
         public string MenuVisibility
@@ -139,6 +143,11 @@ namespace TouristAgency.Base
         public void SuperGuideExecute()
         {
             _app.CurrentVM = new SuperGuideDisplayViewModel();
+        }
+
+        public void TutorialExecute()
+        {
+            _app.CurrentVM = new GuideTutorialViewModel();
         }
     }
 }

@@ -49,7 +49,7 @@
                                 <Label Content="{Binding StartDateTime}"/>
                                 <Label Content="{Binding CurrentAttendants}"/>
                                 <Label>/</Label>
-                                <Label Content="{Binding RemainingCapacity}"/>
+                                <Label Content="{Binding MaxAttendants}"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -104,6 +104,12 @@
                     <Image.Source>
                         <BitmapImage UriSource="../../Resources/Image/question-solid.png"/>
                     </Image.Source>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding OpenTutorialCmd}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Image>
                 <Label HorizontalAlignment="Center" FontWeight="Bold">Tutorials</Label>
             </StackPanel>

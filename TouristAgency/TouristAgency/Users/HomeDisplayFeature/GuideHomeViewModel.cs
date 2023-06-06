@@ -8,6 +8,7 @@ using TouristAgency.Review.Domain;
 using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature;
 using TouristAgency.Tours.ReportFeature;
+using TouristAgency.Users.TutorialFeature;
 using TouristAgency.Util;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
@@ -30,6 +31,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand StartTourCmd { get; set; }
         public DelegateCommand GenerateReportCmd { get; set; }
+
+        public DelegateCommand OpenTutorialCmd { get; set; }
         public GuideHomeViewModel()
         {
             _app = (App)Application.Current;
@@ -60,6 +63,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             StartTourCmd = new DelegateCommand(StartTourExecute, CanStartTourExecute);
             GenerateReportCmd = new DelegateCommand(param => GenerateReportExecute(), param => CanGenerateReportExecute());
+            OpenTutorialCmd = new DelegateCommand(param => OpenTutorialExecute(), param => CanOpenTutorial());
         }
         public ObservableCollection<Tour> AvailableTours
         {
@@ -125,6 +129,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
         {
             TourReportDialogDisplay display = new TourReportDialogDisplay();
             display.Show();
+        }
+
+        public bool CanOpenTutorial()
+        {
+            return true;
+        }
+
+        public void OpenTutorialExecute()
+        {
+            _app.CurrentVM = new GuideTutorialViewModel();
         }
 
         private bool CheckStartedTourExistance()
