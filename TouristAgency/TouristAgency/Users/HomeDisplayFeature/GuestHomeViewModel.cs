@@ -26,6 +26,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private Window _window;
         private string _username;
         private string _welcomeUsername;
+        private string _text;
+        private int _progressValue;
 
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
@@ -35,6 +37,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
         public DelegateCommand ForumDisplayCmd { get; set; }
         public DelegateCommand GuestReportDisplayCmd { get; set; }
+        public DelegateCommand NextCmd { get; set; }
+        public DelegateCommand SkipCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -65,6 +69,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
             AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
             ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
             GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param =>  CanOpenGuestReportDisplayCmdExecute());
+            NextCmd = new DelegateCommand(param =>  NextCmdExecute(), param => CanNextCmdExecute());
+            SkipCmd = new DelegateCommand(param => SkipCmdExecute(), param => CanSkipCmdExecute());
         }
 
         private void ShowUser()
@@ -99,6 +105,32 @@ namespace TouristAgency.Users.HomeDisplayFeature
                 {
                     _welcomeUsername = value;
                     OnPropertyChanged("WelcomeUsername");
+                }
+            }
+        }
+
+        public string Text
+        {
+            get => _text;
+            set
+            {
+                if (value != _text)
+                {
+                    _text = value;
+                    OnPropertyChanged("Text");
+                }
+            }
+        }
+
+        public int ProgressValue
+        {
+            get => _progressValue;
+            set
+            {
+                if (value != _progressValue)
+                {
+                    _progressValue = value;
+                    OnPropertyChanged("ProgressValue");
                 }
             }
         }
@@ -190,6 +222,26 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public void OpenHomeCmdExecute()
         {
            _app.CurrentVM = new GuestHomeViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanNextCmdExecute()
+        {
+            return true;
+        }
+
+        public void NextCmdExecute()
+        {
+
+        }
+
+        public bool CanSkipCmdExecute()
+        {
+            return true;
+        }
+
+        public void SkipCmdExecute()
+        {
+
         }
 
         public bool CanCloseCmdExecute()
