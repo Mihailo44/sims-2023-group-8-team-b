@@ -241,10 +241,18 @@ namespace TouristAgency.Users
         {
             string fileName = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/Resources/PDF/VouchersReport" + DateTime.Now.ToString("ddMMMyyyyHHmmss") + ".pdf";
             IronPdf.License.LicenseKey = "IRONPDF.OGNJENMILOJEVIC2001.11160-6DF7F18EC0-PQ5YOKIDDHF4X-PDSDZ265OZUC-DSOYMURM3EY4-U3X2FINUULAL-T4IS3FXVY3HX-OVXCDF-TUNPAYY3BA2KEA-DEPLOYMENT.TRIAL-FU7CHU.TRIAL.EXPIRES.05.JUL.2023";
-            string HtmlString = "<h1>Accepted tours report</h1>" +
+            string HtmlString = "<h1 style='text-align:center'>Report on currently valid vouchers</h1>" +
                 "<br>" +
-                "<p>Generated at: " + DateTime.Now + "</p>" +
-                "<p>Requested by: " + _loggedInTourist.FirstName + " " + _loggedInTourist.LastName + "</p>" +
+                "<p> Generated at: " + DateTime.Now + "</p>" +
+                "<p>Vouchers belong to tourists: " + _loggedInTourist.FirstName + " " + _loggedInTourist.LastName + "</p>" +
+                "<br>" +
+                "<p style='text-align:justify'>This is a report of all your currently valid vouchers. " +
+                "You can use any of these vouchers when booking a tour. " +
+                "<br><br>" +
+                "Vouchers can be won if you have booked 5 tours within a year. " +
+                "Vouchers won in this way are valid for 6 months and can be used for any tour. " +
+                "If a tour you booked is canceled for any reason, in that case you will receive " +
+                "a compensation voucher that you can also use for any other tour.</p>" +
                 "<br><hr>" +
                 "<table style='width:100%;'>" +
                 "<tr style='border:1px solid black'><th>Voucher name</th> <th>Expiration date</th>";
@@ -256,13 +264,13 @@ namespace TouristAgency.Users
                             "<td>" + voucher.ExpirationDate + "</td></tr>";
             }
 
-            HtmlString += "</table><br><hr><br><p>Total vouchers: " + count + "</p>";
+            HtmlString += "</table><br><hr><br><p>The total number of your currently valid vouchers: " + count + "</p>";
 
             ChromePdfRenderer renderer = new ChromePdfRenderer();
 
             PdfDocument newPdf = renderer.RenderHtmlAsPdf(HtmlString);
             newPdf.SaveAs(fileName);
-            MessageBox.Show("Valid vouchers report is generated.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("A PDF report of your currently valid vouchers has been successfully generated.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public bool CanCloseExecute()

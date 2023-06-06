@@ -126,6 +126,57 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.Domain
             }
         }
 
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"Name",string.Empty}
+        };
+
+        public Dictionary<string, string> ValidationErrors
+        {
+            get
+            {
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged("ValidationErrors");
+            }
+        }
+
+        public void ValidateSelf()
+        {
+            ValidationClear();
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                ValidationErrors["Name"] = "*";
+            }
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["Name"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var key in ValidationErrors.Keys)
+                {
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
+
         public string[] ToCSV()
         {
             string[] csvValues =

@@ -33,7 +33,7 @@ namespace TouristAgency.Util
         public Location FindByCountryAndCity(string country, string city)
         {
             Location location = LocationRepository.GetAll().FirstOrDefault(l => l.Country.ToLower() == country.ToLower() && l.City.ToLower() == city.ToLower());
-            if (location == null)
+            if (location == null && location.IsValid)
             {
                 location = new Location(country, city);
                 LocationRepository.Create(location);
