@@ -63,6 +63,28 @@
         <Image Source="../../Resources/Image/colosseum-guest.png" Margin="747,337,33,36" Opacity="0.2"/>
         <Image Source="../../Resources/Image/statue-of-liberty-guest.png" Opacity="0.1" Margin="248,322,574,34"/>
         <Image Source="../../Resources/Image/cairo-citadel-guest.png" Opacity="0.15" Margin="240,10,566,391"/>
+        <Rectangle HorizontalAlignment="Left" Height="382" Panel.ZIndex="10000" Margin="383,166,0,0" Stroke="Black" VerticalAlignment="Top" Width="633">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FCFAE4"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Welcome!!!" Panel.ZIndex="10000" Foreground="#89865B" FontSize="35" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="400,166,0,0" VerticalAlignment="Top" Width="200"/>
+        <TextBlock Panel.ZIndex="10000" Foreground="Black" HorizontalAlignment="Left" FontSize="30" Margin="486,246,0,0" TextWrapping="Wrap" Text="{Binding Path= Text}" VerticalAlignment="Top" Height="116" Width="428"/>
+        <Button Content="Next" FontSize="25" FontWeight="SemiBold" Background="#F4F1BB" Panel.ZIndex="10000" HorizontalAlignment="Left" Margin="760,476,0,0" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=NextCmd}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Skip" FontSize="25" FontWeight="SemiBold" Background="#F4F1BB" Panel.ZIndex="10000" HorizontalAlignment="Left" Margin="889,476,0,0" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=SkipCmd}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <ProgressBar Panel.ZIndex="10000" Foreground="#EEEAA4" Background="White" HorizontalAlignment="Left" Height="30" Margin="550,390,0,0" VerticalAlignment="Top" Width="300" Value="{Binding Path=ProgressValue}"/>
         <!--<Image Source="../../Resources/Image/flight4-guest.png"  Margin="341,222,577,204" RenderTransformOrigin="0.5,0.5" Opacity="0.4">
             <Image.RenderTransform>
                 <TransformGroup>
