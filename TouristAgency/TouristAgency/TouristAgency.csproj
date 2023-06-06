@@ -81,6 +81,7 @@
     <None Remove="Resources\Image\notification2.png" />
     <None Remove="Resources\Image\notification3.png" />
     <None Remove="Resources\Image\onestar.png" />
+    <None Remove="Resources\Image\pdf-guest.png" />
     <None Remove="Resources\Image\pause-solid.png" />
     <None Remove="Resources\Image\pending.png" />
     <None Remove="Resources\Image\logout-guest.png" />
@@ -221,6 +222,7 @@
     <Resource Include="Resources\Image\notification2.png" />
     <Resource Include="Resources\Image\notification3.png" />
     <Resource Include="Resources\Image\onestar.png" />
+    <Resource Include="Resources\Image\pdf-guest.png" />
     <Resource Include="Resources\Image\pause-solid.png" />
     <Resource Include="Resources\Image\pending.png" />
     <Resource Include="Resources\Image\logout-guest.png" />

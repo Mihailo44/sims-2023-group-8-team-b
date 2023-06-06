@@ -246,7 +246,12 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
 
         public List<Reservation> GetInInterval(DateTime start, DateTime end, int guestId)
         {
-            return GetAll().FindAll(r => r.Start >= start && r.End <= end && r.Guest.ID == guestId);
+            return GetAll().FindAll(r => r.Start >= start && r.End <= end && r.Guest.ID == guestId && r.IsCanceled == false);
+        }
+
+        public List<Reservation> GetInCanceledInterval(DateTime start, DateTime end, int guestId)
+        {
+            return GetAll().FindAll(r => r.Start >= start && r.End <= end && r.Guest.ID == guestId && r.IsCanceled == true);
         }
 
         public List<Reservation> SearchReservations(string searchInput)

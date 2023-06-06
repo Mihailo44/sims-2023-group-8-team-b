@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         Height="700" Width="1200">
     <Grid Background="#FFFBF3">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
+            <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="In this section you can generate report about your scheduled or canceled reservations."/><LineBreak/><Run/><LineBreak/><Run Text="All you have to do is put a date range in which you want your reservations and then click on Generate scheduled or Generate canceled depending on which reservations you want in your report."/><LineBreak/><Run/><LineBreak/><Run Text="When you click on one of those 2 buttons, if everything went well, a message will pop up to say that generating your report was successfull."/><LineBreak/><Run/><LineBreak/><Run Text="After that, report will be downloaded on your computer and you can open it whenever you want."/><LineBreak/></TextBlock>
+        </StackPanel>
 
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
@@ -50,10 +53,47 @@
 
         <Label Content="Reservations report" Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="222,0,0,0" VerticalAlignment="Top"/>
 
-        <Button Content="Generate regular" HorizontalAlignment="Left" Margin="428,230,0,0" VerticalAlignment="Top" Height="40" Width="130" Command="{Binding Path=GenerateRegularReportCmd}"/>
-        <Button Content="Generate canceled" HorizontalAlignment="Left" Margin="612,230,0,0" VerticalAlignment="Top" Height="40" Width="157"/>
-        <DatePicker HorizontalAlignment="Left" Margin="418,111,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=Start}"/>
-        <DatePicker HorizontalAlignment="Left" Margin="597,111,0,0" VerticalAlignment="Top" SelectedDate="{Binding Path=End}"/>
+        <GroupBox Margin="222,68,512,415" BorderBrush="Black" BorderThickness="1">
+            <GroupBox.Header>
+                <Label Content="Generate report" FontSize="20" FontWeight="SemiBold"></Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="from:" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                <DatePicker Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedDate="{Binding Path=Start}"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="to:" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                <DatePicker Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedDate="{Binding Path=End}"/>
+                <Button Grid.Row="1" Grid.ColumnSpan="2" FontSize="15" FontWeight="SemiBold" Background="#F4F1BB" Content="Generate scheduled" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="155" Command="{Binding Path=GenerateRegularReportCmd}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="Generate canceled" Grid.Row="1" Grid.Column="2"  FontSize="15" FontWeight="SemiBold" Background="#F4F1BB" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="155" Margin="41,0,0,0" Command="{Binding Path=GenerateCanceledReportCmd}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </GroupBox>
 
+        <Image Source="../../../Resources/Image/pdf-guest.png" Margin="724,103,87,415" Opacity="0.7" />
+        <TextBlock FontSize="20" HorizontalAlignment="Left" Margin="242,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="293" Width="826"><Run Text="In this section you can generate report about your scheduled or canceled reservations."/><LineBreak/><Run/><LineBreak/><Run Text="All you have to do is put a date range in which you want your reservations and then click on Generate scheduled or Generate canceled depending on which reservations you want in your report."/><LineBreak/><Run/><LineBreak/><Run Text="When you click on one of those 2 buttons, if everything went well, a message will pop up to say that generating your report was successfull."/><LineBreak/><Run/><LineBreak/><Run Text="After that, report will be downloaded on your computer and you can open it whenever you want."/></TextBlock>
+        <Image Source="../../../Resources/Image/dot-guest.png" Margin="208,359,950,326"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,409,950,276"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,517,950,168"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,598,950,87"/>
     </Grid>
 </UserControl>

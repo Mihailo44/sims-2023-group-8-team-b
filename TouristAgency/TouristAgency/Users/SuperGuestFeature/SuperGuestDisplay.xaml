@@ -53,7 +53,7 @@
             <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=AnywhereAnytimeCreationCmd}"/>
             <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
             <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ForumDisplayCmd}"/>
-            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReportDisplayCmd}"/>
         </StackPanel>
 
         <Label Content="Super-guest" FontSize="30"  Foreground="#89865B" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="223,0,0,0" VerticalAlignment="Top" Height="50" Width="176"/>

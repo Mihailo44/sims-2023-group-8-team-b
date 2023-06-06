@@ -20,6 +20,8 @@ namespace TouristAgency.TourRequests
         private TourRequestService _tourRequestService;
         private LocationService _locationService;
 
+        private string _validationError;
+
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand ListOfTourRequestsCmd { get; set; }
 
@@ -28,6 +30,7 @@ namespace TouristAgency.TourRequests
             _app = (App)Application.Current;
             _tourRequest = new TourRequest();
             _loggedInTourist = tourist;
+            ValidationError = "Hidden";
 
             InstantiateServices();
             InstantiateCollections();
@@ -78,6 +81,19 @@ namespace TouristAgency.TourRequests
             }
         }
 
+        public string ValidationError
+        {
+            get => _validationError;
+            set
+            {
+                if (value != _validationError)
+                {
+                    _validationError = value;
+                    OnPropertyChanged("ValidationError");
+                }
+            }
+        }
+
         public bool CanCreateCmdExecute()
         {
             return true;
@@ -85,28 +101,36 @@ namespace TouristAgency.TourRequests
 
         private void CreateCmdExecute()
         {
-            TourRequest.TouristID = _loggedInTourist.ID;
-            TourRequest.ShortLocation = _locationService.LocationRepository.Create(TourRequest.ShortLocation);
-            TourRequest.ShortLocationID = TourRequest.ShortLocation.ID;
-            TimeSpan ts = TourRequest.StartDate - DateTime.Today;
-            if (TourRequest.IsValid &&  ts.TotalHours > 48)
+            TourRequest.ValidationClear();
+            TourRequest.ValidateSelf();
+            if(TourRequest.IsValid)
             {
-                _tourRequestService.TourRequestRepository.Create(TourRequest);
-                TourRequests.Add(TourRequest);
-                TourRequest = new TourRequest();
-                MessageBox.Show("You have successfully send request for tour.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                ValidationError = "Hidden";
+                TourRequest.TouristID = _loggedInTourist.ID;
+                TourRequest.ShortLocation = _locationService.LocationRepository.Create(TourRequest.ShortLocation);
+                TourRequest.ShortLocationID = TourRequest.ShortLocation.ID;
+                TimeSpan ts = TourRequest.StartDate - DateTime.Today;
+                if (TourRequest.EndDate < TourRequest.StartDate)
+                {
+                    MessageBox.Show("End date cannot be before a start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (ts.TotalHours <= 48)
+                {
+                    MessageBox.Show("Cannot create request 48 hours before start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (TourRequest.IsValid && ts.TotalHours > 48)
+                {
+                    _tourRequestService.TourRequestRepository.Create(TourRequest);
+                    TourRequests.Add(TourRequest);
+                    TourRequest = new TourRequest();
+                    MessageBox.Show("You have successfully send request for tour.", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                
             }
-            else if(!TourRequest.IsValid)
+            else
             {
+                ValidationError = "Visible";
                 MessageBox.Show("Invalid request, check your inputs and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (TourRequest.EndDate < TourRequest.StartDate)
-            {
-                MessageBox.Show("End date cannot be before a start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if(ts.TotalHours <= 48)
-            {
-                MessageBox.Show("Cannot create request 48 hours before start date.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

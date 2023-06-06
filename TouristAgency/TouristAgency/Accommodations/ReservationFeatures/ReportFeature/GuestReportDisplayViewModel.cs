@@ -26,6 +26,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
         private App _app;
         private Guest _loggedInGuest;
         private Window _window;
+        private string _username;
 
         private DateTime _start;
         private DateTime _end;
@@ -34,6 +35,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
         private AccommodationService _accommodationService;
 
         public DelegateCommand GenerateRegularReportCmd { get; set; }
+        public DelegateCommand GenerateCanceledReportCmd { get; set; }
         public DelegateCommand AccommodationDisplayCmd { get; set; }
         public DelegateCommand PostponementRequestDisplayCmd { get; set; }
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
@@ -55,6 +57,8 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
 
             InstantiateCommands();
             InstantiateServices();
+            InstantiateHelpMenuCommands();
+            ShowUser();
         }
 
         private void InstantiateServices()
@@ -79,6 +83,12 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
             ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
             GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param => CanOpenGuestReportDisplayCmdExecute());
             GenerateRegularReportCmd = new DelegateCommand(param => GenerateRegularReportCmdExecute(), param => CanGenerateRegularReportCmdExecute());
+            GenerateCanceledReportCmd = new DelegateCommand(param => GenerateCanceledReportCmdExecute(), param => CanGenerateCanceledReportCmdExecute());
+        }
+
+        private void ShowUser()
+        {
+            Username = "Username: " + _loggedInGuest.Username;
         }
 
         public DateTime Start
@@ -103,6 +113,19 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
                 {
                     _end = value;
                     OnPropertyChanged("End");
+                }
+            }
+        }
+
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    OnPropertyChanged("Username");
                 }
             }
         }
@@ -242,6 +265,43 @@ namespace TouristAgency.Accommodations.ReservationFeatures.ReportFeature
             PdfDocument newPdf = renderer.RenderHtmlAsPdf(HtmlString);
             newPdf.SaveAs(fileName);
             MessageBox.Show("Successfully created regular reservation report.");
+        }
+
+        public bool CanGenerateCanceledReportCmdExecute()
+        {
+            return true;
+        }
+
+        public void GenerateCanceledReportCmdExecute()
+        {
+            string fileName = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "/Resources/PDF/CanceledReservationReport" + DateTime.Now.ToString("ddMMMyyyyHHmmss") + ".pdf";
+            IronPdf.License.LicenseKey = "IRONPDF.OGNJENMILOJEVIC2001.11160-6DF7F18EC0-PQ5YOKIDDHF4X-PDSDZ265OZUC-DSOYMURM3EY4-U3X2FINUULAL-T4IS3FXVY3HX-OVXCDF-TUNPAYY3BA2KEA-DEPLOYMENT.TRIAL-FU7CHU.TRIAL.EXPIRES.05.JUL.2023";
+            string HtmlString = "<h1>Canceled reservations report</h1>" +
+                "<br>" +
+                "<p>Generated at: " + DateTime.Now + "</p>" +
+                "<p>Requested by: " + _loggedInGuest.FirstName + " " + _loggedInGuest.LastName + "</p>" +
+                "<p>Date ranges: " + Start.Date.ToString() + " - " + End.Date.ToString() + "</p>" +
+                "<br><hr>" +
+                "<table style='width:100%;'>" +
+                "<tr style='border:1px solid black'><th>Accommodation name</th> <th>Location</th> <th>Owner</th> <th>Start date</th>" +
+                "<th>End date</th></tr>";
+            int count = 0;
+            foreach (Reservation reservation in _reservationService.GetInCanceledInterval(Start, End, _loggedInGuest.ID))
+            {
+                count++;
+                HtmlString += "<tr style='text-align:center;border:1px solid black'><td>" + reservation.Accommodation.Name + "</td>" +
+                            "<td>" + reservation.Accommodation.Location.Country + ", " + reservation.Accommodation.Location.City + "</td>" +
+                            "<td>" + reservation.Accommodation.Owner.FirstName + ", " + reservation.Accommodation.Owner.LastName + "</td>" + "<td>" + reservation.Start + "</td>" +
+                            "<td>" + reservation.End + "</td></tr>";
+            }
+
+            HtmlString += "</table><br><hr><br><p>Total reservations: " + count + "</p>";
+
+            ChromePdfRenderer renderer = new ChromePdfRenderer();
+
+            PdfDocument newPdf = renderer.RenderHtmlAsPdf(HtmlString);
+            newPdf.SaveAs(fileName);
+            MessageBox.Show("Successfully created canceled reservation report.");
         }
     }
 }

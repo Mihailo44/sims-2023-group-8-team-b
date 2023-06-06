@@ -9,6 +9,7 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.ReservationFeatures.ReportFeature;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Users.Domain;
@@ -30,6 +31,8 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         private string _welcomeUsername;
         private string _city;
         private string _comment;
+        private Forum _newForum;
+        private ForumComment _newComment;
         private ObservableCollection<string> _cities;
         private ObservableCollection<Forum> _forums;
         private ObservableCollection<ForumComment> _comments;
@@ -50,6 +53,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
         public DelegateCommand CreateCommentCmd { get; set; }
         public DelegateCommand OpenForumCmd { get; set; }
         public DelegateCommand CloseForumCmd { get; set; }
+        public DelegateCommand GuestReportDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -59,6 +63,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             _loggedInGuest = guest;
             User = guest;
             _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
+            NewComment = new ForumComment();
             
 
             InstantiateServices();
@@ -102,6 +107,7 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
             CloseForumCmd = new DelegateCommand(param => CloseForumCmdExecute(), param => CanCloseForumCmdExecute());
             CreateCommentCmd = new DelegateCommand(param => CreateCommentCmdExecute(), param => CanCreateCommentCmdExecute());
+            GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param => CanOpenGuestReportDisplayCmdExecute());
         }
 
         private void ShowUser()
@@ -174,6 +180,32 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
                 {
                     _comment = value;
                     OnPropertyChanged("Comment");
+                }
+            }
+        }
+
+        public Forum NewForum
+        {
+            get => _newForum;
+            set
+            {
+                if (value != _newForum)
+                {
+                    _newForum = value;
+                    OnPropertyChanged("NewForum");
+                }
+            }
+        }
+
+        public ForumComment NewComment
+        {
+            get => _newComment;
+            set
+            {
+                if (value != _newComment)
+                {
+                    _newComment = value;
+                    OnPropertyChanged("NewComment");
                 }
             }
         }
@@ -318,26 +350,37 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
 
         public void CreateForumCmdExecute()
         {
-            if(_forumService.IsDuplicate(City) == false && string.IsNullOrEmpty(Comment) == false)
+            NewForum = new Forum();
+            NewComment = new ForumComment();
+            NewComment.Comment = Comment;
+            NewComment.ValidationClear();
+            NewComment.ValidateSelf(Comment);
+
+            if (_forumService.IsDuplicate(City) == false && string.IsNullOrEmpty(Comment) == false)
             {
-                Forum forum = new Forum();
-                forum.Name = City + " forum";
-                forum.Location = _locationService.GetByCity(City);
-                _forumService.ForumRepository.Create(forum);
-                ForumComment forumComment = new ForumComment(_loggedInGuest, forum, Comment);
-                _forumCommentService.ForumCommentRepository.Create(forumComment);
-                _forumCommentService.MarkAsSuper(_reservationService.GetAll());
-                Forums.Add(forum);
-                MessageBox.Show("You successfully created a new forum!");
+                
+                if(NewComment.IsValid == true)
+                {
+                    NewForum.Name = City + " forum";
+                    NewForum.Location = _locationService.GetByCity(City);
+                    _forumService.ForumRepository.Create(NewForum);
+                    ForumComment forumComment = new ForumComment(_loggedInGuest, NewForum, Comment);
+                    _forumCommentService.ForumCommentRepository.Create(forumComment);
+                    _forumCommentService.MarkAsSuper(_reservationService.GetAll());
+                    Forums.Add(NewForum);                   
+                    Comment = "";
+                    MessageBox.Show("You successfully created a new forum!");
+                }
+                
             }
             else if(_forumService.IsDuplicate(City) == true)
             {
                 MessageBox.Show("This forum already exists.");
             }
-            else
+            /*else
             {
                 MessageBox.Show("You have to enter your first comment.");
-            }
+            }*/
         }
 
         public bool CanCreateCommentCmdExecute()
@@ -375,6 +418,17 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
             _forumCommentService.ForumCommentRepository.Create(comment);
             _forumCommentService.MarkAsSuper(_reservationService.GetAll());
             Comments = new ObservableCollection<ForumComment>(_forumCommentService.ForumCommentRepository.GetAll().FindAll(c => c.Forum.Id == SelectedForum.Id));
+            Comment = "";
+        }
+
+        public bool CanOpenGuestReportDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReportDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReportDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()

@@ -6,7 +6,7 @@ using TouristAgency.Interfaces;
 
 namespace TouristAgency.Util
 {
-    public class Location : ISerializable, INotifyPropertyChanged, IDataErrorInfo
+    public class Location : ISerializable, INotifyPropertyChanged, IValidate
     {
         private int _ID;
         private string _street;
@@ -135,47 +135,71 @@ namespace TouristAgency.Util
         }
 
 
-        public string Error => null;
-        public string this[string columnName]
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"Street",string.Empty},
+            {"StreetNumber",string.Empty},
+            {"City",string.Empty},
+            {"Country",string.Empty}
+        };
+
+        public Dictionary<string, string> ValidationErrors
         {
             get
             {
-                if (columnName == "Street")
-                {
-                    if (string.IsNullOrEmpty(Street))
-                        return "Required field";
-                }
-                else if (columnName == "StreetNumber")
-                {
-                    if (string.IsNullOrEmpty(StreetNumber))
-                        return "Required field";
-                }
-                else if (columnName == "City")
-                {
-                    if (string.IsNullOrEmpty(City))
-                        return "Required field";
-                }
-                else if (columnName == "Country")
-                {
-                    if (string.IsNullOrEmpty(Country))
-                        return "Required field";
-                }
-                return null;
-
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged("ValidationErrors");
             }
         }
 
-        private readonly string[] _validatedProperties = { "Street", "StreetNumber", "City", "Country" };
+        public void ValidateSelf()
+        {
+            ValidationClear();
+
+            if (string.IsNullOrEmpty(Street))
+            {
+                ValidationErrors["Street"] = "This field is required";
+            }
+            if (string.IsNullOrEmpty(StreetNumber))
+            {
+                ValidationErrors["StreetNumber"] = "This field is required";
+            }
+            if (string.IsNullOrEmpty(City))
+            {
+                ValidationErrors["City"] = "This field is required";
+            }
+            if (string.IsNullOrEmpty(Country))
+            {
+                ValidationErrors["Country"] = "This field is required";
+            }
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["Street"] = string.Empty;
+            ValidationErrors["StreetNumber"] = string.Empty;
+            ValidationErrors["City"] = string.Empty;
+            ValidationErrors["Country"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
 
         public bool IsValid
         {
             get
             {
-                foreach (var property in _validatedProperties)
+                foreach (var key in ValidationErrors.Keys)
                 {
-                    if (this[property] != null)
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
                         return false;
+                    }
                 }
+
                 return true;
             }
         }
