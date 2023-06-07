@@ -213,10 +213,10 @@ namespace TouristAgency.Accommodations.StatisticsFeature
             Font boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
             Paragraph organizedBy = new Paragraph();
             organizedBy.Alignment = Element.ALIGN_LEFT;
-            organizedBy.Add(new Chunk("Organized by:\n", boldFont));
-            organizedBy.Add(new Chunk("TourAdvisor\n", infoFont));
-            organizedBy.Add(new Chunk("Novi Sad, Serbia, 21000\n", infoFont));
-            organizedBy.Add(new Chunk("touradvisor@gmail.com", infoFont));
+            organizedBy.Add(new Chunk($"{SelectedAccommodation.Name}\n", boldFont));
+            organizedBy.Add(new Chunk($"{SelectedAccommodation.Location.City},{SelectedAccommodation.Location.Country}\n", infoFont));
+            organizedBy.Add(new Chunk($"{SelectedAccommodation.Owner.FirstName} {SelectedAccommodation.Owner.LastName}\n", infoFont));
+            organizedBy.Add(new Chunk("touragency@gmail.com", infoFont));
             document.Add(organizedBy);
             // Add spacing after the "Organized by" section
             document.Add(new Paragraph("\n"));
@@ -234,25 +234,19 @@ namespace TouristAgency.Accommodations.StatisticsFeature
             customerDetails.Add(new Chunk(name + "\n", infoFont));
             customerDetails.Add(new Chunk(owner + "\n", infoFont));
             // Add the "Customer details" section above the "From: Start Date" section
-            document.Add(customerDetails);
+            //document.Add(customerDetails);
 
             // Add spacing before the "From: Start Date" section
             document.Add(new Paragraph("\n"));
 
             // Add the date range information
             Paragraph dateRange = new Paragraph();
+            dateRange.Add(new Chunk("Your accommodation stats report for:\n",infoFont));
             dateRange.Add(new Chunk("Year: ", boldFont));
             dateRange.Add(new Chunk(SelectedYear.ToString(), infoFont));
             dateRange.Add(new Chunk("\nMonth: ", boldFont));
             dateRange.Add(new Chunk(SelectedMonth.ToString(), infoFont));
             document.Add(dateRange);
-
-            // Add spacing after the date range
-            document.Add(new Paragraph("\n"));
-
-            // Add a new paragraph of text
-            Paragraph paragraph = new Paragraph($"Your accommodation stats report for {SelectedMonth.ToString()},{SelectedYear.ToString()}:", infoFont);
-            document.Add(paragraph);
 
             // Add two rows of space
             document.Add(new Paragraph("\n\n"));

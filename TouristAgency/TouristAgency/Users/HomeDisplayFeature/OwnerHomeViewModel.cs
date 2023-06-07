@@ -839,7 +839,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
             try
             {
                 NewAccommodation.ValidateSelf(Capacity, MinNumOfDays, AllowedNumOfDaysForCancelation);
-                if (NewAccommodation.IsValid)
+                NewLocation.ValidateSelf();
+                if (NewAccommodation.IsValid && NewLocation.IsValid)
                 {
                     PrepareAccommodationForCreation();
                     _accommodationService.AccommodationRepository.Create(NewAccommodation);

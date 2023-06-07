@@ -212,7 +212,7 @@ namespace TouristAgency.Accommodations.Domain
 
             if (string.IsNullOrEmpty(Name))
             {
-                ValidationErrors["Name"] = "This is a required field";
+                ValidationErrors["Name"] = "This field is required";
             }
 
             if (!string.IsNullOrEmpty(capacity))
@@ -225,12 +225,12 @@ namespace TouristAgency.Accommodations.Domain
             }
             else
             {
-                ValidationErrors["MaxGuestNum"] = "This is a required field";
+                ValidationErrors["MaxGuestNum"] = "This field is required";
             }
 
             if (!string.IsNullOrEmpty(minNumOfDays))
             {
-                ValidationErrors["MinNumOfDays"] = "This is a required field";
+                ValidationErrors["MinNumOfDays"] = "This field is required";
                 Match match = _intRegex.Match(minNumOfDays);
                 if (!match.Success)
                 {
@@ -239,7 +239,7 @@ namespace TouristAgency.Accommodations.Domain
             }
             else
             {
-                ValidationErrors["MinNumOfDays"] = "This is a required field";
+                ValidationErrors["MinNumOfDays"] = "This field is required";
             }
 
             if (!string.IsNullOrEmpty(cancelationDays))
@@ -252,7 +252,7 @@ namespace TouristAgency.Accommodations.Domain
             }
             else
             {
-                ValidationErrors["CancelationDays"] = "This is a required field";
+                ValidationErrors["CancelationDays"] = "This field is required";
             }
 
             OnPropertyChanged(nameof(ValidationErrors));
