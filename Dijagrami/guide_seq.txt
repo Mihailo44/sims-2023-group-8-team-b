@@ -1,0 +1,103 @@
+@startuml
+actor User as U
+participant WPF
+participant TourRequestService as TRS
+participant TourRequestRepository as TRR
+participant LocationService as LS
+participant LocationRepository as LR
+participant PhotoService as PS
+participant PhotoRepository as PR
+participant TourService as TS
+participant TourRepository as TR
+participant TourCheckpointService as TCS
+participant TourCheckpointRepository as TCR
+participant TouristNotificationService as TNS
+participant TouristNotificationRepository as TNR
+
+U->WPF: Select and accept tour request from list
+WPF --> U --: Tour Creation view with filled inputs
+U->WPF: Inputs new tour data
+WPF->WPF ++: CreateTourExecute()
+
+opt SelectedCheckpoints.Count < 2
+    WPF-->U: errorMessage
+end
+
+loop multipleDateTimes
+WPF->WPF ++:PrepareLocations()
+
+WPF->LS ++:FindLocationId(NewLocation)
+
+LS->LR ++: GetAll()
+LR-->LS --: locations
+
+LS-->WPF --: location
+    opt locationID == -1
+       WPF->LS ++: Create(NewLocation)
+       LS->LR ++: Create(NewLocation)
+       LR-->LS --: location
+       LS-->WPF --: location
+    end
+return
+
+WPF->WPF ++: HandleTourRequest(dateTime)
+    opt tourRequest != null
+       WPF->TRS ++: Update(tourRequest, tourRequest.ID)
+       TRS->TRR ++: Update(tourRequest, tourRequest.ID)
+       TRR --> TRS --: tourRequest
+       TRS --> WPF --: tourRequest
+    end
+    return canBeHandled
+
+
+   alt NewTour.IsValid
+      WPF->WPF ++: AddPhotos()
+      WPF->TS++: GenerateId()
+      TS->TR++: GenerateId()
+      TR->TS--: ID
+      TS->WPF--: ID
+
+      loop photoLinks
+           WPF->PS ++: Create(photo)
+           PS->PR ++: Create(photo)
+           PR-->PS --: photo
+           PS-->WPF --: photo
+      end
+      return
+
+      WPF->WPF ++: LoadCheckpointsToTours()
+      WPF->TS++: GenerateId()
+      TS->TR++: GenerateId()
+      TR->TS--: ID
+      TS->WPF--: ID
+      loop checkpoints
+         WPF->TCS ++: Create(TourCheckpoint)
+         TCS->TCR ++: Create(TourCheckpoint)
+         TCR-->TCS --: tourCheckpoint
+         TCS-->WPF --: tourCheckpoint
+      end
+
+      WPF->TS ++: Create(NewTour)
+      TS->TR ++: Create(NewTour)
+      TR-->TS --: newTour
+      TS-->WPF --: newTour
+
+      opt canHandleTourRequest
+           WPF->TNS ++: Create(notification)
+           note left: Kreira obavestenje da je\nkreirana tura naspram zahteva
+           TNS->TNR ++: Create(notification)
+           TNR-->TNS --: notification
+           TNS-->WPF --:notification
+           WPF->TNS: NotifyAboutNewTour(NewTour, TourRequests)
+           note left: Prolazi sve prethodne zahteve za turu\ni ako ima da se poklapa po parametru,\n obavestava turistu
+      end
+     return
+
+     WPF-->U: SuccessMsg
+
+     else
+     WPF-->U --: ErrorMsg     
+
+   end
+end
+@enduml

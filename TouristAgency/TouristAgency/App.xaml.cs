@@ -2,17 +2,20 @@
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Notifications;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.Review.Domain;
 using TouristAgency.TourRequests;
 using TouristAgency.Tours;
 using TouristAgency.Tours.BeginTourFeature.Domain;
+using TouristAgency.Tours.ComplexTourRequestFeatures.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.Domain;
+using TouristAgency.Users.ForumFeatures.Domain;
 using TouristAgency.Users.ReviewFeatures.Domain;
 using TouristAgency.Users.SuperGuestFeature.Domain;
 using TouristAgency.Util;
@@ -51,6 +54,11 @@ namespace TouristAgency
         public RenovationRecommendationRepository RenovationRecommendationRepository { get; }
         public GuestReviewNotificationRepository GuestReviewNotificationRepository { get; }
         public SuperGuestTitleRepository SuperGuestTitleRepository { get; }
+        public ForumRepository ForumRepository { get; }
+        public ForumCommentRepository ForumCommentRepository { get; }
+        public ForumNotificationRepository ForumNotificationRepository { get; }
+        public UserCommentRepository UserCommentRepository { get; }
+        public ComplexTourRequestRepository ComplexTourRequestRepository { get; }
 
         public event Action CurrentVMChanged;
 
@@ -102,6 +110,11 @@ namespace TouristAgency
             RenovationRecommendationRepository = new(InjectorService.CreateInstance<IStorage<RenovationRecommendation>>());
             GuestReviewNotificationRepository = new(InjectorService.CreateInstance<IStorage<GuestReviewNotification>>());
             SuperGuestTitleRepository = new(InjectorService.CreateInstance<IStorage<SuperGuestTitle>>());
+            ForumRepository = new(InjectorService.CreateInstance<IStorage<Forum>>());
+            ForumCommentRepository = new(InjectorService.CreateInstance<IStorage<ForumComment>>());
+            ForumNotificationRepository = new(InjectorService.CreateInstance<IStorage<ForumNotification>>());
+            UserCommentRepository = new(InjectorService.CreateInstance<IStorage<UserComment>>());
+            ComplexTourRequestRepository = new(InjectorService.CreateInstance<IStorage<ComplexTourRequest>>());
 
             LoadData();
         }
@@ -113,6 +126,7 @@ namespace TouristAgency
             AccommodationRepository.LoadOwnersToAccommodations(OwnerRepository.GetAll());
             OwnerRepository.LoadAccommodationsToOwners(AccommodationRepository.GetAll());
             OwnerRepository.LoadLocationsToOwners(LocationRepository.GetAll());
+            OwnerRepository.LoadOwnerCredentials(UserRepository.GetAll());
             GuestReviewRepository.LoadReservationsToGuestReviews(ReservationRepository.GetAll());
             CheckpointRepository.LoadLocationsToCheckpoints(LocationRepository.GetAll());
             TourRepository.LoadLocationsToTours(LocationRepository.GetAll());
@@ -125,6 +139,7 @@ namespace TouristAgency
             GuideReviewRepository.LoadTouristsToReviews(TouristRepository.GetAll());
             GuideReviewRepository.LoadToursToGuideReviews(TourRepository.GetAll());
             TourRepository.LoadTouristsToTours(TourTouristRepository.GetAll(), TouristRepository.GetAll());
+            TourRepository.LoadGuidesToTours(GuideRepository.GetAll());
             TouristRepository.LoadToursToTourist(TourTouristRepository.GetAll(), TourRepository.GetAll());
             TourRepository.LoadCheckpointsToTours(TourCheckpointRepository.GetAll(), CheckpointRepository.GetAll());
             OwnerReviewRepository.LoadReservationsToOwnerReviews(ReservationRepository.GetAll());
@@ -139,6 +154,15 @@ namespace TouristAgency
             TouristNotificationRepository.LoadCheckpointsToNotifications(CheckpointRepository.GetAll());
             GuestReviewNotificationRepository.LoadReservationsToNotifications(ReservationRepository.GetAll());
             SuperGuestTitleRepository.LoadGuestsToSuperGuestTitles(GuestRepository.GetAll());
+            ForumRepository.LoadLocationsToForums(LocationRepository.GetAll());
+            ForumCommentRepository.LoadForumsToComments(ForumRepository.GetAll());
+            ForumCommentRepository.LoadUsersToComments(UserRepository.GetAll());
+            ForumNotificationRepository.LoadForumsToNotifications(ForumRepository.GetAll());
+            ComplexTourRequestRepository.LoadTouristsToComplexTourRequests(TouristRepository.GetAll());
+            ComplexTourRequestRepository.LoadTourRequestsToComplexTourRequests(TourRequestRepository.GetAll());
+            TourRequestRepository.LoadTouristsToTourRequests(TouristRepository.GetAll());
+            GuestRepository.LoadReservationsToGuests(ReservationRepository.GetAll());
+            TouristRepository.LoadLocationsToTourists(LocationRepository.GetAll());
         }
     }
 }

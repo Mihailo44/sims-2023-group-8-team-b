@@ -15,14 +15,14 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="160"></RowDefinition>
-            <RowDefinition Height="280"></RowDefinition>
+            <RowDefinition Height="210"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="136"></RowDefinition>
         </Grid.RowDefinitions>
 
         <custom:BurgerButton Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
-
-        <Label Content="Pending tour requests" FontSize="20" HorizontalAlignment="Center" Width="204"></Label>
+        <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">Tour requests</Label>
+        <!--<Label Content="Pending tour requests" FontSize="20" HorizontalAlignment="Center" Width="204"></Label>-->
         <GroupBox Grid.Column="0" Grid.Row="1" Width="350">
             <GroupBox.Header>
                 <Label Content="Filters" FontSize="13"></Label>
@@ -35,10 +35,10 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Label Content="Country:" Grid.Row="0" Grid.Column="0" FontSize="13"/>
@@ -59,15 +59,15 @@
                 <Label Content="Max capacity:" Grid.Row="1" Grid.Column="2" FontSize="13"/>
                 <WPFExtended:UIntegerUpDown Grid.Row="1" Grid.Column="3" Height="27" HorizontalAlignment="Left" Width="60" Margin="2,0,0,0" Value="{Binding MaxAttendants}"/>
 
-                <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply filter" Command="{Binding FilterCmd}" Width="124" Height="27" FontSize="13" VerticalAlignment="Center"/>
-                <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Clear filter" Command="{Binding ClearFilterCmd}" Width="124" Height="27" FontSize="13" VerticalAlignment="Center"/>
+                <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply filter" Command="{Binding FilterCmd}" Style="{StaticResource BasicButton}" VerticalAlignment="Center"/>
+                <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Clear filter" Command="{Binding ClearFilterCmd}" Style="{StaticResource BasicButton}" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>
         
         <ListView x:Name="TourRequestlw" Grid.Row="2" Grid.Column="0" Width="350" ItemsSource="{Binding TourRequests}" SelectedItem="{Binding SelectedTourRequest}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Width="317">
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch">
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
@@ -75,10 +75,10 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         
-                        <Grid Height="144" Width="317">
+                        <Grid Height="144">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="170"></ColumnDefinition>
-                                <ColumnDefinition Width="140"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="113"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
@@ -93,13 +93,13 @@
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                                <Label>Tour request from:</Label>
-                                <Label Content="{Binding Tourist.Name}"/>
+                                <Label>From:</Label>
+                                <Label Content="{Binding Name}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                                 <Label>Tour type:</Label>
-                                <Label Content="{Binding TourRequestType}"/>
+                                <Label Content="{Binding Type}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
@@ -121,25 +121,21 @@
 
                             <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
                                 <Label>Proposed countries:</Label>
-                                <Label Content="{Binding ShortLocation.Country}"/>
+                                <Label Content="{Binding Countries}"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
                                 <Label>Proposed cities:</Label>
-                                <Label Content="{Binding ShortLocation.City}"/>
+                                <Label Content="{Binding Cities}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal">
-                                <Label>Data when requested:</Label>
-                                <Label Content="{Binding RequestedDate, StringFormat={}{0:MM/dd/yyyy}}"/>
-                            </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Content="Go back" Grid.Row="3" Grid.Column="0" Height="37" Width="80" FontSize="13" VerticalAlignment="Top" Margin="0,20,0,0" Command="{Binding CloseCmd}"></Button>
+        <Button Content="Go back" Grid.Row="3" Grid.Column="0" Style="{StaticResource BasicButton}" VerticalAlignment="Top" Margin="0,20,0,0" Command="{Binding CloseCmd}"></Button>
 
         <custom:BurgerMenu Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-4,0,0,0">
         </custom:BurgerMenu>

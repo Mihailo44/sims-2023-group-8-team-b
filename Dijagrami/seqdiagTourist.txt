@@ -1,0 +1,74 @@
+@startuml
+
+Actor User as U
+Participant WPF as W
+Participant TouristNotificationService as TNS
+Participant TouristNotificationRepository as TNR
+Participant Location as L
+
+U -> W: Inputs tour data and presses button
+W -> W ++: CreateTourExecute()
+
+opt canHandleTourRequest:
+   W -> TNS ++: Create(notification)
+   TNS -> TNR ++: Create(notification)
+   TNR -> TNS --: notification
+   TNS -> W --: notification
+   W -> TNS --++: NotifyAboutNewTour(newTour, tourRequests)
+
+   loop tourRequests:
+      TNS -> L ++: Equals(newTour.ShortLocation)
+      alt newLocation.City == city && newLocation.Country == country:
+         L -> TNS: true
+      else
+         L -> TNS --: false
+      end
+      
+      opt equalByLocation:
+         TNS -> TNS ++: IsNotified(request.TouristID, message)
+         TNS -> TNR ++: GetAll()
+         TNR -> TNS --: notifications
+         TNS -> TNS --: notifiedStatus
+
+         opt !notifiedStatus:
+            TNS -> TNR ++: Create(notification)
+            TNR -> TNS --: notification
+         end
+      end
+
+      opt equalByLanguage:
+         TNS -> TNS ++: IsNotified(request.TouristID, message)
+         TNS -> TNR ++: GetAll()
+         TNR -> TNS --: notifications
+         TNS -> TNS --: notifiedStatus
+
+         opt !notifiedStatus:
+            TNS -> TNR ++: Create(notification)
+            TNR -> TNS --: notification
+            TNS -> TNS --
+         end
+      end
+   end
+end
+
+U -> W ++: Open notification window
+W -> W ++
+W -> TNS ++: GetAll()
+TNS -> TNR ++: GetAll()
+TNR -> TNS --: notifications
+TNS -> W --: notifications
+W -> W --
+
+U -> W: Select new tour notification
+
+W -> W: SelectedNotification
+W -> W ++: NotifyExecute()
+alt SelectedNotification.Type == SUGGESTED_TOUR:
+   W -> W: TourDisplay(loggedInTourist, SelectedNotification.Tour)
+else SelectedNotification.Type == TOUR_REQUEST_ACCEPTED:
+   W -> W --: TourDisplay(loggedInTourist, SelectedNotification.Tour)
+end
+
+W -> U --
+
+@enduml

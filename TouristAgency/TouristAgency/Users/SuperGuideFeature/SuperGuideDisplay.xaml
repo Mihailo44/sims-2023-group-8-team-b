@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="TouristAgency.Users.SuperGuideFeature.SuperGuideDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:custom = "clr-namespace:TouristAgency.Design.Guide.Controls" 
+             xmlns:local="clr-namespace:TouristAgency.Users.SuperGuideFeature"
+             mc:Ignorable="d" 
+             Height="600" Width="370" Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="37px"></RowDefinition>
+            <RowDefinition Height="160px"></RowDefinition>
+            <RowDefinition Height="305px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <custom:BurgerButton Grid.Row="0" Grid.Column="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,4,0,0"></custom:BurgerButton>
+        <custom:BurgerMenu Grid.RowSpan="10" Grid.ColumnSpan="10" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">Super guide program</Label>
+
+        <TextBlock Grid.Row="1" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Center">
+            TouristAgency respects loyalty and hardwork from its employees, 
+            therefore we have rolled out the <Bold>super guide program.</Bold> By having <Bold>at least 20</Bold> tours with an <Bold>average above 4.0 yearly,</Bold> you are entitled to the title of <Bold>super guide</Bold>.
+        </TextBlock>
+
+        <StackPanel Grid.Row="2" Margin="0,5,0,0">
+            <Label FontSize="20">The benefits are:</Label>
+            <TextBlock FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Left" Margin="0,5,0,0">
+                - Your tour listing will always appear on top when tourists search by language
+            </TextBlock>
+
+            <TextBlock FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Left" Margin="0,5,0,0">
+                - Your tours listing will have special markings (i.e. borders, effects) signaling that they are from a super guide
+            </TextBlock>
+
+            <TextBlock FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Left" Margin="0,5,0,0">
+                - You will recieve a salary bonus for each tour you do while maintaining the super guide program
+            </TextBlock>
+
+            <TextBlock FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Left" Margin="0,5,0,0">
+                To learn more, please write us at:
+                hr@travelagency.com
+            </TextBlock>
+        </StackPanel>
+
+        <Button Grid.Row="3"  Style="{StaticResource BasicButton}" Command="{Binding CloseCmd}" VerticalAlignment="Center" Margin="0,0,0,30">OK</Button>
+    </Grid>
+</UserControl>

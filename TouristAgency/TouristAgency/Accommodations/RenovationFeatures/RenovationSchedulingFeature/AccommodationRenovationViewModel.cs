@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -62,12 +62,8 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         private void FillCollection()
         {
             PossibleRenovationDates.Clear();
-            List<Renovation> renovationSuggestions = new List<Renovation>();
-            renovationSuggestions = _renovationService.GeneratePotentialRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService);
-            foreach(var renovation in renovationSuggestions)
-            {
-                PossibleRenovationDates.Add(renovation);
-            }
+            List<Renovation> renovationSuggestions = _renovationService.GeneratePotentialRenovations(StartDate,EndDate,EstimatedDuration, SelectedAccommodation, _reservationService);
+            PossibleRenovationDates.AddRange(renovationSuggestions);
         }
 
         public DateTime StartDate
@@ -79,7 +75,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 {
                     _start = value;
                     EndDate = _start.AddDays(EstimatedDuration);
-                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -93,7 +88,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 {
                     _end = value;
                     OnPropertyChanged(nameof(EndDate));
-                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -106,7 +100,6 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
                 if(_estimatedDuration != value)
                 {
                     _estimatedDuration = value;
-                    SearchCmd.OnCanExecuteChanged();
                 }
             }
         }
@@ -119,7 +112,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         public void CreateCmdExecute()
         {
             RenovationDescriptionDialogue x = new(SelectedRenovation);
-            x.Show();
+            x.ShowDialog();
         }
 
         public bool CanSearchCmdExecute()
@@ -130,6 +123,10 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationSchedulingFe
         public void SearchCmdExecute()
         {
             FillCollection();
+            if(PossibleRenovationDates.Count == 0)
+            {
+                MessageBox.Show("There are no avaliable dates in the selected time frame","Renovation Dialogue",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
         }
     }
 }

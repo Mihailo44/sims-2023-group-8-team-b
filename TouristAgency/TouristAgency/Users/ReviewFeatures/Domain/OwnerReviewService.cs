@@ -22,7 +22,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
 
         public List<OwnerReview> GetByOwnerId(int id)
         {
-            return OwnerReviewRepository.GetAll().FindAll(o => o.Reservation.Accommodation.OwnerId == id);
+            return OwnerReviewRepository.GetAll().FindAll(o => o.Reservation.Accommodation.Owner.ID == id);
         }
 
         public List<OwnerReview> GetReviewedReservationsByOwnerId(int id)
@@ -31,7 +31,7 @@ namespace TouristAgency.Users.ReviewFeatures.Domain
 
             foreach (var ownerReview in OwnerReviewRepository.GetAll())
             {
-                int ownerId = ownerReview.Reservation.Accommodation.OwnerId;
+                int ownerId = ownerReview.Reservation.Accommodation.Owner.ID;
 
                 if (ownerId == id && ownerReview.Reservation.Status == ReviewStatus.REVIEWED)
                 {

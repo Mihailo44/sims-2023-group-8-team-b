@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 using TouristAgency.Tours;
 
 namespace TouristAgency.Users
@@ -26,5 +28,26 @@ namespace TouristAgency.Users
             }
             return null;
         }
+
+        public Guide Create(Guide guide)
+        {
+            return GuideRepository.Create(guide);
+        }
+
+        public List<Guide> GetAll()
+        {
+            return GuideRepository.GetAll();
+        }
+
+        public Guide Update(Guide guide, int id)
+        {
+            return GuideRepository.Update(guide, id);
+        }
+
+        public void Delete(int id)
+        {
+            GuideRepository.Delete(id);
+        }
+
     }
 }

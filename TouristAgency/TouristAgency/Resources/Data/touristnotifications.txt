@@ -1,9 +1,9 @@
-0|18|-1|0|TOUR_REQUEST_ACCEPTED|Tour request accepted: koji put vec|True
-1|18|-1|0|SUGGESTED_TOUR|A new tour based on Serbia, Nis|True
-2|20|-1|0|SUGGESTED_TOUR|A new tour based on Serbia, Nis|True
-3|20|24|0|SUGGESTED_TOUR|A new tour based on Serbia, Novi Sad|True
-4|20|24|0|SUGGESTED_TOUR|A new tour based on German|True
-6|20|-1|0|SUGGESTED_TOUR|A new tour based on Esperanto|False
-7|18|-1|0|SUGGESTED_TOUR|A new tour based on Esperanto|True
-8|18|-1|0|SUGGESTED_TOUR|A new tour based on Spain, Barcelona|False
-9|18|-1|0|SUGGESTED_TOUR|A new tour based on Chinese|True
+0|20|0|0|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+1|20|0|1|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+2|20|0|2|ATTENDANCE|Attendance confirmation|The guide has marked you as present at Serbia, Novi Sad. Please confirm.|False
+3|20|1|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on English|Based on your previous requests, a new tour with the language English is available. Check it out!|False
+4|20|1|0|SUGGESTED_TOUR_LOCATION|A new tour based on Spain, Barcelona|Based on your previous requests, a new tour with the location Spain, Barcelona is available. Check it out!|False
+5|20|2|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Novi Sad|Based on your previous requests, a new tour with the location Serbia, Novi Sad is available. Check it out!|False
+6|20|2|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on Serbian|Based on your previous requests, a new tour with the language Serbian is available. Check it out!|False
+7|20|4|0|SUGGESTED_TOUR_LOCATION|A new tour based on Serbia, Belgrade|Based on your previous requests, a new tour with the location Serbia, Belgrade is available. Check it out!|False
+8|20|4|0|SUGGESTED_TOUR_LANGUAGE|A new tour based on Esperanto|Based on your previous requests, a new tour with the language Esperanto is available. Check it out!|False

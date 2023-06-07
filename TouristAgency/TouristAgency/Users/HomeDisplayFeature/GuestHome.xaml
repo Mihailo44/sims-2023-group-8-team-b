@@ -8,6 +8,10 @@
         mc:Ignorable="d"
          Height="700" Width="1200">
     <Grid Background="#FFFBF3">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
+            <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="-Click the button from the menu for the option you want."/><LineBreak/><Run/><LineBreak/><Run Text="-If you find it hard to do something, you can always click the help button which is located on the left in every section from the menu."/><LineBreak/><Run/><LineBreak/><Run Text="-You will not be able to see your ratings from the owner until you rate the owner and the accommodation in the section Review and recommendation."/><LineBreak/></TextBlock>
+        </StackPanel>
+
         <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
 
         <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-25" Background="#F4F1BB">
@@ -26,7 +30,7 @@
                 </StackPanel>
             </Button>
             <Separator Width="100" Height="20" Background="Transparent"></Separator>
-            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent">
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ShowHelpMenuCmd}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
                     <TextBlock>Help</TextBlock>
@@ -39,17 +43,65 @@
 
             <Button Content="Display and reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command ="{Binding Path=AccommodationDisplayCmd}"/>
             <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=OwnerReviewCreationCmd}"/>
-            <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReviewDisplayCmd}"/>
             <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=PostponementRequestDisplayCmd}"/>
-            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=AnywhereAnytimeCreationCmd}"/>
             <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
-            <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
-            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+            <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ForumDisplayCmd}"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReportDisplayCmd}"/>
         </StackPanel>
 
-        <Image Source="../../Resources/Image/user-check-guest.png" Height="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="600,75,0,0"/>
-        <Label Content="{Binding WelcomeUsername}" Foreground="#89865B" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" Margin="550,275,0,0" VerticalAlignment="Top" Width="300"/>
-        <Label Content="Book your vacation and enjoy!" Foreground="#89865B" FontWeight="Bold" FontSize="25"  HorizontalAlignment="Left" Margin="516,342,0,0" VerticalAlignment="Top"/>
-
+        <Image Source="../../Resources/Image/user-check-guest.png" Panel.ZIndex="999" Height="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="600,162,0,0"/>
+        <Label Content="{Binding WelcomeUsername}" Panel.ZIndex="999" Foreground="#89865B" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" Margin="550,367,0,0" VerticalAlignment="Top" Width="300"/>
+        <Label Content="Book your vacation and enjoy!" Panel.ZIndex="999" Foreground="#89865B" FontWeight="Bold" FontSize="25"  HorizontalAlignment="Left" Margin="516,420,0,0" VerticalAlignment="Top"/>
+        <!--<Label Content="Our top 2 destinations:" FontSize="25" FontWeight="SemiBold" Foreground="#89865B" FontStyle="Italic" HorizontalAlignment="Left" Margin="225,362,0,0" VerticalAlignment="Top"/>-->
+        <!--<Label Content="Paris" FontSize="20" FontWeight="SemiBold" Foreground="#89865B" FontStyle="Italic" HorizontalAlignment="Left" Margin="330,434,0,0" VerticalAlignment="Top"/>-->
+        <!--<TextBlock HorizontalAlignment="Left" FontSize="15" Foreground="#89865B" FontWeight="SemiBold" FontStyle="Italic" Margin="225,471,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="196" Width="266"><Run Text="There are a thousands things to do and see in Paris and however much time you have here, it won’t be enough:"/><LineBreak/><Run Text="Climb to the top of the Eiffel Tower, visit the Louvre, see many shows and exhibitions...read in French in the Tuileries garden, and quite simply take the time to experience the Parisian way of life!"/></TextBlock>-->
+        <Image Source="../../Resources/Image/eiffel-tower-final-guest.png" Margin="805,0,80,368" Opacity="0.15"/>
+        <!--<TextBlock HorizontalAlignment="Left" FontSize="15" Foreground="#89865B" FontWeight="SemiBold" FontStyle="Italic" Margin="712,471,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" Height="180"><Run Text="With its thousand-year-old buildings such as the Forum Romanum or the Colosseum, beautiful piazzas and world-class art – not to mention Vatican City – Rome is one of the most beautiful cities in the world. "/><LineBreak/><Run Text="Rome, after all, is the capital of Italy, the so-called bel paese, or &quot;beautiful country&quot;."/></TextBlock>-->
+        <!--<Label Content="Rome" FontSize="20" FontWeight="SemiBold" Foreground="#89865B" FontStyle="Italic" HorizontalAlignment="Left" Margin="823,426,0,0" VerticalAlignment="Top"/>-->
+        <Image Source="../../Resources/Image/colosseum-guest.png" Margin="747,337,33,36" Opacity="0.2"/>
+        <Image Source="../../Resources/Image/statue-of-liberty-guest.png" Opacity="0.1" Margin="248,322,574,34"/>
+        <Image Source="../../Resources/Image/cairo-citadel-guest.png" Opacity="0.15" Margin="240,10,566,391"/>
+        <Canvas Visibility="{Binding Path=IsVisible}" HorizontalAlignment="Left" Background="#F4F1BB" Height="382" Panel.ZIndex="10000" Margin="383,166,0,0" VerticalAlignment="Top" Width="633">
+            <Label Content="Welcome!!!" Panel.ZIndex="10000" Foreground="#89865B" FontSize="35" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Canvas.Left="10" Canvas.Top="10"/>
+            <TextBlock Panel.ZIndex="10000" Foreground="Black" HorizontalAlignment="Center" FontSize="25" TextWrapping="Wrap" Text="{Binding Path= Text}" VerticalAlignment="Top" Height="142" Width="498" Canvas.Left="68" Canvas.Top="88"/>
+            <Button IsEnabled="{Binding Path=IsEnabled}" Content="Next" FontSize="25" FontWeight="SemiBold" Background="#EBD789" Panel.ZIndex="10000" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=NextCmd}" Canvas.Left="403" Canvas.Top="303">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Content="Skip" FontSize="25" FontWeight="SemiBold" Background="#EBD789" Panel.ZIndex="10000" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=SkipCmd}" Canvas.Left="516" Canvas.Top="303">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <ProgressBar Minimum="0" Maximum="3" Panel.ZIndex="10000" Foreground="#EBD789" Background="White" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="300" Value="{Binding Path=ProgressValue}" Canvas.Left="166" Canvas.Top="235"/>
+        </Canvas>
+        <!--<Image Source="../../Resources/Image/flight4-guest.png"  Margin="341,222,577,204" RenderTransformOrigin="0.5,0.5" Opacity="0.4">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-10.987"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image Source="../../Resources/Image/destination4-guest.png" Width="150" Height="150" Margin="912,54,138,496" Opacity="0.4"/>
+        <Image Source="../../Resources/Image/suitcase2-guest.png" Width="150" Margin="814,305,236,149" RenderTransformOrigin="0.5,0.5" Opacity="0.4">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="22.035"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>-->
     </Grid>
 </UserControl>

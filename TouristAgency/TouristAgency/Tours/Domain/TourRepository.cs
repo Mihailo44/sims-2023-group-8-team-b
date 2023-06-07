@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours.BeginTourFeature.Domain;
@@ -32,7 +34,7 @@ namespace TouristAgency.Tours
         public Tour Create(Tour newTour)
         {
             newTour.ID = GenerateId();
-            _tours.Add(newTour);
+            _tours.Add(new Tour(newTour));
             _storage.Save(_tours);
             NotifyObservers();
             return newTour;
@@ -83,7 +85,7 @@ namespace TouristAgency.Tours
             {
                 foreach (Tour tour in _tours)
                 {
-                    if (tour.ShortLocationID == location.Id)
+                    if (tour.ShortLocationID == location.ID)
                     {
                         tour.ShortLocation = new Location(location);
                     }
@@ -93,6 +95,7 @@ namespace TouristAgency.Tours
 
         public void LoadPhotosToTours(List<Photo> photos)
         {
+            Photo defaultPhoto = new Photo(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Resources\\Image\\TourImage\\none.jpeg", 'T', -1);
             foreach (Tour tour in _tours)
             {
                 foreach (Photo photo in photos)
@@ -101,6 +104,10 @@ namespace TouristAgency.Tours
                     {
                         tour.Photos.Add(new Photo(photo));
                     }
+                }
+                if(tour.Photos.Count == 0)
+                {
+                    tour.Photos.Add(defaultPhoto);
                 }
             }
         }
@@ -133,6 +140,16 @@ namespace TouristAgency.Tours
                     }
                 }
             }
+        }
+
+        public void LoadGuidesToTours(List<Guide> guides)
+        {
+            foreach(Guide guide in guides)
+                foreach(Tour tour in _tours)
+                {
+                    if (tour.AssignedGuideID == guide.ID)
+                        tour.AssignedGuide = guide;
+                }
         }
 
         public void Subscribe(IObserver observer)

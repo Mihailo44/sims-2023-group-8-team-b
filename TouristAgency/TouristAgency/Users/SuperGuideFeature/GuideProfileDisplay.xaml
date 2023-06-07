@@ -9,7 +9,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Height="600" Width="370">
+        Height="600" Width="370" Background="White">
     <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="28px"></RowDefinition>
+            <RowDefinition Height="37px"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="33"></RowDefinition>
             <RowDefinition Height="33"></RowDefinition>
@@ -32,30 +32,39 @@
             <RowDefinition Height="75"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <custom:BurgerButton  Grid.Column="0" Grid.Row="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,4,0,0"></custom:BurgerButton>
+        <custom:BurgerButton Grid.Row="0" Grid.Column="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,4,0,0"></custom:BurgerButton>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">Profile display</Label>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="90" Width="307" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="15" BorderThickness="2" BorderBrush="Black">
+            <DockPanel Height="75" Width="290" VerticalAlignment="Stretch">
+                <Image Width="75" Height="75" HorizontalAlignment="Left" Source="../../Resources/Image/user-solid.png"></Image>
+                <StackPanel>
+                    <Label HorizontalAlignment="Center"  FontSize="16" Content="{Binding Name}"/>
+                    <Label HorizontalAlignment="Center"  FontSize="16" Margin="0,-12,0,0" Content="{Binding Username}"/>
+                    <Label HorizontalAlignment="Center"  FontSize="16" Margin="0,-12,0,0" Content="{Binding Status}"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
 
-        <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="90" Width="307" RadiusY="10" RadiusX="10" HorizontalAlignment="Center" VerticalAlignment="Center" StrokeThickness="2" Stroke="Black"/>
-        
         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Right">Number of tours (total):</Label>
-        <Label Grid.Row="2" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left">TBB</Label>
+        <Label Grid.Row="2" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left" Content="{Binding TotalTourCount}"/>
 
         <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Right">Number of tours (this year):</Label>
-        <Label Grid.Row="3" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left">TBB</Label>
+        <Label Grid.Row="3" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left" Content="{Binding YearlyTourCount}"/>
 
         <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Right">Average score:</Label>
-        <Label Grid.Row="4" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left">TBB</Label>
+        <Label Grid.Row="4" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left" Content="{Binding Score}" />
 
         <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Right">Favorite language:</Label>
-        <Label Grid.Row="5" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left">TBB</Label>
+        <Label Grid.Row="5" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left" Content="{Binding MostUsedLanguage}"/>
 
         <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Right">Favorite country:</Label>
-        <Label Grid.Row="6" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left">TBB</Label>
+        <Label Grid.Row="6" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left" Content="{Binding MostVisitedCountry}"/>
 
         <Label Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Right">Favorite city:</Label>
-        <Label Grid.Row="7" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left">TBB</Label>
+        <Label Grid.Row="7" Grid.Column="3"  FontSize="16" HorizontalAlignment="Left" Content="{Binding MostVisitedCity}"/>
 
         <Label Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Right">Progress towards super guide:</Label>
-        <ProgressBar Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left" Height="20px" Width="100px" VerticalAlignment="Center"/>
+        <ProgressBar Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left" Height="20px" Width="100px" VerticalAlignment="Center" Minimum="0" Maximum="4" Value="{Binding YearlyTourCount}"/>
 
         <Label Grid.Row="9" Grid.Column="0" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center">Best tour</Label>
 
@@ -70,26 +79,35 @@
         <Label Grid.Row="9" Grid.Column="2" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center">by tourist count</Label>
 
         <ListView Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=Tours}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Photo">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Height="30" Width="30" Source="{Binding Path=Photos[0].Link}"></Image>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
-                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Start date and time" DisplayMemberBinding="{Binding StartDateTime}"/>
-                    <GridViewColumn Header="Tourists" DisplayMemberBinding="{Binding CurrentAttendants}"/>
-                </GridView>
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+
+                    <Image Height="55" Width="55" Source="{Binding Photos[0].Link}">
+                    </Image>
+
+                    <StackPanel>
+                        <Label Content="{Binding Name}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{Binding StartDateTime}"/>
+                            <Label Content="{Binding CurrentAttendants}"/>
+                            <Label>/</Label>
+                            <Label Content="{Binding RemainingCapacity}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction CommandParameter="{Binding ID}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
-        <Button FontSize="13" Height="42" Width="81" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Command="{Binding CloseCmd}">Go back</Button>
+        <Button Style="{StaticResource BasicButton}" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Command="{Binding CloseCmd}">Go back</Button>
 
         <custom:BurgerMenu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="12" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-7,-0,164,-54">
         </custom:BurgerMenu>

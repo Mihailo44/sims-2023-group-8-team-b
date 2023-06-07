@@ -16,8 +16,23 @@
         </i:Interaction.Triggers>
 
         <StackPanel HorizontalAlignment="Center">
-            <StackPanel Margin="0,10,0,0">
-                <Label FontSize="24">Tours</Label>
+            <Label FontSize="28" Margin="0,0,0,0">TouristAgency
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding GuideHomeCmd}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Label>
+
+            <StackPanel>
+                <Label FontSize="21">Tours
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding GuideHomeCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+               
                 <Rectangle Fill="Black" Height="3" Width="200"/>
                 <Label FontSize="16">
                     <Label.Content>- Create tours</Label.Content>
@@ -46,7 +61,7 @@
             </StackPanel>
 
             <StackPanel Margin="0,10,0,0">
-                <Label FontSize="24">Profile</Label>
+                <Label FontSize="21">Profile</Label>
                 <Rectangle Fill="Black" Height="3" Width="200"/>
                 <Label FontSize="16">
                     <Label.Content>- My profile</Label.Content>
@@ -56,17 +71,44 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Label>
-                <Label FontSize="16">- Super guide program</Label>
-                <Label FontSize="16">- Leave us</Label>
+                
+                <Label FontSize="16">
+                    <Label.Content>- Super guide program</Label.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding SuperGuideCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+                
+                
+                <Label FontSize="16">
+                    <Label.Content>- Leave us</Label.Content>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding LeaveUsCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
             </StackPanel>
 
             <StackPanel Margin="0,10,0,0">
-                <Label FontSize="24">
+                <Label FontSize="21">
                     <Label.Content>Data and statistics</Label.Content>
                 </Label>
                 <Rectangle Fill="Black" Height="3" Width="200"/>
+
                 <Label FontSize="16">
-                    - Performance on tours
+                    - My reviews
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding ReviewsCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+
+                <Label FontSize="16">
+                    - Tour statistics
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
                             <i:InvokeCommandAction Command="{Binding TourStatisticsCmd}" />
@@ -83,9 +125,15 @@
             </StackPanel>
 
             <StackPanel Margin="0,10,0,0">
-                <Label FontSize="24">Video tutorials</Label>
+                <Label FontSize="21">Video tutorials</Label>
                 <Rectangle Fill="Black" Height="3" Width="200"/>
-                <Label FontSize="16">- View all tutorials</Label>
+                <Label FontSize="16" Content="- View all tutorials">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding TutorialCmd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
             </StackPanel>
         </StackPanel>
     </Border>

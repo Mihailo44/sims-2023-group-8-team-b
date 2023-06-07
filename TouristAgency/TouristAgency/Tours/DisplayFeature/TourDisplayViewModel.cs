@@ -5,9 +5,11 @@ using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
-using TouristAgency.Tours;
+using TouristAgency.Notifications.Domain;
+using TouristAgency.Tours.DetailsFeature;
 using TouristAgency.Users;
 using TouristAgency.View.Display;
+using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours.DisplayFeature
 {
@@ -29,15 +31,17 @@ namespace TouristAgency.Tours.DisplayFeature
         private TouristService _touristService;
         private TourService _tourService;
         private TourTouristService _tourTouristService;
-
+        private VoucherService _voucherService;
+        private TouristNotificationService _touristNotificationService;
 
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand FilterCmd { get; set; }
         public DelegateCommand CreateCmd { get; set; }
         public DelegateCommand ClearCmd { get; set; }
         public DelegateCommand CancelCmd { get; set; }
+        public DelegateCommand DetailsCmd { get; set; }
 
-        public TourDisplayViewModel(Tourist tourist, Window window)
+        public TourDisplayViewModel(Tourist tourist)
         {
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
@@ -64,6 +68,8 @@ namespace TouristAgency.Tours.DisplayFeature
             _touristService = new TouristService();
             _tourTouristService = new TourTouristService();
             _tourService = new TourService();
+            _voucherService = new VoucherService();
+            _touristNotificationService = new TouristNotificationService();
         }
 
         private void InstantiateCollections()
@@ -72,14 +78,18 @@ namespace TouristAgency.Tours.DisplayFeature
             Countries = new ObservableCollection<string>(_tourService.GetAllCountries());
             Cities = new ObservableCollection<string>(_tourService.GetAllCities());
             Languages = new ObservableCollection<string>(_tourService.GetAllLanguages());
+            SelectedCountry = "";
+            SelectedCity = "";
+            SelectedLanguage = "";
         }
 
         private void InstantiateCommands()
         {
-            FilterCmd = new DelegateCommand(param => FilterCmdExecute(), param => CanFilterCmdExecute());
-            CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
-            ClearCmd = new DelegateCommand(param => ClearCmdExecute(), param => CanClearCmdExecute());
-            CancelCmd = new DelegateCommand(param => CancelCmdExecute(), param => CanCancelCmdExecute());
+            FilterCmd = new DelegateCommand(param => FilterExecute(), param => CanFilterExecute());
+            CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
+            ClearCmd = new DelegateCommand(param => ClearExecute(), param => CanClearExecute());
+            CancelCmd = new DelegateCommand(param => CancelExecute(), param => CanCancelExecute());
+            DetailsCmd = new DelegateCommand(DetailsExecute, CanDetailsExecute);
         }
 
         public ObservableCollection<Tour> Tours
@@ -210,43 +220,45 @@ namespace TouristAgency.Tours.DisplayFeature
             set;
         }
 
-        public bool CanFilterCmdExecute()
+        public bool CanFilterExecute()
         {
             return true;
         }
 
-        private void FilterCmdExecute()
+        private void FilterExecute()
         {
             string country = SelectedCountry;
             string city = SelectedCity;
             string language = SelectedLanguage;
 
+            
             Tours = new ObservableCollection<Tour>(_tourService.Search(country, city, language, MinDuration, MaxDuration, NumberOfPeople));
 
             if (MinDuration == 0 && MaxDuration == 0)
             {
                 MessageBox.Show("You must change the value for min or max duration of tour.", "Alert");
             }
+            
         }
 
-        public bool CanClearCmdExecute()
+        public bool CanClearExecute()
         {
             return true;
         }
 
-        private void ClearCmdExecute()
+        private void ClearExecute()
         {
             Tours = new ObservableCollection<Tour>(_tourService.GetValidTours());
             MinDuration = 0;
             MaxDuration = 0;
         }
 
-        public bool CanCreateCmdExecute()
+        public bool CanCreateExecute()
         {
             return true;
         }
 
-        private void CreateCmdExecute()
+        private void CreateExecute()
         {
             Tour selectedTour = SelectedTour;
             if (selectedTour == null)
@@ -303,27 +315,51 @@ namespace TouristAgency.Tours.DisplayFeature
                     MessageBox.Show("Successfully made a reservation.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
+                _loggedInTourist.NumOfReservations++;
+                Voucher potentionalVoucher = _voucherService.WinVoucher(_loggedInTourist.ID, selectedTour.ID, _loggedInTourist.NumOfReservations);
+                if(potentionalVoucher != null) 
+                {
+                    _loggedInTourist.WonVouchers.Add(potentionalVoucher);
+                    _touristNotificationService.NotifyAboutWonVoucher(_loggedInTourist.ID);
+                }
+                _touristService.Update(_loggedInTourist, _loggedInTourist.ID);
                 _tourService.RegisterTourist(selectedTour.ID, _loggedInTourist, NumberOfReservation);
                 _tourTouristService.TourTouristRepository.Create(new TourTourist(selectedTour.ID, _loggedInTourist.ID));
                 _loggedInTourist.AppliedTours.Add(selectedTour);
+                NumberOfReservation = 0;
             }
             else
             {
-                MessageBox.Show("Number of reservation can not be a null!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Number of reservation can not be a zero!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public bool CanCancelCmdExecute()
+        public bool CanCancelExecute()
         {
             return true;
         }
 
-        private void CancelCmdExecute()
+        private void CancelExecute()
         {
             MinDuration = 0;
             MaxDuration = 0;
             NumberOfPeople = 0;
             NumberOfReservation = 0;
+        }
+
+        public bool CanDetailsExecute(object param)
+        {
+            return true;
+        }
+
+        public void DetailsExecute(object param)
+        {
+            SelectedTour = Tours.FirstOrDefault(t => t.ID == (int)param);
+            if(SelectedTour != null) 
+            {
+                TourDetailsDisplay display = new TourDetailsDisplay(SelectedTour);
+                display.Show();
+            }
         }
     }
 }

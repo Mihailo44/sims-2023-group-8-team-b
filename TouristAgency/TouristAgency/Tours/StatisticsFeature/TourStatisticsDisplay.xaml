@@ -17,7 +17,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27px"></RowDefinition>
+            <RowDefinition Height="32px"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="220"></RowDefinition>
             <RowDefinition Height="160"></RowDefinition>
@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <custom:BurgerButton VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
-
+        <Label FontSize="20" FontWeight="Bold" Grid.ColumnSpan="3" HorizontalAlignment="Center">Tour statistics</Label>
         <Label Content="Select a tour to view its statistics" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <ListView Grid.Row="2" 
@@ -34,7 +34,14 @@
                   Width="333" 
                   ItemsSource="{Binding Tours}" 
                   SelectedItem="{Binding SelectedTour}" 
-                  x:Name="_lw">
+                  x:Name="_lw"
+                   HorizontalContentAlignment="Stretch">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected}" />
+                </Style>
+            </ListView.ItemContainerStyle>
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
@@ -42,7 +49,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <ListView.View>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
@@ -58,7 +65,20 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel HorizontalAlignment="Stretch">
+                        <Image Height="55px" Width="55px" HorizontalAlignment="Left" Source="{Binding Photos[0].Link}"></Image>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="{Binding StartDateTime}"/>
+                        </StackPanel>
+                        <RadioButton IsChecked="{Binding IsSelected}" VerticalAlignment="Center" HorizontalAlignment="Right"></RadioButton>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <StackPanel Grid.Row="3" Grid.Column="0">
@@ -84,12 +104,11 @@
             </lvc:PieChart>
         </StackPanel>
 
-        <Button Grid.Row="4" 
+        <Button 
+                Style="{StaticResource BasicButton}"
+                Grid.Row="4" 
                 Grid.Column="0" 
                 Grid.ColumnSpan="2" 
-                Height="57" 
-                Width="138" 
-                FontSize="20" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Margin="0,11,0,0" 

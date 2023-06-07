@@ -6,16 +6,17 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:con="clr-namespace:TouristAgency.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="580" d:DesignWidth="900">
+             d:DesignHeight="600" d:DesignWidth="900">
 
     <UserControl.Resources>
         <con:DateConverter x:Key="DateConv"/>
     </UserControl.Resources>
-    
-    <Grid>
 
-        <ListView Height="auto" Width="850" Margin="0,5,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                  VerticalAlignment="Top"
+    <Grid>
+        <StackPanel Height="auto" Width="820" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                  VerticalAlignment="Top" Background="Snow">
+            <Label Padding="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="SemiBold" Content="Renovation History"/>
+            <ListView Height="auto" Width="820" Margin="0,5,0,0" VerticalAlignment="Top"
                   ItemsSource="{Binding Renovations}"
                   SelectedItem="{Binding SelectedRenovation}"
                   Style="{StaticResource BasicListView}"
@@ -38,9 +39,10 @@
                     </GridView.ColumnHeaderContainerStyle>
                     <GridViewColumn Width="210" Header="Start Date" DisplayMemberBinding="{Binding Start,Converter={StaticResource DateConv}}"/>
                     <GridViewColumn Width="210" Header="End Date" DisplayMemberBinding="{Binding End,Converter={StaticResource DateConv}}"/>
-                    <GridViewColumn Width="430" Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                    <GridViewColumn Width="410" Header="Description" DisplayMemberBinding="{Binding Description}"/>
                 </GridView>
             </ListView.View>
         </ListView>
+       </StackPanel>
     </Grid>
 </UserControl>

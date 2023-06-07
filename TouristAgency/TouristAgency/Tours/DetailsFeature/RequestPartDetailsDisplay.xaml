@@ -1,0 +1,51 @@
+﻿<Window x:Class="TouristAgency.Tours.DetailsFeature.RequestPartDetailsDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.Tours.DetailsFeature"
+        mc:Ignorable="d"
+        Title="View details of complex tour request part" Height="600" Width="450" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Name}" HorizontalContentAlignment="Center" FontSize="32" FontWeight="Bold"></Label>
+        <Label Grid.Row="1" Grid.Column="0" Content="City:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="2" Grid.Column="0" Content="Country:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="3" Grid.Column="0" Content="Language:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="4" Grid.Column="0" Content="Start date:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="5" Grid.Column="0" Content="Start time:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="6" Grid.Column="0" Content="Max attendants:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+        <Label Grid.Row="7" Grid.Column="0" Content="Description:" VerticalAlignment="Center" FontSize="28" FontWeight="Bold" Margin="10,0,0,0"></Label>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding TourRequest.ShortLocation.City}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding TourRequest.ShortLocation.Country}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
+        <Label Grid.Row="3" Grid.Column="1" Content="{Binding TourRequest.Language}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
+        <Label Grid.Row="4" Grid.Column="1" ContentStringFormat="{}{0:MM/dd/yyyy}" Content="{Binding TourRequest.StartDate}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
+        <Label Grid.Row="5" Grid.Column="1" ContentStringFormat="{}{0:HH:mm}" Content="{Binding TourRequest.StartDate}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
+        <Label Grid.Row="6" Grid.Column="1" Content="{Binding TourRequest.MaxAttendants}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
+        <Label Grid.Row="7" Grid.Column="1" Content="{Binding TourRequest.Description}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28"></Label>
+        
+        <Button Style="{StaticResource TouristBasicButtonWhite}" Grid.Row="10" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Command="{Binding CloseCmd}">
+            <StackPanel Orientation="Horizontal">
+                <Image Height="25" Source="../../Resources/Image/cancel.png" Margin="0,0,5,0"/>
+                <TextBlock>Close</TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</Window>

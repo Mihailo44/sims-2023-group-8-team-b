@@ -1,0 +1,28 @@
+﻿<Window x:Class="TouristAgency.Users.TutorialFeature.GuideTutorialDialogue"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TouristAgency.Users.TutorialFeature"
+        mc:Ignorable="d"
+        Title="GuideTutorialDialogue" Height="450" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30px"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <MediaElement Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" x:Name="MediaEl" UnloadedBehavior="Manual" LoadedBehavior="Manual"/>
+
+        <Image Grid.Row="1" Grid.Column="0" Source="..\..\Resources\Image\play-solid.png" MouseDown="OnMouseDownPlayMedia"/>
+        <Image Grid.Row="1" Grid.Column="1" Source="..\..\Resources\Image\pause-solid.png" MouseDown="OnMouseDownPauseMedia"/>
+        <Image Grid.Row="1" Grid.Column="2" Source="..\..\Resources\Image\stop-solid.png" MouseDown="OnMouseDownStopMedia"/>
+        <Slider Grid.Row="1" Grid.Column="3" Minimum="0" Maximum="100" Name="timelineSlider" Margin="5" ValueChanged="SeekToMediaPosition"/>
+    </Grid>
+</Window>

@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
-using System.Xml.Linq;
+using TouristAgency.Interfaces;
+using TouristAgency.Users;
 using TouristAgency.Util;
 
 namespace TouristAgency.TourRequests
 {
-    public class TourRequest : INotifyPropertyChanged, Interfaces.ISerializable, IDataErrorInfo
+    public class TourRequest : INotifyPropertyChanged, Interfaces.ISerializable, IValidate
     {
         private int _ID;
         private int _touristID;
+        private Tourist _tourist;
         private int _guideID;
+        private Guide _guide;
         private TourRequestStatus _status;
         private Location _shortLocation;
         private int _shortLocationID;
@@ -19,6 +22,10 @@ namespace TouristAgency.TourRequests
         private int _maxAttendants;
         private DateTime _startDate;
         private DateTime _endDate;
+        private int _complexTourRequestID;
+        private bool _isSelected;
+        private TourRequestType _type;
+        private DateTime _suggestedDate;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -34,10 +41,13 @@ namespace TouristAgency.TourRequests
             _ID = -1;
             _touristID = -1;
             _guideID = -1;
+            _complexTourRequestID = -1;
             _status = TourRequestStatus.PENDING;
             _shortLocation = new Location();
             _startDate = DateTime.Now;
             _endDate = DateTime.Now;
+            _type = TourRequestType.SINGLE;
+            _suggestedDate = DateTime.MinValue;
         }
 
         public TourRequest(TourRequestStatus status, Location shortLocation, string description, string language, int maxAttendants, DateTime startDate, DateTime endDate)
@@ -49,6 +59,9 @@ namespace TouristAgency.TourRequests
             _maxAttendants = maxAttendants;
             _startDate = startDate;
             _endDate = endDate;
+            _type = TourRequestType.SINGLE;
+            _complexTourRequestID = -1;
+            _suggestedDate = DateTime.MinValue;
         }
 
         public int ID 
@@ -59,6 +72,7 @@ namespace TouristAgency.TourRequests
                 if (value != _ID)
                 {
                     _ID = value;
+                    OnPropertyChanged("ID");
                 }
             }
         }
@@ -71,6 +85,20 @@ namespace TouristAgency.TourRequests
                 if (value != _touristID)
                 {
                     _touristID = value;
+                    OnPropertyChanged("TouristID");
+                }
+            }
+        }
+
+        public Tourist Tourist
+        {
+            get => _tourist;
+            set
+            {
+                if (value != _tourist)
+                {
+                    _tourist = value;
+                    OnPropertyChanged("Tourist");
                 }
             }
         }
@@ -83,6 +111,20 @@ namespace TouristAgency.TourRequests
                 if (value != _guideID)
                 {
                     _guideID = value;
+                    OnPropertyChanged("GuideID");
+                }
+            }
+        }
+
+        public Guide Guide
+        {
+            get => _guide;
+            set
+            {
+                if (value != _guide)
+                {
+                    _guide = value;
+                    OnPropertyChanged("Guide");
                 }
             }
         }
@@ -95,6 +137,7 @@ namespace TouristAgency.TourRequests
                 if (value != _status) 
                 {
                     _status = value;
+                    OnPropertyChanged("Status");
                 }
             }
         }
@@ -107,6 +150,7 @@ namespace TouristAgency.TourRequests
                 if (value != _shortLocation) 
                 {
                     _shortLocation = value;
+                    OnPropertyChanged("ShortLocation");
                 }
             }
         }
@@ -119,6 +163,7 @@ namespace TouristAgency.TourRequests
                 if (_shortLocationID != value)
                 {
                     _shortLocationID = value;
+                    OnPropertyChanged("ShortLocationID");
                 }
             }
         }
@@ -131,6 +176,7 @@ namespace TouristAgency.TourRequests
                 if (value != _description)
                 {
                     _description = value;
+                    OnPropertyChanged("Description");
                 }
             }
         }
@@ -156,6 +202,7 @@ namespace TouristAgency.TourRequests
                 if (value != _maxAttendants)
                 {
                     _maxAttendants = value;
+                    OnPropertyChanged("MaxAttedants");
                 }
             }
         }
@@ -186,58 +233,124 @@ namespace TouristAgency.TourRequests
             }
         }
 
-        public string Error => null;
-        public string this[string columnName]
+        public int ComplexTourRequestID
         {
-            get
+            get => _complexTourRequestID;
+            set
             {
-                if (columnName == "City")
+                if(value != _complexTourRequestID)
                 {
-                    if (string.IsNullOrEmpty(ShortLocation.City))
-                        return "Required field";
+                    _complexTourRequestID = value;
+                    OnPropertyChanged("ComplexTourRequestID");
                 }
-                else if (columnName == "Country")
-                {
-                    if (string.IsNullOrEmpty(ShortLocation.Country))
-                        return "Required field";
-                }
-                else if (columnName == "Language")
-                {
-                    if (string.IsNullOrEmpty(Language))
-                        return "Required field";
-                }
-                else if (columnName == "MaxAttendance")
-                {
-                    if (string.IsNullOrEmpty(MaxAttendants.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "StartDate")
-                {
-                    if (string.IsNullOrEmpty(StartDate.ToString()))
-                        return "Required field";
-                }
-                else if (columnName == "EndDate")
-                {
-                    if (string.IsNullOrEmpty(EndDate.ToString()))
-                        return "Required field";
-                }
-                return null;
-
             }
         }
 
-        private readonly string[] _validatedProperties = { "City", "Country", "Language", "MaxAttendance", "StartDate", "EndDate" };
+        public TourRequestType Type
+        {
+            get => _type;
+            set
+            {
+                if (value != _type)
+                {
+                    _type = value;
+                    OnPropertyChanged("Type");
+                }
+            }
+        }
+
+        private Dictionary<string, string> _validationErrors = new()
+        {
+            {"ShortLocation.City",string.Empty},
+            {"ShortLocation.Country",string.Empty},
+            {"Language",string.Empty},
+            {"MaxAttendants",string.Empty},
+        };
+
+        public Dictionary<string, string> ValidationErrors
+        {
+            get
+            {
+                return _validationErrors;
+            }
+            set
+            {
+                _validationErrors = value;
+                OnPropertyChanged("ValidationErrors");
+            }
+        }
+
+        public void ValidateSelf()
+        {
+            ValidationClear();
+
+            if (string.IsNullOrEmpty(ShortLocation.City))
+            {
+                ValidationErrors["ShortLocation.City"] = "*";
+            }
+            if (string.IsNullOrEmpty(ShortLocation.Country))
+            {
+                ValidationErrors["ShortLocation.Country"] = "*";
+            }
+            if (string.IsNullOrEmpty(Language))
+            {
+                ValidationErrors["Language"] = "*";
+            }
+            if (MaxAttendants == 0)
+            {
+                ValidationErrors["MaxAttendants"] = "*";
+            }
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
+
+        public void ValidationClear()
+        {
+            ValidationErrors["ShortLocation.City"] = string.Empty;
+            ValidationErrors["ShortLocation.Country"] = string.Empty;
+            ValidationErrors["Language"] = string.Empty;
+            ValidationErrors["MaxAttendants"] = string.Empty;
+            OnPropertyChanged(nameof(ValidationErrors));
+        }
 
         public bool IsValid
         {
             get
             {
-                foreach (var property in _validatedProperties)
+                foreach (var key in ValidationErrors.Keys)
                 {
-                    if (this[property] != null)
+                    if (!string.IsNullOrEmpty(ValidationErrors[key]))
+                    {
                         return false;
+                    }
                 }
+
                 return true;
+            }
+        }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (value != _isSelected)
+                {
+                    _isSelected = value;
+                    OnPropertyChanged("IsSelected");
+                }
+            }
+        }
+
+        public DateTime SuggestedDate
+        {
+            get => _suggestedDate;
+            set
+            {
+                if(value != _suggestedDate)
+                {
+                    _suggestedDate = value;
+                    OnPropertyChanged(nameof(SuggestedDate));
+                }
             }
         }
 
@@ -254,7 +367,8 @@ namespace TouristAgency.TourRequests
                 Language,
                 MaxAttendants.ToString(),
                 StartDate.ToString(),
-                EndDate.ToString()
+                EndDate.ToString(),
+                ComplexTourRequestID.ToString()
             };
             return csvValues;
         }
@@ -271,6 +385,7 @@ namespace TouristAgency.TourRequests
             MaxAttendants = Convert.ToInt32(values[7]);
             StartDate = Convert.ToDateTime(values[8]);
             EndDate = Convert.ToDateTime(values[9]);
+            ComplexTourRequestID = Convert.ToInt32(values[10]);
         }
     }
 }

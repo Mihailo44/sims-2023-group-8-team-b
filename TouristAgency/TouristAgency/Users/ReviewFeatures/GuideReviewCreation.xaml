@@ -5,14 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         xmlns:custom="clr-namespace:TouristAgency.Design.Tourist.Controls"
+        xmlns:custom2="clr-namespace:TouristAgency.Design.Guide.Controls"
         mc:Ignorable="d"
-        Title="TourGuideReviewCreation" Height="810" Width="1100" WindowStartupLocation="CenterScreen">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFF1E3DC" Offset="0.99"/>
-            <GradientStop Color="#FFDCD8D4" />
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="Finished tour and guide review" Height="810" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="790">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -24,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Select and review one of finished tours:" Grid.Row="0" Grid.Column="0" FontSize="32" FontWeight="Bold" Margin="0,5,0,0"></Label>
-        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="310" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}" FontSize="28" FontWeight="Bold" Foreground="Black">
+        <ListView x:Name="ToursListView" ScrollViewer.CanContentScroll="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="1030" Height="310" ItemsSource="{Binding FinishedTours}" SelectedItem="{Binding SelectedTour}" FontSize="28" FontWeight="Bold" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -39,12 +34,17 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Name" Width="270" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
                     <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Language" Width="140" DisplayMemberBinding="{Binding Language}"/>
                     <GridViewColumn Header="Start date" Width="210" DisplayMemberBinding="{Binding StartDateTime, StringFormat={}{0:MM/dd/yyyy}}"/>
-                    <GridViewColumn Header="Duration (h)" DisplayMemberBinding="{Binding Duration}"/>
+                    <GridViewColumn Header="More info" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=ToursListView}" CommandParameter="{Binding ID}" Width="130"></Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -73,12 +73,12 @@
                     <RowDefinition Height="48"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label Content="Tour quality:" Grid.Row="0" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Tour organization:" Grid.Row="1" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Tour's attractions:" Grid.Row="2" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Guide's knowledge:" Grid.Row="3" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Guide's language:" Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
-                <Label Content="Social interaction:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="Bold"></Label>
+                <Label Content="Tour quality:" Grid.Row="0" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Tour organization:" Grid.Row="1" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Tour's attractions:" Grid.Row="2" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Guide's knowledge:" Grid.Row="3" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Guide's language:" Grid.Row="4" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
+                <Label Content="Social interaction:" Grid.Row="5" Grid.Column="0" FontSize="28" FontWeight="SemiBold"></Label>
 
                 <custom:QualityReviewControl Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="5"></custom:QualityReviewControl>
                 <custom:OrganizationReviewControl Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5"></custom:OrganizationReviewControl>
@@ -87,20 +87,27 @@
                 <custom:LanguageReviewControl Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5"></custom:LanguageReviewControl>
                 <custom:SocialReviewControl Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="5"></custom:SocialReviewControl>
 
-                <Label Content="Additional comment:" Grid.Row="0" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="80" Width="416"></TextBox>
-
-                <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="6" Height="40" FontSize="24" FontWeight="Bold"></Label>
-                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="80" Width="416" Text="{Binding PhotoLinks}">
+                <Label Content="Additional comment:" Grid.Row="0" Grid.Column="6" Height="40" FontSize="24" FontWeight="SemiBold"></Label>
+                <TextBox Grid.Row="1" Grid.RowSpan="2" Grid.Column="6" Text="{Binding NewGuideReview.Comment}" Height="90" Width="425" FontSize="28">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </TextBox.Resources>
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
                     <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
                 </TextBox>
 
-                <Button Grid.Row="6" Grid.Column="6" Width="240" Height="40" Command="{Binding CreateCmd}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,0,6,0" Background="Transparent" BorderBrush="Transparent" Cursor="Hand">
+                <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="6" Height="40" FontSize="24" FontWeight="SemiBold"></Label>
+                <custom2:PhotoInputBigger Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="90" Width="425" FontSize="28">
+
+                </custom2:PhotoInputBigger>
+
+                <Button Style="{StaticResource TouristBasicButton}" Grid.Row="6" Grid.Column="6" Width="240" Command="{Binding CreateCmd}" HorizontalAlignment="Right" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../../Resources/Image/send.png" Margin="0,0,10,0"/>
+                        <Image Height="30" Source="../../Resources/Image/send2.png" Margin="0,0,6,0"/>
                         <TextBlock>Send review</TextBlock>
                     </StackPanel>
                 </Button>

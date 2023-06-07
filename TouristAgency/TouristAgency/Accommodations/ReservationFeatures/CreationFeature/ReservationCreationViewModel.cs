@@ -10,9 +10,11 @@ using TouristAgency.Accommodations.Domain;
 using TouristAgency.Accommodations.PostponementFeatures;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.ReservationFeatures.ReportFeature;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Users;
+using TouristAgency.Users.ForumFeatures.DisplayFeature;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature;
@@ -20,7 +22,7 @@ using TouristAgency.Users.SuperGuestFeature.Domain;
 
 namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
 {
-    public class ReservationCreationViewModel : ViewModelBase, ICloseable, ICreate
+    public class ReservationCreationViewModel : HelpMenuViewModelBase, ICloseable, ICreate
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -56,6 +58,9 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
+        public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
+        public DelegateCommand GuestReportDisplayCmd { get; set; }
+        public DelegateCommand ForumDisplayCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
 
@@ -63,11 +68,12 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = window;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
 
             InstantiateServices();
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 
@@ -112,6 +118,9 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
+            AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
+            ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
+            GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param => CanOpenGuestReportDisplayCmdExecute());
         }
 
         private void DisplayUser()
@@ -398,9 +407,9 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
             if (selectedAccommodation.MaxGuestNum >= NumOfPeople && selectedAccommodation.MinNumOfDays <= NumOfDays && newReservation != null)
             {
                 newReservation.Accommodation = selectedAccommodation;
-                newReservation.AccommodationId = selectedAccommodation.Id;
+                newReservation.Accommodation.Id = selectedAccommodation.Id;
                 newReservation.Guest = _loggedInGuest;
-                newReservation.GuestId = _loggedInGuest.ID;
+                newReservation.Guest.ID = _loggedInGuest.ID;
                 _reservationService.Create(newReservation);
                 Reservations.Remove(newReservation);
                 _superGuestTitleService.UsePoint(_loggedInGuest.ID);
@@ -466,6 +475,36 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
         public void OpenGuestReviewDisplayCmdExecute()
         {
             _app.CurrentVM = new GuestReviewDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenAnywhereAnytimeCreationCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenAnywhereAnytimeCreationCmdExecute()
+        {
+            _app.CurrentVM = new AnywhereAnytimeCreationViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenForumDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenForumDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestForumDisplayViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenGuestReportDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReportDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReportDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanOpenHomeCmdExecute()

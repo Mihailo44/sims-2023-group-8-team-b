@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TouristAgency.Accommodations.Domain;
 using TouristAgency.Interfaces;
 using TouristAgency.Users;
@@ -52,12 +49,9 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
                 return null;
 
             currentReservation.Accommodation = updatedReservation.Accommodation;
-            currentReservation.AccommodationId = updatedReservation.AccommodationId;
-            if (currentReservation.Start != updatedReservation.Start || currentReservation.End != updatedReservation.End)
-            {
-                currentReservation.Start = updatedReservation.Start;
-                currentReservation.End = updatedReservation.End;
-            }
+            currentReservation.Accommodation.Id = updatedReservation.Accommodation.Id;
+            currentReservation.Start = updatedReservation.Start;
+            currentReservation.End = updatedReservation.End;
             currentReservation.Status = updatedReservation.Status;
             currentReservation.OStatus = updatedReservation.OStatus;
 
@@ -86,10 +80,11 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
         {
             foreach (var reservation in _reservations)
             {
-                Guest guest = guests.Find(g => g.ID == reservation.GuestId);
+                Guest guest = guests.Find(g => g.ID == reservation.Guest.ID);
                 if (guest != null)
                 {
                     reservation.Guest = guest;
+                    guest.Reservations.Add(reservation);
                 }
             }
         }
@@ -98,7 +93,7 @@ namespace TouristAgency.Accommodations.ReservationFeatures.Domain
         {
             foreach (var reservation in _reservations)
             {
-                Accommodation accommodation = accommodations.Find(a => a.Id == reservation.AccommodationId);
+                Accommodation accommodation = accommodations.Find(a => a.Id == reservation.Accommodation.Id);
                 if (accommodation != null)
                 {
                     reservation.Accommodation = accommodation;

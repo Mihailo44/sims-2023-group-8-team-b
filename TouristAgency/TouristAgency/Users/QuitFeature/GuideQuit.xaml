@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="TouristAgency.Users.QuitFeature.GuideQuit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:custom = "clr-namespace:TouristAgency.Design.Guide.Controls" 
+             xmlns:local="clr-namespace:TouristAgency.Users.QuitFeature"
+             mc:Ignorable="d" 
+             Height="600" Width="370" Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="155"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <custom:BurgerButton Grid.Row="0"  Grid.Column="0" Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
+        <custom:BurgerMenu Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
+        <Label Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold" Margin="0,-5,0,0" HorizontalAlignment="Center">Leave us</Label>
+
+        <Label Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold" Margin="0,-5,0,0" HorizontalAlignment="Center">We are sorry to see you go</Label>
+
+        <TextBlock  Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="20" TextWrapping="Wrap" TextAlignment="Center">
+            By terminating your contract with us, <Bold>all of your existing tours will be canceled</Bold> and all tourists registered to said tours will recieve a voucher. <Bold>This is irreversible.</Bold>
+        </TextBlock>
+
+        <TextBlock Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="20" TextWrapping="Wrap" TextAlignment="Center">
+            If you are ending your contract before the monthly payouts, contact HR to discuss your pay.
+        </TextBlock>
+
+        <TextBlock  Grid.Row="4" Grid.Column="0"  Grid.ColumnSpan="2" FontSize="20" TextWrapping="Wrap" TextAlignment="Center">
+            <Bold>If we can do something to change your mind, please contact us at:</Bold>
+            <Bold>hr@touristagency.com</Bold>
+        </TextBlock>
+
+        <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Consent}">
+                <CheckBox.Content>I have read the above statements</CheckBox.Content>
+                <CheckBox.LayoutTransform>
+                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                </CheckBox.LayoutTransform>
+            </CheckBox>
+        </DockPanel>
+        
+        <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Style="{StaticResource BasicButton}" VerticalAlignment="Top" Command="{Binding QuitCmd}">I wish to leave</Button>
+            <Button Grid.Column="1" Style="{StaticResource BasicButton}" VerticalAlignment="Top" Command="{Binding CloseCmd}">Cancel</Button>
+        </Grid>
+    </Grid>
+</UserControl>

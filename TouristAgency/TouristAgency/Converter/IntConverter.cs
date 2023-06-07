@@ -13,7 +13,6 @@ namespace TouristAgency.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int d = (int)value;
-            //string.Format($"{d}");
             return string.Format("{0}", d);
         }
 
@@ -24,7 +23,7 @@ namespace TouristAgency.Converter
 
             if (string.IsNullOrWhiteSpace(stringValue))
             {
-                return null;
+                return 1;
             }
             else
             {
@@ -34,7 +33,7 @@ namespace TouristAgency.Converter
                 }
                 else
                 {
-                    return 0;
+                    return 1;
                 }
             }
         }

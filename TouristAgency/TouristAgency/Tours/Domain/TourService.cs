@@ -22,6 +22,84 @@ namespace TouristAgency.Tours
             return TourRepository.Create(newTour);
         }
 
+        public List<Tour> GetAll()
+        {
+            return TourRepository.GetAll();
+        }
+
+        public Tour Update(Tour newTour, int id)
+        {
+            return TourRepository.Update(newTour, id);
+        }
+
+        public void Delete(int id)
+        {
+            TourRepository.Delete(id);
+        }
+
+        public int GetTourCount(int guideID)
+        {
+            return GetAll().FindAll(t => t.AssignedGuideID == guideID).Count();
+        }
+
+        public int GetYearlyTourCount(int year, int guideID)
+        {
+            return GetAll().FindAll(t => t.AssignedGuideID == guideID && t.StartDateTime.Year == year).Count();
+        }
+
+        public string GetMostUsedLanguage(int guideID)
+        {
+            var groups = GetAll().GroupBy(t => t.Language);
+            int max = -1;
+            string language = "";
+            foreach( var group in groups)
+            {
+                if(group.Count() > max)
+                {
+                    max = group.Count();
+                    language = group.Key;
+                }
+            }
+            return language;
+        }
+
+        public string GetMostVisitedCountry(int guideID)
+        {
+            var groups = GetAll().GroupBy(t => t.ShortLocation.Country);
+            int max = -1;
+            string country = "";
+            foreach (var group in groups)
+            {
+                if (group.Count() > max)
+                {
+                    max = group.Count();
+                    country = group.Key;
+                }
+            }
+            return country;
+        }
+
+        public string GetMostVisitedCity(int guideID)
+        {
+            var groups = GetAll().GroupBy(t => t.ShortLocation.City);
+            int max = -1;
+            string city = "";
+            foreach (var group in groups)
+            {
+                if (group.Count() > max)
+                {
+                    max = group.Count();
+                    city = group.Key;
+                }
+            }
+            return city;
+        }
+
+        public List<Tour> GetToursForReport(DateTime startDate, DateTime endDate)
+        {
+            return GetAll().FindAll(t => t.StartDateTime >= startDate && t.StartDateTime <= endDate && t.Status != TourStatus.CANCELLED && t.Status != TourStatus.ENDED);
+        }
+
         public List<Tour> GetTodayTours(int guideID)
         {
             List<Tour> todayTours = new List<Tour>();
@@ -42,7 +120,17 @@ namespace TouristAgency.Tours
 
         public List<Tour> GetValidTours()
         {
-            return TourRepository.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status == TourStatus.NOT_STARTED).ToList();
+            List<Tour> tours = TourRepository.GetAll().Where(t => t.StartDateTime.Date >= DateTime.Today.Date && t.Status == TourStatus.NOT_STARTED).ToList();
+            for(int i = 0; i < tours.Count; i++)
+            {
+                if (tours[i].AssignedGuide.Super == "super")
+                {
+                    Tour temptour = tours[i];
+                    tours.RemoveAt(i);
+                    tours.Insert(0, temptour);
+                }
+            }
+            return tours;
         }
 
         public List<Tour> GetFinishedToursByTourist(Tourist tourist)
@@ -58,6 +146,15 @@ namespace TouristAgency.Tours
         public List<Tour> GetActiveTours(Tourist tourist)
         {
             return TourRepository.GetAll().FindAll(t => t.RegisteredTourists.Contains(tourist) && t.Status == TourStatus.IN_PROGRESS);
+        }
+
+        public bool IsGuideBooked(Guide guide, DateTime startdate)
+        {
+            List<Tour> BookedTours = GetAll().FindAll(t => t.AssignedGuideID == guide.ID &&
+                                                startdate == t.StartDateTime);
+            if (BookedTours.Count == 0)
+                return false;
+            else return true;
         }
 
         public List<Tour> Search(string country, string city, string language, int minDuration, int maxDuration,

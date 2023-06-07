@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TouristAgency.Interfaces;
+using TouristAgency.Users;
 using TouristAgency.Util;
 
 namespace TouristAgency.TourRequests
@@ -81,9 +82,23 @@ namespace TouristAgency.TourRequests
             {
                 foreach (TourRequest request in _requests)
                 {
-                    if (request.ShortLocationID == location.Id)
+                    if (request.ShortLocationID == location.ID)
                     {
                         request.ShortLocation = new Location(location);
+                    }
+                }
+            }
+        }
+
+        public void LoadTouristsToTourRequests(List<Tourist> tourists)
+        {
+            foreach (Tourist tourist in tourists)
+            {
+                foreach (TourRequest request in _requests)
+                {
+                    if (request.TouristID == tourist.ID)
+                    {
+                        request.Tourist = tourist;
                     }
                 }
             }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TouristAgency.Interfaces;
 using TouristAgency.Util;
 
@@ -47,13 +44,14 @@ namespace TouristAgency.Accommodations.Domain
             if (currentAccommodation == null)
                 return null;
 
-            currentAccommodation.OwnerId = updatedAccommodation.OwnerId;
+            currentAccommodation.Owner.ID = updatedAccommodation.Owner.ID;
             currentAccommodation.Owner = updatedAccommodation.Owner;
             currentAccommodation.Name = updatedAccommodation.Name;
             currentAccommodation.MaxGuestNum = updatedAccommodation.MaxGuestNum;
             currentAccommodation.MinNumOfDays = updatedAccommodation.MinNumOfDays;
             currentAccommodation.AllowedNumOfDaysForCancelation = updatedAccommodation.AllowedNumOfDaysForCancelation;
             currentAccommodation.RecentlyRenovated = updatedAccommodation.RecentlyRenovated;
+            currentAccommodation.HotLocation = updatedAccommodation.HotLocation;
 
             _storage.Save(_accommodations);
             NotifyObservers();
@@ -80,9 +78,9 @@ namespace TouristAgency.Accommodations.Domain
             {
                 foreach (Accommodation accommodation in _accommodations)
                 {
-                    if (accommodation.LocationId == location.Id)
+                    if (accommodation.Location.ID == location.ID)
                     {
-                        accommodation.Location = new Location(location);
+                        accommodation.Location = location;
                     }
                 }
             }
@@ -90,28 +88,24 @@ namespace TouristAgency.Accommodations.Domain
 
         public void LoadPhotosToAccommodations(List<Photo> photos)
         {
-            foreach (Photo photo in photos)
+            foreach (Accommodation accommodation in _accommodations)
             {
-                foreach (Accommodation accommodation in _accommodations)
+                List<Photo> photo = photos.FindAll(p => p.ExternalID == accommodation.Id && p.Type == 'A');
+                if (photo != null)
                 {
-                    if (accommodation.Id == photo.ExternalID && photo.Type == 'A')
-                    {
-                        accommodation.Photos.Add(new Photo(photo));
-                    }
+                    accommodation.Photos.AddRange(photo);
                 }
             }
         }
 
         public void LoadOwnersToAccommodations(List<Owner> owners)
         {
-            foreach (Owner owner in owners)
+            foreach (Accommodation accommodation in _accommodations)
             {
-                foreach (Accommodation accommodation in _accommodations)
+                Owner owner = owners.Find(o => o.ID == accommodation.Owner.ID);
+                if (owner != null)
                 {
-                    if (accommodation.OwnerId == owner.ID)
-                    {
-                        accommodation.Owner = owner;
-                    }
+                    accommodation.Owner = owner;
                 }
             }
         }

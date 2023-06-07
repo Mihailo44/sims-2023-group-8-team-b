@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Accommodations.Domain;
-using TouristAgency.Accommodations.RenovationFeatures.DomainA;
+using TouristAgency.Accommodations.RenovationFeatures.Domain;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 
@@ -58,7 +58,7 @@ namespace TouristAgency.Accommodations.RenovationFeatures.RenovationHistoryFeatu
             else
             {
                 RenovationCancelationDialogue x = new RenovationCancelationDialogue(SelectedRenovation);
-                x.Show();
+                x.ShowDialog();
             }
 
         }

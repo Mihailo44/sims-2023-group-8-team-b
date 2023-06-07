@@ -15,15 +15,25 @@
 14|||Loznica|Serbia
 15|||Barcelona|Spain
 16|||Berlin|Germany
-17|||Barcelona|Spain
-18|||Barcelona|Spain
-19|||Novi Sad|Serbia
-20|||Nis|Serbia
-21|||Belgrade|Serbia
+17|||Novi Sad|Srbija
+18|||Beograd|Srbija
+19||||
+20|||Nica|France
+21|||Novi Sad|Serbia
+22|||Belgrade|Serbia
 23|||Nis|Serbia
-23|||Nis|Serbia
-25|||Novi Sad|Serbia
-25|||Novi Sad|Serbia
-26|||Belgrade|Serbia
-27|||Barcelona|Spain
-28|||Nis|Serbia
+24|||Belgrade|Serbia
+26||||
+26||||
+27||||
+29|||Barcelona|Spain
+29|||Barcelona|Spain
+31|||GVAE|vgw
+31|||GVAE|vgw
+35|||Novi Sad|Serbia
+35|||Novi Sad|Serbia
+35|||Novi Sad|Serbia
+35|||Novi Sad|Serbia
+37|||Novi Sad|Serbia
+37|||Novi Sad|Serbia
+38|||Novi Sad|Serbia

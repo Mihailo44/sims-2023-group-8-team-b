@@ -25,7 +25,6 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public GuestHome()
         {
             InitializeComponent();
-           
         }
     }
 }

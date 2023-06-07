@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
+using TouristAgency.Notifications.Domain;
 using TouristAgency.Tours.BeginTourFeature.Domain;
 using TouristAgency.Users;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Util;
-using TouristAgency.Vouchers;
 
 namespace TouristAgency.Tours.BeginTourFeature
 {
@@ -35,7 +35,7 @@ namespace TouristAgency.Tours.BeginTourFeature
         public DelegateCommand AddTouristToCheckpointCmd { get; set; }
         public DelegateCommand RemoveTouristFromCheckpointCmd { get; set; }
         public DelegateCommand LoadTouristsToCheckpointCmd { get; set; }
-        //public DelegateCommand BeginTourCmd { get; set; }
+        public DelegateCommand SaveCmd { get; set; }
 
         public ActiveTourDisplayViewModel(Guide guide, Tour tour)
         {
@@ -64,7 +64,6 @@ namespace TouristAgency.Tours.BeginTourFeature
 
         private void InstantiateCollections()
         {
-            //AvailableTours = new ObservableCollection<Tour>(_tourService.GetTodayTours(_loggedInGuide.ID));
             ArrivedTourists = new ObservableCollection<Tourist>();
             RegisteredTourists = new ObservableCollection<Tourist>();
         }
@@ -77,8 +76,8 @@ namespace TouristAgency.Tours.BeginTourFeature
                 param => CanRemoveTouristFromCheckpoint());
             LoadTouristsToCheckpointCmd = new DelegateCommand(param => LoadTouristsToCheckpoint(),
                 param => CanLoadTouristsToCheckpoint());
-            // BeginTourCmd = new DelegateCommand(param => BeginTourCmdExecute(), param => CanBeginTourCmdExecute());
             CreateCmd = new DelegateCommand(param => CreateCmdExecute(), param => CanCreateCmdExecute());
+            SaveCmd = new DelegateCommand(param => SaveExecute(), param => CanSaveExecute());
         }
 
         public void StartTour(Tour tour)
@@ -188,10 +187,7 @@ namespace TouristAgency.Tours.BeginTourFeature
                     TourCheckpoint selectedTourCheckpoint = SelectedTourCheckpoint;
                     _tourTouristCheckpointService.TourTouristCheckpointRepository.Create(new TourTouristCheckpoint(_selectedTour.ID,
                         selectedTourist.ID, selectedTourCheckpoint.CheckpointID));
-                    TouristNotification notification = new TouristNotification(selectedTourist.ID, TouristNotificationType.ATTENDANCE, "Question from guide about attendance");
-                    notification.Checkpoint = SelectedTourCheckpoint.Checkpoint;
-                    notification.CheckpointID = SelectedTourCheckpoint.CheckpointID;
-                    _touristNotificationService.TouristNotificationRepository.Create(notification);
+                    _touristNotificationService.NotifyAboutAttendance(selectedTourist.ID, SelectedTourCheckpoint.Checkpoint, SelectedTourCheckpoint.CheckpointID);
                 }
             }
         }
@@ -242,20 +238,6 @@ namespace TouristAgency.Tours.BeginTourFeature
             }
         }
 
-        /*public bool CanBeginTourCmdExecute()
-        {
-            return true;
-        }
-
-        public void BeginTourCmdExecute()
-        {
-            _selectedTour = SelectedTour;
-            RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _touristService.TouristRepository.GetAll()));
-            _tourService.ChangeTourStatus(_selectedTour.ID, TourStatus.IN_PROGRESS);
-            AvailableCheckpoints = _tourCheckpointService.GetTourCheckpointsByTourID(_selectedTour.ID, _checkpointService.CheckpointRepository.GetAll());
-            ListViewEnabled = false;
-        }*/
-
         public bool CanCreateCmdExecute()
         {
             return true;
@@ -284,15 +266,23 @@ namespace TouristAgency.Tours.BeginTourFeature
                 }
                 _tourService.ChangeTourStatus(_selectedTour.ID, TourStatus.ENDED);
 
-                //AvailableTours.Remove(_selectedTour);
-
                 AvailableCheckpoints.Clear();
                 ArrivedTourists.Clear();
                 RegisteredTourists.Clear();
-                //ListViewEnabled = true;
                 MessageBox.Show("Tour ended!", "Notification");
                 _app.CurrentVM = new GuideHomeViewModel();
             }
+        }
+
+        public bool CanSaveExecute()
+        {
+            return true;
+        }
+
+        public void SaveExecute()
+        {
+            MessageBox.Show("Succesfully saved started tour data!");
+            _app.CurrentVM = new GuideHomeViewModel();
         }
 
         public bool AllCheckpointsVisited()
@@ -307,23 +297,6 @@ namespace TouristAgency.Tours.BeginTourFeature
 
             return true;
         }
-
-        /*private bool CheckAndSelectStartedTour()
-        {
-            foreach (Tour tour in AvailableTours)
-            {
-                if (tour.Status == TourStatus.IN_PROGRESS)
-                {
-                    _selectedTour = tour;
-                    SelectedTour = tour;
-                    RegisteredTourists = new ObservableCollection<Tourist>(_tourTouristService.GetArrivedTourist(_selectedTour.ID, _touristService.TouristRepository.GetAll()));
-                    AvailableCheckpoints = new ObservableCollection<TourCheckpoint>(_tourCheckpointService.TourCheckpointRepository.GetByID(_selectedTour.ID));
-                    ListViewEnabled = false;
-                    return true;
-                }
-            }
-            return false;
-        }*/
 
         public void Update()
         {

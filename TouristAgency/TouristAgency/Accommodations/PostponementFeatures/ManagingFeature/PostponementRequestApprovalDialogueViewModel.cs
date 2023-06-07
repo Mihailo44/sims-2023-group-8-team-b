@@ -60,7 +60,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
         {
             Reservation reservation = _reservationService.ReservationRepository.GetById(SelectedRequest.Reservation.Id);
             PostponementRequest request = _postponementRequestService.PostponementRequestRepository.GetById(SelectedRequest.Id);
-            bool accommodationAvailability = _reservationService.IsReserved(reservation.AccommodationId, SelectedRequest.Start, SelectedRequest.End);
+            bool accommodationAvailability = _reservationService.IsReserved(reservation.Accommodation.Id, SelectedRequest.Start, SelectedRequest.End);
 
             if (!accommodationAvailability)
             {
@@ -79,6 +79,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
                 request.Comment = "Sorry, the accommodation is reserved in this timeframe";
                 _postponementRequestService.PostponementRequestRepository.Update(request, request.Id);
             }
+            Messenger.Reset();
             _window.Close();
         }
 
@@ -92,6 +93,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
             SelectedRequest.Status = PostponementRequestStatus.DENIED;
             _postponementRequestService.PostponementRequestRepository.Update(SelectedRequest, SelectedRequest.Id);
             Messenger.Default.Send(new SwitchViewModelMessage(new PostponementRequestCommentDialogueViewModel(SelectedRequest, _window)));
+            Messenger.Reset();
         }
     }
 }

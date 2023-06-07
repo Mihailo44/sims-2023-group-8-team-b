@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="TouristAgency.Accommodations.ReservationFeatures.ReportFeature.GuestReportDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.ReportFeature"
+        mc:Ignorable="d"
+        Height="700" Width="1200">
+    <Grid Background="#FFFBF3">
+        <StackPanel Grid.Row="0" Grid.Column="0" Panel.ZIndex="10000" Visibility="{Binding IsHelpMenuVisible}" Background="AntiqueWhite" Height="700" Width="270" Margin="200,0,730,0">
+            <TextBlock FontSize="14.5" TextWrapping="Wrap" Height="694"><Run Text="In this section you can generate report about your scheduled or canceled reservations."/><LineBreak/><Run/><LineBreak/><Run Text="All you have to do is put a date range in which you want your reservations and then click on Generate scheduled or Generate canceled depending on which reservations you want in your report."/><LineBreak/><Run/><LineBreak/><Run Text="When you click on one of those 2 buttons, if everything went well, a message will pop up to say that generating your report was successfull."/><LineBreak/><Run/><LineBreak/><Run Text="After that, report will be downloaded on your computer and you can open it whenever you want."/><LineBreak/></TextBlock>
+        </StackPanel>
+
+        <Rectangle HorizontalAlignment="Left" Height="674" Margin="-15,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="215"/>
+
+        <StackPanel Width="200" HorizontalAlignment="Left" Margin="0,0,0,-18" Background="#F4F1BB">
+            <Image Source="../../../Resources/Image/user-guest.png" Height="88" Margin="0,10,0,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding HomeCmd}" CommandParameter="{Binding ID}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
+            <Label HorizontalAlignment="Center" FontSize="14" FontWeight="SemiBold" Content="{Binding Username}"></Label>
+            <Button Height="25" Width="100" Background="Transparent" FontSize="14" FontWeight="SemiBold" BorderBrush="Transparent" Command="{Binding Path=CloseCmd}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../../Resources/Image/logout-guest.png" Margin="0,0,10,0"/>
+                    <TextBlock>Logout</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Width="100" Height="20" Background="Transparent"></Separator>
+            <Button Height="70" FontWeight="SemiBold" FontSize="20" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ShowHelpMenuCmd}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../../Resources/Image/play-arrow.png" Margin="0,0,10,0" Width="25"/>
+                    <TextBlock>Help</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Width="100" Height="44" Background="Transparent"></Separator>
+            <Label FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Center">
+                <TextBlock TextDecorations="Underline">Menu</TextBlock>
+            </Label>
+
+            <Button Content="Display and reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command ="{Binding Path=AccommodationDisplayCmd}"/>
+            <Button Content="Review and recommendation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=OwnerReviewCreationCmd}"/>
+            <Button Content="Review display" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=GuestReviewDisplayCmd}"/>
+            <Button Content="Move and cancel reservation" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=PostponementRequestDisplayCmd}"/>
+            <Button Content="Anywhere, anytime" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"  Command="{Binding Path=AnywhereAnytimeCreationCmd}"/>
+            <Button Content="Super-guest" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=SuperGuestDisplayCmd}"/>
+            <Button Content="Forum" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent" Command="{Binding Path=ForumDisplayCmd}"/>
+            <Button Content="Reservations report" FontSize="14" FontWeight="SemiBold" Height="40" Background="Transparent" BorderBrush="Transparent"/>
+        </StackPanel>
+
+        <Label Content="Reservations report" Foreground="#89865B" FontSize="30" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="222,0,0,0" VerticalAlignment="Top"/>
+
+        <GroupBox Margin="222,68,463,415" BorderBrush="Black" BorderThickness="1">
+            <GroupBox.Header>
+                <Label Content="Generate report" FontSize="20" FontWeight="SemiBold"></Label>
+            </GroupBox.Header>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="from:" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                <DatePicker Grid.Row="0" FontSize="14" FontWeight="SemiBold" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedDate="{Binding Path=Start}"/>
+                <Label Grid.Row="0" Grid.Column="2" Content="to:" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                <DatePicker Grid.Row="0" Grid.Column="3" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedDate="{Binding Path=End}"/>
+                <Button Grid.Row="1" Grid.ColumnSpan="2" FontSize="15" FontWeight="SemiBold" Background="#F4F1BB" Content="Generate scheduled" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="155" Command="{Binding Path=GenerateRegularReportCmd}" Margin="63,0,0,0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="Generate canceled" Grid.Row="1" Grid.Column="2"  FontSize="15" FontWeight="SemiBold" Background="#F4F1BB" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="155" Margin="34,0,0,0" Command="{Binding Path=GenerateCanceledReportCmd}">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </GroupBox>
+
+        <Image Source="../../../Resources/Image/pdf-guest.png" Margin="752,103,148,415" Opacity="0.7" />
+        <TextBlock FontSize="20" HorizontalAlignment="Left" Margin="242,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="293" Width="826"><Run Text="In this section you can generate report about your scheduled or canceled reservations."/><LineBreak/><Run/><LineBreak/><Run Text="All you have to do is put a date range in which you want your reservations and then click on Generate scheduled or Generate canceled depending on which reservations you want in your report."/><LineBreak/><Run/><LineBreak/><Run Text="When you click on one of those 2 buttons, if everything went well, a message will pop up to say that generating your report was successfull."/><LineBreak/><Run/><LineBreak/><Run Text="After that, report will be downloaded on your computer and you can open it whenever you want."/></TextBlock>
+        <Image Source="../../../Resources/Image/dot-guest.png" Margin="208,359,950,326"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,409,950,276"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,517,950,168"/>
+        <Image Source="/Resources/Image/dot-guest.png" Margin="208,598,950,87"/>
+    </Grid>
+</UserControl>

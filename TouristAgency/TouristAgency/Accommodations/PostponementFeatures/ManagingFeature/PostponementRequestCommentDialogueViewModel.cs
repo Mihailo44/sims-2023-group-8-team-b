@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
     {
         private PostponementRequestService _postponementRequestService;
         private PostponementRequest _postponementRequest;
-        private readonly App app = (App)Application.Current;
+        private readonly App _app;
         private readonly Window _window;
 
         public string Comment { get; set; }
@@ -24,6 +25,7 @@ namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
 
         public PostponementRequestCommentDialogueViewModel(PostponementRequest postponementRequest, Window window)
         {
+            _app = (App)Application.Current;
             _postponementRequestService = new();
             _postponementRequest = postponementRequest;
             _window = window;
@@ -52,6 +54,8 @@ namespace TouristAgency.Accommodations.PostponementFeatures.ManagingFeature
 
         public void CloseWindowExecute()
         {
+            Messenger.Reset();
+            
             _window.Close();
         }
     }

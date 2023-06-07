@@ -34,7 +34,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="btn" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Content="Log in" Width="200" Height="40" Margin="10,10,5,0" FontSize="21" FontWeight="SemiBold" Command="{Binding LoginCmd}" Style="{StaticResource BasicBtn}"/>
+        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Content="Log in" Width="200" Height="40" Margin="10,10,5,0" FontSize="21" FontWeight="SemiBold" Command="{Binding LoginCmd}" Style="{StaticResource BasicBtn}"/>
 
         <xctk:WatermarkTextBox Grid.Row="1" Grid.Column="1" Width="210" Height="33" FontSize="21" Watermark="Username" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Path=Username,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}"/>

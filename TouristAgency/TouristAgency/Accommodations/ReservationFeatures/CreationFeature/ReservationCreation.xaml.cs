@@ -32,5 +32,10 @@ namespace TouristAgency.Accommodations.ReservationFeatures.CreationFeature
             //DataContext = new AccommodationDisplayViewModel(guest, this);
             //_loggedInGuest = guest;
         }
+
+        private void MakeReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

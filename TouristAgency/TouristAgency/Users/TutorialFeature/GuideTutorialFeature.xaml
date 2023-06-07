@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="TouristAgency.Users.TutorialFeature.GuideTutorialFeature"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:custom="clr-namespace:TouristAgency.Design.Guide.Controls"
+             xmlns:local="clr-namespace:TouristAgency.Users.TutorialFeature"
+             mc:Ignorable="d" 
+             Height="600" Width="370" Background="#FEFDFF">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33px"></RowDefinition>
+            <RowDefinition Height="200px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <custom:BurgerButton Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
+        <custom:BurgerMenu Grid.RowSpan="10" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
+
+        <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">List of tutorials</Label>
+        
+        <GroupBox Grid.Row="1" Header="Actions performed on tours" FontWeight="Bold" Height="160" Width="350">
+            <StackPanel HorizontalAlignment="Center">
+                <Label></Label>
+                <TextBlock Text="How do I start a tour?" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\zapocinjanjeture.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+                <Label></Label>
+
+                <TextBlock Text="How do I create a tour" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\kreiranjeture.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+                <Label></Label>
+
+                <TextBlock Text="How do I cancel a tour" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\otkazivnajeture.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+                <Label></Label>
+
+                <TextBlock Text="How do I accept a regular tour request" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\prihvatanjezahteva.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+                <Label></Label>
+
+                <TextBlock Text="How do I accept a custom tour request" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\prihvatanjekompleksnog.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Header="Actions performed by the user" FontWeight="Bold" Width="350" Height="110">
+            <StackPanel HorizontalAlignment="Center">
+                <Label></Label>
+                <TextBlock Text="What infomartion is shown on my profile" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\profil.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+                <Label></Label>
+                <TextBlock Text="How do I become a super guide" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\profil.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+                <Label></Label>
+                <TextBlock Text="How do I quit working for TouristAgency" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\otkaz.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="3" Header="How do I see statistics" FontWeight="Bold" Width="350" Height="100">
+            <StackPanel Height="50" HorizontalAlignment="Center">
+                <Label></Label>
+                <TextBlock Text="The tour statistics screen" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                      <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\statistikature.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+                <Label></Label>
+                <TextBlock Text="The tour request statistics screen" TextDecorations="Underline" Foreground="Blue" FontWeight="Bold">
+                      <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding PlayVideoCmd}" CommandParameter="C:\\Users\\Ognjen\\Videos\\statistikazahtev.mkv"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+            </StackPanel>
+        </GroupBox>
+
+        <Button Grid.Row="4" VerticalAlignment="Top" Style="{StaticResource BasicButton}" Command="{Binding CloseCmd}" Margin="0,0,0,54">Go back</Button>
+    </Grid>
+</UserControl>

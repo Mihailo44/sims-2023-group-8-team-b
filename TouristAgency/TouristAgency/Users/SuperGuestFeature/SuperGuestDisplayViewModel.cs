@@ -8,14 +8,16 @@ using TouristAgency.Accommodations.PostponementFeatures;
 using TouristAgency.Accommodations.PostponementFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.CreationFeature;
 using TouristAgency.Accommodations.ReservationFeatures.Domain;
+using TouristAgency.Accommodations.ReservationFeatures.ReportFeature;
 using TouristAgency.Base;
+using TouristAgency.Users.ForumFeatures.DisplayFeature;
 using TouristAgency.Users.HomeDisplayFeature;
 using TouristAgency.Users.ReviewFeatures;
 using TouristAgency.Users.SuperGuestFeature.Domain;
 
 namespace TouristAgency.Users.SuperGuestFeature
 {
-    public class SuperGuestDisplayViewModel : ViewModelBase
+    public class SuperGuestDisplayViewModel : HelpMenuViewModelBase
     {
         private App _app;
         private Guest _loggedInGuest;
@@ -36,6 +38,9 @@ namespace TouristAgency.Users.SuperGuestFeature
         public DelegateCommand OwnerReviewCreationCmd { get; set; }
         public DelegateCommand SuperGuestDisplayCmd { get; set; }
         public DelegateCommand GuestReviewDisplayCmd { get; set; }
+        public DelegateCommand AnywhereAnytimeCreationCmd { get; set; }
+        public DelegateCommand ForumDisplayCmd { get; set; }
+        public DelegateCommand GuestReportDisplayCmd { get; set; }
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand HomeCmd { get; set; }
 
@@ -43,12 +48,13 @@ namespace TouristAgency.Users.SuperGuestFeature
         {
             _app = (App)Application.Current;
             _loggedInGuest = guest;
-            _window = window;
+            _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == "GuestHome");
 
             InstantiateServices();
             _superGuestTitleService.RefreshSuperGuestTitles(_guestService.GuestRepository.GetAll(), _reservationService.ReservationRepository.GetAll());
             InstantiateCollections();
             InstantiateCommands();
+            InstantiateHelpMenuCommands();
             DisplayUser();
         }
 
@@ -88,6 +94,9 @@ namespace TouristAgency.Users.SuperGuestFeature
             SuperGuestDisplayCmd = new DelegateCommand(param => OpenSuperGuestDisplayCmdExecute(), param => CanOpenSuperGuestDisplayCmdExecute());
             HomeCmd = new DelegateCommand(param => OpenHomeCmdExecute(), param => CanOpenHomeCmdExecute());
             GuestReviewDisplayCmd = new DelegateCommand(param => OpenGuestReviewDisplayCmdExecute(), param => CanOpenGuestReviewDisplayCmdExecute());
+            AnywhereAnytimeCreationCmd = new DelegateCommand(param => OpenAnywhereAnytimeCreationCmdExecute(), param => CanOpenAnywhereAnytimeCreationCmdExecute());
+            ForumDisplayCmd = new DelegateCommand(param => OpenForumDisplayCmdExecute(), param => CanOpenForumDisplayCmdExecute());
+            GuestReportDisplayCmd = new DelegateCommand(param => OpenGuestReportDisplayCmdExecute(), param => CanOpenGuestReportDisplayCmdExecute());
         }
 
         private void DisplayUser()
@@ -210,6 +219,26 @@ namespace TouristAgency.Users.SuperGuestFeature
             _app.CurrentVM = new GuestReviewDisplayViewModel(_loggedInGuest, _window);
         }
 
+        public bool CanOpenAnywhereAnytimeCreationCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenAnywhereAnytimeCreationCmdExecute()
+        {
+            _app.CurrentVM = new AnywhereAnytimeCreationViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenForumDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenForumDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestForumDisplayViewModel(_loggedInGuest, _window);
+        }
+
         public bool CanOpenHomeCmdExecute()
         {
             return true;
@@ -218,6 +247,16 @@ namespace TouristAgency.Users.SuperGuestFeature
         public void OpenHomeCmdExecute()
         {
             _app.CurrentVM = new GuestHomeViewModel(_loggedInGuest, _window);
+        }
+
+        public bool CanOpenGuestReportDisplayCmdExecute()
+        {
+            return true;
+        }
+
+        public void OpenGuestReportDisplayCmdExecute()
+        {
+            _app.CurrentVM = new GuestReportDisplayViewModel(_loggedInGuest, _window);
         }
 
         public bool CanCloseCmdExecute()

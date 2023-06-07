@@ -6,29 +6,30 @@
         xmlns:local="clr-namespace:TouristAgency.View.Home"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="TouristHome" Height="600" Width="1000" WindowStartupLocation="Manual" Left="0">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF9BB9D1" Offset="0.99"/>
-            <GradientStop Color="#FFF4D7FF" />
-        </LinearGradientBrush>
-    </Window.Background>
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        Title="Tourist home" Height="750" Width="1200" WindowStartupLocation="Manual" Left="0" Background="#E7F0FF">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="113*"></ColumnDefinition>
+            <ColumnDefinition Width="113*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="130"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="70"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
-
-        <Menu Grid.Row="0" Grid.Column="0" Height="auto" Width="335" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Background="Transparent">
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="28" FontWeight="Bold" Background="Transparent">
             <MenuItem Header="_Tour">
-                <MenuItem Header="Attendance on the tour" Command="{Binding TourAttendanceCmd}">
+                <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}">
+                    <MenuItem.Icon>
+                        
+                        <Image Source="../../Resources/Image/tours.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Attendance on the applied tour" Command="{Binding TourAttendanceCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/attendance.png"/>
                     </MenuItem.Icon>
@@ -38,46 +39,63 @@
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/review.png"/>
                     </MenuItem.Icon>
-                    
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_View">
-                <MenuItem Header="View and reservation tours" Command="{Binding TourDisplayCmd}">
-                    <MenuItem.Icon>
-                        <Image Source="../../Resources/Image/tours.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="View and create tour requests" Command="{Binding TourRequestCmd}">
+
+            <MenuItem Header="_Tour requests">
+                <MenuItem Header="Create tour requests" Command="{Binding TourRequestCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/create.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="View and create requests for complex tours">
+                <Separator />
+                <MenuItem Header="View your tour requests" Command="{Binding ListOfTourRequestsCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../../Resources/Image/create1.png"/>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <Separator />
                 <MenuItem Header="View statistics on tour requests" Command="{Binding TourRequestStatisticsCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/statistics.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Report">
-                <MenuItem Header="Generate voucher report">
+
+            <MenuItem Header="_Complex tour requests">
+                <MenuItem Header="Create requests for complex tours" Command="{Binding ComplexTourRequestCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/create1.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="View your complex tour requests" Command="{Binding ListOfComplexTourRequestsCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="_Voucher">
+                <MenuItem Header="View vouchers" Command="{Binding VouchersCmd}">
+                    <MenuItem.Icon>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Generate voucher report" Command="{Binding GenerateCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/report.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+
             <MenuItem Header="_Help">
                 <MenuItem Header="Where can I find my vouchers?" Command="{Binding HelpForVoucherCmd}">
                     <MenuItem.Icon>
-                        <Image Source="../../Resources/Image/voucher.png"/>
+                        <Image Source="../../Resources/Image/voucher1.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Which shortcuts I can use?">
+                <MenuItem Header="Which shortcuts I can use?" Command="{Binding ShortcutsCmd}">
                     <MenuItem.Icon>
                         <Image Source="../../Resources/Image/shortcut.png"/>
                     </MenuItem.Icon>
@@ -91,27 +109,52 @@
             </MenuItem>
         </Menu>
 
-        <StackPanel Grid.Row="0" Grid.RowSpan="5" Orientation="Vertical" HorizontalAlignment="Center" Margin="0,70,0,0">
-            <Image Height="210" Width="210">
-                <Image.Source>
-                    <BitmapImage UriSource="../../Resources/Image/userTourist.png"/>
-                </Image.Source>
-            </Image>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Your profile and statistic" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" FontStyle="Italic" Margin="0,15,0,0"></Label>
+        <Image Height="120" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0">
+            <Image.Source>
+                <BitmapImage UriSource="../../Resources/Image/user3.png"/>
+            </Image.Source>
+        </Image>
+        <Label Grid.Row="3" Content="{Binding Username}" Height="70" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+        
+        <Grid Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
 
-            <Label Content="{Binding Username}" Grid.Row="2" Height="70" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center"></Label>
-            <Label Content="Where would you like to go today?" FontSize="28"></Label>
-            <Button Grid.Row="4" Width="170" Height="45" Command="{Binding CloseCmd}" FontSize="28" FontWeight="Bold" Background="Transparent" Cursor="Hand" BorderBrush="Transparent" Margin="0,25,0,0">
+            <Label Grid.Row="0" Grid.Column="0" Content="First name:" FontSize="28" FontWeight="Bold"></Label>
+            <Label Grid.Row="1" Grid.Column="0" Content="Last name:" FontSize="28" FontWeight="Bold"></Label>
+            <Label Grid.Row="2" Grid.Column="0" Content="Birthday:" FontSize="28" FontWeight="Bold"></Label>
+            <Label Grid.Row="3" Grid.Column="0" Content="Address:" FontSize="28" FontWeight="Bold"></Label>
+            <Label Grid.Row="4" Grid.Column="0" Content="e-mail:" FontSize="28" FontWeight="Bold"></Label>
+
+            <Label Grid.Row="0" Grid.Column="1" Content="{Binding FirstName}" FontSize="28"></Label>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding LastName}" FontSize="28"></Label>
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding DateOfBirth}" FontSize="28"></Label>
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Address}" FontSize="28"></Label>
+            <Label Grid.Row="4" Grid.Column="1" Content="{Binding Email}" FontSize="28"></Label>
+
+            <Button Style="{StaticResource TouristBasicButtonWhite}" Height="45" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding CloseCmd}" Margin="0,8,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="../../Resources/Image/logout.png" Margin="0,0,10,0"/>
+                    <Image Height="32" Source="../../Resources/Image/logout1.png" Margin="0,0,10,0"/>
                     <TextBlock>Logout</TextBlock>
                 </StackPanel>
             </Button>
-        </StackPanel>
+        </Grid>
         
-        <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Image Width="100" Height="100" Cursor="Hand">
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1" Margin="0,10,0,0">
+            <Image Width="80" Height="80" Cursor="Hand">
                 <Image.Source>
-                    <BitmapImage UriSource="../../Resources/Image/notification-bell.png"/>
+                    <BitmapImage UriSource="../../Resources/Image/notification3.png"/>
                 </Image.Source>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDown">
@@ -119,10 +162,28 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-            <StackPanel Orientation="Horizontal">
-                <Label Content=""></Label>
-                <Label Content="new notification" FontSize="20"></Label>
-            </StackPanel>
         </StackPanel>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" TextWrapping="Wrap" TextAlignment="Justify" Width="500" FontSize="28" VerticalAlignment="Center">
+            Here you can see your tour reservation statistics per month. 
+            If you have at least 5 reservation this year, you earn a free voucher. 
+            You can only earn one voucher per year.
+        </TextBlock>
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="580" Height="350" Series="{Binding TourCountSeries}" LegendLocation="Top">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Number of reservations" FontWeight="Bold" FontSize="16" Foreground="Black" MinValue="0">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="1" IsEnabled="True" ></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis FontWeight="Bold" Title="Months" Foreground="Black">
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.DataTooltip>
+                <lvc:DefaultTooltip SelectionMode="OnlySender" FontSize="20"></lvc:DefaultTooltip>
+            </lvc:CartesianChart.DataTooltip>
+        </lvc:CartesianChart>
     </Grid>
 </Window>

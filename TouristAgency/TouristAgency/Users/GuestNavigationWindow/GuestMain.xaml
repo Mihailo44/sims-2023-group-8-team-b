@@ -9,8 +9,11 @@
         xmlns:req="clr-namespace:TouristAgency.Accommodations.PostponementFeatures.CreationFeature"
         xmlns:sup="clr-namespace:TouristAgency.Users.SuperGuestFeature"
         xmlns:revdis="clr-namespace:TouristAgency.Users.ReviewFeatures"
+        xmlns:any="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.CreationFeature"
+        xmlns:forum="clr-namespace:TouristAgency.Users.ForumFeatures.DisplayFeature"
+        xmlns:report="clr-namespace:TouristAgency.Accommodations.ReservationFeatures.ReportFeature"
         mc:Ignorable="d"
-        Title="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
+        Title="GuestHome" Name="GuestHome" Height="700" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <DataTemplate DataType="{x:Type home:GuestHomeViewModel}">
             <home:GuestHome/>
@@ -34,6 +37,18 @@
 
         <DataTemplate DataType="{x:Type revdis:GuestReviewDisplayViewModel}">
             <revdis:GuestReviewDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type any:AnywhereAnytimeCreationViewModel}">
+            <any:AnywhereAnytimeCreation/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type forum:GuestForumDisplayViewModel}">
+            <forum:GuestForumDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type report:GuestReportDisplayViewModel}">
+            <report:GuestReportDisplay/>
         </DataTemplate>
 
 

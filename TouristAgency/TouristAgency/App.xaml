@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TouristAgency"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,6 +12,9 @@
                 <ResourceDictionary Source="Design/Owner/Styles/BasicBtn.xaml"/>
                 <ResourceDictionary Source="Design/Owner/Styles/DemoButton.xaml"/>
                 <ResourceDictionary Source="Design/Owner/Styles/BasicListView.xaml"/>
+                <ResourceDictionary Source="Design/Guide/Styles/BasicButton.xaml"/>
+                <ResourceDictionary Source="Design/Tourist/Styles/TouristBasicButton.xaml"/>
+                <ResourceDictionary Source="Design/Tourist/Styles/TouristBasicButtonWhite.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

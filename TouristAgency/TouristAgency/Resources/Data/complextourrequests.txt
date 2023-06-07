@@ -1,0 +1,4 @@
+0|tura1|20|ACCEPTED
+1|tura2|20|INVALID
+2|Visit to Serbia|20|ACCEPTED
+3|test tour4|20|PENDING

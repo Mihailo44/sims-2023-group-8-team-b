@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:custom="clr-namespace:TouristAgency.Design.Guide.Controls"
         mc:Ignorable="d"
-        Height="600" Width="370">
+        Height="600" Width="370" Background="White">
 
 
     <Grid>
@@ -17,15 +17,15 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27"></RowDefinition>
+            <RowDefinition Height="37"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="330"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
 
         <custom:BurgerButton VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
-
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Height="91" Width="284" FontSize="18" TextWrapping="Wrap" TextAlignment="Center">
+        <Label FontSize="20" FontWeight="Bold" Grid.ColumnSpan="2" HorizontalAlignment="Center">Cancel tour</Label>
+        <TextBlock Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" Height="91" Width="284" FontSize="18" TextWrapping="Wrap" TextAlignment="Center">
             <TextBlock.Inlines>
                 Select the tours you wish to cancel. 
                 Please note that tours
@@ -36,27 +36,33 @@
             </TextBlock.Inlines>
         </TextBlock>
 
-        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding AvailableTours}" Width="333" SelectionMode="Multiple">
+        <ListView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding AvailableTours}" Width="333" SelectionMode="Multiple" HorizontalContentAlignment="Stretch">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected}" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="City" DisplayMemberBinding="{Binding ShortLocation.City}"/>
-                    <GridViewColumn Header="Country" DisplayMemberBinding="{Binding ShortLocation.Country}"/>
-                    <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration}"/>
-                    <GridViewColumn Header="Language" DisplayMemberBinding="{Binding Language}"/>
-                    <GridViewColumn Header="Max attendants" DisplayMemberBinding="{Binding MaxAttendants}"/>
-                </GridView>
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel HorizontalAlignment="Stretch">
+                        <Image Height="55px" Width="55px" HorizontalAlignment="Left" Source="{Binding Photos[0].Link}"></Image>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="{Binding StartDateTime}"/>
+                        </StackPanel>
+                        <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
-        <Button Grid.Row="3" Grid.Column="0" Height="57" Width="138" FontSize="20" Command = "{Binding CancelExistingTourCmd}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-40,0,0">Cancel tours</Button>
-        <Button Grid.Row="3" Grid.Column="1" Height="57" Width="138" FontSize="20" VerticalAlignment="Center" Command="{Binding CloseCmd}" HorizontalAlignment="Center" Margin="0,-40,0,0">Go back</Button>
+        <Button Grid.Row="3" Grid.Column="0" Style="{StaticResource BasicButton}" Command = "{Binding CancelExistingTourCmd}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">Cancel tours</Button>
+        <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource BasicButton}" VerticalAlignment="Center" Command="{Binding CloseCmd}" HorizontalAlignment="Center" Margin="0,0,0,0">Go back</Button>
 
         <custom:BurgerMenu Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-5,0,0,0"></custom:BurgerMenu>
     </Grid>
