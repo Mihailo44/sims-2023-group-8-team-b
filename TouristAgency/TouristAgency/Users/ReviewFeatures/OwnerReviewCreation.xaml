@@ -76,16 +76,16 @@
                 <Label Grid.Row="2" Content="Location:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="108"/>
                 <Label Grid.Row="3" Content="Comfort:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="108"/>
                 <Label Grid.Row="4" Content="Wi-fi:" FontSize="18" FontWeight="Normal" Height="46" HorizontalAlignment="Left" VerticalAlignment="Center" Width="74"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Value="{Binding Path=NewOwnerReview.Cleanliness}"/>
-                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,43,0,0" Grid.RowSpan="2" Value ="{Binding Path = NewOwnerReview.OwnerCorrectness}"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Value ="{Binding Path = NewOwnerReview.Location}"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Value ="{Binding Path = NewOwnerReview.Comfort}"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="4" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,0,0" Value ="{Binding Path = NewOwnerReview.Wifi}"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" Maximum="5" VerticalAlignment="Top" HorizontalAlignment="Right" Value="{Binding Path=NewOwnerReview.Cleanliness}"/>
+                <WPFExtended:UIntegerUpDown Grid.Column="1" Width="50" Height="27" Maximum="5" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,43,0,0" Grid.RowSpan="2" Value ="{Binding Path = NewOwnerReview.OwnerCorrectness}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Maximum="5" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Value ="{Binding Path = NewOwnerReview.Location}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="3" Grid.Column="1" Width="50" Maximum="5" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Value ="{Binding Path = NewOwnerReview.Comfort}"/>
+                <WPFExtended:UIntegerUpDown Grid.Row="4" Grid.Column="1" Width="50" Maximum="5" Height="27" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,0,0" Value ="{Binding Path = NewOwnerReview.Wifi}"/>
 
-                <Label Grid.Column="2" Content="Additional comment:" FontSize="18" FontWeight="Normal" Height="46" VerticalAlignment="Top" Width="188" HorizontalAlignment="Left" Margin="163,0,0,0" Grid.RowSpan="2"/>
-                <TextBox Grid.Column="2" Margin="0,43,52,3" Grid.RowSpan="2" Width="500" Text ="{Binding Path = NewOwnerReview.Comment}" HorizontalAlignment="Right" Grid.ColumnSpan="4"/>
-                <Label Grid.Row="2" Grid.Column="2" Content="Photo (put URL):" FontSize="18" FontWeight="Normal" Height="46" Width="170" HorizontalAlignment="Left" Margin="163,2,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
-                <TextBox Grid.Row="2" Grid.Column="2" Margin="0,34,52,13" Grid.RowSpan="3" HorizontalAlignment="Right" Width="500" Text="{Binding Path = PhotoLinks}" Grid.ColumnSpan="4">
+                <Label Grid.Column="2" Content="Additional comment:" FontSize="18" FontWeight="Normal" Height="46" VerticalAlignment="Top" Width="188" HorizontalAlignment="Left" Margin="163,-3,0,0"/>
+                <TextBox Grid.Column="2" Margin="0,38,54,22" Grid.RowSpan="3" Width="500" Text ="{Binding Path = NewOwnerReview.Comment}" HorizontalAlignment="Right" Grid.ColumnSpan="4"/>
+                <Label Grid.Row="2" Grid.Column="2" Content="Photo (put URL):" FontSize="18" FontWeight="Normal" Height="46" Width="170" HorizontalAlignment="Left" Margin="163,27,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+                <TextBox Grid.Row="3" Grid.Column="2" Margin="0,22,52,13" Grid.RowSpan="2" HorizontalAlignment="Right" Width="500" Text="{Binding Path = PhotoLinks}" Grid.ColumnSpan="4">
                     <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
                     <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
                     <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
@@ -107,7 +107,7 @@
                     <GridViewColumn Header="Owner last name" Width="200" DisplayMemberBinding="{Binding Path = Accommodation.Owner.LastName}"></GridViewColumn>
                     <GridViewColumn Header="Accommodation" Width="200" DisplayMemberBinding="{Binding Path = Accommodation.Name}"></GridViewColumn>
                     <GridViewColumn Header="City" Width="150" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}"></GridViewColumn>
-                    <GridViewColumn Header="Country" Width="200" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
+                    <GridViewColumn Header="Country" Width="190" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -123,10 +123,10 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label Content="Enter your recommendation here:" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="319" Grid.ColumnSpan="2"/>
+                <Label Content="Enter your recommendation here:" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="319" Grid.ColumnSpan="2" Height="36" Grid.RowSpan="2"/>
                 <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="395" Height="60" Text="{Binding Path= NewRecommendation.Comment}"/>
-                <Label Content="Level of urgency for renovation (1-5):" Grid.Row="1" FontSize="18" FontWeight="Normal" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Margin="-2,77,0,0" Grid.RowSpan="3"/>
-                <WPFExtended:UIntegerUpDown Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="107,0,0,0" Value="{Binding Path= NewRecommendation.UrgencyLevel}"/>
+                <Label Content="Level of urgency for renovation (0-5):" Grid.Row="1" FontSize="18" FontWeight="Normal" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="52" VerticalAlignment="Top" Margin="-2,77,0,0" Grid.RowSpan="3"/>
+                <WPFExtended:UIntegerUpDown Maximum="5" Grid.Row="2" Grid.Column="1" Width="50" Height="27" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="107,0,0,0" Value="{Binding Path= NewRecommendation.UrgencyLevel}"/>
             </Grid>
         </GroupBox>
         <Button Content="Submit" FontWeight="SemiBold" FontSize="18"  Background="#F4F1BB" Width="80" Height="30" Command="{Binding Path= CreateCmd}" Margin="403,610,717,60">
