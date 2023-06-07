@@ -1,9 +1,2 @@
-0|20|False
-1|20|False
+0|20|True
 0|18|False
-1|20|False
-1|20|False
-0|20|False
-1|20|False
-1|20|False
-0|20|False

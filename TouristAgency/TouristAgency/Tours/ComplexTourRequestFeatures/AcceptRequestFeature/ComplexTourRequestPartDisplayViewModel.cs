@@ -74,9 +74,25 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature
         {
             foreach (TourRequest toureq in Request.Parts)
             {
+                bool found = false;
                 if(toureq.GuideID == _loggedInGuide.ID)
                 {
                     MessageBox.Show("You have already signed up for a part of this tour!", "Error");
+                    return;
+                }
+                DateTime start = SelectedTourRequest.StartDate;
+                do
+                {
+                    if (!_tourService.IsGuideBooked(_loggedInGuide, start))
+                    {
+                        found = true;
+                        break;
+                    }
+                    start = start.AddDays(1);
+                } while (start < SelectedTourRequest.EndDate);
+                if(found == false)
+                { 
+                    MessageBox.Show("You are not eligible for this tour!");
                     return;
                 }
             }
@@ -84,21 +100,33 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.AcceptRequestFeature
                 _app.CurrentVM = new TourCreationViewModel(SelectedTourRequest, Util.TourCreationScenario.ACCEPT_TOURREQ);
         }
 
-        public void SuggestDateExecute()
+        public bool SuggestDateExecute()
         {
-            if(SelectedTourRequest != null)
+            bool found = false;
+            if (SelectedTourRequest != null)
             { 
                 DateTime start = SelectedTourRequest.StartDate;
-                while(start < SelectedTourRequest.EndDate)
+                do
                 {
                     if (!_tourService.IsGuideBooked(_loggedInGuide, start))
                     {
-                        MessageBox.Show("Suggested date: " + start, "Suggestion");
-                        return;
+                        found = true;
+                        break;
                     }
                     start = start.AddDays(1);
+                }while (start < SelectedTourRequest.EndDate);
+                if (found)
+                {
+                    MessageBox.Show("Suggested date: " + start, "Suggestion");
+                    SelectedTourRequest.SuggestedDate = start;
                 }
+                else
+                {
+                    MessageBox.Show("You are not eligible for this tour!");
+                }
+                
             }
+            return found;
         }
 
         public ComplexTourRequest Request

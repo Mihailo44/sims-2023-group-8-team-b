@@ -74,11 +74,11 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}" Width="200"></GridViewColumn>
+                        <GridViewColumn Header="Accommodation" DisplayMemberBinding="{Binding Path = Accommodation.Name}" Width="180"></GridViewColumn>
                         <GridViewColumn Header="City" DisplayMemberBinding="{Binding Path = Accommodation.Location.City}" Width="104"></GridViewColumn>
                         <GridViewColumn Header="Country" DisplayMemberBinding="{Binding Path = Accommodation.Location.Country}" Width="100"></GridViewColumn>
-                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}" Width="200"></GridViewColumn>
-                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}" Width="200"></GridViewColumn>
+                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding Path = Start}" Width="170"></GridViewColumn>
+                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding Path = End}" Width="170"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -122,9 +122,9 @@
 
                 <Label Content="I want to move for:" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" Height="34"></Label>
                 <Label Grid.Column="1" Content="from:" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Height="34" Margin="77,0,0,0" Width="52"></Label>
-                <DatePicker Grid.Column="2" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=Start}" Height="28" Margin="33,0,0,0" Width="119"/>
+                <DatePicker Grid.Column="2" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=Start}" Height="28" Margin="33,0,0,0" Width="119"/>
                 <Label Grid.Column="3" Content="to:" FontSize="18" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="34" Width="30"></Label>
-                <DatePicker Grid.Column="4" FontSize="15" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=End}" Height="28" Width="119"/>
+                <DatePicker Grid.Column="4" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Path=End}" Height="28" Width="119"/>
                 <Button Grid.Column="5" Height="35" Width="126" Content="Send a request" Background="#F4F1BB" FontSize="17" FontWeight="SemiBold" Command="{Binding Path = CreateCmd}" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button.Resources>
                         <Style TargetType="Border">

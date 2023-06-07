@@ -265,7 +265,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             if(ProgressValue == 1)
             {
                 ProgressValue = 2;
-                Text = "If you find it hard to do something, you can always click the help button which is located on the left in every section from the menu";
+                Text = "If you find it hard to do something, you can always click the help button which is located on the left in every section from the menu.";
             }
             else if(ProgressValue == 2)
             {

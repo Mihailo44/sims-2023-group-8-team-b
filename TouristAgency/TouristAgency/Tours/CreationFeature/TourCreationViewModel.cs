@@ -117,7 +117,9 @@ namespace TouristAgency.CreationFeature
                 NewTour.ShortLocation.City = tourRequest.ShortLocation.City;
                 NewTour.Language = tourRequest.Language;
                 NewTour.StartDateTime = SuggestDete(tourRequest);
-                if(_scenario == TourCreationScenario.ACCEPT_TOURREQ)
+                if (tourRequest.SuggestedDate != DateTime.MinValue)
+                    NewTour.StartDateTime = tourRequest.SuggestedDate;
+                if (_scenario == TourCreationScenario.ACCEPT_TOURREQ)
                 {
                     NewTour.Description = tourRequest.Description;
                     NewTour.MaxAttendants = tourRequest.MaxAttendants;

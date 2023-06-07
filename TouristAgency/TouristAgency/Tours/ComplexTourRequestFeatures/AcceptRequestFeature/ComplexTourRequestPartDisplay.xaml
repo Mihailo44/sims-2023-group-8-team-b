@@ -69,7 +69,7 @@
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
                                 <Label Content="Start: "/>
-                                <DatePicker Height="25px" VerticalAlignment="Center" SelectedDate="{Binding SelectedDate}" ></DatePicker>
+                                <DatePicker Height="25px" VerticalAlignment="Center" SelectedDate="{Binding SuggestedDate}" ></DatePicker>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">

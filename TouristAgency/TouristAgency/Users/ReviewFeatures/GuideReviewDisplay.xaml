@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="33"></RowDefinition>
             <RowDefinition Height="164"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="260"></RowDefinition>
@@ -25,9 +25,8 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <Label FontSize="20" FontWeight="Bold" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Details of reviews</Label>
         <custom:BurgerButton HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0"></custom:BurgerButton>
-
-        <!-- TODO HOME BUTTON -->
         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="28" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding SelectedTour.Name}"></Label>
 
         <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Width="300">
@@ -52,7 +51,7 @@
         <ListView x:Name="_lw" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="10" Width="350" ItemsSource="{Binding GuideReviews}" SelectedItem="{Binding SelectedReview}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Width="330">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="80px"></RowDefinition>
                             <RowDefinition Height="30px"></RowDefinition>
@@ -65,7 +64,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="75"></ColumnDefinition>
                             <ColumnDefinition Width="78"></ColumnDefinition>
-                            <ColumnDefinition Width="78"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         
@@ -79,10 +78,10 @@
                             <Label VerticalAlignment="Center" FontSize="15" Content="{Binding Tourist.FirstName}"></Label>
                             <Label VerticalAlignment="Center" FontSize="15" Content="{Binding Tourist.LastName}"></Label>
                         </StackPanel>
-                        <Button Grid.Row="0" Grid.Column="3" Width="85" Height="27" HorizontalAlignment="Right"  VerticalAlignment="Top" Command="{Binding DataContext.MarkAsInvalidCmd, ElementName=_lw}" Margin="0,0,20,0">Report</Button>
+                        <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Width="85" Height="27" HorizontalAlignment="Right"  VerticalAlignment="Top" Command="{Binding DataContext.MarkAsInvalidCmd, ElementName=_lw}" Margin="0,0,5,0">Report</Button>
 
                         <Label Grid.Row="1" Grid.Column="0">Quality:</Label>
-                        <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Source="{Binding Quality, Converter={StaticResource StarConverter}}"></Image>
+                        <Image Grid.Row="1" Grid.Column="1" Width="300" Grid.ColumnSpan="2" Source="{Binding Quality, Converter={StaticResource StarConverter}}"></Image>
 
                         <Label Grid.Row="2" Grid.Column="0">Attractions:</Label>
                         <Image Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Source="{Binding Attractions, Converter={StaticResource StarConverter}}"></Image>
@@ -103,6 +102,6 @@
         </ListView>
 
         <Button Style="{StaticResource BasicButton}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,18,0,0"  Command="{Binding CloseCmd}">Finish reading</Button>
-        <custom:BurgerMenu Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
+        <custom:BurgerMenu Visibility="Hidden" Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
     </Grid>
 </UserControl>
