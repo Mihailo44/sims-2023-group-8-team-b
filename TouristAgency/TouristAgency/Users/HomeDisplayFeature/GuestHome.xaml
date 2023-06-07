@@ -63,24 +63,24 @@
         <Image Source="../../Resources/Image/colosseum-guest.png" Margin="747,337,33,36" Opacity="0.2"/>
         <Image Source="../../Resources/Image/statue-of-liberty-guest.png" Opacity="0.1" Margin="248,322,574,34"/>
         <Image Source="../../Resources/Image/cairo-citadel-guest.png" Opacity="0.15" Margin="240,10,566,391"/>
-        <Canvas Visibility="{Binding Path=IsVisible}" HorizontalAlignment="Left" Background="#FCFAE4" Height="382" Panel.ZIndex="10000" Margin="383,166,0,0" VerticalAlignment="Top" Width="633">
+        <Canvas Visibility="{Binding Path=IsVisible}" HorizontalAlignment="Left" Background="#F4F1BB" Height="382" Panel.ZIndex="10000" Margin="383,166,0,0" VerticalAlignment="Top" Width="633">
             <Label Content="Welcome!!!" Panel.ZIndex="10000" Foreground="#89865B" FontSize="35" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Canvas.Left="10" Canvas.Top="10"/>
-            <TextBlock Panel.ZIndex="10000" Foreground="Black" HorizontalAlignment="Left" FontSize="30" TextWrapping="Wrap" Text="{Binding Path= Text}" VerticalAlignment="Top" Height="116" Width="428" Canvas.Left="110" Canvas.Top="97"/>
-            <Button IsEnabled="{Binding Path=IsEnabled}" Content="Next" FontSize="25" FontWeight="SemiBold" Background="#F4F1BB" Panel.ZIndex="10000" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=NextCmd}" Canvas.Left="403" Canvas.Top="303">
+            <TextBlock Panel.ZIndex="10000" Foreground="Black" HorizontalAlignment="Center" FontSize="25" TextWrapping="Wrap" Text="{Binding Path= Text}" VerticalAlignment="Top" Height="142" Width="498" Canvas.Left="68" Canvas.Top="88"/>
+            <Button IsEnabled="{Binding Path=IsEnabled}" Content="Next" FontSize="25" FontWeight="SemiBold" Background="#EBD789" Panel.ZIndex="10000" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=NextCmd}" Canvas.Left="403" Canvas.Top="303">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Content="Skip" FontSize="25" FontWeight="SemiBold" Background="#F4F1BB" Panel.ZIndex="10000" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=SkipCmd}" Canvas.Left="516" Canvas.Top="303">
+            <Button Content="Skip" FontSize="25" FontWeight="SemiBold" Background="#EBD789" Panel.ZIndex="10000" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Height="50" Command="{Binding Path=SkipCmd}" Canvas.Left="516" Canvas.Top="303">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <ProgressBar Minimum="0" Maximum="3" Panel.ZIndex="10000" Foreground="#EEEAA4" Background="White" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="300" Value="{Binding Path=ProgressValue}" Canvas.Left="166" Canvas.Top="235"/>
+            <ProgressBar Minimum="0" Maximum="3" Panel.ZIndex="10000" Foreground="#EBD789" Background="White" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="300" Value="{Binding Path=ProgressValue}" Canvas.Left="166" Canvas.Top="235"/>
         </Canvas>
         <!--<Image Source="../../Resources/Image/flight4-guest.png"  Margin="341,222,577,204" RenderTransformOrigin="0.5,0.5" Opacity="0.4">
             <Image.RenderTransform>

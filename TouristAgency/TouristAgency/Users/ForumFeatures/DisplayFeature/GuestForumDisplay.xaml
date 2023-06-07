@@ -69,7 +69,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Forum" Width="150" DisplayMemberBinding="{Binding Path=Name}"/>
-                    <GridViewColumn Header="Very useful" Width="130">
+                    <GridViewColumn Header="Very useful" Width="110">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Height="20" Width="20" Source="{Binding IsUseful,Converter={StaticResource ForumConv}}"></Image>
@@ -97,7 +97,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#F4F1BB" CornerRadius="30" BorderThickness="0.5" BorderBrush="Black">
-                        <StackPanel Width="850">
+                        <StackPanel Width="860">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding Path=User.Username}" FontSize="20" Margin="10,0,0,0" FontStyle="Italic" FontWeight="SemiBold"/>
                                 <Image Height="30" Width="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="750,10,0,0" Source="{Binding SuperComment, Converter={StaticResource CommentConv}}"/>
@@ -113,8 +113,8 @@
             </ListView.ItemTemplate>
         </ListView>
         <Label Content="Leave a comment:" FontSize="20" HorizontalAlignment="Left" Margin="279,585,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="498,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="404" Height="63" Text="{Binding Path=Comment}"/>
-        <Button Content="Submit" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" HorizontalAlignment="Left" Margin="976,595,0,0" VerticalAlignment="Top" Command="{Binding Path=CreateCommentCmd}">
+        <TextBox HorizontalAlignment="Left" Margin="498,572,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="455" Height="63" Text="{Binding Path=Comment}"/>
+        <Button Content="Submit" FontSize="20" FontWeight="SemiBold" Height="40" Width="100" Background="#F4F1BB" HorizontalAlignment="Left" Margin="1025,595,0,0" VerticalAlignment="Top" Command="{Binding Path=CreateCommentCmd}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
