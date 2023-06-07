@@ -11,17 +11,17 @@
         mc:Ignorable="d"
         Height="600" Width="370" Background="#FEFDFF">
 
-    <ScrollViewer>
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
         <Grid Height="800">
             <custom:BurgerButton Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,4,0,0"></custom:BurgerButton>
             <custom:BurgerMenu VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Panel.ZIndex="999" Margin="-5,0,0,0"></custom:BurgerMenu>
             <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Center">Tour creation</Label>
-            <StackPanel>
+            <StackPanel Margin="0,12,0,0">
                 <Grid Margin="0,30,0,0" Width="300">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="33"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
@@ -66,7 +66,7 @@
                     <TextBlock Grid.Row="3" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[Language],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
 
                     <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">Max capacity:</Label>
-                    <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Height="25" Width="40" HorizontalAlignment="Left" Text="{Binding Path=NewTour.MaxAttendants}" IsEnabled="{Binding CapacityEnabled}"></xctk:IntegerUpDown>
+                    <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Height="25" Width="60" HorizontalAlignment="Left" Text="{Binding Path=NewTour.MaxAttendants}" IsEnabled="{Binding CapacityEnabled}"></xctk:IntegerUpDown>
                     <TextBlock Grid.Row="4" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[MaxAttendants],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
                 </Grid>
 
@@ -152,24 +152,25 @@
                         <RowDefinition Height="35"></RowDefinition>
                         <RowDefinition Height="35"></RowDefinition>
                         <RowDefinition Height="0"></RowDefinition>
-                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="75"></RowDefinition>
                         <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition Height="100"></RowDefinition>
                         <RowDefinition Height="74"></RowDefinition>
 
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0">Duration (hours):</Label>
-                    <xctk:IntegerUpDown Grid.Row="0" Grid.Column="1" Width="40" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration}"></xctk:IntegerUpDown>
+                    <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Duration (hours):</Label>
+                    <xctk:IntegerUpDown Grid.Row="0" Grid.Column="1" Width="60" HorizontalAlignment="Left" Height="25" Text="{Binding Path=NewTour.Duration}"></xctk:IntegerUpDown>
                     <TextBlock Grid.Row="0" Grid.Column="3" Height="35" Margin="0,0,-15,0" HorizontalAlignment="Right" Text="{Binding NewTour.ValidationErrors[Duration],UpdateSourceTrigger=PropertyChanged}" FontSize="19" Foreground="Red"/>
 
-                    <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Tour start date:</Label>
-                    <StackPanel Margin="0,10,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                        <DatePicker x:Name="dateTimePicker" Width="100" Height="23" Margin="170,0,0,0" SelectedDate="{Binding Path=NewTour.StartDateTime, ValidatesOnDataErrors=True}" IsEnabled="{Binding DatePickerEnabled}"></DatePicker>
+                    
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Tour start date:</Label>
+                        <DatePicker x:Name="dateTimePicker" Width="100" Height="23" Margin="85,0,0,0" SelectedDate="{Binding Path=NewTour.StartDateTime, ValidatesOnDataErrors=True}" IsEnabled="{Binding DatePickerEnabled}"></DatePicker>
                         <Button Style="{StaticResource BasicButton}" Height="23" Width="25" x:Name="AddDateButton" HorizontalContentAlignment="Center" Command="{Binding AddMultipleDatesCmd}">+</Button>
                     </StackPanel>
 
-                    <ListView  x:Name="DatesListView" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding MultipleDates}" HorizontalContentAlignment="Stretch">
+                    <ListView  x:Name="DatesListView" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Height="70" ItemsSource="{Binding MultipleDates}" HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel HorizontalAlignment="Stretch">

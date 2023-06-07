@@ -3,6 +3,7 @@ using System.Linq;
 using TouristAgency.Interfaces;
 using TouristAgency.Tours;
 using TouristAgency.Users.Domain;
+using TouristAgency.Util;
 using TouristAgency.Vouchers;
 
 namespace TouristAgency.Users
@@ -112,6 +113,20 @@ namespace TouristAgency.Users
                     if (user.ID == tourist.ID)
                     {
                         tourist.Username = user.Username;
+                    }
+                }
+            }
+        }
+
+        public void LoadLocationsToTourists(List<Location> locations)
+        {
+            foreach (Location location in locations)
+            {
+                foreach (Tourist tourist in _tourists)
+                {
+                    if (location.ID == tourist.FullLocationID)
+                    {
+                        tourist.FullLocation = location;
                     }
                 }
             }

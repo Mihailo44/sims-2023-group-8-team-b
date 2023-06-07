@@ -1,8 +1,12 @@
 ﻿using IronPdf;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
-using System.Diagnostics.Eventing.Reader;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Markup;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
 using TouristAgency.Statistics;
@@ -14,6 +18,7 @@ using TouristAgency.Tours.TourRequestFeatures.CreationFeature;
 using TouristAgency.Tours.TourRequestFeatures.DisplayFeature;
 using TouristAgency.Tours.VoucherFeatures.DisplayFeature;
 using TouristAgency.Users.HelpFeatures;
+using TouristAgency.Util;
 using TouristAgency.View.Creation;
 using TouristAgency.View.Display;
 using TouristAgency.Vouchers;
@@ -25,12 +30,20 @@ namespace TouristAgency.Users
         private Tourist _loggedInTourist;
         private App _app;
 
+        private SeriesCollection _tourCountSeries;
         private string _username;
+        private string _firstName;
+        private string _lastName;
+        private DateOnly _dateOfBirth;
+        private string _email;
+        private int _fullLocationID;
+        private string _address;
         private Window _window;
 
         private TourTouristCheckpointService _ttcService;
         private CheckpointService _checkpointService;
         private VoucherService _voucherService;
+        private TourService _tourService;
 
         public DelegateCommand TourDisplayCmd { get; set; }
         public DelegateCommand TourGuideReviewCmd { get; set; }
@@ -52,7 +65,9 @@ namespace TouristAgency.Users
             _app = (App)Application.Current;
             _loggedInTourist = tourist;
             _window = window;
+            TourCountSeries = new();
             InstantiateServices();
+            InstantiateCollection();
             InstantiateCommands();
             WelcomeUser();
         }
@@ -62,6 +77,110 @@ namespace TouristAgency.Users
             _ttcService = new TourTouristCheckpointService();
             _checkpointService = new CheckpointService();
             _voucherService = new VoucherService();
+            _tourService = new TourService();
+        }
+
+        private void InstantiateCollection()
+        {
+            List<Tour> Tours = _tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Year == DateTime.Now.Year);
+            TourCountSeries.AddRange(new List<ColumnSeries> {
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 1).Count},
+                Title = "Jan",
+                DataLabels = false
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 2).Count},
+                Title = "Feb",
+                DataLabels = false
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 3).Count},
+                Title = "Mar",
+                DataLabels = false
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 4).Count},
+                Title = "Apr",
+                DataLabels = true
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 5).Count},
+                Title = "May",
+                DataLabels = true
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 6).Count},
+                Title = "Jun",
+                DataLabels = false
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 7).Count},
+                Title = "Jul",
+                DataLabels = true
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 8).Count},
+                Title = "Avg",
+                DataLabels = true
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 9).Count},
+                Title = "Sept",
+                DataLabels = true
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 10).Count},
+                Title = "Okt",
+                DataLabels = true
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 11).Count},
+                Title = "Nov",
+                DataLabels = true
+            },
+            new ColumnSeries
+            {
+                //Values = new ChartValues<int> { data.Value },
+                //Title = data.Title,
+                Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 12).Count},
+                Title = "Dec",
+                DataLabels = true
+            }}
+            );
         }
 
         private void InstantiateCommands()
@@ -85,6 +204,12 @@ namespace TouristAgency.Users
         private void WelcomeUser()
         {
             Username = "Welcome, " + _loggedInTourist.Username + "...";
+            FirstName = _loggedInTourist.FirstName;
+            LastName = _loggedInTourist.LastName;
+            DateOfBirth = _loggedInTourist.DateOfBirth;
+            Email = _loggedInTourist.Email;
+            FullLocationID = _loggedInTourist.FullLocationID;
+            Address = _loggedInTourist.FullLocation.Street + " " + _loggedInTourist.FullLocation.StreetNumber;
         }
 
         public string Username
@@ -96,6 +221,97 @@ namespace TouristAgency.Users
                 {
                     _username = value;
                     OnPropertyChanged("Username");
+                }
+            }
+        }
+
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                if (value != _firstName)
+                {
+                    _firstName = value;
+                    OnPropertyChanged("FirstName");
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (value != _lastName)
+                {
+                    _lastName = value;
+                    OnPropertyChanged("LastName");
+                }
+            }
+        }
+
+        public DateOnly DateOfBirth
+        {
+            get => _dateOfBirth;
+            set
+            {
+                if (value != _dateOfBirth)
+                {
+                    _dateOfBirth = value;
+                    OnPropertyChanged("DateOfBirth");
+                }
+            }
+        }
+
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                if (value != _email)
+                {
+                    _email = value;
+                    OnPropertyChanged("Email");
+                }
+            }
+        }
+
+        public int FullLocationID
+        {
+            get => _fullLocationID;
+            set
+            {
+                if (value != _fullLocationID)
+                {
+                    _fullLocationID = value;
+                    OnPropertyChanged("FullLocationID");
+                }
+            }
+        }
+
+        public string Address
+        {
+            get => _address;
+            set
+            {
+                if (value != _address)
+                {
+                    _address = value;
+                    OnPropertyChanged("Address");
+                }
+            }
+        }
+
+        public SeriesCollection TourCountSeries
+        {
+            get => _tourCountSeries;
+            set
+            {
+                if (value != _tourCountSeries)
+                {
+                    _tourCountSeries = value;
+                    OnPropertyChanged("TourCountSeries");
                 }
             }
         }

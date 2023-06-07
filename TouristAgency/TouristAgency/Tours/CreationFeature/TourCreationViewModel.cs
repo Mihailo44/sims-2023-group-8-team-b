@@ -346,7 +346,10 @@ namespace TouristAgency.CreationFeature
 
         public void LoadCheckpointsToTours()
         {
+
             int tourID = _tourService.TourRepository.GenerateId() - 1;
+            if (tourID == -1)
+                tourID = 0;
             int i = 0;
             bool firstVisit = true;
             foreach (Checkpoint checkpoint in SelectedCheckpoints)
@@ -387,7 +390,6 @@ namespace TouristAgency.CreationFeature
                     NewTour.AssignedGuideID = _loggedInGuide.ID;
                     NewTour.AssignedGuide = _loggedInGuide;
                     NewTour.StartDateTime = dateWrapper.Date;
-                    NewTour.MaxAttendants = 0;
                     NewTour.RemainingCapacity = NewTour.MaxAttendants;
                     bool canHandleTourRequest = HandleTourRequest(dateWrapper.Date);
                     if (NewTour.IsValid)
@@ -422,6 +424,7 @@ namespace TouristAgency.CreationFeature
                             else if (PhotoLinks != null && PhotoLinks != "")
                                 AddPhotos();
 
+
                             _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetInvalidTourRequests());
                             _touristNotificationService.NotifyAboutNewTour(NewTour, _tourRequestService.GetAcceptedTourRequests());
                         }
@@ -446,7 +449,7 @@ namespace TouristAgency.CreationFeature
                     AvailableCheckpoints.Clear();
                     MultipleDates.Clear();
                     NewTour.StartDateTime = DateTime.Now;
-
+                    Photos.Clear();
                 }
             }
             else

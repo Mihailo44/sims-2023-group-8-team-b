@@ -98,7 +98,7 @@
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding DataContext.StartTourCmd, ElementName=AvailableToursListView}" CommandParameter="{Binding ID}"/>
+                            <i:InvokeCommandAction CommandParameter="{Binding ID}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
