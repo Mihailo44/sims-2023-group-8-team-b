@@ -25,6 +25,7 @@ namespace TouristAgency.TourRequests
         private int _complexTourRequestID;
         private bool _isSelected;
         private TourRequestType _type;
+        private DateTime _suggestedDate;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
@@ -46,6 +47,7 @@ namespace TouristAgency.TourRequests
             _startDate = DateTime.Now;
             _endDate = DateTime.Now;
             _type = TourRequestType.SINGLE;
+            _suggestedDate = DateTime.MinValue;
         }
 
         public TourRequest(TourRequestStatus status, Location shortLocation, string description, string language, int maxAttendants, DateTime startDate, DateTime endDate)
@@ -59,6 +61,7 @@ namespace TouristAgency.TourRequests
             _endDate = endDate;
             _type = TourRequestType.SINGLE;
             _complexTourRequestID = -1;
+            _suggestedDate = DateTime.MinValue;
         }
 
         public int ID 
@@ -334,6 +337,19 @@ namespace TouristAgency.TourRequests
                 {
                     _isSelected = value;
                     OnPropertyChanged("IsSelected");
+                }
+            }
+        }
+
+        public DateTime SuggestedDate
+        {
+            get => _suggestedDate;
+            set
+            {
+                if(value != _suggestedDate)
+                {
+                    _suggestedDate = value;
+                    OnPropertyChanged(nameof(SuggestedDate));
                 }
             }
         }
