@@ -51,6 +51,8 @@ namespace TouristAgency.Users.HomeDisplayFeature
         private string _notificationCountVisibility;
         private string _typeComboText;
         private string _comment;
+        private string _photoContainerVisibility;
+        private Accommodation _photoAccommodation;
         private CancellationTokenSource _cts;
 
         private bool _isChecked;
@@ -175,6 +177,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
             }
         }
 
+        public string PhotoContainerVisibility
+        {
+            get => _photoContainerVisibility;
+            set
+            {
+                _photoContainerVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string PhotoLinks
         {
             get => _photoLinks;
@@ -236,6 +248,16 @@ namespace TouristAgency.Users.HomeDisplayFeature
 
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
+        
+        public Accommodation PhotoAccommodation 
+        { 
+            get => _photoAccommodation;
+            set
+            {
+                _photoAccommodation = value;
+                OnPropertyChanged();
+            } 
+        }
 
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
@@ -283,6 +305,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
         public DelegateCommand OpenForumCmd { get; set; }
         public DelegateCommand LoadPhotoLinksCmd { get; set; }
         public DelegateCommand DemoCmd { get; set; }
+        public DelegateCommand ShowPhotoViewCmd { get; set; }
 
         public OwnerHomeViewModel()
         {
@@ -310,6 +333,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             BtnClearNotificationVisibility = "Collapsed";
             InputFormVisibility = "Collapsed";
             ReviewFormVisibility = "Collapsed";
+            PhotoContainerVisibility = "Collapsed";
 
             _reservationService.ExpiredReservationsCheck(LoggedUser.ID);
             _renovationService.SetRenovationProgress(_accommodationService);
@@ -356,6 +380,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             PostponementRequests = new ObservableCollection<PostponementRequest>();
             OwnerReviews = new ObservableCollection<OwnerReview>();
             Forums = new ObservableCollection<Forum>();
+            Photos = new ObservableCollection<Photo>();
         }
 
         private void FillCollections()
@@ -400,6 +425,7 @@ namespace TouristAgency.Users.HomeDisplayFeature
             OpenForumCmd = new DelegateCommand(param => OpenForumCmdExecute(), param => CanOpenForumCmdExecute());
             LoadPhotoLinksCmd = new DelegateCommand(param => LoadPhotoLinksExecute(), param => CanLoadPhotoLinksExecute());
             DemoCmd = new DelegateCommand(param => DemoCmdExecute(), param => CanDemoCmdExecute());
+            ShowPhotoViewCmd = new DelegateCommand(PhotoViewCmdExecute,CanPhotoViewCmdExecute);
         }
 
 
@@ -1000,6 +1026,30 @@ namespace TouristAgency.Users.HomeDisplayFeature
             AllowedNumOfDaysForCancelation = string.Empty;
 
             _cts = null;
+        }
+
+        public bool CanPhotoViewCmdExecute(object param)
+        {
+            return true;
+        }
+        
+        public ObservableCollection<Photo> Photos { get; set; }
+
+        public void PhotoViewCmdExecute(object param)
+        {
+            Photos.Clear();
+            PhotoAccommodation = param as Accommodation;
+            //OnPropertyChanged(nameof(PhotoAccommodation));
+            if(PhotoContainerVisibility == "Visible")
+            {
+                PhotoContainerVisibility = "Collapsed";
+            }
+            else
+            {
+                PhotoContainerVisibility = "Visible";
+                Photos.AddRange(PhotoAccommodation.Photos);
+            }
+            OnPropertyChanged(nameof(PhotoContainerVisibility));
         }
     }
 }

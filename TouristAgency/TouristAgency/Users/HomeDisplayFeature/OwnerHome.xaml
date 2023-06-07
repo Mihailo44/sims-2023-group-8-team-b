@@ -12,13 +12,6 @@
              d:DesignHeight="768" d:DesignWidth="1024" Background="White">
 
     <UserControl.Resources>
-        <ControlTemplate x:Key="ValidationTemplate">
-            <Grid Panel.ZIndex="1000">
-                <AdornedElementPlaceholder/>
-                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"
-                           VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="19" Margin="0,0,7,0"/>
-            </Grid>
-        </ControlTemplate>
         <con:DateConverter x:Key="DateConv"/>
         <con:IntConverter x:Key="IntConv"/>
         <con:HotLocationConverter x:Key="LocationConv"/>
@@ -54,6 +47,69 @@
             </Button>
         </Grid>
 
+        <Canvas Visibility="{Binding PhotoContainerVisibility}"
+                Width="840"
+                Height="460"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Panel.ZIndex="1005"
+                Background="Snow">
+            <Button Width="35" Height="35" Panel.ZIndex="1010" Margin="805,0,0,0" Style="{StaticResource BasicBtn}" Command="{Binding ShowPhotoViewCmd}">
+                <Image Width="30" Height="30" Source="../../Resources/Image/reject.png"/>
+            </Button>
+            <StackPanel Width="840" Height="460">
+                <ListView
+                      Width="840" 
+                      Height="450"
+                      ItemsSource="{Binding Photos}"
+                      Style="{StaticResource BasicListView}"
+                    Background="#9DB2BFFF">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="22"/>
+                            <Setter Property="FontWeight" Value="Regular"/>
+                            <Setter Property="Height" Value="400"/>
+                            <Setter Property="Width" Value="840"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <Border BorderBrush="LightGray" BorderThickness="0,0,0,0.5"/>
+                                            <GridViewRowPresenter/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Width="850" Header="Photos">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Height="390" Width="820" Source="{Binding Link}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </Canvas>
+        
         <Canvas Visibility="{Binding AccountContainerVisibility}"
                 Width="300" 
                 Height="170" 
@@ -288,7 +344,7 @@
             <StackPanel Width="990">
                 <ContentControl Content="{Binding CurrentVM}"/>
                 <StackPanel Visibility="{Binding DataGridVisibility[0]}" Orientation="Horizontal" HorizontalAlignment="Center" Width="800">
-                    <Border Height="40" Width="350" Margin="225,0,0,0" Background="LightSteelBlue" CornerRadius="15" BorderThickness="0.5" >
+                    <Border Height="40" Width="350" Margin="225,0,0,0" Background="#DDE6EDFF" CornerRadius="15" BorderThickness="0.5" >
                         <xctk:WatermarkTextBox Background="Transparent" Padding="0,0,15,0" BorderThickness="0" Watermark="Search Reservations" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontWeight="SemiBold" Text="{Binding SearchInput,UpdateSourceTrigger=PropertyChanged}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
@@ -368,7 +424,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView   Visibility="{Binding DataGridVisibility[1],Mode=TwoWay}"
+                <ListView  Visibility="{Binding DataGridVisibility[1],Mode=TwoWay}"
                       Height="550" 
                       Width="990"
                       Margin="0,15,5,0"
@@ -395,7 +451,12 @@
                             <GridViewColumn Header="Photo" Width="170">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Height="120" Width="170" Source="{Binding Path=Photos[0].Link}"/>
+                                        <Button Width="170" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="Transparent" Command="{Binding RelativeSource={
+                                                RelativeSource Mode=FindAncestor,
+                                                AncestorType={x:Type UserControl}},
+                                                Path= DataContext.ShowPhotoViewCmd}" CommandParameter="{Binding}">
+                                        <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="auto" Source="{Binding Path=Photos[0].Link}"/>
+                                        </Button>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
