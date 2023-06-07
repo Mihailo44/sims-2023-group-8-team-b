@@ -6,6 +6,7 @@ using TouristAgency.Users;
 using TouristAgency.Tours;
 using TouristAgency.Review.Domain;
 using TouristAgency.Users.HomeDisplayFeature;
+using TouristAgency.Users.ReviewFeatures;
 
 namespace TouristAgency.Review.GuideReviewDisplayFeature
 {
@@ -23,6 +24,7 @@ namespace TouristAgency.Review.GuideReviewDisplayFeature
 
         public DelegateCommand CloseCmd { get; set; }
         public DelegateCommand MarkAsInvalidCmd { get; set; }
+        public DelegateCommand DetailsCmd { get; set; }
         public GuideReviewDisplayViewModel(Tour tour)
         {
             _app = (App)Application.Current;
@@ -52,6 +54,7 @@ namespace TouristAgency.Review.GuideReviewDisplayFeature
         {
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
             MarkAsInvalidCmd = new DelegateCommand(param => MarkAsInvalidExecute(), param => CanMarkAsInvalidExecute());
+            DetailsCmd = new DelegateCommand(param =>  DetailsExecute(), param => CanDetailsExecute());
         }
 
         public ObservableCollection<GuideReview> GuideReviews
@@ -127,6 +130,16 @@ namespace TouristAgency.Review.GuideReviewDisplayFeature
                 SelectedReview.IsInvalid = true;
                 _guideReviewService.GuideReviewRepository.Update(SelectedReview, SelectedReview.ID);
             }
+        }
+
+        public bool CanDetailsExecute()
+        {
+            return true;
+        }
+
+        public void DetailsExecute()
+        {
+            _app.CurrentVM = new GudeReviewDetailsDisplayViewModel(SelectedReview);
         }
 
         public void Update()
