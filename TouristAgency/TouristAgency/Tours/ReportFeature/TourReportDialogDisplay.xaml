@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.Tours.ReportFeature"
         mc:Ignorable="d"
-        Title="ReportDialogDisplay" Height="170" Width="300">
+        Title="ReportDialogDisplay" Height="170" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>

@@ -15,6 +15,6 @@
 15|Gordana|Vukotic|2/22/1977|goga@gmail.com|062333333|6|0
 16|Luka|Petrovic|12/12/1999|luka99@gmail.com|062310478|6|4
 17|Krstan|Radulovic|4/16/1992|krsto@gmail.com|062315470|6|8
-18|Goran|Ivanovski|9/14/1974|goran74@gmail.com|062366478|6|3
+18|Goran|Ivanovski|9/14/1974|goran74@gmail.com|062366478|6|4
 19|Aleksandra|Perovic|7/26/1985|aleks@gmail.com|062317774|6|4
-20|Lazar|Markovic|3/16/2010|laki@gmail.com|062315478|6|1
+20|Lazar|Markovic|3/16/2010|laki@gmail.com|062315478|6|2

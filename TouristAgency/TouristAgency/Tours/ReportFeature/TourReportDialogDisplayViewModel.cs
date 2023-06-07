@@ -89,27 +89,48 @@ namespace TouristAgency.Tours.ReportFeature
                 "<br>" +
                 "<p>Generated at: " + DateTime.Now + "</p>" +
                 "<p>Requested by: " + _loggedInGuide.FirstName + " " + _loggedInGuide.LastName + "</p>" +
-                "<p>Date ranges: " + StartDate.Date.ToString() + " - " + StartDate.Date.ToString() + "</p>" +
+                "<p>Date ranges: " + StartDate.Date.ToString() + " - " + EndDate.Date.ToString() + "</p>" +
                 "<br><hr>" +
-                "<table style='width:100%;'>" +
-                "<tr style='border:1px solid black'><th>Tour name</th> <th>Location</th> <th>Language</th> <th>Max atted.</th>" +
+                "<table style='width:100%;border-collapse: collapse;'>" +
+                "<tr style='border:1px solid black;background-color:#5dade2'><th>Tour name</th> <th>Location</th> <th>Language</th> <th>Max atted.</th>" +
                 "<th>Cur. atted.</th> <th>Guide</th></tr>";
             int count = 0;
+            int color = 1;
             foreach(Tour tour in _tourService.GetToursForReport(StartDate,EndDate))
             {
                 count++;
-                HtmlString += "<tr style='text-align:center;border:1px solid black'><td>" + tour.Name + "</td>" +
-                            "<td>" + tour.ShortLocation.Country + ", " + tour.ShortLocation.City + "</td>" +
-                            "<td>" + tour.Language + "</td>" + "<td>" + tour.MaxAttendants + "</td>" +
-                            "<td>" + tour.CurrentAttendants + "</td>" + "<td>" + tour.AssignedGuide.FirstName + " " + tour.AssignedGuide.LastName + "</td></tr>";
+                if (color % 2 == 0)
+                {
+                    HtmlString += "<tr style='text-align:center;border:1px solid black;background-color:#eaf2f8'><td>" + tour.Name + "</td>" +
+                                "<td>" + tour.ShortLocation.Country + ", " + tour.ShortLocation.City + "</td>" +
+                                "<td>" + tour.Language + "</td>" + "<td>" + tour.MaxAttendants + "</td>" +
+                                "<td>" + tour.CurrentAttendants + "</td>" + "<td>" + tour.AssignedGuide.FirstName + " " + tour.AssignedGuide.LastName + "</td></tr>";
+                }
+                else
+                {
+                    HtmlString += "<tr style='text-align:center;border:1px solid black'><td>" + tour.Name + "</td>" +
+                                "<td>" + tour.ShortLocation.Country + ", " + tour.ShortLocation.City + "</td>" +
+                                "<td>" + tour.Language + "</td>" + "<td>" + tour.MaxAttendants + "</td>" +
+                                "<td>" + tour.CurrentAttendants + "</td>" + "<td>" + tour.AssignedGuide.FirstName + " " + tour.AssignedGuide.LastName + "</td></tr>";
+                }
+                color++;
             }
 
             HtmlString += "</table><br><hr><br><p>Total tours: " + count+"</p>";
+
+            HtmlString += "<div style='width:100%'><div style='float:left'><p>Guide signature (bellow):</p>";
+            HtmlString += "<br><hr style='width:200px'></div>";
+
+            HtmlString += "<div style='float:right'><p>HR signature (bellow):</p>";
+            HtmlString += "<br><hr style='width:200px'></div></div>";
+            HtmlString += "<br><center><img width='200px' height='200px' src='https://img.freepik.com/premium-vector/web-blue-approved-rubber-stamp-seal-with-grunge-vector-illustration_723710-132.jpg'></center>";
+            //
 
             ChromePdfRenderer renderer = new ChromePdfRenderer();
 
             PdfDocument newPdf = renderer.RenderHtmlAsPdf(HtmlString);
             newPdf.SaveAs(fileName);
+            MessageBox.Show("Succesfully created a report!");
         }
     }
 }

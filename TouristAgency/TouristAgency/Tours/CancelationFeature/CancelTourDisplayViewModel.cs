@@ -86,7 +86,7 @@ namespace TouristAgency.Tours.CancelationFeature
                         foreach (Tourist tourist in tour.RegisteredTourists)
                         {
                             DateTime oneYear = DateTime.Now.AddYears(1);
-                            Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Compensation voucher [c]", false, oneYear);
+                            Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Comp. voucher [c]", false, oneYear);
                             _voucherService.VoucherRepository.Create(newVoucher);
                             tourist.WonVouchers.Add(newVoucher);
                         }

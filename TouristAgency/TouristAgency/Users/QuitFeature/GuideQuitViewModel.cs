@@ -99,7 +99,7 @@ namespace TouristAgency.Users.QuitFeature
                         foreach(Tourist tourist in tour.RegisteredTourists)
                         {
                             DateTime oneYear = DateTime.Now.AddYears(2);
-                            Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Compensation voucher [q]", false, oneYear);
+                            Voucher newVoucher = new Voucher(tourist.ID, tour.ID, "Comp. voucher [q]", false, oneYear);
                             _voucherService.VoucherRepository.Create(newVoucher);
                             tourist.WonVouchers.Add(newVoucher);
                         }

@@ -6,3 +6,8 @@
 5|A|5|https://assets.anantara.com/image/upload/q_auto,f_auto/media/minor/anantara/images/anantara-palazzo-naiadi-rome/sneak-peak/anantara_palazzo_naiadi_rome_hotel_new_opening_944x510.jpg
 6|A|5|https://assets.anantara.com/image/upload/q_auto,f_auto/media/minor/anantara/images/anantara-palazzo-naiadi-rome/sneak-peak/anantara_palazzo_naiadi_rome_hotel_new_opening_944x510.jpg
 7|T|0|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\beograd.jpg
+8|T|1|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\Worlds-Greatest-Places-Barcelona-Spain.jpg
+9|T|2|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\Novi-Sad-1024x678.jpg
+10|T|3|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\Trg-kralja-Milana-Nis.jpg
+11|T|4|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\beograd.jpg
+12|T|5|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\Worlds-Greatest-Places-Barcelona-Spain.jpg

@@ -1,1 +1,6 @@
 0|Test|ENDED|Test|Serbian|20|20|0|20|6/7/2023 00:00:00|21|0
+1|Spain|NOT_STARTED|Test|English|20|5|15|3|8/31/2023 00:00:00|21|15
+2|Visit to Novi Sad|NOT_STARTED|Test|Serbian|20|5|15|3|6/7/2023 00:00:00|21|0
+3|Visit to Nis|NOT_STARTED|Serbian|Spanish|20|0|20|3|6/7/2023 00:00:00|21|2
+4|Visit to Belgrade|NOT_STARTED|Test|Esperanto|15|0|15|3|6/7/2023 00:00:00|21|1
+5|Visit to Barcelona|NOT_STARTED|Spain|Spanish|16|0|16|4|6/7/2023 00:00:00|21|15
