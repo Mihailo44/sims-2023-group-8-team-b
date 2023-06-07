@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="TouristAgency.Users.ReviewFeatures.GudeReviewDetailsDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:custom="clr-namespace:TouristAgency.Design.Guide.Controls"
+             xmlns:local="clr-namespace:TouristAgency.Users.ReviewFeatures"
+             mc:Ignorable="d" 
+             Height="600" Width="370" Background="White">
+    <Grid>
+        <custom:BurgerButton HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0"></custom:BurgerButton>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="28" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding SelectedTour.Name}"></Label>
+        <custom:BurgerMenu Visibility="Hidden" Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
+    </Grid>
+</UserControl>
