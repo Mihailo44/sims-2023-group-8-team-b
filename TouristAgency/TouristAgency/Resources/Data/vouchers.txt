@@ -1,1 +1,1 @@
-0|18|0|Compensation voucher [q]|True|5/31/2025 10:29:56
+0|18|0|Compensation voucher [q]|False|5/31/2025 10:29:56

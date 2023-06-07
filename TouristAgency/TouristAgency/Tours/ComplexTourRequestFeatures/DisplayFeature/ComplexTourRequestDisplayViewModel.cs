@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -43,7 +44,7 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
 
         private void InstantiateCommands()
         {
-            DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
+            DetailsCmd = new DelegateCommand(DetailsExecute, CanDetailsExecute);
             CloseCmd = new DelegateCommand(param => CloseExecute(), param => CanCloseExecute());
         }
 
@@ -66,13 +67,14 @@ namespace TouristAgency.Tours.ComplexTourRequestFeatures.DisplayFeature
             set;
         }
 
-        public bool CanDetailsExecute()
+        public bool CanDetailsExecute(object param)
         {
             return true;
         }
 
-        public void DetailsExecute()
+        public void DetailsExecute(object param)
         {
+            SelectedTourRequest = Requests.FirstOrDefault(c => c.ID == (int)param);
             if (SelectedTourRequest != null)
             {
                 ComplexTourDetailsDisplay display = new ComplexTourDetailsDisplay(_loggedInTourist, SelectedTourRequest);

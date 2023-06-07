@@ -58,6 +58,7 @@ namespace TouristAgency.Users
             currentTourist.Email = newTourist.Email;
             currentTourist.FullLocation = newTourist.FullLocation;
             currentTourist.Phone = newTourist.Phone;
+            _storage.Save(_tourists);
 
             return currentTourist;
         }

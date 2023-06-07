@@ -166,7 +166,7 @@
 
         <TextBlock Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" TextWrapping="Wrap" TextAlignment="Justify" Width="400" FontSize="28" VerticalAlignment="Bottom">
             Here you can see your tour reservation statistics per month. 
-            If you have at least 5 reservation this year you earn a free voucher. 
+            If you have at least 5 reservation this year, you earn a free voucher. 
             You can only earn one voucher per year.
         </TextBlock>
         <lvc:CartesianChart Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="500" Height="300" Series="{Binding TourCountSeries}" LegendLocation="Top">
@@ -178,10 +178,7 @@
                 </lvc:Axis>
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Months" Labels="Jan, Feb, Mart, Apr, May, Jun, July, Aug, Sept, Oct, Nov, Dec" FontWeight="Bold" FontSize="16" Foreground="Black">
-                    <lvc:Axis.Separator >
-                        <lvc:Separator Step="1"></lvc:Separator>
-                    </lvc:Axis.Separator>
+                <lvc:Axis FontWeight="Bold" Title="Months" Foreground="Black">
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.DataTooltip>

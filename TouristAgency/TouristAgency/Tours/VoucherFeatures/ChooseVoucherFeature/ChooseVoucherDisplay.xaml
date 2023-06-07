@@ -26,8 +26,8 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Voucher name" Width="295" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Expires" Width="295" DisplayMemberBinding="{Binding ExpirationDate, StringFormat={}{0:MM/dd/yyyy}}"/>
+                    <GridViewColumn Header="Voucher name" Width="380" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Expires" Width="200" DisplayMemberBinding="{Binding ExpirationDate, StringFormat={}{0:MM/dd/yyyy}}"/>
                 </GridView>
             </ListView.View>
         </ListView>

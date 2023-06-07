@@ -42,7 +42,7 @@
                     <GridViewColumn Header="More info">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=TourRequestsListView}" Width="130"></Button>
+                                <Button Style="{StaticResource TouristBasicButton}" Content="Details" Command="{Binding DataContext.DetailsCmd, ElementName=TourRequestsListView}" CommandParameter="{Binding ID}" Width="130"></Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

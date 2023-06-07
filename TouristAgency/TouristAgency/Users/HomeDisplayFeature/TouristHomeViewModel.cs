@@ -90,7 +90,7 @@ namespace TouristAgency.Users
                 //Title = data.Title,
                 Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 1).Count},
                 Title = "Jan",
-                DataLabels = false
+                DataLabels = true
             },
             new ColumnSeries
             {
@@ -98,7 +98,7 @@ namespace TouristAgency.Users
                 //Title = data.Title,
                 Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 2).Count},
                 Title = "Feb",
-                DataLabels = false
+                DataLabels = true
             },
             new ColumnSeries
             {
@@ -106,7 +106,7 @@ namespace TouristAgency.Users
                 //Title = data.Title,
                 Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 3).Count},
                 Title = "Mar",
-                DataLabels = false
+                DataLabels = true
             },
             new ColumnSeries
             {
@@ -130,7 +130,7 @@ namespace TouristAgency.Users
                 //Title = data.Title,
                 Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 6).Count},
                 Title = "Jun",
-                DataLabels = false
+                DataLabels = true
             },
             new ColumnSeries
             {
@@ -161,7 +161,7 @@ namespace TouristAgency.Users
                 //Values = new ChartValues<int> { data.Value },
                 //Title = data.Title,
                 Values = new ChartValues<int> {_tourService.GetAll().FindAll(t => t.RegisteredTourists.Contains(_loggedInTourist) && t.StartDateTime.Month == 10).Count},
-                Title = "Okt",
+                Title = "Oct",
                 DataLabels = true
             },
             new ColumnSeries
@@ -459,6 +459,7 @@ namespace TouristAgency.Users
             IronPdf.License.LicenseKey = "IRONPDF.OGNJENMILOJEVIC2001.11160-6DF7F18EC0-PQ5YOKIDDHF4X-PDSDZ265OZUC-DSOYMURM3EY4-U3X2FINUULAL-T4IS3FXVY3HX-OVXCDF-TUNPAYY3BA2KEA-DEPLOYMENT.TRIAL-FU7CHU.TRIAL.EXPIRES.05.JUL.2023";
             string HtmlString = "<h1 style='text-align:center'>Report on currently valid vouchers</h1>" +
                 "<br>" +
+                "<h3> Tourist agancy </h3>" +
                 "<p> Generated at: " + DateTime.Now + "</p>" +
                 "<p>Vouchers belong to tourists: " + _loggedInTourist.FirstName + " " + _loggedInTourist.LastName + "</p>" +
                 "<br>" +

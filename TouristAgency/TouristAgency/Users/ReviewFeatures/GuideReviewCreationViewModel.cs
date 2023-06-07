@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using TouristAgency.Base;
 using TouristAgency.Interfaces;
@@ -62,7 +63,7 @@ namespace TouristAgency.Review
             SetTourKnowledgeCmd = new DelegateCommand(SetTourKnowledgeExecute, CanSetTourKnowledgeExecute);
             SetTourLanguageCmd = new DelegateCommand(SetTourLanguageExecute, CanSetTourLanguageExecute);
             SetTourSocialCmd = new DelegateCommand(SetTourSocialExecute, CanSetTourSocialExecute);
-            DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
+            DetailsCmd = new DelegateCommand(DetailsExecute, CanDetailsExecute);
         }
 
         public ObservableCollection<Tour> FinishedTours
@@ -193,13 +194,14 @@ namespace TouristAgency.Review
             NewGuideReview.SocialInteraction = Convert.ToInt32(parameter);
         }
 
-        public bool CanDetailsExecute()
+        public bool CanDetailsExecute(object param)
         {
             return true;
         }
 
-        public void DetailsExecute()
+        public void DetailsExecute(object param)
         {
+            SelectedTour = FinishedTours.FirstOrDefault(t => t.ID == (int)param);
             if (SelectedTour != null)
             {
                 TourDetailsDisplay display = new TourDetailsDisplay(SelectedTour);
