@@ -89,7 +89,7 @@ namespace TouristAgency.Tours.DisplayFeature
             CreateCmd = new DelegateCommand(param => CreateExecute(), param => CanCreateExecute());
             ClearCmd = new DelegateCommand(param => ClearExecute(), param => CanClearExecute());
             CancelCmd = new DelegateCommand(param => CancelExecute(), param => CanCancelExecute());
-            DetailsCmd = new DelegateCommand(param => DetailsExecute(), param => CanDetailsExecute());
+            DetailsCmd = new DelegateCommand(DetailsExecute, CanDetailsExecute);
         }
 
         public ObservableCollection<Tour> Tours
@@ -347,13 +347,14 @@ namespace TouristAgency.Tours.DisplayFeature
             NumberOfReservation = 0;
         }
 
-        public bool CanDetailsExecute()
+        public bool CanDetailsExecute(object param)
         {
             return true;
         }
 
-        public void DetailsExecute()
+        public void DetailsExecute(object param)
         {
+            SelectedTour = Tours.FirstOrDefault(t => t.ID == (int)param);
             if(SelectedTour != null) 
             {
                 TourDetailsDisplay display = new TourDetailsDisplay(SelectedTour);
