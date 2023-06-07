@@ -472,7 +472,7 @@ namespace TouristAgency.Users
                 "a compensation voucher that you can also use for any other tour.</p>" +
                 "<br><hr>" +
                 "<table style='width:100%;'>" +
-                "<tr style='border:1px solid black'><th>Voucher name</th> <th>Expiration date</th>";
+                "<tr style='border:1px solid black; background-color:#439FE7'><th>Voucher name</th> <th>Expiration date</th>";
             int count = 0;
             foreach (Voucher voucher in _voucherService.GetByTouristID(_loggedInTourist.ID))
             {
@@ -482,6 +482,14 @@ namespace TouristAgency.Users
             }
 
             HtmlString += "</table><br><hr><br><p>The total number of your currently valid vouchers: " + count + "</p>";
+            HtmlString += "<br><br><div style='width:100%'><div style='float:left'><p>" + _loggedInTourist.FirstName + " " + _loggedInTourist.LastName + "</p>";
+            HtmlString += "<br></div>";
+
+            HtmlString += "<div style='float:right'><p>For tourist agancy</p>";
+            HtmlString += "<img style='float:right' width='200px' height='60px' src='https://static.vecteezy.com/system/resources/previews/000/537/457/original/manual-signature-for-documents-on-white-background-hand-drawn-calligraphy-lettering-vector-illustration.jpg'>";
+            HtmlString += "</div></div>";
+            HtmlString += "<br><br><br><br><br><br><br><br><br><p>This report is completely valid without the seal of the tourist agency, " +
+                "as well as without the signature of the tourist " + _loggedInTourist.FirstName + " " + _loggedInTourist.LastName + ".</p>";
 
             ChromePdfRenderer renderer = new ChromePdfRenderer();
 

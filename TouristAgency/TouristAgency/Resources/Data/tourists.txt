@@ -17,4 +17,4 @@
 17|Krstan|Radulovic|4/16/1992|krsto@gmail.com|062315470|6|8
 18|Goran|Ivanovski|9/14/1974|goran74@gmail.com|062366478|6|4
 19|Aleksandra|Perovic|7/26/1985|aleks@gmail.com|062317774|6|4
-20|Lazar|Markovic|3/16/2010|laki@gmail.com|062315478|6|2
+20|Lazar|Markovic|3/16/2010|laki@gmail.com|062315478|6|4

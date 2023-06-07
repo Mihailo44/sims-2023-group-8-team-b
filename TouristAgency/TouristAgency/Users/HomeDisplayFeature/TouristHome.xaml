@@ -164,12 +164,12 @@
             </Image>
         </StackPanel>
 
-        <TextBlock Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" TextWrapping="Wrap" TextAlignment="Justify" Width="400" FontSize="28" VerticalAlignment="Bottom">
+        <TextBlock Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" TextWrapping="Wrap" TextAlignment="Justify" Width="500" FontSize="28" VerticalAlignment="Center">
             Here you can see your tour reservation statistics per month. 
             If you have at least 5 reservation this year, you earn a free voucher. 
             You can only earn one voucher per year.
         </TextBlock>
-        <lvc:CartesianChart Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="500" Height="300" Series="{Binding TourCountSeries}" LegendLocation="Top">
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Width="580" Height="350" Series="{Binding TourCountSeries}" LegendLocation="Top">
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Number of reservations" FontWeight="Bold" FontSize="16" Foreground="Black" MinValue="0">
                     <lvc:Axis.Separator>
