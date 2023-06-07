@@ -78,7 +78,7 @@
                             <Label VerticalAlignment="Center" FontSize="15" Content="{Binding Tourist.FirstName}"></Label>
                             <Label VerticalAlignment="Center" FontSize="15" Content="{Binding Tourist.LastName}"></Label>
                         </StackPanel>
-                        <Button Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Width="85" Height="27" HorizontalAlignment="Right"  VerticalAlignment="Top" Command="{Binding DataContext.MarkAsInvalidCmd, ElementName=_lw}" Margin="0,0,5,0">Report</Button>
+                        <Button Grid.Row="0" Style="{StaticResource BasicButton}" Grid.Column="2" Grid.ColumnSpan="2" Width="85" Height="27" HorizontalAlignment="Right"  VerticalAlignment="Top" Command="{Binding DataContext.MarkAsInvalidCmd, ElementName=_lw}" Margin="0,0,5,0">Report</Button>
 
                         <Label Grid.Row="1" Grid.Column="0">Quality:</Label>
                         <Image Grid.Row="1" Grid.Column="1" Width="300" Grid.ColumnSpan="2" Source="{Binding Quality, Converter={StaticResource StarConverter}}"></Image>
@@ -88,7 +88,8 @@
 
                         <Label Grid.Row="3" Grid.Column="0">Knowledge:</Label>
                         <Image Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Source="{Binding Knowledge, Converter={StaticResource StarConverter}}"></Image>
-
+                        <Button Grid.Row="0" Style="{StaticResource BasicButton}" Grid.Column="2" Grid.ColumnSpan="2" Width="85" Height="27" HorizontalAlignment="Right"  VerticalAlignment="Top" Command="{Binding DataContext.DetailsCmd, ElementName=_lw}" Margin="0,35,5,0">More...</Button>
+                        
                         <Label Grid.Row="4" Grid.Column="0">Language:</Label>
                         <Image Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="2" Source="{Binding Language, Converter={StaticResource StarConverter}}"></Image>
 

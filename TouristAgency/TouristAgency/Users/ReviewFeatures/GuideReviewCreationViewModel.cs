@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -21,9 +22,12 @@ namespace TouristAgency.Review
         private string _tourQuality;
 
         private TourService _tourService;
+        private PhotoService _photoService;
         private GuideReviewService _guideReviewService;
+        private List<string> _paths;
 
         public DelegateCommand CreateCmd { get; set; }
+        public DelegateCommand LoadPhotoLinksCmd { get; set; }
 
         public DelegateCommand SetTourQualityCmd { get; set; }
         public DelegateCommand SetTourOrganizationCmd { get; set; }
@@ -46,12 +50,14 @@ namespace TouristAgency.Review
         {
             _tourService = new TourService();
             _guideReviewService = new GuideReviewService();
+            _photoService = new PhotoService();
         }
 
         private void InstantiateCollections()
         {
             FinishedTours = new ObservableCollection<Tour>(_tourService.GetFinishedToursByTourist(_loggedInTourist));
             NewGuideReview = new GuideReview();
+            _paths = new List<string>();
         }
 
         private void InstantiateCommands()
@@ -64,6 +70,7 @@ namespace TouristAgency.Review
             SetTourLanguageCmd = new DelegateCommand(SetTourLanguageExecute, CanSetTourLanguageExecute);
             SetTourSocialCmd = new DelegateCommand(SetTourSocialExecute, CanSetTourSocialExecute);
             DetailsCmd = new DelegateCommand(DetailsExecute, CanDetailsExecute);
+            LoadPhotoLinksCmd = new DelegateCommand(param => LoadPhotoLinksExecute(), param => CanPhotoLinksExecute());
         }
 
         public ObservableCollection<Tour> FinishedTours
@@ -222,6 +229,27 @@ namespace TouristAgency.Review
                     _app.PhotoRepository.Create(photo);
                 }
             }
+        }
+
+        public bool CanPhotoLinksExecute()
+        {
+            return true;
+        }
+
+        public void LoadPhotoLinksExecute()
+        {
+            int guideReviewID = _guideReviewService.GuideReviewRepository.GenerateId() - 1;
+            if (guideReviewID == -1)
+                guideReviewID = 0;
+            List<String> selectedPaths = _photoService.SelectPhotoPaths();
+            _paths = _photoService.CopyToResourceDirectory(selectedPaths);
+            foreach (String path in selectedPaths)
+            {
+                Photo photo = new Photo(path, 'G', guideReviewID);
+                NewGuideReview.Photos.Add(photo);
+                _app.PhotoRepository.Create(photo);
+            }
+            //AddPhotos(selectedPaths);
         }
     }
 }

@@ -11,3 +11,4 @@
 10|T|3|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\Trg-kralja-Milana-Nis.jpg
 11|T|4|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\beograd.jpg
 12|T|5|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\TourImage\Worlds-Greatest-Places-Barcelona-Spain.jpg
+13|G|0|C:\Users\Ognjen\Projects\sims-2023-group-8-team-b\TouristAgency\TouristAgency\Resources\Image\check.png

@@ -8,8 +8,25 @@
              mc:Ignorable="d" 
              Height="600" Width="370" Background="White">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33"></RowDefinition>
+            <RowDefinition Height="164"></RowDefinition>
+            <RowDefinition Height="260"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
         <custom:BurgerButton HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,4,0,0"></custom:BurgerButton>
-        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontSize="28" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding SelectedTour.Name}"></Label>
+        <Label FontSize="20" FontWeight="Bold" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Details of reviews</Label>
         <custom:BurgerMenu Visibility="Hidden" Width="200" Margin="-10,-20,170,-4" Panel.ZIndex="999" Grid.RowSpan="10" Grid.ColumnSpan="2"></custom:BurgerMenu>
+        <Label Grid.Row="1" VerticalAlignment="Center">Comment:</Label>
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding SelectedReview.Comment}"/>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Orientation="Horizontal">
+            <Image Width="100px" Height="100px" Margin="10,0,0,0" Source="{Binding Image1}"></Image>
+            <Image Width="100px" Height="100px" Margin="25,0,0,0" Source="{Binding Image2}"></Image>
+            <Image Width="100px" Height="100px" Margin="10,0,0,0" Source="{Binding Image3}"></Image>
+        </StackPanel>
+
+        
+        <Button Style="{StaticResource BasicButton}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,58,0,0"  Command="{Binding CloseCmd}">Finish reading</Button>
     </Grid>
 </UserControl>

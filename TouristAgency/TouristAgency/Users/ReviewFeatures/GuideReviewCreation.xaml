@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.View.Creation"
         xmlns:custom="clr-namespace:TouristAgency.Design.Tourist.Controls"
+        xmlns:custom2="clr-namespace:TouristAgency.Design.Guide.Controls"
         mc:Ignorable="d"
         Title="Finished tour and guide review" Height="810" Width="1100" WindowStartupLocation="CenterScreen" Background="#E7F0FF">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="790">
@@ -100,17 +101,9 @@
                 </TextBox>
 
                 <Label Content="Photos (URL of photo):" Grid.Row="3" Grid.Column="6" Height="40" FontSize="24" FontWeight="SemiBold"></Label>
-                <TextBox Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="90" Width="425" Text="{Binding PhotoLinks}" FontSize="28">
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="5"/>
-                        </Style>
-                    </TextBox.Resources>
-                    <TextBox.TextWrapping>Wrap</TextBox.TextWrapping>
-                    <TextBox.AcceptsReturn>True</TextBox.AcceptsReturn>
-                    <TextBox.HorizontalScrollBarVisibility>Disabled</TextBox.HorizontalScrollBarVisibility>
-                    <TextBox.VerticalScrollBarVisibility>Auto</TextBox.VerticalScrollBarVisibility>
-                </TextBox>
+                <custom2:PhotoInputBigger Grid.Row="4" Grid.RowSpan="2" Grid.Column="6" Height="90" Width="425" FontSize="28">
+
+                </custom2:PhotoInputBigger>
 
                 <Button Style="{StaticResource TouristBasicButton}" Grid.Row="6" Grid.Column="6" Width="240" Command="{Binding CreateCmd}" HorizontalAlignment="Right" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
