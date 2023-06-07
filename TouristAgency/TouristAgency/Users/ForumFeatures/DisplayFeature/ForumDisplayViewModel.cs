@@ -102,7 +102,8 @@ namespace TouristAgency.Users.ForumFeatures.DisplayFeature
 
             if (_locationService.HasAccommodationOnLocation(_app.LoggedUser, SelectedForum.Location))
             {
-                if (!_locationService.BeenOnLocation(guest, SelectedForum.Location))
+                //ovaj beenOnLocation je glup uslov && (!_locationService.BeenOnLocation(guest, SelectedForum.Location)
+                if ((guest != null))
                 {
                     if (reportList.Find(r => r.CommentId == comment.Id) == null)
                     {

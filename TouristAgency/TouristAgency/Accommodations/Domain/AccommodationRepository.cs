@@ -90,10 +90,10 @@ namespace TouristAgency.Accommodations.Domain
         {
             foreach (Accommodation accommodation in _accommodations)
             {
-                Photo photo = photos.Find(p => p.ExternalID == accommodation.Id && p.Type == 'A');
+                List<Photo> photo = photos.FindAll(p => p.ExternalID == accommodation.Id && p.Type == 'A');
                 if (photo != null)
                 {
-                    accommodation.Photos.Add(new Photo(photo));
+                    accommodation.Photos.AddRange(photo);
                 }
             }
         }
