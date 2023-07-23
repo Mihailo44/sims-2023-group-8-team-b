@@ -1,4 +1,4 @@
-# Predmetni projekat iz predmeta SIMS
+# Predmetni projekat iz predmeta SIMS i HCI
 
 Članovi tima:\
 `Ognjen Milojević RA 233/2020`\
